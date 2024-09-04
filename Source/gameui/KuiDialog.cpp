@@ -106,7 +106,13 @@ bool KuiDialog::init()
 	//开启触摸响应
 	this->scheduleUpdate();                   //调用函数
     auto listener = ax::EventListenerTouchOneByOne::create();
+
     ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+    auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->onTouchesBegan = AX_CALLBACK_2(KSkillRocker::ccTouchBegan, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	return true;
 }
 
@@ -278,9 +284,8 @@ void KuiDialog::closePopLayer(Ref * pSender)
 //重写触摸注册函数，重新给定触摸级别
 void KuiDialog::registerWithTouchDispatcher()
 {
-    auto touchListener = ax::EventListenerTouchOneByOne::create();
-    touchListener->setSwallowTouches(true);
-    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+    auto dispatcher = ax::Director::getInstance()->getEventDispatcher();
+    dispatcher->removeEventListenersForTarget(this);
 	//这里的触摸优先级设置为－128，与CCMenu同级，保证了屏蔽下方的触摸
 //	//ax::Director::getInstance()->getTouchDispatcher()->addTargetedDelegate(this,-128,true);
 }

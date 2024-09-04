@@ -17,6 +17,11 @@ void HRocker::Active()
 	{
 		active=true;
 		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //添加刷新函数
+        auto touchListener = EventListenerTouchOneByOne::create();
+        touchListener->onTouchBegan = AX_CALLBACK_2(HRocker::ccTouchBegan, this);
+        touchListener->onTouchMoved = AX_CALLBACK_2(HRocker::ccTouchMoved, this);
+        touchListener->onTouchEnded = AX_CALLBACK_2(HRocker::ccTouchEnded, this);
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 //        auto listener = ax::EventListenerTouchOneByOne::create();
 //		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	}else {
@@ -30,18 +35,8 @@ void   HRocker::Inactive()
 		this->unschedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos));                 //删除刷新
 //		ax::Director::getInstance()->getTouchDispatcher()->removeDelegate(this);//删除委托
 
-        auto touchListener = ax::EventListenerTouchOneByOne::create();
-        touchListener->setSwallowTouches(false);
-
-        touchListener->onTouchBegan = [](ax::Touch* touch, ax::Event* event) {
-            return true;
-        };
-
-        touchListener->onTouchMoved = [](ax::Touch* touch, ax::Event* event) {
-
-        };
-
-        ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+        auto dispatcher = ax::Director::getInstance()->getEventDispatcher();
+        dispatcher->removeEventListenersForTarget(this);
 	}else {
 	}
 }
@@ -52,18 +47,18 @@ float HRocker::getAngleSigned()
 {//ccpSub(centerPoint, currentPoint),CCPointMake(0, 1))
 	//return CC_RADIANS_TO_DEGREES(ccpAngleSigned(ccpSub(centerPoint, currentPoint),CCPointMake(0, 1)));
 	/*  //#define PI 3.141592654    float angle = 180.f / PI * rad; ==等于角度
-	float dx = currentPoint.x - centerPoint.x;  
-	float dy = currentPoint.y - centerPoint.y;  
-	float t = dx/dy;  
+	float dx = currentPoint.x - centerPoint.x;
+	float dy = currentPoint.y - centerPoint.y;
+	float t = dx/dy;
 
-	float  at = atan(t);  
-	return at/3.1415926*180; 
-	
+	float  at = atan(t);
+	return at/3.1415926*180;
+
 	// 获取角度
 	Point p1 = this->getPosition(); //摇杆的中心的位置
 	Point p2 = touch->getLocation();//触摸点的位置
-	
-	*/  
+
+	*/
     float rad = getRad(centerPoint,currentPoint);
 
 	return 180.f/3.141592654*rad;

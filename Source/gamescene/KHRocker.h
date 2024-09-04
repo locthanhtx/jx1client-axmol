@@ -8,7 +8,7 @@ using namespace ax;
 class HRocker :public Layer {
 public :
 	//初始化 aPoint是摇杆中心 aRadius是摇杆半径 aJsSprite是摇杆控制点 aJsBg是摇杆背景
-	static HRocker*  HRockerWithCenter(CCPoint aPoint ,float aRadius ,CCSprite* aJsSprite,CCSprite* aJsBg,bool _isFollowRole);
+	static HRocker*  HRockerWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole);
 	//启动摇杆
 	void Active();
 	//解除摇杆
@@ -39,7 +39,7 @@ private:
 	Point nRolePoint;
 	int     nRoleIndex;
 	iCoreShell * pCoreShell;
-	//KgameWorld *__GameWorld; 
+	//KgameWorld *__GameWorld;
 	Size visibleSize;
 	Point moveEndPoint;
 	CREATE_FUNC(HRocker);

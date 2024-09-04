@@ -18,9 +18,10 @@ void HRocker::Active()
 		active=true;
 		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //Ìí¼ÓË¢ÐÂº¯Êý
         auto touchListener = EventListenerTouchOneByOne::create();
-        touchListener->onTouchBegan = AX_CALLBACK_2(HRocker::ccTouchBegan, this);
+        touchListener->setSwallowTouches(true);
+//        touchListener->onTouchBegan = AX_CALLBACK_2(HRocker::ccTouchBegan, this);
         touchListener->onTouchMoved = AX_CALLBACK_2(HRocker::ccTouchMoved, this);
-        touchListener->onTouchEnded = AX_CALLBACK_2(HRocker::ccTouchEnded, this);
+//        touchListener->onTouchEnded = AX_CALLBACK_2(HRocker::ccTouchEnded, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 //        auto listener = ax::EventListenerTouchOneByOne::create();
 //		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);

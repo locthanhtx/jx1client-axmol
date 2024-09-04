@@ -1093,10 +1093,10 @@ bool KgameWorld::init()
 		：通过给定的名称添加一个精灵帧。 如果名称已经存在，那么原来名称的内容将被新的所替代
 		*/
 	//摇杆
-	Sprite *controlSprite=Sprite::create("yaoganx.png");
+	Sprite *controlSprite = Sprite::create("yaoganx.png");
 	controlSprite->setScale(1.3);
 	//摇杆背景
-	Sprite *ygSprite=Sprite::create("yaoganz.png");//"yaoganz.png"
+	Sprite *ygSprite = Sprite::create("yaoganz.png");//"yaoganz.png"
 	ygSprite->setOpacity(50);
 
 	joystick=HRocker::HRockerWithCenter(ax::Vec2(100.0f,100.0f),60.0f ,controlSprite ,ygSprite,false);
@@ -1126,7 +1126,7 @@ bool KgameWorld::init()
 		}
 	}*/
 
-	Sprite *controlSprite_s=Sprite::create("yaoganx.png");
+	Sprite *controlSprite_s = Sprite::create("yaoganx.png");
 	controlSprite_s->setScale(1.3);
 	//摇杆背景
 	Sprite *ygSprite_s=Sprite::create("yaoganz.png");//"yaoganz.png"

@@ -1,14 +1,14 @@
 /*****************************************************************************************
-//	������Core�õ����ݽṹ�ȵĶ���
+//	外界访问Core用到数据结构等的定义
 //	Copyright : Kingsoft 2002
 //	Author	:   Wooy(Wu yue)
 //	CreateTime:	2002-9-12
 ------------------------------------------------------------------------------------------
-	һЩ������ܴ�������Ϸ�����ģ���ͷ�ļ��У����ڴ˴������Ǹ�ͷ�ļ�������������ͷ�ļ�
-��Ҫ����һЩ����Ϸ��������޹ص����ݡ�
-    ������������Ϸ������ⲿ�ͻ���δ�����Ϸ����ӿ��������������£�������ֱ���ڴ��ļ�
-��������Ҫ�����ݶ��壬��Ϸ�����ģ��ɸ���������Ҫ����ưѶ������޸Ļ��ƶ���ģ���ڵĶ���
-ͷ�ļ������ڴ˽�����Ҫ�İ�����
+	一些定义可能处于在游戏世界各模块的头文件中，请在此处包含那个头文件，并请那样的头文件
+不要包含一些与游戏世界对外无关的内容。
+    开发过程中游戏世界的外部客户在未获得游戏世界接口完整定义的情况下，会现先直接在此文件
+定义它需要的数据定义，游戏世界各模块可根据自身需要与设计把定义作修改或移动到模块内的对外
+头文件，并在此建立充要的包含。
 *****************************************************************************************/
 #ifndef GAMEDATADEF_H
 #define GAMEDATADEF_H
@@ -16,12 +16,12 @@
 #include "CoreObjGenreDef.h"
 #include "CoreUseNameDef.h"
 #include "KRUImage.h"
-#define		_CHAT_SCRIPT_OPEN                           // �������ݹ��˿���
+#define		_CHAT_SCRIPT_OPEN                           // 聊天内容过滤开启
 
-#define		MAX_TEAM_MEMBER						7		// ����Ա����(�������ӳ�)
-#define		MAX_SENTENCE_LENGTH					256		// ����ÿ�������󳤶�
+#define		MAX_TEAM_MEMBER						7		// 最大队员数量(不包括队长)
+#define		MAX_SENTENCE_LENGTH					256		// 聊天每个语句最大长度
 
-#define		FILE_NAME_LENGTH		            256
+#define		FILE_NAME_LENGTH		            256		
 
 
 #define		defMAX_PLAYER_SEND_MOVE_FRAME		5
@@ -33,12 +33,12 @@
 #define		PLAYER_MALE_NPCTEMPLATEID			-1
 #define		PLAYER_FEMALE_NPCTEMPLATEID			-2
 
-#define		MAX_DEATH_PUNISH_PK_VALUE			10		// PK������PKֵ�� 0 �� 10
-#define		MAX_REPUTE_VALUE					100000	//����
-#define		MAX_FUYUAN_VALUE					100000	//��Դ
+#define		MAX_DEATH_PUNISH_PK_VALUE			10		// PK处罚，PK值从 0 到 10
+#define		MAX_REPUTE_VALUE					100000	//声望
+#define		MAX_FUYUAN_VALUE					100000	//福源
 
-/*--- ���ڱ����ͻ���npc���ĸ�region�ĵڼ���npc ��
-�������һ�����������Ƶ�npc ��ID ֵΪ 0 ��No ֵΪ -1  ---*/
+/*--- 用于标明客户端npc是哪个region的第几个npc ，
+如果这是一个服务器控制的npc ，ID 值为 0 ，No 值为 -1  ---*/
 struct	KClientNpcID
 {
 	DWORD	m_dwRegionID;

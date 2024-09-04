@@ -44,8 +44,8 @@ KNpcAI::~KNpcAI()
 
 void KNpcAI::Activate(int nIndex)
 {
-	m_nIndex = nIndex;	
-    
+	m_nIndex = nIndex;
+
 
 	if (Npc[m_nIndex].IsPlayer())
 	{
@@ -59,7 +59,7 @@ void KNpcAI::Activate(int nIndex)
 		if (CanShowNpc())
 		{
 			// ÈÃNPCËæ»úÐÝÏ¢Ò»ÏÂ£¬ÊÇ¸öºÃ½¨Òé¡£
-			if (GetRandomNumber(0, 1))	
+			if (GetRandomNumber(0, 1))
 			{
 				Npc[m_nIndex].m_AiParam[5] = 0;
 				Npc[m_nIndex].m_AiParam[4] = 5;
@@ -139,7 +139,7 @@ int KNpcAI::ShowNpcType11()
     int nRetCode = false;
 
 	KNpc& aNpc = Npc[m_nIndex];
-	// Go the distance between P1 to P2	
+	// Go the distance between P1 to P2
 	int nDistance = 0;
 	int nDesX = 0;
 	int nDesY = 0;
@@ -149,7 +149,7 @@ int KNpcAI::ShowNpcType11()
 	int nOffX = 0;
 	int nOffY = 0;
 	int nOffsetDir = 0;
-	
+
 	// Ð§¹û¼ÓÇ¿ Ëæ»úµ÷Õû¸ß¶È
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
@@ -160,10 +160,10 @@ int KNpcAI::ShowNpcType11()
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
 		nOffsetDir = aNpc.m_AiParam[2];
-	
+
     if (GetRandomNumber(0, 1))
 		nOffsetDir = -nOffsetDir;
-	
+
     nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
 	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
@@ -179,7 +179,7 @@ int KNpcAI::ShowNpcType11()
 		aNpc.m_Dir += 64;
 	else
 		aNpc.m_Dir %= 64;
-	
+
     // ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
     if (!nRetCode)
@@ -188,7 +188,7 @@ int KNpcAI::ShowNpcType11()
 	// »ñÈ¡Ä¿±ê×ø±ê
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
-	aNpc.SendSerCommand(do_walk, nDesX, nDesY);	
+	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
 
     nResult = true;
 Exit0:
@@ -202,7 +202,7 @@ int KNpcAI::ShowNpcType12()
     int nResult = false;
     int nRetCode = false;
 
-	// Go the distance between P1 to P2	
+	// Go the distance between P1 to P2
 	int nDistance = 0;
 	int nDesX = 0;
 	int nDesY = 0;
@@ -218,7 +218,7 @@ int KNpcAI::ShowNpcType12()
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
-		
+
 	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
@@ -265,7 +265,7 @@ int KNpcAI::ShowNpcType13()
 {
 	int nResult  = false;
 	int nRetCode = false;
-	// Go the distance between P1 to P2	
+	// Go the distance between P1 to P2
 	int nDistance = 0;
 	int nDesX = 0;
 	int nDesY = 0;
@@ -396,7 +396,7 @@ int KNpcAI::ShowNpcType15()
 {
 	int nResult  = false;
 	int nRetCode = false;
-	// Go the distance between P1 to P2	
+	// Go the distance between P1 to P2
 	int nDistance = 0;
 	int nDesX = 0;
 	int nDesY = 0;
@@ -489,7 +489,7 @@ int	nCmap=0;
 		// do flee
 		nRetCode = DoShowFlee(nIndex);
 		if (!nRetCode)
-			goto Exit0;		
+			goto Exit0;
 		goto Exit1;
 	}
 
@@ -519,7 +519,7 @@ int	nCmap=0;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
 
-Exit1:	
+Exit1:
 	nResult = true;
 Exit0:
 	return nResult;
@@ -547,7 +547,7 @@ int	nCmap=0;
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
-		
+
 	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
@@ -555,7 +555,7 @@ int	nCmap=0;
 		nOffsetDir = aNpc.m_AiParam[2];
 	if (GetRandomNumber(0, 1))
 		nOffsetDir = -nOffsetDir;
-	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);	
+	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
 	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
 	if (aNpc.m_CurrentWalkSpeed > 0)
@@ -588,7 +588,7 @@ int	nCmap=0;
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
-	
+
 	nResult = true;
 Exit0:
 	return nResult;
@@ -609,10 +609,10 @@ void KNpcAI::ProcessPlayer()
 	    i=0;
 		return;
 	}
-		    
+
 	if (i > 0)
 	{
-		FollowPeople(i);  
+		FollowPeople(i);
 	}
 
 	i = Npc[m_nIndex].m_nObjectIdx; //Ëø¶¨ÎïÆ·
@@ -675,9 +675,9 @@ void KNpcAI::FollowPeople(int nIdx)
 		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=yellow>ÌáÊ¾<color>:ÊÖÉÏÓÐ°ó¶¨µÄ¶«Î÷!");
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		return;
-	}*/ 
+	}*/
 //    Player[CLIENT_PLAYER_INDEX].ExecuteScript("\\script\\system\\updatewar.lua","onwar","0","0",nIdx);
-/*	
+/*
 	char nPname[32];
 	g_StrCpyLen(nPname,Npc[m_nIndex].Name,sizeof(Npc[m_nIndex].Name));
     g_StrCatLen(nPname,"µÄ[ïÚ³µ]",sizeof("µÄ[ïÚ³µ]"));
@@ -694,22 +694,22 @@ void KNpcAI::FollowPeople(int nIdx)
 
 	// Ð¡ÓÚ¶Ô»°°ë¾¶¾Í¿ªÊ¼¶Ô»°
 	  if ((Npc[nIdx].m_Kind == kind_dialoger))
-	  { 
+	  {
 		if (distance <= Npc[nIdx].m_DialogRadius)
 		{
 			int x, y;
 			SubWorld[Npc[m_nIndex].m_SubWorldIndex].NewMap2Mps(Npc[m_nIndex].m_RegionIndex, Npc[m_nIndex].m_MapX, Npc[m_nIndex].m_MapY, Npc[m_nIndex].m_OffX, Npc[m_nIndex].m_OffY, &x, &y);
 			Npc[m_nIndex].SendSerCommand(do_walk, x,y);
-			
+
 			// Send Command to Server
 			SendClientCmdWalk(x,y);
 			Player[CLIENT_PLAYER_INDEX].DialogNpc(nIdx);//´ò¿ª¶Ô»°¿ò
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nPeopleIdx = 0;
 			Npc[nIdx].TurnTo(Player[CLIENT_PLAYER_INDEX].m_nIndex);
-			
+
 			return;
 		}
-	  } 
+	  }
 		// °ÚÌ¯
 		if (Npc[nIdx].m_Kind == kind_player && Npc[nIdx].m_BaiTan && distance <= Npc[nIdx].m_DialogRadius)
 		{
@@ -720,7 +720,7 @@ void KNpcAI::FollowPeople(int nIdx)
 			SendClientCmdWalk(x, y);
 			Player[CLIENT_PLAYER_INDEX].OpenBaiTan(Npc[nIdx].m_dwID);//´ò¿ª°ÚÌ¯Ãæ°å
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nPeopleIdx = 0;
-			Npc[nIdx].TurnTo(Player[CLIENT_PLAYER_INDEX].m_nIndex);	
+			Npc[nIdx].TurnTo(Player[CLIENT_PLAYER_INDEX].m_nIndex);
 			return;
 		}
 	///PK¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
@@ -778,7 +778,7 @@ void KNpcAI::FollowPeople(int nIdx)
 
 
 			/*char nMSG[64];
-			sprintf(nMSG,"--µ±Ç°¹¥»÷¾àÀë:--%d--ÉúÃü:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);		 
+			sprintf(nMSG,"--µ±Ç°¹¥»÷¾àÀë:--%d--ÉúÃü:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMSG);
 			*/
 
@@ -804,7 +804,7 @@ void KNpcAI::FollowPeople(int nIdx)
 			// modify by spe 2003/06/13
 			if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 			{
-				Npc[m_nIndex].SendSerCommand(do_run, nDesX, nDesY);			
+				Npc[m_nIndex].SendSerCommand(do_run, nDesX, nDesY);
 				SendClientCmdRun(nDesX, nDesY);
 			}
 			else
@@ -841,7 +841,7 @@ void KNpcAI::FollowPeople(int nIdx)
 			}
 			else
 			{
-				Npc[m_nIndex].SendSerCommand(do_run, nDesX, nDesY);			
+				Npc[m_nIndex].SendSerCommand(do_run, nDesX, nDesY);
 				SendClientCmdRun(nDesX, nDesY);
 			}
 		}
@@ -867,17 +867,17 @@ void KNpcAI::Setscpos(int m_nIndex,int x,int y)
 	int xyy;
 	int xMap;
 	Npc[m_nIndex].GetMpsPos(&xxa,&xyy,&xMap);   //ÏñËØ×ø±ê
- 
-//	Npc[m_DesY].m_MapY, 
-    Npc[m_nIndex].m_OriginX=xxa;	
+
+//	Npc[m_DesY].m_MapY,
+    Npc[m_nIndex].m_OriginX=xxa;
     Npc[m_nIndex].m_OriginY=xyy;
 }
 
 //ÉèÖÃµ±Ç°×ø±êÎªÆðµã×ø±ê
 void KNpcAI::SetCurpos(int m_nIndex,int x,int y)
-{ 
-//	Npc[m_DesY].m_MapY, 
-    Npc[m_nIndex].m_OriginX=x;	
+{
+//	Npc[m_DesY].m_MapY,
+    Npc[m_nIndex].m_OriginX=x;
     Npc[m_nIndex].m_OriginY=y;
 }
 
@@ -913,12 +913,12 @@ void KNpcAI::MoveJiaoBen(int m_Index)
  {
    for (int i=1;i<mRows;++i)
    {
-    if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum==0) 
+    if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum==0)
 	{
 	    Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum=1;
 		Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurStaus=0;
     }
-     
+
 
 	 Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
      Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,3,0,&nDesMpsY);
@@ -929,7 +929,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
      nDistance = SubWorld[0].GetDistance(xx,yy,nDesMpsX,nDesMpsY);
 
      nDistancea = SubWorld[0].GetDistance(xx,yy,mDesMpsX,mDesMpsY);
-     
+
 	  if (nDistancea<nDistance)  //Èç¹ûÐ¡ÓÚ×îÐ¡Öµ
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum=i;
 	 else
@@ -942,7 +942,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
     Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
     Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,3,0,&nDesMpsY);
 
-    
+
     //nPos.Clear();
 
 
@@ -967,7 +967,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
     //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //×ßµ½ÁËÕâ¸öµã
-   
+
      //GotoWhere(nDesMpsX,);
 
 	if (AiCheckDistance(xx,yy,nDesMpsX,nDesMpsY,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentRunSpeed))  //16
@@ -991,7 +991,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
             Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurStaus=0;
 		 }
 	  }
-	   
+
 	   return;
     }
 
@@ -1009,7 +1009,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 	}*/
  //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=gyellow>ÖúÊÖ<color>:ÅÜÏòÄ¿±êÖÐ¡¡!");
  if (Player[CLIENT_PLAYER_INDEX].m_nSendMoveFrames >= defMAX_PLAYER_SEND_MOVE_FRAME)
- {   
+ {
     if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 	{
           Npc[m_Index].SendSerCommand(do_run,nDesMpsX,nDesMpsY);  //ÅÜÏòÄ¿±ê
@@ -1049,8 +1049,8 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
   if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsHaveDo==0)
      for (int i=1;i<mRows;++i)
-     { 
-        if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum==0) 
+     {
+        if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum==0)
 	    {
      //nPos.GetInteger(1,2,0,&nDesMpsX);
      //nPos.GetInteger(1,3,0,&nDesMpsY);
@@ -1068,7 +1068,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
 	      continue;
         }
-     
+
 
 	 Player[CLIENT_PLAYER_INDEX].nYaBiao.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
      Player[CLIENT_PLAYER_INDEX].nYaBiao.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,3,0,&nDesMpsY);
@@ -1079,7 +1079,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
      nDistance = SubWorld[0].GetDistance(xx,yy,nDesMpsX,nDesMpsY);
 
      nDistancea = SubWorld[0].GetDistance(xx,yy,mDesMpsX,mDesMpsY);
-     
+
 	  if (nDistancea<nDistance)  //Èç¹ûÐ¡ÓÚ×îÐ¡Öµ
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum=i;
 	 else
@@ -1091,7 +1091,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
     //char msg[64]={0};
     Player[CLIENT_PLAYER_INDEX].nYaBiao.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
     Player[CLIENT_PLAYER_INDEX].nYaBiao.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,3,0,&nDesMpsY);
-    
+
     //nPos.Clear();
 
 	 //sprintf(msg,"ÌáÊ¾:µ±Ç°(%d)×ø±ê,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
@@ -1099,7 +1099,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
     //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //×ßµ½ÁËÕâ¸öµã
-   
+
      //GotoWhere(nDesMpsX,);
 
 	if  (nDesMpsX<=0 ||	nDesMpsY<=0)
@@ -1112,13 +1112,13 @@ void KNpcAI::MoveYaBiao(int m_Index)
 	{
 	 if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum<mRows)
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum +=1;     //ÉèÖÃÏÂÒ»¸öµãµÄ×ø±ê
-	   
+
 	   return;
     }
-    
+
     if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 	{
-		  Npc[m_Index].SendSerCommand(do_run, nDesMpsX, nDesMpsY);			
+		  Npc[m_Index].SendSerCommand(do_run, nDesMpsX, nDesMpsY);
 		  SendClientCmdRun(nDesMpsX, nDesMpsY);
 	}
 	else
@@ -1139,13 +1139,13 @@ void KNpcAI::GotoWhere(int x, int y, int mode) //Êó±êµã»÷µÄ×ø±ê
 
 		if ((mode == 0 && Player[CLIENT_PLAYER_INDEX].m_RunStatus) || mode == 2)
 			bRun = true;
-         
+
 		int nX = x;
 		int nY = y;
 		int nZ = 0;
 
 		//g_ScenePlace.ViewPortCoordToSpaceCoord(nX, nY, nZ);  //×ª³ÉÈýÎ¬¿Õ¼ä×ø±ê	Êó±ê×ø±ê ×ª»»³É³¡¾°ÖÐµÄÏñËØ×ø±ê
-		SubWorld[0].GetMpsByLocalPosition(nX, nY, nZ); 
+		SubWorld[0].GetMpsByLocalPosition(nX, nY, nZ);
 		int nIndex = Player[CLIENT_PLAYER_INDEX].m_nIndex;
 
 
@@ -1188,7 +1188,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 	}
 
 	/*if 	(Npc[m_Index].m_nObjectIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ 
+	{//µØÍ¼²»ÏàÍ¬µÄ
 		//Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
@@ -1207,7 +1207,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 		int CurState = 0;
 		int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
 		if (nObjectIdx>0)
-		{   
+		{
 			Npc[m_Index].m_nPeopleIdx=0;
 			//nPickState = CurState;//PICCK_MONEY;
 			/*switch(CurState)
@@ -1240,9 +1240,9 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 			}*/
 
 			Npc[m_Index].m_nObjectIdx=nObjectIdx;
-		}//end if 
+		}//end if
 	}
-	
+
 
 	if  (Npc[m_Index].m_nObjectIdx>0)
 	{
@@ -1258,15 +1258,15 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 		{
 			Npc[m_Index].SendSerCommand(do_run,x,y);  //ÅÜÏòÄ¿±ê
 			SendClientCmdRun(x,y); //ÅÜÏòÄ¿±ê
-		}  
+		}
 		else
-		{  
+		{
 			Npc[m_Index].SendSerCommand(do_walk,x,y);  //ÅÜÏòÄ¿±ê
 			SendClientCmdWalk(x,y); //ÅÜÏòÄ¿±ê
-		} 
+		}
 
 		if (((xx - x) * (xx - x) + (yy - y) * (yy - y))<(PLAYER_PICKUP_CLIENT_DISTANCE*PLAYER_PICKUP_CLIENT_DISTANCE))
-		{  	
+		{
 
 			/*if  (nPickState==PICCK_ITEM_MONEY)
 				Player[CLIENT_PLAYER_INDEX].CheckObject(nObjectIdx);
@@ -1301,13 +1301,13 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	}
 
 	if 	(Npc[m_Index].m_nPeopleIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ 
+	{//µØÍ¼²»ÏàÍ¬µÄ
 		Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
 		return;
 	}
-//----------------------------------------------   
+//----------------------------------------------
 	KSkill * pCurSkill = (KSkill *)g_SkillManager.GetSkill(Npc[m_Index].m_ActiveSkillID,1);
 	if (pCurSkill)
 	{
@@ -1323,20 +1323,20 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
 									 }
 								 }
-								 
+
 								 if (nHorse==2)
 								 {
 									 if (!nIsHorse)
 									 {//·ÇÆïÂí×´Ì¬,ÔòÉÏÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý	
+										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
 									 }
-								 }	
+								 }
 							 }
-	}	
+	}
 //----------------------------------------------
 
    if(Npc[m_Index].m_FightMode == 0)
-   { 
+   {
 
 	 if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse)
 	 {//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
@@ -1380,7 +1380,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
    }
 //  Ëø¶¨µ½Ä¿±êÎïÆ·
 //  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-//  Npc[m_Index].m_nObjectIdx=nObjectIdx; 
+//  Npc[m_Index].m_nObjectIdx=nObjectIdx;
     int nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index,0,180); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
 	if (nEnemyIdx<=0)
 	{//Èç¹û¸½½üÃ»ÓÐ¾ÍÈ«ÆÁ²éÕÒ
@@ -1397,7 +1397,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 		nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcDis);
 
 		if  (nEnemyIdx<=0)
-		{    
+		{
 			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
 			if (nEnemyIdx<=0)
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
@@ -1412,16 +1412,16 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	//------------------------
 	//if (Npc[m_Index].m_CurrentMana>=10 && Npc[m_Index].m_CurrentLife>=10)
 	if (!m_Kind)
-	{//×ó¼ü  
+	{//×ó¼ü
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetLeftSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetLeftSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
-	}  
+	}
 	else
-	{//ÓÒ¼ü   
+	{//ÓÒ¼ü
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetRightSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetRightSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
 	}
-	
+
     int distance;
 
     if (nEnemyIdx>0)
@@ -1480,9 +1480,9 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
             MoveJiaoBen(m_Index);
 			return;
          }*/
-		Npc[m_Index].SendSerCommand(do_stand); 
+		Npc[m_Index].SendSerCommand(do_stand);
 		///SendClientCmdRun(Npc[m_Index].m_OriginX, Npc[m_Index].m_OriginY);
-		
+
 		//int xxa,xyy,Xmap;
 	    //Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ÏñËØ×ø±ê
 
@@ -1491,11 +1491,11 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 			if (Npc[m_Index].m_bRideHorse)
 			{//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
 				SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
-			} 
+			}
 	        Npc[m_Index].SendSerCommand(do_sit);
             SendClientCmdSit(TRUE);
     	}*/
-			
+
 		return;
 	}
 }
@@ -1518,13 +1518,13 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	}
 
 	if 	(Npc[m_Index].m_nPeopleIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ 
+	{//µØÍ¼²»ÏàÍ¬µÄ
 		Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
 		return;
 	}
-//----------------------------------------------   
+//----------------------------------------------
 	KSkill * pCurSkill = (KSkill *)g_SkillManager.GetSkill(Npc[m_Index].m_ActiveSkillID,1);
 	if (pCurSkill)
 	{
@@ -1540,20 +1540,20 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
 									 }
 								 }
-								 
+
 								 if (nHorse==2)
 								 {
 									 if (!nIsHorse)
 									 {//·ÇÆïÂí×´Ì¬,ÔòÉÏÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý	
+										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
 									 }
-								 }	
+								 }
 							 }
-	}	
+	}
 //----------------------------------------------
 
    if(Npc[m_Index].m_FightMode == 0)
-   { 
+   {
 
 	 if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse)
 	 {//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
@@ -1577,7 +1577,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
      //if (Npc[m_Index].m_nPeopleIdx = 0)
       //   MoveJiaoBen(m_Index);
 	   Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(1,1,0,&nMapIdx);
-	   
+
 	   if  (nMapIdx!=SubWorld[Npc[m_nIndex].m_SubWorldIndex].m_SubWorldID)
 	   {
 		   Npc[m_Index].m_nPeopleIdx=0;
@@ -1593,13 +1593,13 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	   {
 	      MoveJiaoBen(m_Index);
 		  return;
-	   }  
+	   }
 
 	     /*char msg[64];
 	     int DisJuli = g_GetDistance(xx,yy,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos);
 	         sprintf(msg,"X:%d,Y:%d,¾àÀë:%d,·¶Î§:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos,DisJuli,fanwei);
 			 Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);*/
-			   
+
       if(KeepActiveJiaoBen(fanwei,m_Index,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos)) //±£³Ö»î¶¯·¶Î§
          return;
    }
@@ -1641,7 +1641,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	   return;
    }
 
-   if (Npc[m_Index].m_nObjectIdx>0 && Object[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Object[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
+   if (Npc[m_Index].m_nObjectIdx>0 && KObject[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && KObject[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
    {//Èç¹ûÊÇ±¾ÈË¶ªµÄ¾Í²»Ê°È¡µÄÁË
      Npc[m_Index].m_nObjectIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
@@ -1650,11 +1650,11 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 //  Ëø¶¨µ½Ä¿±êÎïÆ·
 //  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-//  Npc[m_Index].m_nObjectIdx=nObjectIdx; 
+//  Npc[m_Index].m_nObjectIdx=nObjectIdx;
 
    int nRetaMoney =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoney;           //Ç®
    int nRetaEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoEques;           //×°±¸
-   int nRetaMoneyAndEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoneyAndEques;   //Ç®ºÍ×°±¸ 
+   int nRetaMoneyAndEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoneyAndEques;   //Ç®ºÍ×°±¸
    int nRetaTuPu  =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTuPu;            //ÉñÃØÍ¼Ö¾
    BYTE nRetaTool =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTool;            //µÀ¾ß
 //   char nsetionKey[32],nTempItemName[80];
@@ -1666,12 +1666,12 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    nAutoinfo.isopendaoju      = nRetaTool;
 
    if ((nRetaMoney||nRetaEques||nRetaMoneyAndEques||nRetaTuPu||nRetaTool)  && nPickState == PICCK_NONE)
-   {   
+   {
 	   int CurState = 0;
 	   int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
 
 	   if (nObjectIdx>0)
-	   {   
+	   {
 		   Npc[m_Index].m_nPeopleIdx=0;
 		   //nPickState = CurState;//PICCK_MONEY;
 		   switch(CurState)
@@ -1706,56 +1706,56 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		   Npc[m_Index].m_nObjectIdx=nObjectIdx;
 	   }
    }
-   
+
    /*if (nRetaMoney==1  && nPickState == PICCK_NONE)
-   { 
+   {
 	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_MONEY);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-       
+
 	   if (nObjectIdx>0)
-	   {   
+	   {
 		   Npc[m_Index].m_nPeopleIdx=0;
 
 		   nPickState = PICCK_MONEY;
 
 		   Npc[m_Index].m_nObjectIdx=nObjectIdx;
 	   }
-   } 
-   
+   }
+
    if (nRetaEques==1 && nPickState == PICCK_NONE)
-   {   
+   {
 	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-       
+
 	   if (nObjectIdx>0)
-	   {   
+	   {
 		   Npc[m_Index].m_nPeopleIdx=0;
 
 		   nPickState = PICCK_ITEM;
 		   Npc[m_Index].m_nObjectIdx=nObjectIdx;
 	   }
   }
-   
+
   if (nRetaMoneyAndEques==1 && nPickState == PICCK_NONE)
-  { 
+  {
 	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM_MONEY);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-       
+
 	   if (nObjectIdx>0)
-	   {   
+	   {
            Npc[m_Index].m_nPeopleIdx=0;
 
 		   nPickState = PICCK_ITEM_MONEY;
 		   Npc[m_Index].m_nObjectIdx=nObjectIdx;
 	   }
-  } 
+  }
 //-----------------------------------------------Í¼Æ×
   if (nRetaTuPu==1 && nPickState == PICCK_NONE)
-  {   
+  {
 	     sprintf(nTempItemName,UTEXT("ÉñÃØÍ¼Ö¾",1).c_str());
 	     int nObjectIdx =  GetNearestObject(m_Index,-1,nTempItemName);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
 		 sprintf(nTempItemName,UTEXT("ÉñÃØÂ·Ö¾",1).c_str());
 		 int nObjectIdxa=  GetNearestObject(m_Index,-1,nTempItemName);
 
 		 if (nObjectIdx>0)
-		 {   
+		 {
 			 Npc[m_Index].m_nPeopleIdx=0;
 			 Npc[m_Index].m_nObjectIdx=nObjectIdx;
 
@@ -1767,16 +1767,16 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 			 Npc[m_Index].m_nObjectIdx=nObjectIdxa;
 
 			 nPickState = PICCK_TUPU;
-		 } 
+		 }
 
   }
 //----------------------------------------------------------------µÀ¾ß
   if (nRetaTool==1 && nPickState == PICCK_NONE)
-  {   
+  {
 	 char nItemName[64]={0},nTempItemName[64];
 	 for(int i=0;i<16;++i)
-	 { 	 
-		 Player[CLIENT_PLAYER_INDEX].nToolItem.GetString(i+1,1,"ÎÞÊý¾Ý",nItemName,sizeof(nItemName)); 
+	 {
+		 Player[CLIENT_PLAYER_INDEX].nToolItem.GetString(i+1,1,"ÎÞÊý¾Ý",nItemName,sizeof(nItemName));
 	     int nObjectIdx =  GetNearestObject(m_Index,-1,nItemName);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
 
 		 if (nObjectIdx>0)
@@ -1786,7 +1786,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 			 nPickState = PICCK_TOOL;
 			 break;
-		 } 
+		 }
 	}
   }
   */
@@ -1818,7 +1818,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcDis);
 
 		if  (nEnemyIdx<=0)
-		{    
+		{
 			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
 			if (nEnemyIdx<=0)
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
@@ -1833,17 +1833,17 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 	//------------------------
 	if (Npc[m_Index].m_CurrentMana>=10 && Npc[m_Index].m_CurrentLife>=10)
-	{  
+	{
 
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetLeftSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetLeftSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
-	}  
+	}
 	else
-	{   
+	{
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetRightSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetRightSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
 	}
-	
+
     int distance;
 
     if (nEnemyIdx>0)
@@ -1885,7 +1885,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 	   if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop>=10000)
 		     Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop=0;
-         
+
        if (nLtime>0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop>=(nLtime*18) && Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop%(nLtime*18)==0 && Npc[nEnemyIdx].m_IsHaveAttack==0)
 	   {
 	       if (Npc[nEnemyIdx].m_CurrentLife == Npc[nEnemyIdx].m_CurrentLifeMax)
@@ -1931,15 +1931,15 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
     if (nEnemyIdx>0 && distance <= Npc[m_Index].m_CurrentAttackRadius)
 	{//ÔÚ¹¥»÷·¶Î§ÄÚ
 	//	Npc[m_Index].m_nPeopleIdx=nEnemyIdx; // Ëø¶¨Ä³¹ÖÎï
-	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum++; 
+	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum++;
 
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop=0;
 
 	   if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum>=10000)
 		       Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
-         
+
        if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum >=(nActiveNum*18) && Npc[nEnemyIdx].m_IsHaveAttack==0)
-	   {//¹¥»÷ÁË¶àÉÙÃëºó 
+	   {//¹¥»÷ÁË¶àÉÙÃëºó
 		   int  nTempLoop = Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime++;
            if (nTempLoop>=90 && nTempLoop%90==0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife==Npc[nEnemyIdx].m_CurrentLife)
 		   {//Ã»»ØÑªµÄ¹ÖÎï ¿¨¹ÖÁË
@@ -2001,9 +2001,9 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 			return;
          }
 
-		Npc[m_Index].SendSerCommand(do_run, Npc[m_Index].m_OriginX, Npc[m_Index].m_OriginY); 
+		Npc[m_Index].SendSerCommand(do_run, Npc[m_Index].m_OriginX, Npc[m_Index].m_OriginY);
 		SendClientCmdRun(Npc[m_Index].m_OriginX, Npc[m_Index].m_OriginY);
-		
+
 		int xxa,xyy,Xmap;
 
 	    Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ÏñËØ×ø±ê
@@ -2013,7 +2013,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 			if (Npc[m_Index].m_bRideHorse)
 			{//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
 				SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
-			} 
+			}
 	        Npc[m_Index].SendSerCommand(do_sit);
             SendClientCmdSit(TRUE);
     	}
@@ -2021,27 +2021,27 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	}
 }
 
-int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iPickState) 
-{   
+int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iPickState)
+{
 	     int x, y;
 		 KObject[nObjIdx].GetMpsPos(&x, &y);
 
 		 if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
-		 {   
+		 {
             Npc[nIndex].SendSerCommand(do_run,x,y);  //ÅÜÏòÄ¿±ê
 		    SendClientCmdRun(x,y); //ÅÜÏòÄ¿±ê
-		 }  
+		 }
 		 else
-		 {  
+		 {
 			Npc[nIndex].SendSerCommand(do_walk,x,y);  //ÅÜÏòÄ¿±ê
 			SendClientCmdWalk(x,y); //ÅÜÏòÄ¿±ê
-		 } 
-		 
+		 }
+
 		 int nLtime=Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTime;
 		 int nLoop;
 
 		 if (nLtime>0)
-		 {  	
+		 {
 			    if (iPickState==PICCK_MONEY)
 					nLoop=Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngMoneyLoop++;
 			    else if (iPickState==PICCK_ITEM)
@@ -2053,7 +2053,7 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 				else if  (iPickState==PICCK_TUPU)
 					nLoop=Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngTuzhiLoop++;
 
-			 
+
 			    if (nLoop>nLtime && (nLoop%(nLtime*18)==0))
 				{
 				   KObject[nObjIdx].m_AttackerDwid=Npc[nIndex].m_dwID;
@@ -2106,15 +2106,15 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 	     return TRUE;
 }
 
-//¸úËæ¹¥»÷ 
-void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum) 
+//¸úËæ¹¥»÷
+void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
 	//	Npc[i].m_Hide.nTime=0;
 	//	Npc[r].m_Hide.nTime=0;
 	int distance = NpcSet.GetDistance(i, r);  //»ñÈ¡³¡¾°µÄ¾àÀë ÈËÓë¹ÖÎïÖ®¼äµÄ¾àÀë
-	
+
 	if ( distance == 0)
 		distance = 1;
 	//#define	MINI_ATTACK_RANGE	75
@@ -2151,18 +2151,18 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 		   //  sprintf(mag,"NPC:L:%d,MAXl:%d,DWID:%d,num:%d",Npc[i].m_CurrentLife,Npc[i].m_CurrentLifeMax,Npc[i].m_AttackerDwid,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum);
 		   //  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(mag);
 	   }
-	
+
 	if (distance <= (Npc[r].m_CurrentAttackRadius-100) /*&& InEyeshota(i,r)*/)  //Ð¡ÓÚ¹¥»÷·¶Î§ ¾ÍÊ¹ÓÃ¼¼ÄÜ
 	{
         Npc[r].SendSerCommand(do_skill, Npc[r].m_ActiveSkillID, -1, i);
 		SendClientCmdSkill(Npc[r].m_ActiveSkillID, -1, Npc[i].m_dwID);
         Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum++;
         return;
-	}	
+	}
 	else
 	{
 		int x, y,nmmap;
-		Npc[i].GetMpsPos(&x, &y,&nmmap);	
+		Npc[i].GetMpsPos(&x, &y,&nmmap);
 		Npc[r].SendSerCommand(do_run, x, y);  //ÅÜÏòµÐÈË
 		SendClientCmdRun(x, y); //ÅÜÏòµÐÈË
 	}
@@ -2171,8 +2171,8 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 //¹Ò»ú
 BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶¯·¶Î§
 {
-	int x, y,nmapp;	
-	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë 
+	int x, y,nmapp;
+	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë
 
 	int	nRange = g_GetDistance(xx,yy,x,y); //±È½Ï ÏÖÔÚµÄ¾àÀë ºÍÔ­À´¾àÀëµÄ²î¾à
 
@@ -2181,13 +2181,13 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
 	   Npc[indexid].m_CurrentActiveRadius = fanwei;
 	   return FALSE;
 	}
-	
+
 	// ·¢ÏÖ³¬³ö»î¶¯·¶Î§£¬°Ñµ±Ç°»î¶¯·¶Î§ËõÐ¡£¬±ÜÃâÔÚ»î¶¯·¶Î§±ßÔµÀ´»Ø»Î¡£
 	if (nRange>fanwei)//<1000
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei/10;//500
 	}
-	
+
 	// ·¢ÏÖ³¬³öµ±Ç°»î¶¯·¶Î§£¬Íù»Ø×ß
 	if (nRange > Npc[indexid].m_CurrentActiveRadius)  //
 	{
@@ -2213,21 +2213,21 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
         Npc[indexid].m_nPeopleIdx=0;
 		Npc[indexid].m_nObjectIdx=0;
 
-     
+
 	if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 	{
-            Npc[indexid].SendSerCommand(do_run, xx, yy); 
+            Npc[indexid].SendSerCommand(do_run, xx, yy);
 		    SendClientCmdRun(xx,yy);
 	}
 	else
 	{
-		    Npc[indexid].SendSerCommand(do_walk, xx, yy); 
+		    Npc[indexid].SendSerCommand(do_walk, xx, yy);
 		    SendClientCmdWalk(xx,yy);
 	}
 
 
 	return TRUE;
-		
+
 	}
 	else	// ÔÚµ±Ç°»î¶¯·¶Î§ÄÚ£¬»Ö¸´µ±Ç°»î¶¯·¶Î§´óÐ¡¡£
 	{
@@ -2239,16 +2239,16 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
 
 BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶¯·¶Î§
 {
-	int x, y,nmapp;	
-	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë 
+	int x, y,nmapp;
+	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë
 	int	nRange = g_GetDistance(Npc[indexid].m_OriginX, Npc[indexid].m_OriginY, x, y); //±È½Ï ÏÖÔÚµÄ¾àÀë ºÍÔ­À´¾àÀëµÄ²î¾à
-	
+
 	// ·¢ÏÖ³¬³ö»î¶¯·¶Î§£¬°Ñµ±Ç°»î¶¯·¶Î§ËõÐ¡£¬±ÜÃâÔÚ»î¶¯·¶Î§±ßÔµÀ´»Ø»Î¡£
 	if (fanwei < nRange)//<1000
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei/10;//500
 	}
-	
+
 	// ·¢ÏÖ³¬³öµ±Ç°»î¶¯·¶Î§£¬Íù»Ø×ß
 	if (Npc[indexid].m_CurrentActiveRadius < nRange)  //
 	{
@@ -2271,21 +2271,21 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»
 		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:ÎïÆ·³¬³ö»î¶¯·¶Î§,Ö´ÐÐÈ¡ÏûÊ°È¡!");
 		   nPickState=PICCK_NONE;
 		}
-	    
+
         Npc[indexid].m_nPeopleIdx=0;
 		Npc[indexid].m_nObjectIdx=0;
 
 	if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 	{
-            Npc[indexid].SendSerCommand(do_run, Npc[indexid].m_OriginX, Npc[indexid].m_OriginY); 
+            Npc[indexid].SendSerCommand(do_run, Npc[indexid].m_OriginX, Npc[indexid].m_OriginY);
 		    SendClientCmdRun(Npc[indexid].m_OriginX, Npc[indexid].m_OriginY);
 	}
 	else
 	{
-		   Npc[indexid].SendSerCommand(do_walk, Npc[indexid].m_OriginX, Npc[indexid].m_OriginY); 
+		   Npc[indexid].SendSerCommand(do_walk, Npc[indexid].m_OriginX, Npc[indexid].m_OriginY);
 		   SendClientCmdWalk(Npc[indexid].m_OriginX, Npc[indexid].m_OriginY);
 	}
-		
+
 
         /*
            if (Npc[m_Index].m_nPeopleIdx>0 && Npc[Npc[m_Index].m_nPeopleIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Npc[Npc[m_Index].m_nPeopleIdx].m_IsHaveAttack==1)
@@ -2309,7 +2309,7 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»
 
 
 		return TRUE;
-		
+
 	}
 	else	// ÔÚµ±Ç°»î¶¯·¶Î§ÄÚ£¬»Ö¸´µ±Ç°»î¶¯·¶Î§´óÐ¡¡£
 	{
@@ -2330,14 +2330,14 @@ BOOL KNpcAI::AiCheckDistance(int nYMpsX ,int nYMpsY, int nDMpsX,int nDMpsY,int n
 
 
    if (nXcha<=nDisten && nYcha<=nDisten)
-	
+
 	  int KSubWorld::GetDistance(int nRx1, int nRy1, int nRx2, int nRy2)
 	  {
 	  return (int)sqrt((nRx1 - nRx2) * (nRx1 - nRx2) + (nRy1 - nRy2) * (nRy1 - nRy2));
 	  }
 
-	
-	
+
+
 	*/
 	if  ((int)sqrt(double((nYMpsX - nDMpsX)) * (nYMpsX - nDMpsX) + (nYMpsY - nDMpsY) * (nYMpsY - nDMpsY)) <= nDisten)
       return TRUE;
@@ -2362,9 +2362,9 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 	int	nRMx, nRMy, nSearchRegion;
 
 	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
-	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;	
+	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 //	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
-//	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;	
+//	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
 	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
 	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
@@ -2403,7 +2403,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý	
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
 			if (Npc[nRet].m_Hide.nTime > 0) //ÒþÉíµÄ
@@ -2411,7 +2411,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 
 			if (nRet > 0)
 				return nRet;
-			
+
 			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	 ×óÏÂ
 			nRMx = nMapX - i;
 			nRMy = nMapY + j;
@@ -2440,12 +2440,12 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
-		
+
 			if (Npc[nRet].m_Hide.nTime > 0)
 				nRet = 0;
-		
+
 			if (nRet > 0)
 				return nRet;
 
@@ -2479,19 +2479,19 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
 				nRet = 0;
-			
+
 			if (nRet > 0)
 				return nRet;
 
 			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	  ÓÒÉÏ
 			nRMx = nMapX + i;
 			nRMy = nMapY - j;
-			nSearchRegion = nRegion;			
+			nSearchRegion = nRegion;
 			if (nRMx < 0)
 			{
 				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
@@ -2521,7 +2521,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 
 			if (Npc[nRet].m_Hide.nTime > 0)
 				nRet = 0;
-			
+
 			if (nRet > 0)
 				return nRet;
 		}
@@ -2551,9 +2551,9 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 	int	nRMx, nRMy, nSearchRegion;
 
 	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
-	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;	
+	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 //	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
-//	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;	
+//	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
 	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
 	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
@@ -2594,15 +2594,15 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý	
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
-			{   
+			{
 				*CurState=m_CurState;
 				return nRet;
 			}
-			
+
 			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
 			nRMx = nMapX - i;  //Íù»ØÏÂµÄ×ø±ê
 			nRMy = nMapY + j;
@@ -2631,11 +2631,11 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
-			{   
+			{
 				*CurState=m_CurState;
 				return nRet;
 			}
@@ -2668,11 +2668,11 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
-			{   
+			{
 				*CurState=m_CurState;
 				return nRet;
 			}
@@ -2680,7 +2680,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
 			nRMx = nMapX + i;// ÍùÇ°ÉÏµÄ×ø±ê
 			nRMy = nMapY - j;
-			nSearchRegion = nRegion;			
+			nSearchRegion = nRegion;
 			if (nRMx < 0)
 			{
 				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
@@ -2709,7 +2709,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
-			{   
+			{
 				*CurState=m_CurState;
 				return nRet;
 			}
@@ -2730,7 +2730,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 	int	nRMx, nRMy, nSearchRegion;
 
 	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
-	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;	
+	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
 	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
 	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
@@ -2772,93 +2772,19 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
 				nRet = 0;
 
-			if (nRet > 0)
-				return nRet;
-			
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
-			nRMx = nMapX - i;
-			nRMy = nMapY + j;
-			nSearchRegion = nRegion;
-			if (nRMx < 0)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
-				nRMx += SubWorld[nSubWorld].m_nRegionWidth;
-			}
-			else if (nRMx >= SubWorld[nSubWorld].m_nRegionWidth)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[6];
-				nRMx -= SubWorld[nSubWorld].m_nRegionWidth;
-			}
-			if (nSearchRegion == -1)
-				continue;
-			if (nRMy < 0)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[4];
-				nRMy += SubWorld[nSubWorld].m_nRegionHeight;
-			}
-			else if (nRMy >= SubWorld[nSubWorld].m_nRegionHeight)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[0];
-				nRMy -= SubWorld[nSubWorld].m_nRegionHeight;
-			}
-			if (nSearchRegion == -1)
-				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
-			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
-		
-			if (Npc[nRet].m_Hide.nTime > 0)
-				nRet = 0;
-		
 			if (nRet > 0)
 				return nRet;
 
 			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
 			nRMx = nMapX - i;
-			nRMy = nMapY - j;
+			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
-			if (nRMx < 0)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
-				nRMx += SubWorld[nSubWorld].m_nRegionWidth;
-			}
-			else if (nRMx >= SubWorld[nSubWorld].m_nRegionWidth)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[6];
-				nRMx -= SubWorld[nSubWorld].m_nRegionWidth;
-			}
-			if (nSearchRegion == -1)
-				continue;
-			if (nRMy < 0)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[4];
-				nRMy += SubWorld[nSubWorld].m_nRegionHeight;
-			}
-			else if (nRMy >= SubWorld[nSubWorld].m_nRegionHeight)
-			{
-				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[0];
-				nRMy -= SubWorld[nSubWorld].m_nRegionHeight;
-			}
-			if (nSearchRegion == -1)
-				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
-			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
-
-			if (Npc[nRet].m_Hide.nTime > 0)
-				nRet = 0;
-			
-			if (nRet > 0)
-				return nRet;
-
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
-			nRMx = nMapX + i;
-			nRMy = nMapY - j;
-			nSearchRegion = nRegion;			
 			if (nRMx < 0)
 			{
 				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
@@ -2888,7 +2814,81 @@ int KNpcAI::GetNearestNpc(int nRelation)
 
 			if (Npc[nRet].m_Hide.nTime > 0)
 				nRet = 0;
-			
+
+			if (nRet > 0)
+				return nRet;
+
+			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			nRMx = nMapX - i;
+			nRMy = nMapY - j;
+			nSearchRegion = nRegion;
+			if (nRMx < 0)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
+				nRMx += SubWorld[nSubWorld].m_nRegionWidth;
+			}
+			else if (nRMx >= SubWorld[nSubWorld].m_nRegionWidth)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[6];
+				nRMx -= SubWorld[nSubWorld].m_nRegionWidth;
+			}
+			if (nSearchRegion == -1)
+				continue;
+			if (nRMy < 0)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[4];
+				nRMy += SubWorld[nSubWorld].m_nRegionHeight;
+			}
+			else if (nRMy >= SubWorld[nSubWorld].m_nRegionHeight)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[0];
+				nRMy -= SubWorld[nSubWorld].m_nRegionHeight;
+			}
+			if (nSearchRegion == -1)
+				continue;
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
+
+			if (Npc[nRet].m_Hide.nTime > 0)
+				nRet = 0;
+
+			if (nRet > 0)
+				return nRet;
+
+			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			nRMx = nMapX + i;
+			nRMy = nMapY - j;
+			nSearchRegion = nRegion;
+			if (nRMx < 0)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[2];
+				nRMx += SubWorld[nSubWorld].m_nRegionWidth;
+			}
+			else if (nRMx >= SubWorld[nSubWorld].m_nRegionWidth)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[6];
+				nRMx -= SubWorld[nSubWorld].m_nRegionWidth;
+			}
+			if (nSearchRegion == -1)
+				continue;
+			if (nRMy < 0)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[4];
+				nRMy += SubWorld[nSubWorld].m_nRegionHeight;
+			}
+			else if (nRMy >= SubWorld[nSubWorld].m_nRegionHeight)
+			{
+				nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[0];
+				nRMy -= SubWorld[nSubWorld].m_nRegionHeight;
+			}
+			if (nSearchRegion == -1)
+				continue;
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
+
+			if (Npc[nRet].m_Hide.nTime > 0)
+				nRet = 0;
+
 			if (nRet > 0)
 				return nRet;
 		}
@@ -2982,7 +2982,7 @@ int KNpcAI::GetNpcNumber(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC			
+			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
 			int nNpcIdx = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 			if (nNpcIdx > 0)
 				nRet++;
@@ -3012,9 +3012,9 @@ void KNpcAI::FollowChargedart(int i) //
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
-	
+
 	int distance = NpcSet.GetDistance(m_nIndex, i);  //»ñÈ¡³¡¾°µÄ¾àÀë
-	
+
 	int nDesX, nDesY,nDmap;
 
 		if (distance < 80)
@@ -3040,15 +3040,15 @@ void KNpcAI::FollowCompanion(int i) //
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
-	
+
 	int distance = NpcSet.GetDistance(m_nIndex, i);  //»ñÈ¡³¡¾°µÄ¾àÀë
-	
+
 	int nDesX, nDesY,nDmap;
-	
+
 	if (distance < 80)
 	{
 		Npc[m_nIndex].SendSerCommand(do_stand);
-		
+
 	}
 	else
 	{
@@ -3071,7 +3071,7 @@ void KNpcAI::FollowAttack(int i)
 
 	int distance = NpcSet.GetDistance(m_nIndex, i);
 
-	if ( distance == 0) 
+	if ( distance == 0)
 		distance = 1;
 #define	MINI_ATTACK_RANGE	100
 
@@ -3095,10 +3095,10 @@ void KNpcAI::FollowAttackCompanion(int i,int juli)
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
-	
+
 	int distance = NpcSet.GetDistance(m_nIndex, i);
-	
-	if ( distance == 0) 
+
+	if ( distance == 0)
 		distance = 1;
 	if (distance <= juli && distance<= Npc[m_nIndex].m_CurrentAttackRadius) //È¡ÏûÊÓÒ°·¶Î§ÏÞÖÆ
 	{
@@ -3168,7 +3168,7 @@ void KNpcAI::CommonAction()
 	}
 	else
 	{
-		
+
 		nOffX = g_Random(Npc[m_nIndex].m_CurrentActiveRadius / 2);
 		nOffY = g_Random(Npc[m_nIndex].m_CurrentActiveRadius / 2);
 		if (nOffX & 1)
@@ -3180,7 +3180,7 @@ void KNpcAI::CommonAction()
 			nOffY = - nOffY;
 		}
 	}
-    
+
 	Npc[m_nIndex].SendSerCommand(do_walk,Npc[m_nIndex].m_OriginX + nOffX, Npc[m_nIndex].m_OriginY + nOffY);
 }
 
@@ -3194,7 +3194,7 @@ void KNpcAI::CommonActionCompanion(int fanwei)
 		return;
 	}
 
-	int	nOffX, nOffY;	
+	int	nOffX, nOffY;
 		nOffX = g_Random(Npc[fanwei].m_CurrentActiveRadius / 2);
 		nOffY = g_Random(Npc[fanwei].m_CurrentActiveRadius / 2);
 		if (nOffX & 1)
@@ -3216,8 +3216,8 @@ void KNpcAI::ReMoveCommonAction(int nNpcIdx)
 		Npc[nNpcIdx].SendSerCommand(do_stand);
 		return;
 	}
-	
-	int	nOffX, nOffY;	
+
+	int	nOffX, nOffY;
 	nOffX = g_Random(400/ 2);
 	nOffY = g_Random(400/ 2);
 	if (nOffX & 1)
@@ -3240,7 +3240,7 @@ void KNpcAI::ReMoveCommonAction(int nNpcIdx)
 BOOL KNpcAI::KeepActiveRange()
 {
 	int x, y,nMap;
-	
+
 	Npc[m_nIndex].GetMpsPos(&x, &y,&nMap);
 	int	nRange = g_GetDistance(Npc[m_nIndex].m_OriginX, Npc[m_nIndex].m_OriginY, x, y);
 
@@ -3268,7 +3268,7 @@ int KNpcAI::DoShowFlee(int nIdx)
 {
 	int nResult  = false;
 	int nRetCode = false;
-	
+
 	int x1, y1,nmap1 ,x2, y2;
 	int nDistance = Npc[m_nIndex].m_AiParam[6];
 
@@ -3291,10 +3291,10 @@ Exit0:
 void KNpcAI::FleeEnemy(int nEnemyIdx)
 {
    	int x1, y1,nMap1, x2, y2,nMap2;
-	
+
 	Npc[m_nIndex].GetMpsPos(&x1, &y1,&nMap1);
 	Npc[nEnemyIdx].GetMpsPos(&x2, &y2,&nMap2);
-	
+
 	x1 = x1 * 2 - x2;
 	y1 = y1 * 2 - y2;
 
@@ -3302,14 +3302,14 @@ void KNpcAI::FleeEnemy(int nEnemyIdx)
 	//Npc[m_nIndex].m_Dir = Npc[nIdx].m_Dir;
 	//nRetCode = GetNpcMoveOffset(Npc[m_nIndex].m_Dir, nDistance, &x2, &y2);
 
-	
+
 	Npc[m_nIndex].SendSerCommand(do_run, x1, y1);
-	
+
 #ifndef _SERVER
 	SendClientCmdRun(x1, y1);
 #endif
 
-}  
+}
  */
 // ÌÓÀëNpc[nIdx]
 void KNpcAI::Flee(int nIdx)
@@ -3343,22 +3343,22 @@ void	KNpcAI::ProcessChargedart()
 	{
 
 	  nSub   = Npc[m_nIndex].m_SubWorldIndex;
-	  nReg   = Npc[m_nIndex].m_RegionIndex;		
+	  nReg   = Npc[m_nIndex].m_RegionIndex;
 	  nNpcID = NpcSet.SearchNameID(Npc[m_nIndex].m_IsRevive);
 
 	if (nNpcID>0)
 	{
 		Npc[m_nIndex].m_GameliveTime = -1;
 		FollowChargedart(nNpcID);  //¸úËæ
-	}      
+	}
     else if (nNpcID<=0) ////Ö÷½ÇÍË³öÓÎÏ·ÅÑ±ä---ËÀÍö»òÏÂÏß²»ÅÑ±ä
-	{    
+	{
 		    if (Npc[m_nIndex].m_GameliveTime==-1)
 		         Npc[m_nIndex].m_GameliveTime = 120;  //¸øÁ½·ÖÖÓµÈ´ý È»ºóÏú»Ù
                return;
 		    Npc[m_nIndex].GetMpsPos(&nDesX, &nDesY,&nMap);
-		    Npc[m_nIndex].m_OriginX=nDesX;	
-            Npc[m_nIndex].m_OriginY=nDesY;   
+		    Npc[m_nIndex].m_OriginX=nDesX;
+            Npc[m_nIndex].m_OriginY=nDesY;
 			Npc[m_nIndex].m_nPeopleIdx = 0;
 			Npc[m_nIndex].m_btRankFFId=0;
 			Npc[m_nIndex].m_Camp=5;
@@ -3373,7 +3373,7 @@ void	KNpcAI::ProcessChargedart()
     int nReg=Npc[m_nIndex].m_RegionIndex;
 	int nRes=0;
     KIndexNode *pNode=NULL;
-	 
+
 	pNode=(KIndexNode*)SubWorld[nSub].m_Region[nReg].m_NpcList.GetHead();//Ë¢¹Ö½Úµã
           while (pNode)
 		  {
@@ -3389,7 +3389,7 @@ void	KNpcAI::ProcessChargedart()
 	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
 	//if (KeepActiveRange())
 	//	return;
-	
+
 
 	/*
      char isname[32];
@@ -3403,10 +3403,10 @@ void	KNpcAI::ProcessChargedart()
 	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
 	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx) )
 	{
-		nEnemyIdx = GetNearestNpc(relation_enemy); //»ñÈ¡¸½½üNPCµÄË÷Òý±àºÅ  
+		nEnemyIdx = GetNearestNpc(relation_enemy); //»ñÈ¡¸½½üNPCµÄË÷Òý±àºÅ
 		Npc[m_nIndex].m_nPeopleIdx = nEnemyIdx;
 	}
-	
+
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
 	{
@@ -3417,7 +3417,7 @@ void	KNpcAI::ProcessChargedart()
 		}
 		return;
 	}
-	
+
 	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
@@ -3433,7 +3433,7 @@ void	KNpcAI::ProcessChargedart()
 		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
 		return;
 	}
-	
+
 	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
 	int		nRand;
 	nRand = g_Random(100);
@@ -3473,7 +3473,7 @@ void	KNpcAI::ProcessChargedart()
 	{
 		return;
 	}
-*/	
+*/
 //FollowYabiao(nEnemyIdx);
 }
 //------------------------------------------------------------------------------
@@ -3487,7 +3487,7 @@ void	KNpcAI::ProcessCompanion()
     int nSub=0,nReg=0,nRes=0,nNpcID=0,nPepID=0;
     int nDesX,nDesY,nMap;
 	char nstrName[64]={0};
-	
+
     if (Npc[m_nIndex].m_btRankFFId==99)
 	{
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
@@ -3500,18 +3500,18 @@ void	KNpcAI::ProcessCompanion()
 		nAutoinfo.isopendaoju      = 0;
 		int  nCurState = 0;
         int  nObjectIdx = GetNearestObject(m_nIndex,(BYTE*)&nAutoinfo,&nCurState);      //»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-		
+
 		nNpcID = NpcSet.SearchNameID(Npc[m_nIndex].m_IsRevive);         //²éÕÒÃû×ÖµÄ×ª»»Âë  ==Ö÷ÈËµÄ Ë÷Òý
 		nPepID = PlayerSet.FindNameID(nstrName);      //Npc[nNpcID].m_nsPlayerIdx;
 		//	g_FileName2Id(Npc[m_nIndex].m_GuishuName);
 		int nNpcMap,nNpcX,nNpcY,nPlayerMap,nPlayerX,nPlayerY;
 
 		if (nNpcID>0)
-		{	
+		{
             int mPlayerSubWorldID,nNpcSubWorldID,distance;
 
             Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;  //ÉèÖÃÖ÷ÈËÒÑ¾­ÓÐÍ¬°éÁË£¡
-		
+
 			if (Npc[m_nIndex].m_TempliveTime>0)
 			{
                  Npc[m_nIndex].m_GameliveTime = Npc[m_nIndex].m_TempliveTime;
@@ -3529,12 +3529,12 @@ void	KNpcAI::ProcessCompanion()
 			{//Èç¹û²»Í¬µØÍ¼ ¾Í·É°É
 				  return;
 			}
-			else  
-			{  
+			else
+			{
 				if  (distance > 800)
 				{
 				  return;
-				}        
+				}
 			}
 
 			if (nObjectIdx>0 && (KObject[nObjectIdx].m_nKind == Obj_Kind_Money/*||(KObject[nObjectIdx].m_nKind == Obj_Kind_Item && KObject[nObjectIdx].m_nColorID==1 ) */) )
@@ -3552,23 +3552,23 @@ void	KNpcAI::ProcessCompanion()
 				Npc[m_nIndex].m_nObjectIdx=0;
 			}
 
-			if (Npc[nNpcID].m_FightMode==0)  //Ö÷ÈËÎª·ÇÕ½¶·Ä£Ê½ 
+			if (Npc[nNpcID].m_FightMode==0)  //Ö÷ÈËÎª·ÇÕ½¶·Ä£Ê½
 			{
 				Npc[m_nIndex].m_nPeopleIdx=0;
 				nEnemyIdx=0;
 				FollowCompanion(nNpcID);
 				return;
 			}
- 
+
 			    //int  Zdistance = NpcSet.GetDistance(nNpcID, m_nIndex);  //ÓëÖ÷ÈËµÄ¾àÀë
 
 			    if (distance>400)
-				{ 
+				{
 				  Npc[m_nIndex].m_nPeopleIdx=0;
 				  nEnemyIdx=0;
 				  FollowCompanion(nNpcID);
 			  	  return;
-				}  
+				}
 				 //NPCËÀÍöÒ²²»¹¥»÷
 				 if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive)
 				 {
@@ -3576,11 +3576,11 @@ void	KNpcAI::ProcessCompanion()
 					 nEnemyIdx=0;
 				 }
 				 //¼ì²âÍ¬°éÀàµÄ¹¥»÷
-				 if (Npc[nEnemyIdx].m_Kind==kind_partner) 
+				 if (Npc[nEnemyIdx].m_Kind==kind_partner)
 				 {//Èç¹ûµÐÈËÊÇÍ¬°é
 					 Npc[nEnemyIdx].GetstrInfo(STR_GUISHU_NAME,nstrName);
 					 int nEnemyPepID=PlayerSet.FindNameID(nstrName);  //µÐÈËÍ¬°éµÄÖ÷ÈË
-					 
+
 					 if (Player[nEnemyPepID].m_cPK.GetNormalPKState()==0 &&
 						 Npc[nEnemyIdx].m_FightMode==0)
 					 {//¼ì²âÖ÷ÈËµÄ×´Ì¬ ·ÇÕ½¶·Ä£Ê½£¬Ã»¿ªPK  ²»¹¥»÷
@@ -3598,9 +3598,9 @@ void	KNpcAI::ProcessCompanion()
 						 Npc[m_nIndex].m_nPeopleIdx = 0;
 						 nEnemyIdx=0;
 					 }
-			
-				 }		
-               else if (Npc[nEnemyIdx].m_Kind==kind_player) 
+
+				 }
+               else if (Npc[nEnemyIdx].m_Kind==kind_player)
 			   {// Èç¹ûµÐÈËÊÇÍæ¼Ò
 				 if (Npc[nEnemyIdx].m_FightMode==0)
 				 {///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
@@ -3622,7 +3622,7 @@ void	KNpcAI::ProcessCompanion()
 			if (nEnemyIdx>0)
 			{
 			  int  Ddistance = NpcSet.GetDistance(nEnemyIdx, m_nIndex);  //ÓëµÐÈËµÄ¾àÀë
-			  
+
 			  if (Ddistance>400)
 			  {//´óÓÚÕâ¸ö¾àÀë¾Í²»¹¥»÷ÁË
 			     nEnemyIdx=0;
@@ -3636,8 +3636,8 @@ void	KNpcAI::ProcessCompanion()
 		      if (!Npc[m_nIndex].SetActiveSkill(nSkillID))
 			  {
 				    Npc[nNpcID].GetMpsPos(&nDesX, &nDesY,&nMap);
-				    Npc[m_nIndex].m_OriginX=nDesX;	
-                    Npc[m_nIndex].m_OriginY=nDesY;  
+				    Npc[m_nIndex].m_OriginX=nDesX;
+                    Npc[m_nIndex].m_OriginY=nDesY;
                     CommonActionCompanion(nNpcID);
 				     return;
 			  }
@@ -3647,25 +3647,25 @@ void	KNpcAI::ProcessCompanion()
 			{ // ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	         nEnemyIdx = GetNearestCharacter(relation_enemy,m_nIndex); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
 	         Npc[nNpcID].GetMpsPos(&nDesX, &nDesY,&nMap);
-	         Npc[m_nIndex].m_OriginX=nDesX;	
-	         Npc[m_nIndex].m_OriginY=nDesY; 
+	         Npc[m_nIndex].m_OriginX=nDesX;
+	         Npc[m_nIndex].m_OriginY=nDesY;
 	         CommonActionCompanion(nNpcID);
 			 return;
-			} 
-		}      
+			}
+		}
 		else if (nNpcID==0) //Ö÷½ÇÍË³öÓÎÏ·ÅÑ±ä---ËÀÍö»òÏÂÏß²»ÅÑ±ä
-		{  
+		{
 			if (Npc[m_nIndex].m_GameliveTime>120)
 			{
-              Npc[m_nIndex].m_TempliveTime = Npc[m_nIndex].m_GameliveTime; 
+              Npc[m_nIndex].m_TempliveTime = Npc[m_nIndex].m_GameliveTime;
 			  Npc[m_nIndex].m_GameliveTime = 120;  //¸øÁ½·ÖÖÓµÈ´ý È»ºóÏú»Ù
-              
+
 			}
 		    return;
-            
+
 			Npc[m_nIndex].GetMpsPos(&nDesX, &nDesY,&nMap);
-			Npc[m_nIndex].m_OriginX    = nDesX;	
-            Npc[m_nIndex].m_OriginY    = nDesY;  
+			Npc[m_nIndex].m_OriginX    = nDesX;
+            Npc[m_nIndex].m_OriginY    = nDesY;
 			Npc[m_nIndex].m_nPeopleIdx = 0;
 			Npc[m_nIndex].m_btRankFFId = 0;
 			Npc[m_nIndex].m_Camp     = 5;
@@ -3701,12 +3701,12 @@ void	KNpcAI::ProcessLuXianAi()
 			g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 			char nstrName[64]={0};
 		    Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-			nPepID = PlayerSet.FindNameID(nstrName); 
+			nPepID = PlayerSet.FindNameID(nstrName);
 
 	    if (nPepID)
 		{
 		    Npc[m_nIndex].m_ZhuaVal    = 0;
-		} 
+		}
 	}
 
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -3848,7 +3848,7 @@ void	KNpcAI::ProcessAIType01()
 			g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 			char nstrName[64]={0};
 		    Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-			nPepID = PlayerSet.FindNameID(nstrName); 
+			nPepID = PlayerSet.FindNameID(nstrName);
 
 	    if (nPepID)
 		{
@@ -3866,13 +3866,13 @@ void	KNpcAI::ProcessAIType01()
 
 		     if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			 {  //¿ªÊ¼ÅÑ±ä
-	
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
+
                 Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
 
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
@@ -3891,10 +3891,10 @@ void	KNpcAI::ProcessAIType01()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-			
-			 }  
+
+			 }
 	     return;
-		} 
+		}
 	}
 
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -3940,7 +3940,7 @@ void	KNpcAI::ProcessAIType01()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -3948,8 +3948,8 @@ void	KNpcAI::ProcessAIType01()
 			  Npc[m_nIndex].m_nPeopleIdx = 0;
 			  nEnemyIdx=0;
 		  }
-		  
-		}   
+
+		}
 	}
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
@@ -4075,7 +4075,7 @@ void	KNpcAI::ProcessAIType02()
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 		char nstrName[64]={0};
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-		nPepID = PlayerSet.FindNameID(nstrName); 
+		nPepID = PlayerSet.FindNameID(nstrName);
 		if (nPepID)
 		{
 			if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
@@ -4090,14 +4090,14 @@ void	KNpcAI::ProcessAIType02()
 			 }
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			{  //¿ªÊ¼ÅÑ±ä
-				
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
-                Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;				
+
+                Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
@@ -4114,10 +4114,10 @@ void	KNpcAI::ProcessAIType02()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-				
-			}  
+
+			}
 			return;
-		} 
+		}
 	}
 
 
@@ -4152,7 +4152,7 @@ void	KNpcAI::ProcessAIType02()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4160,8 +4160,8 @@ void	KNpcAI::ProcessAIType02()
 			  Npc[m_nIndex].m_nPeopleIdx = 0;
 			  nEnemyIdx=0;
 		  }
-		  
-		}   
+
+		}
 	}
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
@@ -4298,14 +4298,14 @@ void	KNpcAI::ProcessAIType03()
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 		char nstrName[64]={0};
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-		nPepID = PlayerSet.FindNameID(nstrName); 
+		nPepID = PlayerSet.FindNameID(nstrName);
 		if (nPepID)
 		{
 			if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 			{
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				return;
-			}	
+			}
 
 			if (Npc[m_nIndex].m_cGold.GetGoldType()>0)
 			{
@@ -4315,15 +4315,15 @@ void	KNpcAI::ProcessAIType03()
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			{  //¿ªÊ¼ÅÑ±ä
-				
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
+
                 Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
-				
+
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
@@ -4340,10 +4340,10 @@ void	KNpcAI::ProcessAIType03()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-				
-			}  
+
+			}
 			return;
-		} 
+		}
 	}
 
 
@@ -4389,7 +4389,7 @@ void	KNpcAI::ProcessAIType03()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4397,9 +4397,9 @@ void	KNpcAI::ProcessAIType03()
 			  Npc[m_nIndex].m_nPeopleIdx = 0;
 			  nEnemyIdx=0;
 		  }
-		  
-		}   
-	} 
+
+		}
+	}
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
 	{
@@ -4531,7 +4531,7 @@ void	KNpcAI::ProcessAIType04()
 		char nstrName[64]={0};
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
 
-		nPepID = PlayerSet.FindNameID(nstrName); 
+		nPepID = PlayerSet.FindNameID(nstrName);
 		if (nPepID)
 		{
 			if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
@@ -4548,15 +4548,15 @@ void	KNpcAI::ProcessAIType04()
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			{  //¿ªÊ¼ÅÑ±ä
-				
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
+
                 Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
-				
+
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
@@ -4572,16 +4572,16 @@ void	KNpcAI::ProcessAIType04()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-				
-			}  
+
+			}
 			return;
-		} 
+		}
 	}
 
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
-	
-	
+
+
 	//NPCËÀÍöÒ²²»¹¥»÷
 	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
@@ -4602,7 +4602,7 @@ void	KNpcAI::ProcessAIType04()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4610,8 +4610,8 @@ void	KNpcAI::ProcessAIType04()
 			  Npc[m_nIndex].m_nPeopleIdx = 0;
 			  nEnemyIdx=0;
 		  }
-		  
-		}   
+
+		}
 	}
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
@@ -4636,8 +4636,8 @@ void	KNpcAI::ProcessAIType04()
 		nEnemyIdx=0;
 		CommonAction();
 		return;
-	}	
-	
+	}
+
 	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
 	{
@@ -4738,7 +4738,7 @@ void	KNpcAI::ProcessAIType05()
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 		char nstrName[64]={0};
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-		nPepID = PlayerSet.FindNameID(nstrName); 
+		nPepID = PlayerSet.FindNameID(nstrName);
 		if (nPepID)
 		{
 			if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
@@ -4746,7 +4746,7 @@ void	KNpcAI::ProcessAIType05()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				return;
 			}
-			
+
 			if (Npc[m_nIndex].m_cGold.GetGoldType()>0)
 			{
 				Npc[m_nIndex].m_ZhuaVal    = 0;
@@ -4755,15 +4755,15 @@ void	KNpcAI::ProcessAIType05()
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			{  //¿ªÊ¼ÅÑ±ä
-				
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
+
                 Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
-				
+
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
@@ -4779,10 +4779,10 @@ void	KNpcAI::ProcessAIType05()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-				
-			}  
+
+			}
 			return;
-		} 
+		}
 	}
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
@@ -4818,7 +4818,7 @@ void	KNpcAI::ProcessAIType05()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4826,8 +4826,8 @@ void	KNpcAI::ProcessAIType05()
 			  Npc[m_nIndex].m_nPeopleIdx = 0;
 			  nEnemyIdx=0;
 		  }
-		  
-		}   
+
+		}
 	}
 	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
@@ -4854,7 +4854,7 @@ void	KNpcAI::ProcessAIType05()
 		CommonAction();
 		return;
 	}
-		
+
 	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
 	{
@@ -4968,7 +4968,7 @@ void	KNpcAI::ProcessAIType06()
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
 		char nstrName[64]={0};
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-		nPepID = PlayerSet.FindNameID(nstrName); 
+		nPepID = PlayerSet.FindNameID(nstrName);
 		if (nPepID)
 		{
 			if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
@@ -4976,7 +4976,7 @@ void	KNpcAI::ProcessAIType06()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				return;
 			}
-			
+
 			if (Npc[m_nIndex].m_cGold.GetGoldType()>0)
 			{
 				Npc[m_nIndex].m_ZhuaVal    = 0;
@@ -4985,15 +4985,15 @@ void	KNpcAI::ProcessAIType06()
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
 			{  //¿ªÊ¼ÅÑ±ä
-				
+
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
 					Npc[m_nIndex].m_ZhuaVal    = 0;
 					return;
 				}
-				
+
                 Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;
-				
+
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
@@ -5009,16 +5009,16 @@ void	KNpcAI::ProcessAIType06()
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
-				
-			}  
+
+			}
 			return;
-		} 
+		}
 	}
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
-	
+
 	//NPCËÀÍöÒ²²»¹¥»÷
-	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0) 
+	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		 nEnemyIdx=0;
@@ -5037,7 +5037,7 @@ void	KNpcAI::ProcessAIType06()
 	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ 	
+		{//¹Ò»úÖÐµÄ
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -5045,7 +5045,7 @@ void	KNpcAI::ProcessAIType06()
 			Npc[m_nIndex].m_nPeopleIdx = 0;
 			nEnemyIdx=0;
 		  }
-		}   
+		}
 	}
 ///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
@@ -5061,7 +5061,7 @@ void	KNpcAI::ProcessAIType06()
 		CommonAction();
 		return;
 	}
-	
+
 	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
 	if (nEnemyIdx <= 0)
 	{
@@ -5174,14 +5174,14 @@ void KNpcAI::ProcessAIType1()
 	}
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
-	
+
 	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx) )
 	{
 		nEnemyIdx = GetNearestNpc(relation_enemy);
 		Npc[m_nIndex].m_nPeopleIdx = nEnemyIdx;
 	}
-	
-	
+
+
 
 	if (nEnemyIdx > 0)
 	{
@@ -5332,7 +5332,7 @@ void KNpcAI::ProcessAIType3()
 		CommonAction();
 		return;
 	}
-	
+
 	if (Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax < pAIParam[0])
 	{
 		if (g_RandPercent(pAIParam[1]))
@@ -5397,7 +5397,7 @@ void KNpcAI::ProcessAIType3()
 void KNpcAI::ProcessAIType4()
 {
 	int*	pAIParam = Npc[m_nIndex].m_AiParam;
-	
+
 	if (KeepActiveRange())
 		return;
 
@@ -5414,7 +5414,7 @@ void KNpcAI::ProcessAIType4()
 		CommonAction();
 		return;
 	}
-	
+
 	int nLifePercent = Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax;
 	if (nLifePercent < pAIParam[0])
 	{
@@ -5535,7 +5535,7 @@ void KNpcAI::ProcessAIType6()
 			return;
 		}
 	}
-	
+
 	if (g_RandPercent(pAIParam[2]))
 	{
 		Npc[m_nIndex].SetActiveSkill(1);
@@ -5634,7 +5634,7 @@ void KNpcAI::ProcessAIType8()
 		CommonAction();
 		return;
 	}
-	
+
 	if (g_RandPercent(pAIParam[0]))
 	{
 		int x, y;
@@ -5686,7 +5686,7 @@ void KNpcAI::ProcessAIType9()
 		CommonAction();
 		return;
 	}
-	
+
 	int nLifePercent = Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax;
 
 	if (g_RandPercent(pAIParam[0]))
@@ -5733,7 +5733,7 @@ void KNpcAI::ProcessAIType10()
 		CommonAction();
 		return;
 	}
-	
+
 	int nLifePercent = Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax;
 
 	if (nLifePercent < pAIParam[0] && g_RandPercent(pAIParam[1]))

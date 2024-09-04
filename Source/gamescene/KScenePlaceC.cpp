@@ -1,4 +1,4 @@
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë°æ£©
+// „1¤7„1¤7„1¤7„1¤7„1¤7„1¤70É0„1¤7„1¤7„1¤70È9„1¤7„1¤70»0—¥
 // Copyright : Kingsoft 2002
 // Author    : Wooy (wu yue)
 // CreateTime: 2002-11-11
@@ -17,7 +17,7 @@
 #include "ObstacleDef.h"
 #include <math.h>
 #include "gamecore/ImgRef.h"
-//ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
+//„1¤7„1¤7„1¤7„1¤7„1¤70ã3„1¤7
 #include "gamecore/KSubWorld.h"
 #ifndef WIN32
 #include <assert.h>
@@ -25,18 +25,18 @@
 
 //#include "KSubWorldSet.h"
 extern KImageStore2 m_ImageStore;
-//	bool		g_bShowGameInfo = FALSE;	    //ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢  ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
-	int			g_nMapIndex = 0;			    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	//int			g_bShowObstacle = FALSE;		//ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½Ï°ï¿½
+//	bool		g_bShowGameInfo = FALSE;	    //„1¤70¢9„1¤7„1¤7„1¤70¶5„1¤7„1¤70Ð5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70Î4  „1¤7„1¤7„1¤7„1¤7000¶4„1¤7„1¤70¶5„1¤7„1¤7„1¤7„1¤7
+	int			g_nMapIndex = 0;			    //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö5
+	//int			g_bShowObstacle = FALSE;		//„1¤70¢9„1¤7„1¤7„1¤70¶5„1¤70Ï8„1¤7
 //	bool        g_iShowPaint    = FALSE;
 //#endif
 KScenePlaceC	g_ScenePlace;
-//====ï¿½Ç·ï¿½Ô¤ï¿½ï¿½ï¿½ÆµØ±ï¿½ï¿½====
+//====„1¤70¢9„1¤70è0„1¤7„1¤7„1¤7011„9„1¤7„1¤7====
 static bool		l_bPrerenderGround = TRUE;	///TURE
 
-//ï¿½Ú·Å³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼
+//„1¤71’30–5„1¤7„1¤7„1¤7„1¤7„1¤70É0„1¤70‘4„1¤7„1¤7„1¤70‘70†4
 #define	ALL_PALCE_ROOT_FOLDER	"\\maps"
-//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
+//„1¤7§Ø„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¢9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ê5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70Ë2„1¤7„1¤7„1¤707„1¤70Ý5„1¤7„1¤7„1¤7„1¤7¦¶„1¤7„1¤7
 #define INSIDE_AREA(h, v, range)	\
 	( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) &&   \
 		((v) - m_FocusRegion.y) * ((v) - m_FocusRegion.y) <= (range * range) )
@@ -45,7 +45,7 @@ static bool		l_bPrerenderGround = TRUE;	///TURE
 	( m_pInProcessAreaRegions[((v) - m_FocusRegion.y + 1) * SPWP_PROCESS_RANGE + (h) - m_FocusRegion.x + 1])
 
 //***********************************************************************************************
-// EnvironmentLightï¿½ï¿½ï¿½Êµï¿½ï¿½
+// EnvironmentLight„1¤7„1¤7„1¤70µ6„1¤7„1¤7
 DWORD ChaZhiColor(KLColor &cLight1, KLColor &cLight2, float f2)
 {
 	if(f2 < 0.0f || f2 > 1.0f)
@@ -73,13 +73,13 @@ EnvironmentLight::EnvironmentLight()
 	m_cLight[6].r = 0x30, m_cLight[6].g = 0x2a, m_cLight[6].b = 0x28;
 }
 
-// ï¿½ï¿½ï¿½Ãµï¿½nIdxï¿½ï¿½ï¿½ï¿½É«
+// „1¤7„1¤7„1¤70‹1„1¤7nIdx„1¤7„1¤7„1¤7„1¤70®2
 void EnvironmentLight::SetLight(const KLColor &cLight, int nIdx)
 {
 	m_cLight[nIdx] = cLight;
 }
 
-// ï¿½ï¿½ï¿½Ãµï¿½nIdxï¿½ï¿½ï¿½ï¿½É«
+// „1¤7„1¤7„1¤70‹1„1¤7nIdx„1¤7„1¤7„1¤7„1¤70®2
 void EnvironmentLight::SetLight(BYTE r, BYTE g, BYTE b, int nIdx)
 {
 	m_cLight[nIdx].r = r;
@@ -87,14 +87,14 @@ void EnvironmentLight::SetLight(BYTE r, BYTE g, BYTE b, int nIdx)
 	m_cLight[nIdx].b = b;
 }
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½É«
+// „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤77„1¤7„1¤7„1¤7„1¤70®2
 void EnvironmentLight::SetLight(KLColor *pLight)
 {
 	for(int i=0; i<7; i++)
 		m_cLight[i] = pLight[i];
 }
 
-// È¡ï¿½Ã¾ï¿½Ò»ï¿½ì¿ªÊ¼nMinutesï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+// 0§0„1¤70‹6„1¤70Ý5„1¤7ƒ4ô90¶3nMinutes„1¤7„1¤7„1¤7„1¤70µ2„1¤70‘3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70®2
 DWORD EnvironmentLight::GetEnvironmentLight(int nMinutes)
 {
 	if(nMinutes < 660)
@@ -171,19 +171,19 @@ int	KScenePlaceC::m_PRIIdxTable[SPWP_MAX_NUM_REGIONS] =
 const KPrevLoadPosItem KScenePlaceC::m_PrevLoadPosOffset[3][3] =
 {
     {
-        { 5, {{-2,  0}, {-2, -1}, {-2, -2}, {-1, -2}, { 0, -2}} },  // ï¿½ï¿½ï¿½Ï½ï¿½(-1, -1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 3, {{-1, -2}, { 0, -2}, { 1, -2}, { 0,  0}, { 0,  0}} },  // ï¿½ï¿½ï¿½Ï·ï¿½( 0, -1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 5, {{ 0, -2}, { 1, -2}, { 2, -2}, { 2, -1}, { 2,  0}} },  // ï¿½ï¿½ï¿½Ï½ï¿½( 1, -1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        { 5, {{-2,  0}, {-2, -1}, {-2, -2}, {-1, -2}, { 0, -2}} },  // „1¤7„1¤7„1¤70Ñ1„1¤7(-1, -1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 3, {{-1, -2}, { 0, -2}, { 1, -2}, { 0,  0}, { 0,  0}} },  // „1¤7„1¤7„1¤70Ð5„1¤7( 0, -1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 5, {{ 0, -2}, { 1, -2}, { 2, -2}, { 2, -1}, { 2,  0}} },  // „1¤7„1¤7„1¤70Ñ1„1¤7( 1, -1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
     },
     {
-        { 3, {{-2, -1}, {-2,  0}, {-2,  1}, { 0,  0}, { 0,  0}} },  // ï¿½ï¿½ï¿½ï¿½(-1,  0)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 0, {{ 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}} },  // Ô­  ï¿½ï¿½( 0,  0)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 3, {{ 2, -1}, { 2,  0}, { 2,  1}, { 0,  0}, { 0,  0}} },  // ï¿½ï¿½ï¿½Ò·ï¿½( 1,  0)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        { 3, {{-2, -1}, {-2,  0}, {-2,  1}, { 0,  0}, { 0,  0}} },  // „1¤7„1¤7„1¤7„1¤7(-1,  0)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 0, {{ 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}} },  // 0è9  „1¤7„1¤7( 0,  0)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 3, {{ 2, -1}, { 2,  0}, { 2,  1}, { 0,  0}, { 0,  0}} },  // „1¤7„1¤7„1¤70Ý1„1¤7( 1,  0)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
     },
     {
-        { 5, {{-2,  0}, {-2,  1}, {-2,  2}, {-1,  2}, { 0,  2}} },  // ï¿½ï¿½ï¿½Â½ï¿½(-1,  1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 3, {{-1,  2}, { 0,  2}, { 1,  2}, { 0,  0}, { 0,  0}} },  // ï¿½ï¿½ï¿½Â·ï¿½( 0,  1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        { 5, {{ 0,  2}, { 1,  2}, { 2,  2}, { 2,  1}, { 2,  0}} },  // ï¿½ï¿½ï¿½Â½ï¿½( 1,  1)ï¿½Ä¶ï¿½Ó¦ï¿½ï¿½ÒªÔ¤ï¿½ï¿½ï¿½Øµï¿½Regionï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        { 5, {{-2,  0}, {-2,  1}, {-2,  2}, {-1,  2}, { 0,  2}} },  // „1¤7„1¤7„1¤70†5„1¤7(-1,  1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 3, {{-1,  2}, { 0,  2}, { 1,  2}, { 0,  0}, { 0,  0}} },  // „1¤7„1¤7„1¤7¡¤„1¤7( 0,  1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+        { 5, {{ 0,  2}, { 1,  2}, { 2,  2}, { 2,  1}, { 2,  0}} },  // „1¤7„1¤7„1¤70†5„1¤7( 1,  1)„1¤708„1¤70á8„1¤7„1¤70Û80è0„1¤7„1¤7„1¤71…3„1¤7Region„1¤7„1¤7„1¤7„1¤70‘7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
     },
 };
 
@@ -296,17 +296,17 @@ void KScenePlaceC::ClosePlace()
 
 	m_nSceneId = SPWP_NO_SCENE;
 
-	m_Map.Free(); //Ð¡ï¿½ï¿½Í¼ï¿½Ä´ï¿½ï¿½ï¿½
+	m_Map.Free(); //§³„1¤7„1¤70É0„1¤706„1¤7„1¤7„1¤7
 	SetLoadingStatus(false);
 #ifdef WIN32
 	ResetEvent(m_hSwitchLoadFinishedEvent);
-	ResetEvent(m_hLoadRegionEvent);	//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½m_FocusRegionÖ®Ç°ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì¾Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+	ResetEvent(m_hLoadRegionEvent);	//„1¤7„1¤70Û8„1¤7„1¤7„1¤7„1¤7„1¤71¬0„1¤7m_FocusRegion0õ80¢2„1¤7„1¤70Û8„1¤7„1¤7„1¤7„1¤7„1¤71±90Â80É3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö4„1¤7„1¤70õ8„1¤7„1¤7„1¤70»3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¹5„1¤7
 	EnterCriticalSection(&m_RegionListAdjustCritical);
 	EnterCriticalSection(&m_LoadCritical);
 	m_nFirstToLoadIndex = -1;
 	int i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-		m_pInProcessAreaRegions[i] = NULL;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pInProcessAreaRegions[i] = NULL;//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	LeaveCriticalSection(&m_LoadCritical);
 	LeaveCriticalSection(&m_RegionListAdjustCritical);
@@ -314,17 +314,17 @@ void KScenePlaceC::ClosePlace()
 	EnterCriticalSection(&m_ProcessCritical);
 	ClearPreprocess(true);
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
-		m_RegionObjs[i].Clear();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_RegionObjs[i].Clear();//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 	LeaveCriticalSection(&m_ProcessCritical);
 #else
 	ResetEvent(m_hSwitchLoadFinishedEvent);
-	ResetEvent(m_hLoadRegionEvent);	//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½m_FocusRegionÖ®Ç°ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì¾Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+	ResetEvent(m_hLoadRegionEvent);	//„1¤7„1¤70Û8„1¤7„1¤7„1¤7„1¤7„1¤71¬0„1¤7m_FocusRegion0õ80¢2„1¤7„1¤70Û8„1¤7„1¤7„1¤7„1¤7„1¤71±90Â80É3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö4„1¤7„1¤70õ8„1¤7„1¤7„1¤70»3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¹5„1¤7
 	pthread_mutex_lock(&m_RegionListAdjustCritical);
 	pthread_mutex_lock(&m_LoadCritical);
 	m_nFirstToLoadIndex = -1;
 	int i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-		m_pInProcessAreaRegions[i] = NULL;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pInProcessAreaRegions[i] = NULL;//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	pthread_mutex_unlock(&m_LoadCritical);
 	pthread_mutex_unlock(&m_RegionListAdjustCritical);
@@ -332,7 +332,7 @@ void KScenePlaceC::ClosePlace()
 	pthread_mutex_lock(&m_ProcessCritical);
 	ClearPreprocess(true);
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
-		m_RegionObjs[i].Clear();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_RegionObjs[i].Clear();//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 	pthread_mutex_unlock(&m_ProcessCritical);
 #endif
 
@@ -353,7 +353,7 @@ void KScenePlaceC::ClosePlace()
 	}*/
 	if (g_GameWorld)
 	   g_GameWorld->FreeAllSprite();
-	//ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ê±ï¿½ï¿½È«ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤70É0„1¤7„1¤70µ2„1¤7„1¤70¨0„1¤7„1¤70°1„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 }
 
 #ifndef WIN32
@@ -363,13 +363,13 @@ void KScenePlaceC::_LoadProcess()
 	DWORD dwRetCode = 0;
 	while(true)
 	{
-		//messageBox("ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		//messageBox("„1¤71±9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7","„1¤71±9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7");
 		    /*if (++g_nServiceLoop >=800000000)
 		    {
 			    g_nServiceLoop = 0;
 		    }
 		    if (g_nServiceLoop & 0x1)
-			   usleep(100000); //Î¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½=1000Î¢ï¿½ï¿½  sleep Îªï¿½ï¿½
+			   usleep(100000); //0Ë1„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7=10000Ë1„1¤7„1¤7  sleep 0Ë2„1¤7„1¤7
 		*/
 		dwRetCode = WaitForSingleObject(m_hLoadRegionEvent,1000);
 		if (dwRetCode == 0)
@@ -386,9 +386,9 @@ void KScenePlaceC::_LoadProcess()
 			if (pRegion)
 			{
 				pthread_mutex_lock(&m_LoadCritical);
-				pRegion->LoadRe(m_szPlaceRootPath);	 //ï¿½Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+				pRegion->LoadRe(m_szPlaceRootPath);	 //„1¤70È9„1¤7„1¤70»5„1¤7„1¤7„1¤7„1¤70Ï8„1¤7
 				pthread_mutex_unlock(&m_LoadCritical);
-				//if (pRegion->getStatus() == 3) //ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½
+				//if (pRegion->getStatus() == 3) //„1¤7„1¤7„1¤71’8„1¤7„1¤7„1¤7„1¤7„1¤7
 				ARegionLoaded(pRegion);
 				//else
                  //continue;
@@ -400,7 +400,7 @@ void KScenePlaceC::_LoadProcess()
 				continue;
 
 			if (m_nFirstToLoadIndex >= 0)
-				continue;   // Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½
+				continue;   // 0»5„1¤7„1¤7„1¤7„1¤7„1¤71’8„1¤7„1¤71…7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 			PreLoadProcess();*/
 	}
@@ -427,7 +427,7 @@ bool KScenePlaceC::Initialize()
 		InitializeCriticalSection(&m_LoadCritical);
 		InitializeCriticalSection(&m_ProcessCritical);
 		DWORD	ThreadId;
-		//ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+		//„1¤7„1¤7„1¤7„1¤7„1¤71±9„1¤7
 		m_hLoadAndPreprocessThread = CreateThread(NULL, 0,LoadThreadEntrance, this, 0, &ThreadId);
 
 		if (m_hLoadAndPreprocessThread)
@@ -455,7 +455,7 @@ bool KScenePlaceC::Initialize()
 	  pthread_mutex_init(&m_LoadCritical,NULL);
 	  pthread_mutex_init(&m_ProcessCritical,NULL);
 	//DWORD	ThreadId;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½
+	//„1¤7„1¤7„1¤7„1¤7„1¤71±9„1¤7
     //[TODO][zer0kull]
 //	  Start();
 	}
@@ -468,7 +468,7 @@ bool KScenePlaceC::Initialize()
 
 }
 
-//##ModelId=3DCAA64C01DA   Ã¿ï¿½ï¿½Ò»ï¿½Îµï¿½Í¼ ï¿½ï¿½Ò»ï¿½ï¿½
+//##ModelId=3DCAA64C01DA   0‹7„1¤7„1¤70Ý5„1¤7¦Å„1¤70É0 „1¤7„1¤70Ý5„1¤7„1¤7
 bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 {
 	if (m_bInited == false)
@@ -494,7 +494,7 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	sprintf(mIndex,"%d",nPlaceIndex);
 	sprintf(mMaptype,"%d",nPlaceIndex);
 
-	if (!cIni.GetString("List",mIndex,"",Buff,sizeof(Buff)))  //ï¿½ï¿½Í¼Â·ï¿½ï¿½
+	if (!cIni.GetString("List",mIndex,"",Buff,sizeof(Buff)))  //„1¤7„1¤70É0¡¤„1¤7„1¤7
 	{
 	    cIni.Clear();
 		return false;
@@ -504,15 +504,15 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	sprintf(m_szPlaceRootPath,"%s\\%s",ALL_PALCE_ROOT_FOLDER,Buff);
 	strcat(mIndex,"_name");
 	strcat(mMaptype,"_MapType");
-	//messageBox(UTEXT(m_szPlaceRootPath,1).c_str(),"TESE");// ï¿½ï¿½ó²»´ï¿½Ð±ï¿½Üµï¿½Â·ï¿½ï¿½
+	//messageBox(UTEXT(m_szPlaceRootPath,1).c_str(),"TESE");// „1¤7„1¤7Ù7Û4„1¤7§Ò„1¤71ž9„1¤7¡¤„1¤7„1¤7
 	//return false;
 	if (!cIni.GetString("List",mIndex,"",m_szSceneName,sizeof(m_szSceneName)))
-	{//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ð½ï¿½È¡ ï¿½ï¿½ï¿½ï¿½
+	{//„1¤7„1¤7„1¤70‹4„1¤7„1¤7„1¤7„1¤7„1¤70ö5„1¤7 „1¤7„1¤7„1¤7„1¤7¡¤„1¤7„1¤7„1¤7§ß„1¤70§0 „1¤7„1¤7„1¤7„1¤7
 		char* pName = strstr(Buff, "\\");  //strchr
 		if (pName)
 		{
 			while(strstr(pName, "\\"))
-				pName = strstr(pName,"\\") + 1; //È¥ï¿½ï¿½Ð±ï¿½ï¿½
+				pName = strstr(pName,"\\") + 1; //0§4„1¤7„1¤7§Ò„1¤7„1¤7
 			strcpy(m_szSceneName, pName);
 		}
 		else
@@ -523,11 +523,11 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
        sprintf(m_szMapType, "Others");
 
     cIni.Clear();
-//---------------------------------------------------Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ð´ï¿½
-//È¡ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+//---------------------------------------------------0µ0„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7§Õ„1¤7„1¤7„1¤7 „1¤7„1¤70¼5„1¤7„1¤7„1¤7§Õ„1¤7
+//0§0„1¤7¨®„1¤7„1¤7„1¤7„1¤70‘3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70Î4
 	char m_sztempRootPath[256];
 	ZeroMemory(m_sztempRootPath,sizeof(m_sztempRootPath));
-	int nValue = sprintf(m_sztempRootPath,"\\maps\\%s.wor",Buff); //ï¿½ï¿½ï¿½ï¿½	  ï¿½ï¿½ï¿½ï¿½
+	int nValue = sprintf(m_sztempRootPath,"\\maps\\%s.wor",Buff); //„1¤7„1¤7„1¤7„1¤7	  „1¤7„1¤7„1¤7„1¤7
 	try
 	{
 	  if (!Ini.Load(m_sztempRootPath))
@@ -538,7 +538,7 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 		return false;
 	}
 //---------------------------------------------------
-	//m_szPlaceRootPath[nValue - 4] = 0;	 //È¥ï¿½ï¿½.worï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½Ö½ï¿½Îªï¿½ï¿½
+	//m_szPlaceRootPath[nValue - 4] = 0;	 //0§4„1¤7„1¤7.wor„1¤7„1¤70ý4„1¤7„1¤7„1¤7„1¤7„1¤7„1¤74„1¤7„1¤7„1¤70÷3„1¤70Ë2„1¤7„1¤7
 
 	//std::string Tempstr = m_szPlaceRootPath;
 	//std::string::size_type pos = Tempstr.find(".wor");
@@ -553,9 +553,9 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	//m_szPlaceRootPath[rootLen - 4] = 0;
 
 	m_nSceneId = nPlaceIndex;
-	g_nMapIndex = nPlaceIndex;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	//ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ð¡ï¿½ï¿½Í¼ ï¿½Ð´ï¿½ï¿½ï¿½
-	m_Map.Load(&Ini, m_nSceneId,m_szPlaceRootPath); //ï¿½ï¿½Ê¼ï¿½ï¿½Ð¡ï¿½ï¿½Í¼
+	g_nMapIndex = nPlaceIndex;		//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö5
+	//„1¤7„1¤7„1¤70ã4„1¤7„1¤7„1¤70¶3„1¤7„1¤7§³„1¤7„1¤70É0 „1¤7§Õ„1¤7„1¤7„1¤7
+	m_Map.Load(&Ini, m_nSceneId,m_szPlaceRootPath); //„1¤7„1¤70¶3„1¤7„1¤7§³„1¤7„1¤70É0
 	int nIsInDoor;
 	Ini.GetInteger("MAIN", "IsInDoor", 0, &nIsInDoor);
 	m_ObjectsTree.SetIsIndoor(nIsInDoor != 0);
@@ -567,12 +567,12 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
 		m_RegionObjs[i].ToLoad(-m_RangePosTable[i].x, -m_RangePosTable[i].y);
-	//È¡ï¿½ï¿½?
+	//0§0„1¤7„1¤7?
 	return true;
 }
 
 //##ModelId=3DBCE7B70358
-void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //„1¤7„1¤7„1¤70‹5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 {
 	if (m_bInited == false || m_szPlaceRootPath[0] == 0 ||
 		(m_FocusPosition.x == nX &&	m_FocusPosition.y == nY))
@@ -588,32 +588,32 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 	//if(m_pWeather)
 		//m_pWeather->SetFocusPos(nX, nY);
 
-	//ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	m_FocusPosition.x = nX;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	m_FocusPosition.y = nY;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤7z„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+	m_FocusPosition.x = nX;//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+	m_FocusPosition.y = nY;//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
-	POINT	pos; //ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	POINT	pos; //„1¤7„1¤7„1¤70¢7„1¤70¢2„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 	pos.x = m_FocusPosition.x / KScenePlaceRegionC::RWPP_AREGION_WIDTH;
 	pos.y = m_FocusPosition.y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;
 
 	SubWorld[0].LookAt(nX, nY, 0);
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»­ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡Î»ï¿½ï¿½
-	m_RepresentArea.right  -= m_RepresentArea.left;//ï¿½ï¿½È¥Ô­ï¿½ï¿½ï¿½ï¿½
-	m_RepresentArea.bottom -= m_RepresentArea.top; //ï¿½ï¿½È¥Ô­ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7œü„1¤7„1¤7„1¤7„1¤706„1¤7§³¦Ë„1¤7„1¤7
+	m_RepresentArea.right  -= m_RepresentArea.left;//„1¤7„1¤70§40è9„1¤7„1¤7„1¤7„1¤7
+	m_RepresentArea.bottom -= m_RepresentArea.top; //„1¤7„1¤70§40è9„1¤7„1¤7„1¤7„1¤7
 	m_RepresentArea.left    = m_FocusPosition.x - m_RepresentExactHalfSize.cx;
 	m_RepresentArea.top     = m_FocusPosition.y - m_RepresentExactHalfSize.cy;
 	m_RepresentArea.right  += m_RepresentArea.left;
 	m_RepresentArea.bottom += m_RepresentArea.top;
 
 	if (pos.x == m_FocusRegion.x && pos.y == m_FocusRegion.y)
-	{//Ð¡ï¿½ï¿½Í¼ Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{//§³„1¤7„1¤70É0 0Ç4„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 		m_Map.SetFocusPosition(m_FocusPosition.x + m_MapFocusOffset.x,
 			 m_FocusPosition.y + m_MapFocusOffset.y, false);
 		return;
 	}
 
     POINT OffsetPos;
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½RegionÎªï¿½ï¿½ï¿½Î»ï¿½Æ½ï¿½ï¿½Ðµï¿½Ô¤ï¿½ï¿½
+    // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤702„1¤7„1¤7„1¤7Region0Ë2„1¤7„1¤7„1¤7¦Ë„1¤709„1¤7„1¤7§Ö„1¤70è0„1¤7„1¤7
     OffsetPos.x = pos.x - m_FocusRegion.x + 1;
     OffsetPos.y = pos.y - m_FocusRegion.y + 1;
 
@@ -636,11 +636,11 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 #endif
         for (i = 0; i < (pcPosOffsetItem->m_nNum); i++)
         {
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½RegionÎªï¿½ï¿½ï¿½Î»ï¿½Æ½ï¿½ï¿½Ðµï¿½Ô¤ï¿½ï¿½
+            // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤702„1¤7„1¤7„1¤7Region0Ë2„1¤7„1¤7„1¤7¦Ë„1¤709„1¤7„1¤7§Ö„1¤70è0„1¤7„1¤7
             m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].x = pos.x + pcPosOffsetItem->m_Pos[i].x;
             m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].y = pos.y + pcPosOffsetItem->m_Pos[i].y;
 
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ç°RegionÎªï¿½ï¿½ï¿½Î»ï¿½Æ½ï¿½ï¿½Ðµï¿½Ô¤ï¿½ï¿½
+            // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤702„1¤70¢2Region0Ë2„1¤7„1¤7„1¤7¦Ë„1¤709„1¤7„1¤7§Ö„1¤70è0„1¤7„1¤7
             //m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].x =
             //    m_FocusRegion.x + pcPosOffsetItem->m_Pos[i].x;
             //
@@ -657,17 +657,17 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
     }
     else
     {
-        // ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ØµÄ·ï¿½Î§ï¿½ï¿½ï¿½ï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+        // „1¤7„1¤7„1¤7„1¤70¢5„1¤7„1¤7„1¤70è0„1¤7„1¤7„1¤71…309„1¤7¦¶„1¤7„1¤7„1¤7„1¤70î3„1¤7„1¤7„1¤7„1¤7„1¤70Û8„1¤7„1¤7„1¤7„1¤7
         m_PreLoadPosItem.m_nNum = 0;
     }
-	//Ð¡ï¿½ï¿½Í¼
+	//§³„1¤7„1¤70É0
 	m_Map.SetFocusPosition(m_FocusPosition.x + m_MapFocusOffset.x,
 		m_FocusPosition.y + m_MapFocusOffset.y, true);
 
-	m_FocusMoveOffset.cx += pos.x - m_FocusRegion.x;  //Æ«ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	m_FocusMoveOffset.cx += pos.x - m_FocusRegion.x;  //0œ1„1¤7„1¤7„1¤70»6„1¤7„1¤71Œ0„1¤7„1¤7„1¤7„1¤7„1¤7
 	m_FocusMoveOffset.cy += pos.y - m_FocusRegion.y;  //
 
-	m_FocusRegion.x   = pos.x;  //ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	m_FocusRegion.x   = pos.x;  //„1¤7„1¤7„1¤7„1¤7„1¤70…8„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7„1¤70ö5
 	m_FocusRegion.y   = pos.y;
 
 	m_ObjectsTree.SetLightenAreaLeftTopPos(
@@ -686,10 +686,10 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 			m_FocusMoveOffset.cx <= -SPWP_TRIGGER_LOADING_RANGE ||
 			m_FocusMoveOffset.cy >= SPWP_TRIGGER_LOADING_RANGE  ||
 			m_FocusMoveOffset.cy <= -SPWP_TRIGGER_LOADING_RANGE)
-		{//ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½×´Ì¬
+		{//„1¤7„1¤7„1¤7¨¹„1¤7„1¤7„1¤70ü80Á0
 			SetLoadingStatus(true);
 		}
-		//ï¿½Ä±ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+		//„1¤703„1¤7„1¤7„1¤71…3„1¤7„1¤7„1¤7„1¤7„1¤7
 		ChangeLoadArea();
 
 		m_FocusMoveOffset.cx = 0;
@@ -724,11 +724,11 @@ void KScenePlaceC::Terminate()
 
 	m_Map.Terminate();
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ë³ï¿½Ö´ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71±9„1¤7„1¤70»3„1¤70ö4„1¤7„1¤7
 	m_FocusRegion.x = SPWP_FARAWAY_COORD;
 #ifdef WIN32
 	SetEvent(m_hLoadRegionEvent);
-	//ï¿½È´ï¿½ï¿½ï¿½ï¿½ß³Ì¹Ø±ï¿½
+	//„1¤70¨9„1¤7„1¤7„1¤7„1¤71±90Â31„9„1¤7
 	DWORD	dwExitCode;
 	if (GetExitCodeThread(m_hLoadAndPreprocessThread, &dwExitCode) && dwExitCode == STILL_ACTIVE)
 		WaitForSingleObject(m_hLoadAndPreprocessThread, INFINITE);
@@ -769,7 +769,7 @@ void KScenePlaceC::Terminate()
 #endif
 }
 
-// Ô¤ï¿½ï¿½ï¿½Øµï¿½Í¼ï¿½Ïµï¿½Í¼ï¿½ï¿½
+// 0è0„1¤7„1¤7„1¤71…3„1¤70É0„1¤70Ð3„1¤70É0„1¤7„1¤7
 void KScenePlaceC::PreLoadProcess()
 {
     if (m_PreLoadPosItem.m_nNum == 0)
@@ -805,7 +805,7 @@ void KScenePlaceC::PreLoadProcess()
         }
 
         if (j >= m_PreLoadPosItem.m_nNum)
-            continue;   // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½Æ¥ï¿½ï¿½ï¿½ï¿½î£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+            continue;   // „1¤7„1¤7„1¤70‹4„1¤7„1¤7„1¤70Ü9„1¤70›5„1¤7„1¤7„1¤7„1¤7ƒ6Ý5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70Ý5„1¤7„1¤7
 
 
         KBuildinObj *pObjsList = NULL;
@@ -861,7 +861,7 @@ void KScenePlaceC::LoadProcess()
 
 	while(true)
 	{
-		//messageBox("ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		//messageBox("„1¤71±9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7","„1¤71±9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7");
         dwRetCode = WaitForSingleObject(m_hLoadRegionEvent, 1000);
         if (dwRetCode == WAIT_OBJECT_0)
         {
@@ -874,11 +874,11 @@ void KScenePlaceC::LoadProcess()
 			LeaveCriticalSection(&m_RegionListAdjustCritical);
 
 			if (pRegion)
-			{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			{//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 				EnterCriticalSection(&m_LoadCritical);
-				pRegion->LoadRe(m_szPlaceRootPath);	 //ï¿½Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+				pRegion->LoadRe(m_szPlaceRootPath);	 //„1¤70È9„1¤7„1¤70»5„1¤7„1¤7„1¤7„1¤70Ï8„1¤7
 				LeaveCriticalSection(&m_LoadCritical);
-				//if (pRegion->getStatus() == 3)         //ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				//if (pRegion->getStatus() == 3)         //„1¤70×3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 				ARegionLoaded(pRegion);
 				//else
 				//	continue;
@@ -891,7 +891,7 @@ void KScenePlaceC::LoadProcess()
                 continue;
 
             if (m_nFirstToLoadIndex >= 0)
-                continue;   // Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½
+                continue;   // 0»5„1¤7„1¤7„1¤7„1¤7„1¤71’8„1¤7„1¤71…7„1¤7„1¤7„1¤7„1¤7„1¤7
 
             PreLoadProcess();*/
 			m_PreLoadPosItem.m_nNum = 0;
@@ -920,7 +920,7 @@ void KScenePlaceC::SetRegionsToLoad()
 	pthread_mutex_lock(&m_RegionListAdjustCritical);
 #endif
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’8„1¤7„1¤7„1¤7„1¤7§Ö„1¤7„1¤7„1¤7„1¤7„1¤7
 	KScenePlaceRegionC* pMayLoadingRegion = NULL;
 	if (m_nFirstToLoadIndex >= 0)
 		pMayLoadingRegion = m_pRegions[m_nFirstToLoadIndex];
@@ -944,7 +944,7 @@ void KScenePlaceC::SetRegionsToLoad()
 			pTempRegions[nLast--] = m_pRegions[i];
 	}
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½Â¸ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤7„1¤70…8„1¤7„1¤70†0„1¤7„1¤7„1¤70¶3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö8„1¤7„1¤7„1¤7§Ò„1¤7„1¤7§Ö„1¤7„1¤7„1¤7„1¤7„1¤7
 	m_nFirstToLoadIndex = (nFirst < SPWP_MAX_NUM_REGIONS) ? nFirst : -1;
 
 	for (i = nBourn; i < SPWP_MAX_NUM_REGIONS; i++)
@@ -1013,7 +1013,7 @@ void KScenePlaceC::SetRegionsToLoad()
 	{
 		if (pMayLoadingRegion == pTempRegions[nFirst + i])
 		{
-			//È·ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¼ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½
+			//0©2„1¤7„1¤70‹4„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö4„1¤7§Þ„1¤7„1¤71ƒ5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¨9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71†1„1¤7„1¤7„1¤7
 #ifdef WIN32
 			EnterCriticalSection(&m_LoadCritical);
 			LeaveCriticalSection(&m_LoadCritical);
@@ -1021,9 +1021,9 @@ void KScenePlaceC::SetRegionsToLoad()
 			pthread_mutex_lock(&m_LoadCritical);
 			pthread_mutex_unlock(&m_LoadCritical);
 #endif
-			//ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½Ç»ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			//Ö¸ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			//ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+			//„1¤7„1¤7„1¤7§Ö„1¤7„1¤70»4„1¤7„1¤7„1¤7„1¤7„1¤70µ2„1¤7„1¤7„1¤7„1¤70Ë2„1¤7„1¤70Ý5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ð8„1¤7„1¤7„1¤7„1¤7„1¤70Î5„1¤7„1¤7„1¤7„1¤70£2„1¤7¦Ä„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+			//0ö8„1¤7„1¤7„1¤7§Ò„1¤7„1¤7„1¤70†0„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+			//„1¤7„1¤7„1¤7„1¤706„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7¦Ä„1¤7„1¤7„1¤71…2„1¤7„1¤7„1¤7
 		}
 
 		pTempRegions[nFirst + i]->ToLoad(m_FocusRegion.x + m_RangePosTable[nNewLoadIdx[i]].x - SPWP_LOAD_EXTEND_RANGE,
@@ -1047,11 +1047,11 @@ unsigned int KScenePlaceC::AddObject(unsigned int uGenre, int nId, int x, int y,
 {
 	POINT	ri;
 	KIpotRuntimeObj* pLeaf = NULL;
-	ri.x = x / KScenePlaceRegionC::RWPP_AREGION_WIDTH; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	ri.y = y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ri.x = x / KScenePlaceRegionC::RWPP_AREGION_WIDTH; //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+	ri.y = y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	if (eLayerParam && INSIDE_AREA(ri.x, ri.y, 1))
-	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½
+	{//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¢7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤709„1¤7¦¶„1¤7„1¤7
 		pLeaf = (KIpotRuntimeObj*)malloc(sizeof(KIpotRuntimeObj));
 
 		if (pLeaf)
@@ -1059,7 +1059,7 @@ unsigned int KScenePlaceC::AddObject(unsigned int uGenre, int nId, int x, int y,
 			pLeaf->eLeafType = pLeaf->IPOTL_T_RUNTIME_OBJ;
 			pLeaf->uGenre = uGenre;
 			pLeaf->nId = nId;
-			pLeaf->oPosition.x = x;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			pLeaf->oPosition.x = x;  //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 			pLeaf->oPosition.y = y + POINT_LEAF_Y_ADJUST_VALUE;
 			pLeaf->nPositionZ = z;
 			pLeaf->pAheadBrother = NULL;
@@ -1092,7 +1092,7 @@ unsigned int KScenePlaceC::MoveObject(unsigned int uGenre, int nId,  int x, int 
 {
 
 	if (uRtoid == 0)
-	{//ï¿½æ»­ï¿½Óµï¿½
+	{//„1¤7œü„1¤70ã3„1¤7
 		uRtoid = AddObject(uGenre, nId, x, y, z, eLayerParam);
 		return uRtoid;
 	}
@@ -1119,7 +1119,7 @@ unsigned int KScenePlaceC::MoveObject(unsigned int uGenre, int nId,  int x, int 
 #endif
 			//if (TryEnterCriticalSection(&m_ProcessCritical))
 				if (pLeaf)
-				   m_ObjectsTree.PluckRto(pLeaf);  //ï¿½ï¿½É¾ï¿½ï¿½
+				   m_ObjectsTree.PluckRto(pLeaf);  //„1¤7„1¤70°1„1¤7„1¤7
 
 				pLeaf->oPosition.x = x;
 				pLeaf->oPosition.y = y + POINT_LEAF_Y_ADJUST_VALUE;
@@ -1180,13 +1180,13 @@ void KScenePlaceC::RemoveObject(unsigned int uGenre, int nId, unsigned int& uRto
 	}
 
 }
-//ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//„1¤7„1¤7„1¤7„1¤70Õ7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 void KScenePlaceC::Breathe()
 {
 
 	//LoadProcess_New();
 	//DWORD dwLight;
-	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÆ¹ï¿½ï¿½ï¿½É«
+	//„1¤7„1¤70§0„1¤7„1¤7„1¤7„1¤7„1¤70705„1¤7„1¤7„1¤70®2
 	//dwLight = m_EnLight.GetEnvironmentLight(m_nCurrentTime);
 /*
 	if(m_pWeather)
@@ -1216,7 +1216,7 @@ void KScenePlaceC::Breathe()
 
 //##ModelId=3DCD7F0A0071
 void KScenePlaceC::Paint()
-{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä»æ»­ï¿½ï¿½ï¿½ï¿½
+{//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7 „1¤70‘3œü„1¤7„1¤7„1¤7„1¤7
 	IR_UpdateTime();
 	if (!g_GameWorld)
 		return;
@@ -1228,31 +1228,31 @@ void KScenePlaceC::Paint()
 		g_GameWorld->ParentNode_objabove->removeAllChildren();
 		return;
 	}
-	//messageBox("ï¿½æ»­ï¿½ï¿½","ï¿½æ»­ï¿½ï¿½");
+	//messageBox("„1¤7œü„1¤7„1¤7","„1¤7œü„1¤7„1¤7");
 	if (m_bInited == false || m_szPlaceRootPath[0] == 0)
 		return;
 
 	if (m_bRenderGround)
 	{
 		m_bRenderGround = false;
-		//PrerenderGround(false); //ï¿½æ»­Â·ï¿½ï¿½
+		//PrerenderGround(false); //„1¤7œü¡¤„1¤7„1¤7
 	}
 #ifdef WIN32
 	EnterCriticalSection(&m_ProcessCritical);
 #else
 	pthread_mutex_lock(&m_ProcessCritical);
 #endif
-	bool bPrerenderGroundImg = PaintBackGround();	//ï¿½Ç·ï¿½ï¿½Ë±ï¿½ï¿½ï¿½Í¼
+	bool bPrerenderGroundImg = PaintBackGround();	//„1¤70¢9„1¤7„1¤70»1„1¤7„1¤7„1¤70É0
 
-    //if (!bPrerenderGroundImg)    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	  // PaintBackGroundCloud();	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //if (!bPrerenderGroundImg)    //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+	  // PaintBackGroundCloud();	 //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	unsigned int i;
 
 	for (i = 0; i <SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)  //SPWP_NUM_REGIONS_IN_PROCESS_AREA
-	{//ï¿½æ»­ï¿½ï¿½Í¼
+	{//„1¤7œü„1¤7„1¤70É0
 		if (m_pInProcessAreaRegions[i])
-		{//ï¿½ï¿½Í²ï¿½ ï¿½ï¿½ï¿½ï¿½ Â· ï¿½ï¿½Æ¤ Ë®ï¿½ï¿½
+		{//„1¤7„1¤70È0„1¤7 „1¤7„1¤7„1¤7„1¤7 ¡¤ „1¤7„1¤70›4 0º8„1¤7„1¤7
 	    	m_pInProcessAreaRegions[i]->PaintGround(i);
 			m_pInProcessAreaRegions[i]->PaintGround(i,0);
 			m_pInProcessAreaRegions[i]->PaintBuildinObj(&m_RepresentArea,i,m_IsClearMap);
@@ -1260,7 +1260,7 @@ void KScenePlaceC::Paint()
 	}
 
 	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_COVER_GROUND);
-	//m_ObjectsTree.Paint(&m_RepresentArea,IPOT_RL_OBJECT);	 //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¾ï¿½ï¿½
+	//m_ObjectsTree.Paint(&m_RepresentArea,IPOT_RL_OBJECT);	 //„1¤7„1¤7„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7 „1¤7„1¤70‘6„1¤7„1¤7
 	//char msg[64];
 	//sprintf(msg,"m_nNumObjsAbove:%d",m_nNumObjsAbove);
 	//messageBox(msg,"m_nNumObjsAbove");
@@ -1268,7 +1268,7 @@ void KScenePlaceC::Paint()
 	{
 		if (m_ClearState==0)
 		{
-			m_ClearState =1;//ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½É¾ï¿½ï¿½
+			m_ClearState =1;//„1¤7„1¤7„1¤7„1¤7„1¤70×4„1¤70°1„1¤7„1¤7
 			char nRegKey[32]={0},nKey[32]={0};
 			sprintf(nRegKey,"above-0");
 			std::string nCurRegKey = nRegKey;
@@ -1279,18 +1279,18 @@ void KScenePlaceC::Paint()
 	else
 	{
 	  m_ClearState = 0;
-	  for (i = 0; i < m_nNumObjsAbove; i++)  //ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¸½ï¿½ï¿½ 9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¸ß¿ï¿½ï¿½ï¿½ï¿½
-	  {//ï¿½æ»­ï¿½Ï²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½ï¿½Ý¶ï¿½
+	  for (i = 0; i < m_nNumObjsAbove; i++)  //„1¤7§Ø„1¤7„1¤71Œ0„1¤7 „1¤7„1¤7„1¤7¦æ„1¤7„1¤7 9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’10‘01³1„1¤7„1¤7„1¤7„1¤7
+	  {//„1¤7œü„1¤70Ð0„1¤7 „1¤7„1¤7„1¤7„1¤7„1¤7„1¤70É0„1¤7§Ø„1¤7„1¤71Œ0„1¤7„1¤71¥4„1¤7
 		KScenePlaceRegionC::PaintAboveHeadObj(m_pObjsAbove[i],&m_RepresentArea,i);
 	  }
 	}
-	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_INFRONTOF_ALL);  //ï¿½ï¿½ï¿½ï¿½ ï¿½ÆºÅµï¿½  ï¿½ï¿½BUG
+	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_INFRONTOF_ALL);  //„1¤7„1¤7„1¤7„1¤7 „1¤7060–7„1¤7  „1¤7„1¤7BUG
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 	//if(m_pWeather)
 	//	m_pWeather->Render(g_pRepresent);
 
-	//PaintOverCloud();	 //ï¿½æ»­ ï¿½Ï²ï¿½ï¿½ï¿½
+	//PaintOverCloud();	 //„1¤7œü „1¤70Ð0„1¤7„1¤7„1¤7
 #ifdef WIN32
 	LeaveCriticalSection(&m_ProcessCritical);
 #else
@@ -1324,16 +1324,16 @@ void KScenePlaceC::ChangeLoadArea()
 {
 	SetRegionsToLoad();
 }
-//ï¿½ï¿½ï¿½ï¿½Ø³ï¿½
+//„1¤7„1¤7„1¤7„1¤71…1„1¤7
 void KScenePlaceC::ClearProcessArea()
 {
 	if (g_GameWorld)
 		g_GameWorld->FreeAllSprite();
-	//ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ê±ï¿½ï¿½È«ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//„1¤7„1¤7„1¤7„1¤70É0„1¤7„1¤70µ2„1¤7„1¤70¨0„1¤7„1¤70°1„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	/*int h,v,i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 		if (m_pInProcessAreaRegions[i])
 		{//#define INSIDE_AREA(h, v, range) ( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) && ((v) - m_FocusRegion::y) * ((v) - m_FocusRegion::y) <= (range * range) )
 			m_pInProcessAreaRegions[i]->GetRegionIndex(h, v);
@@ -1342,14 +1342,14 @@ void KScenePlaceC::ClearProcessArea()
 			{
 				sprintf(nRegKey,"%d-%d-dimian",h,v);
 				std::string nCurRegKey = nRegKey;
-				Node *nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+				Node *nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 
 				if (nRegNode)
 					(g_GameWorld->ParentNode_map)->removeChild(nRegNode);
 
 				sprintf(nRegKey,"%d-%d",h,v);
 				nCurRegKey = nRegKey;
-				nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+				nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 				if (nRegNode)
 				{//%d-%d-dimian
 					Node *nPartNode_A= nRegNode->getChildByTag(MAP_NODE_LUMIAN_A);
@@ -1361,13 +1361,13 @@ void KScenePlaceC::ClearProcessArea()
 						nPartNode_B->removeAllChildren();
 				}
 
-				Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+				Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 				if (nRegBigNode)
 				{
 					Node *nPartNode_A= nRegBigNode->getChildByTag(MAP_NODE_TREES);
 					if (nPartNode_A)
 					{
-						//messageBox("È«ï¿½ï¿½É¾ï¿½ï¿½","MAP_NODE_TREES");
+						//messageBox("0¨0„1¤7„1¤70°1„1¤7„1¤7","MAP_NODE_TREES");
 						nPartNode_A->removeAllChildren();
 					}
 
@@ -1397,13 +1397,13 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 #endif
 	int h,v,i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 		if (m_pInProcessAreaRegions[i])
 		{//#define INSIDE_AREA(h, v, range) ( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) && ((v) - m_FocusRegion::y) * ((v) - m_FocusRegion::y) <= (range * range) )
 			  m_pInProcessAreaRegions[i]->GetRegionIndex(h, v);
 			  if (!isClearAll && INSIDE_AREA(h, v, 1) == 0)
-			  {//Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
-				m_pInProcessAreaRegions[i]->LeaveProcessArea(); //ï¿½ë¿ªÔ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			  {//0÷1„1¤7„1¤70Ý5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70‹4„1¤7„1¤7„1¤7„1¤7„1¤7
+				m_pInProcessAreaRegions[i]->LeaveProcessArea(); //„1¤7ƒ1Õ30è9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 				char nRegKey[32]={0};
 			   if (g_GameWorld)
 			   {
@@ -1416,20 +1416,20 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 					(g_GameWorld->ParentNode_map)->removeChildByName(nPartKey,true);
 
 					Node *nRegNode = NULL;
-					/*= (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½
+					/*= (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7
 				    if (nRegNode)
 						(g_GameWorld->ParentNode_map)->removeChild(nRegNode);
 					*/
 					sprintf(nRegKey,"%d-%d",h,v);
 					std::string   nBigMapKey = nRegKey;
-					/*nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+					/*nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 				   if (nRegNode)
 				   {//%d-%d-dimian
 					   nRegNode->removeAllChildren();
 					   //nRegNode->removeChildByTag(MAP_NODE_LUMIAN_A,true);
 					   //nRegNode->removeChildByTag(MAP_NODE_PART,true);
 				   }*/
-				   Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nBigMapKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+				   Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nBigMapKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 				   if (nRegBigNode)
 				   {
 					   nRegBigNode->removeAllChildren();
@@ -1460,13 +1460,13 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 			GET_IN_PROCESS_AREA_REGION(h, v) = m_pRegions[i];
 			pImage = m_pRegions[i]->GetPrerenderGroundImage();
 			if (pImage == NULL && l_bPrerenderGround)
-			{//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
+			{//„1¤70¢9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70©9
 				pImage = GetFreeGroundImage();
 				//_ASSERT(pImage);
 				//if (!pImage)
 				//	continue;
 			}
-			m_pRegions[i]->EnterProcessArea(pImage); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			m_pRegions[i]->EnterProcessArea(pImage); //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 		}
 	}
 #ifdef WIN32
@@ -1534,7 +1534,7 @@ void KScenePlaceC::Preprocess()
 		m_FocusPosition.x + KScenePlaceRegionC::RWPP_AREGION_WIDTH * 2,
 		m_FocusPosition.y - KScenePlaceRegionC::RWPP_AREGION_HEIGHT * 2);
 
-	//--------ï¿½ï¿½È¡ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½----------
+	//--------„1¤7„1¤70§0„1¤71’9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7§Ò„1¤7----------
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		if (m_pInProcessAreaRegions[i])
@@ -1544,14 +1544,14 @@ void KScenePlaceC::Preprocess()
 				RegionRtoData[i].pObjsLine, RegionRtoData[i].nNumObjsLine,
 				RegionRtoData[i].pObjsTree, RegionRtoData[i].nNumObjsTree);
 			nTotalLineObj += RegionRtoData[i].nNumObjsLine;
-			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ß¿ï¿½ï¿½ï¿½ï¿½ï¿½
+			//„1¤7„1¤70§0„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70‘01³1„1¤7„1¤7„1¤7„1¤7„1¤7
 			RegionRtoData[i].nNumObjsAbove = m_pInProcessAreaRegions[i]->
 				GetAboveHeadLayer(RegionRtoData[i].pObjsAbove);
 			m_nNumObjsAbove += RegionRtoData[i].nNumObjsAbove;
 		}
 	}
 
-	//--------ï¿½ï¿½ï¿½ï¿½ß¿Õ¶ï¿½ï¿½ï¿½---------
+	//--------„1¤7„1¤7„1¤7„1¤71³10ð2„1¤7„1¤7„1¤7---------
 	if (m_nNumObjsAbove)
 	{
 		m_pObjsAbove = (KBuildinObj**)malloc(sizeof(KBuildinObj*) * m_nNumObjsAbove);
@@ -1583,7 +1583,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//--------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½---------
+	//--------„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7---------
 	class TreeObjSet : public KNode
 	{
 	public:
@@ -1598,7 +1598,7 @@ void KScenePlaceC::Preprocess()
 	TreeObjSet	*pNode1 = NULL, *pNode2 = NULL;
 	KIpotBuildinObj* pObj = NULL;
 
-	//---ï¿½ï¿½Í¬ï¿½ï¿½Ò»ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½--
+	//---„1¤7„1¤70Ç4„1¤7„1¤70Ý5„1¤7„1¤70ö1„1¤7„1¤7„1¤70Ð3„1¤7„1¤7„1¤7„1¤7„1¤70Ý5„1¤7„1¤7--
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		for (j = 0; j < RegionRtoData[i].nNumObjsTree; j++)
@@ -1662,7 +1662,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----
+	//----„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70Ï8„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7----
 	pNode1 = (TreeObjSet*)List.GetHead();
 	while(pNode1)
 	{
@@ -1686,7 +1686,7 @@ void KScenePlaceC::Preprocess()
 		List2.AddTail(pNode1);
 	};
 
-	//----ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
+	//----„1¤70Ö0„1¤7„1¤7„1¤7„1¤7„1¤70¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7-----
 	while(pNode1 = (TreeObjSet*)List2.RemoveHead())
 	{
 		while(pObj = pNode1->pObjs)
@@ -1699,10 +1699,10 @@ void KScenePlaceC::Preprocess()
 		pNode1=NULL;
 	};
 
-	//----ï¿½ï¿½ï¿½ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
+	//----„1¤7„1¤7„1¤71²3„1¤70¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7„1¤7„1¤7§Ú„1¤7„1¤7„1¤7„1¤71±9„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7-----
 	if (nTotalLineObj)
 	{
-		struct LineObjItem//---ï¿½ï¿½ï¿½ï¿½ï¿½ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½-----
+		struct LineObjItem//---„1¤7„1¤7„1¤7„1¤7„1¤71²3„1¤70¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7-----
 		{
 			int		nLength2;
 			KIpotBuildinObj*	pObj;
@@ -1739,7 +1739,7 @@ void KScenePlaceC::Preprocess()
 					nTotalLineObj++;
 				}
 			}
-			//----ï¿½ï¿½ï¿½ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
+			//----„1¤7„1¤7„1¤71²3„1¤70¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7-----
 			for (i = 0; i < nTotalLineObj; i++)
 			{
 				m_ObjectsTree.AddLeafLine(pNodeList[i].pObj);
@@ -1749,7 +1749,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//----ï¿½Ñµã·½Ê½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
+	//----„1¤70Ö5‚1ñ20¶4„1¤7„1¤7„1¤7„1¤708„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7-----
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		for (j = 0; j < RegionRtoData[i].nNumObjsPoint; j++)
@@ -1759,14 +1759,14 @@ void KScenePlaceC::Preprocess()
 	}
 
 
-	//----ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
+	//----„1¤70Ö3„1¤7„1¤7„1¤7„1¤71’9„1¤7„1¤7„1¤70é6„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7-----
 	/*KBuildInLightInfo* pLights = NULL;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 
 		if (m_pInProcessAreaRegions[i])
 		{
-			j = m_pInProcessAreaRegions[i]->GetBuildinLights(pLights);  //ï¿½Ú½ï¿½ï¿½ï¿½Ô´
+			j = m_pInProcessAreaRegions[i]->GetBuildinLights(pLights);  //„1¤71’9„1¤7„1¤7„1¤70é6
 			if (j)
 				m_ObjectsTree.AddBuildinLight(pLights, j);
 		}
@@ -1793,12 +1793,12 @@ void KScenePlaceC::ClearPreprocess(int bIncludeRto)
 		free(m_pObjsAbove);
 		m_pObjsAbove = NULL;
 
-		char nRegKey[32]={0};//ï¿½ï¿½ï¿½ï¿½9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½
+		char nRegKey[32]={0};//„1¤7„1¤7„1¤7„1¤79„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71Ÿ7„1¤7„1¤7
 		sprintf(nRegKey,"above-0");
 		std::string nCurRegKey = nRegKey;
 		if (g_GameWorld)
 			g_GameWorld->ParentNode_objabove->removeChildByName(nCurRegKey,true);
-			//Node *nRegNode = g_GameWorld->ParentNode_Bigmap->getChildByName(nCurRegKey);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½
+			//Node *nRegNode = g_GameWorld->ParentNode_Bigmap->getChildByName(nCurRegKey);//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7
 	}
 	m_nNumObjsAbove = 0;
 #ifdef WIN32
@@ -1826,7 +1826,7 @@ void KScenePlaceC::ProjectDistToSpaceDist(int& nXDistance, int& nYDistance)
 
 void KScenePlaceC::ViewPortCoordToSpaceCoord(int& nX, int& nY, int nZ)
 {
-	if (g_GameWorld)//ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (g_GameWorld)//„1¤7„1¤70‘3„1¤7„1¤7„1¤7„1¤7---„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 	    SubWorld[0].GetMpsByLocalPosition(nX, nY, nZ);
 	else
 	{
@@ -1842,12 +1842,12 @@ void KScenePlaceC::GetRegionLeftTopPos(int nRegionX, int nRegionY, int& nLeft, i
 }
 
 void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
-{//ï¿½ï¿½Â½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
+{//„1¤7„1¤70†50µ2„1¤7„1¤7„1¤7„1¤7„1¤71’1„1¤7„1¤7„1¤7„1¤7„1¤7
 	//CCAssert(pRegion,"");
 	if (pRegion==NULL)
 		return;
 
-	//ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½Î§ï¿½ò´¥·ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	//„1¤7„1¤7„1¤7„1¤70ð8„1¤7„1¤7„1¤7„1¤7„1¤70Ð3„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70è0„1¤7„1¤7„1¤7„1¤7¦¶„1¤7Å5‡7„1¤70è0„1¤7„1¤7„1¤7„1¤7„1¤70—2„1¤7
 	int	h, v;
 #ifdef WIN32
 	EnterCriticalSection(&m_RegionListAdjustCritical);
@@ -1876,11 +1876,11 @@ void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
 	}
 #ifdef WIN32
 	LeaveCriticalSection(&m_RegionListAdjustCritical);
-	if (m_nFirstToLoadIndex < 0)//ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	if (m_nFirstToLoadIndex < 0)//„1¤70×4„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70—2„1¤7
 		ResetEvent(m_hLoadRegionEvent);
 #else
     pthread_mutex_unlock(&m_RegionListAdjustCritical);
-	if (m_nFirstToLoadIndex < 0)//ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	if (m_nFirstToLoadIndex < 0)//„1¤70×4„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7 „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70—2„1¤7
 		ResetEvent(m_hLoadRegionEvent);
 #endif
 
@@ -1916,7 +1916,7 @@ void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
 #endif
 	}
 
-	//ï¿½ï¿½ï¿½ï¿½highlightï¿½ï¿½special object
+	//„1¤7„1¤7„1¤7„1¤7highlight„1¤7„1¤7special object
 	if (m_nHLSpecialObjectBioIndex != SPWP_NO_HL_SPECAIL_OBJECT &&
 		h == m_nHLSpecialObjectRegionX && v == m_nHLSpecialObjectRegionY)
 	{
@@ -1948,8 +1948,8 @@ KRUImage* KScenePlaceC::GetFreeGroundImage()
 long KScenePlaceC::GetObstacleInfo(int nX, int nY)
 {
 	POINT	ri;
-	ri.x = nX / KScenePlaceRegionC::RWPP_AREGION_WIDTH;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	ri.y = nY / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ri.x = nX / KScenePlaceRegionC::RWPP_AREGION_WIDTH;		//„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+	ri.y = nY / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;    //„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 
 	if (INSIDE_AREA(ri.x, ri.y, 1))
 	{
@@ -1982,7 +1982,7 @@ void KScenePlaceC::RepresentShellReset()
 		m_RegionGroundImages[i].GROUND_IMG_OK_FLAG = false;
 }
 
-//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ò±»¼ï¿½ï¿½ï¿½ï¿½ï¿½Ïºï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+//„1¤7„1¤7„1¤7¨®„1¤7„1¤7„1¤7„1¤7„1¤70Ý5„1¤7„1¤7„1¤7„1¤7„1¤7Ä6¶2„1¤7„1¤7„1¤7„1¤7„1¤70Ð8„1¤70‘31…3„1¤7„1¤7„1¤7„1¤7„1¤7
 void  KScenePlaceC::SetRegionLoadedCallback(funScenePlaceRegionLoadedCallback pfunCallback)
 {
 	m_pfunRegionLoadedCallback = pfunCallback;
@@ -2103,7 +2103,7 @@ KScenePlaceRegionC*	KScenePlaceC::GetLoadedRegion(int h, int v)
 #endif
 	return pRegion;
 }
-//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ID ï¿½ï¿½ï¿½ï¿½
+//„1¤7„1¤70§0„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤706„1¤7ID „1¤7„1¤7„1¤7„1¤7
 void KScenePlaceC::GetSceneNameAndFocus(char* pszName,
 										int& nId,
 										int& nX,
@@ -2269,8 +2269,8 @@ void KScenePlaceC::LoadIni(KIniFile *pIni)
 									//SetSize(Param.nWidth, Param.nHeight);
 								   {
 								     m_pBGImg[m_nBGNum].nNumFrames = Param.nNumFrames;
-								     m_pBGImg[m_nBGNum].nInterval  = Param.nInterval;		//Ö¡ï¿½ï¿½ï¿½
-								     m_pBGImg[m_nBGNum].nDirs      = Param.nNumFramesGroup; //ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+								     m_pBGImg[m_nBGNum].nInterval  = Param.nInterval;		//0ô5„1¤7„1¤7„1¤7
+								     m_pBGImg[m_nBGNum].nDirs      = Param.nNumFramesGroup; //„1¤71Ÿ1„1¤7„1¤7„1¤7„1¤7„1¤7
 								   }
 								}
 							}
@@ -2372,15 +2372,15 @@ BOOL KScenePlaceC::PaintBackGround()
 		nImgBg.uImage = 0;
 		nImgBg.nISPosition = IMAGE_IS_POSITION_INIT;
 		nImgBg.bRenderFlag = 0;
-		sprintf(nImgBg.szImage,"\\ï¿½ï¿½Ï·ï¿½ï¿½Ô´\\background\\ï¿½ï¿½ï¿½ï¿½Í¼_ï¿½ï¿½.jpg");
+		sprintf(nImgBg.szImage,"\\„1¤7„1¤70Ð5„1¤7„1¤70é6\\background\\„1¤7„1¤7„1¤7„1¤70É0_„1¤7„1¤7.jpg");
 		KImageParam	Param;
 		if (g_pRepresent)
 		{
 		  if (g_pRepresent->GetImageParam(nImgBg.szImage, &Param, ISI_T_BITMAP16))
 		  {
 			nImgBg.nNumFrames = Param.nNumFrames;
-			nImgBg.nInterval  = Param.nInterval;		//Ö¡ï¿½ï¿½ï¿½
-			nImgBg.nDirs      = Param.nNumFramesGroup; //ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+			nImgBg.nInterval  = Param.nInterval;		//0ô5„1¤7„1¤7„1¤7
+			nImgBg.nDirs      = Param.nNumFramesGroup; //„1¤71Ÿ1„1¤7„1¤7„1¤7„1¤7„1¤7
 		  }
 		}
 		nImgBg.oPosition.nX=m_FocusRegion.x-Param.nWidth/2+150;
@@ -2472,8 +2472,8 @@ void KScenePlaceC::SetLoadingStatus(bool bLoading)
 void KScenePlaceC::PaintMap(int nX, int nY)
 {
 	m_Map.PaintMap(nX, nY);
-	//ï¿½æ»­ï¿½Ï°ï¿½Ð¡ï¿½ï¿½Í¼
-	//m_LittleMap.Draw(nX,nY);			// ï¿½ï¿½ï¿½ï¿½
+	//„1¤7œü„1¤70Ï8„1¤7§³„1¤7„1¤70É0
+	//m_LittleMap.Draw(nX,nY);			// „1¤7„1¤7„1¤7„1¤7
 
 }
 
@@ -2484,7 +2484,7 @@ void KScenePlaceC::SetMapParam(unsigned int uShowElems, int nSize)
 		m_Map.SetSize((nSize & 0xffff), (nSize >> 16));
 }
 
-//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Äµï¿½Í¼ï¿½Ä½ï¿½ï¿½ï¿½(ï¿½ï¿½Î»:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//„1¤7„1¤7„1¤7¨®„1¤7„1¤7„1¤7„1¤707„1¤70É0„1¤70‘5„1¤7„1¤7„1¤7(„1¤7„1¤7¦Ë:„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7)
 void KScenePlaceC::SetMapFocusPositionOffset(int nOffsetX, int nOffsetY)
 {
 	if (m_bFollowWithMap == false)
@@ -2502,7 +2502,7 @@ void KScenePlaceC::SetMapFocusPositionOffset(int nOffsetX, int nOffsetY)
 	}
 }
 
-//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
+//„1¤7„1¤70§0„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7§³„1¤7„1¤70É0„1¤7„1¤70Î4
 int KScenePlaceC::GetMapInfo(KSceneMapInfo* pInfo)
 {
 	RECT	MapRc;
@@ -2540,7 +2540,7 @@ int KScenePlaceC::GetMapInfo(KSceneMapInfo* pInfo)
 	return nRet;
 }
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+//„1¤7„1¤7„1¤7„1¤7„1¤70¢9„1¤7„1¤7„1¤7„1¤7„1¤70É0„1¤7„1¤7„1¤702„1¤7„1¤7„1¤7„1¤702„1¤7
 void  KScenePlaceC::FollowMapMove(int nbEnable)
 {
 	if ((!m_bFollowWithMap) != (!nbEnable))
@@ -2563,7 +2563,7 @@ void  KScenePlaceC::FollowMapMove(int nbEnable)
 		}
 	}
 }
-void KScenePlaceC::DrawGreenLine(int nX, int nY, BOOL bSearch) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void KScenePlaceC::DrawGreenLine(int nX, int nY, BOOL bSearch) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 {
 	m_Map.SetGreenLine(nX, nY, bSearch);
 }
@@ -2573,7 +2573,7 @@ void KScenePlaceC::FindPos(int nX, int nY, BOOL bSearch)
 	m_Map.SetGreenLine(nX, nY, bSearch);
 }
 
-//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//0°1„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
 void KScenePlaceC::DelGreenLine()
 {
 	m_Map.DelGreenLine();

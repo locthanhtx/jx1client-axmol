@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" defaultCharsetForPropertiesFiles="GB2312">
-    <file url="file://$PROJECT_DIR$/../Source/gamecore/KNpcResNode.cpp" charset="GB2312" />
-    <file url="PROJECT" charset="GB2312" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="GB18030">
+    <file url="file://$PROJECT_DIR$/../Source/engine/lualib/LuaExtend.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../Source/engine/lualib__/LuaExtend.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../Source/gamecore/KNpc.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../Source/gamecore/KNpcAI.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../Source/gamecore/KNpcResNode.cpp" charset="GBK" />
+    <file url="PROJECT" charset="GB18030" />
   </component>
 </project>

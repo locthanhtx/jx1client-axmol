@@ -28,7 +28,7 @@ KNpcResNode::KNpcResNode()
 	memset(m_szSoundName, 0, sizeof(m_szSoundName));
 }
 
-KNpcResNode::~~KNpcResNode()
+KNpcResNode::~KNpcResNode()
 {
 }
 
@@ -108,7 +108,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 					std::string Tempstr = m_nSectInfo[i].szSectResName;
 					std::string::size_type pos = Tempstr.find(".txt");
 					Tempstr.replace(pos,Tempstr.length(),"信息.txt");
-					sprintf(m_nSectInfo[i].szSectSprInfoName,Tempstr.c_str());
+					sprintf(m_nSectInfo[i].szSectSprInfoName, "%s", Tempstr.c_str());
 					/*g_StrCpyLen(
 						m_nSectInfo[i].szSectSprInfoName, 
 						m_nSectInfo[i].szSectResName, 
@@ -161,11 +161,11 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 						SectFile.GetString(j + 2,k + 2,"",szTemp,sizeof(szTemp));
 						SectFile.GetInteger(j + 2,"内部调用",0,&nIsMa);
 
-						if (nIsMa==1 && strstr(lpszNpcName,"男主角"))
+						if (nIsMa==1 && strstr(lpszNpcName,"MainLady"))
 						{
 							ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName, "spr\\npcres\\woman", szTemp);
 						}
-						else if (nIsMa==1 && strstr(lpszNpcName,"女主角"))
+						else if (nIsMa==1 && strstr(lpszNpcName,"MainMan"))
 						{
 							ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName, "spr\\npcres\\man", szTemp);
 						}

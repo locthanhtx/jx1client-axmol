@@ -10,25 +10,25 @@ void HRocker::updatePos(float dt){
     jsSprite->setPosition(newPosition);
 	//jsSprite->setPosition(ccpAdd(jsSprite->getPosition(),ccpMult(ccpSub(currentPoint, jsSprite->getPosition()),0.5)));
 }
-//ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½
+//Æô¶¯Ò¡¸Ë
 void HRocker::Active()
 {
 	if (!active)
 	{
 		active=true;
-		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //ï¿½ï¿½ï¿½Ë¢ï¿½Âºï¿½ï¿½ï¿½
+		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //Ìí¼ÓË¢ÐÂº¯Êý
 //        auto listener = ax::EventListenerTouchOneByOne::create();
 //		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	}else {
 	}
 }
-//ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½
+//ï¿½ï¿½ï¿½Ò¡ï¿½ï¿?
 void   HRocker::Inactive()
 {
 	if (active) {
 		active=false;
-		this->unschedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos));                 //É¾ï¿½ï¿½Ë¢ï¿½ï¿½
-//		ax::Director::getInstance()->getTouchDispatcher()->removeDelegate(this);//É¾ï¿½ï¿½Î¯ï¿½ï¿½
+		this->unschedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos));                 //É¾³ýË¢ÐÂ
+//		ax::Director::getInstance()->getTouchDispatcher()->removeDelegate(this);//É¾³ýÎ¯ÍÐ
 
         auto touchListener = ax::EventListenerTouchOneByOne::create();
         touchListener->setSwallowTouches(false);
@@ -46,24 +46,24 @@ void   HRocker::Inactive()
 	}
 }
 
-//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¼Ð½ï¿½
-//ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä½Ç¶ï¿½ï¿½ï¿½ï¿½Ô¦ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª×ªï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Îªï¿½ï¿½Î»
+//µÚ¶þ²¿£º¼ÆËã³öÁ½¸öÏòÁ¿Ö®¼äµÄ¼Ð½Ç
+//ÒòÎªÇó³öµÄ½Ç¶ÈÊÇÒÔ¦ÐÎªµ¥Î»£¬ËùÒÔÕâÀïÒª×ª»»³ÉÒÔ¶ÈÎªµ¥Î»
 float HRocker::getAngleSigned()
 {//ccpSub(centerPoint, currentPoint),CCPointMake(0, 1))
 	//return CC_RADIANS_TO_DEGREES(ccpAngleSigned(ccpSub(centerPoint, currentPoint),CCPointMake(0, 1)));
-	/*  //#define PI 3.141592654    float angle = 180.f / PI * rad; ==ï¿½ï¿½ï¿½Ú½Ç¶ï¿½
-	float dx = currentPoint.x - centerPoint.x;
-	float dy = currentPoint.y - centerPoint.y;
-	float t = dx/dy;
+	/*  //#define PI 3.141592654    float angle = 180.f / PI * rad; ==µÈÓÚ½Ç¶È
+	float dx = currentPoint.x - centerPoint.x;  
+	float dy = currentPoint.y - centerPoint.y;  
+	float t = dx/dy;  
 
-	float  at = atan(t);
-	return at/3.1415926*180;
-
-	// ï¿½ï¿½È¡ï¿½Ç¶ï¿½
-	Point p1 = this->getPosition(); //Ò¡ï¿½Ëµï¿½ï¿½ï¿½ï¿½Äµï¿½Î»ï¿½ï¿½
-	Point p2 = touch->getLocation();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
-
-	*/
+	float  at = atan(t);  
+	return at/3.1415926*180; 
+	
+	// »ñÈ¡½Ç¶È
+	Point p1 = this->getPosition(); //Ò¡¸ËµÄÖÐÐÄµÄÎ»ÖÃ
+	Point p2 = touch->getLocation();//´¥ÃþµãµÄÎ»ÖÃ
+	
+	*/  
     float rad = getRad(centerPoint,currentPoint);
 
 	return 180.f/3.141592654*rad;
@@ -74,14 +74,14 @@ float HRocker::getRad(Point p1,Point p2)
 {
 	float xx = p2.x - p1.x;
 	float yy = p2.y - p1.y;
-	// Ð±ï¿½ï¿½
+	// Ð±±ß
 	float xie = sqrt(pow(xx, 2) + pow(yy, 2));
-	// yy >= 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ ï¿½ï¿½ Ö®ï¿½ä¡£(0~180ï¿½ï¿½)
-	// yy < 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ 2ï¿½ï¿½ Ö®ï¿½ä¡£(180ï¿½ï¿½~360ï¿½ï¿½)
+	// yy >= 0 »¡¶ÈÔÚÓÚ 0 µ½ ¦Ð Ö®¼ä¡£(0~180¡ã)
+	// yy < 0 »¡¶ÈÔÚÓÚ ¦Ð µ½ 2¦Ð Ö®¼ä¡£(180¡ã~360¡ã)
 	float rad = yy >= 0 ? (acos(xx / xie)) : (3.141592654 * 2 - acos(xx / xie));
 	return rad;
 }
-//Ò¡ï¿½Ë·ï¿½Î»
+//Ò¡¸Ë·½Î»
 Point HRocker::getDirection()
 {
     ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
@@ -90,7 +90,7 @@ Point HRocker::getDirection()
     vec2.normalize();
 	return ax::Point(vec2);
 }
-//Ò¡ï¿½Ëºï¿½ï¿½ï¿½ï¿½Äµï¿½Ä¾ï¿½ï¿½ï¿½
+//Ò¡¸ËºÍÖÐÐÄµãµÄ¾àÀë
 float HRocker::getVelocity()
 {
     ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
@@ -106,7 +106,7 @@ HRocker* HRocker:: HRockerWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSpr
 }
 
 bool HRocker::ccTouchBegan(Touch* touch, Event* event)
-{//ï¿½ï¿½Ê¼ï¿½Æ¶ï¿½
+{//¿ªÊ¼ÒÆ¶¯
 	if (!active)
 		return false;
 	//if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,false);
@@ -131,11 +131,11 @@ bool HRocker::ccTouchBegan(Touch* touch, Event* event)
 		jsSprite->setPosition(currentPoint);
 		this->getChildByTag(1000)->setPosition(currentPoint);
 	}
-	//messageBox("ï¿½ï¿½Ê¼ï¿½Æ¶ï¿½ï¿½ï¿½","ï¿½ï¿½Ê¼ï¿½Æ¶ï¿½ï¿½ï¿½");
+	//CCMessageBox("¿ªÊ¼ÒÆ¶¯ÖÐ","¿ªÊ¼ÒÆ¶¯ÖÐ");
 	return true;
 }
 void  HRocker::ccTouchMoved(Touch* touch, Event* event)
-{//ï¿½Æ¶ï¿½ï¿½ï¿½
+{//ÒÆ¶¯ÖÐ
 	if (pCoreShell && pCoreShell->getTradeState()) return;
 	if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,false);
 	int nBeilv = 3;
@@ -147,7 +147,7 @@ void  HRocker::ccTouchMoved(Touch* touch, Event* event)
     ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
     float nDistance = vecTouchPoint.distance(vecCenterPoint);
 	if (nDistance > radius)
-	{
+	{//³¬³ö·¶Î§
         ax::Vec2 Vec2Tmp = vecCenterPoint + ((vecTouchPoint - vecCenterPoint).getNormalized() * radius);
 		currentPoint = ax::Point(Vec2Tmp);
 	}else {
@@ -157,69 +157,69 @@ void  HRocker::ccTouchMoved(Touch* touch, Event* event)
     /*sprintf(nPiontinfo,"CurrentPointX:%f,CurrentPointY:%f\nCenterPointX:%f,CenterPointY:%f",
 		    currentPoint.x,currentPoint.y,centerPoint.x,centerPoint.y);
 	messageBox(nPiontinfo,"Ò¡ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½");*/
-	float nVer = getAngleSigned();  //ï¿½ï¿½ï¿½Äµï¿½ï¿½ë´¥ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+	float nVer = getAngleSigned();  //ÖÐÐÄµãÓë´¥ÃþµãµÄ¾àÀë
     float nDestPontX,nDestPontY;
 	if (nVer==0)
-	{//ï¿½ï¿½ï¿½ï¿½
-        nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//ÕýÓÒ
+        nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-nRolePoint.y;
 	}
 	else if(nVer>0 && nVer<90)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//ÓÒÉÏ
+		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
 	}
 	else if (nVer==90)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//ÕýÉÏ
+		nDestPontX = nRolePoint.x;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
 	}
 	else if (nVer>90 && nVer<180)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//×óÉÏ
+		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
 	}
 	else if (nVer==180)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//Õý×ó
+		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-nRolePoint.y;
 	}
 	else if (nVer>180 && nVer<270)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//×óÏÂ
+		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
 	}
 	else if (nVer==270)
-	{//ï¿½ï¿½ï¿½ï¿½
-		nDestPontX = nRolePoint.x;//Ä¿ï¿½ï¿½glï¿½ï¿½ï¿½ï¿½x yï¿½ï¿½ï¿½ï¿½
+	{//ÕýÏÂ
+		nDestPontX = nRolePoint.x;//Ä¿±êgl×ø±êx y²»±ä
 		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
 	}
 	else if (nVer>270 && nVer<360)
-	{//ï¿½ï¿½ï¿½ï¿½
+	{//ÓÒÏÂ
 		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//
 		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
 	}
 	else if (nVer==360)
-	{//ï¿½ï¿½ï¿½ï¿½
+	{//ÕýÓÒ
 		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//
 		nDestPontY = visibleSize.height-nRolePoint.y;
 	}
 
 	if (pCoreShell == NULL)
 		return ;
-	//if (g_pCoreShell->ThrowAwayItem())	//ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	//if (g_pCoreShell->ThrowAwayItem())	//ÏÈÈÓµôÊÖÀïµÄÎïÆ·
 	//return ;
 	//int yyy=g_pCoreShell->GetAutoplayid();
 	//if(yyy)
-	//g_pCoreShell->OperationRequest(GOI_AUTOPALYOPEN,0,-1,100);    //ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ò»ï¿½×´Ì¬[ï¿½ï¿½Ê±È¡ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½]
+	//g_pCoreShell->OperationRequest(GOI_AUTOPALYOPEN,0,-1,100);    //¶¯Êó±êÈ¡Ïû¹Ò»ú×´Ì¬[ÔÝÊ±È¡Ïû¸Ã¹¦ÄÜ]
 
-	//g_pCoreShell->OperationRequest(GOI_SWITCH_SKILLS, 0, 0);      //ï¿½ï¿½ï¿½ï¿½ê¶ªï¿½ï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½
-	//g_pCoreShell->SceneMapOperation(GSMOI_DEL_GREEN_LINE, 0, 0);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//g_pCoreShell->OperationRequest(GOI_JINDUTIAO_CALLBACK, 0, 0); //ï¿½Ø±Õ½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//g_pCoreShell->OperationRequest(GOI_SWITCH_SKILLS, 0, 0);      //¶¯Êó±ê¶ªÆúÊ°È¡¼¼ÄÜ
+	//g_pCoreShell->SceneMapOperation(GSMOI_DEL_GREEN_LINE, 0, 0);  //¶¯Êó±ê¾ÍÈ¡Ïû»­»ÆÏß
+	//g_pCoreShell->OperationRequest(GOI_JINDUTIAO_CALLBACK, 0, 0); //¹Ø±Õ½ø¶ÈÌõ
 	/*KUiPlayerItem SelectPlayer;
 	int nNPCKind = -1;
 	if (pCoreShell->FindSelectNPC(nDestPontX, nDestPontY, relation_all, false, &SelectPlayer, nNPCKind))
-	{//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½NPC
+	{//Êó±êµÄÎ»ÖÃÊÇ·ñÓÐNPC
 		//int nRelation = g_pCoreShell->GetNPCRelation(SelectPlayer.nIndex);
 		pCoreShell->LockSomeoneAction(SelectPlayer.nIndex);
 	}
@@ -229,7 +229,7 @@ void  HRocker::ccTouchMoved(Touch* touch, Event* event)
 	/*int nObjKind = -1;
 	int nObjectIdx = 0;
 	if (pCoreShell->FindSelectObject(nDestPontX,nDestPontY, false, nObjectIdx, nObjKind))
-	{//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½Æ·
+	{//Êó±êµÄÎ»ÖÃÊÇ·ñ ÓÐÎïÆ·
 		pCoreShell->LockObjectAction(nObjectIdx);
 	}
 	else*/
@@ -240,13 +240,13 @@ void  HRocker::ccTouchMoved(Touch* touch, Event* event)
 		isRun  = false;
 		moveEndPoint.x = nDestPontX;
 		moveEndPoint.y = nDestPontY;
-		pCoreShell->GotoWhere(nDestPontX,nDestPontY,0); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		pCoreShell->GotoWhere(nDestPontX,nDestPontY,0); //×ßÏòÊó±ê×ø±êµã
 	}
 
 }
 
 void  HRocker::ccTouchEnded(Touch* touch, Event* event)
-{//ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+{//ÒÆ¶¯½áÊø
 	if (pCoreShell && pCoreShell->getTradeState()) return;
 
 	if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,true);
@@ -276,7 +276,7 @@ HRocker* HRocker::initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,
 	}else{
 		centerPoint =ax::Vec2(0,0);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
-	currentPoint = centerPoint; //ï¿½Æ¶ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	currentPoint = centerPoint; //ÒÆ¶¯ºóµ±Ç°µÄ×ø±ê
 	jsSprite = aJsSprite;
 	jsSprite->setPosition(centerPoint);
 	aJsBg->setPosition(centerPoint);
@@ -286,6 +286,6 @@ HRocker* HRocker::initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,
 	if(isFollowRole){
 		this->setVisible(false);
 	}
-	this->Active();//ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½
+	this->Active();//¼¤»îÒ¡¸Ë
 	return this;
 }

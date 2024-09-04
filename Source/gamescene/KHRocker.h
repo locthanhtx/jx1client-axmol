@@ -7,11 +7,11 @@ using namespace ax;
 
 class HRocker :public Layer {
 public :
-	//ï¿½ï¿½Ê¼ï¿½ï¿½ aPointï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ aRadiusï¿½ï¿½Ò¡ï¿½Ë°ë¾¶ aJsSpriteï¿½ï¿½Ò¡ï¿½Ë¿ï¿½ï¿½Æµï¿½ aJsBgï¿½ï¿½Ò¡ï¿½Ë±ï¿½ï¿½ï¿½
-	static HRocker*  HRockerWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole);
-	//ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½
+	//³õÊ¼»¯ aPointÊÇÒ¡¸ËÖÐÐÄ aRadiusÊÇÒ¡¸Ë°ë¾¶ aJsSpriteÊÇÒ¡¸Ë¿ØÖÆµã aJsBgÊÇÒ¡¸Ë±³¾°
+	static HRocker*  HRockerWithCenter(CCPoint aPoint ,float aRadius ,CCSprite* aJsSprite,CCSprite* aJsBg,bool _isFollowRole);
+	//Æô¶¯Ò¡¸Ë
 	void Active();
-	//ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½
+	//½â³ýÒ¡¸Ë
 	void Inactive();
 	Point getDirection();
 	float   getAngleSigned();
@@ -25,13 +25,13 @@ public :
 	Point getMoveEndPos(){return moveEndPoint;};
 private:
 	HRocker * initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole);
-	Point centerPoint; //Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	Point currentPoint;//Ò¡ï¿½Ëµï¿½Ç°Î»ï¿½ï¿½
+	Point centerPoint; //Ò¡¸ËÖÐÐÄ
+	Point currentPoint;//Ò¡¸Ëµ±Ç°Î»ÖÃ
 	bool isRun;
-	bool active;//ï¿½Ç·ñ¼¤»ï¿½Ò¡ï¿½ï¿½
-	float radius;//Ò¡ï¿½Ë°ë¾¶
+	bool active;//ÊÇ·ñ¼¤»îÒ¡¸Ë
+	float radius;//Ò¡¸Ë°ë¾¶
 	Sprite *jsSprite;
-	bool isFollowRole;//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+	bool isFollowRole;//ÊÇ·ñ¸úËæÓÃ»§µã»÷
 	float getVelocity();
 	virtual bool ccTouchBegan(Touch *pTouch, Event *pEvent);
 	virtual void ccTouchMoved(Touch *pTouch, Event *pEvent);

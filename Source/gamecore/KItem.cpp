@@ -1856,8 +1856,8 @@ void KItem::SetItemInfo(int nVale)
 		else
 		{
 				 pScript->Exit();
-			     sprintf(szResult,"数据有误:%s,%s,%d,%s","GetItemDescription",GetName(),nVale,"��������");
-			//       printf("[˵��]:����:%s,����1:%s,����2:%d,����3:%s,����:%s\n",pView->nCallFun,pView->nCanShuA,pView->nCanShuB,pView->nCanShuC,Npc[Player[nIndex].m_nIndex].m_ItmeInfo);
+			     sprintf(szResult,"数据有误:%s,%s,%d,%s","GetItemDescription",GetName(),nVale,"暂无数据");
+			//       printf("[说明]:函数:%s,参数1:%s,参数2:%d,参数3:%s,返回:%s\n",pView->nCallFun,pView->nCanShuA,pView->nCanShuB,pView->nCanShuC,Npc[Player[nIndex].m_nIndex].m_ItmeInfo);
 		}
 		SetSItmeInfo(szResult);
 	}
@@ -2269,32 +2269,32 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		{
 			/*if (m_CommonAttrib.nLevel==1)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>����������һ�����Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第一属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==2)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>���������ڶ������Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第二属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==3)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>�����������������Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第三属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==4)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>�����������������Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第四属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==5)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>�����������������Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第五属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel>5)
 			{
-				strcat(pszMsg, "<color=Yellow>˵��:<color><color=Blue>�����������������Ƹ�<color>\n");
+				strcat(pszMsg, "<color=Yellow>说明:<color><color=Blue>可以提炼第六属性纹钢<color>\n");
 				//strcat(pszMsg, "\n");
 			} */
 			strcat(pszMsg, "<color=Blue>可以提炼所有纹钢<color>\n");

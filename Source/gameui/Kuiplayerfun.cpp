@@ -1686,7 +1686,7 @@ void Kuiplayerfun::addchatmsg(char * typeName,char * sendName,char * contentt,Li
 
 	custom_button->setName("TextButton");
 	custom_button->setItemDwidx(nItemDwidx);
-	custom_button->setItemName(scrSendName);
+//	custom_button->setItemName(scrSendName);
 	custom_button->loadTextures("ui/textbg.png", "ui/state/life_pk.png","");
 	custom_button->setOpacity(0); //255Ϊ��ȫ��͸�� 0Ϊ��ȫ͸��
 	custom_button->setAnchorPoint(ax::Vec2(0,0));

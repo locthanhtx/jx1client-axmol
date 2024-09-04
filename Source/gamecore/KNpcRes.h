@@ -15,12 +15,12 @@ class KStateSpr
 {
 
 public:
-	int				m_nID;						// ï¿½Ú±ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ðµï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ 1 ï¿½ï¿½Ê¼ï¿½ï¿½0Îªï¿½Õ£ï¿½
-	int				m_nType;					// ï¿½ï¿½ï¿½Í£ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Åµ×¡ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				m_nPlayType;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				m_nBackStart;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê¼Ö¡
-	int				m_nBackEnd;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
-	KSprControl		m_SprContrul;				// spr ï¿½ï¿½ï¿½ï¿½
+	int				m_nID;						// ÔÚ±í¸ñÎÄ¼þÖÐµÄÎ»ÖÃ£¨´Ó 1 ¿ªÊ¼£¬0Îª¿Õ£©
+	int				m_nType;					// ÀàÐÍ£ºÍ·¶¥¡¢½Åµ×¡¢ÉíÉÏ
+	int				m_nPlayType;				// ²¥·ÅÀàÐÍ
+	int				m_nBackStart;				// ÉíÉÏÀàÐÍ ±³ºó¿ªÊ¼Ö¡
+	int				m_nBackEnd;					// ÉíÉÏÀàÐÍ ±³ºó½áÊøÖ¡
+	KSprControl		m_SprContrul;				// spr ¿ØÖÆ
 public:
 	KStateSpr();
 	void			Release();
@@ -33,16 +33,16 @@ public:
 class KNpcBlur
 {
 public:
-	int				m_nActive;							// ï¿½ï¿½Ç°ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½×´Ì¬
-	int				m_nCurNo;							// ï¿½ï¿½Ç°Ö¡Ö¸ï¿½ï¿½
-	DWORD			m_dwTimer;							// Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	DWORD			m_dwInterval;						// ï¿½ï¿½ï¿½ï¿½Ö¡È¡Ò»ï¿½Î²ï¿½Ó°
-	int				m_nMapXpos[MAX_BLUR_FRAME];			// ï¿½ï¿½Ó¦ï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½ï¿½ x
-	int				m_nMapYpos[MAX_BLUR_FRAME];			// ï¿½ï¿½Ó¦ï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½ï¿½ y
-	int				m_nMapZpos[MAX_BLUR_FRAME];			// ï¿½ï¿½Ó¦ï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½ï¿½ z
+	int				m_nActive;							// µ±Ç°²ÐÓ°´¦ÀíÊÇ·ñ´¦ÓÚ¼¤»î×´Ì¬
+	int				m_nCurNo;							// µ±Ç°Ö¡Ö¸Õë
+	DWORD			m_dwTimer;							// Ê±¼ä¼ÆÊýÆ÷
+	DWORD			m_dwInterval;						// ¶àÉÙÖ¡È¡Ò»´Î²ÐÓ°
+	int				m_nMapXpos[MAX_BLUR_FRAME];			// ¶ÔÓ¦µÄµØÍ¼×ø±ê x
+	int				m_nMapYpos[MAX_BLUR_FRAME];			// ¶ÔÓ¦µÄµØÍ¼×ø±ê y
+	int				m_nMapZpos[MAX_BLUR_FRAME];			// ¶ÔÓ¦µÄµØÍ¼×ø±ê z
 	unsigned int	m_SceneIDNpcIdx[MAX_BLUR_FRAME];
-	unsigned int	m_SceneID[MAX_BLUR_FRAME];			//
-	KRUImage		m_Blur[MAX_BLUR_FRAME][MAX_PART];	// ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+	unsigned int	m_SceneID[MAX_BLUR_FRAME];			// 
+	KRUImage		m_Blur[MAX_BLUR_FRAME][MAX_PART];	// ²ÐÓ°»æÖÆÁÐ±í
 public:
 	KNpcBlur();
 	~KNpcBlur();
@@ -70,106 +70,106 @@ class KNpcRes
 		MENUSTATE_BEGIN = 1 + MAX_PART + 6 + 1,
 	};
 private:
-	int				m_nDoing;							// Npcï¿½Ä¶ï¿½ï¿½ï¿½
-	int				m_nAction;							// Npcï¿½ï¿½Êµï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹Ø£ï¿½
-	int				m_nNpcKind;							// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í¨
-	int				m_nXpos;							// ï¿½ï¿½ï¿½ï¿½ x
-	int				m_nYpos;							// ï¿½ï¿½ï¿½ï¿½ y
-	int				m_nZpos;							// ï¿½ï¿½ï¿½ï¿½ z
-	unsigned int 	m_SceneID_NPCIdx;                   // ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ID ï¿½ï¿½Ó¦ï¿½ï¿½NPCidx
-	unsigned int	m_SceneID;							// ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ID
-	int				m_nHelmType;						// ï¿½ï¿½Ç°Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				m_nArmorType;						// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				m_nWeaponType;						// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				m_nHorseType;						// ï¿½ï¿½Ç°ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½
-	int             m_nPifengType;                      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int             m_nChiBangType;                      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL			m_bRideHorse;						// ï¿½ï¿½Ç°ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	int				m_nDoing;							// NpcµÄ¶¯×÷
+	int				m_nAction;							// NpcµÄÊµ¼Ê¶¯×÷£¨ÓëÎäÆ÷¡¢ÆïÂíÓÐ¹Ø£©
+	int				m_nNpcKind;							// ÌØÊâ ÆÕÍ¨
+	int				m_nXpos;							// ×ø±ê x
+	int				m_nYpos;							// ×ø±ê y
+	int				m_nZpos;							// ×ø±ê z
+	unsigned int 	m_SceneID_NPCIdx;                   // ÔÚ³¡¾°ÖÐµÄID ¶ÔÓ¦µÄNPCidx
+	unsigned int	m_SceneID;							// ÔÚ³¡¾°ÖÐµÄID
+	int				m_nHelmType;						// µ±Ç°Í·²¿ÀàÐÍ
+	int				m_nArmorType;						// µ±Ç°ÉíÌåÀàÐÍ
+	int				m_nWeaponType;						// µ±Ç°ÎäÆ÷ÀàÐÍ
+	int				m_nHorseType;						// µ±Ç°ÂíÆ¥ÀàÐÍ
+	int             m_nPifengType;                      //Åû·çÀàÐÍ
+	int             m_nChiBangType;                      //³á°òÀàÐÍ
+	BOOL			m_bRideHorse;						// µ±Ç°ÊÇ·ñÆïÂí
 	int				m_nBlurState;
-	char			m_szSoundName[80];					// ï¿½ï¿½Ç°ï¿½ï¿½Ð§ï¿½Ä¼ï¿½ï¿½ï¿½
-//	KCacheNode		*m_pSoundNode;						// ï¿½ï¿½Ð§Ö¸ï¿½ï¿½
-//	KWavSound		*m_pWave;							// ï¿½ï¿½Ð§wavÖ¸ï¿½ï¿½
+	char			m_szSoundName[80];					// µ±Ç°ÒôÐ§ÎÄ¼þÃû
+//	KCacheNode		*m_pSoundNode;						// ÉùÐ§Ö¸Õë
+//	KWavSound		*m_pWave;							// ÉùÐ§wavÖ¸Õë
 	int				m_nHeightOff;
 //	int             m_ChiBangCurFrameNo;
 //	int             m_TempDir;
 public:
 	enum
 	{
-		    adjustcolor_physics = 0,	// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-			adjustcolor_poison,         // ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-			adjustcolor_freeze,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-			adjustcolor_burn,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-			adjustcolor_confuse,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-			adjustcolor_stun,			// Ñ£ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½É«
-			adjustcolor_red=16,			// ï¿½ï¿½É«
+		    adjustcolor_physics = 0,	// ÎïÀíÉËº¦
+			adjustcolor_poison,         // ¶¾ËØÉËº¦
+			adjustcolor_freeze,			// ±ù¶³ÉËº¦
+			adjustcolor_burn,			// »ðÑæÉËº¦
+			adjustcolor_confuse,		// ÉÁµçÉËº¦
+			adjustcolor_stun,			// Ñ£ÔÎÉËº¦ÑÕÉ«
+			adjustcolor_red=16,			// ºìÉ«
 	};
-	KSprControl		m_cNpcImage[MAX_PART];				 // ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sprï¿½Ä¼ï¿½ï¿½ï¿½
-	KSprControl		m_cNpcShadow;					     // npcï¿½ï¿½Ó°
-	KStateSpr		m_cStateSpr[36];                    //ï¿½ï¿½Ð§ï¿½ï¿½0 1 2 3 ÎªÍ·ï¿½ï¿½ 4 5 6 7 Îªï¿½Åµï¿½  8 9 10 11Îªï¿½ï¿½ï¿½ï¿½
-	//KStateSpr		m_ClientStateSpr[20];               //ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//KRUImage		m_ClientDrawFile[20];               //ï¿½Í»ï¿½ï¿½ï¿½×´Ì¬ï¿½á¹¹
-	//KSprControl	m_cSpecialSpr;						// ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sprï¿½Ä¼ï¿½
+	KSprControl		m_cNpcImage[MAX_PART];				 // ËùÓÐ¶¯×÷µÄËùÓÐsprÎÄ¼þÃû
+	KSprControl		m_cNpcShadow;					     // npcÒõÓ°
+	KStateSpr		m_cStateSpr[36];                    //ÌØÐ§£¬0 1 2 3 ÎªÍ·¶¥ 4 5 6 7 Îª½Åµ×  8 9 10 11ÎªÉíÉÏ
+	//KStateSpr		m_ClientStateSpr[20];               //¿Í»§¶Ë×î´óÍ¬²½µÄÊýÁ¿
+	//KRUImage		m_ClientDrawFile[20];               //¿Í»§¶Ë×´Ì¬½á¹¹
+	//KSprControl	m_cSpecialSpr;						// ÌØÊâµÄÖ»²¥·ÅÒ»±éµÄËæÉísprÎÄ¼þ
 	//KSprControl	m_cFrameSpr;
-	unsigned int	m_ulAdjustColorId;   //×´Ì¬ï¿½ï¿½É«Æ«ï¿½Æ±ï¿½ID
+	unsigned int	m_ulAdjustColorId;   //×´Ì¬ÑÕÉ«Æ«ÒÆ±íID
 	KSprControl  	m_cMenuStateSpr;
 	int				m_nMenuState;
 	int				m_nBackMenuState;
 	int				m_nSleepState;
 	//char			m_szSentence[MAX_SENTENCE_LENGTH];
 	//char			m_szBackSentence[MAX_SENTENCE_LENGTH];
-	int				m_nSortTable[MAX_PART];				// ï¿½ï¿½ï¿½ï¿½ï¿½
-	KRUImage		m_cDrawFile[MAX_NPC_IMAGE_NUM];     // ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½å²¿ï¿½ï¿½ + ï¿½ï¿½Ó° + Ä§ï¿½ï¿½×´Ì¬ + ï¿½ï¿½ï¿½â¶¯ï¿½ï¿½ + Í·ï¿½ï¿½×´Ì¬
-	//KRUImage		m_cStatrDrawFile[MAX_NPC_IMAGE_NUM];     // ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½å²¿ï¿½ï¿½ + ï¿½ï¿½Ó° + Ä§ï¿½ï¿½×´Ì¬ + ï¿½ï¿½ï¿½â¶¯ï¿½ï¿½ + Í·ï¿½ï¿½×´Ì¬
-	//KNpcBlur		m_cNpcBlur;							// npc ï¿½ï¿½Ó°
-	KNpcResNode		*m_pcResNode;      // npc ï¿½ï¿½Ô´
+	int				m_nSortTable[MAX_PART];				// ÅÅÐò±í
+	KRUImage		m_cDrawFile[MAX_NPC_IMAGE_NUM];     // »æÖÆÁÐ±í ÉíÌå²¿¼þ + ÒõÓ° + Ä§·¨×´Ì¬ + ÌØÊâ¶¯»­ + Í·¶¥×´Ì¬
+	//KRUImage		m_cStatrDrawFile[MAX_NPC_IMAGE_NUM];     // »æÖÆÁÐ±í ÉíÌå²¿¼þ + ÒõÓ° + Ä§·¨×´Ì¬ + ÌØÊâ¶¯»­ + Í·¶¥×´Ì¬
+	//KNpcBlur		m_cNpcBlur;							// npc ²ÐÓ°
+	KNpcResNode		*m_pcResNode;      // npc ×ÊÔ´
 	//KRUImage	    m_cDrawSprFile[3];
-	KStateSpr		m_cSprStateSpr[3];
+	KStateSpr		m_cSprStateSpr[3]; 
 	//ClientSprInfo    uSprInfo[20];
 
 private:
-	// ï¿½ï¿½Ò»ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Í¼ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
-	void			GetSoundName();						// ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ä¼ï¿½ï¿½ï¿½
-	void			PlaySound(int nX, int nY);			// ï¿½ï¿½ï¿½Åµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+	// ÓÉÒ»¸öÍ¼Ïñ×ÊÔ´ÎÄ¼þÃûµÃµ½ËûµÄÒõÓ°Í¼ÏñÎÄ¼þÃû
+	void			GetSoundName();						// »ñµÃµ±Ç°¶¯×÷µÄÒôÐ§ÎÄ¼þÃû
+	void			PlaySound(int nX, int nY);			// ²¥·Åµ±Ç°¶¯×÷µÄÒôÐ§
 	void			SetMenuStateSpr(int nMenuState);					// set menu state spr
 public:
 	KNpcRes();
 	~KNpcRes();
-	BOOL			Init(char *lpszNpcName, KNpcResList *pNpcResList,unsigned int nNpcDwIdx);	// ï¿½ï¿½Ê¼ï¿½ï¿½
-	void			Remove(int nNpcIdx);								// ï¿½ï¿½ï¿½
-	void			Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bInMenu = FALSE);		// ï¿½ï¿½ï¿½ï¿½
+	BOOL			Init(char *lpszNpcName, KNpcResList *pNpcResList,unsigned int nNpcDwIdx);	// ³õÊ¼»¯
+	void			Remove(int nNpcIdx);								// Çå³ý
+	void			Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bInMenu = FALSE);		// »æÖÆ
 	void			DrawBorder();
 	int				DrawMenuState(int nHeightOffset,int nNpcIndex);
-	BOOL			SetHelm(int nHelmType);								// ï¿½è¶¨Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL			SetArmor(int nArmorType);							// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL			SetWeapon(int nWeaponType);							// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL			SetPifeng(int nPifengType);
-	BOOL            SetChiBang(int nChiBangType);                       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL			SetHorse(int nHorseType);							// ï¿½è¶¨ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½
-	BOOL			SetAction(int nDoing);								// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int	            GetChiBang(){return m_nChiBangType;};
-	int	            GetPifeng(){return m_nPifengType;};                 //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	BOOL			SetHelm(int nHelmType);								// Éè¶¨Í·¿øÀàÐÍ
+	BOOL			SetArmor(int nArmorType);							// Éè¶¨¿ø¼×ÀàÐÍ
+	BOOL			SetWeapon(int nWeaponType);							// Éè¶¨ÎäÆ÷ÀàÐÍ
+	BOOL			SetPifeng(int nPifengType);	
+	BOOL            SetChiBang(int nChiBangType);                       //³á°òÀàÐÍ
+	BOOL			SetHorse(int nHorseType);							// Éè¶¨ÂíÆ¥ÀàÐÍ
+	BOOL			SetAction(int nDoing);								// Éè¶¨¶¯×÷ÀàÐÍ
+    int	            GetChiBang(){return m_nChiBangType;}; 
+	int	            GetPifeng(){return m_nPifengType;};                 //»ñÈ¡Åû·çÀàÐÍ
 	int				GetHelm(){return m_nHelmType;};
 	int				GetArmor(){return m_nArmorType;	};
 	int				GetWeapon(){return m_nWeaponType;};
-	BOOL			SetRideHorse(BOOL bRideHorse);						// ï¿½è¶¨ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	BOOL			SetRideHorse(BOOL bRideHorse);						// Éè¶¨ÊÇ·ñÆïÂí
 
-	void			SetPos(int nNpcIdx, int x, int y, int z = 0, BOOL bFocus = FALSE, BOOL bMenu = FALSE);// ï¿½è¶¨ npc Î»ï¿½ï¿½
-
+	void			SetPos(int nNpcIdx, int x, int y, int z = 0, BOOL bFocus = FALSE, BOOL bMenu = FALSE);// Éè¶¨ npc Î»ÖÃ
+	
 	void			SetSprState(int nSprIdx,KNpcResList *pNpcResList);
-	void			SetState(KList *pNpcStateList, KNpcResList *pNpcResList);	// ï¿½è¶¨×´Ì¬ï¿½ï¿½Ð§
+	void			SetState(KList *pNpcStateList, KNpcResList *pNpcResList);	// Éè¶¨×´Ì¬ÌØÐ§
 //	void	        SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList);
 	void			SetClientSpr(char *nSprPath,int nxLeft,int nyTop,int nzPos,int i,char *ncPart,int nSprIdx);
-	void			SetSpecialSpr(char *lpszSprName);					// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sprï¿½Ä¼ï¿½
-	void			SetFrameSpr(char *lpszSprName, int nX, int nY, int nHeight,int mInterval=100); //ï¿½ï¿½ï¿½Ã¶ï¿½Ì¬Ñ­ï¿½ï¿½SPR
-	void			SetBlur(BOOL bBlur);								// ï¿½ï¿½Ó°ï¿½ò¿ª¹Ø±ï¿½
-	void			SetAdjustColorId(unsigned int ulColorId){m_ulAdjustColorId = ulColorId;};			// ï¿½ï¿½ï¿½ï¿½Æ«É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½Ê¾ï¿½ï¿½Æ«É«.
+	void			SetSpecialSpr(char *lpszSprName);					// Éè¶¨ÌØÊâµÄÖ»²¥·ÅÒ»±éµÄËæÉísprÎÄ¼þ
+	void			SetFrameSpr(char *lpszSprName, int nX, int nY, int nHeight,int mInterval=100); //ÉèÖÃ¶¯Ì¬Ñ­»·SPR
+	void			SetBlur(BOOL bBlur);								// ²ÐÓ°´ò¿ª¹Ø±Õ
+	void			SetAdjustColorId(unsigned long ulColorId){m_ulAdjustColorId = ulColorId;};			// ÉèÖÃÆ«É«Çé¿ö£¬Èç¹ûÎª0±íÊ¾²»Æ«É«.
 	int				GetAction(){return m_nAction;};
-	void			SetMenuState(int nState, char *lpszSentence = NULL, int nSentenceLength = 0);	// ï¿½è¶¨Í·ï¿½ï¿½×´Ì¬
-	int				GetMenuState();						// ï¿½ï¿½ï¿½Í·ï¿½ï¿½×´Ì¬
-	void			SetSleepState(BOOL bFlag);			// ï¿½è¶¨Ë¯ï¿½ï¿½×´Ì¬
-	BOOL			GetSleepState();						// ï¿½ï¿½ï¿½Ë¯ï¿½ï¿½×´Ì¬
+	void			SetMenuState(int nState, char *lpszSentence = NULL, int nSentenceLength = 0);	// Éè¶¨Í·¶¥×´Ì¬
+	int				GetMenuState();						// »ñµÃÍ·¶¥×´Ì¬
+	void			SetSleepState(BOOL bFlag);			// Éè¶¨Ë¯Ãß×´Ì¬
+	BOOL			GetSleepState();						// »ñµÃË¯Ãß×´Ì¬
 	void			StopSound();
 	int				GetSndVolume(int nVol);
 	static void		GetShadowName(char *lpszShadow, char *lpszSprName);
-	int				GetNormalNpcStandDir(int nFrame);	// ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½(0 - 63)
+	int				GetNormalNpcStandDir(int nFrame);	// ¶¯»­Ö¡Êý×ª»»³ÉÂß¼­·½Ïò(0 - 63)
 };

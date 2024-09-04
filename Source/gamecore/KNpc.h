@@ -18,30 +18,30 @@ class KSkill;
 //#include "KSubworld.h"
 #include "KNpcRes.h"
 //---------------------------------------------------------------------------
-#define	MAX_NPC			200        // NPcï¿½ï¿½ï¿½ï¿½  500
-#define VER_INFO "50JX-×¨ï¿½Ã¶ï¿½"
-#define MAX_NPCSTYLE	3000       // npcÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2000
-//#define VER_INFO "ï¿½ï¿½ï¿½ï¿½<color=red>ï¿½ï¿½<color>ï¿½ï¿½ï¿½ï¿½-×¨ï¿½Ã¶ï¿½"
+#define	MAX_NPC			200        // NPcÏÞÖÆ  500
+#define VER_INFO "50JX-×¨ÓÃ¶Ë"
+#define MAX_NPCSTYLE	3000       // npcÄ£°åÊýÁ¿ 2000
+//#define VER_INFO "½£ÏÀ<color=red>¡ï<color>½­ºþ-×¨ÓÃ¶Ë"
 #define	defMAX_SHOW_BLOOD_NUM		5    //50
-#define	MAX_AI_PARAM				10   //AIÄ£Ê½ ï¿½ï¿½ï¿½
-#define	MAX_NPC_USE_SKILL			4    //NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	MAX_AI_PARAM				10   //AIÄ£Ê½ Àà±ð
+#define	MAX_NPC_USE_SKILL			4    //NPC¹ÖÎï×î´ó¼¼ÄÜÊýÁ¿
 
-#define	MAX_FUMO_COUNT              5    //ï¿½ñ½«µï¿½ï¿½ï¿½ï¿½ï¿½
+#define	MAX_FUMO_COUNT              5    //Éñ½«µÄÊýÁ¿
 #define defLOGIC_CELL_WIDTH         32
 
 
 //#define	TABFILE_MAGICALEVEL_PATH	"\\Settings\\item\\004\\magicattriblevel_index.txt"
 
 //#define	KItemNormalAttrib KMagicAttrib
-//	ï¿½Ü¶ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ÈµÄ±ï¿½ï¿½ï¿½
+//	ÅÜ¶¯ËÙ¶ÈÓëÐÐ×ßËÙ¶ÈµÄ±¶Êý
 //#define	WALK_RUN_TIMES	3
 
-#define		STATE_FREEZE	0x01   //2 ï¿½ï¿½ 0 ï¿½Î·ï¿½
-#define		STATE_POISON	0x02   //2 ï¿½ï¿½ 1 ï¿½Î·ï¿½
-#define		STATE_CONFUSE	0x04   //4 2ï¿½ï¿½ 2ï¿½Î·ï¿½
-#define		STATE_STUN		0x08   //8 2ï¿½ï¿½ 3 ï¿½Î·ï¿½
-#define		STATE_HIDE		0x10   //16 2ï¿½ï¿½ 4 ï¿½Î·ï¿½
-//#define		STATE_MOVE		0x32   //32 2ï¿½ï¿½ 5 ï¿½Î·ï¿½
+#define		STATE_FREEZE	0x01   //2 µÄ 0 ´Î·½
+#define		STATE_POISON	0x02   //2 µÄ 1 ´Î·½
+#define		STATE_CONFUSE	0x04   //4 2µÄ 2´Î·½
+#define		STATE_STUN		0x08   //8 2µÄ 3 ´Î·½
+#define		STATE_HIDE		0x10   //16 2µÄ 4 ´Î·½
+//#define		STATE_MOVE		0x32   //32 2µÄ 5 ´Î·½
 
 //#define		STATE_ZHUA		0x09
 enum NPCATTRIB
@@ -56,43 +56,43 @@ enum NPCATTRIB
 
 enum NPCCMD
 {
-	do_none,		// Ê²Ã´Ò²ï¿½ï¿½ï¿½ï¿½
-	do_stand,		// Õ¾ï¿½ï¿½
-	do_walk,		// ï¿½ï¿½ï¿½ï¿½
-	do_run,			// ï¿½Ü¶ï¿½
-	do_jump,		// ï¿½ï¿½Ô¾
-	do_skill,		// ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
-	do_magic,		// Ê©ï¿½ï¿½
-	do_attack,		// ï¿½ï¿½ï¿½ï¿½
-	do_sit,			// ï¿½ï¿½ï¿½ï¿½
-	do_hurt,		// ï¿½ï¿½ï¿½ï¿½
-	do_death,		// ï¿½ï¿½ï¿½ï¿½
-	do_defense,		// ï¿½ï¿½
-	do_idle,		// ï¿½ï¿½ï¿½ï¿½
-	do_specialskill,// ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½
-	do_special1,	// ï¿½ï¿½ï¿½ï¿½1
-	do_special2,	// Íµï¿½Ô¼ï¿½ï¿½ï¿½
-	do_special3,	// ï¿½ï¿½ï¿½ï¿½3
-	do_special4,	// ï¿½Æ¶ï¿½
+	do_none,		// Ê²Ã´Ò²²»¸É
+	do_stand,		// Õ¾Á¢
+	do_walk,		// ÐÐ×ß
+	do_run,			// ÅÜ¶¯
+	do_jump,		// ÌøÔ¾
+	do_skill,		// ·¢¼¼ÄÜµÄÃüÁî
+	do_magic,		// Ê©·¨
+	do_attack,		// ¹¥»÷
+	do_sit,			// ´ò×ø
+	do_hurt,		// ÊÜÉË
+	do_death,		// ËÀÍö
+	do_defense,		// ¸ñµ²
+	do_idle,		// ´­Æø
+	do_specialskill,// ¼¼ÄÜ¿ØÖÆ¶¯×÷
+	do_special1,	// ÌØÊâ1
+	do_special2,	// ÍµÇÔ¼¼ÄÜ
+	do_special3,	// ÌØÊâ3
+	do_special4,	// ÒÆ¶¯
 	do_runattack,
 	do_manyattack,
 	do_jumpattack,
-	do_revive,      //ï¿½ï¿½ï¿½ï¿½
+	do_revive,      //ÖØÉú
 	do_stall,
-	do_movepos,		// Ë²ï¿½ï¿½ï¿½Æ¶ï¿½
-	do_knockback,	// ï¿½ï¿½ï¿½ï¿½
-	do_drag,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	do_rushattack,	// ï¿½å¿³
-	do_runattackmany, //ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½
+	do_movepos,		// Ë²¼äÒÆ¶¯
+	do_knockback,	// ÕðÍË
+	do_drag,		// À­³¶¹ýÀ´
+	do_rushattack,	// ³å¿³
+	do_runattackmany, //³å´Ì¶àÈË
 	do_num,
-/*	do_sunyi,       //Ë²ï¿½ï¿½ï¿½Æ¶ï¿½
-	do_yidong,      //ï¿½ï¿½ï¿½Í¼ï¿½Æ¶ï¿½
+/*	do_sunyi,       //Ë²¼äÒÆ¶¯
+	do_yidong,      //¿çµØÍ¼ÒÆ¶¯
 
-	do_movepos,		// Ë²ï¿½ï¿½ï¿½Æ¶ï¿½
-	do_knockback,	// ï¿½ï¿½ï¿½ï¿½
-	do_drag,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	do_rushattack,	// ï¿½å¿³
-	do_runattackmany, //ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ */
+	do_movepos,		// Ë²¼äÒÆ¶¯
+	do_knockback,	// ÕðÍË
+	do_drag,		// À­³¶¹ýÀ´
+	do_rushattack,	// ³å¿³
+	do_runattackmany, //³å´Ì¶àÈË */
 };
 
 enum CLIENTACTION
@@ -111,50 +111,50 @@ enum CLIENTACTION
 	cdo_magic,
 	cdo_sit,
 	cdo_jump,
-	cdo_none,
+	cdo_none,   
 	cdo_count,
 };
- //ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+ //ÉËº¦ÀàÐÍ
 enum DAMAGE_TYPE
 {
-	damage_physics = 0,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_fire,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_cold,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_light,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_poison,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_magic,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	damage_num,				// ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+	damage_physics = 0,		// ÎïÀíÉËº¦
+	damage_fire,			// »ðÑæÉËº¦
+	damage_cold,			// ±ù¶³ÉËº¦
+	damage_light,			// ÉÁµçÉËº¦
+	damage_poison,			// ¶¾ËØÉËº¦
+	damage_magic,			// ÎÞÊôÐÔÉËº¦
+	damage_num,				// ÉËº¦ÀàÐÍÊýÄ¿
 };
 
-// DoDeath Ê±ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½
+// DoDeath Ê±µÄ²ÎÊý£¬¶ÔÓ¦²»Í¬µÄËÀÍö³Í·£
 enum DEATH_MODE
 {
-	DEATH_MODE_NPC_KILL = 0,		// ï¿½ï¿½npcÉ±ï¿½ï¿½0
-	DEATH_MODE_PLAYER_NO_PUNISH,	// ï¿½Ð´ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½ï¿½  1  Ã»ï¿½Ð³Í·ï¿½
-	DEATH_MODE_PLAYER_PUNISH,		// ï¿½ï¿½ï¿½ï¿½ï¿½PKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKÖµï¿½ï¿½ï¿½Ð³Í·ï¿½2
-	DEATH_MODE_PKBATTLE_PUNISH,		// ï¿½ï¿½Ê½ï¿½Ú¹ï¿½Õ½Ê±ï¿½Ä³Í·ï¿½ï¿½ï¿½ï¿½ï¿½ 3
-	DEATH_MODE_EXP_PUNISH,		    // ï¿½ï¿½ï¿½ï¿½Í·ï¿½
-	DEATH_MODE_MONEY_PUNISH,		// ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½
-	DEATH_MODE_EQUIP_PUNISH,		// ×°ï¿½ï¿½ï¿½Í·ï¿½
-	DEATH_MODE_JINBI_PUNISH,        // ï¿½ï¿½Ò³Í·ï¿½
+	DEATH_MODE_NPC_KILL = 0,		// ±»npcÉ±ËÀ0
+	DEATH_MODE_PLAYER_NO_PUNISH,	// ÇÐ´èÄ£Ê½±»Íæ¼ÒÉ±ËÀ  1  Ã»ÓÐ³Í·£
+	DEATH_MODE_PLAYER_PUNISH,		// ±»Íæ¼ÒPKÖÂËÀ£¬¸ù¾ÝPKÖµ½øÐÐ³Í·£2
+	DEATH_MODE_PKBATTLE_PUNISH,		// ÀàÊ½ÓÚ¹úÕ½Ê±µÄ³Í·£´¦Àí 3
+	DEATH_MODE_EXP_PUNISH,		    // ¾­Ñé³Í·£
+	DEATH_MODE_MONEY_PUNISH,		// ÒøÁ½³Í·£
+	DEATH_MODE_EQUIP_PUNISH,		// ×°±¸³Í·£
+	DEATH_MODE_JINBI_PUNISH,        // ½ð±Ò³Í·£
 	DEATH_MODE_NUM,
 };
 
 typedef struct
 {
-	NPCCMD		CmdKind;		// ï¿½ï¿½ï¿½ï¿½C
-	int			Param_X;		// ï¿½ï¿½ï¿½ï¿½X
-	int			Param_Y;		// ï¿½ï¿½ï¿½ï¿½Y
-	int			Param_Z;		// ï¿½ï¿½ï¿½ï¿½Y
+	NPCCMD		CmdKind;		// ÃüÁîC
+	int			Param_X;		// ²ÎÊýX
+	int			Param_Y;		// ²ÎÊýY
+	int			Param_Z;		// ²ÎÊýY
 } NPC_COMMAND;
 
 typedef struct
 {
-	int		nTotalFrame;  //È«ï¿½ï¿½Ö¡
-	int		nCurrentFrame;//ï¿½ï¿½Ç°Ö¡
+	int		nTotalFrame;  //È«²¿Ö¡
+	int		nCurrentFrame;//µ±Ç°Ö¡
 	void SetFrame(int nTotal)
 	{
-		if (nTotal <= 0)	// Ò»ï¿½ã²»ï¿½ï¿½ÒªÊ±ï¿½ï¿½Îª0ï¿½Ä¶ï¿½ï¿½ï¿½
+		if (nTotal <= 0)	// Ò»°ã²»ÐèÒªÊ±¼äÎª0µÄ¶¯×÷
 			nTotalFrame = 1;
 		else
 			nTotalFrame = nTotal;
@@ -169,21 +169,21 @@ struct KState
 	int	nValue[3];
 	int	nTime;
 };
-//ï¿½Ä±ï¿½NPCï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½á¹¹
+//¸Ä±äNPCµÄ»ù±¾Êý¾Ý½á¹¹
 struct KChanelBaseInfo
 {
-	int     PhysicsDamage;             // ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
-	int		m_PhysicsDamage;		   // Npcï¿½Äµï¿½Ç°ï¿½Ëºï¿½
-	int		m_FireDamage;	           // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	int		m_ColdDamage;	           // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	int		m_LightDamage;	           // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	int		m_PoisonDamage;	           // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-
-	int		m_FireResist;	            // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int		m_ColdResist;	            // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int		m_PoisonResist;	            // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int		m_LightResist;	            // Npcï¿½Äµï¿½Ç°ï¿½ç¿¹ï¿½ï¿½
-	int		m_PhysicsResist;	        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     PhysicsDamage;             // »ù±¾ÉËº¦
+	int		m_PhysicsDamage;		   // NpcµÄµ±Ç°ÉËº¦
+	int		m_FireDamage;	           // NpcµÄµ±Ç°»ðÉËº¦
+	int		m_ColdDamage;	           // NpcµÄµ±Ç°±ùÉËº¦
+	int		m_LightDamage;	           // NpcµÄµ±Ç°µçÉËº¦
+	int		m_PoisonDamage;	           // NpcµÄµ±Ç°¶¾ÉËº¦
+	
+	int		m_FireResist;	            // NpcµÄµ±Ç°»ð¿¹ÐÔ
+	int		m_ColdResist;	            // NpcµÄµ±Ç°±ù¿¹ÐÔ
+	int		m_PoisonResist;	            // NpcµÄµ±Ç°¶¾¿¹ÐÔ
+	int		m_LightResist;	            // NpcµÄµ±Ç°µç¿¹ÐÔ
+	int		m_PhysicsResist;	        // NpcµÄµ±Ç°ÎïÀí¿¹ÐÔ
 };
 
 struct skillAuraInfo
@@ -204,23 +204,23 @@ struct sNpcShadowInfo
 	char szImage[256];
 };
 
-//ï¿½ï¿½ï¿½ï¿½
+//Éñ½«Àà
 struct CFuMoInfo
 {
-	int nNpcIdx;
-	int nNpcSetings;     //NPC settings	ï¿½æµµ
-	int	nNpcSkill;       //Í¬ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½id ï¿½æµµ
-	int nSkillLevel;	 //ï¿½ï¿½ï¿½ÜµÈ¼ï¿½     ï¿½æµµ
-	int nNowLevel;       //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄµÈ¼ï¿½
-	DWORD nCastTime;     //ï¿½Í·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
-	DWORD nNextCastTime; //ï¿½Â´ï¿½ï¿½Í·ï¿½Ê±ï¿½ï¿½
-	int nNowExp;         //ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½
+	int nNpcIdx;  
+	int nNpcSetings;     //NPC settings	´æµµ
+	int	nNpcSkill;       //Í¬°éµÄ¼¼ÄÜid ´æµµ
+	int nSkillLevel;	 //¼¼ÄÜµÈ¼¶     ´æµµ
+	int nNowLevel;       //Í¬°éÏÖÔÚµÄµÈ¼¶
+	DWORD nCastTime;     //ÊÍ·ÅÊ±¼ä¼ä¸ô
+	DWORD nNextCastTime; //ÏÂ´ÎÊÍ·ÅÊ±¼ä
+	int nNowExp;         //ÏÖÔÚµÄ¾­Ñé
 };
 
-//ï¿½ï¿½ï¿½Ü¼Ó³ï¿½
+//¼¼ÄÜ¼Ó³É
 struct CEnhanceInfo
 {
-	int	nSkillIdx;
+	int	nSkillIdx;   
 	int nEnhance;
 };
 /*
@@ -255,13 +255,13 @@ class KStateNode : public KNode
 {
 public:
 
-	int				m_SkillID;					// ï¿½ï¿½ï¿½ï¿½ID
-	int				m_Level;					// ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
-	int				m_LeftTime;					// Ê£ï¿½ï¿½Ê±ï¿½ï¿½
-	KMagicAttrib	m_State[MAX_SKILL_STATE];	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Ð±ï¿½
-	//KMagicAttrib	m_JinMaiState;	            // ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Ð±ï¿½
-	int				m_StateGraphics;			// ×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int             m_IsClientState;            // ï¿½Ç·ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½×´Ì¬
+	int				m_SkillID;					// ¼¼ÄÜID
+	int				m_Level;					// ¼¼ÄÜµÈ¼¶
+	int				m_LeftTime;					// Ê£ÓàÊ±¼ä
+	KMagicAttrib	m_State[MAX_SKILL_STATE];	// ÊôÐÔÊýÁ¿×´Ì¬ÁÐ±í
+	//KMagicAttrib	m_JinMaiState;	            // ¾­Âö×´Ì¬ÁÐ±í
+	int				m_StateGraphics;			// ×´Ì¬¶¯»­Ë÷Òý
+	int             m_IsClientState;            // ÊÇ·ñ¶Ô·½¿´±¾ÈËµÄ×´Ì¬
 };
 
 class KNpc
@@ -269,103 +269,103 @@ class KNpc
 	friend class KNpcSet;
 public:
 	sNpcShadowInfo      _NpcShadow;
-	DWORD				m_dwID;					// Npcï¿½ï¿½ID  ï¿½Ú¸ï¿½NPC ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD				m_dwID;					// NpcµÄID  µÚ¸öNPC ±àºÅ ÎÞÏÞÔö´ó
 	//BOOL              m_IsSyn;
-	DWORD               m_bLockNpcDwID;			// ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½	DWid
-    BYTE                m_IsHaveAttack;         //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
-	DWORD               m_AttackerDwid;         //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
-	DWORD               m_IsRevive;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-	BYTE                m_IsRe;                 //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
-	//bool                m_isClearSpr;           //ï¿½Ç·ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_Index;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD               m_bLockNpcDwID;			// Ëø¶¨NPCµÄ	DWid
+    BYTE                m_IsHaveAttack;         //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
+	DWORD               m_AttackerDwid;         //ÉÏ´Î¹¥»÷×ÅµÄDWID
+	DWORD               m_IsRevive;             //ÊÇ·ñÖØÉú
+	BYTE                m_IsRe;                 //Í¬²½ÖØÉúÖ¡Êý
+	//bool                m_isClearSpr;           //ÊÇ·ñÍ¬²½µ½¿Í»§¶ËÉ¾³ý¾«Áé
+	int					m_Index;				// NpcµÄË÷Òý
 	KIndexNode			m_Node;					// Npc's Node
-	int					m_Level;				// Npcï¿½ÄµÈ¼ï¿½
-	BYTE				m_Kind;					// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BYTE				m_Series;				// Npcï¿½ï¿½Ïµ
-	int					m_Height;				// Npcï¿½Ä¸ß¶ï¿½(ï¿½ï¿½Ô¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½)
-	int 				m_btRankId;             // ï¿½ÆºÅµï¿½id
-	int 				m_NpcTitle;             // NPCï¿½Â³ÆºÅ£ï¿½ï¿½æµµï¿½ï¿½
-	int                 m_CurNpcTitle;          // ï¿½ï¿½Ç°ï¿½Æºï¿½	 ï¿½ï¿½ï¿½ï¿½ï¿½æµµï¿½ï¿½Ê±ï¿½ÆºÅ£ï¿½
-	BYTE				m_btRankFFId;           //SPRï¿½ÆºÅµï¿½
-	BYTE                m_AutoplayId;           //ï¿½Ò»ï¿½SPRï¿½ÆºÅµï¿½
-	int 				nRankInWorld;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 nLevelInWorld;          //ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½
-	int 				nRepute;                //ï¿½ï¿½ï¿½ï¿½
+	int					m_Level;				// NpcµÄµÈ¼¶
+	BYTE				m_Kind;					// NpcµÄÀàÐÍ
+	BYTE				m_Series;				// NpcµÄÏµ
+	int					m_Height;				// NpcµÄ¸ß¶È(ÌøÔ¾µÄÊ±ºò·ÇÁã)
+	int 				m_btRankId;             // ³ÆºÅµÄid
+	int 				m_NpcTitle;             // NPCÐÂ³ÆºÅ£¨´æµµ£©
+	int                 m_CurNpcTitle;          // µ±Ç°³ÆºÅ	 £¨²»´æµµÁÙÊ±³ÆºÅ£©
+	BYTE				m_btRankFFId;           //SPR³ÆºÅµÄ
+	BYTE                m_AutoplayId;           //¹Ò»úSPR³ÆºÅµÄ
+	int 				nRankInWorld;           //ÊÀ½çÅÅÃû
+	int                 nLevelInWorld;          //ÊÀ½çµÈ¼¶ÅÅÐÐ
+	int 				nRepute;                //ÉùÍû
 	int 				nPKValue;
-	int 				nReBorn;                //×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int 				nReBorn;                //×ªÉú´ÎÊý
 	int					m_nStature;				//Tall
-	int                 m_CJtaskID;             //172ï¿½é½±×¨ï¿½ï¿½
-	int                 m_KillNumber;           //É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	CJinMaiInfo         m_JinMai[10];           //0 0 Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//CFuMoInfo         m_nFuMoNum[MAX_FUMO_COUNT];          //ï¿½ï¿½Ä§ï¿½Ð±ï¿½
-	int                 m_nCurJiHuo;            //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ä§ï¿½ï¿½NPC
-	int                 m_ZhenYuan;             //ï¿½ï¿½ÔªÖµ
-	int                 m_JinMaiBingJia;        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	int                 m_GameliveTime;         //NPC ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
-	int                 m_TempliveTime;         //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
-	int                 m_liveType;             //Ê±ï¿½ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//BYTE                m_WhereSer;		        //ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int                 m_CJtaskID;             //172³é½±×¨ÓÃ
+	int                 m_KillNumber;           //É±ÈËÊýÁ¿ ÅÅÃûµ÷ÓÃ
+//	CJinMaiInfo         m_JinMai[10];           //0 0 Îª½îÂö´óÀà
+	//CFuMoInfo         m_nFuMoNum[MAX_FUMO_COUNT];          //¸½Ä§ÁÐ±í
+	int                 m_nCurJiHuo;            //µ±Ç°¼¤»îµÄ¸½Ä§µÄNPC
+	int                 m_ZhenYuan;             //ÕæÔªÖµ
+	int                 m_JinMaiBingJia;        //¾­Âö±ø¼×Öµ
+	int                 m_GameliveTime;         //NPC ´æ»îÊ±¼ä
+	int                 m_TempliveTime;         //ÁÙÊ±±£´æ´æ»îÊ±¼ä
+	int                 m_liveType;             //Ê±¼äÉè¶¨µÄÀàÐÍ
+	//BYTE                m_WhereSer;		        //ÄÇ¸ö·þÎñÆ÷µÄ
 
-	///ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½/////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
-	int					m_njb;				    //Ð¯ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
-    int					m_njxb;				    //Ð¯ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½B
-	//char				m_WarTongNamea[32];     //Õ¼ï¿½ï¿½ï¿½ï¿½
-    //char				m_WarMaster[32];        //ï¿½ï¿½ï¿½ï¿½
-//	int				    m_WarShuishou;          //Ë°ï¿½ï¿½
-//	int                 m_Warzhi;               //ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	int                 m_WarCityGX;            //ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½
-	int                 m_IsWarCity;            //ï¿½Ä¸ï¿½ï¿½ÇµÄ³ï¿½Ô±
-	int                 m_IsInCity;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_nsPlayerIdx;          // ï¿½ï¿½ÒµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	///ÁÙÊ±²ÎÊý/////²»¼ÓÈëÊý¾Ý¿â
+	int					m_njb;				    //Ð¯´øµÄ½ð±Ò
+    int					m_njxb;				    //Ð¯´øµÄ½£ÏÀB
+	//char				m_WarTongNamea[32];     //Õ¼Áì°ï»á
+    //char				m_WarMaster[32];        //³ÇÖ÷
+//	int				    m_WarShuishou;          //Ë°ÊÕ
+//	int                 m_Warzhi;               //Îï¼ÛÖ¸Êý
+	int                 m_WarCityGX;            //¸öÈË¹±Ï×
+	int                 m_IsWarCity;            //ÄÄ¸ö³ÇµÄ³ÉÔ±
+	int                 m_IsInCity;             //ÊÇ·ñ¼ÓÈë³ÇÊÐ
+	int					m_nsPlayerIdx;          // Íæ¼ÒµÄ·þÎñÆ÷Í¬²½¹ýÀ´µÄ
 	int	                m_nMissionGroup;
-/*	BYTE                 m_WarFucheng;           //ï¿½ï¿½ï¿½ï¿½
-    BYTE                 m_WarZuoHu;             //ï¿½ó»¤·ï¿½
-	BYTE                 m_WarYouHu;             //ï¿½Ò»ï¿½ï¿½ï¿½
+/*	BYTE                 m_WarFucheng;           //¸±³É
+    BYTE                 m_WarZuoHu;             //×ó»¤·¨
+	BYTE                 m_WarYouHu;             //ÓÒ»¤·¨
 	BYTE                 m_WarTaishi;            //Ì«Ê·
-	BYTE                 m_WarZhongShu;          //ï¿½ï¿½ï¿½ï¿½
-	BYTE                 m_WarShangShu;          //ï¿½ï¿½ï¿½ï¿½
-    BYTE                 m_WarMiShu;             //ï¿½ï¿½ï¿½ï¿½
-	BYTE                 m_WarTaiLe;             //Ì«ï¿½ï¿½
+	BYTE                 m_WarZhongShu;          //ÖÐÊé
+	BYTE                 m_WarShangShu;          //ÉÐÊé
+    BYTE                 m_WarMiShu;             //ÃØÊé
+	BYTE                 m_WarTaiLe;             //Ì«ÀÖ	
 	*/
-    BYTE                m_IsDoing;              //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½Å±ï¿½
-	int                 m_ReviceNum;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    BYTE                m_IsSynDir;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	int                 m_WarIsGong;            //ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½
-//    int               m_WarIsShou;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½
-	//char                m_GuishuName[32];       //NPCï¿½ï¿½ï¿½ï¿½Ë­ï¿½ï¿½Í¬ï¿½ï¿½
-	DWORD               m_GuiShuDwid;           //ï¿½ï¿½ï¿½Ëµï¿½Dwid
-	//char              m_BiaoCheName[32];      //NPCï¿½ï¿½ï¿½ï¿½Ë­ï¿½ï¿½ï¿½Ú³ï¿½
-	BYTE                m_RestNameCount;          //ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
-	//char                m_ChenHaoName[32];      //ï¿½ÆºÅµï¿½ï¿½ï¿½ï¿½ï¿½
+    BYTE                m_IsDoing;              //ÊÇ·ñÕýÔÚÖ´ÐÐ½Å±¾
+	int                 m_ReviceNum;            //ÖØÉú´ÎÊý
+    BYTE                m_IsSynDir;             //ÊÇ·ñ¿ÉÒÔÍ¬²½·½Ïò
+//	int                 m_WarIsGong;            //ÊôÓÚ¹¥·½
+//    int               m_WarIsShou;            //ÊôÓÚÊØ·½
+	//char                m_GuishuName[32];       //NPC¹éÊôË­µÄÍ¬°é
+	DWORD               m_GuiShuDwid;           //Ö÷ÈËµÄDwid
+	//char              m_BiaoCheName[32];      //NPC¹éÊôË­µÄïÚ³µ
+	BYTE                m_RestNameCount;          //¸ÄÃûµÄ´ÎÊý
+	//char                m_ChenHaoName[32];      //³ÆºÅµÄÃû³Æ
 
- //   BYTE                m_IsWaiGua;              //ï¿½Ç·ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½
+ //   BYTE                m_IsWaiGua;              //ÊÇ·ñÊ¹ÓÃÍâ¹Ò
  /*
-	int                 m_GuziYajing;            //Ñºï¿½ï¿½
-	int                 m_GuziDianshu;           //ï¿½ï¿½ï¿½ï¿½
-	BYTE                m_GuziZhuang;            //ï¿½Ç·ï¿½×¯ï¿½ï¿½
-	BYTE                m_IsShuai;               //ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½Ë¦ï¿½ï¿½
-	BYTE                m_GuziMenber;            //1Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2Îªï¿½Ô¹ï¿½ï¿½ï¿½×¢ï¿½ï¿½
-	BYTE                m_ZuoWeihao;             //ï¿½ï¿½Î»ï¿½ï¿½
-*/
-//	BYTE                IsDeath;
-	int                 IsJinYan;                 //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
-	int                 IsLuKey;                  //ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
-	int                 m_GoldLucky;              //È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 IsJinQian;                //ï¿½î¶¯ï¿½ï¿½Ç®
-//	char                m_ItmeInfo[128];          //ï¿½ï¿½Æ·Ëµï¿½ï¿½
-//	BYTE                m_IsTuiGuang;             //ï¿½Ç·ï¿½ï¿½Æ¹ï¿½Ô±
-	int                 m_IsVip;                  //ï¿½ï¿½Ô±
+	int                 m_GuziYajing;            //Ñº½ð
+	int                 m_GuziDianshu;           //µãÊý
+	BYTE                m_GuziZhuang;            //ÊÇ·ñ×¯¼Ò
+	BYTE                m_IsShuai;               //ÊÇ·ñÒÑ¾­Ë¦ÁË
+	BYTE                m_GuziMenber;            //1ÎªÖ÷²ÎÓëÕß 2ÎªÅÔ¹ÛÏÂ×¢Õß
+	BYTE                m_ZuoWeihao;             //×ùÎ»ºÅ
+*/	
+//	BYTE                IsDeath;                 
+	int                 IsJinYan;                 //»î¶¯¾­Ñé
+	int                 IsLuKey;                  //»î¶¯ÐÒÔË
+	int                 m_GoldLucky;              //È«¾ÖÐÒÔË
+	int                 IsJinQian;                //»î¶¯½ðÇ®
+//	char                m_ItmeInfo[128];          //ÎïÆ·ËµÃ÷
+//	BYTE                m_IsTuiGuang;             //ÊÇ·ñÍÆ¹ãÔ±
+	int                 m_IsVip;                  //»áÔ±
 	int                 m_IsXingYunXing;
 
 	int                 m_mMapX;
 	int                 m_mMapY;
-	int                 m_IsgetSkill;             //ï¿½Ç·ï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	BYTE                IsExeGoldScript;          //ï¿½Ç·ï¿½Ö´ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+	int                 m_IsgetSkill;             //ÊÇ·ñÊ°È¡¼¼ÄÜ×´Ì¬
+	BYTE                IsExeGoldScript;          //ÊÇ·ñÖ´ÐÐÈ«¾ÖËÀÍö½Å±¾
 	BYTE                IsCreatBoss;
-	BYTE                IsCreatTongBan;           //ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½Í¬ï¿½ï¿½
-	int                 m_ZhuaVal;                //ï¿½ï¿½Ç°ï¿½Ä±ï¿½×¥ï¿½ï¿½Öµ
-    DWORD               m_TongBanNum;             //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BYTE                m_IsSerLock;              //ï¿½Ç·ï¿½ï¿½ï¿½×¡Ä³ï¿½ï¿½
+	BYTE                IsCreatTongBan;           //ÊÇ·ñÒÑ¾­¿ÉÒÔÕÙ»½Í¬°é
+	int                 m_ZhuaVal;                //µ±Ç°µÄ±»×¥²¶Öµ
+    DWORD               m_TongBanNum;             //Í¬°éÊýÁ¿
+	BYTE                m_IsSerLock;              //ÊÇ·ñËø×¡Ä³ÈË    
 	BOOL                m_nIsOver;
 
     BOOL                m_bIsHideNpc;
@@ -375,288 +375,288 @@ public:
 	BOOL                m_bIsHideTong;
 	BOOL                m_bIsHideNuqi;
 
-	//char                m_PicPath[256];  //Í·ï¿½ï¿½Â·ï¿½ï¿½
-	//char                m_ScriptPicPath[256];//ï¿½Å±ï¿½Â·ï¿½ï¿½
+	//char                m_PicPath[256];  //Í·ÏñÂ·¾¶
+	//char                m_ScriptPicPath[256];//½Å±¾Â·¾¶
 
-	BYTE                m_BtnFlag;                //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	BOOL                m_BtnFindPath;            //ï¿½Ç·ï¿½ï¿½Ô¶ï¿½Ñ°Â·×´Ì¬
-	int 				m_btStateInfo[MAX_NPC_RECORDER_STATE];	// Npcï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÂµÄ¼ï¿½ï¿½ï¿½×´Ì¬  BYTE
-//	DWORD				m_NpcEnchant;			                // Npcï¿½Ä¼ï¿½Ç¿ï¿½ï¿½ï¿½Í£ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï£©
-	int					m_nNextStatePos;		                // ï¿½ï¿½Ò»ï¿½ï¿½×´Ì¬ï¿½ï¿½m_btStateï¿½ï¿½Î»ï¿½ï¿½
+	BYTE                m_BtnFlag;                //ÊÇ·ñ²åÆì×´Ì¬
+	BOOL                m_BtnFindPath;            //ÊÇ·ñ×Ô¶¯Ñ°Â·×´Ì¬
+	int 				m_btStateInfo[MAX_NPC_RECORDER_STATE];	// Npcµ±Ç°×îÐÂµÄ¼¸¸ö×´Ì¬  BYTE
+//	DWORD				m_NpcEnchant;			                // NpcµÄ¼ÓÇ¿ÀàÐÍ£¨»Æ½ð¹ÖÎï£©
+	int					m_nNextStatePos;		                // ÏÂÒ»´Î×´Ì¬ÔÚm_btStateµÄÎ»ÖÃ
 	KNpcGold			m_cGold;
 
-	//ï¿½ï¿½ï¿½ï¿½NpcÄ£ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½FALSEï¿½ï¿½Ê¾ï¿½ï¿½Npcï¿½ï¿½ï¿½Ýµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ÖµÎ´ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½.
-	//TRUEï¿½ï¿½Ê¾ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
-	//BOOL				m_bHaveLoadedFromTemplate;//
-
-	//KState			m_PowerState;			// Å­ï¿½ï¿½×´Ì¬
+	//ÓÃÓÚNpcÄ£°å¿âÖÐ£¬µ±FALSE±íÊ¾¸ÃNpcÊý¾Ýµ±Ç°ÊÇÎÞÐ§µÄ £¬ÊýÖµÎ´¾­¹ý½Å±¾¼ÆËã£¬ÐèÒªÉú³É.
+	//TRUE±íÊ¾ÓÐÐ§Êý¾Ý
+	//BOOL				m_bHaveLoadedFromTemplate;// 
+	
+	//KState			m_PowerState;			// Å­»ð×´Ì¬
 
 	//typedef std::map<INT, KState> _KStateNote;                 //SkillId,Echance
 	//_KStateNote nKStateNote;
-	KState				m_PoisonState;			// ï¿½Ð¶ï¿½×´Ì¬
-	KState				m_FreezeState;			// ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	KState				m_BurnState;			// È¼ï¿½ï¿½×´Ì¬
-	KState				m_ConfuseState;			// ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	KState				m_StunState;			// Ñ£ï¿½ï¿½×´Ì¬
-	KState				m_LifeState;			// ï¿½ï¿½Ñª×´Ì¬
-	KState				m_ManaState;			// ï¿½ï¿½MANA×´Ì¬
-	KState				m_MenuState;			// ï¿½Ëµï¿½
-	KState				m_DrunkState;			// ï¿½ï¿½ï¿½×´Ì¬
-	KState				m_Hide;                 // ï¿½ï¿½ï¿½Ø£ï¿½
-	KState				m_ZhuaState;            // ï¿½ï¿½×¥ï¿½ï¿½×´Ì¬
-	KState				m_LoseMana;             // ï¿½ï¿½ï¿½ï¿½×´Ì¬
-    KState				m_ExpState;             // ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	KState				m_DoScriptState;        // Ö´ï¿½Ð½Å±ï¿½×´Ì¬
-    KState              m_randmove;             // Èºï¿½ï¿½ï¿½ß¶ï¿½×´Ì¬
-	KState              m_MapUseModel;          // ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KState				m_PoisonState;			// ÖÐ¶¾×´Ì¬
+	KState				m_FreezeState;			// ±ù¶³×´Ì¬
+	KState				m_BurnState;			// È¼ÉÕ×´Ì¬
+	KState				m_ConfuseState;			// »ìÂÒ×´Ì¬
+	KState				m_StunState;			// Ñ£ÔÎ×´Ì¬
+	KState				m_LifeState;			// ²¹Ñª×´Ì¬
+	KState				m_ManaState;			// ²¹MANA×´Ì¬
+	KState				m_MenuState;			// ²Ëµ¥
+	KState				m_DrunkState;			// ×í¾Æ×´Ì¬
+	KState				m_Hide;                 // Òþ²Ø£¿
+	KState				m_ZhuaState;            // ±»×¥²¶×´Ì¬
+	KState				m_LoseMana;             // µõÀ¼×´Ì¬
+    KState				m_ExpState;             // ¾­Ñé×´Ì¬
+	KState				m_DoScriptState;        // Ö´ÐÐ½Å±¾×´Ì¬
+    KState              m_randmove;             // ÈºÌå×ß¶¯×´Ì¬
+	KState              m_MapUseModel;          // µØÍ¼ÏûºÄÀàÐÍ
 	KState				m_PhysicsArmor;
 	KState				m_ColdArmor;
 	KState				m_LightArmor;
 	KState				m_PoisonArmor;
 	KState				m_FireArmor;
 	KState				m_ManaShield;
-	KState              m_Returnskill;          //ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¶ï¿½ï¿½Í·ï¿½Ä³ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½
-	KState              m_Deathkill;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¶ï¿½ï¿½Í·ï¿½Ä³ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½
-	KState              m_Rescueskill; 	        //ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Í·Å¼ï¿½ï¿½ï¿½
-	KState              m_Replyskill; 	        //ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//KState            m_Staticmagicshield;    //Ä§ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	KState              m_Returnskill;          //±»µÐÈË¹¥»÷ÊÇ ×Ô¶¯ÊÍ·ÅÄ³¼¼ÄÜ¼¸ÂÊ
+	KState              m_Deathkill;            //±»µÐÈË¹¥»÷ÊÇ ×Ô¶¯ÊÍ·ÅÄ³¼¼ÄÜ¼¸ÂÊ
+	KState              m_Rescueskill; 	        //¾ÈÃü×Ô¶¯ÊÍ·Å¼¼ÄÜ
+	KState              m_Replyskill; 	        //×Ô¶¯·´»÷¼¼ÄÜ
+	//KState            m_Staticmagicshield;    //Ä§·¨¶Ü×´Ì¬
+	
+	int                 m_AdjustColorKind;      //NPCµÄµ±Ç°Æ«É«
+	int					m_RideState;            //NpcÆïÂíÉÏÏÂÂíÊ±¼äÏÞÖÆ
 
-	int                 m_AdjustColorKind;      //NPCï¿½Äµï¿½Ç°Æ«É«
-	int					m_RideState;            //Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-	KList				m_StateSkillList;		// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Í¬ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½Ó£ï¿½
-	BYTE				m_Camp;					// Npcï¿½ï¿½ï¿½ï¿½Óª
-	BYTE				m_CurrentCamp;			// Npcï¿½Äµï¿½Ç°ï¿½ï¿½Óª
-	NPCCMD				m_Doing;				// Npcï¿½ï¿½ï¿½ï¿½Îª
-	CLIENTACTION		m_ClientDoing;			// Npcï¿½Ä¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½Îª
+	KList				m_StateSkillList;		// ¸½¼Ó×´Ì¬¼¼ÄÜÁÐ±í£¨Í¬¼¼ÄÜ²»µþ¼Ó£©
+	BYTE				m_Camp;					// NpcµÄÕóÓª
+	BYTE				m_CurrentCamp;			// NpcµÄµ±Ç°ÕóÓª
+	NPCCMD				m_Doing;				// NpcµÄÐÐÎª
+	CLIENTACTION		m_ClientDoing;			// NpcµÄ¿Í»§¶ËÐÐÎª
 	char	            szNpcTypeName[32];
-	DOING_FRAME			m_Frames;				// Npcï¿½ï¿½ï¿½ï¿½ÎªÖ¡ï¿½ï¿½
-	KSkillList			m_SkillList;			// Npcï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
-	int					m_SubWorldIndex;		// Npcï¿½ï¿½ï¿½Úµï¿½SubWorld ID mapsï¿½ï¿½ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
-	int					m_RegionIndex;			// Npcï¿½ï¿½ï¿½Úµï¿½Region ID
-	int					m_ActiveSkillID;		// Npcï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ID
+	DOING_FRAME			m_Frames;				// NpcµÄÐÐÎªÖ¡Êý
+	KSkillList			m_SkillList;			// NpcµÄ¼¼ÄÜÁÐ±í
+	int					m_SubWorldIndex;		// NpcËùÔÚµÄSubWorld ID mapsÀïÃæ µÚ¼¸¸öµØÍ¼
+	int					m_RegionIndex;			// NpcËùÔÚµÄRegion ID
+	int					m_ActiveSkillID;		// Npc¼¤»îµÄ¼¼ÄÜID
 	int                 m_ActiveSkListIndex;
 
-	int					m_ActiveAuraID;			// Npcï¿½ï¿½ï¿½ï¿½Ä¹â»·ï¿½ï¿½ï¿½ï¿½ID
+	int					m_ActiveAuraID;			// Npc¼¤»îµÄ¹â»·¼¼ÄÜID
 	int                 m_ActiveAuraIndex;
 	int                 m_ActiveXinYunXingID;
 
 	bool                m_IsMoreAura;
-	skillAuraInfo		m_TmpAuraID[5];         // ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¹â»·ï¿½ï¿½ï¿½ï¿½ID
-	int					m_ExtSkill[5];          // ï¿½Æºï¿½ï¿½ï¿½Õ¹×´Ì¬ï¿½ï¿½ï¿½ï¿½
+	skillAuraInfo		m_TmpAuraID[5];         // ¶ëÃ¼¼¼ÄÜ¶à¹âÁÙÊ±µÄ¹â»·¼¼ÄÜID
+	int					m_ExtSkill[5];          // ³ÆºÅÀ©Õ¹×´Ì¬¼¼ÄÜ
 
-//Npcï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½===================================
-	int					m_CurrentExperience;	// Npcï¿½ï¿½É±ï¿½ï¿½ï¿½Í³ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
-	int 				m_CurrentLife;			// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int 				m_CurrentLifeDamage;    // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ã°Ñªï¿½ï¿½ï¿½ï¿½
-	int 				m_CurPoisonDamage;      // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ã°Ñªï¿½ï¿½ï¿½ï¿½
-	int 				m_CurFireDamage;        // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ã°Ñªï¿½ï¿½ï¿½ï¿½
-	int 				m_CurrentLifeMax;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	int					m_CurrentLifeReplenish;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-	int					m_CurrentLifeReplenish_p;// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½ ï¿½Ù·Ö±ï¿½
-    int   				m_CurrentMana;			// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int				    m_CurrentManaMax;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentManaReplenish;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
+//NpcµÄÊµ¼ÊÊý¾Ý£¨ÒÑ¾­¾­¹ý×°±¸¼°¼¼ÄÜµÄÔËËãÁË£©===================================
+	int					m_CurrentExperience;	// Npc±»É±ºóËÍ³öµÄ¾­Ñé
+	int 				m_CurrentLife;			// NpcµÄµ±Ç°ÉúÃü
+	int 				m_CurrentLifeDamage;    // Ö÷ÒªÓÃÓÚÃ°Ñª´¦Àí
+	int 				m_CurPoisonDamage;      // Ö÷ÒªÓÃÓÚÃ°Ñª´¦Àí
+	int 				m_CurFireDamage;        // Ö÷ÒªÓÃÓÚÃ°Ñª´¦Àí
+	int 				m_CurrentLifeMax;		// NpcµÄµ±Ç°ÉúÃü×î´óÖµ
+	int					m_CurrentLifeReplenish;	// NpcµÄµ±Ç°ÉúÃü»Ø¸´ËÙ¶È
+	int					m_CurrentLifeReplenish_p;// NpcµÄµ±Ç°ÉúÃü»Ø¸´ËÙ¶È °Ù·Ö±È
+    int   				m_CurrentMana;			// NpcµÄµ±Ç°ÄÚÁ¦
+	int				    m_CurrentManaMax;		// NpcµÄµ±Ç°×î´óÄÚÁ¦
+	int					m_CurrentManaReplenish;	// NpcµÄµ±Ç°ÄÚÁ¦»Ø¸´ËÙ¶È
 	int                 m_CurrentManaReplenish_p;//
-	int				    m_CurrentStamina;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int				    m_CurrentStaminaMax;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentStaminaGain;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-	int					m_CurrentStaminaLoss;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ù¶ï¿½
+	int				    m_CurrentStamina;		// NpcµÄµ±Ç°ÌåÁ¦
+	int				    m_CurrentStaminaMax;	// NpcµÄµ±Ç°×î´óÌåÁ¦
+	int					m_CurrentStaminaGain;	// NpcµÄµ±Ç°ÌåÁ¦»Ø¸´ËÙ¶È
+	int					m_CurrentStaminaLoss;	// NpcµÄµ±Ç°ÌåÁ¦ÏÂ½µËÙ¶È
 
-	int					m_CurrentNuQi;			// Npcï¿½Äµï¿½Ç°Å­ï¿½ï¿½Öµ
-	int					m_CurrentNuQiMax;		// Npcï¿½Äµï¿½Ç°Å­ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	int					m_CurrentNuQiReplenish;	// Npcï¿½Äµï¿½Ç°Å­ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-//////===================ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ó½Å±ï¿½ï¿½ï¿½Ã£ï¿½=============================
-	KMagicAttrib		m_PhysicsDamage;		        // Npcï¿½Ä»ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¼ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
-	KMagicAttrib		m_CurrentPhysicsMagicDamageP;	// Npcï¿½Äµï¿½Ç°ï¿½Õµï¿½Ù·Ö±ï¿½
-	KMagicAttrib		m_CurrentPhysicsMagicDamageV;	// Npcï¿½Äµï¿½Ç°ï¿½Õµï¿½ï¿½Ëºï¿½
-	KMagicAttrib		m_CurrentMagicFireDamage;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	KMagicAttrib		m_CurrentMagicColdDamage;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	KMagicAttrib		m_CurrentMagicLightDamage;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	KMagicAttrib		m_CurrentMagicPoisonDamage;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½Ëºï¿½
-	int					m_CurrentAttackRating;	        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½
-	int					m_CurrentDefend;		        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½
+	int					m_CurrentNuQi;			// NpcµÄµ±Ç°Å­ÆøÖµ
+	int					m_CurrentNuQiMax;		// NpcµÄµ±Ç°Å­Æø×î´óÖµ
+	int					m_CurrentNuQiReplenish;	// NpcµÄµ±Ç°Å­Æø»Ø¸´ËÙ¶È
+//////===================¼¼ÄÜ¹¥»÷Êý¾Ý£¨´Ó½Å±¾»ñµÃ£©=============================
+	KMagicAttrib		m_PhysicsDamage;		        // NpcµÄ»ù±¾ÉËº¦µã(ÓÉÁ¦Á¿Ãô½ÝÓëÎäÆ÷ÉËº¦¾ö¶¨£¬²»¿¼ÂÇÖ±½Ó¼ÓÉËº¦µÄÄ§·¨ÊôÐÔ)(¹¥»÷µã)
+	KMagicAttrib		m_CurrentPhysicsMagicDamageP;	// NpcµÄµ±Ç°ÆÕµã°Ù·Ö±È
+	KMagicAttrib		m_CurrentPhysicsMagicDamageV;	// NpcµÄµ±Ç°ÆÕµãÉËº¦
+	KMagicAttrib		m_CurrentMagicFireDamage;	    // NpcµÄµ±Ç°»ðÉËº¦
+	KMagicAttrib		m_CurrentMagicColdDamage;	    // NpcµÄµ±Ç°±ùÉËº¦
+	KMagicAttrib		m_CurrentMagicLightDamage;	    // NpcµÄµ±Ç°µçÉËº¦
+	KMagicAttrib		m_CurrentMagicPoisonDamage;	    // NpcµÄµ±Ç°¶¾ÉËº¦
+	int					m_CurrentAttackRating;	        // NpcµÄµ±Ç°ÃüÖÐÂÊ£¨Éí·¨ÃüÖÐÂÊ+¼¼ÄÜÃüÖÐÂÊ£©
+	int					m_CurrentDefend;		        // NpcµÄµ±Ç°ÉÁ±ÜÂÊµã
 ///=============================================================================
-	int 				m_CurrentSkillMingZhong;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	int					m_TempFireResist;	        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int					m_TempColdResist;	        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_TempPoisonResist;	        // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_TempLightResist;	        // Npcï¿½Äµï¿½Ç°ï¿½ç¿¹ï¿½ï¿½
-	int					m_TempPhysicsResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int 				m_CurrentSkillMingZhong;	// NpcµÄµ±Ç°ÉúÃü×î´óÖµ
+	int					m_TempFireResist;	        // NpcµÄµ±Ç°»ð¿¹ÐÔ
+	int					m_TempColdResist;	        // NpcµÄµ±Ç°±ù¿¹ÐÔ
+	int					m_TempPoisonResist;	        // NpcµÄµ±Ç°¶¾¿¹ÐÔ
+	int					m_TempLightResist;	        // NpcµÄµ±Ç°µç¿¹ÐÔ
+	int					m_TempPhysicsResist;	    // NpcµÄµ±Ç°ÎïÀí¿¹ÐÔ
 
-	int					m_CurrentFireResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentColdResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentPoisonResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentLightResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ç¿¹ï¿½ï¿½
-	int					m_CurrentPhysicsResist;	    // Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int					m_CurrentFireResist;	    // NpcµÄµ±Ç°»ð¿¹ÐÔ
+	int					m_CurrentColdResist;	    // NpcµÄµ±Ç°±ù¿¹ÐÔ
+	int					m_CurrentPoisonResist;	    // NpcµÄµ±Ç°¶¾¿¹ÐÔ
+	int					m_CurrentLightResist;	    // NpcµÄµ±Ç°µç¿¹ÐÔ
+	int					m_CurrentPhysicsResist;	    // NpcµÄµ±Ç°ÎïÀí¿¹ÐÔ
 
-	int					m_CurrentFireResistMax;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentColdResistMax;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentPoisonResistMax;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ó¶¾¿ï¿½ï¿½ï¿½
-	int					m_CurrentLightResistMax;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ç¿¹ï¿½ï¿½
-	int					m_CurrentPhysicsResistMax;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int					m_CurrentFireResistMax;		// NpcµÄµ±Ç°×î´ó»ð¿¹ÐÔ
+	int					m_CurrentColdResistMax;		// NpcµÄµ±Ç°×î´ó±ù¿¹ÐÔ
+	int					m_CurrentPoisonResistMax;	// NpcµÄµ±Ç°×î´ó¶¾¿¹ÐÔ
+	int					m_CurrentLightResistMax;	// NpcµÄµ±Ç°×î´óµç¿¹ÐÔ
+	int					m_CurrentPhysicsResistMax;	// NpcµÄµ±Ç°×î´óÎïÀí¿¹ÐÔ
 
 	//BOOL                m_AttackState;
 	int                 m_CurrentTempSpeed;
-	int					m_CurrentWalkSpeed;		// Npcï¿½Äµï¿½Ç°ï¿½ß¶ï¿½ï¿½Ù¶ï¿½
-	int					m_CurrentRunSpeed;		// Npcï¿½Äµï¿½Ç°ï¿½Ü¶ï¿½ï¿½Ù¶ï¿½
-	int					m_CurrentJumpSpeed;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½Ô¾ï¿½Ù¶ï¿½
-	int					m_CurrentJumpFrame;		// Npcï¿½Äµï¿½Ç°ï¿½ï¿½Ô¾Ö¡ï¿½ï¿½
-	int					m_CurrentAttackSpeed;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½  --ï¿½â¹¦
-	int					m_CurrentCastSpeed;		// Npcï¿½Äµï¿½Ç°Ê©ï¿½ï¿½ï¿½Ù¶ï¿½  --ï¿½Ú¹ï¿½
-	int					m_CurrentVisionRadius;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½Ò°ï¿½ï¿½Î§
-	int					m_CurrentAttackRadius;	// Npcï¿½Äµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§
-	int					m_CurrentActiveRadius;	// Npcï¿½Äµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§
-	int					m_CurrentHitRecover;	// Npcï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
-	int					m_CurrentHitNpcRecover;	// ï¿½ï¿½É¶Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
-	int					m_CurrentTreasure;		// Npcï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentHitRank;       // ï¿½ï¿½ï¿½ËµÄ¸ï¿½ï¿½ï¿½
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Òªï¿½ï¿½Ç°Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Îª0 = ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½+×°ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Ã»×´Ì¬-Ö±ï¿½Ó¸ï¿½Öµï¿½ï¿½==================================
-	int					m_CurrentMeleeDmgRetPercent;	// Npcï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ØµÄ°Ù·Ö±ï¿½
-	int					m_CurrentMeleeDmgRet;			// Npcï¿½ï¿½ï¿½Ì±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Øµï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentRangeDmgRetPercent;	// NpcÔ¶ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ØµÄ°Ù·Ö±ï¿½
-	int					m_CurrentRangeDmgRet;			// NpcÔ¶ï¿½Ì±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Øµï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL				m_CurrentSlowMissle;			// Npcï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½×´Ì¬ï¿½ï¿½
-	int	                m_CurrentHulueMeleeDmgRet;      // ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµã¡¢
-    int	                m_CurrentHulueRangeDmgRet;      // ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ì³Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµã¡¢
+	int					m_CurrentWalkSpeed;		// NpcµÄµ±Ç°×ß¶¯ËÙ¶È
+	int					m_CurrentRunSpeed;		// NpcµÄµ±Ç°ÅÜ¶¯ËÙ¶È
+	int					m_CurrentJumpSpeed;		// NpcµÄµ±Ç°ÌøÔ¾ËÙ¶È
+	int					m_CurrentJumpFrame;		// NpcµÄµ±Ç°ÌøÔ¾Ö¡Êý
+	int					m_CurrentAttackSpeed;	// NpcµÄµ±Ç°¹¥»÷ËÙ¶È  --Íâ¹¦
+	int					m_CurrentCastSpeed;		// NpcµÄµ±Ç°Ê©·¨ËÙ¶È  --ÄÚ¹¦
+	int					m_CurrentVisionRadius;	// NpcµÄµ±Ç°ÊÓÒ°·¶Î§
+	int					m_CurrentAttackRadius;	// NpcµÄµ±Ç°¹¥»÷·¶Î§
+	int					m_CurrentActiveRadius;	// NpcµÄµ±Ç°»î¶¯·¶Î§
+	int					m_CurrentHitRecover;	// NpcµÄÊÜÉË¶¯×÷Ê±¼ä
+	int					m_CurrentHitNpcRecover;	// Ôì³É¶Ô·½µÄÊÜÉË¶¯×÷Ôö¼Ó¶àÉÙ
+	int					m_CurrentTreasure;		// Npc¶ªÂä×°±¸µÄÊýÁ¿
+	int					m_CurrentHitRank;       // ÊÜÉËµÄ¸ÅÂÊ
+//ÒÔÏÂÊý¾ÝÖ»ÐèÒªµ±Ç°Öµ£¬»ù´¡Öµ¾ùÎª0 = ¼¼ÄÜ×´Ì¬Êý¾Ý+×°±¸Êý¾Ý£¨Ã»×´Ì¬-Ö±½Ó¸³Öµ£©==================================
+	int					m_CurrentMeleeDmgRetPercent;	// Npc½ü³ÌÉËº¦·µ»ØµÄ°Ù·Ö±È
+	int					m_CurrentMeleeDmgRet;			// Npc½ü³Ì±»»÷Ê±·µ»ØµÄÉËº¦µãÊý
+	int					m_CurrentRangeDmgRetPercent;	// NpcÔ¶³ÌÉËº¦·µ»ØµÄ°Ù·Ö±È
+	int					m_CurrentRangeDmgRet;			// NpcÔ¶³Ì±»»÷Ê±·µ»ØµÄÉËº¦µãÊý
+	BOOL				m_CurrentSlowMissle;			// NpcÊÇ·ñÔÚÂýËÙ×Óµ¯×´Ì¬ÏÂ
+	int	                m_CurrentHulueMeleeDmgRet;      // ºöÂÔ½ü³Ì·´µ¯¶àÉÙµã¡¢
+    int	                m_CurrentHulueRangeDmgRet;      // ºöÂÔÔ¶³Ì³Ì·´µ¯¶àÉÙµã¡¢
 
-	int					m_CurrentDamageReduce;			// ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
-//	int					m_CurrentElementDamageReduce;	// Ôªï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+	int					m_CurrentDamageReduce;			// ÎïÀíÉËº¦¼õÉÙ
+//	int					m_CurrentElementDamageReduce;	// ÔªËØÉËº¦¼õÉÙ
 
-	int					m_CurrentDamage2Mana;			// ï¿½Ëºï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½
-//	int					m_CurrentManaPerEnemy;			// É±Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼Ó¶ï¿½ï¿½Ùµï¿½ï¿½ï¿½ï¿½ï¿½ //
-	int					m_CurrentLifeStolen;			// Íµï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½ ï¿½ï¿½Ñª
-	int					m_CurrentManaStolen;			// Íµï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentStaminaStolen;			// Íµï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½
-	int					m_CurrentKnockBack;				// ï¿½ï¿½ï¿½Ë°Ù·Ö±ï¿½
-	int					m_CurrentDeadlyStrike;			// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ù·Ö±ï¿½
-//	int					m_CurrentBlindEnemy;			// ï¿½ï¿½Ã¤ï¿½ï¿½ï¿½Ë°Ù·Ö±ï¿½
-//	int					m_CurrentPiercePercent;			// ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½
-	int					m_CurrentFreezeTimeReducePercent;	// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ù°Ù·Ö±ï¿½
-	int					m_CurrentPoisonTimeReducePercent;	// ï¿½Ð¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ù°Ù·Ö±ï¿½
-	int					m_CurrentStunTimeReducePercent;		// Ñ£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ù°Ù·Ö±ï¿½
-	int					m_CurrentBurnTimeReducePercent;		// È¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ù°Ù·Ö±ï¿½
-    int                 m_CurrentautoReviverate;            //ï¿½ï¿½Ç°ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentStunRank_p;		        // ï¿½ï¿½ï¿½ï¿½Ñ£ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Ù·Ö±ï¿½
+	int					m_CurrentDamage2Mana;			// ÉËº¦×ªÄÚÁ¦°Ù·Ö±È
+//	int					m_CurrentManaPerEnemy;			// É±Ò»¸öµÐÈË¼Ó¶àÉÙµãÄÚÁ¦ //
+	int					m_CurrentLifeStolen;			// ÍµÉúÃü°Ù·Ö±È ÎüÑª
+	int					m_CurrentManaStolen;			// ÍµÄÚÁ¦°Ù·Ö±È ÎüÄÚ
+	int					m_CurrentStaminaStolen;			// ÍµÌåÁ¦°Ù·Ö±È
+	int					m_CurrentKnockBack;				// ÕðÍË°Ù·Ö±È
+	int					m_CurrentDeadlyStrike;			// ÖÂÃüÒ»»÷°Ù·Ö±È
+//	int					m_CurrentBlindEnemy;			// ÖÂÃ¤µÐÈË°Ù·Ö±È
+//	int					m_CurrentPiercePercent;			// ´©Í¸¹¥»÷°Ù·Ö±È
+	int					m_CurrentFreezeTimeReducePercent;	// ±ù¶³Ê±¼ä¼õÉÙ°Ù·Ö±È
+	int					m_CurrentPoisonTimeReducePercent;	// ÖÐ¶¾Ê±¼ä¼õÉÙ°Ù·Ö±È
+	int					m_CurrentStunTimeReducePercent;		// Ñ£ÔÎÊ±¼ä¼õÉÙ°Ù·Ö±È
+	int					m_CurrentBurnTimeReducePercent;		// È¼ÉÕÊ±¼ä¼õÉÙ°Ù·Ö±È
+    int                 m_CurrentautoReviverate;            //µ±Ç°µÄ¸´»î¸ÅÂÊ
+	int					m_CurrentStunRank_p;		        // ¼õÉÙÑ£ÔÎ¸ÅÂÊÔö¼Ó°Ù·Ö±È
 
-	int					m_EnemyPoisonTimeReducePercent;	   // ï¿½ï¿½Ô·ï¿½ï¿½Ð¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Ù·Ö±ï¿½
-	int					m_EnemyStunTimeReducePercent;       // ï¿½ï¿½Ô·ï¿½Ñ£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Ù·Ö±ï¿½
+	int					m_EnemyPoisonTimeReducePercent;	   // Ôì¶Ô·½ÖÐ¶¾Ê±¼äÔö¼Ó°Ù·Ö±È
+	int					m_EnemyStunTimeReducePercent;       // Ôì¶Ô·½Ñ£ÔÎÊ±¼äÔö¼Ó°Ù·Ö±È
 
-    int                 m_CurrentBuZhuoRate;                   //ï¿½ï¿½Ç°ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int				    m_CurrentUpExp;                        //ï¿½ï¿½ï¿½é±¶ï¿½ï¿½
-	int					m_CurrentdanggeRate;		           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int					m_CurrentzhongjiRate;		           //ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½
-    int                 m_CurrentcjdanggeRate;                 //ï¿½ï¿½âµµï¿½ï¿½
-    int                 m_CurrentcjzhongjiRate;                //ï¿½ï¿½ï¿½ï¿½Ø»ï¿½
-    int                 m_Currentsorbdamage;                   // ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ ï¿½ï¿½ï¿½ï¿½
-    int                 m_Currentsorbdamage_v;                 // ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ù·Ö±ï¿½
-	int                 m_Currenadddamagev;                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½
-	int                 m_Currenadddamagep;                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ù·Ö±ï¿½
-    int                 m_Currentpoisonres;                    //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½ï¿½ï¿½ï¿½:#d1-%
-    int                 m_Currentfireres;                      //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½ï¿½ï¿½:#d1-%
-    int                 m_Currentlightingres;                  //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½×·ï¿½:#d1-%
-    int                 m_Currentphysicsres;                   //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½Õ·ï¿½:#d1-%
-    int                 m_Currentcoldres;                      //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½ï¿½ï¿½ï¿½:#d1-%
-    int 	            m_Currentallres;                       //=ï¿½ï¿½ï¿½Ô¶Ô·ï¿½È«ï¿½ï¿½:#d1-%
-	int                 m_CurrentIgnoredefensep;               //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   //ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 m_CurrentIgnorenAttacRating;           //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ô¶Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   //×´Ì¬ï¿½ï¿½ï¿½ï¿½
-    int                 m_Currentnopkvalue;                    //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKÖµï¿½ï¿½ï¿½ï¿½:#d1+%
-    int                 m_Currentbossdamage;                   //=ï¿½Ô»Æ½ï¿½bossï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½<color=orange>#d1+%<color>
-    int                 m_Currentelementsenhance;              //=ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Öµï¿½ï¿½#d1-ï¿½ã¡£Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¿ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ ï¿½Ò¿ï¿½
-    int                 m_Currentelementsresist;               //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½#d1-ï¿½ã¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¿ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int                 m_CurrentBuZhuoRate;                   //µ±Ç°µÄ²¶»ñ¸ÅÂÊ
+	int				    m_CurrentUpExp;                        //¾­Ñé±¶ÂÊ
+	int					m_CurrentdanggeRate;		           //µµ¸ñ¸ÅÂÊ
+    int					m_CurrentzhongjiRate;		           //ÖØ»÷¸ÅÂÊ
+    int                 m_CurrentcjdanggeRate;                 //²ð½âµµ¸ñ
+    int                 m_CurrentcjzhongjiRate;                //²ð½âÖØ»÷
+    int                 m_Currentsorbdamage;                   // µÖÏûÉËº¦ µãÊý
+    int                 m_Currentsorbdamage_v;                 // µÖÏûÉËº¦°Ù·Ö±È
+	int                 m_Currenadddamagev;                    //¼ÓÉîÉËº¦µã
+	int                 m_Currenadddamagep;                    //¼ÓÉîÉËº¦°Ù·Ö±È
+    int                 m_Currentpoisonres;                    //=ºöÂÔ¶Ô·½¶¾·À:#d1-%
+    int                 m_Currentfireres;                      //=ºöÂÔ¶Ô·½»ð·À:#d1-%
+    int                 m_Currentlightingres;                  //=ºöÂÔ¶Ô·½À×·À:#d1-%
+    int                 m_Currentphysicsres;                   //=ºöÂÔ¶Ô·½ÆÕ·À:#d1-%
+    int                 m_Currentcoldres;                      //=ºöÂÔ¶Ô·½±ù·À:#d1-%
+    int 	            m_Currentallres;                       //=ºöÂÔ¶Ô·½È«¿¹:#d1-%
+	int                 m_CurrentIgnoredefensep;               //µ±Ç°ºöÂÔ¶Ô·½ÉÁ±ÜÂÊ   //¼¼ÄÜµÄÊý¾Ý
+	int                 m_CurrentIgnorenAttacRating;           //µ±Ç°ºöÂÔ¶Ô·½ÃüÖÐÂÊ   //×´Ì¬Êý¾Ý
+    int                 m_Currentnopkvalue;                    //=²»Ôö¼ÓPKÖµ¸ÅÂÊ:#d1+%
+    int                 m_Currentbossdamage;                   //=¶Ô»Æ½ðboss¹¥»÷ÉËº¦<color=orange>#d1+%<color>
+    int                 m_Currentelementsenhance;              //=ÎåÐÐÇ¿»¯Öµ£º#d1-µã¡£Ç¿»¯¶ÔÏà¿ËÎåÐÐµÄ¿ËÖÆÐ§¹û ÎÒ¿Ë
+    int                 m_Currentelementsresist;               //=ÎåÐÐÈõ»¯Öµ£º#d1-µã¡£Èõ»¯ÊÜÏà¿ËÎåÐÐµÄ¿ËÖÆÐ§¹û ¿ËÎÒ
 
-    int                 m_Currentskillenhance;                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ç¿
-    int                 m_CurrentFullManaskillenhance;         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼Ó³ï¿½;
-	//CEnhanceInfo        m_CurrentSkillEnhance[MAX_NPCSKILL]; // ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ç¿
+    int                 m_Currentskillenhance;                 // ¹¥»÷¼¼ÄÜ×´Ì¬¼ÓÇ¿
+    int                 m_CurrentFullManaskillenhance;         // ÂúÄÚÁ¦Ê±¹¥»÷¼¼ÄÜ¼Ó³É;
+	//CEnhanceInfo        m_CurrentSkillEnhance[MAX_NPCSKILL]; // ¶ÔÄ³¼¼ÄÜ×´Ì¬¼ÓÇ¿
 	typedef std::map<int, CEnhanceInfo> _EnhanceInfo;                 //SkillId,Echance
 	_EnhanceInfo nEnhanceInfo;
-	int					m_CurrentFireEnhance;			// ï¿½ï¿½ï¿½Ç¿
-	int					m_CurrentColdEnhance;			// ï¿½Ù»ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentPoisonEnhance;			// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
-	int					m_CurrentLightEnhance;			// Ñ£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 m_CurrentPoisonTime;            // ï¿½ï¿½ï¿½ÜµÄ¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	int					m_CurrentFireEnhance;			// »ð¼ÓÇ¿
+	int					m_CurrentColdEnhance;			// ³Ù»ºÊ±¼äÔö¼Ó
+	int					m_CurrentPoisonEnhance;			// ¶¾·¢Ê±¼ä¼ä¸ô
+	int					m_CurrentLightEnhance;			// Ñ£ÔÎÊ±¼ä³ÖÐø
+	int                 m_CurrentPoisonTime;            // ¼¼ÄÜµÄ¶¾·¢Ê±¼ä
 
-	int                 m_CurrentAttackRatingEnhancep;  // ×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ç¿ï¿½Ù·Ö±ï¿½
-    int                 m_CurrentAttackRatingEnhancev;  // ×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ç¿ï¿½ï¿½
+	int                 m_CurrentAttackRatingEnhancep;  // ×°±¸ÊôÐÔÃüÖÐÂÊ¼ÓÇ¿°Ù·Ö±È
+    int                 m_CurrentAttackRatingEnhancev;  // ×°±¸ÊôÐÔÃüÖÐÂÊ¼ÓÇ¿µã
 
-	int					m_CurrentAddPhysicsDamage;		// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½â¹¦ï¿½Õµï¿½ Ö±ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½
-	int                 m_CurrentAddPhysicsDamageP;     // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ°Ù·Ö±ï¿½
-   	int                 m_CurrentAddFireDamagev;        // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- 	int                 m_CurrentAddColdDamagev;        // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 m_CurrentAddLighDamagev;        // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½
-	int                 m_CurrentAddPoisonDamagev;      // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½â¶¾ï¿½ï¿½
-    BOOL                m_IsDel;                        // ï¿½Ç·ï¿½É¾ï¿½ï¿½NPC
-    int                 m_CurrentAddmagicphysicsDamage; // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½
-	int                 m_CurrentAddmagicphysicsDamageP;// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ°Ù·Ö±ï¿½
-	int                 m_CurrentAddmagicColdDamagicv;  // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½
-	int                 m_CurrentAddmagicFireDamagicv;  // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½
-	int                 m_CurrentAddmagicLightDamagicv; // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½
-	int                 m_CurrentAddmagicPoisonDamagicv;// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½
+	int					m_CurrentAddPhysicsDamage;		// µ±Ç°±»¶¯Íâ¹¦ÆÕµã Ö±½ÓµÄÎïÀíÉËº¦¼ÓÇ¿µãÊý
+	int                 m_CurrentAddPhysicsDamageP;     // µ±Ç°±»¶¯ÍâÆÕ°Ù·Ö±È
+   	int                 m_CurrentAddFireDamagev;        // µ±Ç°±»¶¯Íâ»ðµã
+ 	int                 m_CurrentAddColdDamagev;        // µ±Ç°±»¶¯Íâ±ùµã 
+	int                 m_CurrentAddLighDamagev;        // µ±Ç°±»¶¯ÍâÀ×µã
+	int                 m_CurrentAddPoisonDamagev;      // µ±Ç°±»¶¯Íâ¶¾µã
+    BOOL                m_IsDel;                        // ÊÇ·ñÉ¾³ýNPC
+    int                 m_CurrentAddmagicphysicsDamage; // µ±Ç°±»¶¯ÄÚÆÕµã
+	int                 m_CurrentAddmagicphysicsDamageP;// µ±Ç°±»¶¯ÄÚÆÕ°Ù·Ö±È
+	int                 m_CurrentAddmagicColdDamagicv;  // µ±Ç°±»¶¯ÄÚ±ùµã
+	int                 m_CurrentAddmagicFireDamagicv;  // µ±Ç°±»¶¯ÄÚ»ðµã  
+	int                 m_CurrentAddmagicLightDamagicv; // µ±Ç°±»¶¯ÄÚÀ×µã
+	int                 m_CurrentAddmagicPoisonDamagicv;// µ±Ç°±»¶¯ÄÚ¶¾µã
 
-	int					m_CurrentMeleeEnhance[MAX_MELEE_WEAPON];	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿
-	int					m_CurrentRangeEnhance;			// Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿
-	int					m_CurrentHandEnhance;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿
-	int					m_CurrentSerisesEnhance;        // ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ëºï¿½ï¿½ï¿½Ç¿
+	int					m_CurrentMeleeEnhance[MAX_MELEE_WEAPON];	// ½ü³ÌÎïÀí¼ÓÇ¿
+	int					m_CurrentRangeEnhance;			// Ô¶³ÌÎïÀí¼ÓÇ¿
+	int					m_CurrentHandEnhance;			// ¿ÕÊÖÎïÀí¼ÓÇ¿
+	int					m_CurrentSerisesEnhance;        // ÎåÐÐµÄÉËº¦¼ÓÇ¿
 
-    int                  m_CurrentPoisondamagereturnV;   //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    int                  m_CurrentPoisondamagereturnP;   //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½
-	int                  m_CurrentReturnskillp;          //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ä·´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                  m_CurrentIgnoreskillp;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä·´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                  m_CurrentReturnresp;            //ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
-	int                  m_CurrentCreatnpcv;             //ï¿½ï¿½Ç°×¥ï¿½ï¿½BBï¿½Ä¸ï¿½ï¿½ï¿½
-    int                  m_CurrentAllJiHuo;              //ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½
-	int                  m_CurrentCreatStatus;           //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	int                  m_Currentbaopoisondmax_p;
+    int                  m_CurrentPoisondamagereturnV;   //µ±Ç°¶¾·´µ¯µã
+    int                  m_CurrentPoisondamagereturnP;   //µ±Ç°¶¾·´µ¯°Ù·Ö±È
+	int                  m_CurrentReturnskillp;          //µ±Ç°×çÖä·´µ¯¸ÅÂÊ
+	int                  m_CurrentIgnoreskillp;          //ÎÞÊÓ×çÖä·´µ¯¸ÅÂÊ
+	int                  m_CurrentReturnresp;            //¶Ô·´µ¯ÉËº¦µÄ¿¹ÐÔ
+	int                  m_CurrentCreatnpcv;             //µ±Ç°×¥²¶BBµÄ¸ÅÂÊ
+    int                  m_CurrentAllJiHuo;              //ÊÇ·ñÈ«Éí¼¤»î
+	int                  m_CurrentCreatStatus;           //µ±Ç°²úÉúµÄ×´Ì¬
+	int                  m_Currentbaopoisondmax_p;  
 	int                  m_nCurNpcLucky;
 
-    int                  m_Me2metaldamage_p;              //=ï¿½Ô½ï¿½Ïµï¿½Ëºï¿½ï¿½ï¿½ï¿½Ó£ï¿½#d1+%
-    int                  m_Metal2medamage_p;              //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½Ïµï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½#d1-%
-    int                  m_Me2wooddamage_p;              //=ï¿½ï¿½Ä¾Ïµï¿½Ëºï¿½ï¿½ï¿½ï¿½Ó£ï¿½#d1+%
-    int                  m_Wood2medamage_p;              //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾Ïµï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½#d1-%
-    int                  m_Me2waterdamage_p;              //=ï¿½ï¿½Ë®Ïµï¿½Ëºï¿½ï¿½ï¿½ï¿½Ó£ï¿½#d1+%
-    int                  m_Water2medamage_p;              //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®Ïµï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½#d1-%
-    int                  m_Me2firedamage_p;              //=ï¿½Ô»ï¿½Ïµï¿½Ëºï¿½ï¿½ï¿½ï¿½Ó£ï¿½#d1+%
-    int                  m_Fire2medamage_p;              //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½Ïµï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½#d1-%
-    int                  m_Me2earthdamage_p;              //=ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ëºï¿½ï¿½ï¿½ï¿½Ó£ï¿½#d1+%
-    int                  m_Earth2medamage_p;              //=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½#d1-%
+    int                  m_Me2metaldamage_p;              //=¶Ô½ðÏµÉËº¦Ôö¼Ó£º#d1+%
+    int                  m_Metal2medamage_p;              //=¼õÉÙÀ´×Ô½ðÏµµÄÉËº¦£º#d1-%
+    int                  m_Me2wooddamage_p;              //=¶ÔÄ¾ÏµÉËº¦Ôö¼Ó£º#d1+%
+    int                  m_Wood2medamage_p;              //=¼õÉÙÀ´×ÔÄ¾ÏµµÄÉËº¦£º#d1-%
+    int                  m_Me2waterdamage_p;              //=¶ÔË®ÏµÉËº¦Ôö¼Ó£º#d1+%
+    int                  m_Water2medamage_p;              //=¼õÉÙÀ´×ÔË®ÏµµÄÉËº¦£º#d1-%
+    int                  m_Me2firedamage_p;              //=¶Ô»ðÏµÉËº¦Ôö¼Ó£º#d1+%
+    int                  m_Fire2medamage_p;              //=¼õÉÙÀ´×Ô»ðÏµµÄÉËº¦£º#d1-%
+    int                  m_Me2earthdamage_p;              //=¶ÔÍÁÏµÉËº¦Ôö¼Ó£º#d1+%
+    int                  m_Earth2medamage_p;              //=¼õÉÙÀ´×ÔÍÁÏµµÄÉËº¦£º#d1-%
 
-	int                  m_Staticmagicshield_p;		      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+	int                  m_Staticmagicshield_p;		      //µÍÓÚÄÚÁ¦×î´óÖµ¶àÉÙ±¶µÄÉËº¦
 
-// Ö»ï¿½ï¿½Òªï¿½ï¿½Ç°Öµï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½
-	int					m_Dir;							// Npcï¿½Ä·ï¿½ï¿½ï¿½
-	int					m_RedLum;						// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// Ö»ÐèÒªµ±Ç°ÖµµÄÊý¾Ý½áÊø
+	int					m_Dir;							// NpcµÄ·½Ïò
+	int					m_RedLum;						// NpcµÄÁÁ¶È
 	int					m_GreenLum;
 	int					m_BlueLum;
-	int					m_MapX, m_MapY, m_MapZ;			// Npcï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) x ï¿½ï¿½0-15ï¿½ï¿½ yï¿½ï¿½0-31ï¿½ï¿½
-	int					m_OffX, m_OffY;					// Npcï¿½Ú¸ï¿½ï¿½ï¿½ï¿½Ðµï¿½Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ê£¨ï¿½Å´ï¿½ï¿½ï¿½1024ï¿½ï¿½ï¿½ï¿½
-	int					m_DesX, m_DesY;					// Npcï¿½ï¿½ï¿½ï¿½Òªï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_SkillParam1, m_SkillParam2;   //
-	int					m_OriginX, m_OriginY;			// Npcï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£©
+	int					m_MapX, m_MapY, m_MapZ;			// NpcµÄµØÍ¼×ø±ê(¸ñ×Ó×ø±ê) x £¨0-15£© y£¨0-31£©
+	int					m_OffX, m_OffY;					// NpcÔÚ¸ñ×ÓÖÐµÄÆ«ÒÆ×ø±ê£¨·Å´óÁË1024±¶£©
+	int					m_DesX, m_DesY;					// NpcµÄÐèÒªÒÆ¶¯µ½µÄÄ¿±ê×ø±ê
+	int					m_SkillParam1, m_SkillParam2;   // 
+	int					m_OriginX, m_OriginY;			// NpcµÄÔ­Ê¼×ø±ê £¨ÏñËØ×ø±ê£©
 	DWORD				m_NextAITime;
 	BYTE				m_AIMAXTime;                //NpcAI
-// Npcï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ËµÄ»ï¿½×°ï¿½ï¿½ï¿½ï¿½
-	int					m_HelmType;					// Npcï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_ArmorType;				// Npcï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_WeaponType;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_HorseType;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	BOOL				m_bRideHorse;				// Npcï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_MaskType;					// Npc ï¿½ï¿½ß¹ï¿½ï¿½ï¿½
-	//int				m_FuMoType;					// Npc ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½
-	int 				m_PifengType;				// Npc ï¿½ï¿½ï¿½ç¹¦ï¿½ï¿½
-	BYTE				m_ChiBangType;				// Npc ï¿½ï¿½ï¿½ç¹¦ï¿½ï¿½
-	int					m_MaskMark;					// ï¿½ï¿½ï¿½ï¿½Ð³ï¿½
-	//BYTE				m_IsFuMo;					//
-	BYTE				m_BaiTan;					// Npcï¿½Ç·ï¿½ï¿½Ú°ï¿½Ì¯
+// NpcµÄ×°±¸£¨¾ö¶¨¿Í»§¶ËµÄ»»×°±¸£©	
+	int					m_HelmType;					// NpcµÄÍ·¿øÀàÐÍ
+	int					m_ArmorType;				// NpcµÄ¿ø¼×ÀàÐÍ
+	int					m_WeaponType;				// NpcµÄÎäÆ÷ÀàÐÍ
+	int					m_HorseType;				// NpcµÄÆïÂíÀàÐÍ
+	BOOL				m_bRideHorse;				// NpcÊÇ·ñÆïÂí
+	int					m_MaskType;					// Npc Ãæ¾ß¹¦ÄÜ
+	//int				m_FuMoType;					// Npc ¸½Ä§¹¦ÄÜ
+	int 				m_PifengType;				// Npc Åû·ç¹¦ÄÜ
+	BYTE				m_ChiBangType;				// Npc Åû·ç¹¦ÄÜ
+	int					m_MaskMark;					// Ãæ¾ßÊÐ³¡
+	//BYTE				m_IsFuMo;					// 
+	BYTE				m_BaiTan;					// NpcÊÇ·ñÔÚ°ÚÌ¯
 	//char				ShopName[32];
-//ï¿½Í»ï¿½ï¿½ï¿½
+//¿Í»§¶Ë
 	char				TongName[32];
 	int					m_nFigure;
-	char				Name[32];				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½
+	char				Name[32];				// NpcµÄÃû³Æ-Íæ¼Ò
 	char                _clientName[32];
-	BYTE				m_nSex;					// Npcï¿½ï¿½ï¿½Ô±ï¿½0Îªï¿½Ð£ï¿½1ÎªÅ®
-	int					m_NpcSettingIdx;		// Npcï¿½ï¿½ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ÐºÅ£ï¿½ï¿½ï¿½
-	int					m_CorpseSettingIdx;		// Npcï¿½ï¿½Ê¬ï¿½å¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//char				ActionScript[256];		// Npcï¿½ï¿½ï¿½ï¿½Îªï¿½Å±ï¿½
+	BYTE				m_nSex;					// NpcµÄÐÔ±ð0ÎªÄÐ£¬1ÎªÅ®
+	int					m_NpcSettingIdx;		// NpcµÄÉè¶¨ÎÄ¼þË÷Òý  £¨ÐÐºÅ£¿£©
+	int					m_CorpseSettingIdx;		// NpcµÄÊ¬Ìå¶¨ÒåË÷Òý
+	//char				ActionScript[256];		// NpcµÄÐÐÎª½Å±¾
 	typedef std::map<int, std::string> _StrNoteInfo;
 	_StrNoteInfo nstrNoteInfo;
 
@@ -677,18 +677,18 @@ public:
 			 if (it->first == i)
 			 {
 #ifdef _SERVER
-				 printf("--ï¿½ï¿½È¡(%s)ï¿½Å±ï¿½:%s --\n",Name,it->second.c_str());
+				 printf("--»ñÈ¡(%s)½Å±¾:%s --\n",Name,it->second.c_str());
 #endif
 				 sprintf(str,it->second.c_str());
 			     return str;
 			 }
 		} */
 		if (nstrNoteInfo.count(i)>0)
-		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		{//Èç¹û´æÔÚ
 			sprintf(str,"%s", nstrNoteInfo[i].c_str());
 
 /*#ifdef _SERVER
-			printf("--ï¿½ï¿½È¡(%s)(%d)ï¿½Å±ï¿½:%s --\n",Name,i,nstrNoteInfo[i].c_str());
+			printf("--»ñÈ¡(%s)(%d)½Å±¾:%s --\n",Name,i,nstrNoteInfo[i].c_str());
 #endif */
 
 			return str;
@@ -702,81 +702,81 @@ public:
 		else
 			nstrNoteInfo[i] = "";
 /*#ifdef _SERVER
-			     printf("--ï¿½ï¿½ï¿½ï¿½(%s)(%d)ï¿½Å±ï¿½:%s --\n",Name,i,nstrNoteInfo[i].c_str());
+			     printf("--ÉèÖÃ(%s)(%d)½Å±¾:%s --\n",Name,i,nstrNoteInfo[i].c_str());
 #endif */
 	}
 
-	DWORD				m_ActionScriptID;		// Npcï¿½ï¿½ï¿½ï¿½Îªï¿½Å±ï¿½IDï¿½ï¿½Ê¹ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD				m_ActionScriptID;		// NpcµÄÐÐÎª½Å±¾ID£¨Ê¹ÓÃÊ±ÓÃÕâ¸öÀ´¼ìË÷£©
+	
+	DWORD				m_TrapScriptID;			// NpcµÄµ±Ç°Trap½Å±¾ID;
 
-	DWORD				m_TrapScriptID;			// Npcï¿½Äµï¿½Ç°Trapï¿½Å±ï¿½ID;
+	int					m_nPeopleIdx;			// Ëø×¡µÄ¶ÔÏóÈËÎïË÷Òý
+	int					m_nLastDamageIdx;		// ×îºóÒ»´ÎÉËº¦µÄÈËÎïË÷Òý
+	int					m_nLastPoisonDamageIdx;	// ×îºóÒ»´Î¶¾ÉËº¦µÄÈËÎïË÷Òý
+	int                 m_nLastBurnDamageIdx;	// ×îºóÒ»´Î»ðÉËº¦µÄÈËÎïË÷Òý 
+	int					m_nObjectIdx;			// ¶ÔÏóÎïÆ·
 
-	int					m_nPeopleIdx;			// ï¿½ï¿½×¡ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_nLastDamageIdx;		// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_nLastPoisonDamageIdx;	// ï¿½ï¿½ï¿½Ò»ï¿½Î¶ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int                 m_nLastBurnDamageIdx;	// ï¿½ï¿½ï¿½Ò»ï¿½Î»ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_nObjectIdx;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	// NpcµÄ»ù±¾Êý¾Ý£¨Î´¿¼ÂÇ×°±¸¡¢¼¼ÄÜµÄÓ°Ïì£©
+	int					m_Experience;			// Npc±»É±»ñµÃµÄ¾­Ñé
+	int 				m_LifeMax;				// NpcµÄ×î´óÉúÃü
+	int					m_LifeReplenish;		// NpcµÄÉúÃü»Ø¸´ËÙ¶È
 
-	// Npcï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Î´ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ó°ï¿½ì£©
-	int					m_Experience;			// Npcï¿½ï¿½É±ï¿½ï¿½ÃµÄ¾ï¿½ï¿½ï¿½
-	int 				m_LifeMax;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_LifeReplenish;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
+	int					m_NuqiMax;		        // NpcÅ­Æø×î´óÖµ
+	int					m_NuqiReplenish;	    // NpcÅ­Æø»Ø¸´ËÙ¶È
 
-	int					m_NuqiMax;		        // NpcÅ­ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
-	int					m_NuqiReplenish;	    // NpcÅ­ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
+	int				    m_ManaMax;				// NpcµÄ×î´óÄÚÁ¦
+	int					m_ManaReplenish;		// NpcµÄÄÚÁ¦»Ø¸´ËÙ¶È
 
-	int				    m_ManaMax;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_ManaReplenish;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
+	int				    m_StaminaMax;			// NpcµÄ×î´óÌåÁ¦
+	int					m_StaminaGain;			// NpcµÄÌåÁ¦»Ø¸´ËÙ¶È
+	int					m_StaminaLoss;			// NpcµÄÌåÁ¦ÏÂ½µËÙ¶È
 
-	int				    m_StaminaMax;			// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_StaminaGain;			// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-	int					m_StaminaLoss;			// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ù¶ï¿½
+	int					m_AttackRating;			// NpcµÄÃüÖÐµã£¨Éí·¨¾ö¶¨Ô­Ê¼ÃüÖÐÂÊ£©
+	int					m_Defend;				// NpcµÄÉÁ±ÜÂÊ
+	int					m_FireResist;			// NpcµÄ»ð¿¹ÐÔ
+	int					m_ColdResist;			// NpcµÄÀä¿¹ÐÔ
+	int					m_PoisonResist;			// NpcµÄ¶¾¿¹ÐÔ
+	int					m_LightResist;			// NpcµÄµç¿¹ÐÔ
+	int					m_PhysicsResist;		// NpcµÄÎïÀí¿¹ÐÔ
 
-	int					m_AttackRating;			// Npcï¿½ï¿½ï¿½ï¿½ï¿½Ðµã£¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½
-	int					m_Defend;				// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_FireResist;			// Npcï¿½Ä»ï¿½ï¿½ï¿½
-	int					m_ColdResist;			// Npcï¿½ï¿½ï¿½ä¿¹ï¿½ï¿½
-	int					m_PoisonResist;			// Npcï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_LightResist;			// Npcï¿½Äµç¿¹ï¿½ï¿½
-	int					m_PhysicsResist;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int					m_FireResistMax;		// NpcµÄ×î´ó»ð¿¹ÐÔ
+	int					m_ColdResistMax;		// NpcµÄ×î´ó±ù¿¹ÐÔ
+	int					m_PoisonResistMax;		// NpcµÄ×î´ó¶¾¿¹ÐÔ
+	int					m_LightResistMax;		// NpcµÄ×î´óµç¿¹ÐÔ
+	int					m_PhysicsResistMax;		// NpcµÄ×î´óÎïÀí¿¹ÐÔ
 
-	int					m_FireResistMax;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_ColdResistMax;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int					m_PoisonResistMax;		// Npcï¿½ï¿½ï¿½ï¿½ó¶¾¿ï¿½ï¿½ï¿½
-	int					m_LightResistMax;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ç¿¹ï¿½ï¿½
-	int					m_PhysicsResistMax;		// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-	int					m_WalkSpeed;			// Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
-	int					m_RunSpeed;				// Npcï¿½ï¿½ï¿½Ü¶ï¿½ï¿½Ù¶ï¿½
-	int					m_JumpSpeed;			// Npcï¿½ï¿½ï¿½ï¿½Ô¾ï¿½Ù¶ï¿½
-	int					m_AttackSpeed;			// Npcï¿½ï¿½ï¿½â¹¦ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
-	int					m_CastSpeed;			// Npcï¿½ï¿½ï¿½Ú¹ï¿½Ê©ï¿½ï¿½ï¿½Ù¶ï¿½
-	int					m_VisionRadius;			// Npcï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§
-	int					m_DialogRadius;			// Npcï¿½Ä¶Ô»ï¿½ï¿½ï¿½Î§
-	int					m_ActiveRadius;			// Npcï¿½Ä»î¶¯ï¿½ï¿½Î§
-	int					m_HitRecover;			// Npcï¿½ï¿½ï¿½Ü»ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-	int					m_Treasure;				// Npcï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(NPC.txtï¿½ï¿½ï¿½ï¿½)
-	BOOL				m_bClientOnly;			// ï¿½Ç·ï¿½ï¿½ï¿½Ø¿Í»ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½
-//	int					m_AttackFrame;          // ï¿½â¹¦ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
-//	int					m_CastFrame;            // ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
-//	int					m_nCurrentMeleeSkill;	// Npcï¿½ï¿½Ç°ï¿½ï¿½Ö´ï¿½ÐµÄ¸ñ¶·¼ï¿½ï¿½ï¿½
-	int					m_nCurrentMeleeTime;
-
-	// AIï¿½ï¿½ï¿½ï¿½
-	int					m_AiMode;				// AIÄ£Ê½  ï¿½Ò»ï¿½Ä£Ê½
-	int					m_AiParam[MAX_AI_PARAM];// ï¿½ï¿½ï¿½ï¿½AIÄ£ï¿½ï¿½ï¿½ï¿½ï¿½AI
+	int					m_WalkSpeed;			// NpcµÄÐÐ×ßËÙ¶È
+	int					m_RunSpeed;				// NpcµÄÅÜ¶¯ËÙ¶È
+	int					m_JumpSpeed;			// NpcµÄÌøÔ¾ËÙ¶È
+	int					m_AttackSpeed;			// NpcµÄÍâ¹¦¹¥»÷ËÙ¶È
+	int					m_CastSpeed;			// NpcµÄÄÚ¹¦Ê©·¨ËÙ¶È
+	int					m_VisionRadius;			// NpcµÄÊÓÒ°·¶Î§
+	int					m_DialogRadius;			// NpcµÄ¶Ô»°·¶Î§
+	int					m_ActiveRadius;			// NpcµÄ»î¶¯·¶Î§
+	int					m_HitRecover;			// NpcµÄÊÜ»÷»Ø¸´ËÙ¶È
+	int					m_Treasure;				// Npc¶ªÂä×°±¸µÄÊýÁ¿(NPC.txtÊý¾Ý)
+	BOOL				m_bClientOnly;			// ÊÇ·ñ¼ÓÔØ¿Í»§¶ËNPCÊý¾Ý
+//	int					m_AttackFrame;          // Íâ¹¦¹¥»÷Ö¡Êý						  
+//	int					m_CastFrame;            // ÄÚ¹¦¹¥»÷Ö¡Êý
+//	int					m_nCurrentMeleeSkill;	// Npcµ±Ç°ÕýÖ´ÐÐµÄ¸ñ¶·¼¼ÄÜ
+	int					m_nCurrentMeleeTime;	
+	
+	// AI²ÎÊý
+	int					m_AiMode;				// AIÄ£Ê½  ¹Ò»úÄ£Ê½
+	int					m_AiParam[MAX_AI_PARAM];// ÓÃÓÚAIÄ£¿é¼ÆËãAI
 	int					m_AiAddLifeTime;
 
 	int					m_HeadImage;
 
-	BYTE				m_FightMode;			// ï¿½Í»ï¿½ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½ Õ½ï¿½ï¿½Ä£Ê½
+	BYTE				m_FightMode;			// ¿Í»§¶Ë´¦Àí¶¯×÷ÓÃ¡£ Õ½¶·Ä£Ê½
 	BYTE				m_BayBan;			    // bayban
 	BYTE				m_OldFightMode;
 	BOOL				m_bExchangeServer;
-	BYTE				m_ExItemId;             // ï¿½ï¿½Ä¸ï¿½ï¿½
-	BYTE				m_ExBoxId;              // ï¿½ï¿½Õ¹ï¿½ï¿½
-	DWORD				m_SyncSignal;			// Í¬ï¿½ï¿½ï¿½Åºï¿½
-	KClientNpcID		m_sClientNpcID;			// ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½Ä¸ï¿½regionï¿½ÄµÚ¼ï¿½ï¿½ï¿½npc
-	DWORD				m_dwRegionID;			// ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½regionï¿½ï¿½id
+	BYTE				m_ExItemId;             // ×ÓÄ¸´ü
+	BYTE				m_ExBoxId;              // À©Õ¹Ïä
+	DWORD				m_SyncSignal;			// Í¬²½ÐÅºÅ
+	KClientNpcID		m_sClientNpcID;			// ÓÃÓÚ±êÃ÷¿Í»§¶ËnpcÊÇÄÄ¸öregionµÄµÚ¼¸¸önpc
+	DWORD				m_dwRegionID;			// ±¾npcËùÔÚregionµÄid
 	KSyncPos			m_sSyncPos;
 	BYTE				m_nPKFlag;	               //PKÄ£Ê½
 	char				m_szChatBuffer[MAX_SENTENCE_LENGTH];
@@ -789,10 +789,10 @@ public:
 	int					m_nHurtDesX;
 	int					m_nHurtDesY;
 	int                 m_PiFenLoop;
-	BYTE				m_nTongFlag;			// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
-	int                 m_IsbeSel;              // ï¿½Ç·ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
+	BYTE				m_nTongFlag;			// ÊÇ·ñÓÐÕÐÈËÍ¼±ê
+	int                 m_IsbeSel;              // ÊÇ·ñÑ¡ÖÐÁË
 
-	int					m_DeathFrame;			// ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
+	int					m_DeathFrame;			// ËÀÍöÖ¡Êý
 	int					m_StandFrame;
 	int					m_HurtFrame;
 	int					m_AttackFrame;
@@ -800,42 +800,42 @@ public:
 	int					m_WalkFrame;
 	int					m_RunFrame;
 	int					m_StandFrame1;
-	int					m_ReviveFrame;			// ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ Ê±ï¿½ï¿½
+	int					m_ReviveFrame;			// ÖØÉúÖ¡Êý Ê±¼ä
 	int					m_SitFrame;
 	int					m_JumpFrame;
 private:
 	bool                isRemoveMenu;
-	DWORD				m_LoopFrames;			// Ñ­ï¿½ï¿½Ö¡ï¿½ï¿½
-	int					m_nPlayerIdx;           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD				m_LoopFrames;			// Ñ­»·Ö¡Êý
+	int					m_nPlayerIdx;           // Íæ¼ÒË÷ÒýºÅ
 
 	int					m_JumpFirstSpeed;
-	NPC_COMMAND			m_Command;				// ï¿½ï¿½ï¿½ï¿½á¹¹
-	BOOL				m_ProcessAI;			// ï¿½ï¿½ï¿½ï¿½AIï¿½ï¿½Ö¾
-	BOOL				m_ProcessState;			// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ö¾
+	NPC_COMMAND			m_Command;				// ÃüÁî½á¹¹
+	BOOL				m_ProcessAI;			// ´¦ÀíAI±êÖ¾
+	BOOL				m_ProcessState;			// ´¦Àí×´Ì¬±êÖ¾
 	int					m_XFactor;
 	int					m_YFactor;
 	int					m_JumpStep;
 	int					m_JumpDir;
-	int					m_SpecialSkillStep;		// ï¿½ï¿½ï¿½â¼¼ï¿½Ü²ï¿½ï¿½ï¿½
-	//NPC_COMMAND			m_SpecialSkillCommand;	// ï¿½ï¿½ï¿½â¼¼ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
+	int					m_SpecialSkillStep;		// ÌØÊâ¼¼ÄÜ²½Öè
+	//NPC_COMMAND			m_SpecialSkillCommand;	// ÌØÊâ¼¼ÄÜÐÐÎªÃüÁî
 	KNpcFindPath		m_PathFinder;
-	BOOL				m_bActivateFlag;         //ï¿½Ç·ï¿½Ö´ï¿½ï¿½Ñ­ï¿½ï¿½
+	BOOL				m_bActivateFlag;         //ÊÇ·ñÖ´ÐÐÑ­»·
 	int					m_ResDir;
-	KNpcRes				m_DataRes;				// Npcï¿½Ä¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KNpcRes				m_DataRes;				// NpcµÄ¿Í»§¶Ë×ÊÔ´£¨Í¼Ïó¡¢ÉùÒô£©
    	int                 m_DurFrame[20];
     unsigned int        uFlipTime[20];
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Õ½ï¿½ï¿½npcÃ°Ñªï¿½ï¿½ï¿½ï¿½
+	// ÓÃÓÚÆÕÍ¨Õ½¶·npcÃ°Ñª´¦Àí
 	int			    	m_nBloodNo[defMAX_SHOW_BLOOD_NUM][2];
 	//int				m_nBloodAlpha;
 	char				m_szBloodNo[64];
 private:
-	BOOL				WaitForFrame(); //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
-	BOOL				IsReachFrame(int nPercent);
+	BOOL				WaitForFrame(); //µÈ´ýÖØÉúÖ¡Êý
+	BOOL				IsReachFrame(int nPercent); 
 	void				DoStand();
 	void				OnStand();
-	void				DoRevive(); //ï¿½ï¿½ï¿½ï¿½
-	void				OnRevive(); //ï¿½ï¿½ï¿½ï¿½
+	void				DoRevive(); //ÖØÉú
+	void				OnRevive(); //ÖØÉú
 	void				DoWait();
 	void				OnWait();
 	void				DoWalk();
@@ -855,13 +855,13 @@ private:
 	void				OnHurt();
 	void				DoDeath(int nMode = 0,int nLastDamageIdx=0);
 	void				OnDeath();
-	void				DoDefense(); // ï¿½ï¿½ï¿½ï¿½
-	void				OnDefense();  //ï¿½ï¿½ï¿½ï¿½
+	void				DoDefense(); // µµ¸ñ
+	void				OnDefense();  //µµ¸ñ
 	void				DoIdle();
 	void				OnIdle();
-//	ï¿½Ð¹Ø¸ñ¶·¼ï¿½ï¿½Üµï¿½------------------------------------------
+//	ÓÐ¹Ø¸ñ¶·¼¼ÄÜµÄ------------------------------------------
 
-	BOOL				DoSecMove(int nDistance); //ï¿½Ç¶Ï»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ë²ï¿½Æ£ï¿½
+	BOOL				DoSecMove(int nDistance); //ÊÇ¶Ï»ê´Ì »¹ÊÇ Ë²ÒÆ£¿
 	BOOL				DoManyAttack();
 	void				OnManyAttack();
 	BOOL				DoBlurAttack();
@@ -870,7 +870,7 @@ private:
 	BOOL				DoRunAttack();
 	void				OnRunAttack();
 	BOOL				CastMeleeSkill(KSkill * pSkill);
-//-----------------------------------------------------------
+//-----------------------------------------------------------	
 	void				OnPlayerTalk();
 	void				DoSpecial1();
 	void				OnSpecial1();
@@ -907,18 +907,18 @@ public:
 	void				DoPlayerTalk(char *);
 	void				CheckTrap();
 //	int                 CheckWaiGua(char *exe_name);
-	void                ReSkillEnhance(int nLeftSkill,int nIsAdd=-1);//ï¿½ï¿½ï¿½Ã¶Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ¼Ó³ï¿½
+	void                ReSkillEnhance(int nLeftSkill,int nIsAdd=-1);//ÖØÖÃ¶Ô¹¥»÷¼¼ÄÜµÄ¼Ó³É
 	void                ReFullManaSkillEnhance(int nLeftSkill,int nLeftListidx);
 	void                ReWhereSkillEnhance(int nActiveSkillID,int nCurSkillEnchance,int nIsAdd=-1);
-	//int               NpcInitJinMaiVal();                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+	//int               NpcInitJinMaiVal();                            //¾­Âö³õÊ¼»¯
 	int                 NpcNewInitJinMaiVal();
-	void                UseSkills(int sKillID,int sLevel,int nNpcIdx,KMagicAttrib *pData=NULL,BOOL nIfMagic=TRUE,int nTime=-1); //ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½×´Ì¬Ð§ï¿½ï¿½
+	void                UseSkills(int sKillID,int sLevel,int nNpcIdx,KMagicAttrib *pData=NULL,BOOL nIfMagic=TRUE,int nTime=-1); //ÉèÖÃ¼¼ÄÜ×´Ì¬Ð§¹û
 	void				Init();
 	void				Remove();
-	//DWORD             TakeTrader(DWORD a,DWORD b); //È¡ï¿½ï¿½
-	//DWORD             TakeRemainder(DWORD a,DWORD b);	//È¡ï¿½ï¿½
+	//DWORD             TakeTrader(DWORD a,DWORD b); //È¡ÉÌ
+	//DWORD             TakeRemainder(DWORD a,DWORD b);	//È¡Óà
 	void				Activate();
-	//void				ActivateDrop();	//ï¿½ï¿½ï¿½Êµï¿½Ñ­ï¿½ï¿½
+	//void				ActivateDrop();	//±¬ÂÊµÄÑ­»·
 	void                NewSetNpcEnChance();
 	BOOL				IsPlayer();
 	void                GetTongBanDamage(int* nMin, int* nMax);
@@ -931,15 +931,15 @@ public:
 	void				SetBayBan(BOOL bBayBan);//bayban
 	void				TurnTo(int nIdx);
 	void                setNpcDir(int nX2,int nY2);
-	int                 GetAttackFrame(){return m_AttackFrame;};
-	int                 GetCastFrame(){return m_CastFrame;};
-	void                SetAttackFrame(int nCurFrame){ m_AttackFrame=nCurFrame;};
-	void                SetCastFrame(int nCurFrame){m_CastFrame=nCurFrame;};
+	int                 GetAttackFrame(){return m_AttackFrame;};    
+	int                 GetCastFrame(){return m_CastFrame;}; 
+	void                SetAttackFrame(int nCurFrame){ m_AttackFrame=nCurFrame;};    
+	void                SetCastFrame(int nCurFrame){m_CastFrame=nCurFrame;}; 
 	void				SendSerCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
 	void				ProcCommand(int nAI);
 	ISkill* 			GetActiveSkill();
-	int                 GetSkillLeftTime(int nSkillId);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½×´Ì¬ï¿½ï¿½Ê£ï¿½ï¿½Ê±ï¿½ï¿½
-	int                 SetSkillLeftTime(int nSkillId,int nTime);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ´ï¿½ï¿½Ê±ï¿½ï¿½
+	int                 GetSkillLeftTime(int nSkillId);//»ñÈ¡Õâ¸ö¼¼ÄÜµÄ×´Ì¬µÄÊ£ÓàÊ±¼ä
+	int                 SetSkillLeftTime(int nSkillId,int nTime);   //ÉèÖÃÕâ¸ö¼¼ÄÜµÄ´æ»îÊ±¼ä
 	void                ClearOneSkillState(int nSkillId);
 
 	BOOL				ProcessState();
@@ -947,10 +947,10 @@ public:
 	void				ModifyAttrib(int nAttacker, void* pData);
 	int					GetSkillLevel(int nSkillId);
 	void				SetId(DWORD	dwID)	{ m_dwID = dwID;};
-	BOOL				IsMatch(DWORD dwID)	{ return dwID == m_dwID; };	// ï¿½Ç·ï¿½IDï¿½ï¿½ï¿½IndexÆ¥ï¿½ï¿½
-	BOOL				Cost(NPCATTRIB nType, int nCost, BOOL bOnlyCheckCanCast = FALSE);				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½OnlyCheckCanCostÎªTRUE,ï¿½ï¿½Ê¾Ö»ï¿½Ç¼ï¿½éµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ÊµÄ¿ï¿½
-	//void				SelfDamage(int nDamage);						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void				Load(int nNpcSettingIdx, int nLevel,int nSubWorld,int nBoss=0);						// ï¿½ï¿½TabFileï¿½Ð¼ï¿½ï¿½ï¿½
+	BOOL				IsMatch(DWORD dwID)	{ return dwID == m_dwID; };	// ÊÇ·ñIDÓë¸ÃIndexÆ¥Åä
+	BOOL				Cost(NPCATTRIB nType, int nCost, BOOL bOnlyCheckCanCast = FALSE);				// ÏûºÄÄÚÁ¦ÌåÁ¦µÈ,Èç¹ûOnlyCheckCanCostÎªTRUE,±íÊ¾Ö»ÊÇ¼ì²éµ±Ç°µÄÄÚÁ¦µÈÊÇ·ñ¹»ÏûºÄ£¬²¢²»Êµ¼ÊµÄ¿Û
+	//void				SelfDamage(int nDamage);						// ×ÔÉíµÄÉËº¦£¬ÈçÎþÉü¹¥»÷
+	void				Load(int nNpcSettingIdx, int nLevel,int nSubWorld,int nBoss=0);						// ´ÓTabFileÖÐ¼ÓÔØ
 	void				GetMpsPos(int * pPosX, int *pPosY,int *nMapid);
 	BOOL				SetActiveSkill(int nSkillIdx);
 	BOOL	            ChangeSkillAttackRadius(int nSkillIdx,int nDis);
@@ -962,13 +962,13 @@ public:
 	void				SetCamp(int nCamp);
 	void				SetRankFF(int nRankFF);
 	void                SetPlayFF(int nPlayFF);
-	void				SetCurrentCamp(int nCamp); //ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½Óª
-	void				RestoreCurrentCamp();      //ï¿½Ö¸ï¿½ï¿½ï¿½Óª
-	void				SetStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void *pData, int nDataNum, int nTime = -1,int nIsEuq=0);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void				SetCurrentCamp(int nCamp); //ÉèÖÃµ±Ç°ÕóÓª
+	void				RestoreCurrentCamp();      //»Ö¸´ÕóÓª
+	void				SetStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void *pData, int nDataNum, int nTime = -1,int nIsEuq=0);	// Ö÷¶¯¸¨Öú¼¼ÄÜÓë±»¶¯¼¼ÄÜ
 	void                SetToolStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void *pData, int nDataNum, int nTime=-1);
 	void                SetToolNoStateEffect(int nLauncher, int nSkillID, int nLevel,int nTime);
 	void				SysnCastSkillEffect(int nLauncher,int nSkillID,int nParam1,int nParam2,int nLevel, int nTime = -1,int mMaxBei=1);
-	void				ClearStateSkillEffect();//ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ÏµÄ·Ç±ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×´Ì¬nMaxBeiLv
+	void				ClearStateSkillEffect();//Çå³ýNPCÉíÉÏµÄ·Ç±»¶¯ÀàµÄ¼¼ÄÜ×´Ì¬nMaxBeiLv
 	void				ReCalcStateEffect();
 	void				ClearNormalState();
 	void				SetImmediatelySkillEffect(int nLauncher, void *pData, int nDataNum);
@@ -978,31 +978,31 @@ public:
 	BOOL				ModifyMissleCollsion(BOOL bCollsion);
 	void				RestoreNpcBaseInfo(); //Set Current_Data ;
 	int                 GetNpcPepoleID(){return m_nPlayerIdx;};
-//	int                 GetNpcIsReviveID(){return m_IsRevive;};
+//	int                 GetNpcIsReviveID(){return m_IsRevive;};   
 	void				SetNpcIsRe(int nIsRe,int nTime) {m_IsRevive = nIsRe; m_ReviveFrame= nTime;};
 	void				SetNpcIsReFrame(int nIsRe,int nTime) {m_IsRe = nIsRe; m_ReviveFrame= nTime;};
 	void				RestoreState();
 	void				ClearNpcState();
 	BOOL				SetPlayerIdx(int nIdx);
 	void				DialogNpc(int nIndex);
-	void				Revive(); //cï¿½ï¿½ï¿½ï¿½hon
-	void				AddBaseLifeMax(int nLife);	// ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void				SetBaseLifeMax(int nLifeMax); // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void				Revive(); //cÖØÉúhon
+	void				AddBaseLifeMax(int nLife);	// Ôö¼Ó»ù±¾×î´óÉúÃüµã
+	void				SetBaseLifeMax(int nLifeMax); // ÉèÖÃ»ù±¾×î´óÉúÃüµã
 	void				AddCurLifeMax(int nLife);
-	void				AddBaseStaminaMax(int nStamina);// ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void				AddBaseStaminaMax(int nStamina);// Ôö¼Ó»ù±¾×î´óÌåÁ¦µã
 	void				SetBaseStaminaMax(int nStamina);
 	void				AddCurStaminaMax(int nStamina);
-	void				AddBaseManaMax(int nMana);	// ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void				AddBaseManaMax(int nMana);	// Ôö¼Ó»ù±¾×î´óÄÚÁ¦µã
 	void				SetBaseManaMax(int nMana);
 	void				AddCurManaMax(int nMana);
     void                NpcFuMoCastSkll(int nLauncher, int nParam1, int nParam2, int nWaitTime=0);
-//	void				ResetLifeReplenish();		// ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-//	void				CalcCurLifeMax();			// ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	void				CalcCurStaminaMax();		// ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	void				CalcCurManaMax();			// ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void				CalcCurLifeReplenish();		// ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ù¶ï¿½
-	void				SetSeries(int nSeries);// ï¿½è¶¨ï¿½ï¿½ npc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½Ý»ï¿½Ã»ï¿½ï¿½É£ï¿½
-    void	            SetFangAndHai(KChanelBaseInfo *nNpcInfo);//ï¿½Ä±ï¿½NPCï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½BB
+//	void				ResetLifeReplenish();		// ÖØÐÂ¼ÆËãÉúÃü»Ø¸´ËÙ¶È
+//	void				CalcCurLifeMax();			// ¼ÆËãµ±Ç°×î´óÉúÃüµã
+//	void				CalcCurStaminaMax();		// ¼ÆËãµ±Ç°×î´óÌåÁ¦µã
+//	void				CalcCurManaMax();			// ¼ÆËãµ±Ç°×î´óÄÚÁ¦µã
+	void				CalcCurLifeReplenish();		// ¼ÆËãµ±Ç°ÉúÃü»Ø¸´ËÙ¶È
+	void				SetSeries(int nSeries);// Éè¶¨´Ë npc µÄÎåÐÐÊôÐÔ£¨ÄÚÈÝ»¹Ã»Íê³É£©
+    void	            SetFangAndHai(KChanelBaseInfo *nNpcInfo);//¸Ä±äNPCµÄËÄ·À£¬ÓÃÓÚ´¥·¢BB
 	void	            SetBaseDamage(int nMix,int nMax,int nType=0);
 	void	            GetFangAndHai(KChanelBaseInfo *nNpcInfo);
 //	int					GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel, char * szParam);
@@ -1010,28 +1010,28 @@ public:
 	void				GetNpcCopyFromTemplate(int nNpcTemplateId, int nLevel);
 //	void				InitNpcLevelData(KTabFile * pTabFile, int nNpcTemplateId, KLuaScript * pLevelScript, int nLevel);
 //	void				InitNpcBaseData(int nNpcTemplateId);
-	void				SetPhysicsDamage(int nMinDamage, int nMaxDamage);	// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
-	void				SetBaseAttackRating(int nAttackRating);					// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void				SetBaseDefence(int nDefence);							// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	void				SetBaseWalkSpeed(int nSpeed);							// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
-//	void				SetBaseRunSpeed(int nSpeed);							// ï¿½è¶¨ï¿½Ü²ï¿½ï¿½Ù¶ï¿½
+	void				SetPhysicsDamage(int nMinDamage, int nMaxDamage);	// Éè¶¨ÎïÀí¹¥»÷µÄ×î´ó×îÐ¡Öµ
+	void				SetBaseAttackRating(int nAttackRating);					// Éè¶¨¹¥»÷ÃüÖÐÂÊ
+	void				SetBaseDefence(int nDefence);							// Éè¶¨·ÀÓùÁ¦
+//	void				SetBaseWalkSpeed(int nSpeed);							// Éè¶¨ÐÐ×ßËÙ¶È
+//	void				SetBaseRunSpeed(int nSpeed);							// Éè¶¨ÅÜ²½ËÙ¶È
 	int					GetCurActiveWeaponSkill();
 	void				LoadDataFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
-    //unsigned int	    GetColor(const char* pString); //ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½É«×ªï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½
-	//const               char* GetColorString(unsigned int nColor); //ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«×ªï¿½ï¿½ï¿½ï¿½ ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+    //unsigned int	    GetColor(const char* pString); //½«×Ö·û´®ÑÕÉ«×ª»»³É16½øÖÆ
+	//const               char* GetColorString(unsigned int nColor); //½«16½øÖÆÑÕÉ«×ª»»³É ×Ö·û´®ÐÎÊ½
 	void				ReSetRes(int nMark);
 	void				GetFrameCopyFromTemplate(int nNpcTemplateId, int nLevel);
 	void				LoadFrameFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
-//	int                 NpcInitJinMaiVal(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
-//	void                UseSkills(int sKillID,int sLevel,int nNpcIdx); //ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½×´Ì¬Ð§ï¿½ï¿½
+//	int                 NpcInitJinMaiVal(); //¾­Âö³õÊ¼»¯
+//	void                UseSkills(int sKillID,int sLevel,int nNpcIdx); //ÉèÖÃ¼¼ÄÜ×´Ì¬Ð§¹û
 //    int				GetPlayerIdx();
 	int	                CheckMaps(char *nKey,int nMapIdx);
 	int	                CheckAllItem(int nKeyCol,int nGen,int nDetail,int nPart);
 	BOOL				TestMovePos(int& nMpsX,int& nMpsY,int& nLength, int nSpeed, BOOL bCanJumpOver);
 
-	void                OnDrag();	                       // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	void                OnDrag();	                       // À­³¶ Ëæ»úÒÆ¶¯
 
-	void                SetClientSpr(char *nSprPath,int nxLeft,int nyTop,int nzPos=0,int i=0,char *ncPart=NULL);//ï¿½ï¿½ï¿½ï¿½ Í¬Ê±ï¿½ï¿½ï¿½Ðµï¿½SPRï¿½ï¿½ï¿½ï¿½
+	void                SetClientSpr(char *nSprPath,int nxLeft,int nyTop,int nzPos=0,int i=0,char *ncPart=NULL);//ÉèÖÃ Í¬Ê±ÔËÐÐµÄSPR¶¯»­
 	void				SetSleepMode(BOOL bSleep) { m_nSleepFlag = bSleep; /*m_DataRes.SetSleepState(bSleep);*/};
 	void				SetNpcState(int* pNpcState);
 	void				ActivateWaiGua();
@@ -1040,39 +1040,39 @@ public:
 	void				ProcNetCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
 	void				Paint();
 	int					PaintInfo(int nHeightOffset, bool bSelect, int nFontSize = 12, DWORD	dwBorderColor = 0XFF000000);
-	void				PaintHonor(int nbtRankFFId,int nMpsX,int nMpsY,int i); //sprï¿½Æºï¿½
-	void				PaintPifeng(int m_PifengType,int nMpsX,int nMpsY,int i); //sprï¿½ï¿½ï¿½ï¿½Æºï¿½
+	void				PaintHonor(int nbtRankFFId,int nMpsX,int nMpsY,int i); //spr³ÆºÅ
+	void				PaintPifeng(int m_PifengType,int nMpsX,int nMpsY,int i); //sprÅû·ç³ÆºÅ
 //	void				PaintHonor(char szString[16], int nHeightOffset, int nFontSize = 12, DWORD	dwBorderColor = 0);
 	int					PaintChat(int nHeightOffset);
-	int					SetChatInfo(const char* Name, const char* pMsgBuff, unsigned short nMsgLength);//ï¿½Ô¼ï¿½NPCËµï¿½ï¿½
+	int					SetChatInfo(const char* Name, const char* pMsgBuff, unsigned short nMsgLength);//×Ô¼ºNPCËµ»°
 	int					PaintLife(int nHeightOffset, bool bSelect);
 	int					PaintMana(int nHeightOffset);
 	void				DrawBorder();
 	int					DrawMenuState(int n);
-	void				DrawBlood();	//ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹Ì¶ï¿½Î»ï¿½ï¿½
-	BOOL				IsCanInput() { return m_ProcessAI; };//ï¿½ï¿½ï¿½ï¿½AI ï¿½ï¿½Ö¾
-	void				SetMenuState(int nState, char *lpszSentence = NULL, int nLength = 0);	// ï¿½è¶¨Í·ï¿½ï¿½×´Ì¬
-	int					GetMenuState();				// ï¿½ï¿½ï¿½Í·ï¿½ï¿½×´Ì¬
-	DWORD				SearchAroundID(DWORD dwID);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§9ï¿½ï¿½Regionï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ ID ï¿½ï¿½ npc
-	void				SetSpecialSpr(char *lpszSprName);// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sprï¿½Ä¼ï¿½
+	void				DrawBlood();	//»æÖÆÑªÌõºÍÃû×ÖÔÚ¹Ì¶¨Î»ÖÃ
+	BOOL				IsCanInput() { return m_ProcessAI; };//ÈËÎïAI ±êÖ¾
+	void				SetMenuState(int nState, char *lpszSentence = NULL, int nLength = 0);	// Éè¶¨Í·¶¥×´Ì¬
+	int					GetMenuState();				// »ñµÃÍ·¶¥×´Ì¬
+	DWORD				SearchAroundID(DWORD dwID);	// ²éÕÒÖÜÎ§9¸öRegionÖÐÊÇ·ñÓÐÖ¸¶¨ ID µÄ npc
+	void				SetSpecialSpr(char *lpszSprName);// Éè¶¨ÌØÊâµÄÖ»²¥·ÅÒ»±éµÄËæÉísprÎÄ¼þ
 	void				SetFrameSpr(char *lpszSprName, int nX, int nY, int nHeight,int mInterval=0);
 	void				SetInstantSpr(int nNo);
 	int					GetNormalNpcStandDir(int nFrame);
-	KNpcRes*			GetNpcRes(){return NULL;/*&m_DataRes;*/};  //ï¿½Ãµï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½
-  //KImageParam	        imgParam;
+	KNpcRes*			GetNpcRes(){return NULL;/*&m_DataRes;*/};  //µÃµ½NPCµÄÍâ¹Û
+  //KImageParam	        imgParam;  
 	int                 GetNpcPate();
 	int                 GetNpcPatePeopleInfo();
 
-	// Ã°Ñªï¿½ï¿½ï¿½ï¿½
+	// Ã°Ñª´¦Àí
 	void				ClearBlood(int i);
 	void				SetBlood(int nNo);
-	int				    PaintBlood(int nHeightOffset);	//ï¿½ï¿½ï¿½ï¿½Ã°Ñª
+	int				    PaintBlood(int nHeightOffset);	//»æÖÆÃ°Ñª
 	int	                PaintOther();
 	int	                PaintNewBlood(int nHeightOffset,int Val);
 	void                ApplySynNpcInfo(DWORD nNpcDwid);
 };
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ MAX_NPC
+//µ¼ÖÂÄÚ´æì­Éý MAX_NPC
 extern  KNpc *Npc;//Npc[MAX_NPC];
 #endif
 

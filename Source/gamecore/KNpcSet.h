@@ -7,7 +7,7 @@
 #include "KNpcGold.h"
 #include <map>
 
-#define		MAX_NPC_REQUEST	200   //ï¿½ï¿½ï¿½ï¿½NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define		MAX_NPC_REQUEST	200   //×î´óµÄNPC ÇëÇóÊýÁ¿
 
 class KNpcTemplate;
 
@@ -20,8 +20,8 @@ private:
 	char	m_szSprName[MAX_INSTANT_STATE][FILE_NAME_LENGTH];
 	char	m_szSoundName[MAX_INSTANT_SOUND][FILE_NAME_LENGTH];
 
-	KCacheNode	*m_pSoundNode;	// ï¿½ï¿½Ð§Ö¸ï¿½ï¿½
-//	KWavSound	*m_pWave;		// ï¿½ï¿½Ð§wavÖ¸ï¿½ï¿½
+	KCacheNode	*m_pSoundNode;	// ÉùÐ§Ö¸Õë
+//	KWavSound	*m_pWave;		// ÉùÐ§wavÖ¸Õë
 
 private:
 	void	LoadSprName();
@@ -53,16 +53,16 @@ typedef struct
 class KNpcSet
 {
 public:
-	KNpcGoldTemplate	m_cGoldTemplate;					// ï¿½Æ½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
-//	KNpcPartnerTemplate	m_cPartnerTemplate;					// Í¬ï¿½ï¿½Ä£ï¿½ï¿½
-	PlayerBaseValue		m_cPlayerBaseValue;					// ï¿½ï¿½Ò±ï¿½×¼ï¿½ï¿½ï¿½ï¿½
+	KNpcGoldTemplate	m_cGoldTemplate;					// »Æ½ð¹ÖÎïÄ£°å
+//	KNpcPartnerTemplate	m_cPartnerTemplate;					// Í¬°éÄ£°å
+	PlayerBaseValue		m_cPlayerBaseValue;					// Íæ¼Ò±ê×¼Êý¾Ý
 
 	KInstantSpecial		m_cInstantSpecial;
 
 private:
-	DWORD				m_dwIDCreator;						//	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½DWIDï¿½ï¿½
-	KLinkArray			m_FreeIdxNpcSet;					//	ï¿½ï¿½ï¿½Ã±ï¿½
-	KLinkArray			m_UseIdxNpcSet;						//	ï¿½ï¿½ï¿½Ã±ï¿½
+	DWORD				m_dwIDCreator;						//	ÓÎÏ·ÊÀ½çÖÐµÄDWIDºÅ
+	KLinkArray			m_FreeIdxNpcSet;					//	¿ÉÓÃ±í
+	KLinkArray			m_UseIdxNpcSet;						//	ÒÑÓÃ±í
 	//int                 m_nListCurIdx;
 	typedef std::map<DWORD, KNpcTemplate*> _KMapTemplate;
 	//INT				m_anTemplateRowId[MAX_NPCSTYLE + 1];
@@ -75,10 +75,10 @@ private:
 		PATE_LIFE = 0x04,
 		PATE_MANA = 0x08,
 	};
-	int					m_nShowPateFlag;					// ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ zroc add
-	RequestNpc			m_RequestNpc[MAX_NPC_REQUEST];		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½
-	KLinkArray			m_RequestFreeIdx;					//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
-	KLinkArray			m_RequestUseIdx;					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½
+	int					m_nShowPateFlag;					// ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×ÖÔÚÍ·¶¥ÉÏ zroc add
+	RequestNpc			m_RequestNpc[MAX_NPC_REQUEST];		//	Ïò·þÎñÆ÷ÉêÇëµÄID±í
+	KLinkArray			m_RequestFreeIdx;					//  Ïò·þÎñÆ÷ÉêÇë¿ÕÏÐ±í
+	KLinkArray			m_RequestUseIdx;					//	Ïò·þÎñÆ÷ÉêÇë¿ÉÓÃ±í
 public:
 	KNpcSet();
 	void			Init();
@@ -88,11 +88,11 @@ public:
 	int             SearchNameInMap(LPSTR szName,int inMapidx,int nType=0);
 	int             SearchGSNameInMap(LPSTR szName,int inMapidx);
 	int				SearchNpcSettingID(LPSTR szName);
-	int				SearchByTongName(LPSTR szName);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
-	int				SearchID(DWORD dwID);            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+	int				SearchByTongName(LPSTR szName);  //ÇøÓòÐÔÓÃµÄ
+	int				SearchID(DWORD dwID);            //ÇøÓòÐÔÓÃµÄ
 	int             DelNpcInNpcSet(int nNpcSettings);
 	int             SearchGSName(LPSTR szName);
-	int				SearchNameID(DWORD dwID);        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½
+	int				SearchNameID(DWORD dwID);        //²éÕÒÍæ¼ÒµÄ
 	BOOL			IsNpcExist(int nIdx, DWORD dwId);
 	int				AddServerNpcB(int nNpcSetingIdxInfo, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX = 0, int nOffY = 0,int nBoss=0);
 	int				AddServerNpcA(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss=0,int nRodom=0,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1,int nNpcKind=-1,unsigned int nNpcDwidx=0);
@@ -110,7 +110,7 @@ public:
 	static INT	    GetMapDisY(INT nIdx1, INT nIdx2);
 
 	int				GetNextIdx(int nIdx);
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ bActivateFlag ï¿½ï¿½Îª FALSE (Ã¿ï¿½ï¿½ï¿½ï¿½Ï·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½activateÖ®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	// °ÑËùÓÐnpcµÄ bActivateFlag ÉèÎª FALSE (Ã¿´ÎÓÎÏ·Ñ­»·´¦ÀíËùÓÐnpcµÄactivateÖ®Ç°×öÕâ¸ö´¦Àí)
 	void			ClearActivateFlagOfAllNpc();
 	void			LoadPlayerBaseValue(LPSTR szFile);
 	int				GetPlayerWalkSpeed() { return m_cPlayerBaseValue.nWalkSpeed; };
@@ -122,8 +122,8 @@ public:
 
 	KNpcTemplate*	GetTemplate(INT nNpcTemplateId,INT nLevel);
 
-	int				GetPlayerStandFrame(BOOL bMale)
-	{
+	int				GetPlayerStandFrame(BOOL bMale) 
+	{ 
 		if (bMale)
 			return m_cPlayerBaseValue.nStandFrame[0];
 		else
@@ -147,34 +147,34 @@ public:
 	void			InsertNpcRequest(DWORD dwID);
 	void			RemoveNpcRequest(DWORD dwID);
 	int				GetRequestIndex(DWORD dwID);
-	// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½Òªï¿½è¶¨ClientNpcIDï¿½ï¿½
+	// Ìí¼ÓÒ»¸ö¿Í»§¶Ënpc£¨ÐèÒªÉè¶¨ClientNpcID£©
 	int				AddClientNpc(int nTemplateID, int nRegionX, int nRegionY, int nMpsX, int nMpsY, int nNo);
-	// ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½regionï¿½ï¿½ client npc ï¿½ï¿½ï¿½ï¿½Ó½ï¿½È¥
+	// ´ÓnpcÊý×éÖÐÑ°ÕÒÊôÓÚÄ³¸öregionµÄ client npc £¬Ìí¼Ó½øÈ¥
 	void			InsertNpcToRegion(int nRegionIdx);
-	// ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ClientIDï¿½ï¿½npcï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	// ²éÕÒÄ³¸öClientIDµÄnpcÊÇ·ñ´æÔÚ
 	int				SearchClientID(KClientNpcID sClientID);
-	// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½È·ï¿½ï¿½ï¿½ï¿½Npcï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½×¨ï¿½ï¿½
+	// Ä³×ù±êÉÏ¾«È·²éÕÒNpc£¬¿Í»§¶Ë×¨ÓÃ
 	int				SearchNpcAt(int nX, int nY, int nRelation, int nRange);
 	void			CheckBalance();
-	int				GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount);	// ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½(ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½)
-	void			GetAroundOpenCaptain(int nCamp);		// ï¿½ï¿½ï¿½ï¿½ï¿½Î§Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ñ¿ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ð±ï¿½
-	int				GetAroundPlayer(KUiPlayerItem *pList, int nCount);	// ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½)
+	int				GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount);	// »ñµÃÖÜÎ§Íæ¼ÒÁÐ±í(ÓÃÓÚ¶ÓÎéÑûÇëÁÐ±í)
+	void			GetAroundOpenCaptain(int nCamp);		// »ñµÃÖÜÎ§Í¬ÕóÓªµÄÒÑ¿ª·Å¶ÓÎé¶Ó³¤ÁÐ±í
+	int				GetAroundPlayer(KUiPlayerItem *pList, int nCount);	// »ñµÃÖÜÎ§Íæ¼ÒÁÐ±í(ÓÃÓÚÁÐ±í)
 
-	// ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
 	void			SetShowNameFlag(BOOL bFlag);
-	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
 	BOOL			CheckShowName();
-	// ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
 	void			SetShowChatFlag(BOOL bFlag);
-	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
 	BOOL			CheckShowChat();
-	// ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
 	void			SetShowLifeFlag(BOOL bFlag);
-	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
 	BOOL			CheckShowLife();
-	// ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
 	void			SetShowManaFlag(BOOL bFlag);
-	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
 	BOOL			CheckShowMana();
 private:
 	void			SetID(int m_nIndex);
@@ -183,15 +183,15 @@ private:
 
     // Add By Freeway Chen in 2003.7.14
 private:
-    // [ï¿½ï¿½Ò»ï¿½ï¿½NPC.m_Kind][ï¿½Ú¶ï¿½ï¿½ï¿½NPC.m_Kind][ï¿½ï¿½Ò»ï¿½ï¿½NPC.m_CurrentCamp][ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½NPC.m_CurrentCamp]
+    // [µÚÒ»¸öNPC.m_Kind][µÚ¶þ¸öNPC.m_Kind][µÚÒ»¸öNPC.m_CurrentCamp][µÚ¶þ¸ö¸öNPC.m_CurrentCamp]
     //unsigned char m_RelationTable[kind_num][kind_num][camp_num][camp_num];
-    // ï¿½ï¿½ï¿½É¹ï¿½Ïµï¿½ï¿½
+    // Éú³É¹ØÏµ±í
     //int GenRelationTable();
     NPC_RELATION GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1, NPCCAMP Camp2);
 
 };
 
 // modify by Freeway Chen in 2003.7.14
-// È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCÖ®ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ
+// È·¶¨Á½¸öNPCÖ®¼äµÄÕ½¶·¹ØÏµ
 extern KNpcSet NpcSet;
 #endif

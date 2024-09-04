@@ -1,4 +1,4 @@
-// ������ͼ���ͻ��˰棩
+// 场景地图（客户端版）
 // Copyright : Kingsoft 2002
 // Author    : Wooy (wu yue)
 // CreateTime: 2002-11-11
@@ -17,7 +17,7 @@
 #include "ObstacleDef.h"
 #include <math.h>
 #include "gamecore/ImgRef.h"
-//�����ӵ�
+//后来加的
 #include "gamecore/KSubWorld.h"
 #ifndef WIN32
 #include <assert.h>
@@ -25,18 +25,18 @@
 
 //#include "KSubWorldSet.h"
 extern KImageStore2 m_ImageStore;
-//	bool		g_bShowGameInfo = FALSE;	    //�Ƿ���ʾ��Ϸ����������Ϣ  ����ģʽ��ʾ����
-	int			g_nMapIndex = 0;			    //����������ֵ
-	//int			g_bShowObstacle = FALSE;		//�Ƿ���ʾ�ϰ�
+//	bool		g_bShowGameInfo = FALSE;	    //是否显示游戏（场景）信息  调试模式显示坐标
+	int			g_nMapIndex = 0;			    //场景索引数值
+	//int			g_bShowObstacle = FALSE;		//是否显示障碍
 //	bool        g_iShowPaint    = FALSE;
 //#endif
 KScenePlaceC	g_ScenePlace;
-//====�Ƿ�Ԥ���Ƶر��====
+//====是否预绘制地表层====
 static bool		l_bPrerenderGround = TRUE;	///TURE
 
-//�ڷų�����ͼ�ļ���Ŀ¼
+//摆放场景地图文件的目录
 #define	ALL_PALCE_ROOT_FOLDER	"\\maps"
-//�ж��������������Ƿ������Խ�������Ϊ���ĵ�һ����Χ��
+//判断区域索引坐标是否落在以焦点区域为中心的一个范围内
 #define INSIDE_AREA(h, v, range)	\
 	( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) &&   \
 		((v) - m_FocusRegion.y) * ((v) - m_FocusRegion.y) <= (range * range) )
@@ -45,7 +45,7 @@ static bool		l_bPrerenderGround = TRUE;	///TURE
 	( m_pInProcessAreaRegions[((v) - m_FocusRegion.y + 1) * SPWP_PROCESS_RANGE + (h) - m_FocusRegion.x + 1])
 
 //***********************************************************************************************
-// EnvironmentLight���ʵ��
+// EnvironmentLight类的实现
 DWORD ChaZhiColor(KLColor &cLight1, KLColor &cLight2, float f2)
 {
 	if(f2 < 0.0f || f2 > 1.0f)
@@ -73,13 +73,13 @@ EnvironmentLight::EnvironmentLight()
 	m_cLight[6].r = 0x30, m_cLight[6].g = 0x2a, m_cLight[6].b = 0x28;
 }
 
-// ���õ�nIdx����ɫ
+// 设置第nIdx个颜色
 void EnvironmentLight::SetLight(const KLColor &cLight, int nIdx)
 {
 	m_cLight[nIdx] = cLight;
 }
 
-// ���õ�nIdx����ɫ
+// 设置第nIdx个颜色
 void EnvironmentLight::SetLight(BYTE r, BYTE g, BYTE b, int nIdx)
 {
 	m_cLight[nIdx].r = r;
@@ -87,14 +87,14 @@ void EnvironmentLight::SetLight(BYTE r, BYTE g, BYTE b, int nIdx)
 	m_cLight[nIdx].b = b;
 }
 
-// ��������7����ɫ
+// 设置所有7个颜色
 void EnvironmentLight::SetLight(KLColor *pLight)
 {
 	for(int i=0; i<7; i++)
 		m_cLight[i] = pLight[i];
 }
 
-// ȡ�þ�һ�쿪ʼnMinutes����ʱ�Ļ�������ɫ
+// 取得距一天开始nMinutes分钟时的环境光颜色
 DWORD EnvironmentLight::GetEnvironmentLight(int nMinutes)
 {
 	if(nMinutes < 660)
@@ -171,19 +171,19 @@ int	KScenePlaceC::m_PRIIdxTable[SPWP_MAX_NUM_REGIONS] =
 const KPrevLoadPosItem KScenePlaceC::m_PrevLoadPosOffset[3][3] =
 {
     {
-        { 5, {{-2,  0}, {-2, -1}, {-2, -2}, {-1, -2}, { 0, -2}} },  // ���Ͻ�(-1, -1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 3, {{-1, -2}, { 0, -2}, { 1, -2}, { 0,  0}, { 0,  0}} },  // ���Ϸ�( 0, -1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 5, {{ 0, -2}, { 1, -2}, { 2, -2}, { 2, -1}, { 2,  0}} },  // ���Ͻ�( 1, -1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
+        { 5, {{-2,  0}, {-2, -1}, {-2, -2}, {-1, -2}, { 0, -2}} },  // 左上角(-1, -1)的对应需要预加载的Region的数目和相对坐标
+        { 3, {{-1, -2}, { 0, -2}, { 1, -2}, { 0,  0}, { 0,  0}} },  // 正上方( 0, -1)的对应需要预加载的Region的数目和相对坐标
+        { 5, {{ 0, -2}, { 1, -2}, { 2, -2}, { 2, -1}, { 2,  0}} },  // 右上角( 1, -1)的对应需要预加载的Region的数目和相对坐标
     },
     {
-        { 3, {{-2, -1}, {-2,  0}, {-2,  1}, { 0,  0}, { 0,  0}} },  // ����(-1,  0)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 0, {{ 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}} },  // ԭ  ��( 0,  0)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 3, {{ 2, -1}, { 2,  0}, { 2,  1}, { 0,  0}, { 0,  0}} },  // ���ҷ�( 1,  0)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
+        { 3, {{-2, -1}, {-2,  0}, {-2,  1}, { 0,  0}, { 0,  0}} },  // 正左方(-1,  0)的对应需要预加载的Region的数目和相对坐标
+        { 0, {{ 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}, { 0,  0}} },  // 原  点( 0,  0)的对应需要预加载的Region的数目和相对坐标
+        { 3, {{ 2, -1}, { 2,  0}, { 2,  1}, { 0,  0}, { 0,  0}} },  // 正右方( 1,  0)的对应需要预加载的Region的数目和相对坐标
     },
     {
-        { 5, {{-2,  0}, {-2,  1}, {-2,  2}, {-1,  2}, { 0,  2}} },  // ���½�(-1,  1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 3, {{-1,  2}, { 0,  2}, { 1,  2}, { 0,  0}, { 0,  0}} },  // ���·�( 0,  1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
-        { 5, {{ 0,  2}, { 1,  2}, { 2,  2}, { 2,  1}, { 2,  0}} },  // ���½�( 1,  1)�Ķ�Ӧ��ҪԤ���ص�Region����Ŀ���������
+        { 5, {{-2,  0}, {-2,  1}, {-2,  2}, {-1,  2}, { 0,  2}} },  // 左下角(-1,  1)的对应需要预加载的Region的数目和相对坐标
+        { 3, {{-1,  2}, { 0,  2}, { 1,  2}, { 0,  0}, { 0,  0}} },  // 正下方( 0,  1)的对应需要预加载的Region的数目和相对坐标
+        { 5, {{ 0,  2}, { 1,  2}, { 2,  2}, { 2,  1}, { 2,  0}} },  // 右下角( 1,  1)的对应需要预加载的Region的数目和相对坐标
     },
 };
 
@@ -296,17 +296,17 @@ void KScenePlaceC::ClosePlace()
 
 	m_nSceneId = SPWP_NO_SCENE;
 
-	m_Map.Free(); //С��ͼ�Ĵ���
+	m_Map.Free(); //小地图的处理
 	SetLoadingStatus(false);
 #ifdef WIN32
 	ResetEvent(m_hSwitchLoadFinishedEvent);
-	ResetEvent(m_hLoadRegionEvent);	//��Ҫ�����޸�m_FocusRegion֮ǰ��Ҫ�����߳̾Ϳ������������ִ��֮���˳������ˡ�
+	ResetEvent(m_hLoadRegionEvent);	//这要放在修改m_FocusRegion之前，要不子线程就可能在两句代码执行之间退出结束了。
 	EnterCriticalSection(&m_RegionListAdjustCritical);
 	EnterCriticalSection(&m_LoadCritical);
 	m_nFirstToLoadIndex = -1;
 	int i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-		m_pInProcessAreaRegions[i] = NULL;//�������
+		m_pInProcessAreaRegions[i] = NULL;//清空数据
 
 	LeaveCriticalSection(&m_LoadCritical);
 	LeaveCriticalSection(&m_RegionListAdjustCritical);
@@ -314,17 +314,17 @@ void KScenePlaceC::ClosePlace()
 	EnterCriticalSection(&m_ProcessCritical);
 	ClearPreprocess(true);
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
-		m_RegionObjs[i].Clear();//�������
+		m_RegionObjs[i].Clear();//清空数据
 	LeaveCriticalSection(&m_ProcessCritical);
 #else
 	ResetEvent(m_hSwitchLoadFinishedEvent);
-	ResetEvent(m_hLoadRegionEvent);	//��Ҫ�����޸�m_FocusRegion֮ǰ��Ҫ�����߳̾Ϳ������������ִ��֮���˳������ˡ�
+	ResetEvent(m_hLoadRegionEvent);	//这要放在修改m_FocusRegion之前，要不子线程就可能在两句代码执行之间退出结束了。
 	pthread_mutex_lock(&m_RegionListAdjustCritical);
 	pthread_mutex_lock(&m_LoadCritical);
 	m_nFirstToLoadIndex = -1;
 	int i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-		m_pInProcessAreaRegions[i] = NULL;//�������
+		m_pInProcessAreaRegions[i] = NULL;//清空数据
 
 	pthread_mutex_unlock(&m_LoadCritical);
 	pthread_mutex_unlock(&m_RegionListAdjustCritical);
@@ -332,7 +332,7 @@ void KScenePlaceC::ClosePlace()
 	pthread_mutex_lock(&m_ProcessCritical);
 	ClearPreprocess(true);
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
-		m_RegionObjs[i].Clear();//�������
+		m_RegionObjs[i].Clear();//清空数据
 	pthread_mutex_unlock(&m_ProcessCritical);
 #endif
 
@@ -353,7 +353,7 @@ void KScenePlaceC::ClosePlace()
 	}*/
 	if (g_GameWorld)
 	   g_GameWorld->FreeAllSprite();
-	//����ͼ��ʱ��ȫ��ɾ������
+	//换地图的时候全部删除精灵
 }
 
 #ifndef WIN32
@@ -363,13 +363,13 @@ void KScenePlaceC::_LoadProcess()
 	DWORD dwRetCode = 0;
 	while(true)
 	{
-		//messageBox("�߳�������","�߳�������");
+		//CCMessageBox("线程运行中","线程运行中");
 		    /*if (++g_nServiceLoop >=800000000)
 		    {
 			    g_nServiceLoop = 0;
 		    }
 		    if (g_nServiceLoop & 0x1)
-			   usleep(100000); //΢�� ����=1000΢��  sleep Ϊ��
+			   usleep(100000); //微秒 毫秒=1000微妙  sleep 为秒
 		*/
 		dwRetCode = WaitForSingleObject(m_hLoadRegionEvent,1000);
 		if (dwRetCode == 0)
@@ -386,9 +386,9 @@ void KScenePlaceC::_LoadProcess()
 			if (pRegion)
 			{
 				pthread_mutex_lock(&m_LoadCritical);
-				pRegion->LoadRe(m_szPlaceRootPath);	 //�ͻ��˵����ϰ�
+				pRegion->LoadRe(m_szPlaceRootPath);	 //客户端导入障碍
 				pthread_mutex_unlock(&m_LoadCritical);
-				//if (pRegion->getStatus() == 3) //���ڼ�����
+				//if (pRegion->getStatus() == 3) //正在加载中
 				ARegionLoaded(pRegion);
 				//else
                  //continue;
@@ -400,7 +400,7 @@ void KScenePlaceC::_LoadProcess()
 				continue;
 
 			if (m_nFirstToLoadIndex >= 0)
-				continue;   // ˵�����ڼ��ع�����
+				continue;   // 说明还在加载过程中
 
 			PreLoadProcess();*/
 	}
@@ -427,7 +427,7 @@ bool KScenePlaceC::Initialize()
 		InitializeCriticalSection(&m_LoadCritical);
 		InitializeCriticalSection(&m_ProcessCritical);
 		DWORD	ThreadId;
-		//�����߳�
+		//创建线程
 		m_hLoadAndPreprocessThread = CreateThread(NULL, 0,LoadThreadEntrance, this, 0, &ThreadId);
 
 		if (m_hLoadAndPreprocessThread)
@@ -455,9 +455,8 @@ bool KScenePlaceC::Initialize()
 	  pthread_mutex_init(&m_LoadCritical,NULL);
 	  pthread_mutex_init(&m_ProcessCritical,NULL);
 	//DWORD	ThreadId;
-	//�����߳�
-    //[TODO][zer0kull]
-//	  Start();
+	//创建线程
+	  Start();
 	}
     return true;
 
@@ -468,7 +467,7 @@ bool KScenePlaceC::Initialize()
 
 }
 
-//##ModelId=3DCAA64C01DA   ÿ��һ�ε�ͼ ��һ��
+//##ModelId=3DCAA64C01DA   每换一次地图 打开一次
 bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 {
 	if (m_bInited == false)
@@ -494,7 +493,7 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	sprintf(mIndex,"%d",nPlaceIndex);
 	sprintf(mMaptype,"%d",nPlaceIndex);
 
-	if (!cIni.GetString("List",mIndex,"",Buff,sizeof(Buff)))  //��ͼ·��
+	if (!cIni.GetString("List",mIndex,"",Buff,sizeof(Buff)))  //地图路径
 	{
 	    cIni.Clear();
 		return false;
@@ -504,15 +503,15 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	sprintf(m_szPlaceRootPath,"%s\\%s",ALL_PALCE_ROOT_FOLDER,Buff);
 	strcat(mIndex,"_name");
 	strcat(mMaptype,"_MapType");
-	//messageBox(UTEXT(m_szPlaceRootPath,1).c_str(),"TESE");// ��󲻴�б�ܵ�·��
+	//CCMessageBox(UTEXT(m_szPlaceRootPath,1).c_str(),"TESE");// 最后不带斜杠的路径
 	//return false;
 	if (!cIni.GetString("List",mIndex,"",m_szSceneName,sizeof(m_szSceneName)))
-	{//���û�����ֵ� ����·���н�ȡ ����
+	{//如果没有名字的 就在路径中截取 名称
 		char* pName = strstr(Buff, "\\");  //strchr
 		if (pName)
 		{
 			while(strstr(pName, "\\"))
-				pName = strstr(pName,"\\") + 1; //ȥ��б��
+				pName = strstr(pName,"\\") + 1; //去掉斜杠
 			strcpy(m_szSceneName, pName);
 		}
 		else
@@ -523,11 +522,11 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
        sprintf(m_szMapType, "Others");
 
     cIni.Clear();
-//---------------------------------------------------ʯ���������д��� ��˿���д�
-//ȡ�ó����Ļ�������Ϣ
+//---------------------------------------------------石鼓镇这里有错误 竹丝洞有错
+//取得场景的环境光信息
 	char m_sztempRootPath[256];
 	ZeroMemory(m_sztempRootPath,sizeof(m_sztempRootPath));
-	int nValue = sprintf(m_sztempRootPath,"\\maps\\%s.wor",Buff); //����	  ����
+	int nValue = sprintf(m_sztempRootPath,"\\maps\\%s.wor",Buff); //返回	  长度
 	try
 	{
 	  if (!Ini.Load(m_sztempRootPath))
@@ -538,7 +537,7 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 		return false;
 	}
 //---------------------------------------------------
-	//m_szPlaceRootPath[nValue - 4] = 0;	 //ȥ��.wor��׺������4���ֽ�Ϊ��
+	//m_szPlaceRootPath[nValue - 4] = 0;	 //去掉.wor后缀，后面4个字节为空
 
 	//std::string Tempstr = m_szPlaceRootPath;
 	//std::string::size_type pos = Tempstr.find(".wor");
@@ -553,9 +552,9 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 	//m_szPlaceRootPath[rootLen - 4] = 0;
 
 	m_nSceneId = nPlaceIndex;
-	g_nMapIndex = nPlaceIndex;		//����������ֵ
-	//���Ӷ���ʼ��С��ͼ �д���
-	m_Map.Load(&Ini, m_nSceneId,m_szPlaceRootPath); //��ʼ��С��ͼ
+	g_nMapIndex = nPlaceIndex;		//场景索引数值
+	//冰河洞初始化小地图 有错误
+	m_Map.Load(&Ini, m_nSceneId,m_szPlaceRootPath); //初始换小地图
 	int nIsInDoor;
 	Ini.GetInteger("MAIN", "IsInDoor", 0, &nIsInDoor);
 	m_ObjectsTree.SetIsIndoor(nIsInDoor != 0);
@@ -567,12 +566,12 @@ bool KScenePlaceC::OpenPlace(int nPlaceIndex)
 
 	for (i = 0; i < SPWP_MAX_NUM_REGIONS; i++)
 		m_RegionObjs[i].ToLoad(-m_RangePosTable[i].x, -m_RangePosTable[i].y);
-	//ȡ��?
+	//取消?
 	return true;
 }
 
 //##ModelId=3DBCE7B70358
-void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //���ý�����������
+void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //设置焦点像素坐标
 {
 	if (m_bInited == false || m_szPlaceRootPath[0] == 0 ||
 		(m_FocusPosition.x == nX &&	m_FocusPosition.y == nY))
@@ -588,32 +587,32 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 	//if(m_pWeather)
 		//m_pWeather->SetFocusPos(nX, nY);
 
-	//����z������
-	m_FocusPosition.x = nX;//��������
-	m_FocusPosition.y = nY;//��������
+	//忽略z轴坐标
+	m_FocusPosition.x = nX;//像素坐标
+	m_FocusPosition.y = nY;//像素坐标
 
-	POINT	pos; //���ǵ�ǰ����������
+	POINT	pos; //主角当前的区域索引
 	pos.x = m_FocusPosition.x / KScenePlaceRegionC::RWPP_AREGION_WIDTH;
 	pos.y = m_FocusPosition.y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;
 
 	SubWorld[0].LookAt(nX, nY, 0);
-	//���������滭����Ĵ�Сλ��
-	m_RepresentArea.right  -= m_RepresentArea.left;//��ȥԭ����
-	m_RepresentArea.bottom -= m_RepresentArea.top; //��ȥԭ����
+	//设置整个绘画界面的大小位置
+	m_RepresentArea.right  -= m_RepresentArea.left;//减去原来的
+	m_RepresentArea.bottom -= m_RepresentArea.top; //减去原来的
 	m_RepresentArea.left    = m_FocusPosition.x - m_RepresentExactHalfSize.cx;
 	m_RepresentArea.top     = m_FocusPosition.y - m_RepresentExactHalfSize.cy;
 	m_RepresentArea.right  += m_RepresentArea.left;
 	m_RepresentArea.bottom += m_RepresentArea.top;
 
 	if (pos.x == m_FocusRegion.x && pos.y == m_FocusRegion.y)
-	{//С��ͼ ͬ������
+	{//小地图 同个区域
 		m_Map.SetFocusPosition(m_FocusPosition.x + m_MapFocusOffset.x,
 			 m_FocusPosition.y + m_MapFocusOffset.y, false);
 		return;
 	}
 
     POINT OffsetPos;
-    // ��������ƶ���RegionΪ���λ�ƽ��е�Ԥ��
+    // 如果根据移动后Region为相对位移进行的预读
     OffsetPos.x = pos.x - m_FocusRegion.x + 1;
     OffsetPos.y = pos.y - m_FocusRegion.y + 1;
 
@@ -636,11 +635,11 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 #endif
         for (i = 0; i < (pcPosOffsetItem->m_nNum); i++)
         {
-            // ��������ƶ���RegionΪ���λ�ƽ��е�Ԥ��
+            // 如果根据移动后Region为相对位移进行的预读
             m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].x = pos.x + pcPosOffsetItem->m_Pos[i].x;
             m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].y = pos.y + pcPosOffsetItem->m_Pos[i].y;
 
-            // ��������ƶ�ǰRegionΪ���λ�ƽ��е�Ԥ��
+            // 如果根据移动前Region为相对位移进行的预读
             //m_PreLoadPosItem.m_Pos[m_PreLoadPosItem.m_nNum].x =
             //    m_FocusRegion.x + pcPosOffsetItem->m_Pos[i].x;
             //
@@ -657,17 +656,17 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
     }
     else
     {
-        // ����ǳ���Ԥ���صķ�Χ����գ�����Ҫ����
+        // 如果是超过预加载的范围，清空，不需要加载
         m_PreLoadPosItem.m_nNum = 0;
     }
-	//С��ͼ
+	//小地图
 	m_Map.SetFocusPosition(m_FocusPosition.x + m_MapFocusOffset.x,
 		m_FocusPosition.y + m_MapFocusOffset.y, true);
 
-	m_FocusMoveOffset.cx += pos.x - m_FocusRegion.x;  //ƫ���˶��ٸ�����
+	m_FocusMoveOffset.cx += pos.x - m_FocusRegion.x;  //偏移了多少个区域
 	m_FocusMoveOffset.cy += pos.y - m_FocusRegion.y;  //
 
-	m_FocusRegion.x   = pos.x;  //�����µ����ڵ�����ֵ
+	m_FocusRegion.x   = pos.x;  //设置新的所在的区域值
 	m_FocusRegion.y   = pos.y;
 
 	m_ObjectsTree.SetLightenAreaLeftTopPos(
@@ -686,10 +685,10 @@ void KScenePlaceC::SetFocusPosition(int nX, int nY, int nZ,bool isClearAll)	  //
 			m_FocusMoveOffset.cx <= -SPWP_TRIGGER_LOADING_RANGE ||
 			m_FocusMoveOffset.cy >= SPWP_TRIGGER_LOADING_RANGE  ||
 			m_FocusMoveOffset.cy <= -SPWP_TRIGGER_LOADING_RANGE)
-		{//���ü���״̬
+		{//设置加载状态
 			SetLoadingStatus(true);
 		}
-		//�ı���ص�����
+		//改变加载的区域
 		ChangeLoadArea();
 
 		m_FocusMoveOffset.cx = 0;
@@ -724,11 +723,11 @@ void KScenePlaceC::Terminate()
 
 	m_Map.Terminate();
 
-	//�������߳��˳�ִ��
+	//触发子线程退出执行
 	m_FocusRegion.x = SPWP_FARAWAY_COORD;
 #ifdef WIN32
 	SetEvent(m_hLoadRegionEvent);
-	//�ȴ����̹߳ر�
+	//等待子线程关闭
 	DWORD	dwExitCode;
 	if (GetExitCodeThread(m_hLoadAndPreprocessThread, &dwExitCode) && dwExitCode == STILL_ACTIVE)
 		WaitForSingleObject(m_hLoadAndPreprocessThread, INFINITE);
@@ -769,7 +768,7 @@ void KScenePlaceC::Terminate()
 #endif
 }
 
-// Ԥ���ص�ͼ�ϵ�ͼ��
+// 预加载地图上的图素
 void KScenePlaceC::PreLoadProcess()
 {
     if (m_PreLoadPosItem.m_nNum == 0)
@@ -805,7 +804,7 @@ void KScenePlaceC::PreLoadProcess()
         }
 
         if (j >= m_PreLoadPosItem.m_nNum)
-            continue;   // ���û���ҵ�ƥ������������һ��
+            continue;   // 如果没有找到匹配的项，则跳到下一个
 
 
         KBuildinObj *pObjsList = NULL;
@@ -861,7 +860,7 @@ void KScenePlaceC::LoadProcess()
 
 	while(true)
 	{
-		//messageBox("�߳�������","�߳�������");
+		//CCMessageBox("线程运行中","线程运行中");
         dwRetCode = WaitForSingleObject(m_hLoadRegionEvent, 1000);
         if (dwRetCode == WAIT_OBJECT_0)
         {
@@ -874,11 +873,11 @@ void KScenePlaceC::LoadProcess()
 			LeaveCriticalSection(&m_RegionListAdjustCritical);
 
 			if (pRegion)
-			{//������������ ��������
+			{//加载这个区域的 各种数据
 				EnterCriticalSection(&m_LoadCritical);
-				pRegion->LoadRe(m_szPlaceRootPath);	 //�ͻ��˵����ϰ�
+				pRegion->LoadRe(m_szPlaceRootPath);	 //客户端导入障碍
 				LeaveCriticalSection(&m_LoadCritical);
-				//if (pRegion->getStatus() == 3)         //�ѽ��������
+				//if (pRegion->getStatus() == 3)         //已将加载完成
 				ARegionLoaded(pRegion);
 				//else
 				//	continue;
@@ -891,7 +890,7 @@ void KScenePlaceC::LoadProcess()
                 continue;
 
             if (m_nFirstToLoadIndex >= 0)
-                continue;   // ˵�����ڼ��ع�����
+                continue;   // 说明还在加载过程中
 
             PreLoadProcess();*/
 			m_PreLoadPosItem.m_nNum = 0;
@@ -920,7 +919,7 @@ void KScenePlaceC::SetRegionsToLoad()
 	pthread_mutex_lock(&m_RegionListAdjustCritical);
 #endif
 
-	//�������ڼ����е�����
+	//可能正在加载中的区域
 	KScenePlaceRegionC* pMayLoadingRegion = NULL;
 	if (m_nFirstToLoadIndex >= 0)
 		pMayLoadingRegion = m_pRegions[m_nFirstToLoadIndex];
@@ -944,7 +943,7 @@ void KScenePlaceC::SetRegionsToLoad()
 			pTempRegions[nLast--] = m_pRegions[i];
 	}
 
-	//�����µ��¸���ʼ��������������ָ���б��е�����
+	//设置新的下个起始加载区域在区域指针列表中的索引
 	m_nFirstToLoadIndex = (nFirst < SPWP_MAX_NUM_REGIONS) ? nFirst : -1;
 
 	for (i = nBourn; i < SPWP_MAX_NUM_REGIONS; i++)
@@ -1013,7 +1012,7 @@ void KScenePlaceC::SetRegionsToLoad()
 	{
 		if (pMayLoadingRegion == pTempRegions[nFirst + i])
 		{
-			//ȷ��û�������������ִ�м��أ��������ȴ�������������ؽ���
+			//确保没有区域对象正在执行加载，如果有则等待这个区域对象加载结束
 #ifdef WIN32
 			EnterCriticalSection(&m_LoadCritical);
 			LeaveCriticalSection(&m_LoadCritical);
@@ -1021,9 +1020,9 @@ void KScenePlaceC::SetRegionsToLoad()
 			pthread_mutex_lock(&m_LoadCritical);
 			pthread_mutex_unlock(&m_LoadCritical);
 #endif
-			//���е��˴�����ʱ����Ϊ��һ������ռ�����ϣ����ǻ�δ����������
-			//ָ���б���¸����������������������
-			//����Ĵ������������δ���ش���
+			//运行到此处，此时可能为“一个区域刚加载完毕，但是还未及更新区域
+			//指针列表的下个加载区域索引。”的情况
+			//下面的处理把它当作还未加载处理。
 		}
 
 		pTempRegions[nFirst + i]->ToLoad(m_FocusRegion.x + m_RangePosTable[nNewLoadIdx[i]].x - SPWP_LOAD_EXTEND_RANGE,
@@ -1036,8 +1035,8 @@ void KScenePlaceC::SetRegionsToLoad()
 		SetEvent(m_hLoadRegionEvent);
 #else
 	pthread_mutex_unlock(&m_RegionListAdjustCritical);
-	if (nCount)
-		SetEvent(m_hLoadRegionEvent);
+//	if (nCount)
+//		SetEvent(m_hLoadRegionEvent);
 #endif
 }
 
@@ -1047,11 +1046,11 @@ unsigned int KScenePlaceC::AddObject(unsigned int uGenre, int nId, int x, int y,
 {
 	POINT	ri;
 	KIpotRuntimeObj* pLeaf = NULL;
-	ri.x = x / KScenePlaceRegionC::RWPP_AREGION_WIDTH; //��������
-	ri.y = y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;//��������
+	ri.x = x / KScenePlaceRegionC::RWPP_AREGION_WIDTH; //区域索引
+	ri.y = y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;//区域索引
 
 	if (eLayerParam && INSIDE_AREA(ri.x, ri.y, 1))
-	{//��������ǵ���������ķ�Χ��
+	{//如果在主角的所在区域的范围内
 		pLeaf = (KIpotRuntimeObj*)malloc(sizeof(KIpotRuntimeObj));
 
 		if (pLeaf)
@@ -1059,7 +1058,7 @@ unsigned int KScenePlaceC::AddObject(unsigned int uGenre, int nId, int x, int y,
 			pLeaf->eLeafType = pLeaf->IPOTL_T_RUNTIME_OBJ;
 			pLeaf->uGenre = uGenre;
 			pLeaf->nId = nId;
-			pLeaf->oPosition.x = x;  //��������
+			pLeaf->oPosition.x = x;  //像素坐标
 			pLeaf->oPosition.y = y + POINT_LEAF_Y_ADJUST_VALUE;
 			pLeaf->nPositionZ = z;
 			pLeaf->pAheadBrother = NULL;
@@ -1092,7 +1091,7 @@ unsigned int KScenePlaceC::MoveObject(unsigned int uGenre, int nId,  int x, int 
 {
 
 	if (uRtoid == 0)
-	{//�滭�ӵ�
+	{//绘画子弹
 		uRtoid = AddObject(uGenre, nId, x, y, z, eLayerParam);
 		return uRtoid;
 	}
@@ -1119,7 +1118,7 @@ unsigned int KScenePlaceC::MoveObject(unsigned int uGenre, int nId,  int x, int 
 #endif
 			//if (TryEnterCriticalSection(&m_ProcessCritical))
 				if (pLeaf)
-				   m_ObjectsTree.PluckRto(pLeaf);  //��ɾ��
+				   m_ObjectsTree.PluckRto(pLeaf);  //先删除
 
 				pLeaf->oPosition.x = x;
 				pLeaf->oPosition.y = y + POINT_LEAF_Y_ADJUST_VALUE;
@@ -1180,13 +1179,13 @@ void KScenePlaceC::RemoveObject(unsigned int uGenre, int nId, unsigned int& uRto
 	}
 
 }
-//����ѭ������
+//场景循环函数
 void KScenePlaceC::Breathe()
 {
 
 	//LoadProcess_New();
 	//DWORD dwLight;
-	//��ȡ�����ĵƹ���ɫ
+	//获取环境的灯光颜色
 	//dwLight = m_EnLight.GetEnvironmentLight(m_nCurrentTime);
 /*
 	if(m_pWeather)
@@ -1216,7 +1215,7 @@ void KScenePlaceC::Breathe()
 
 //##ModelId=3DCD7F0A0071
 void KScenePlaceC::Paint()
-{//������ �Ļ滭����
+{//场景中 的绘画函数
 	IR_UpdateTime();
 	if (!g_GameWorld)
 		return;
@@ -1228,31 +1227,31 @@ void KScenePlaceC::Paint()
 		g_GameWorld->ParentNode_objabove->removeAllChildren();
 		return;
 	}
-	//messageBox("�滭��","�滭��");
+	//CCMessageBox("绘画中","绘画中");
 	if (m_bInited == false || m_szPlaceRootPath[0] == 0)
 		return;
 
 	if (m_bRenderGround)
 	{
 		m_bRenderGround = false;
-		//PrerenderGround(false); //�滭·��
+		//PrerenderGround(false); //绘画路面
 	}
 #ifdef WIN32
 	EnterCriticalSection(&m_ProcessCritical);
 #else
 	pthread_mutex_lock(&m_ProcessCritical);
 #endif
-	bool bPrerenderGroundImg = PaintBackGround();	//�Ƿ��˱���ͼ
+	bool bPrerenderGroundImg = PaintBackGround();	//是否画了背景图
 
-    //if (!bPrerenderGroundImg)    //�������
-	  // PaintBackGroundCloud();	 //��������
+    //if (!bPrerenderGroundImg)    //如果存在
+	  // PaintBackGroundCloud();	 //画背景云
 
 	unsigned int i;
 
 	for (i = 0; i <SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)  //SPWP_NUM_REGIONS_IN_PROCESS_AREA
-	{//�滭��ͼ
+	{//绘画地图
 		if (m_pInProcessAreaRegions[i])
-		{//��Ͳ� ���� · ��Ƥ ˮ��
+		{//最低层 地面 路 草皮 水等
 	    	m_pInProcessAreaRegions[i]->PaintGround(i);
 			m_pInProcessAreaRegions[i]->PaintGround(i,0);
 			m_pInProcessAreaRegions[i]->PaintBuildinObj(&m_RepresentArea,i,m_IsClearMap);
@@ -1260,15 +1259,15 @@ void KScenePlaceC::Paint()
 	}
 
 	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_COVER_GROUND);
-	//m_ObjectsTree.Paint(&m_RepresentArea,IPOT_RL_OBJECT);	 //���� ���� ���� ��ľ��
+	//m_ObjectsTree.Paint(&m_RepresentArea,IPOT_RL_OBJECT);	 //人物 怪物 房屋 树木等
 	//char msg[64];
 	//sprintf(msg,"m_nNumObjsAbove:%d",m_nNumObjsAbove);
-	//messageBox(msg,"m_nNumObjsAbove");
+	//CCMessageBox(msg,"m_nNumObjsAbove");
 	if (m_IsClearMap)
 	{
 		if (m_ClearState==0)
 		{
-			m_ClearState =1;//�����Ѿ�ɾ��
+			m_ClearState =1;//设置已经删除
 			char nRegKey[32]={0},nKey[32]={0};
 			sprintf(nRegKey,"above-0");
 			std::string nCurRegKey = nRegKey;
@@ -1279,18 +1278,18 @@ void KScenePlaceC::Paint()
 	else
 	{
 	  m_ClearState = 0;
-	  for (i = 0; i < m_nNumObjsAbove; i++)  //�ж��ٸ� ���︽�� 9�������ڵĸ߿����
-	  {//�滭�ϲ� ������ͼ�ж��ٸ��ݶ�
+	  for (i = 0; i < m_nNumObjsAbove; i++)  //有多少个 人物附近 9个区域内的高空物件
+	  {//绘画上层 整个地图有多少个屋顶
 		KScenePlaceRegionC::PaintAboveHeadObj(m_pObjsAbove[i],&m_RepresentArea,i);
 	  }
 	}
-	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_INFRONTOF_ALL);  //���� �ƺŵ�  ��BUG
+	//m_ObjectsTree.Paint(&m_RepresentArea, IPOT_RL_INFRONTOF_ALL);  //名字 称号等  有BUG
 
-	// ������������
+	// 绘制天气对象
 	//if(m_pWeather)
 	//	m_pWeather->Render(g_pRepresent);
 
-	//PaintOverCloud();	 //�滭 �ϲ���
+	//PaintOverCloud();	 //绘画 上层云
 #ifdef WIN32
 	LeaveCriticalSection(&m_ProcessCritical);
 #else
@@ -1324,16 +1323,16 @@ void KScenePlaceC::ChangeLoadArea()
 {
 	SetRegionsToLoad();
 }
-//����س�
+//点击回程
 void KScenePlaceC::ClearProcessArea()
 {
 	if (g_GameWorld)
 		g_GameWorld->FreeAllSprite();
-	//����ͼ��ʱ��ȫ��ɾ������
+	//换地图的时候全部删除精灵
 
 	/*int h,v,i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-	{//�����������
+	{//清空所有区域
 		if (m_pInProcessAreaRegions[i])
 		{//#define INSIDE_AREA(h, v, range) ( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) && ((v) - m_FocusRegion::y) * ((v) - m_FocusRegion::y) <= (range * range) )
 			m_pInProcessAreaRegions[i]->GetRegionIndex(h, v);
@@ -1342,36 +1341,36 @@ void KScenePlaceC::ClearProcessArea()
 			{
 				sprintf(nRegKey,"%d-%d-dimian",h,v);
 				std::string nCurRegKey = nRegKey;
-				Node *nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//�������ڵ����
+				CCNode *nRegNode = (g_GameWorld->ParentNode_map)->getChildByTagKey(nCurRegKey);//如果区域节点存在
 
 				if (nRegNode)
 					(g_GameWorld->ParentNode_map)->removeChild(nRegNode);
 
 				sprintf(nRegKey,"%d-%d",h,v);
 				nCurRegKey = nRegKey;
-				nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//�������ڵ����
+				nRegNode = (g_GameWorld->ParentNode_map)->getChildByTagKey(nCurRegKey);//如果区域节点存在
 				if (nRegNode)
 				{//%d-%d-dimian
-					Node *nPartNode_A= nRegNode->getChildByTag(MAP_NODE_LUMIAN_A);
+					CCNode *nPartNode_A= nRegNode->getChildByTag(MAP_NODE_LUMIAN_A);
 					if (nPartNode_A)
 						nPartNode_A->removeAllChildren();
 
-					Node *nPartNode_B= nRegNode->getChildByTag(MAP_NODE_PART);
+					CCNode *nPartNode_B= nRegNode->getChildByTag(MAP_NODE_PART);
 					if (nPartNode_B)
 						nPartNode_B->removeAllChildren();
 				}
 
-				Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nCurRegKey);//�������ڵ����
+				CCNode *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByTagKey(nCurRegKey);//如果区域节点存在
 				if (nRegBigNode)
 				{
-					Node *nPartNode_A= nRegBigNode->getChildByTag(MAP_NODE_TREES);
+					CCNode *nPartNode_A= nRegBigNode->getChildByTag(MAP_NODE_TREES);
 					if (nPartNode_A)
 					{
-						//messageBox("ȫ��ɾ��","MAP_NODE_TREES");
+						//CCMessageBox("全部删除","MAP_NODE_TREES");
 						nPartNode_A->removeAllChildren();
 					}
 
-					Node *nPartNode_B= nRegBigNode->getChildByTag(MAP_NODE_HOUSE);
+					CCNode *nPartNode_B= nRegBigNode->getChildByTag(MAP_NODE_HOUSE);
 					if (nPartNode_B)
 						nPartNode_B->removeAllChildren();
 				}
@@ -1397,13 +1396,13 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 #endif
 	int h,v,i;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
-	{//�����������
+	{//清空所有区域
 		if (m_pInProcessAreaRegions[i])
 		{//#define INSIDE_AREA(h, v, range) ( ((h) - m_FocusRegion.x) * ((h) - m_FocusRegion.x) <= (range * range) && ((v) - m_FocusRegion::y) * ((v) - m_FocusRegion::y) <= (range * range) )
 			  m_pInProcessAreaRegions[i]->GetRegionIndex(h, v);
 			  if (!isClearAll && INSIDE_AREA(h, v, 1) == 0)
-			  {//ֻ��һ������û�����
-				m_pInProcessAreaRegions[i]->LeaveProcessArea(); //�뿪ԭ��������
+			  {//只有一个区域没有清除
+				m_pInProcessAreaRegions[i]->LeaveProcessArea(); //离开原来的区域
 				char nRegKey[32]={0};
 			   if (g_GameWorld)
 			   {
@@ -1416,20 +1415,20 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 					(g_GameWorld->ParentNode_map)->removeChildByName(nPartKey,true);
 
 					Node *nRegNode = NULL;
-					/*= (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//�������ڵ��
+					/*= (g_GameWorld->ParentNode_map)->getChildByTagKey(nCurRegKey);//如果区域节点存
 				    if (nRegNode)
 						(g_GameWorld->ParentNode_map)->removeChild(nRegNode);
 					*/
 					sprintf(nRegKey,"%d-%d",h,v);
 					std::string   nBigMapKey = nRegKey;
-					/*nRegNode = (g_GameWorld->ParentNode_map)->getChildByName(nCurRegKey);//�������ڵ����
+					/*nRegNode = (g_GameWorld->ParentNode_map)->getChildByTagKey(nCurRegKey);//如果区域节点存在
 				   if (nRegNode)
 				   {//%d-%d-dimian
 					   nRegNode->removeAllChildren();
 					   //nRegNode->removeChildByTag(MAP_NODE_LUMIAN_A,true);
 					   //nRegNode->removeChildByTag(MAP_NODE_PART,true);
 				   }*/
-				   Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nBigMapKey);//�������ڵ����
+				   Node *nRegBigNode = (g_GameWorld->ParentNode_Bigmap)->getChildByName(nBigMapKey);//?1?7?1?7?1?7?1?7?1?7?1?7?1?7?1?1?1?7?1?7?1?7?1?7
 				   if (nRegBigNode)
 				   {
 					   nRegBigNode->removeAllChildren();
@@ -1460,13 +1459,13 @@ void KScenePlaceC::ChangeProcessArea(bool isClearAll)
 			GET_IN_PROCESS_AREA_REGION(h, v) = m_pRegions[i];
 			pImage = m_pRegions[i]->GetPrerenderGroundImage();
 			if (pImage == NULL && l_bPrerenderGround)
-			{//�Ƿ�������Ⱦ
+			{//是否重新渲染
 				pImage = GetFreeGroundImage();
 				//_ASSERT(pImage);
 				//if (!pImage)
 				//	continue;
 			}
-			m_pRegions[i]->EnterProcessArea(pImage); //�����������
+			m_pRegions[i]->EnterProcessArea(pImage); //进入这个区域
 		}
 	}
 #ifdef WIN32
@@ -1534,7 +1533,7 @@ void KScenePlaceC::Preprocess()
 		m_FocusPosition.x + KScenePlaceRegionC::RWPP_AREGION_WIDTH * 2,
 		m_FocusPosition.y - KScenePlaceRegionC::RWPP_AREGION_HEIGHT * 2);
 
-	//--------��ȡ�ڽ�������б�----------
+	//--------获取内建对象的列表----------
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		if (m_pInProcessAreaRegions[i])
@@ -1544,14 +1543,14 @@ void KScenePlaceC::Preprocess()
 				RegionRtoData[i].pObjsLine, RegionRtoData[i].nNumObjsLine,
 				RegionRtoData[i].pObjsTree, RegionRtoData[i].nNumObjsTree);
 			nTotalLineObj += RegionRtoData[i].nNumObjsLine;
-			//��ȡ�������ĸ߿�����
+			//获取这个区域的高空数量
 			RegionRtoData[i].nNumObjsAbove = m_pInProcessAreaRegions[i]->
 				GetAboveHeadLayer(RegionRtoData[i].pObjsAbove);
 			m_nNumObjsAbove += RegionRtoData[i].nNumObjsAbove;
 		}
 	}
 
-	//--------����߿ն���---------
+	//--------处理高空对象---------
 	if (m_nNumObjsAbove)
 	{
 		m_pObjsAbove = (KBuildinObj**)malloc(sizeof(KBuildinObj*) * m_nNumObjsAbove);
@@ -1583,7 +1582,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//--------��������ʽ����Ķ���---------
+	//--------处理树方式排序的对象---------
 	class TreeObjSet : public KNode
 	{
 	public:
@@ -1598,7 +1597,7 @@ void KScenePlaceC::Preprocess()
 	TreeObjSet	*pNode1 = NULL, *pNode2 = NULL;
 	KIpotBuildinObj* pObj = NULL;
 
-	//---��ͬ��һ��ֱ���ϵ�����һ��--
+	//---把同在一条直线上的连在一起--
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		for (j = 0; j < RegionRtoData[i].nNumObjsTree; j++)
@@ -1662,7 +1661,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//----��������ϰ���������----
+	//----把线条组合按长度排序----
 	pNode1 = (TreeObjSet*)List.GetHead();
 	while(pNode1)
 	{
@@ -1686,7 +1685,7 @@ void KScenePlaceC::Preprocess()
 		List2.AddTail(pNode1);
 	};
 
-	//----�Ѱ�����ʽ����Ķ�����������-----
+	//----把按树方式排序的对象加入对象树-----
 	while(pNode1 = (TreeObjSet*)List2.RemoveHead())
 	{
 		while(pObj = pNode1->pObjs)
@@ -1699,10 +1698,10 @@ void KScenePlaceC::Preprocess()
 		pNode1=NULL;
 	};
 
-	//----���߷�ʽ����Ķ�����и����߳�������-----
+	//----把线方式排序的对象进行根据线长度排序-----
 	if (nTotalLineObj)
 	{
-		struct LineObjItem//---�����߷�ʽ����Ķ���-----
+		struct LineObjItem//---处理线方式排序的对象-----
 		{
 			int		nLength2;
 			KIpotBuildinObj*	pObj;
@@ -1739,7 +1738,7 @@ void KScenePlaceC::Preprocess()
 					nTotalLineObj++;
 				}
 			}
-			//----���߷�ʽ����Ķ�����������-----
+			//----把线方式排序的对象加入对象树-----
 			for (i = 0; i < nTotalLineObj; i++)
 			{
 				m_ObjectsTree.AddLeafLine(pNodeList[i].pObj);
@@ -1749,7 +1748,7 @@ void KScenePlaceC::Preprocess()
 		}
 	}
 
-	//----�ѵ㷽ʽ����Ķ�����������-----
+	//----把点方式排序的对象加入对象树-----
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 		for (j = 0; j < RegionRtoData[i].nNumObjsPoint; j++)
@@ -1759,14 +1758,14 @@ void KScenePlaceC::Preprocess()
 	}
 
 
-	//----�ѳ����ڽ���Դ������-----
+	//----把场景内建光源加入树-----
 	/*KBuildInLightInfo* pLights = NULL;
 	for (i = 0; i < SPWP_NUM_REGIONS_IN_PROCESS_AREA; i++)
 	{
 
 		if (m_pInProcessAreaRegions[i])
 		{
-			j = m_pInProcessAreaRegions[i]->GetBuildinLights(pLights);  //�ڽ���Դ
+			j = m_pInProcessAreaRegions[i]->GetBuildinLights(pLights);  //内建光源
 			if (j)
 				m_ObjectsTree.AddBuildinLight(pLights, j);
 		}
@@ -1793,12 +1792,12 @@ void KScenePlaceC::ClearPreprocess(int bIncludeRto)
 		free(m_pObjsAbove);
 		m_pObjsAbove = NULL;
 
-		char nRegKey[32]={0};//����9��������ܽ��
+		char nRegKey[32]={0};//整个9大区域的总结点
 		sprintf(nRegKey,"above-0");
 		std::string nCurRegKey = nRegKey;
 		if (g_GameWorld)
 			g_GameWorld->ParentNode_objabove->removeChildByName(nCurRegKey,true);
-			//Node *nRegNode = g_GameWorld->ParentNode_Bigmap->getChildByName(nCurRegKey);//�������ڵ����
+			//CCNode *nRegNode = g_GameWorld->ParentNode_Bigmap->getChildByTagKey(nCurRegKey);//如果区域节点存在
 	}
 	m_nNumObjsAbove = 0;
 #ifdef WIN32
@@ -1826,7 +1825,7 @@ void KScenePlaceC::ProjectDistToSpaceDist(int& nXDistance, int& nYDistance)
 
 void KScenePlaceC::ViewPortCoordToSpaceCoord(int& nX, int& nY, int nZ)
 {
-	if (g_GameWorld)//��Ļ����---��������
+	if (g_GameWorld)//屏幕坐标---像素坐标
 	    SubWorld[0].GetMpsByLocalPosition(nX, nY, nZ);
 	else
 	{
@@ -1842,12 +1841,12 @@ void KScenePlaceC::GetRegionLeftTopPos(int nRegionX, int nRegionY, int& nLeft, i
 }
 
 void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
-{//��½ʱ�����ڵ�����
+{//登陆时候所在的区域
 	//CCAssert(pRegion,"");
 	if (pRegion==NULL)
 		return;
 
-	//����ռ�����ϵ���������Ԥ����Χ�򴥷�Ԥ�����ź�
+	//如果刚加载完毕的区域属于预处理范围则触发预处理信号
 	int	h, v;
 #ifdef WIN32
 	EnterCriticalSection(&m_RegionListAdjustCritical);
@@ -1876,12 +1875,12 @@ void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
 	}
 #ifdef WIN32
 	LeaveCriticalSection(&m_RegionListAdjustCritical);
-	if (m_nFirstToLoadIndex < 0)//�Ѿ�������� �������ź�
+	if (m_nFirstToLoadIndex < 0)//已经加载完毕 设置无信号
 		ResetEvent(m_hLoadRegionEvent);
 #else
     pthread_mutex_unlock(&m_RegionListAdjustCritical);
-	if (m_nFirstToLoadIndex < 0)//�Ѿ�������� �������ź�
-		ResetEvent(m_hLoadRegionEvent);
+//	if (m_nFirstToLoadIndex < 0)//已经加载完毕 设置无信号
+//		ResetEvent(m_hLoadRegionEvent);
 #endif
 
 	if (nCount >= SPWP_PROCESS_PRERENDER_REGION_COUNTER_TRIGGER)
@@ -1916,7 +1915,7 @@ void KScenePlaceC::ARegionLoaded(KScenePlaceRegionC* pRegion)
 #endif
 	}
 
-	//����highlight��special object
+	//处理highlight的special object
 	if (m_nHLSpecialObjectBioIndex != SPWP_NO_HL_SPECAIL_OBJECT &&
 		h == m_nHLSpecialObjectRegionX && v == m_nHLSpecialObjectRegionY)
 	{
@@ -1948,8 +1947,8 @@ KRUImage* KScenePlaceC::GetFreeGroundImage()
 long KScenePlaceC::GetObstacleInfo(int nX, int nY)
 {
 	POINT	ri;
-	ri.x = nX / KScenePlaceRegionC::RWPP_AREGION_WIDTH;		//��������
-	ri.y = nY / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;    //��������
+	ri.x = nX / KScenePlaceRegionC::RWPP_AREGION_WIDTH;		//像素坐标
+	ri.y = nY / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;    //像素坐标
 
 	if (INSIDE_AREA(ri.x, ri.y, 1))
 	{
@@ -1982,7 +1981,7 @@ void KScenePlaceC::RepresentShellReset()
 		m_RegionGroundImages[i].GROUND_IMG_OK_FLAG = false;
 }
 
-//���ó�����һ�����򱻼�����Ϻ�Ļص�����
+//设置场景中一个区域被加载完毕后的回调函数
 void  KScenePlaceC::SetRegionLoadedCallback(funScenePlaceRegionLoadedCallback pfunCallback)
 {
 	m_pfunRegionLoadedCallback = pfunCallback;
@@ -2103,7 +2102,7 @@ KScenePlaceRegionC*	KScenePlaceC::GetLoadedRegion(int h, int v)
 #endif
 	return pRegion;
 }
-//��ȡ���������ƺ�ID ����
+//获取场景的名称和ID 坐标
 void KScenePlaceC::GetSceneNameAndFocus(char* pszName,
 										int& nId,
 										int& nX,
@@ -2269,8 +2268,8 @@ void KScenePlaceC::LoadIni(KIniFile *pIni)
 									//SetSize(Param.nWidth, Param.nHeight);
 								   {
 								     m_pBGImg[m_nBGNum].nNumFrames = Param.nNumFrames;
-								     m_pBGImg[m_nBGNum].nInterval  = Param.nInterval;		//֡���
-								     m_pBGImg[m_nBGNum].nDirs      = Param.nNumFramesGroup; //�ܷ�����
+								     m_pBGImg[m_nBGNum].nInterval  = Param.nInterval;		//帧间隔
+								     m_pBGImg[m_nBGNum].nDirs      = Param.nNumFramesGroup; //总方向数
 								   }
 								}
 							}
@@ -2372,15 +2371,15 @@ BOOL KScenePlaceC::PaintBackGround()
 		nImgBg.uImage = 0;
 		nImgBg.nISPosition = IMAGE_IS_POSITION_INIT;
 		nImgBg.bRenderFlag = 0;
-		sprintf(nImgBg.szImage,"\\��Ϸ��Դ\\background\\����ͼ_��.jpg");
+		sprintf(nImgBg.szImage,"\\游戏资源\\background\\背景图_黑.jpg");
 		KImageParam	Param;
 		if (g_pRepresent)
 		{
 		  if (g_pRepresent->GetImageParam(nImgBg.szImage, &Param, ISI_T_BITMAP16))
 		  {
 			nImgBg.nNumFrames = Param.nNumFrames;
-			nImgBg.nInterval  = Param.nInterval;		//֡���
-			nImgBg.nDirs      = Param.nNumFramesGroup; //�ܷ�����
+			nImgBg.nInterval  = Param.nInterval;		//帧间隔
+			nImgBg.nDirs      = Param.nNumFramesGroup; //总方向数
 		  }
 		}
 		nImgBg.oPosition.nX=m_FocusRegion.x-Param.nWidth/2+150;
@@ -2463,8 +2462,8 @@ void KScenePlaceC::SetLoadingStatus(bool bLoading)
 		if (m_bLoading == false)
 			SetEvent(m_hSwitchLoadFinishedEvent);
 #else
-		if (m_bLoading == false)
-			SetEvent(m_hSwitchLoadFinishedEvent);
+//		if (m_bLoading == false)
+//			SetEvent(m_hSwitchLoadFinishedEvent);
 #endif
 	}
 }
@@ -2472,8 +2471,8 @@ void KScenePlaceC::SetLoadingStatus(bool bLoading)
 void KScenePlaceC::PaintMap(int nX, int nY)
 {
 	m_Map.PaintMap(nX, nY);
-	//�滭�ϰ�С��ͼ
-	//m_LittleMap.Draw(nX,nY);			// ����
+	//绘画障碍小地图
+	//m_LittleMap.Draw(nX,nY);			// 绘制
 
 }
 
@@ -2484,7 +2483,7 @@ void KScenePlaceC::SetMapParam(unsigned int uShowElems, int nSize)
 		m_Map.SetSize((nSize & 0xffff), (nSize >> 16));
 }
 
-//���ó����ĵ�ͼ�Ľ���(��λ:��������)
+//设置场景的地图的焦点(单位:场景坐标)
 void KScenePlaceC::SetMapFocusPositionOffset(int nOffsetX, int nOffsetY)
 {
 	if (m_bFollowWithMap == false)
@@ -2502,7 +2501,7 @@ void KScenePlaceC::SetMapFocusPositionOffset(int nOffsetX, int nOffsetY)
 	}
 }
 
-//��ȡ������С��ͼ��Ϣ
+//获取场景的小地图信息
 int KScenePlaceC::GetMapInfo(KSceneMapInfo* pInfo)
 {
 	RECT	MapRc;
@@ -2540,7 +2539,7 @@ int KScenePlaceC::GetMapInfo(KSceneMapInfo* pInfo)
 	return nRet;
 }
 
-//�����Ƿ�����ͼ���ƶ����ƶ�
+//设置是否跟随地图的移动而移动
 void  KScenePlaceC::FollowMapMove(int nbEnable)
 {
 	if ((!m_bFollowWithMap) != (!nbEnable))
@@ -2563,7 +2562,7 @@ void  KScenePlaceC::FollowMapMove(int nbEnable)
 		}
 	}
 }
-void KScenePlaceC::DrawGreenLine(int nX, int nY, BOOL bSearch) // ������
+void KScenePlaceC::DrawGreenLine(int nX, int nY, BOOL bSearch) // 画黄线
 {
 	m_Map.SetGreenLine(nX, nY, bSearch);
 }
@@ -2573,7 +2572,7 @@ void KScenePlaceC::FindPos(int nX, int nY, BOOL bSearch)
 	m_Map.SetGreenLine(nX, nY, bSearch);
 }
 
-//ɾ��������
+//删除画黄线
 void KScenePlaceC::DelGreenLine()
 {
 	m_Map.DelGreenLine();

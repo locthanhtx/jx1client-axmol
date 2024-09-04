@@ -110,7 +110,7 @@ bool KuiDialog::init()
     ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
     auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->onTouchesBegan = AX_CALLBACK_2(KSkillRocker::ccTouchBegan, this);
+    touchListener->onTouchBegan = AX_CALLBACK_2(KuiDialog::ccTouchBegan, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
 	return true;

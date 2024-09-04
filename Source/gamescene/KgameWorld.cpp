@@ -908,8 +908,8 @@ bool KgameWorld::init()
 			origin.y + pquxiaItem->getContentSize().height/2+180));
 		char mKey[32];
 		sprintf(mKey,"quxia");
-		int nikey = std::hash<std::string>{}(mKey);
-		pquxiaItem->setTag(nikey);
+//		int nikey = std::hash<std::string>{}(mKey);
+		pquxiaItem->setName(mKey);
 	}
 
 	MenuItemImage *pyincItem;
@@ -3610,8 +3610,8 @@ void KgameWorld::DrawSpecial_miss(int nMissIndex,int eStatus,int nNpcIndex,unsig
 			if  (!nPartCurNode)
 				return;
 
-            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-			nPartCurNode->setTag(nCurKey_tmp);
+//            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+			nPartCurNode->setName(nCurKey);
 			nPartCurNode->setAnchorPoint(ax::Vec2(0,0));
 			int _scrX=pPrimitives->oPosition.nX,_scrY=pPrimitives->oPosition.nY;
 			SubWorld[0].GetLocalPositionByMps(_scrX,_scrY,pPrimitives->oPosition.nZ);      //像素坐标－－－＞屏幕坐标
@@ -3831,8 +3831,8 @@ void KgameWorld::DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimit
 	if (!nRegNode)
 	{//如果不存在就 创建
 		nRegNode = Node::create();
-        int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-		nRegNode->setTag(nCurRegKey_tmp);
+//        int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+		nRegNode->setName(nCurRegKey);
 		ParentNode_Bigmap->addChild(nRegNode,1);
 		nRegNode->setPosition(ax::Vec2(0,0));
 		nRegNode->setAnchorPoint(ax::Vec2(0,0));
@@ -3900,8 +3900,8 @@ sprNode->setTag(nCurKey_tmp);
 							CCRectZero.size = bgCur->getContentSize();
 							sprNode = Sprite::createWithTexture(bgCur,CCRectZero);
 							nPartNode->addChild(sprNode,1);
-                            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-							sprNode->setTag(nCurKey_tmp);
+//                            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+							sprNode->setName(nCurKey);
 							//sprNode->setPosition(ax::Vec2(0,0));
 							sprNode->setAnchorPoint(ax::Vec2(0,0));
 							//sprNode->setTextureRect(CCRectZero,false,CCRectZero.size);
@@ -4010,8 +4010,8 @@ sprNode->setTag(nCurKey_tmp);
 							CCRectZero = ax::Rect(pTemp->oImgLTPos.nX,pTemp->oImgLTPos.nY,rc.right,rc.bottom);
 							sprNode = Sprite::createWithTexture(bgCur,CCRectZero);
 							nPartNode->addChild(sprNode,1);
-                            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-							sprNode->setTag(nCurKey_tmp);
+//                            int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+							sprNode->setName(nCurKey);
 							//sprNode->setPosition(ax::Vec2(0,0));
 							sprNode->setAnchorPoint(ax::Vec2(0,0));
 
@@ -4048,8 +4048,8 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 	if (!nRegNode)
 	{//如果不存在就 创建
 		nRegNode = Node::create();
-        int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-		nRegNode->setTag(nCurRegKey_tmp);
+//        int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+		nRegNode->setName(nCurRegKey);
 		ParentNode_objabove->addChild(nRegNode,1);
 		nRegNode->setPosition(ax::Vec2(0,0));
 		nRegNode->setAnchorPoint(ax::Vec2(0,0));
@@ -4137,8 +4137,8 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 					    sprNode = Sprite::createWithTexture(bgCur,CCpicRect);
 						//sprNode->setTextureRect(CCpicRect,false,CCpicRect.size);//,false,CCRectZero.size
 						nPartNode->addChild(sprNode,1);//图集加入精灵
-                        int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						sprNode->setTag(nCurKey_tmp);
+//                        int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						sprNode->setName(nCurKey);
 						//sprNode->setOpacity(0);
 						sprNode->setPosition(ax::Vec2(0,0));
 						sprNode->setAnchorPoint(ax::Vec2(0,0));
@@ -4316,8 +4316,8 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 						sprNode = Sprite::createWithTexture(bgCur,CCpicRect);
 						//sprNode->setTextureRect(CCpicRect,false,CCpicRect.size);//,false,CCRectZero.size
 						nPartNode->addChild(sprNode,1);//图集加入精灵
-                        int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						sprNode->setTag(nCurKey_tmp);
+//                        int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						sprNode->setName(nCurKey);
 						//sprNode->setOpacity(0);
 						sprNode->setPosition(ax::Vec2(0,0));
 						sprNode->setAnchorPoint(ax::Vec2(0,0));
@@ -4352,8 +4352,8 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 	   if (!nRegNode)
 	   {//如果不存在就 创建
 		   nRegNode = Node::create();
-           int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-		   nRegNode->setTag(nCurRegKey_tmp);
+//           int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+		   nRegNode->setName(nCurRegKey);
 		   ParentNode_Bigmap->addChild(nRegNode,1);
 		   nRegNode->setPosition(ax::Vec2(0,0));
 		   nRegNode->setAnchorPoint(ax::Vec2(0,0));
@@ -4403,8 +4403,8 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);//图集加入精灵
-                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -4465,8 +4465,8 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -4557,7 +4557,7 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
    {//如果不存在就 创建
 	  nRegNode = Node::create();
       int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-	  nRegNode->setTag(nCurRegKey_tmp);
+	  nRegNode->setName(nCurRegKey);
       ParentNode_map->addChild(nRegNode,1);
       nRegNode->setPosition(ax::Vec2(0,0));
       nRegNode->setAnchorPoint(ax::Vec2(0,0));
@@ -4604,8 +4604,8 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -4674,8 +4674,8 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//                           int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -4758,8 +4758,8 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 					   {
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-                           sprNode->setTag(nCurKey_tmp);
+//						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+                           sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -4838,8 +4838,8 @@ void KgameWorld::DrawPrimitives_BigMap_house(int nRegIndex,int nPos, KRUImage* p
 			nBgtestSpr = Sprite::create();
 			nBgtestSpr->setAnchorPoint(ax::Vec2(0,0));
 			nBgtestSpr->setPosition(ax::Vec2(0,0));
-            int nikey = std::hash<std::string>{}("spr_part");
-            nBgtestSpr->setTag(nikey);
+//            int nikey = std::hash<std::string>{}("spr_part");
+            nBgtestSpr->setName("spr_part");
 		}
 		Rect ccRectPos= ax::Rect(0,0,64,64);
 		//nBgtestSpr->setTextureRect(ccRectPos,false,ccRectPos.size);
@@ -4897,8 +4897,8 @@ void KgameWorld::DrawPrimitives_BigMap_house(int nRegIndex,int nPos, KRUImage* p
 			//nBgRegSpr->setVisible(false);//隐藏
 			nBgRegSpr->setPosition(ax::Vec2(0,0));
 			nBgRegSpr->setAnchorPoint(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-			nBgRegSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+			nBgRegSpr->setName(nCurRegKey);
 			ParentNode_Bigmap->addChild(nBgRegSpr,1);
 		}
 		Texture2D* ncurSpr =NULL;
@@ -4955,8 +4955,8 @@ void KgameWorld::DrawPrimitives_BigMap_Tree(int nRegIndex,int nPos, KRUImage* pP
 			nBgtestSpr = Sprite::create();
 			nBgtestSpr->setAnchorPoint(ax::Vec2(0,0));
 			nBgtestSpr->setPosition(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}("spr_tree");
-			nBgtestSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}("spr_tree");
+			nBgtestSpr->setName("spr_tree");
 		}
 		Rect ccRectPos= ax::Rect(0,0,64,64);
 		//nBgtestSpr->setTextureRect(ccRectPos,false,ccRectPos.size);
@@ -4997,8 +4997,8 @@ void KgameWorld::DrawPrimitives_BigMap_Tree(int nRegIndex,int nPos, KRUImage* pP
 			//nBgRegSpr->setVisible(false);//隐藏
 			nBgRegSpr->setPosition(ax::Vec2(0,0));
 			nBgRegSpr->setAnchorPoint(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-			nBgRegSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+			nBgRegSpr->setName(nCurRegKey);
 			ParentNode_Bigmap->addChild(nBgRegSpr,1);
 		}
 		Texture2D* ncurSpr =NULL;
@@ -5041,8 +5041,8 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);//
 	nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
 	nRegCanvas->setAutoDraw(true);
-	int nCurRegKey_tmp = std::hash<std::string>{}("canvas_part");
-	nRegCanvas->setTag(nCurRegKey_tmp);
+//	int nCurRegKey_tmp = std::hash<std::string>{}("canvas_part");
+	nRegCanvas->setName("canvas_part");
 	ParentNode_map->addChild(nRegCanvas,-1);
 
 	if  (nRegCanvas)
@@ -5100,8 +5100,8 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 				//nBgtestSpr->setColor(ax::Color3B::RED);
 				//nBgtestSpr->setOpacity(105);
 				nBgtestSpr->setAnchorPoint(ax::Vec2(0,0));
-				int nikey = std::hash<std::string>{}("spr_part");
-				nBgtestSpr->setTag(nikey);
+//				int nikey = std::hash<std::string>{}("spr_part");
+				nBgtestSpr->setName("spr_part");
 				int  OffsetX = (NewscrX-nRegPiont.x*512);
 				int  OffsetY = 512-(NewscrY-nRegPiont.y*1024)/2 - CCRectZero.size.height;
 				//for (int j = 0;j<DRAW_COUNT;j++)//nPos
@@ -5119,8 +5119,8 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 				nBgtestSpr->setOpacity(255);
 				nBgtestSpr->setContentSize(ax::Size(64,64));
 				nBgtestSpr->setAnchorPoint(ax::Vec2(0,0));
-				int nikey = std::hash<std::string>{}("spr_part");
-				nBgtestSpr->setTag(nikey);
+//				int nikey = std::hash<std::string>{}("spr_part");
+				nBgtestSpr->setName("spr_part");
 				CCRectZero.size = nBgtestSpr->getContentSize();
 				if (pTemp[i].oImgRBPos.nX > CCRectZero.size.width)
 					pTemp[i].oImgRBPos.nX = CCRectZero.size.width;
@@ -5150,8 +5150,8 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 			}
 			nBgRegSpr = Sprite::createWithTexture(ncurSpr,ccRectPos);
 			nBgRegSpr->setAnchorPoint(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-			nBgRegSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+			nBgRegSpr->setName(nCurRegKey);
 			ParentNode_map->addChild(nBgRegSpr,1);
 			/*else
 			{
@@ -5194,8 +5194,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
    RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);//0x88F0
   // nRegCanvas->setClearColor()
    nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
-   int nCurRegKey_tmp = std::hash<std::string>{}("canvas_full");
-   nRegCanvas->setTag(nCurRegKey_tmp);
+//   int nCurRegKey_tmp = std::hash<std::string>{}("canvas_full");
+   nRegCanvas->setName("canvas_full");
    ParentNode_map->addChild(nRegCanvas,-2);
 
    if  (nRegCanvas)
@@ -5226,8 +5226,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 			nBgtestSpr = Sprite::createWithTexture(bgCur,CCRectTemp);
 			nBgtestSpr->setAnchorPoint(ax::Vec2(0,0));
 			//nBgtestSpr->setPosition(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}("spr_draw");
-			nBgtestSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}("spr_draw");
+			nBgtestSpr->setName("spr_draw");
 			//for (int j = 0;j<DRAW_COUNT;j++)//nPos
 			//{//修改精灵的纹理
 				//nBgtestSpr->setTextureRect(CCRectZero,false,CCRectZero.size);
@@ -5257,8 +5257,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 
 		    nBgRegSpr = Sprite::createWithTexture(nregSpr,ccRectPos);
 			nBgRegSpr->setAnchorPoint(ax::Vec2(0,0));
-			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-			nBgRegSpr->setTag(nCurRegKey_tmp);
+//			int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+			nBgRegSpr->setName(nCurRegKey);
 			ParentNode_map->addChild(nBgRegSpr,-2);
 		 /*  else
 		   {
@@ -5282,8 +5282,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
    if (!nRegNode)
    {//如果不存在就 创建
 	  nRegNode = Node::create();
-	  int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
-	  nRegNode->setTag(nCurRegKey_tmp);
+//	  int nCurRegKey_tmp = std::hash<std::string>{}(nCurRegKey);
+	  nRegNode->setName(nCurRegKey);
       ParentNode_map->addChild(nRegNode,1);
       nRegNode->setPosition(ax::Vec2(0,0));
       nRegNode->setAnchorPoint(ax::Vec2(0,0));
@@ -5334,8 +5334,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -5400,8 +5400,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
-						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
-						   sprNode->setTag(nCurKey_tmp);
+//						   int nCurKey_tmp = std::hash<std::string>{}(nCurKey);
+						   sprNode->setName(nCurKey);
 						   sprNode->setPosition(ax::Vec2(0,0));
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
@@ -5720,8 +5720,8 @@ void KgameWorld::DrawPrimitives_MenuState(int nNpcIndex,int nstateIdx,int nPos, 
 			 {//不存在就创建
 				 nPartSpr = Sprite::createWithTexture(bgCur);
 				 nPartSpr->setAnchorPoint(ax::Vec2(0,0));
-				 int m_stateKey_tmp = std::hash<std::string>{}(m_stateKey);
-				 nPartSpr->setTag(m_stateKey_tmp);
+//				 int m_stateKey_tmp = std::hash<std::string>{}(m_stateKey);
+				 nPartSpr->setName(m_stateKey);
 				 //nPartSpr->setContentSize(nsprSize);
 				 nPartNpcNode->addChild(nPartSpr,50);
 			 }
@@ -5775,8 +5775,8 @@ void KgameWorld::DrawPrimitives_State(int nNpcIndex,int nstateIdx,int nPos, KRUI
 			 {//不存在就创建
 				 nPartSpr = Sprite::createWithTexture(bgCur);
 				 nPartSpr->setAnchorPoint(ax::Vec2(0,0));
-				 int m_stateKey_tmp = std::hash<std::string>{}(m_stateKey);
-				 nPartSpr->setTag(m_stateKey_tmp);
+//				 int m_stateKey_tmp = std::hash<std::string>{}(m_stateKey);
+				 nPartSpr->setName(m_stateKey);
 				 //nPartSpr->setContentSize(nsprSize);
 				 nPartNpcNode->addChild(nPartSpr,2);
 			 }
@@ -5841,8 +5841,8 @@ void KgameWorld::DrawPrimitives_NpcBlood(int nNpcIndex,int bloodindex,char *strB
 	{//这个NPC的冒血父节点
 		NpcBloopParentNode =Node::create();
 		NpcBloopParentNode->setAnchorPoint(ax::Vec2(0,0));
-		int nTempKey_tmp = std::hash<std::string>{}(nTempKey);
-		NpcBloopParentNode->setTag(nTempKey_tmp);
+//		int nTempKey_tmp = std::hash<std::string>{}(nTempKey);
+		NpcBloopParentNode->setName(nTempKey);
 		ParentNode_npcblood->addChild(NpcBloopParentNode,1);
 	}
 	Label *pBloodLabel = NULL;
@@ -5882,8 +5882,8 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 		//姓名 称号 血条的父亲节点
 		nNpcOtherNode = Node::create();
 		nNpcOtherNode->setAnchorPoint(ax::Vec2(0,0));
-		int otherKey_tmp = std::hash<std::string>{}(otherKey);
-		nNpcOtherNode->setTag(otherKey_tmp);
+//		int otherKey_tmp = std::hash<std::string>{}(otherKey);
+		nNpcOtherNode->setName(otherKey);
 		ParentNode_npcother->addChild(nNpcOtherNode,1);
 	}
 	if (relation_enemy == NpcSet.GetRelation(nNpcIndex, Player[CLIENT_PLAYER_INDEX].m_nIndex) &&
@@ -7840,8 +7840,7 @@ void KgameWorld::MoveObject(int ObjKind,int nIndex,bool nIsClear,int nPosX,int n
 			   Node *nNpcNode = Node::create();
 			   if  (!nNpcNode || nNpcNode==NULL)
 				   break;
-				int npcKey_tmp = std::hash<std::string>{}(npcKey);
-			   nNpcNode->setTag(npcKey_tmp);
+               nNpcNode->setName(npcKey);
 			   ParentNode_npc->addChild(nNpcNode,1,nIndex);
 			   //父-子(父--子) 先父后子，否则释放的时候　会出现问题
 			   int NewscrX=nPosX,NewscrY=nPosY;
@@ -9631,8 +9630,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				bgcolorLayer = LayerColor::create(color);//颜色层
 				bgcolorLayer->setAnchorPoint(ax::Vec2(0,0));
 				bgcolorLayer->setContentSize(colorsize);//设置和窗口的大小
-				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
-				bgcolorLayer->setTag(ncolorKey_tmp);
+//				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
+				bgcolorLayer->setName(ncolorKey);
 				ImmediaMenu_1->addChild(bgcolorLayer,-1);
 				Size stackSize;
 				stackSize.width  = colorsize.width;
@@ -9641,8 +9640,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				Label *stackCountlabel = Label::createWithTTF(strStack,UI_GAME_FONT_DEFAULT, 12,stackSize,TextHAlignment::RIGHT);//Arial
 				stackCountlabel->setAnchorPoint(ax::Vec2(0,0));
 				stackCountlabel->setPosition(ax::Vec2(0,0));
-				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
-				stackCountlabel->setTag(nstackKey_tmp);
+//				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
+				stackCountlabel->setName(nstackKey);
 				stackCountlabel->setColor(ax::Color3B::YELLOW);
 				bgcolorLayer->addChild(stackCountlabel,1);
 			}
@@ -9705,8 +9704,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				bgcolorLayer = LayerColor::create(color);//颜色层
 				bgcolorLayer->setAnchorPoint(ax::Vec2(0,0));
 				bgcolorLayer->setContentSize(colorsize);//设置和窗口的大小
-				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
-				bgcolorLayer->setTag(ncolorKey_tmp);
+//				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
+				bgcolorLayer->setName(ncolorKey);
 				ImmediaMenu_2->addChild(bgcolorLayer,-1);
 				Size stackSize;
 				stackSize.width  = colorsize.width;
@@ -9714,8 +9713,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				Label *stackCountlabel = Label::createWithTTF(strStack,UI_GAME_FONT_DEFAULT, 12,stackSize,TextHAlignment::RIGHT);//Arial
 				stackCountlabel->setAnchorPoint(ax::Vec2(0,0));
 				stackCountlabel->setPosition(ax::Vec2(0,0));
-				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
-				stackCountlabel->setTag(nstackKey_tmp);
+//				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
+				stackCountlabel->setName(nstackKey);
 				stackCountlabel->setColor(ax::Color3B::YELLOW);
 				bgcolorLayer->addChild(stackCountlabel,1);
 			}
@@ -9775,8 +9774,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				bgcolorLayer = LayerColor::create(color);//颜色层
 				bgcolorLayer->setAnchorPoint(ax::Vec2(0,0));
 				bgcolorLayer->setContentSize(colorsize);//设置和窗口的大小
-				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
-				bgcolorLayer->setTag(ncolorKey_tmp);
+//				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
+				bgcolorLayer->setName(ncolorKey);
 				ImmediaMenu_3->addChild(bgcolorLayer,-1);
 				Size stackSize;
 				stackSize.width  = colorsize.width;
@@ -9785,8 +9784,8 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 				Label *stackCountlabel = Label::createWithTTF(strStack,UI_GAME_FONT_DEFAULT, 12,stackSize,TextHAlignment::RIGHT);//Arial
 				stackCountlabel->setAnchorPoint(ax::Vec2(0,0));
 				stackCountlabel->setPosition(ax::Vec2(0,0));
-				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
-				stackCountlabel->setTag(nstackKey_tmp);
+//				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
+				stackCountlabel->setName(nstackKey);
 				stackCountlabel->setColor(ax::Color3B::YELLOW);
 				bgcolorLayer->addChild(stackCountlabel,1);
 			}

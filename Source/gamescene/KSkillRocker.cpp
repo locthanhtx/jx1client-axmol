@@ -20,9 +20,9 @@ void KSkillRocker::Active()
         ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
         auto touchListener = EventListenerTouchOneByOne::create();
-	    touchListener->onTouchesBegan = AX_CALLBACK_2(KSkillRocker::ccTouchBegan, this);
-	    touchListener->onTouchesMoved = AX_CALLBACK_2(KSkillRocker::ccTouchMoved, this);
-	    touchListener->onTouchesEnded = AX_CALLBACK_2(KSkillRocker::ccTouchEnded, this);
+	    touchListener->onTouchBegan = AX_CALLBACK_2(KSkillRocker::ccTouchBegan, this);
+	    touchListener->onTouchMoved = AX_CALLBACK_2(KSkillRocker::ccTouchMoved, this);
+	    touchListener->onTouchEnded = AX_CALLBACK_2(KSkillRocker::ccTouchEnded, this);
 	    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}else {
 	}

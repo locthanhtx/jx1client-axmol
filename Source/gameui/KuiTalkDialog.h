@@ -10,9 +10,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
 //#define ITEM_CELL_SIZE	28   //ÿ�����ӵĸ߶ȺͿ��
@@ -36,7 +36,7 @@ public:
 //	virtual void draw();
 
 	bool    isOpen;
-	void	Show(char* pInformation, int nInforLen, const char* pBtnLabel, unsigned int uParam = 0);//��ʾ����
+	void	Show(char* pInformation, int nInforLen, const char* pBtnLabel, uintptr_t uParam = 0);//��ʾ����
 private:
 	//��д����ע�ắ�������¸�����������
 	void registerWithTouchDispatcher();

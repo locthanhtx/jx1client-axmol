@@ -3,8 +3,8 @@
 #include "Skill.h"
 #include "KNpc.h"
 #include "KPlayer.h"
-#define THIEFSKILL_SETTINGFILE "\\SETTINGS\\THIEFSKILL.TXT"	
-enum 
+#define THIEFSKILL_SETTINGFILE "\\SETTINGS\\THIEFSKILL.TXT"
+enum
 {
 	thief_redress, //�ٸ���ƶ
 	thief_showlife,
@@ -41,7 +41,7 @@ public:
 	int				GetSkillId();
 	const char *	GetSkillName();
 	int				GetSkillStyle();
-	void			LoadSkillLevelData(uint32_t  ulLevel, int nParam);
+	void			LoadSkillLevelData(unsigned int  ulLevel, int nParam);
 	int				DoSkill(KNpc * pNpc, int nX, int nY);
 	int				OnSkill(KNpc * pNpc);
 	BOOL			CanCastSkill  (int nLauncher, int &nParam1, int &nParam2)  const ;
@@ -66,7 +66,7 @@ public:
 	BOOL			IsTargetOther()const{return FALSE;};
 	BOOL			IsTargetSelf()const{return FALSE;};
 	BOOL			LoadSetting(char * szSettingFile);
-	
+
 	char			m_szSkillIcon[100];
 	KRUImage		m_RUIconImage;
 	char			m_szSkillDesc[300];//���ܵ�����
@@ -76,11 +76,11 @@ public:
 	std::string		getIconPath(){return m_szSkillIcon;};
 	void			DrawSkillIcon(int x, int y, int Width, int Height,int nParam=-1)  ;
 	char			m_szSkillSpecialFile[200];
-	void			GetDesc(uint32_t ulSkillId, uint32_t ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc);
-	uint32_t	m_ulAttackRadius;
-	uint32_t	m_ulDelayPerCast;
+	void			GetDesc(unsigned int ulSkillId, unsigned int ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc);
+	unsigned int	m_ulAttackRadius;
+	unsigned int	m_ulDelayPerCast;
 	NPCATTRIB		m_nSkillCostType;
-	uint32_t	m_nThiefPercent;
+	unsigned int	m_nThiefPercent;
 	int				m_nCost;
 private:
 	int				m_nThiefStyle;

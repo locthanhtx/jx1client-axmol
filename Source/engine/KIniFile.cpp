@@ -83,7 +83,7 @@ BOOL KIniFile::Load(const char *FileName, BOOL nIsCreat)
 	if (m_Header.pNextNode)
 		Clear(); //ΪʲôҪ�ͷ�������Դ��
 
-	//ccMessageBox(FileName,"KIniFile::Load");
+	//messageBox(FileName,"KIniFile::Load");
 
 	if (!pFile.Open((char*)FileName)) //�򿪰����ļ�
 	{
@@ -214,21 +214,21 @@ BOOL KIniFile::Save(LPCSTR FileName)
 	LPSTR		DataBuf;
 	LPSTR		pBuffer;
 	DWORD		dwLen;
-	
+
 	if (FileName[0] == 0)
 		return FALSE;
 
 	if (g_nCodec)
 		return SavePack(FileName);
-	
+
 	dwLen = m_MemStack.GetStackSize();
 
 	DataBuf = (LPSTR)m_MemStack.Push(dwLen);
 	pBuffer = DataBuf;
-	
+
 	SECNODE* SecNode = m_Header.pNextNode;
 	KEYNODE* KeyNode = NULL;
-	
+
 	// write ini file to memory buffer
 	while (SecNode != NULL)
 	{
@@ -249,7 +249,7 @@ BOOL KIniFile::Save(LPCSTR FileName)
 
 	// get buffer len
 	dwLen = pBuffer - DataBuf;
-	
+
 	// create ini file
 	if (!File.Create((char*)FileName))
 		return FALSE;
@@ -279,13 +279,13 @@ BOOL KIniFile::SavePack(LPCSTR FileName)
 	TPackHead	Header;
 	LPSTR		pBuffer;
 	DWORD		dwLen;
-	
+
 	// check file name
 	if (FileName[0] == 0)
 		return FALSE;
 
 	dwLen = m_MemStack.GetStackSize();
-	
+
 	// allocate realdata buffer
 	DataBuf = m_MemStack.Push(dwLen);
 
@@ -392,7 +392,7 @@ BOOL KIniFile::ReadLine(LPSTR Buffer,LONG Size)
 //---------------------------------------------------------------------------
 // ����:	IsKeyChar
 // ����:	�ж�һ���ַ��Ƿ�Ϊ��ĸ������
-// ����:	ch		Ҫ�жϵ��ַ�	
+// ����:	ch		Ҫ�жϵ��ַ�
 // ����:	TRUE	����ĸ
 //			FALSE	������ĸ
 //---------------------------------------------------------------------------
@@ -523,7 +523,7 @@ BOOL KIniFile::IsSectionExist(char *pSection)
 	{
 		g_StrCpy(szSection, pSection);
 	}
-	
+
 	// search for the matched section
 	SECNODE* pSecNode = m_Header.pNextNode;
 	DWORD dwID = String2Id(szSection);
@@ -533,7 +533,7 @@ BOOL KIniFile::IsSectionExist(char *pSection)
 			return TRUE;
 		pSecNode = pSecNode->pNextNode;
 	}
-	
+
 	return FALSE;
 }
 //---------------------------------------------------------------------------
@@ -632,7 +632,7 @@ void	KIniFile::EraseKey(char *lpSection, char *lpKey)
 	dwID = String2Id(lpKey);
 	while (pNextKey != NULL)
 	{
-		
+
 		if (pNextKey->dwID == dwID)
 		{
 		pThisKey->pNextNode = pNextKey->pNextNode;
@@ -725,7 +725,7 @@ BOOL KIniFile::SetKeyValue(
 
 		nLen = g_StrLen(pKey) + 1;
 		pNextKeyNode->pKey = (char *)m_MemStack.Push(nLen);
-		g_MemCopy(pNextKeyNode->pKey, (void*)pKey, nLen);      //���� 
+		g_MemCopy(pNextKeyNode->pKey, (void*)pKey, nLen);      //����
 
 		nLen = g_StrLen(pValue) + 1;
 		pNextKeyNode->pValue = (char *)m_MemStack.Push(nLen);  //��ֵ
@@ -1174,7 +1174,7 @@ void KIniFile::WriteStruct(
 //---------------------------------------------------------------------------
 BOOL KIniFile::GetNextSection(LPCSTR pSection, LPSTR pNextSection)
 {
-	
+
 	if (!pSection[0])	//	�������Ϊ""ʱ����ȡ��һ��Section
 	{
 		if (!m_Header.pNextNode)
@@ -1222,7 +1222,7 @@ BOOL KIniFile::GetNextSection(LPCSTR pSection, LPSTR pNextSection)
 			{
 				return FALSE;
 			}
-			else	
+			else
 			{
 				g_StrCpy(pNextSection, pNextSecNode->pNextNode->pSection);
 				return TRUE;
@@ -1332,7 +1332,7 @@ void KIniFile::GetRect(const char * lpSection, const char * lpKeyName, RECT *pRe
 
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
-        const char *pcszTemp = Buffer;      
+        const char *pcszTemp = Buffer;
         pRect->left   = KSG_StringGetInt(&pcszTemp, 0);
         KSG_StringSkipSymbol(&pcszTemp, ',');
         pRect->top    = KSG_StringGetInt(&pcszTemp, 0);
@@ -1368,7 +1368,7 @@ void KIniFile::GetFloat4(LPCSTR lpSection, LPCSTR lpKeyName, float* pRect)
 void KIniFile::GetFloat8(LPCSTR lpSection, LPCSTR lpKeyName, float* pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%f,%f,%f,%f,%f,%f,%f,%f", &pRect[0], &pRect[1], &pRect[2], &pRect[3], &pRect[4], &pRect[5], &pRect[6], &pRect[7]);
@@ -1379,7 +1379,7 @@ void KIniFile::GetFloat8(LPCSTR lpSection, LPCSTR lpKeyName, float* pRect)
 void KIniFile::GetInt5(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d,%d,%d,%d,%d", &pRect[0], &pRect[1], &pRect[2], &pRect[3],&pRect[4]);
@@ -1389,7 +1389,7 @@ void KIniFile::GetInt5(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 void KIniFile::GetInt2(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d,%d", &pRect[0], &pRect[1]);
@@ -1398,7 +1398,7 @@ void KIniFile::GetInt2(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 void KIniFile::GetInt3(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d,%d,%d", &pRect[0], &pRect[1],&pRect[2]);
@@ -1408,7 +1408,7 @@ void KIniFile::GetInt3(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 void KIniFile::GetInt8(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetKeyValue(lpSection, lpKeyName, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d,%d,%d,%d,%d,%d,%d,%d", &pRect[0], &pRect[1],&pRect[2],&pRect[3],&pRect[4],&pRect[5],&pRect[6],&pRect[7]);

@@ -27,7 +27,7 @@ KSubWorldSet::KSubWorldSet()
 	//m_TaskTimer.Start();
 	m_nLoopRate = 0;   //ѭ����֡�� 18֡Ϊһ��
 	m_dwPing    = 0;
-	//ccMessageBox("m_nLoopRate is null","KSubWorldSet");
+	//messageBox("m_nLoopRate is null","KSubWorldSet");
 }
 
 ////////////////////////////////////��ͼִ�нű�//////////////////////////////////////
@@ -36,15 +36,15 @@ BOOL KSubWorldSet::SubExecuteScriptA(char * ScriptFileName, char * szFunName, in
 {//g_FileName2Id(ScriptFileName)
 	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nNewScriptName[128]={0};
-	t_sprintf(nNewScriptName,"%s",ScriptFileName);
+	sprintf(nNewScriptName,"%s",ScriptFileName);
 	g_StrLower(nNewScriptName);//g_StrLower
-	return SubExecuteScriptB(nNewScriptName, szFunName, nParam,szCanshu);	
+	return SubExecuteScriptB(nNewScriptName, szFunName, nParam,szCanshu);
 }
 
 BOOL KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int nParam,char * szCanshu)
 {
-	KSubWorld nIndex;	
- 
+	KSubWorld nIndex;
+
 		bool bExecuteScriptMistake = true;
 		//����һ����ջ
 		KLuaScript * pScript = (KLuaScript* )g_GetScript(dwScriptIdA); //dwScriptId
@@ -54,26 +54,26 @@ BOOL KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int n
 		{
 			printf("-------�ű�������,ִ��[%s][%s]ʧ��!-------- \n",dwScriptIdA,szFunName);
 			return FALSE;
-		} 
+		}
 	try
 	{
 		if (pScript)
 		{	//��ջ��ѹ��һ��int����
 
 		    nTopIndex=pScript->SafeCallBegin();
-   
-		    if (pScript->CallFunction(szFunName,0,"ds",nParam,szCanshu)) 
+
+		    if (pScript->CallFunction(szFunName,0,"ds",nParam,szCanshu))
 			{
 				bExecuteScriptMistake = false;
-			} 
-			
+			}
+
            // lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 			nTopIndex=pScript->SafeCallBegin();
 			pScript->SafeCallEnd(nTopIndex);
 		    //lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		//	lua_close(pScript->m_LuaState);   //�ͷ��ڴ�
 		}
-		//lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ   
+		//lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		if (bExecuteScriptMistake)
 		{
 		    pScript=NULL;
@@ -85,10 +85,10 @@ BOOL KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int n
 	}
 	catch(...)
 	{
-		
+
 		if (pScript)
 		{
-			nTopIndex=pScript->SafeCallBegin();	
+			nTopIndex=pScript->SafeCallBegin();
 			pScript->SafeCallEnd(nTopIndex);
 		}
 
@@ -113,13 +113,13 @@ BOOL	KSubWorldSet::SubExecuteScript(DWORD dwScriptId, char * szFunName, char *  
 
 		int nTopIndex = 0;
 	 try
-	 { 	
+	 {
 		if (pScript)
 		{
 		//	Lua_PushNumber(pScript->m_LuaState, nIndex.m_nIndex);
-		//	pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);			
+		//	pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);
 		     nTopIndex=pScript->SafeCallBegin();
-			if ((!szParams) || !szParams[0]) 
+			if ((!szParams) || !szParams[0])
 			{//���û�в���	 �����һ��Ϊ�գ���ִ�пղ���
 				 if (pScript->CallFunction(szFunName,0,""))
 				 {
@@ -149,11 +149,11 @@ BOOL	KSubWorldSet::SubExecuteScript(DWORD dwScriptId, char * szFunName, char *  
 	{
 		if (pScript)
 		{
-			nTopIndex=pScript->SafeCallBegin();	
-			pScript->SafeCallEnd(nTopIndex);		
+			nTopIndex=pScript->SafeCallBegin();
+			pScript->SafeCallEnd(nTopIndex);
 			//pScript->Exit();
 		}
-		printf("ִ�нű���������D,Script[%s],[%d]!\n",szFunName);		
+		printf("ִ�нű���������D,Script[%s],[%d]!\n",szFunName);
 		return FALSE;
 	}
 	return TRUE;
@@ -215,21 +215,21 @@ BOOL KSubWorldSet::LoadSerMaps(LPSTR szFileName)
     printf("Loading File Map: %s\n", szFileName);
 
     for (int i = 0; i < nWorldCount; ++i)
-	{ 
-      t_sprintf((char*)szKeyName, "World%02d", i);
+	{
+      sprintf((char*)szKeyName, "World%02d", i);
       IniFile.GetInteger("World", szKeyName,5000, &nWorldID);
 }
       printf("Map Load Sucessed: %d Map,��NPC����:%d\n", nSucess,nZnNpcmun);
       printf("Map Load Failed: %d Map \n", nFail);
 	  IniFile.Clear();
       return TRUE;
-} 
+}
 */
 //int nActiveRegionCount;
 //�ͻ��˺� �������� �������ú���---��Ϸ��ѭ��
 void KSubWorldSet::MainLoop()
 {
-	
+
 	++m_nLoopRate;
 	// ��Ϸ���ֵĴ���
 	//this->m_cMusic.Play(SubWorld[0].m_SubWorldID, SubWorld[0].m_dwCurrentTime, Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_FightMode);
@@ -241,9 +241,9 @@ void KSubWorldSet::MainLoop()
 	}
 }
 
-uint32_t KSubWorldSet::getCilentRunTime()
+unsigned int KSubWorldSet::getCilentRunTime()
 {
-	uint32_t dwTimer=0;
+	unsigned int dwTimer=0;
 #ifdef WIN32
 	dwTimer = GetTickCount(); //��ȡϵͳ���е�ʱ��
 #else
@@ -258,7 +258,7 @@ uint32_t KSubWorldSet::getCilentRunTime()
 //��ͼ��Ϣ����ѭ��
 void KSubWorldSet::MessageLoop()
 {
-	
+
 	for (int i = 0; i < MAX_SUBWORLD; ++i)
 	{
 		SubWorld[i].MessageLoop();
@@ -268,11 +268,11 @@ void KSubWorldSet::MessageLoop()
 BOOL KSubWorldSet::SendMessage(int nSubWorldID, DWORD dwMsgType, int nParam1, int nParam2, int nParam3)
 {
 	/*KWorldMsgNode *pNode = NULL;
-	
+
 	pNode = new KWorldMsgNode;
 	if (!pNode)
 		return FALSE;
-	
+
 	pNode->m_dwMsgType	= dwMsgType;
 	pNode->m_nParam[0]	= nParam1;
 	pNode->m_nParam[1]	= nParam2;

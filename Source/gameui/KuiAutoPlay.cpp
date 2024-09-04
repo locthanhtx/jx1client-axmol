@@ -44,7 +44,7 @@
 extern iCoreShell*	g_pCoreShell;
 #include <list>
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 
 /*#define  SCHEME_INI_AUTO_SETING "jx50ai/autoset/%u_set.ini"
 #define  SCHEME_INI_AUTO_ITEM   "jx50ai/equipName.txt"
@@ -191,7 +191,7 @@ bool KuiAutoPlay::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\任务记事\\任务记事.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\任务记事\\任务记事.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -210,7 +210,7 @@ bool KuiAutoPlay::init()
 	m_origin = spriteBox->getPosition();
 	clientSaveDir = creatAutoPlayDir("jx50ai");
 	char nTempDir[128];
-	t_sprintf(nTempDir,SCHEME_INI_AUTO_SETING);
+	sprintf(nTempDir,SCHEME_INI_AUTO_SETING);
 	CreateFolder(nTempDir);
 	//creatAutoPlayDir("jx50ai");
 	//colorLayer->setContentSize(contentSize);//设置和窗口的大小
@@ -231,23 +231,23 @@ void KuiAutoPlay::addDialogData()
 	btnSize.height= 16;
 	g_pCoreShell->GetGameData(GDI_LAOHUJI_INFO,130,0);
 	g_ScenePlace.GetSceneNameAndFocus(nMapName,nMapidx,nPosX,nPosY,nMapKind);
-	t_sprintf(nFilePath,SCHEME_INI_AUTO_SETING,g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
+	sprintf(nFilePath,SCHEME_INI_AUTO_SETING,g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
 	if (!nAutoNeiGua.Load(nFilePath,TRUE))
 	{
 #ifdef WIN32
-		ccMessageBox("配置文件缺失!","提示");
+		messageBox("配置文件缺失!","提示");
 #else
-		ccMessageBox(UTEXT("配置文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
-		//ccMessageBox(nFilePath,UTEXT("提示",1).c_str());
+		messageBox(UTEXT("配置文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
+		//messageBox(nFilePath,UTEXT("提示",1).c_str());
 
 #endif
 	}
 	if (!nAutoSkill.Load(SCHEME_INI_AUTO_SKILL))
 	{
 #ifdef WIN32
-		ccMessageBox("技能配置文件缺失!","提示");
+		messageBox("技能配置文件缺失!","提示");
 #else
-		ccMessageBox(UTEXT("技能配置文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("技能配置文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 	}
 
@@ -258,9 +258,9 @@ void KuiAutoPlay::addDialogData()
 			if (!nAutoZhuang.Load(SCHEME_INI_AUTO_ITEM))
 			{
 #ifdef WIN32
-				ccMessageBox("属性文件缺失!","提示");
+				messageBox("属性文件缺失!","提示");
 #else
-				ccMessageBox(UTEXT("属性文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
+				messageBox(UTEXT("属性文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			}
 		}
@@ -272,9 +272,9 @@ void KuiAutoPlay::addDialogData()
 			if (!nAutoDaiju.Load(SCHEME_INI_AUTO_DAOJU))
 			{
 #ifdef WIN32
-				ccMessageBox("道具文件缺失!","提示");
+				messageBox("道具文件缺失!","提示");
 #else
-				ccMessageBox(UTEXT("道具文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
+				messageBox(UTEXT("道具文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			}
 		}
@@ -287,9 +287,9 @@ void KuiAutoPlay::addDialogData()
 			if (!nAutoUseItem.Load(SCHEME_INI_AUTO_USE))
 			{
 #ifdef WIN32
-				ccMessageBox("物品文件缺失!","提示");
+				messageBox("物品文件缺失!","提示");
 #else
-				ccMessageBox(UTEXT("物品文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
+				messageBox(UTEXT("物品文件缺失!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			}
 		}
@@ -310,7 +310,7 @@ void KuiAutoPlay::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui4\\common\\勾选.spr");
+	sprintf(nSprName,"\\spr\\Ui4\\common\\勾选.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -354,7 +354,7 @@ void KuiAutoPlay::addDialogData()
 	char nTempStr[32];
 	nAutoNeiGua.GetString("AAAA","IsOpenBaohu","0",nTempStr,sizeof(nTempStr));
 	int nTempInt = g_Atoui(nTempStr);
-	switchControl_baohu = ControlSwitch::create
+	switchControl_baohu = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -371,7 +371,7 @@ void KuiAutoPlay::addDialogData()
 	_PageLayer_1->addChild(switchControl_baohu);
 
     //[TODO][zer0kull]
-//	switchControl_baohu->addTargetWithActionForControlEvents(this, cccontrol_selector(KuiAutoPlay::valueChanged), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_baohu->addTargetWithActionForControlEvents(this, cccontrol_selector(KuiAutoPlay::valueChanged), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	valueChanged(switchControl_baohu);
 	if  (nTempInt>0)
 	    switchControl_baohu->setOn(true);
@@ -508,7 +508,7 @@ void KuiAutoPlay::addDialogData()
 	pgenshuiOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pgenshuiOpenLabel->setPosition(ax::Vec2(70,nPageSize.height-100));
 	_PageLayer_1->addChild(pgenshuiOpenLabel);
-	switchControl_team_g = ControlSwitch::create
+	switchControl_team_g = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -522,7 +522,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_team_g->setPosition(ax::Vec2(pgenshuiOpenLabel->getPosition().x+pgenshuiOpenLabel->getContentSize().width+20,nPageSize.height-94));
 	_PageLayer_1->addChild(switchControl_team_g);
     //[TODO][zer0kull]
-//	switchControl_team_g->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_team_g->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	switchControl_team_g->setOn(false);
 	valueChanged(switchControl_team_g);
 	//--------
@@ -530,7 +530,7 @@ void KuiAutoPlay::addDialogData()
 	pteamOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pteamOpenLabel->setPosition(ax::Vec2(15,nPageSize.height-120));
 	_PageLayer_1->addChild(pteamOpenLabel);
-	switchControl_team = ControlSwitch::create
+	switchControl_team = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -544,7 +544,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_team->setPosition(ax::Vec2(pteamOpenLabel->getPosition().x+pteamOpenLabel->getContentSize().width+20,nPageSize.height-114));
 	_PageLayer_1->addChild(switchControl_team);
     //[TODO][zer0kull]
-//	switchControl_team->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_team->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	switchControl_team->setOn(false);
 	valueChanged(switchControl_team);
 
@@ -552,7 +552,7 @@ void KuiAutoPlay::addDialogData()
 	pduizhangOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pduizhangOpenLabel->setPosition(ax::Vec2(120,nPageSize.height-120));
 	_PageLayer_1->addChild(pduizhangOpenLabel);
-	switchControl_team_d = ControlSwitch::create
+	switchControl_team_d = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -566,7 +566,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_team_d->setPosition(ax::Vec2(pduizhangOpenLabel->getPosition().x+pduizhangOpenLabel->getContentSize().width+20,nPageSize.height-114));
 	_PageLayer_1->addChild(switchControl_team_d);
     //[TODO][zer0kull]
-//	switchControl_team_d->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_team_d->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	switchControl_team_d->setOn(false);
 	//valueChanged(switchControl_team_d);
 
@@ -575,7 +575,7 @@ void KuiAutoPlay::addDialogData()
 	pduiyOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pduiyOpenLabel->setPosition(ax::Vec2(220,nPageSize.height-120));
 	_PageLayer_1->addChild(pduiyOpenLabel);
-	switchControl_team_y = ControlSwitch::create
+	switchControl_team_y = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -589,7 +589,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_team_y->setPosition(ax::Vec2(pduiyOpenLabel->getPosition().x+pduiyOpenLabel->getContentSize().width+20,nPageSize.height-114));
 	_PageLayer_1->addChild(switchControl_team_y);
     //[TODO][zer0kull]
-//	switchControl_team_y->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_team_y->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	switchControl_team_y->setOn(false);
 	//valueChanged(switchControl_team_y);
 
@@ -604,7 +604,7 @@ void KuiAutoPlay::addDialogData()
 	pybiaoOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pybiaoOpenLabel->setPosition(ax::Vec2(pbiaoSetLabel->getContentSize().width+20,nPageSize.height-140));
 	_PageLayer_1->addChild(pybiaoOpenLabel);
-	switchControl_yabiao = ControlSwitch::create
+	switchControl_yabiao = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -618,7 +618,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_yabiao->setPosition(ax::Vec2(pybiaoOpenLabel->getPosition().x+pybiaoOpenLabel->getContentSize().width+20,nPageSize.height-134));
 	_PageLayer_1->addChild(switchControl_yabiao);
     //[TODO][zer0kull]
-//	switchControl_yabiao->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_yabiao->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	switchControl_yabiao->setOn(false);
 	valueChanged(switchControl_yabiao);
 
@@ -658,7 +658,7 @@ void KuiAutoPlay::addDialogData()
 	pbaoliuOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pbaoliuOpenLabel->setPosition(ax::Vec2(160,nPageSize.height-180));
 	_PageLayer_1->addChild(pbaoliuOpenLabel);
-	switchControl_baoliu = ControlSwitch::create
+	switchControl_baoliu = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -672,7 +672,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_baoliu->setPosition(ax::Vec2(pbaoliuOpenLabel->getPosition().x+pbaoliuOpenLabel->getContentSize().width+20,nPageSize.height-174));
 	_PageLayer_1->addChild(switchControl_baoliu);
     //[TODO][zer0kull]
-//	switchControl_baoliu->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_baoliu->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("CCCC","AllKeep",0,&nisOpen);
 	if (nisOpen>0)
 		switchControl_baoliu->setOn(true);
@@ -684,7 +684,7 @@ void KuiAutoPlay::addDialogData()
 	puseitemOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	puseitemOpenLabel->setPosition(ax::Vec2(15,nPageSize.height-200));
 	_PageLayer_1->addChild(puseitemOpenLabel);
-	switchControl_useitem = ControlSwitch::create
+	switchControl_useitem = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -698,7 +698,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_useitem->setPosition(ax::Vec2(puseitemOpenLabel->getPosition().x+puseitemOpenLabel->getContentSize().width+20,nPageSize.height-194));
 	_PageLayer_1->addChild(switchControl_useitem);
     //[TODO][zer0kull]
-//	switchControl_useitem->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_useitem->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("DDDD","IsOpenUseIetm",0,&nisOpen);
 	if (nisOpen>0)
 		switchControl_useitem->setOn(true);
@@ -710,7 +710,7 @@ void KuiAutoPlay::addDialogData()
 	pmiaoshaOpenLabel->setAnchorPoint(ax::Vec2(0,0));
 	pmiaoshaOpenLabel->setPosition(ax::Vec2(110,nPageSize.height-200));
 	_PageLayer_1->addChild(pmiaoshaOpenLabel);
-	switchControl_miaosha = ControlSwitch::create
+	switchControl_miaosha = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -724,7 +724,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_miaosha->setPosition(ax::Vec2(pmiaoshaOpenLabel->getPosition().x+pmiaoshaOpenLabel->getContentSize().width+20,nPageSize.height-194));
 	_PageLayer_1->addChild(switchControl_miaosha);
     //[TODO][zer0kull]
-//	switchControl_miaosha->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_miaosha->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("DDDD","IsOpenNoBlue",0,&nisOpen);
 	if (nisOpen>0)
 		switchControl_miaosha->setOn(true);
@@ -753,7 +753,7 @@ void KuiAutoPlay::addDialogData()
 	//char nTempStr[32];
 	nAutoNeiGua.GetString("BBBB","IsOpenZhanDou","0",nTempStr,sizeof(nTempStr));
 	nTempInt = g_Atoui(nTempStr);
-	switchControl_zhandou = ControlSwitch::create
+	switchControl_zhandou = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -767,7 +767,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_zhandou->setTag(BOX_TAG_ART);
 	_PageLayer_2->addChild(switchControl_zhandou);
     //[TODO][zer0kull]
-//	switchControl_zhandou->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_zhandou->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	if  (nTempInt>0)
 		switchControl_zhandou->setOn(true);
 	else
@@ -875,7 +875,7 @@ void KuiAutoPlay::addDialogData()
 	pdingLabel->setAnchorPoint(ax::Vec2(0,0));
 	pdingLabel->setPosition(ax::Vec2(80,nPageSize.height-80));
 	_PageLayer_2->addChild(pdingLabel);
-	switchControl_dingdian = ControlSwitch::create
+	switchControl_dingdian = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -889,7 +889,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_dingdian->setTag(BOX_TAG_DING);
 	_PageLayer_2->addChild(switchControl_dingdian);
     //[TODO][zer0kull]
-//	switchControl_dingdian->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_dingdian->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("BBBB","IsXiTong",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_dingdian->setOn(true);
@@ -903,7 +903,7 @@ void KuiAutoPlay::addDialogData()
 	pluxianLabel->setAnchorPoint(ax::Vec2(0,0));
 	pluxianLabel->setPosition(ax::Vec2(160,nPageSize.height-80));
 	_PageLayer_2->addChild(pluxianLabel);
-	switchControl_luxian = ControlSwitch::create
+	switchControl_luxian = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -917,7 +917,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_luxian->setTag(BOX_TAG_LUXIAN);
 	_PageLayer_2->addChild(switchControl_luxian);
     //[TODO][zer0kull]
-//	switchControl_luxian->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_luxian->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("BBBB","IsJiaoBen",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_luxian->setOn(true);
@@ -933,7 +933,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_luxian->setEnabled(false);
 
 
-	switchControl_luzhi = ControlSwitch::create
+	switchControl_luzhi = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask-6.png"),
 		Sprite::create("ui/switch/switch-on-6.png"),
@@ -948,8 +948,8 @@ void KuiAutoPlay::addDialogData()
 	switchControl_luzhi->setTag(BOX_TAG_LUZHI);
 	_PageLayer_2->addChild(switchControl_luzhi);
     //[TODO][zer0kull]
-//	switchControl_luzhi->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
-	//valueChanged(switchControl_luzhi, ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_luzhi->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
+	//valueChanged(switchControl_luzhi, ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	if  (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsJiaoBen)
 		switchControl_luzhi->setOn(true);
 	else
@@ -971,7 +971,7 @@ void KuiAutoPlay::addDialogData()
 
 	nAutoNeiGua.GetString("BBBB","IsOpenShiQu","0",nTempStr,sizeof(nTempStr));
 	nTempInt = g_Atoui(nTempStr);
-	switchControl_shiqu = ControlSwitch::create
+	switchControl_shiqu = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -985,7 +985,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_shiqu->setTag(BOX_TAG_SHIQU);
 	_PageLayer_2->addChild(switchControl_shiqu);
     //[TODO][zer0kull]
-//	switchControl_shiqu->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_shiqu->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	if  (nTempInt>0)
 		switchControl_shiqu->setOn(true);
 	else
@@ -997,7 +997,7 @@ void KuiAutoPlay::addDialogData()
 	pshiquOpenLabel->setPosition(ax::Vec2(15,nPageSize.height-115));
 	_PageLayer_2->addChild(pshiquOpenLabel);
 	//char nTempStr[32];
-	switchControl_savem = ControlSwitch::create
+	switchControl_savem = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1012,7 +1012,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_savem->setTag(BOX_TAG_SAVE_M);
 	_PageLayer_2->addChild(switchControl_savem);
     //[TODO][zer0kull]
-//	switchControl_savem->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_savem->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger2("BBBB","IsOpenAutoSave",&nisOpen,&nsaveMonye);
 	if  (nisOpen>0)
 		switchControl_savem->setOn(true);
@@ -1055,7 +1055,7 @@ void KuiAutoPlay::addDialogData()
 		pmoneyEditBox->setInputMode(EditBox::InputMode::DECIMAL);
 		pmoneyEditBox->setReturnType(ax::ui::EditBox::KeyboardReturnType::DONE);
 		_PageLayer_2->addChild(pmoneyEditBox);
-		t_sprintf(nTempStr,"%d",nsaveMonye);
+		sprintf(nTempStr,"%d",nsaveMonye);
 		//nTempInt = g_Atoui(nTempStr);
 		pmoneyEditBox->setText(nTempStr);
 	}
@@ -1100,7 +1100,7 @@ void KuiAutoPlay::addDialogData()
 		pshiquEditBox_c->setReturnType(ax::ui::EditBox::KeyboardReturnType::DONE);
 		_PageLayer_2->addChild(pshiquEditBox_c);
 		nAutoNeiGua.GetString("BBBB","ShiQuNum","10",nTempStr,sizeof(nTempStr));
-		//t_sprintf(nTempStr,"%d",nsaveMonye);
+		//sprintf(nTempStr,"%d",nsaveMonye);
 		//nTempInt = g_Atoui(nTempStr);
 		pshiquEditBox_c->setText(nTempStr);
 	}
@@ -1114,7 +1114,7 @@ void KuiAutoPlay::addDialogData()
 	pfenjieOpenLabel->setPosition(ax::Vec2(15,nPageSize.height-135));
 	_PageLayer_2->addChild(pfenjieOpenLabel);
 	//char nTempStr[32];
-	switchControl_fenjie = ControlSwitch::create
+	switchControl_fenjie = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1129,7 +1129,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_fenjie->setTag(BOX_TAG_FENJIE);
 	_PageLayer_2->addChild(switchControl_fenjie);
     //[TODO][zer0kull]
-//	switchControl_fenjie->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_fenjie->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("BBBB","IsOpenFenJie",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_fenjie->setOn(true);
@@ -1142,7 +1142,7 @@ void KuiAutoPlay::addDialogData()
 	pyanshiOpenLabel->setPosition(ax::Vec2(15,nPageSize.height-155));
 	_PageLayer_2->addChild(pyanshiOpenLabel);
 	//char nTempStr[32];
-	switchControl_yanshi = ControlSwitch::create
+	switchControl_yanshi = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1157,7 +1157,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_yanshi->setTag(BOX_TAG_YANSHI);
 	_PageLayer_2->addChild(switchControl_yanshi);
     //[TODO][zer0kull]
-//	switchControl_yanshi->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_yanshi->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("BBBB","IsOpenTime",0,&nisOpen);
 	//if  (nisOpen>0)
 		switchControl_yanshi->setOn(true);
@@ -1180,7 +1180,7 @@ void KuiAutoPlay::addDialogData()
 		pEditBox_yanshi->setReturnType(ax::ui::EditBox::KeyboardReturnType::DONE);
 		_PageLayer_2->addChild(pEditBox_yanshi);
 		nAutoNeiGua.GetString("BBBB","QuXiaoTime","8",nTempStr,sizeof(nTempStr));
-		//t_sprintf(nTempStr,"%d",nsaveMonye);
+		//sprintf(nTempStr,"%d",nsaveMonye);
 		//nTempInt = g_Atoui(nTempStr);
 		pEditBox_yanshi->setText(nTempStr);
 	}
@@ -1195,7 +1195,7 @@ void KuiAutoPlay::addDialogData()
 	pskillSetLabel->setColor(ax::Color3B::YELLOW);
 	pskillSetLabel->setPosition(ax::Vec2(10,nPageSize.height-175));
 	_PageLayer_2->addChild(pskillSetLabel);
-	/*ControlSwitch *switchControl = ControlSwitch::create
+	/*ax::extension::ControlSwitch *switchControl = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1207,8 +1207,8 @@ void KuiAutoPlay::addDialogData()
 	//switchControl->setScale(CONTROL_SCALE);
 	switchControl->setPosition(ax::Vec2(100,nPageSize.height-175));
 	_PageLayer_2->addChild(switchControl);
-	switchControl->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
-	valueChanged(switchControl, ControlSwitch::EventType::VALUE_CHANGED);
+	switchControl->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
+	valueChanged(switchControl, ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	*/
 	nFactionNo =  Player[CLIENT_PLAYER_INDEX].m_cTask.GetSaveVal(130);
 
@@ -1222,7 +1222,7 @@ void KuiAutoPlay::addDialogData()
               offsetX=50;
 			  offsetY=205;
 			}
-			switchControl_skill[i] = ControlSwitch::create
+			switchControl_skill[i] = ax::extension::ControlSwitch::create
 				(
 				Sprite::create("ui/switch/switch-mask.png"),
 				Sprite::create("ui/switch/switch-on.png"),
@@ -1235,9 +1235,9 @@ void KuiAutoPlay::addDialogData()
 			switchControl_skill[i]->setPosition(ax::Vec2(offsetX-17,nPageSize.height-offsetY+5));
 			_PageLayer_2->addChild(switchControl_skill[i]);
             //[TODO][zer0kull]
-//			switchControl_skill[i]->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//			switchControl_skill[i]->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 			char ntempKey[32];
-			t_sprintf(ntempKey,"IsOpenSkill_%d",i);
+			sprintf(ntempKey,"IsOpenSkill_%d",i);
 			nAutoNeiGua.GetInteger("BBBB",ntempKey,0,&nisOpen);
 			if  (nisOpen>0)
 				switchControl_skill[i]->setOn(true);
@@ -1259,8 +1259,8 @@ void KuiAutoPlay::addDialogData()
 			char nSkillKey[32],nNameKey[64],nSkillName[64];
 			int  nSkillId=0;
 
-			t_sprintf(nSkillKey,"skill_%d",i);
-			t_sprintf(nNameKey,"%s_name",nSkillKey);
+			sprintf(nSkillKey,"skill_%d",i);
+			sprintf(nNameKey,"%s_name",nSkillKey);
 			nAutoSkill.GetInteger(nFactionNo+1,nSkillKey,0,&nSkillId);
 
 			if (nSkillId>0)
@@ -1290,7 +1290,7 @@ void KuiAutoPlay::addDialogData()
 	pfenleiLabel1->setPosition(ax::Vec2(15,nPageSize.height-35));
 	_PageLayer_3->addChild(pfenleiLabel1);
 
-	switchControl_item_m = ControlSwitch::create
+	switchControl_item_m = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1302,7 +1302,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_item_m->setPosition(ax::Vec2(pfenleiLabel1->getPosition().x+pfenleiLabel1->getContentSize().width*2,pfenleiLabel1->getPosition().y+6));
 	_PageLayer_3->addChild(switchControl_item_m);
     //[TODO][zer0kull]
-//	switchControl_item_m->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_item_m->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("CCCC","IsQian",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_item_m->setOn(true);
@@ -1316,7 +1316,7 @@ void KuiAutoPlay::addDialogData()
 	pfenleiLabel2->setPosition(ax::Vec2(100,nPageSize.height-35));
 	_PageLayer_3->addChild(pfenleiLabel2);
 
-	switchControl_item_d = ControlSwitch::create
+	switchControl_item_d = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1328,7 +1328,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_item_d->setPosition(ax::Vec2(pfenleiLabel2->getPosition().x+pfenleiLabel2->getContentSize().width*2,pfenleiLabel2->getPosition().y+6));
 	_PageLayer_3->addChild(switchControl_item_d);
     //[TODO][zer0kull]
-//	switchControl_item_d->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_item_d->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 
 	nAutoNeiGua.GetInteger("CCCC","IsDaoJu",0,&nisOpen);
 	if  (nisOpen>0)
@@ -1343,7 +1343,7 @@ void KuiAutoPlay::addDialogData()
 	pfenleiLabel3->setPosition(ax::Vec2(185,nPageSize.height-35));
 	_PageLayer_3->addChild(pfenleiLabel3);
 
-	switchControl_item_z = ControlSwitch::create
+	switchControl_item_z = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1355,7 +1355,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_item_z->setPosition(ax::Vec2(pfenleiLabel3->getPosition().x+pfenleiLabel3->getContentSize().width*2,pfenleiLabel3->getPosition().y+6));
 	_PageLayer_3->addChild(switchControl_item_z);
     //[TODO][zer0kull]
-//	switchControl_item_z->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_item_z->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("CCCC","IsZhuang",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_item_z->setOn(true);
@@ -1369,7 +1369,7 @@ void KuiAutoPlay::addDialogData()
 	pfenleiLabel5->setPosition(ax::Vec2(15,nPageSize.height-55));
 	_PageLayer_3->addChild(pfenleiLabel5);
 
-	switchControl_item_t = ControlSwitch::create
+	switchControl_item_t = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1381,7 +1381,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_item_t->setPosition(ax::Vec2(pfenleiLabel5->getPosition().x+pfenleiLabel5->getContentSize().width*2,pfenleiLabel5->getPosition().y+6));
 	_PageLayer_3->addChild(switchControl_item_t);
     //[TODO][zer0kull]
-//	switchControl_item_t->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_item_t->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("CCCC","IsTuZhi",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_item_t->setOn(true);
@@ -1395,7 +1395,7 @@ void KuiAutoPlay::addDialogData()
 	pfenleiLabel4->setPosition(ax::Vec2(100,nPageSize.height-55));
 	_PageLayer_3->addChild(pfenleiLabel4);
 
-	switchControl_item_zm = ControlSwitch::create
+	switchControl_item_zm = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1407,7 +1407,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_item_zm->setPosition(ax::Vec2(pfenleiLabel4->getPosition().x+pfenleiLabel4->getContentSize().width*1.5,pfenleiLabel4->getPosition().y+6));
 	_PageLayer_3->addChild(switchControl_item_zm);
     //[TODO][zer0kull]
-//	switchControl_item_zm->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_item_zm->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("CCCC","IsQianZhuang",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_item_zm->setOn(true);
@@ -1578,7 +1578,7 @@ void KuiAutoPlay::addDialogData()
 	psoundLabel1->setPosition(ax::Vec2(15,nPageSize.height-35));
 	_PageLayer_5->addChild(psoundLabel1);
 
-	switchControl_other_s = ControlSwitch::create
+	switchControl_other_s = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1591,7 +1591,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_other_s->setPosition(ax::Vec2(psoundLabel1->getPosition().x+psoundLabel1->getContentSize().width*2,psoundLabel1->getPosition().y+6));
 	_PageLayer_5->addChild(switchControl_other_s);
     //[TODO][zer0kull]
-//	switchControl_other_s->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_other_s->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("EEEE","IsOenSound",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_other_s->setOn(true);
@@ -1606,7 +1606,7 @@ void KuiAutoPlay::addDialogData()
 	pjuliLabel1->setPosition(ax::Vec2(15,nPageSize.height-60));
 	_PageLayer_5->addChild(pjuliLabel1);
 
-	switchControl_other_j = ControlSwitch::create
+	switchControl_other_j = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1619,7 +1619,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_other_j->setPosition(ax::Vec2(pjuliLabel1->getPosition().x+pjuliLabel1->getContentSize().width+20,pjuliLabel1->getPosition().y+6));
 	_PageLayer_5->addChild(switchControl_other_j);
     //[TODO][zer0kull]
-//	switchControl_other_j->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_other_j->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("EEEE","IsOenjuli",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_other_j->setOn(true);
@@ -1634,7 +1634,7 @@ void KuiAutoPlay::addDialogData()
 	pShadomLabel1->setPosition(ax::Vec2(15,nPageSize.height-85));
 	_PageLayer_5->addChild(pShadomLabel1);
 
-	switchControl_other_y = ControlSwitch::create
+	switchControl_other_y = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1647,7 +1647,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_other_y->setPosition(ax::Vec2(pShadomLabel1->getPosition().x+pShadomLabel1->getContentSize().width+20,pShadomLabel1->getPosition().y+6));
 	_PageLayer_5->addChild(switchControl_other_y);
     //[TODO][zer0kull]
-//	switchControl_other_y->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_other_y->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("EEEE","IsOenShadom",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_other_y->setOn(true);
@@ -1662,7 +1662,7 @@ void KuiAutoPlay::addDialogData()
 	pTitleLabel1->setPosition(ax::Vec2(15,nPageSize.height-110));
 	_PageLayer_5->addChild(pTitleLabel1);
 
-	switchControl_other_t = ControlSwitch::create
+	switchControl_other_t = ax::extension::ControlSwitch::create
 		(
 		Sprite::create("ui/switch/switch-mask.png"),
 		Sprite::create("ui/switch/switch-on.png"),
@@ -1675,7 +1675,7 @@ void KuiAutoPlay::addDialogData()
 	switchControl_other_t->setPosition(ax::Vec2(pTitleLabel1->getPosition().x+pTitleLabel1->getContentSize().width+20,pTitleLabel1->getPosition().y+6));
 	_PageLayer_5->addChild(switchControl_other_t);
     //[TODO][zer0kull]
-//	switchControl_other_t->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ControlSwitch::EventType::VALUE_CHANGED);
+//	switchControl_other_t->addTargetWithActionForControlEvents(this, CC_CALLBACK_1(KuiAutoPlay::valueChanged, this), ax::extension::ControlSwitch::EventType::VALUE_CHANGED);
 	nAutoNeiGua.GetInteger("EEEE","IsOenTitle",0,&nisOpen);
 	if  (nisOpen>0)
 		switchControl_other_t->setOn(true);
@@ -1732,13 +1732,13 @@ void KuiAutoPlay::addDialogData()
 		custom_button_item[i]->setScale9Enabled(true);
 		custom_button_item[i]->setContentSize(btnSize);
 		custom_button_item[i]->setTitleText(UTEXT("关键字,0",1));
-		t_sprintf(nsetionKey,"item_%d",i);
+		sprintf(nsetionKey,"item_%d",i);
 		char nTempStr[32],nTempStr_1[128];
 		ZeroMemory(nTempStr,sizeof(nTempStr));
 		ZeroMemory(nTempStr_1,sizeof(nTempStr_1));
 		nAutoZhuang.GetString(i+1,1,"关键字",nDestStr,sizeof(nDestStr));
 		nAutoZhuang.GetInteger(i+1,2,0,&nTempInt);
-		t_sprintf(nTempStr_1,"%s,%d",nDestStr,nTempInt);
+		sprintf(nTempStr_1,"%s,%d",nDestStr,nTempInt);
 		if (nTempStr_1[0])
 			custom_button_item[i]->setTitleText(UTEXT(nTempStr_1,1));
 
@@ -1781,7 +1781,7 @@ void KuiAutoPlay::addDialogData()
 		custom_button_tool[i]->setScale9Enabled(true);
 		custom_button_tool[i]->setContentSize(btnSize);
 		custom_button_tool[i]->setTitleText(UTEXT("道具关键字",1));
-		//t_sprintf(nsetionKey,"tool_%d",i);
+		//sprintf(nsetionKey,"tool_%d",i);
 		nAutoDaiju.GetString(i+1,1,"道具关键字",nDestStr,sizeof(nDestStr));
 		if (nDestStr[0])
 			custom_button_tool[i]->setTitleText(UTEXT(nDestStr,1));
@@ -1825,7 +1825,7 @@ void KuiAutoPlay::addDialogData()
 		custom_button_use[i]->setScale9Enabled(true);
 		custom_button_use[i]->setContentSize(btnSize);
 		custom_button_use[i]->setTitleText(UTEXT("物品关键字",1));
-		//t_sprintf(nsetionKey,"use_%d",i);
+		//sprintf(nsetionKey,"use_%d",i);
 		nAutoUseItem.GetString(i+1,1,"物品关键字",nDestStr,sizeof(nDestStr));
 		if (nDestStr[0])
 			custom_button_use[i]->setTitleText(UTEXT(nDestStr,1));
@@ -1863,7 +1863,7 @@ void KuiAutoPlay::valueChanged(Ref* sender)
 {
 	if (!sender || !g_pCoreShell) return;
 
-	ControlSwitch* pSwitch = (ControlSwitch*)sender;
+	ax::extension::ControlSwitch* pSwitch = (ax::extension::ControlSwitch*)sender;
 	int tag = pSwitch->getTag();
 	switch(tag)
 	{
@@ -2113,7 +2113,7 @@ void KuiAutoPlay::valueChanged(Ref* sender)
 				if  (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsJiaoBen)
 					break;
 				g_pCoreShell->OperationRequest(GOI_AUTO_COMMAND,8,TRUE,TRUE);
-				//ccMessageBox("开启","提示");
+				//messageBox("开启","提示");
 				//UIMessageBox2("提示:\n  1.请走动人物,录制你需要的挂机路线;完毕后,取消勾选<录制路线>=关闭录制!\n  2.挂机时需要选择<路线>模式\n  3.每次勾选<录制路线>都会清除原路线!\n  4.两点之间的距离需小于活动范围");
 			}
 			else
@@ -2127,7 +2127,7 @@ void KuiAutoPlay::valueChanged(Ref* sender)
 				if  (!Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsJiaoBen)
 					break;
 			   g_pCoreShell->OperationRequest(GOI_AUTO_COMMAND,8,FALSE,FALSE);
-			   //ccMessageBox("关闭","提示");
+			   //messageBox("关闭","提示");
 			}
 		}
 		break;
@@ -2179,7 +2179,7 @@ void KuiAutoPlay::selectedBoxStateEvent(Ref* pSender, CheckBox::EventType type)
 				{
 				case BOX_TAG_BASE:
 					{
-						ccMessageBox("选中","选中");
+						messageBox("选中","选中");
 					}
 					break;
 				default:
@@ -2201,7 +2201,7 @@ void KuiAutoPlay::setcoloseButton(Ref * callbackListener,const std::function<voi
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
 	//"\\spr\\UI3\\主界面\\关闭.spr"
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr"); //"\\spr\\Ui3\\组队\\关闭.spr" "\\Spr\\Ui3\\特殊对话条\\输入文字条－取消.spr"
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr"); //"\\spr\\Ui3\\组队\\关闭.spr" "\\Spr\\Ui3\\特殊对话条\\输入文字条－取消.spr"
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -2230,7 +2230,7 @@ void KuiAutoPlay::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	// Create the checkbox
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\UI3\\状态与装备\\分页.spr");
+	sprintf(nSprName,"\\Spr\\UI3\\状态与装备\\分页.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -2398,7 +2398,7 @@ void KuiAutoPlay::selectedItemEvent(Ref *pSender, ListView::EventType type)
 						{
 							Widget *item = listView_ItemEx->getItem(nCurSelIndex);
 							Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
-							pstrEditBox_s->setText(button->getTitleText().c_str());
+							pstrEditBox_s->setText(std::string(button->getTitleText()).c_str());
 						}
 
 					}
@@ -2412,7 +2412,7 @@ void KuiAutoPlay::selectedItemEvent(Ref *pSender, ListView::EventType type)
 						{
 							Widget *item = listView_ItemEx->getItem(nCurSelIndex);
 							Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
-							pstrEditBox_d->setText(button->getTitleText().c_str());
+							pstrEditBox_d->setText(std::string(button->getTitleText()).c_str());
 						}
 					}
 					break;
@@ -2425,7 +2425,7 @@ void KuiAutoPlay::selectedItemEvent(Ref *pSender, ListView::EventType type)
 						{
 							Widget *item = listView_ItemEx->getItem(nCurSelIndex);
 							Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
-							pstrEditBox_u->setText(button->getTitleText().c_str());
+							pstrEditBox_u->setText(std::string(button->getTitleText()).c_str());
 						}
 
 					}
@@ -2433,7 +2433,7 @@ void KuiAutoPlay::selectedItemEvent(Ref *pSender, ListView::EventType type)
 				default:
 					break;
 				}
-				t_sprintf(msg,"开始:%d",listView_ItemEx->getCurSelectedIndex());
+				sprintf(msg,"开始:%d",listView_ItemEx->getCurSelectedIndex());
 			}
 				//CCLOG("select child start index = %d", listView_ItemEx->getCurSelectedIndex());
 			break;
@@ -2442,7 +2442,7 @@ void KuiAutoPlay::selectedItemEvent(Ref *pSender, ListView::EventType type)
 		{
 			ListView* listView_ItemEx = static_cast<ListView*>(pSender);
 			if (listView_ItemEx)
-				t_sprintf(msg,"结束:%d",listView_ItemEx->getCurSelectedIndex());
+				sprintf(msg,"结束:%d",listView_ItemEx->getCurSelectedIndex());
 				//CCLOG("select child end index = %d", listView_ItemEx->getCurSelectedIndex());
 			break;
 		}
@@ -2524,9 +2524,9 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 						if  (isbreak)
 						{
 #ifdef WIN32
-							ccMessageBox("该地图不能挂机","提示");
+							messageBox("该地图不能挂机","提示");
 #else
-							ccMessageBox(UTEXT("该地图不能挂机",1).c_str(),UTEXT("提示",1).c_str());
+							messageBox(UTEXT("该地图不能挂机",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 							break;
 						}
@@ -2543,9 +2543,9 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 						Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 						button->setTitleText(pstrEditBox_s->getText());
 #ifdef WIN32
-						ccMessageBox("修改成功","提示");
+						messageBox("修改成功","提示");
 #else
-						ccMessageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
+						messageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 					}
 				}
@@ -2557,9 +2557,9 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 						Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 						button->setTitleText(pstrEditBox_d->getText());
 #ifdef WIN32
-						ccMessageBox("修改成功","提示");
+						messageBox("修改成功","提示");
 #else
-						ccMessageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
+						messageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 					}
 				}
@@ -2571,9 +2571,9 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 						Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 						button->setTitleText(pstrEditBox_u->getText());
 #ifdef WIN32
-						ccMessageBox("修改成功","提示");
+						messageBox("修改成功","提示");
 #else
-						ccMessageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
+						messageBox(UTEXT("修改成功",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 					}
 				}
@@ -2612,7 +2612,7 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 					if  (switchControl_savem->isOn())
 						nisOpen =1;
 					char nTempMoney[64];
-					t_sprintf(nTempMoney,pmoneyEditBox->getText());
+					sprintf(nTempMoney, "%s", pmoneyEditBox->getText());
 					nsaveMonye = g_Atoui(nTempMoney);
 					nAutoNeiGua.WriteInteger2("BBBB","IsOpenAutoSave",nisOpen,nsaveMonye);
 
@@ -2636,7 +2636,7 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 								nisOpen =1;
 							else
 								nisOpen =0;
-							t_sprintf(ntempKey,"IsOpenSkill_%d",i);
+							sprintf(ntempKey,"IsOpenSkill_%d",i);
 							nAutoNeiGua.WriteInteger("BBBB",ntempKey,nisOpen);
 						}
 					}
@@ -2732,14 +2732,14 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 					{
 					  for (i=0;i<MAX_ITEMLIST_COUNT;i++)
 					  {
-						//t_sprintf(nsetionKey,"item_%d",i);
+						//sprintf(nsetionKey,"item_%d",i);
 						Widget *item = listView_Item->getItem(i);
 						Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
-						std::string _nTempStr = button->getTitleText();
+						std::string _nTempStr = std::string(button->getTitleText());
 						std::string _nstr_a = _nTempStr.substr(0, _nTempStr.rfind(","));
 						std::string _nstr_b = _nTempStr.substr(_nTempStr.rfind(",")+1,_nTempStr.length());
-						t_sprintf(nsetionKey,_nstr_b.c_str());
-						t_sprintf(nTempStr,_nstr_a.c_str());
+						sprintf(nsetionKey, "%s", _nstr_b.c_str());
+						sprintf(nTempStr, "%s", _nstr_a.c_str());
 						int nRows = 0;
 						nRows=nTempTxt.GetHeight();
 						nTempTxt.InsertAfter(nRows);
@@ -2758,13 +2758,13 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 					{
 						for (i=0;i<MAX_ITEMLIST_COUNT;i++)
 						{
-							//t_sprintf(nsetionKey,"tool_%d",i);
+							//sprintf(nsetionKey,"tool_%d",i);
 							Widget *item = listView_tool->getItem(i);
 							Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 							int nRows = 0;
 							nRows=nTempTxt.GetHeight();
 							nTempTxt.InsertAfter(nRows);
-							t_sprintf(nTempStr,button->getTitleText().c_str());
+							sprintf(nTempStr, "%s", std::string(button->getTitleText()).c_str());
 							nTempTxt.WriteString(nRows+1,1,nTempStr);//Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex);
 							//nTempTxt.WriteInteger(nRows+1,2,g_Atoui(nsetionKey));
 							//nAutoDaiju.WriteString(nsetionKey,"listStr",button->getTitleText());
@@ -2779,13 +2779,13 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 					{
 						for (i=0;i<MAX_ITEMLIST_COUNT;i++)
 						{
-							//t_sprintf(nsetionKey,"use_%d",i);
+							//sprintf(nsetionKey,"use_%d",i);
 							Widget *item = listView_use->getItem(i);
 							Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 							int nRows = 0;
 							nRows=nTempTxt.GetHeight();
 							nTempTxt.InsertAfter(nRows);
-							t_sprintf(nTempStr,button->getTitleText().c_str());
+							sprintf(nTempStr, "%s", std::string(button->getTitleText()).c_str());
 							nTempTxt.WriteString(nRows+1,1,nTempStr);//Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex);
 							//nAutoUseItem.WriteString(nsetionKey,"listStr",button->getTitleText());
 						}
@@ -2795,9 +2795,9 @@ void KuiAutoPlay::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchE
 					}
 
 #ifdef WIN32
-					ccMessageBox("保存配置成功","提示");
+					messageBox("保存配置成功","提示");
 #else
-					ccMessageBox(UTEXT("保存配置成功",1).c_str(),UTEXT("提示",1).c_str());
+					messageBox(UTEXT("保存配置成功",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 				}
 			}
@@ -3035,7 +3035,7 @@ void KuiAutoPlay::touchPageBtnEvent(Ref *pSender, ax::ui::AbstractCheckButton::T
 				if  (nTbtn->getTag()==AUTOBTN_PAGE_BASE)
 				{
 					//buttonCallBackFunc(NULL);
-					//ccMessageBox(nTbtn->getTag().c_str(),"按下按钮");
+					//messageBox(nTbtn->getTag().c_str(),"按下按钮");
 				}
 			}
 		}
@@ -3219,7 +3219,7 @@ int KuiAutoPlay::CreateFolder(char * nPath)
 			tPath[i] = 0;
 			char nTempDir[256];
 			ZeroMemory(nTempDir,sizeof(nTempDir));
-			t_sprintf(nTempDir,"%s%s",m_SDcardDirPath.c_str(),tPath);
+			sprintf(nTempDir,"%s%s",m_SDcardDirPath.c_str(),tPath);
 #ifdef WIN32 //完整路径
 			_mkdir(nTempDir);//tPath
 #else
@@ -3270,7 +3270,7 @@ void KuiAutoPlay::base_Breathe()
 		char nTemPstr[64];
 		if (pLifeEditBox)
 		{
-		  t_sprintf(nTemPstr,pLifeEditBox->getText());
+		  sprintf(nTemPstr, "%s", pLifeEditBox->getText());
 		  nLife_1 = g_Atoui(nTemPstr);
 		}
 
@@ -3293,7 +3293,7 @@ void KuiAutoPlay::base_Breathe()
 		int nMana = 0;
         if (pNeiliEditBox)
 		{
-			 t_sprintf(nTemPstr,pNeiliEditBox->getText());
+			 sprintf(nTemPstr, "%s", pNeiliEditBox->getText());
 			 nMana = g_Atoui(nTemPstr);
 		}
 		if(m_uManaTime)
@@ -3321,7 +3321,7 @@ void KuiAutoPlay::base_Breathe()
 		int nPortal = 0;
 		if (pLifeEditBox_h)
 		{
-			t_sprintf(nTemPstr,pLifeEditBox_h->getText());
+			sprintf(nTemPstr, "%s", pLifeEditBox_h->getText());
 			nPortal = g_Atoui(nTemPstr);
 		}
 
@@ -3449,13 +3449,13 @@ void KuiAutoPlay::update(float delta)
 				int fanwei=180,juli=75,AtrakTime=0;
 				if (pGongjiEditBox)
 				{//活动范围
-					t_sprintf(nTempStr,pGongjiEditBox->getText());
+					sprintf(nTempStr, "%s", pGongjiEditBox->getText());
 					fanwei = g_Atoui(nTempStr);
 				}
 				if (pXunguaiEditBox)
 				{//寻怪范围
 					int nNpcDis=0;
-					t_sprintf(nTempStr,pXunguaiEditBox->getText());
+					sprintf(nTempStr, "%s", pXunguaiEditBox->getText());
 					nNpcDis = g_Atoui(nTempStr);
 
 					if (nNpcDis<90)
@@ -3472,7 +3472,7 @@ void KuiAutoPlay::update(float delta)
 				}
 				if  (pGongjiEditBox_m)
 				{//攻击秒数
-					t_sprintf(nTempStr,pGongjiEditBox_m->getText());
+					sprintf(nTempStr, "%s", pGongjiEditBox_m->getText());
 					AtrakTime = g_Atoui(nTempStr);
 				}
 
@@ -3483,7 +3483,7 @@ void KuiAutoPlay::update(float delta)
 
 				if (pshiquEditBox_c)
 				{//拾取的次数
-                    t_sprintf(nTempStr,pshiquEditBox_c->getText());
+                    sprintf(nTempStr, "%s", pshiquEditBox_c->getText());
 					AtrakTime = g_Atoui(nTempStr);
 					if (AtrakTime<=0)
 						AtrakTime=10;
@@ -3493,7 +3493,7 @@ void KuiAutoPlay::update(float delta)
 				AtrakTime = 10;
 				if (pEditBox_yanshi)
 				{
-					t_sprintf(nTempStr,pEditBox_yanshi->getText());
+					sprintf(nTempStr, "%s", pEditBox_yanshi->getText());
 					AtrakTime = g_Atoui(nTempStr);
 				}
 
@@ -3515,7 +3515,7 @@ void KuiAutoPlay::update(float delta)
 				int  nDesMoney = 0;
 				if  (pmoneyEditBox)
 				{
-					t_sprintf(nTempStr,pmoneyEditBox->getText());
+					sprintf(nTempStr, "%s", pmoneyEditBox->getText());
 					nDesMoney = g_Atoui(nTempStr);
 				}
 				 nDesMoney=nDesMoney*10000;
@@ -3599,7 +3599,7 @@ void KuiAutoPlay::item_Breathe()
 		char nTempStrVer[32];
 		if  (pshuxEditBox)
 		{//属性数量
-			t_sprintf(nTempStrVer,pshuxEditBox->getText());
+			sprintf(nTempStrVer, "%s", pshuxEditBox->getText());
 			shuxingCount = g_Atoui(nTempStrVer);
 		}
 
@@ -3659,7 +3659,7 @@ void KuiAutoPlay::item_Breathe()
 	}
 }
 
-void KuiAutoPlay::onDraw(const ax::Mat4 &transform, uint32_t flags)
+void KuiAutoPlay::onDraw(const ax::Mat4 &transform, unsigned int flags)
 {
 //    Layer::onDraw(transform, flags);
 
@@ -3673,5 +3673,5 @@ void KuiAutoPlay::onDraw(const ax::Mat4 &transform, uint32_t flags)
 	}
 	//if (switchControl_team_y)
 	//   switchControl_team_y->setOn(false);
-	//ccMessageBox("无限循环","draw");
+	//messageBox("无限循环","draw");
 }

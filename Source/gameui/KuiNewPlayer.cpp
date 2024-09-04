@@ -89,6 +89,10 @@ bool KuiNewPlayer::init()
 	//pWW        =NULL;
 	Animate* animate         =NULL;
 
+    auto touchListener = EventListenerTouchAllAtOnce::create();
+    touchListener->onTouchesEnded = AX_CALLBACK_2(KuiNewPlayer::ccTouchesEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	this->scheduleUpdate();  //ң�˸��µ��ú���
 	 //��ֹ��㴥��
 	char nSprName[128]={0};
@@ -104,8 +108,8 @@ bool KuiNewPlayer::init()
 	*/
 	//float m_Scalex,m_Scaley; //�뱳�� ��Ļ��С�����ű���
 	//��½ѡ��� \Spr\Ui3\�������\ѡ�浵����\��ɫ
-	sprintf(m_szPlayerImgPrefix,"\\Spr\\Ui3\\�������\\ѡ�浵����\\��ɫ");
-	sprintf(nSprName,"\\Spr\\Ui3\\�������\\��½����_7_��ɫ��.spr");
+	sprintf(m_szPlayerImgPrefix,"\\Spr\\Ui3\\登入界面\\选存档人物\\角色");
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\登陆界面_7_角色名.spr");
 	g_StrLower(nSprName);
 	Texture2D *SelCur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (SelCur)
@@ -118,7 +122,7 @@ bool KuiNewPlayer::init()
 
 	//ȷ�ϰ�ť
 	nFrams=0; //"\\spr\\Ui3\\loginui\\saverole\\ok_9_btn.spr"
-	sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_ȷ��.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_确定.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȷ��.spr");
 	g_StrLower(nSprName);
 	Texture2D *Login = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if  (Login)
@@ -144,7 +148,7 @@ bool KuiNewPlayer::init()
 	}
 	//ȡ�� �˵���½����
 	nFrams=0;
-	sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_ȡ��.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_取消.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 	g_StrLower(nSprName);
 	Texture2D *Cancel = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Cancel)
@@ -202,7 +206,7 @@ bool KuiNewPlayer::init()
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				//messageBox(nSprFilePath,"animation");
                 auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
                 Rect rect = Rect::ZERO;
                 rect.size = texture->getContentSize();
@@ -247,7 +251,7 @@ bool KuiNewPlayer::init()
 		 MenuItemImage* ptuItem=NULL;
 		//��
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_��.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_金.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		Texture2D *jinTexture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		if (jinTexture)
@@ -268,7 +272,7 @@ bool KuiNewPlayer::init()
 		}
 		//ľ
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_ľ.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_木.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		Texture2D *muTexture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		if (muTexture)
@@ -289,7 +293,7 @@ bool KuiNewPlayer::init()
 		}
 		//ˮ
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_ˮ.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_水.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		Texture2D *shuiTexture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		if (shuiTexture)
@@ -311,7 +315,7 @@ bool KuiNewPlayer::init()
 		}
 		//��
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_��.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_火.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		Texture2D *huoTexture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		if (huoTexture)
@@ -333,7 +337,7 @@ bool KuiNewPlayer::init()
 		}
 		//��
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_��.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_土.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		Texture2D *tuTexture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		if (tuTexture)
@@ -356,7 +360,7 @@ bool KuiNewPlayer::init()
 		//ѡ������˵�����
 		Sprite *nMenuBgSpr = NULL;
 		nFrams=0;
-		sprintf(nSprName,"\\Spr\\Ui3\\�������\\�½���ɫ��ť\\��½����_7_ѡ������.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
+		sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\新建角色按钮\\登陆界面_7_选择人物.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\�������\\ѡ�浵��ɫ��ť\\��½����_9_ȡ��.spr");
 		g_StrLower(nSprName);
 		SPRFRAMSINFO nSprInfo;
 		ZeroMemory(&nSprInfo,sizeof(nSprInfo));
@@ -408,14 +412,14 @@ bool KuiNewPlayer::init()
 
 		//if (m_nNumRole>0)
 		{//�����ɫ������� �Ϳ�ʼ��������
-			    static const char* pszAttribute[series_num] = {"��","ľ","ˮ","��","��"};
-			    static const char* pszGender[2] = { "��", "Ů" };
+			    static const char* pszAttribute[series_num] = {"金","木","水","火","土"};
+			    static const char* pszGender[2] = { "男", "女" };
 			//for (int i = 0; i < m_nNumRole; ++i)
 			{
 				char nInfoKey[64]={0};
 				char szFileName[128]={0};
-//				GetRoleImageName(szFileName,m_szPlayerImgPrefix,false,m_Info.Attribute,0);//2 ��ɫ���� 0ѡ�� 1 Ϊһ�Թ��ɶ���
-				GetRoleImageName(szFileName,m_szPlayerImgPrefix,true,m_Info.Attribute,2);//2 ��ɫ���� 0ѡ�� 1 Ϊһ�Թ��ɶ���
+				GetRoleImageName(szFileName,m_szPlayerImgPrefix,false,m_Info.Attribute,0);//2 ��ɫ���� 0ѡ�� 1 Ϊһ�Թ��ɶ���
+//				GetRoleImageName(szFileName,m_szPlayerImgPrefix,true,m_Info.Attribute,2);//2 ��ɫ���� 0ѡ�� 1 Ϊһ�Թ��ɶ���
 				nFrams=0;
 				g_StrLower(szFileName);
 				//��
@@ -521,26 +525,26 @@ long KuiNewPlayer::_GetBig5Count(char *str)
 		//β�ֽ�40-7E��BGI5�����е�,���ɨ�赽���ֱ���˵������Ԫ���Ƿ���(������:������,�����Ǻ��ֵ�����һ��������Ӣ�ı�����϶��ɵ�)
 		if((BYTE)(BYTE)str[liT]>=161 && (BYTE)(BYTE)str[liT]<=254 && (BYTE)(BYTE)str[liT+1]>=64 && (BYTE)(BYTE)str[liT+1]<=126)
 		{
-			//ccMessageBox("1","TEST");
+			//messageBox("1","TEST");
 			lnBIG5++;
 		}
 
 		if((BYTE)(BYTE)str[liT]>=129 && (BYTE)(BYTE)str[liT]<=160 && (BYTE)(BYTE)str[liT+1]>=64 && (BYTE)(BYTE)str[liT+1]<=126)
 		{
-			//ccMessageBox("2","TEST");
+			//messageBox("2","TEST");
 			lnBIG5++;
 		}
 
 		/*if((BYTE)(BYTE)str[liT]>=129 && (BYTE)(BYTE)str[liT]<=160 && (BYTE)(BYTE)str[liT+1]>=161 && (BYTE)(BYTE)str[liT+1]<=254)
 		{
-			ccMessageBox("3","TEST");
+			messageBox("3","TEST");
 			lnBIG5++;
 		}*/
 
 		//���ֽ�A4-A9��GB��Ϊ���ļ���,ϣ����ĸ,������ĸ���Ʊ��,�����ı��к��ٳ���,�������Χ��BIG5�ĳ��ú���,������Ϊ����BIG5��
 		if((BYTE)(BYTE)str[liT]>=164 && (BYTE)(BYTE)str[liT]<=169 && (BYTE)(BYTE)str[liT+1]>=161 && (BYTE)(BYTE)str[liT+1]<=254)
 		{
-			//ccMessageBox("4","TEST");
+			//messageBox("4","TEST");
 			lnBIG5++;
 		}
 
@@ -579,15 +583,15 @@ void KuiNewPlayer::mainEnterCallback(Ref* pSender)
 		if  (!proleNameEditBox->getText())
 		{
 #ifdef WIN32
-			ccMessageBox("��ɫ������Ϊ��!","����");
+			messageBox("��ɫ������Ϊ��!","����");
 #else
-			ccMessageBox("the name is Null","Warning");
+			messageBox("the name is Null","Warning");
 #endif
 		     return;
 		}
 		//char msg[64];
 		//sprintf(msg,"��ͼ:%d",m_Info.NativePlaceId);
-		//ccMessageBox(msg,"��ʾ:");
+		//messageBox(msg,"��ʾ:");
 
 		char nRoleName[32];
 		sprintf(nRoleName,"%s", proleNameEditBox->getText());
@@ -599,17 +603,17 @@ void KuiNewPlayer::mainEnterCallback(Ref* pSender)
 if (_clientlanguage==1)
 {
 #ifdef WIN32
-	ccMessageBox("��ɫ����С����12,��󳤶�24!","����");
+	messageBox("��ɫ����С����12,��󳤶�24!","����");
 #else
-	ccMessageBox(G2U("��ɫ����С����12,��󳤶�24!").c_str(),G2U("����").c_str());
+	messageBox(G2U("��ɫ����С����12,��󳤶�24!").c_str(),G2U("����").c_str());
 #endif
 }
 else
 {
 #ifdef WIN32
-	ccMessageBox("��ɫ����С����12,��󳤶�24!","����");
+	messageBox("��ɫ����С����12,��󳤶�24!","����");
 #else
-	ccMessageBox("the Name length:less than 12 or more than 24","Warning");
+	messageBox("the Name length:less than 12 or more than 24","Warning");
 #endif
 }
 				return;
@@ -648,9 +652,9 @@ if (_clientlanguage==1)
 		if (spaceNum>0 || count >0 || other>0 || letter>0)
 		{ 	//system("pause");
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!","����");
+			messageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -660,9 +664,9 @@ else
 	if (spaceNum>0 || count >0 || other>0)
 	{ 	//system("pause");
 #ifdef WIN32
-		ccMessageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!","����");
+		messageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ���������!","����");
 #else
-		ccMessageBox("Invalid character,please check your name!\n Cannot contain special symbols such as NumBer, spaces, etc.!","Warning");
+		messageBox("Invalid character,please check your name!\n Cannot contain special symbols such as NumBer, spaces, etc.!","Warning");
 #endif
 		return;
 	}
@@ -670,9 +674,9 @@ else
 		/*if  (_GetBig5Count(nRoleName))
 		{
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ,������������!","����");
+			messageBox("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ,������������!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ,������������!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,��������\n���ܺ��пո�,����,��д��ĸ,������������!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}*/
@@ -724,7 +728,7 @@ int  KuiNewPlayer::CreateRole()
 			m_Status = LL_S_CREATING_ROLE;
 			m_Result = LL_R_NOTHING;
 			nRet = true;
-			//ccMessageBox("�����ɹ�","�����ɹ�");
+			//messageBox("�����ɹ�","�����ɹ�");
 		}
 	}
 	return nRet;
@@ -733,7 +737,7 @@ int  KuiNewPlayer::CreateRole()
 //ѭ�������麯�� Ĭ���Զ�����
 void KuiNewPlayer::update(float delta)
 {
-	uint32_t nSize = 0;
+	unsigned int nSize = 0;
 	const char* pBuffer = NULL;
 	if (m_bIsClientConnecting)
 	{ //�˺ŷ�����
@@ -811,7 +815,7 @@ Rect KuiNewPlayer::getRect(Node* pNode)
 	return rc;
 }
 
-void KuiNewPlayer::onDraw(const ax::Mat4 &transform, uint32_t flags)
+void KuiNewPlayer::draw(Renderer* renderer, const Mat4& transform, unsigned int flags)
 {
 	if (m_Result != LL_R_NOTHING)
 	{
@@ -863,7 +867,7 @@ bool KuiNewPlayer::isFileExist(const char* pFileName)
 void KuiNewPlayer::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::binary | std::ios::ate);
@@ -956,7 +960,7 @@ void KuiNewPlayer::ccTouchesEnded(const std::vector<ax::Touch*>&pTouches, Event 
 				m_Info.Gender = OBJ_G_MALE;
 				Animation* mananimation = creatSpranimation(1);//���ɶ���
 				actionManager->removeAllActionsFromTarget(RoleNodeman);
-				//RoleNodea->runAction(RepeatForever::create(Animate::create(ax::AnimationCache::getInstance()->getAnimation("0_1"))));
+//				RoleNodea->runAction(RepeatForever::create(Animate::create(ax::AnimationCache::getInstance()->getAnimation("0_1"))));
                 auto callback = [this]() {
                     KuiNewPlayer::finish();
                 };
@@ -1060,7 +1064,7 @@ void KuiNewPlayer::mSellistCallBack(Ref* pSender){
             auto callback = [this]() {
                 KuiNewPlayer::finish();
             };
-			RoleNodeman->runAction(Sequence::create(Animate::create(mananimation),callback,NULL));
+//			RoleNodeman->runAction(Sequence::create(Animate::create(mananimation),callback,NULL));
 		}
 		m_Info.Gender    = OBJ_G_FEMALE;
 		mananimation = creatSpranimation(2);
@@ -1070,7 +1074,7 @@ void KuiNewPlayer::mSellistCallBack(Ref* pSender){
             auto callback = [this]() {
                 KuiNewPlayer::finish();
             };
-			RoleNodewoman->runAction(Sequence::create(Animate::create(mananimation),callback,NULL));
+//			RoleNodewoman->runAction(Sequence::create(Animate::create(mananimation),callback,NULL));
 		}
 	}
 	else
@@ -1101,7 +1105,7 @@ void KuiNewPlayer::mSellistCallBack(Ref* pSender){
 	}
 	//char msg[64];
 	//sprintf(msg,"ѡ��:%d",nSelSeries);
-	//ccMessageBox(msg,"ѡ��");
+	//messageBox(msg,"ѡ��");
 }
 
 void KuiNewPlayer::mExit(Ref* pSender){
@@ -1133,17 +1137,17 @@ void KuiNewPlayer::GetRoleImageName(char* pszName, const char* pszPrefix, unsign
 	if  (!pszName || bAttribute < series_metal || bAttribute >= series_num)
 		return;
 
-	static const char* pszAttribute[series_num] = {"��","ľ","ˮ","��","��"};
-	static const char* pszGender[2] = { "��", "Ů" };
+	static const char* pszAttribute[series_num] = {"金","木","水","火","土"};
+	static const char* pszGender[2] = { "男", "女" };
 	sprintf(pszName,"%s_%s_%s_%d.spr", pszPrefix, pszAttribute[bAttribute],
 		(bGender ? pszGender[1] : pszGender[0]), nIndex);  //spr��ʽ ���� ����spr  ��ɫ_ϵ_�Ա�_�Ա����
 }
 
 void KuiNewPlayer::AcceptNetMsg(void* pMsgData) //ѭ�����ܴ�����Ϣ
 {
-	if (pMsgData == NULL)  //���ݰ�Ϊ�� �򷵻�
+	if (pMsgData == NULL)  //�Ϊ�� �򷵻�
 		return;
-	//ccMessageBox("�ص��ɹ�","GetPackFromServer");
+	//messageBox("�ص��ɹ�","GetPackFromServer");
 	switch(m_Status)       //�������ݰ���ʶ����
 	{
 	case LL_S_ACCOUNT_CONFIRMING:  //�˺���֤
@@ -1194,9 +1198,9 @@ void KuiNewPlayer::ProcessCreateRoleResponse(tagNewDelRoleResponse* pResponse)
 				m_Status = LL_S_ROLE_LIST_READY;
 				m_Result = LL_R_INVALID_ROLENAME;
 #ifdef WIN32
-				ccMessageBox("������ɫʧ��","��ʾ:");
+				messageBox("������ɫʧ��","��ʾ:");
 #else
-				ccMessageBox("Kh?ng t?o ???c nh?n v?t",UTEXT("��ʾ:",1).c_str());
+				messageBox("Kh?ng t?o ???c nh?n v?t",UTEXT("��ʾ:",1).c_str());
 #endif
 			}
 		}
@@ -1222,9 +1226,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 		{
 			m_Result = LL_R_OPNE_ACCOUNT; //���� ���ڳ��Դ��˺�
 #ifdef WIN32
-			ccMessageBox("��ǰ����������Ԥ������ɫ״̬,���ܵ�½","��ʾ:");
+			messageBox("��ǰ����������Ԥ������ɫ״̬,���ܵ�½","��ʾ:");
 #else
-			ccMessageBox(UTEXT("��ǰ����������Ԥ������ɫ״̬,���ܵ�½ kull 1",1).c_str(),UTEXT("��ʾ:",1).c_str());
+			messageBox(UTEXT("��ǰ����������Ԥ������ɫ״̬,���ܵ�½ kull 1",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 			return;
 		}
@@ -1234,9 +1238,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 			//ReturnToIdle();
 			m_Result = LL_R_OPNE_ACCOUNT; //���� ���ڳ��Դ��˺�
 #ifdef WIN32
-			ccMessageBox("���ڳ��Դ��˺�","��ʾ:");
+			messageBox("���ڳ��Դ��˺�","��ʾ:");
 #else
-			ccMessageBox(UTEXT("���ڳ��Դ��˺� kull 2",1).c_str(),UTEXT("��ʾ:",1).c_str());
+			messageBox(UTEXT("���ڳ��Դ��˺� kull 2",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 			return;
 		}
@@ -1245,9 +1249,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 		{
 			m_Result = LL_R_INVALID_PROTOCOLVERSION; //���� ���ڳ��Դ��˺�
 #ifdef WIN32
-			ccMessageBox("�汾����","��ʾ:");
+			messageBox("�汾����","��ʾ:");
 #else
-			ccMessageBox(UTEXT("�汾���� kull 3",1).c_str(),UTEXT("��ʾ:",1).c_str());
+			messageBox(UTEXT("�汾���� kull 3",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 			return;
 		}
@@ -1258,10 +1262,10 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 			//g_NetConnectAgent.UpdateClientRequestTime(true); //ʱ�����
 			if (NULL==g_pClient)
 			{
-				const uint32_t bufferSize           = 1024;   //Scoket���������Ĵ�С ������ڴ�(m_bufferSize > 0) ? m_bufferSize : (1024*64);
-				const uint32_t bufferSize_Cache     = 1024*512; //������ڴ� ���� �Ӱ��Ļ����С
-				const uint32_t maxFreeBuffers	      = 2;        //Scoket����������
-				const uint32_t maxFreeBuffers_Cache = 2;        //���� �Ӱ��Ļ��� ����������
+				const unsigned int bufferSize           = 1024;   //Scoket���������Ĵ�С ������ڴ�(m_bufferSize > 0) ? m_bufferSize : (1024*64);
+				const unsigned int bufferSize_Cache     = 1024*512; //������ڴ� ���� �Ӱ��Ļ����С
+				const unsigned int maxFreeBuffers	      = 2;        //Scoket����������
+				const unsigned int maxFreeBuffers_Cache = 2;        //���� �Ӱ��Ļ��� ����������
 				g_pClient     = new CGameClient(maxFreeBuffers,maxFreeBuffers_Cache,bufferSize_Cache,bufferSize,1); //2,2   8
 			}
 
@@ -1285,9 +1289,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 					{
 						m_Result = LL_R_CONNECT_SERV_BUSY; //���� ���ڳ��Դ��˺�
 #ifdef WIN32
-						ccMessageBox("���ӷ�����ʧ��","��ʾ:");
+						messageBox("���ӷ�����ʧ��","��ʾ:");
 #else
-                        ccMessageBox(UTEXT("���ӷ�����ʧ�� kull 4",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                        messageBox(UTEXT("���ӷ�����ʧ�� kull 4",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 						return;
 					}
@@ -1315,9 +1319,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 				{//����ʧ��
 					m_Result = LL_R_CONNECT_FAILED;
 #ifdef WIN32
-					ccMessageBox("���ӷ�����ʧ��","��ʾ:");
+					messageBox("���ӷ�����ʧ��","��ʾ:");
 #else
-                    ccMessageBox(UTEXT("���ӷ�����ʧ�� kull 5",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                    messageBox(UTEXT("���ӷ�����ʧ�� kull 5",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 				}
 			}
@@ -1329,9 +1333,9 @@ void KuiNewPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRespons
 			//ReturnToIdle();
 			m_Result = LL_R_SERVER_SHUTDOWN; //��ʾ��������Ա��������
 #ifdef WIN32
-			ccMessageBox("���ӷ�����ʧ��","��ʾ:");
+			messageBox("���ӷ�����ʧ��","��ʾ:");
 #else
-            ccMessageBox(UTEXT("���ӷ�����ʧ�� kull 6",1).c_str(),UTEXT("��ʾ:",1).c_str());
+            messageBox(UTEXT("���ӷ�����ʧ�� kull 6",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		}
 	}
@@ -1347,7 +1351,7 @@ Animation* KuiNewPlayer::creatSpranimation(int nindex,int isLoop,bool isforever)
 	animation = ax::AnimationCache::getInstance()->getAnimation(nInfoKey);
 	if (animation)
 	{
-		//ccMessageBox("����","����");
+		//messageBox("����","����");
 		return animation;
 	}
 

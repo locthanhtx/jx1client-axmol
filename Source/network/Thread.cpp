@@ -11,7 +11,7 @@ CThread::CThread()
 }
 CThread::~CThread()
 {
-	
+
 #ifdef WIN32
 	try{ if (m_hThread) {CloseHandle(m_hThread); (m_hThread) = NULL; } } catch(...) { }
 #else
@@ -30,11 +30,11 @@ void CThread::Start()
 	{
 		uint32_t threadIDc = 0;
 		//??????????
-		m_hThread = (void *)::_beginthreadex(0, 
-			0, 
+		m_hThread = (void *)::_beginthreadex(0,
+			0,
 			ThreadFunction,
-			(void *)this, 
-			0, 
+			(void *)this,
+			0,
 			&threadIDc);
 
 		//??1????????????????NULL??????????
@@ -47,11 +47,11 @@ void CThread::Start()
 		if (m_hThread == NULL)
 		{
 			//sprintf(ninfo,"_beginthreadex:filed");
-			//ccMessageBox(ninfo,"_beginthreadex");
+			//messageBox(ninfo,"_beginthreadex");
 			return;
 		}
 
-		//ccMessageBox("_beginthreadex:suss","_beginthreadex");
+		//messageBox("_beginthreadex:suss","_beginthreadex");
 	}
 }
 
@@ -86,7 +86,7 @@ bool CThread::Wait(uint32_t timeoutMillis) const
 	{
 		//throw CWin32Exception( _T( "CThread::Wait() - WaitForSingleObject" ), ::GetLastError() );
 	}
-    
+
 	return ok;
 }
 //????????? __stdcall
@@ -95,12 +95,12 @@ uint32_t __stdcall  CThread::ThreadFunction( void *pV )
 	int32_t result = 0;
 
 	CThread* pThis = ( CThread * )pV;
-   
+
 	if (pThis)
 	{
 		try
 		{
-			//result = 
+			//result =
 			pThis->Run();
 		}
 		catch(...)
@@ -128,7 +128,9 @@ void CThread::Terminate(uint32_t exitCode /* = 0 */)
 #include <stdexcept>
 
 CThread::CThread() : autoDelete_(false) {
-    pthread_attr_init(&thread_attr);
+    if (pthread_attr_init(&thread_attr) != 0) {
+        throw std::runtime_error("Failed to initialize thread attributes");
+    }
 }
 
 CThread::~CThread() {
@@ -141,7 +143,9 @@ pthread_t CThread::GetHandle() const {
 }
 
 void CThread::Wait() const {
-    pthread_join(a_thread, nullptr);
+    if (pthread_join(a_thread, nullptr) != 0) {
+        throw std::runtime_error("Failed to join thread");
+    }
 }
 
 void CThread::Start() {

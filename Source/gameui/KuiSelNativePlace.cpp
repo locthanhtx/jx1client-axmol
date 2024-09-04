@@ -112,8 +112,8 @@ bool KuiSelNativePlace::init()
 
 	//float m_Scalex,m_Scaley; //与背景 屏幕大小的缩放比例
 	//登陆选择框 \Spr\Ui3\登入界面\选存档人物\角色
-	t_sprintf(m_szPlayerImgPrefix,"\\Spr\\Ui3\\登入界面\\选存档人物\\角色"); //"\\Spr\\Ui3\\登入界面\\选存档人物\\角色"  "\\spr\\Ui3\\loginui\\saverole\\role"
-	t_sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\登陆界面_8_选择新手村.spr");//"\\Spr\\Ui3\\登入界面\\登陆界面_9_长边框.spr"  "\\spr\\Ui3\\loginui\\longin_9_big_b.spr"
+	sprintf(m_szPlayerImgPrefix,"\\Spr\\Ui3\\登入界面\\选存档人物\\角色"); //"\\Spr\\Ui3\\登入界面\\选存档人物\\角色"  "\\spr\\Ui3\\loginui\\saverole\\role"
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\登陆界面_8_选择新手村.spr");//"\\Spr\\Ui3\\登入界面\\登陆界面_9_长边框.spr"  "\\spr\\Ui3\\loginui\\longin_9_big_b.spr"
 	g_StrLower(nSprName);
 	Texture2D *SelCur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (SelCur)
@@ -133,18 +133,18 @@ bool KuiSelNativePlace::init()
 	}
 	//确认按钮
 	nFrams=0; //"\\spr\\Ui3\\loginui\\saverole\\ok_9_btn.spr"
-	t_sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_8_确定.spr");//"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_9_确定.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_8_确定.spr");//"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_9_确定.spr");
 	g_StrLower(nSprName);
 	Texture2D *Login = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pLoginItem = MenuItemImage::create();
@@ -160,18 +160,18 @@ bool KuiSelNativePlace::init()
 	}
 	//取消 退到登陆界面
 	nFrams=0;
-	t_sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_8_取消.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_9_取消.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_8_取消.spr");//"\\spr\\Ui3\\loginui\\saverole\\cancel_9_btn.spr");//"\\Spr\\Ui3\\登入界面\\选存档角色按钮\\登陆界面_9_取消.spr");
 	g_StrLower(nSprName);
 	Texture2D *Cancel = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pCancelItem = MenuItemImage::create();
@@ -196,7 +196,7 @@ bool KuiSelNativePlace::init()
 	m_sprCount++;
 	this->addChild(bgSprite,0,m_sprCount);
 	//界面动画效果
-		 t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
+		 sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
 		 g_StrLower(nSprName);
 		 Texture2D *bgCur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		 if  (bgCur)
@@ -218,8 +218,8 @@ bool KuiSelNativePlace::init()
 			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
-				t_sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
+				//messageBox(nSprFilePath,"animation");
                 auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
                 Rect rect = Rect::ZERO;
                 rect.size = texture->getContentSize();
@@ -288,7 +288,7 @@ bool KuiSelNativePlace::init()
 					bgspr->setPosition(ax::Vec2(startPos.x,startPos.y-(offsetY+8)*i));
 					pListNode->addChild(bgspr,1,i+1);
 					char msg[64];
-					t_sprintf(msg,m_pPlaceList[i].szName);
+					sprintf(msg, "%s", m_pPlaceList[i].szName);
 					int nFontSize = 14;
 					Label *tempLabel = Label::createWithTTF(UTEXT(msg,1).c_str(),UI_GAME_FONT_DEFAULT, nFontSize,bgspr->getTextureRect().size,TextHAlignment::CENTER);//Arial
 					tempLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -381,7 +381,7 @@ void KuiSelNativePlace::LoadList(int nPlaceId)
 	for (int i = 0; i < nCount; ++i)
 	{
 		//itoa(i, szSection, 10);
-		t_sprintf(szSection,"%d",i);
+		sprintf(szSection,"%d",i);
 		int	nValue;
 		if (!File.GetInteger(szSection, "Id", 0, &nValue))
 			continue;
@@ -445,9 +445,9 @@ void KuiSelNativePlace::mainEnterCallback(Ref* pSender)
 		else
 		{
 #ifdef WIN32
-			ccMessageBox("请选择一项","提示");
+			messageBox("请选择一项","提示");
 #else
-			ccMessageBox(UTEXT("请选择一项",1).c_str(),UTEXT("提示",1).c_str());
+			messageBox(UTEXT("请选择一项",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		}
 		//ax::Director::getInstance()->replaceScene(KTranSence::scene());
@@ -521,7 +521,7 @@ bool KuiSelNativePlace::isFileExist(const char* pFileName)
 void KuiSelNativePlace::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::binary | std::ios::ate);
@@ -642,7 +642,7 @@ void KuiSelNativePlace::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, E
 	/*if (clicked)
 	{
 		clicked = false;
-		ccMessageBox("双击","警告");
+		messageBox("双击","警告");
 	}
 	else
 	{
@@ -662,7 +662,7 @@ void KuiSelNativePlace::CheckClick(float tt)
 	if (clicked)
 	{//单击
 	   clicked = false;
-	   ccMessageBox("单击","警告");
+	   messageBox("单击","警告");
 	}
 }
 
@@ -726,7 +726,7 @@ void KuiSelNativePlace::AcceptNetMsg(void* pMsgData) //循环接受处理消息
 {
 	if (pMsgData == NULL)  //数据包为空 则返回
 		return;
-	//ccMessageBox("回调成功","GetPackFromServer");
+	//messageBox("回调成功","GetPackFromServer");
 	switch(m_Status)       //发送数据包标识变量
 	{
 	case LL_S_ACCOUNT_CONFIRMING:  //账号验证
@@ -769,9 +769,9 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 		{
 			m_Result = LL_R_OPNE_ACCOUNT; //卡号 正在尝试打开账号
 #ifdef WIN32
-			ccMessageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
+			messageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
 #else
-			ccMessageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 			return;
 		}
@@ -780,7 +780,7 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 		{
 			//ReturnToIdle();
 			m_Result = LL_R_OPNE_ACCOUNT; //卡号 正在尝试打开账号
-			ccMessageBox("正在尝试打开账号","提示:");
+			messageBox("正在尝试打开账号","提示:");
 			return;
 		}
 		if (strcmp((const char*)pResponse->szRoleName, m_ClientChoices.szProcessingRoleName) == 0
@@ -800,7 +800,7 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 			{//(const unsigned char*)&pResponse->nIPAddr
 				const unsigned char* pIpAddress = (const unsigned char*)&pResponse->nIPAddr;
 				char Address[128]={0}; //IP地址
-				t_sprintf(Address, "%d.%d.%d.%d", pIpAddress[0], pIpAddress[1],pIpAddress[2], pIpAddress[3]);
+				sprintf(Address, "%d.%d.%d.%d", pIpAddress[0], pIpAddress[1],pIpAddress[2], pIpAddress[3]);
 			    if (g_pClient->FsGameServerConnectTo(Address,pResponse->nPort))
 				{
 					g_pClient->Startup();
@@ -815,7 +815,7 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 					if (!g_pClient->SendPackToServer(&ll,sizeof(tagLogicLogin)))
 					{
 						m_Result = LL_R_CONNECT_SERV_BUSY; //卡号 正在尝试打开账号
-						ccMessageBox("连接服务器失败","提示:");
+						messageBox("连接服务器失败","提示:");
 						return;
 					}
 					//开始断开网关的连接
@@ -841,7 +841,7 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 				else
 				{//连接失败
 					m_Result = LL_R_CONNECT_FAILED;
-					ccMessageBox("连接服务器失败","提示:");
+					messageBox("连接服务器失败","提示:");
 				}
 			}
 			// 断开与网关的连接
@@ -851,7 +851,7 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 		{
 			//ReturnToIdle();
 			m_Result = LL_R_SERVER_SHUTDOWN; //提示服务器满员或离线中
-			ccMessageBox("连接服务器失败","提示:");
+			messageBox("连接服务器失败","提示:");
 		}
 	}
 }

@@ -5,7 +5,7 @@
 #include "KNpc.h"
 #include "KItem.h"
 #include "KItemSet.h"
-#include "KNpcTemplate.h"    //ºóÀ´¼ÓµÄ
+#include "KNpcTemplate.h"    //ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
 //#include "../../Engine/src/Text.h"
 /*#ifndef _STANDALONE
 #include "../../../lib/S3DBInterface.h"
@@ -29,22 +29,22 @@
 KItem	*Item = NULL;//Item[MAX_ITEM];
 
 int GetRandomNumber(int nMin, int nMax);
-//extern  const KScript * g_GetScript(DWORD dwScriptId);  //Ô­À´Ã»ÓĞµÄ
+//extern  const KScript * g_GetScript(DWORD dwScriptId);  //Ô­ï¿½ï¿½Ã»ï¿½Ğµï¿½
 KItem::KItem()
-{   //ÄÚ´æ³õÊ¼»¯
+{   //ï¿½Ú´ï¿½ï¿½Ê¼ï¿½ï¿½
 	::memset(&m_CommonAttrib,    0, sizeof(m_CommonAttrib));
 	::memset(m_aryBaseAttrib,    0, sizeof(m_aryBaseAttrib));
 	::memset(m_aryRequireAttrib, 0, sizeof(m_aryRequireAttrib));
 	::memset(m_aryMagicAttrib,   0, sizeof(m_aryMagicAttrib));
-	::memset(m_ronMagicAttrib,   0, sizeof(m_ronMagicAttrib));       //ÈÛÁ¶
-//	::memset(m_BaoShiMagicAttrib,   0, sizeof(m_BaoShiMagicAttrib)); //±¦Ê¯
+	::memset(m_ronMagicAttrib,   0, sizeof(m_ronMagicAttrib));       //ï¿½ï¿½ï¿½ï¿½
+//	::memset(m_BaoShiMagicAttrib,   0, sizeof(m_BaoShiMagicAttrib)); //ï¿½ï¿½Ê¯
 	::memset(&m_GeneratorParam,	 0, sizeof(m_GeneratorParam));
-    ::memset(&m_TempMagicAttrib,	 0, sizeof(m_TempMagicAttrib));  //(ÁÙÊ±´¢ĞîµÄÄ§·¨ÊôĞÔÖµ,ÓÃÓÚÇ¿»¯)
+    ::memset(&m_TempMagicAttrib,	 0, sizeof(m_TempMagicAttrib));  //(ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ,ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½)
 	::memset(&m_TempRMagicAttrib,	 0, sizeof(m_TempRMagicAttrib)); //
-//	::memset(&m_TempBMagicAttrib,	 0, sizeof(m_TempBMagicAttrib)); 
+//	::memset(&m_TempBMagicAttrib,	 0, sizeof(m_TempBMagicAttrib));
 	::memset(&m_TempPlatinaAttrib,	 0, sizeof(m_TempPlatinaAttrib));
 	::memset(&m_yinMagicAttrib,	 0, sizeof(m_yinMagicAttrib));
-	
+
 	m_nCurrentDur = -1;
 
 //	nstrNoteInfo.clear();
@@ -86,11 +86,11 @@ BOOL KItem::CheckRequirement(IN int nReq)
 }
 
 /******************************************************************************
-¹¦ÄÜ:	½«itemÉÏµÄÄ§·¨Ó¦ÓÃµ½NPCÉíÉÏ
-Èë¿Ú£º	pNPC: Ö¸ÏòNPCµÄÖ¸Õë£¬nMagicAcive£º´ò¿ªµÄÒş²ØÊôĞÔÊıÄ¿
-³ö¿Ú:	Ä§·¨±»Ó¦ÓÃ¡£
-		¾ßÌå¹¤×÷ÓÉKNpcµÄ³ÉÔ±º¯ÊıÍê³É¡£
-		KItem ¶ÔÏó±¾ÉíÃ»ÓĞ³ÉÔ±±äÁ¿±»ĞŞ¸Ä
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½itemï¿½Ïµï¿½Ä§ï¿½ï¿½Ó¦ï¿½Ãµï¿½NPCï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½Ú£ï¿½	pNPC: Ö¸ï¿½ï¿½NPCï¿½ï¿½Ö¸ï¿½ë£¬nMagicAciveï¿½ï¿½ï¿½ò¿ªµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+ï¿½ï¿½ï¿½ï¿½:	Ä§ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¡ï¿½
+		ï¿½ï¿½ï¿½å¹¤ï¿½ï¿½ï¿½ï¿½KNpcï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½
+		KItem ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ğ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½
 ******************************************************************************/
 void KItem::ApplyMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive,int *nType) const
 {
@@ -102,7 +102,7 @@ void KItem::ApplyMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive,int *nType)
 	int nCount = nMagicActive;
 	int i;
 
-	// »ù´¡ÊôĞÔµ÷ÕûNPC
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½NPC
 	for (i = 0; i < sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]); ++i)
 	{
 		const KItemNormalAttrib* pAttrib;
@@ -112,15 +112,15 @@ void KItem::ApplyMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive,int *nType)
 			pNPC->ModifyAttrib(pNPC->m_Index, (void *)pAttrib);
 		}
 	}
-	// Ä§·¨ÊôĞÔµ÷ÕûNPC
+	// Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½NPC
 	for (i = 0; i < sizeof(m_aryMagicAttrib)/sizeof(m_aryMagicAttrib[0]); ++i)
-	{//À¶×° ×Ï×° »Æ×° °×½ğ×°
+	{//ï¿½ï¿½×° ï¿½ï¿½×° ï¿½ï¿½×° ï¿½×½ï¿½×°
 		const KItemNormalAttrib* pAttrib;
 		pAttrib = &(m_aryMagicAttrib[i]);
 
 		if (INVALID_ATTRIB != pAttrib->nAttribType)
 		{
-			if (i & 1)						// ÎªÆæÊı£¬ÊÇºó×º£¨i´ÓÁã¿ªÊ¼£©
+			if (i & 1)						// Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½×ºï¿½ï¿½iï¿½ï¿½ï¿½ã¿ªÊ¼ï¿½ï¿½
 			{// 1 3 5
 				if (nCount >0)
 				{
@@ -136,63 +136,63 @@ void KItem::ApplyMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive,int *nType)
 	}
 
 	//for (i = 0; i < sizeof(m_yinMagicAttrib)/sizeof(m_yinMagicAttrib[0]); ++i)//sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0])
-	//Òş²ØµÄÊôĞÔ
+	//ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nType[0]==3)
-	{//»Æ½ğ»ò°×½ğ
+	{//ï¿½Æ½ï¿½ï¿½×½ï¿½
 			const KItemNormalAttrib* pRAttrib;
 			 if (nType[1] >=5 && nType[1] < 10)
 			 {
-			    pRAttrib = &(m_yinMagicAttrib[0]);	//µÚÒ»¸öÊôĞÔ
+			    pRAttrib = &(m_yinMagicAttrib[0]);	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			    if (INVALID_ATTRIB != pRAttrib->nAttribType)
-				{  
+				{
 				   pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
-				}  
+				}
 			 }
 			 else  if (nType[1]>=10)
 			 {
-				 pRAttrib = &(m_yinMagicAttrib[0]);	//µÚÒ»¸öÊôĞÔ
+				 pRAttrib = &(m_yinMagicAttrib[0]);	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				 if (INVALID_ATTRIB != pRAttrib->nAttribType)
-				 {  
+				 {
 					 pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
 				 }
-				 pRAttrib = &(m_yinMagicAttrib[1]);	//µÚ¶ş¸öÊôĞÔ
+				 pRAttrib = &(m_yinMagicAttrib[1]);	//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				 if (INVALID_ATTRIB != pRAttrib->nAttribType)
-				 {  
+				 {
 					 pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
-				 } 
+				 }
 			 }
 	}
-	
- //ÈÛÁ¶±æÊ¶
+
+ //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶
 	for (i = 0; i < sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0]); ++i)//sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0])
-	{ 
+	{
 		  const KItemNormalAttrib* pRAttrib;
 		  pRAttrib = &(m_ronMagicAttrib[i]);
 
 		  if (nType[0]==1)
-		  {//ÊÇÀ¶×°
-			  // ÈÛÁ¶ÊôĞÔµ÷ÕûNPC
+		  {//ï¿½ï¿½ï¿½ï¿½×°
+			  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½NPC
 			  if (nType[1]>-1)
-			  {//ÒÑ¾­±æÊ¶ ºÍ ÎÆ¸ÖÊôĞÔ
+			  {//ï¿½Ñ¾ï¿½ï¿½ï¿½Ê¶ ï¿½ï¿½ ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½
 		          if (INVALID_ATTRIB != pRAttrib->nAttribType)
-				  {  
+				  {
 			        pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
-				  }  
+				  }
 			  }
 		  }
 		  else
-		  {//ÆäËûµÄÖ±½ÓÊôĞÔ
+		  {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			  if (INVALID_ATTRIB != pRAttrib->nAttribType)
-			  {  
+			  {
 				  pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
-			  } 
+			  }
 		  }
-	} 
-	// ±¦Ê¯ÊôĞÔµ÷ÕûNPC
+	}
+	// ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½NPC
 /*	for (i = 0; i < sizeof(m_BaoShiMagicAttrib)/sizeof(m_BaoShiMagicAttrib[0]); ++i)//sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0])
 	{
 		const KItemNormalAttrib* pRAttrib;
-		pRAttrib = &(m_BaoShiMagicAttrib[i]);	
+		pRAttrib = &(m_BaoShiMagicAttrib[i]);
 		if (INVALID_ATTRIB != pRAttrib->nAttribType)
 		{
 			pNPC->ModifyAttrib(pNPC->m_Index, (void *)pRAttrib);
@@ -201,11 +201,11 @@ void KItem::ApplyMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive,int *nType)
 }
 
 /******************************************************************************
-¹¦ÄÜ:	½«itemÉÏµÄÄ§·¨´ÓNPCÉíÉÏÒÆ³ı
-Èë¿Ú£º	pNPC: Ö¸ÏòNPCµÄÖ¸Õë£¬nMagicAcive£º´ò¿ªµÄÒş²ØÊôĞÔÊıÄ¿
-³ö¿Ú:	Ä§·¨±»Ó¦ÓÃ¡£
-		¾ßÌå¹¤×÷ÓÉKNpcµÄ³ÉÔ±º¯ÊıÍê³É¡£
-		KItem ¶ÔÏó±¾ÉíÃ»ÓĞ³ÉÔ±±äÁ¿±»ĞŞ¸Ä
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½itemï¿½Ïµï¿½Ä§ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
+ï¿½ï¿½Ú£ï¿½	pNPC: Ö¸ï¿½ï¿½NPCï¿½ï¿½Ö¸ï¿½ë£¬nMagicAciveï¿½ï¿½ï¿½ò¿ªµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+ï¿½ï¿½ï¿½ï¿½:	Ä§ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¡ï¿½
+		ï¿½ï¿½ï¿½å¹¤ï¿½ï¿½ï¿½ï¿½KNpcï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½
+		KItem ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ğ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½
 ******************************************************************************/
 void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *nType) const
 {
@@ -216,9 +216,9 @@ void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *
 
 	int nCount = nMagicActive;
 	int	i;
-	
-	// »ù´¡ÊôĞÔµ÷ÕûNPC
-	for (i = 0; i < sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]); ++i) 
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½NPC
+	for (i = 0; i < sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]); ++i)
 	{
 		const KItemNormalAttrib* pAttrib;
 		pAttrib = &(m_aryBaseAttrib[i]);
@@ -233,15 +233,15 @@ void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *
 		}
 	}
 
-	for (i = 0; i < sizeof(m_aryMagicAttrib)/sizeof(m_aryMagicAttrib[0]); ++i)// Ä§·¨ÊôĞÔ
+	for (i = 0; i < sizeof(m_aryMagicAttrib)/sizeof(m_aryMagicAttrib[0]); ++i)// Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		const KItemNormalAttrib* pAttrib;
 		pAttrib = &(m_aryMagicAttrib[i]);
 
-		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ¶¨ÒåÒ»¸ö³£Á¿?
+		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		{
 			KItemNormalAttrib RemoveAttrib;
-			if (i & 1)						            //ÎªÆæÊı£¬ÊÇºó×º£¨i´ÓÁã¿ªÊ¼£©Ã÷ÊôĞÔ
+			if (i & 1)						            //Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½×ºï¿½ï¿½iï¿½ï¿½ï¿½ã¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{// 1 3 5
 				if (nCount >0)
 				{
@@ -264,46 +264,46 @@ void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *
 		}
 	}
 
-//-----------------»Æ½ğ »ò°×½ğµÄ Òş²ØÊôĞÔ--------------------------------
+//-----------------ï¿½Æ½ï¿½ ï¿½ï¿½×½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------
 		if  (nType[0]==3 && nType[1]>5 && nType[1]<10)
 		{
 			const KItemNormalAttrib* pAttrib;
 		    pAttrib = &(m_yinMagicAttrib[0]);
-		    if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ¶¨ÒåÒ»¸ö³£Á¿?
-			{   
+		    if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+			{
 				KItemNormalAttrib RemoveAttrib;
 				RemoveAttrib.nAttribType = pAttrib->nAttribType;
 				RemoveAttrib.nValue[0] = -pAttrib->nValue[0];
 				RemoveAttrib.nValue[1] = -pAttrib->nValue[1];
 				RemoveAttrib.nValue[2] = -pAttrib->nValue[2];
 				pNPC->ModifyAttrib(pNPC->m_Index, (void *)&RemoveAttrib);
-			} 	 
+			}
 		}
 		else if  (nType[0]==3 && nType[1]>=10)
 		{
-			for (i = 0; i < sizeof(m_yinMagicAttrib)/sizeof(m_yinMagicAttrib[0]); ++i)//Òş²ØÊôĞÔ
+			for (i = 0; i < sizeof(m_yinMagicAttrib)/sizeof(m_yinMagicAttrib[0]); ++i)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				const KItemNormalAttrib* pAttrib;
 				pAttrib = &(m_yinMagicAttrib[i]);
-				if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ¶¨ÒåÒ»¸ö³£Á¿?
-				{   
+				if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+				{
 					KItemNormalAttrib RemoveAttrib;
 					RemoveAttrib.nAttribType = pAttrib->nAttribType;
 					RemoveAttrib.nValue[0] = -pAttrib->nValue[0];
 					RemoveAttrib.nValue[1] = -pAttrib->nValue[1];
 					RemoveAttrib.nValue[2] = -pAttrib->nValue[2];
 					pNPC->ModifyAttrib(pNPC->m_Index, (void *)&RemoveAttrib);
-				} 
+				}
 
 			}
 		}
 //-----------------------------------------------------------------------------------------
-	for (i = 0; i < sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0]); ++i)// ÈÛÁ¶Ä§·¨ÊôĞÔ
+	for (i = 0; i < sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0]); ++i)// ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		const KItemNormalAttrib* pAttrib;
 		pAttrib = &(m_ronMagicAttrib[i]);
-		
-		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ¶¨ÒåÒ»¸ö³£Á¿?
+
+		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		{
 			        KItemNormalAttrib RemoveAttrib;
 				    RemoveAttrib.nAttribType = pAttrib->nAttribType;
@@ -314,12 +314,12 @@ void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *
 		}
 	}
 
-/*	for (i = 0; i < sizeof(m_BaoShiMagicAttrib)/sizeof(m_BaoShiMagicAttrib[0]); ++i)// ±¦Ê¯Ä§·¨ÊôĞÔ
+/*	for (i = 0; i < sizeof(m_BaoShiMagicAttrib)/sizeof(m_BaoShiMagicAttrib[0]); ++i)// ï¿½ï¿½Ê¯Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		const KItemNormalAttrib* pAttrib;
 		pAttrib = &(m_BaoShiMagicAttrib[i]);
-		
-		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ¶¨ÒåÒ»¸ö³£Á¿?
+
+		if (INVALID_ATTRIB != pAttrib->nAttribType)		// TODO: Îª -1 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		{
 			KItemNormalAttrib RemoveAttrib;
 			RemoveAttrib.nAttribType = pAttrib->nAttribType;
@@ -332,11 +332,11 @@ void KItem::RemoveMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive,IN int *
 }
 
 /******************************************************************************
-¹¦ÄÜ:	½«itemÉÏµÄµÚNÏîÒş²ØÄ§·¨ÊôĞÔÓ¦ÓÃµ½NPCÉíÉÏ
-Èë¿Ú£º	pNPC: Ö¸ÏòNPCµÄÖ¸Õë
-³ö¿Ú:	Ä§·¨±»Ó¦ÓÃ¡£
-		¾ßÌå¹¤×÷ÓÉKNpcµÄ³ÉÔ±º¯ÊıÍê³É¡£
-		KItem ¶ÔÏó±¾ÉíÃ»ÓĞ³ÉÔ±±äÁ¿±»ĞŞ¸Ä   °µÊôĞÔ  Î´¼¤»îµÄÊôĞÔ
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½itemï¿½ÏµÄµï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ãµï¿½NPCï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½Ú£ï¿½	pNPC: Ö¸ï¿½ï¿½NPCï¿½ï¿½Ö¸ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½:	Ä§ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¡ï¿½
+		ï¿½ï¿½ï¿½å¹¤ï¿½ï¿½ï¿½ï¿½KNpcï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½
+		KItem ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ğ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ******************************************************************************/
 void KItem::ApplyHiddenMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive) const
 {
@@ -345,8 +345,8 @@ void KItem::ApplyHiddenMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive) cons
 	if (!pNPC || nMagicActive < 0)
 		return;
 
-	const KItemNormalAttrib* pAttrib; //ÆÕÍ¨ÊôĞÔ
-	pAttrib = &(m_aryMagicAttrib[(nMagicActive << 1) - 1]);	// ºó×ºÎªÒş²ØÊôĞÔËùÒÔ³Ë2¼õÒ»
+	const KItemNormalAttrib* pAttrib; //ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
+	pAttrib = &(m_aryMagicAttrib[(nMagicActive << 1) - 1]);	// ï¿½ï¿½×ºÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½2ï¿½ï¿½Ò»
 	if (-1 != pAttrib->nAttribType)
 	{
 		pNPC->ModifyAttrib(pNPC->m_Index, (void *)pAttrib);
@@ -354,11 +354,11 @@ void KItem::ApplyHiddenMagicAttribToNPC(IN KNpc* pNPC, IN int nMagicActive) cons
 }
 
 /******************************************************************************
-¹¦ÄÜ:	½«itemÉÏµÄµÚNÏîÒş²ØÄ§·¨ÊôĞÔ´ÓNPCÉíÉÏÒÆ³ı
-Èë¿Ú£º	pNPC: Ö¸ÏòNPCµÄÖ¸Õë£¬nMagicActive£ºµÚnÏîÄ§·¨ÊôĞÔ
-³ö¿Ú:	Ä§·¨±»ÒÆ³ı¡£
-		¾ßÌå¹¤×÷ÓÉKNpcµÄ³ÉÔ±º¯ÊıÍê³É¡£
-		KItem ¶ÔÏó±¾ÉíÃ»ÓĞ³ÉÔ±±äÁ¿±»ĞŞ¸Ä
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½itemï¿½ÏµÄµï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
+ï¿½ï¿½Ú£ï¿½	pNPC: Ö¸ï¿½ï¿½NPCï¿½ï¿½Ö¸ï¿½ë£¬nMagicActiveï¿½ï¿½ï¿½ï¿½nï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½:	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½
+		ï¿½ï¿½ï¿½å¹¤ï¿½ï¿½ï¿½ï¿½KNpcï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½
+		KItem ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ğ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½
 ******************************************************************************/
 void KItem::RemoveHiddenMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive) const
 {
@@ -367,7 +367,7 @@ void KItem::RemoveHiddenMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive) c
 		return;
 
 	const KItemNormalAttrib* pAttrib;
-	pAttrib = &(m_aryMagicAttrib[(nMagicActive << 1) - 1]);	// ºó×ºÎªÒş²ØÊôĞÔËùÒÔ³Ë2¼õÒ»
+	pAttrib = &(m_aryMagicAttrib[(nMagicActive << 1) - 1]);	// ï¿½ï¿½×ºÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô³ï¿½2ï¿½ï¿½Ò»
 	if (-1 != pAttrib->nAttribType)
 	{
 		KItemNormalAttrib RemoveAttrib;
@@ -380,17 +380,17 @@ void KItem::RemoveHiddenMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive) c
 }
 
 /******************************************************************************
-¹¦ÄÜ:	¸ù¾İÅäÖÃÎÄ¼şÖĞµÄÊı¾İ,ÎªitemµÄ¸÷Ïî¸³³õÖµ
-Èë¿Ú£º	pData: ¸ø³öÀ´×ÔÅäÖÃÎÄ¼şµÄÊı¾İ
-³ö¿Ú:	³É¹¦Ê±·µ»Ø·ÇÁã, ÒÔÏÂ³ÉÔ±±äÁ¿±»Öµ:
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½,Îªitemï¿½Ä¸ï¿½ï¿½î¸³ï¿½ï¿½Öµ
+ï¿½ï¿½Ú£ï¿½	pData: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½:	ï¿½É¹ï¿½Ê±ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Â³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ:
 			m_CommonAttrib,m_aryBaseAttrib,m_aryRequireAttrib
-		Ê§°ÜÊ±·µ»ØÁã
-ËµÃ÷:	CBR: Common,Base,Require
+		Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Ëµï¿½ï¿½:	CBR: Common,Base,Require
 ******************************************************************************/
 BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT* pData)
 {
 	//_ASSERT(pData != NULL);
-	
+
 	BOOL bEC = FALSE;
 
 	if (!pData)
@@ -400,18 +400,18 @@ BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT* pData)
 	if (pData)
 	{
 		//SetAttrib_Common(pData);
-		*this = *pData;		// ÔËËã·ûÖØÔØ
-		SetAttrib_Base(pData->m_aryPropBasic); //»ù±¾ÊôĞÔ  
-		SetAttrib_Req(pData->m_aryPropReq);    //ĞèÇóÊôĞÔ
+		*this = *pData;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Base(pData->m_aryPropBasic); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Req(pData->m_aryPropReq);    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		bEC = TRUE;
 	}
 	return bEC;
 }
 
-BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //»Æ½ğ×°±¸µÄ »ù±¾ºÍ ĞèÇóÊôĞÔ ÉèÖÃ
+BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //ï¿½Æ½ï¿½×°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 {
 	//_ASSERT(pData != NULL);
-	
+
 	BOOL bEC = FALSE;
 	if (!pData)
 			return bEC;
@@ -419,9 +419,9 @@ BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //»Æ½ğ×°±¸
 	if (pData)
 	{
 		//SetAttrib_Common(pData);
-		*this = *pData;		                   // ÔËËã·ûÖØÔØ
-		SetAttrib_Base(pData->m_aryPropBasic); //»ù±¾
-		SetAttrib_Req(pData->m_aryPropReq);    //ĞèÇó
+		*this = *pData;		                   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Base(pData->m_aryPropBasic); //ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Req(pData->m_aryPropReq);    //ï¿½ï¿½ï¿½ï¿½
 		bEC = TRUE;
 	}
 	return bEC;
@@ -430,7 +430,7 @@ BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //»Æ½ğ×°±¸
 BOOL KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
 {
 	//_ASSERT(pData != NULL);
-	
+
 	BOOL bEC = FALSE;
 	if (!pData)
 			return bEC;
@@ -438,9 +438,9 @@ BOOL KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
 
 	if (pData)
 	{
-		*this = *pData;		// ÔËËã·ûÖØÔØ
-		SetAttrib_Base(pData->m_aryPropBasic); //»ù±¾ÊôĞÔ  
-		SetAttrib_Req(pData->m_aryPropReq);    //ĞèÇóÊôĞÔ
+		*this = *pData;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Base(pData->m_aryPropBasic); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Req(pData->m_aryPropReq);    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		bEC = TRUE;
 	}
 	return bEC;
@@ -449,7 +449,7 @@ BOOL KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
 BOOL KItem::SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData,BOOL nIsDel)
 {
 	//_ASSERT(pData != NULL);
-	
+
 	BOOL bEC = FALSE;
 	if (!pData)
 			return bEC;
@@ -457,14 +457,14 @@ BOOL KItem::SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData,BOOL nIsDel
 	if (pData)
 	{
 		//SetAttrib_Common(pData);
-		*this = *pData;		// ÔËËã·ûÖØÔØ
-		SetAttrib_Base(pData->m_aryPropBasic); //»ù±¾ÊôĞÔ  
-		SetAttrib_Req(pData->m_aryPropReq,nIsDel);    //ĞèÇóÊôĞÔ
+		*this = *pData;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Base(pData->m_aryPropBasic); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SetAttrib_Req(pData->m_aryPropReq,nIsDel);    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-       // memcpy(pData->m_aryMagicAttribs, bb, sizeof(int) * 6); 
+       // memcpy(pData->m_aryMagicAttribs, bb, sizeof(int) * 6);
         ///  =bb;
-	
-      //  SetAttrib_Mof(pData->m_aryMagicAttribs); //Ä§·¨ÊôĞÔ
+
+      //  SetAttrib_Mof(pData->m_aryMagicAttribs); //Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		bEC = TRUE;
 	}
 	return bEC;
@@ -480,19 +480,19 @@ BOOL KItem::SetAttrib_Base(const KEQCP_BASIC* pBasic)
 		pDst = &(m_aryBaseAttrib[i]);
 		pSrc = &(pBasic[i]);
 		pDst->nAttribType = pSrc->nType;  //0
-		pDst->nValue[0] = ::GetRandomNumber(pSrc->sRange.nMin, pSrc->sRange.nMax);  //¾ÍÊÇÕâ¸öÖµ 
+		pDst->nValue[0] = ::GetRandomNumber(pSrc->sRange.nMin, pSrc->sRange.nMax);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		pDst->nValue[1] = 0;	// RESERVED
 		pDst->nValue[2] = 0;	// RESERVED
 		if (pDst->nAttribType == magic_durability_v)
 			SetDurability(pDst->nValue[0]);
 	}
 
-	if (m_nCurrentDur == 0)	// ËµÃ÷Ã»ÓĞÄÍ¾Ã¶ÈÊôĞÔ
+	if (m_nCurrentDur == 0)	// Ëµï¿½ï¿½Ã»ï¿½ï¿½ï¿½Í¾Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_nCurrentDur = -1;
 
 	return TRUE;
 }
-//ĞèÇóÊôĞÔ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 BOOL KItem::SetAttrib_Req(const KEQCP_REQ* pReq,BOOL inDel)
 {
 	for (int i = 0;
@@ -501,7 +501,7 @@ BOOL KItem::SetAttrib_Req(const KEQCP_REQ* pReq,BOOL inDel)
 		KItemNormalAttrib* pDst;
 		pDst = &(m_aryRequireAttrib[i]);
 		if (inDel && pReq[i].nType==39)
-		{//È¥µôÃÅÅÉĞèÇó
+		{//È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			pDst->nAttribType =0;
 			pDst->nValue[0] = 0;
 			pDst->nValue[1] = 0;	// RESERVED
@@ -520,7 +520,7 @@ BOOL KItem::SetAttrib_Req(const KEQCP_REQ* pReq,BOOL inDel)
 }
 
 
-//ÈÛÁ¶ÊôĞÔ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 BOOL KItem::SetAttrib_RON(IN const KItemNormalAttrib* pMA)
 {
@@ -528,66 +528,66 @@ BOOL KItem::SetAttrib_RON(IN const KItemNormalAttrib* pMA)
 	{ return FALSE;}
 
 	for (int i = 0;i < sizeof(m_ronMagicAttrib)/sizeof(m_ronMagicAttrib[0]); ++i)
-	{ 
-		
-			m_ronMagicAttrib[i] = pMA[i]; //ÊÇ¼¼ÄÜ±àºÅ  ¸³Öµ¸ø¼¼ÄÜ±àºÅÊı×é
+	{
+
+			m_ronMagicAttrib[i] = pMA[i]; //ï¿½Ç¼ï¿½ï¿½Ü±ï¿½ï¿½  ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_TempRMagicAttrib[i] = pMA[i];
-			// ÓÀ²»Ä¥Ëğ
+			// ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 			if (m_ronMagicAttrib[i].nAttribType == magic_indestructible_b)
 			{
-				SetDurability(-1);  
+				SetDurability(-1);
 			}
-		
+
 	}
 	return 1;
 }
-//±¦Ê¯ÊôĞÔ
+//ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
 BOOL KItem::SetAttrib_Bao(IN const KItemNormalAttrib* pMA)
 {
 /*	if (NULL == pMA)
 	{ _ASSERT(FALSE); return FALSE; }
 	for (int i = 0;i < sizeof(m_BaoShiMagicAttrib)/sizeof(m_BaoShiMagicAttrib[0]); ++i)
-	{ 
-		
-		m_BaoShiMagicAttrib[i] = pMA[i]; //ÊÇ¼¼ÄÜ±àºÅ  ¸³Öµ¸ø¼¼ÄÜ±àºÅÊı×é
-		m_TempBMagicAttrib[i] = pMA[i];  //±¸·İÕâ¸öÊôĞÔµÄÔ­Ê¼Öµ(ÓÃÓÚÇ¿»¯)
-		// ÓÀ²»Ä¥Ëğ
+	{
+
+		m_BaoShiMagicAttrib[i] = pMA[i]; //ï¿½Ç¼ï¿½ï¿½Ü±ï¿½ï¿½  ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_TempBMagicAttrib[i] = pMA[i];  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ô­Ê¼Öµ(ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½)
+		// ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 		if (m_BaoShiMagicAttrib[i].nAttribType == magic_indestructible_b)
 		{
-			SetDurability(-1);  
+			SetDurability(-1);
 		}
-		
+
 	}  */
 	return TRUE;
 }
 
 
-//Òş²ØÊôĞÔ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 BOOL KItem::SetAttrib_Yin(IN const KItemNormalAttrib* pMA)
 {
 	if (NULL == pMA)
 	{ return FALSE; }
 	for (int i = 0;i < sizeof(m_yinMagicAttrib)/sizeof(m_yinMagicAttrib[0]); ++i)
-	{ 
-		
-		m_yinMagicAttrib[i] = pMA[i];    //ÊÇ¼¼ÄÜ±àºÅ  ¸³Öµ¸ø¼¼ÄÜ±àºÅÊı×é
-		//m_TempBMagicAttrib[i] = pMA[i];  //±¸·İÕâ¸öÊôĞÔµÄÔ­Ê¼Öµ(ÓÃÓÚÇ¿»¯)
-		// ÓÀ²»Ä¥Ëğ
+	{
+
+		m_yinMagicAttrib[i] = pMA[i];    //ï¿½Ç¼ï¿½ï¿½Ü±ï¿½ï¿½  ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//m_TempBMagicAttrib[i] = pMA[i];  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ô­Ê¼Öµ(ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½)
+		// ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 		if (m_yinMagicAttrib[i].nAttribType == magic_indestructible_b)
 		{
-			SetDurability(-1);  
+			SetDurability(-1);
 		}
-		
+
 	}
 	return 1;
 }
 
 /******************************************************************************
-¹¦ÄÜ:	¸ù¾İ´«ÈëµÄÊı¾İ, ÎªitemµÄÄ§·¨ÊôĞÔ¸³³õÖµ
-Èë¿Ú£º	pMA: ¸ø³öÊı¾İ
-³ö¿Ú:	³É¹¦Ê±·µ»Ø·ÇÁã, ÒÔÏÂ³ÉÔ±±äÁ¿±»Öµ:
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Îªitemï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½Öµ
+ï¿½ï¿½Ú£ï¿½	pMA: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½:	ï¿½É¹ï¿½Ê±ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Â³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ:
 			m_aryMagicAttrib
-		Ê§°ÜÊ±·µ»ØÁã
+		Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//	KMagicAttrib* pAttrib = (KMagicAttrib *)pData
 ******************************************************************************/
 BOOL KItem::SetAttrib_MA(IN const KItemNormalAttrib* pMA)
@@ -597,25 +597,25 @@ BOOL KItem::SetAttrib_MA(IN const KItemNormalAttrib* pMA)
     for (int i = 0; i < sizeof(m_aryMagicAttrib) / sizeof(m_aryMagicAttrib[0]); ++i)
 //	for (int i = 0; i <6; ++i)
 	{
-		m_aryMagicAttrib[i]  = pMA[i]; //Ä§·¨±àºÅ£¬µ«ÊÇÖµÃ»ÓĞÉèÖÃ
-		m_TempMagicAttrib[i] = pMA[i];//±¸·İÕâ¸öÄ§·¨ÊôĞÔµÄÔ­Ê¼Öµ£¨ÓÃÓÚÇ¿»¯¼Ó³ÉµÄ£©
-		// ÓÀ²»Ä¥Ëğ
+		m_aryMagicAttrib[i]  = pMA[i]; //Ä§ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÃ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_TempMagicAttrib[i] = pMA[i];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ô­Ê¼Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½Ó³ÉµÄ£ï¿½
+		// ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 		if (m_aryMagicAttrib[i].nAttribType == magic_indestructible_b)
 		{
-			SetDurability(-1);   
+			SetDurability(-1);
 		}
 	}
 	return TRUE;
 }
 
 /******************************************************************************
-¹¦ÄÜ:	¸ù¾İ´«ÈëµÄÊı¾İ, ÎªitemµÄÄ§·¨ÊôĞÔ¸³³õÖµ
-Èë¿Ú£º	pMA: ¸ø³öÊı¾İ
-³ö¿Ú:	³É¹¦Ê±·µ»Ø·ÇÁã, ÒÔÏÂ³ÉÔ±±äÁ¿±»Öµ:
+ï¿½ï¿½ï¿½ï¿½:	ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Îªitemï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½Öµ
+ï¿½ï¿½Ú£ï¿½	pMA: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½:	ï¿½É¹ï¿½Ê±ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Â³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ:
 			m_aryMagicAttrib
-		Ê§°ÜÊ±·µ»ØÁã
+		Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ******************************************************************************/
-BOOL KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ´«ÈëÄ§·¨ÊôĞÔ
+BOOL KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	if (NULL == pMA)
 		{return FALSE; }
@@ -634,12 +634,12 @@ BOOL KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ´«ÈëÄ§·¨ÊôĞÔ
 	}
 	return TRUE;
 }
-//´«ÈëÖ¸¶¨µÄ Ä§·¨»Æ½ğÊôĞÔ
+//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½
 BOOL KItem::SetAttrib_MAC(IN const int* pMA)
 {
 	if (NULL == pMA)
 	   {return FALSE; }
-	
+
 	KTabFile MagicTab;
 	MagicTab.Load(TABFILE_MAGICAGOLD_PATH);
 	for (int i = 0; i < sizeof(m_aryMagicAttrib) / sizeof(m_aryMagicAttrib[0]); ++i)
@@ -648,31 +648,31 @@ BOOL KItem::SetAttrib_MAC(IN const int* pMA)
 		KItemNormalAttrib* pDst;
 		pSrc = &(pMA[i]);
 		pDst = &(m_aryMagicAttrib[i]);
-		
+
 		int nType,nLow,nHigh;
-		MagicTab.GetInteger(*pSrc + 1,"ÊôĞÔµ÷ÕûÀà±ğ",0,&nType);
+		MagicTab.GetInteger(*pSrc + 1,"å±æ€§è°ƒæ•´ç±»åˆ«",0,&nType);
 		pDst->nAttribType = nType;
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı1×îĞ¡Öµ",0,&nLow);
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı1×î´óÖµ",0,&nHigh);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°1æœ€å°å€¼",0,&nLow);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°1æœ€å¤§å€¼",0,&nHigh);
 		pDst->nValue[0] =  ::GetRandomNumber(nLow, nHigh);
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı2×îĞ¡Öµ",0,&nLow);
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı2×î´óÖµ",0,&nHigh);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°2æœ€å°å€¼",0,&nLow);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°2æœ€å¤§å€¼",0,&nHigh);
 		pDst->nValue[1] =  ::GetRandomNumber(nLow, nHigh);
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı3×îĞ¡Öµ",0,&nLow);
-		MagicTab.GetInteger(*pSrc + 1,"²ÎÊı3×î´óÖµ",0,&nHigh);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°3æœ€å°å€¼",0,&nLow);
+		MagicTab.GetInteger(*pSrc + 1,"å‚æ•°3æœ€å¤§å€¼",0,&nHigh);
 		pDst->nValue[2] =  ::GetRandomNumber(nLow, nHigh);
 	}
 	MagicTab.Clear();
 	return TRUE;
 }
-//°××°
+//ï¿½ï¿½×°
 void KItem::operator = (const KBASICPROP_EQUIPMENT& sData)
 {
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
 	pCA->nParticularType = sData.m_nParticularType;
-	pCA->nParticularTypea= sData.m_nParticularTypea; //ÀàĞÍ2
+	pCA->nParticularTypea= sData.m_nParticularTypea; //ï¿½ï¿½ï¿½ï¿½2
 	pCA->nObjIdx		 = sData.m_nObjIdx;
 	pCA->bStack			 = 0;
 	pCA->nWidth			 = sData.m_nWidth;
@@ -691,31 +691,31 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT& sData)
 	pCA->nSixSkill		 = 0;
 	pCA->nTenSkill		 = 0;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = sData.m_nYingNuma;               //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb       = sData.m_nYingNumb;               //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = sData.m_nRongNum;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = sData.m_nWengangPin;          //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //±ø¸»¼×Öµ
-	pCA->nChiBangRes     =0;              //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma       = sData.m_nYingNuma;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb       = sData.m_nYingNumb;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = sData.m_nRongNum;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = sData.m_nWengangPin;          //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     =0;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
     pCA->nIsKuaiJie      =0;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;     //¼¼ÄÜÄ§·¨ĞĞºÅ
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;     //ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½Ğºï¿½
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
     pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
-	pCA->nCanUse         =1;     //ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
+	pCA->nCanUse         =1;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName, sData.m_szName);
 	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	/*pCA->szItemName = sData.m_szName;
 	pCA->szScript = NULL;
@@ -729,16 +729,16 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT& sData)
 
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
-	pCA->ItmeInfo = sData.m_szIntro; 
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
+	pCA->ItmeInfo = sData.m_szIntro;
 #ifndef _SERVER
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	pCA->szImageName = sData.m_szImageName;
 	//::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 	//pCA->szIntro = sData.m_szIntro;
     ///////////////////////////////////////////
     m_Image.Color.Color_b.a = 255;
@@ -746,15 +746,15 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT& sData)
     m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
     m_Image.nType = ISI_T_SPR;
     //::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage,"%s", pCA->szImageName);
     m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 	  if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-	  {//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-		 t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-		 t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+	  {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+		 sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+		 sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 	  }
 	}*/
 
@@ -763,7 +763,7 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT& sData)
 
 void KItem::operator = (const KBASICPROP_MEDMATERIAL& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &(m_CommonAttrib);
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -784,32 +784,32 @@ void KItem::operator = (const KBASICPROP_MEDMATERIAL& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nBigSet		 = 0;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nSixSkill		 = 0;
 	pCA->nTenSkill		 = 0;
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma        = 0;               //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb        = 0; //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;            //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;            //±ø¸»¼×Öµ
-	pCA->nChiBangRes     = 0;            //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb        = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =1;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;     //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;     //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
 	//::strcpy(pCA->szScript,	   "");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	/*pCA->szItemName = sData.m_szName;
 	pCA->szScript = NULL;
@@ -822,20 +822,20 @@ void KItem::operator = (const KBASICPROP_MEDMATERIAL& sData)
 	pCA->LimitTime.bMin = 0;
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 
 	pCA->szImageName = sData.m_szImageName;
 	//pCA->szIntro     = sData.m_szIntro;
 //	::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 
-	// ¸³Öµ: »ù±¾ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemNormalAttrib* pBA = m_aryBaseAttrib;
 	pBA[0].nAttribType = sData.m_nAttrib1_Type;
 	pBA[0].nValue[0]   = sData.m_nAttrib1_Para;
@@ -843,9 +843,9 @@ void KItem::operator = (const KBASICPROP_MEDMATERIAL& sData)
 	pBA[1].nValue[0]   = sData.m_nAttrib2_Para;
 	pBA[2].nAttribType = sData.m_nAttrib3_Type;
 	pBA[2].nValue[0]   = sData.m_nAttrib3_Para;
-	
-	// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö: ÎŞ
-	// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö: ÎŞ
+
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
+	// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 
 	m_Image.Color.Color_b.a = 255;
 	m_Image.nFrame = 0;
@@ -857,16 +857,16 @@ void KItem::operator = (const KBASICPROP_MEDMATERIAL& sData)
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 }
-//¿óÊ¯ÀàÎïÆ·
+//ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½Æ·
 void KItem::operator = (const KBASICPROP_MINE& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -886,32 +886,32 @@ void KItem::operator = (const KBASICPROP_MINE& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nSixSkill		 = 0;
 	pCA->nTenSkill		 = 0;
-	pCA->nBigSet		 = sData.m_nDelet;   //ÊÇ·ñÊ¹ÓÃÁËÉ¾³ı
+	pCA->nBigSet		 = sData.m_nDelet;   //ï¿½Ç·ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = 0;                //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb       = 0;                //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;                //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;                //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;                //±ø¸»¼×Öµ
-	pCA->nChiBangRes     = 0;            //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma       = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb       = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      = 0;
 	pCA->nIsBang         = 0;
-	pCA->nIsKuaiJie      = sData.m_IsKuaiJie; //ÊÇ·ñ¿ì½İÀ¸
-	pCA->nISMagic        = 0;                //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      = 0;                //¼¼ÄÜÄ§·¨ĞĞÊı
-	pCA->nMagicID        = sData.m_Magic[0]; //¼¼ÄÜID
-	pCA->nIsUse          = sData.m_IsUse;    //ÊÇ·ñÁ¢¼´Ê¹ÓÃ
+	pCA->nIsKuaiJie      = sData.m_IsKuaiJie; //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nISMagic        = 0;                //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      = 0;                //ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nMagicID        = sData.m_Magic[0]; //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nIsUse          = sData.m_IsUse;    //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	pCA->nLianjieFlg     =0;
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
 	//::strcpy(pCA->szScript,	   sData.m_szScript);
 	pCA->szScript = sData.m_szScript;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	/*pCA->szItemName = sData.m_szName;
 	pCA->szScript   = sData.m_szScript;
@@ -925,22 +925,22 @@ void KItem::operator = (const KBASICPROP_MINE& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
     /*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
     pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 //	::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 
 	pCA->szImageName = sData.m_szImageName;
 	//pCA->szIntro     = sData.m_szIntro;
 
-	// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö: ÎŞ
-	// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö: ÎŞ
-	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));	
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
+	// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
+	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));
 	ZeroMemory(m_aryRequireAttrib, sizeof(m_aryRequireAttrib));
 	ZeroMemory(m_aryMagicAttrib, sizeof(m_aryMagicAttrib));
 
@@ -962,18 +962,18 @@ void KItem::operator = (const KBASICPROP_MINE& sData)
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 
 }
 
-//---------------------------------------------------ÎÆ¸Ö
+//---------------------------------------------------ï¿½Æ¸ï¿½
 void KItem::operator = (const KBASICPROP_FUSION& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -991,7 +991,7 @@ void KItem::operator = (const KBASICPROP_FUSION& sData)
 	pCA->nRes            = 0;
 	pCA->nSixSkill		 = 0;
 	pCA->nTenSkill		 = 0;
-//-----------------------¼ÇÂ¼×Å¿ÉÈÛÁ¶µÄ²¿Î»-
+//-----------------------ï¿½ï¿½Â¼ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Î»-
 	pCA->nSet			 = 0;
 	pCA->nSetId			 = 0;
 	pCA->nSetNum		 = 1;
@@ -1000,31 +1000,31 @@ void KItem::operator = (const KBASICPROP_FUSION& sData)
 	pCA->nMagicID        = 0;
 //-------------------------------------------
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = 0;                  //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb       = 0;                  //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;                  //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = sData.m_inPin;      //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;     //±ø¸»¼×Öµ
-	pCA->nIsSell		 = 1;     //ÊÇ·ñÂòÂô
-	pCA->nIsTrade		 = 1;     //ÊÇ·ñ½»Ò×
-	pCA->nIsDrop		 = 0;     //²ÄÁÏÀàĞÍ
+//	pCA->nYingNuma       = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb       = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = sData.m_inPin;      //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nIsSell		 = 1;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nIsTrade		 = 1;     //ï¿½Ç·ï¿½ï¿½ï¿½
+	pCA->nIsDrop		 = 0;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      = 0;
 	pCA->nIsBang         = 0;
 	pCA->nIsKuaiJie      = 0;
-	pCA->nSkillType      = sData.m_MagIndex; //ÎÆ¸ÖµÄÄ§·¨IDÔÚ¿ÉÎÆ¸ÖÁĞ±íµÄĞĞºÅ
+	pCA->nSkillType      = sData.m_MagIndex; //ï¿½Æ¸Öµï¿½Ä§ï¿½ï¿½IDï¿½Ú¿ï¿½ï¿½Æ¸ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½Ğºï¿½
 	pCA->nIsUse          = 0;
 	pCA->nLianjieFlg     = 0;
-	pCA->nChiBangRes     = 0;                //³á°òµÄÍâ¹ÛĞòºÅ
+	pCA->nChiBangRes     = 0;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nSellModel      = 0;
 	::strcpy(pCA->szItemName,sData.m_szName);
 	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 	/*pCA->szItemName = sData.m_szName;
 	pCA->szScript   = NULL;
 	pCA->szWonName  = "ÏµÍ³";*/
@@ -1038,22 +1038,22 @@ void KItem::operator = (const KBASICPROP_FUSION& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
 	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	//::strcpy(pCA->szImageName,sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro,"%s", sData.m_szIntro);
 	pCA->szImageName = sData.m_szImageName;
 	//pCA->szIntro     = sData.m_szIntro;
 
 	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));
-	// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryRequireAttrib, sizeof(m_aryRequireAttrib));
-	// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryMagicAttrib, sizeof(m_aryMagicAttrib));
 /*
 	pCA->nSet			 = sData.m_Magic[0];
@@ -1089,15 +1089,15 @@ void KItem::operator = (const KBASICPROP_FUSION& sData)
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
 	//::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage,"%s", pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 
@@ -1106,7 +1106,7 @@ void KItem::operator = (const KBASICPROP_FUSION& sData)
 //----------------------------------------------------
 void KItem::operator = (const KBASICPROP_QUEST& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -1129,33 +1129,33 @@ void KItem::operator = (const KBASICPROP_QUEST& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nBigSet		 = sData.m_nDelet;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = 0;                  //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb       = 0;                  //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;                  //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;                  //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;                  //±ø¸»¼×Öµ
-	pCA->nIsSell		 = sData.m_nIsSell;    //ÊÇ·ñÂòÂô
-	pCA->nIsTrade		 = sData.m_nIsTrade;   //ÊÇ·ñ½»Ò×
-	pCA->nIsDrop		 = sData.m_nIsDrop;    //²ÄÁÏÀàĞÍ
+//	pCA->nYingNuma       = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb       = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nIsSell		 = sData.m_nIsSell;    //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nIsTrade		 = sData.m_nIsTrade;   //ï¿½Ç·ï¿½ï¿½ï¿½
+	pCA->nIsDrop		 = sData.m_nIsDrop;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =sData.m_IsKuaiJie;
-	pCA->nSkillType      =sData.m_SkillType;   //ÎÆ¸ÖµÄÄ§·¨IDÔÚ¿ÉÎÆ¸ÖÁĞ±íµÄĞĞºÅ
-	pCA->nISMagic        =sData.m_ISMagic;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nMagicID        =sData.m_MagicID;     //¼¼ÄÜID
+	pCA->nSkillType      =sData.m_SkillType;   //ï¿½Æ¸Öµï¿½Ä§ï¿½ï¿½IDï¿½Ú¿ï¿½ï¿½Æ¸ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½Ğºï¿½
+	pCA->nISMagic        =sData.m_ISMagic;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nMagicID        =sData.m_MagicID;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =sData.m_IsUse;
 	pCA->nLianjieFlg     =0;
-	pCA->nChiBangRes     =0;            //³á°òµÄÍâ¹ÛĞòºÅ
+	pCA->nChiBangRes     =0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
 	//::strcpy(pCA->szScript,	   sData.m_szScript);
 	pCA->szScript = sData.m_szScript;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	/*pCA->szItemName=  sData.m_szName;
 	pCA->szScript  = sData.m_szScript;
@@ -1169,22 +1169,22 @@ void KItem::operator = (const KBASICPROP_QUEST& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
 	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	//::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro,"%s", sData.m_szIntro);
 
 	pCA->szImageName = sData.m_szImageName;
     //pCA->szIntro     = sData.m_szIntro;
 	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));
-	// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryRequireAttrib, sizeof(m_aryRequireAttrib));
-	// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryMagicAttrib, sizeof(m_aryMagicAttrib));
 
 	ZeroMemory(m_ronMagicAttrib, sizeof(m_ronMagicAttrib));
@@ -1199,23 +1199,23 @@ void KItem::operator = (const KBASICPROP_QUEST& sData)
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
 	//::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage,"%s", pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 
 }
-//ÍÁµØ·û
+//ï¿½ï¿½ï¿½Ø·ï¿½
 void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = 0;
@@ -1228,7 +1228,7 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 	pCA->nUseMap         = 0;
 	pCA->nUseKind	     = 0;
 	pCA->nRes            = 0;
-	pCA->nPriceXu		 = 0;  //½ğ±Ò
+	pCA->nPriceXu		 = 0;  //ï¿½ï¿½ï¿½
 	pCA->nLevel			 = 1;
 	pCA->nSeries		 = -1;
 	pCA->nSet			 = 0;
@@ -1236,23 +1236,23 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nBigSet		 = 0;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma        = 0;               //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb        = 0;               //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;            //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;            //±ø¸»¼×Öµ
-	pCA->nChiBangRes     = 0;            //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =1;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;   //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;   //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
 	pCA->nSellModel      =0;
@@ -1260,7 +1260,7 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 	//::strcpy(pCA->szScript,	   "");
 	pCA->szScript = NULL;
 
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	 /*pCA->szItemName = sData.m_szName;
 	 pCA->szScript = NULL;
@@ -1274,21 +1274,21 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
     pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	//::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 	pCA->szImageName = sData.m_szImageName;
 	//pCA->szIntro = sData.m_szIntro;
-	// ¸³Öµ: »ù±¾ÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));
-	// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryRequireAttrib, sizeof(m_aryRequireAttrib));
-	// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö: ÎŞ
+	// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½: ï¿½ï¿½
 	ZeroMemory(m_aryMagicAttrib, sizeof(m_aryMagicAttrib));
 
 	ZeroMemory(m_ronMagicAttrib, sizeof(m_ronMagicAttrib));
@@ -1303,15 +1303,15 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
 	//::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage, "%s", pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 
@@ -1319,7 +1319,7 @@ void KItem::operator = (const KBASICPROP_TOWNPORTAL& sData)
 //Ò©Æ·
 void KItem::operator = (const KBASICPROP_MEDICINE& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -1342,30 +1342,30 @@ void KItem::operator = (const KBASICPROP_MEDICINE& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nBigSet		 = 0;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma        = 0;               //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb        = 0;               //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;            //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;            //±ø¸»¼×Öµ
-	pCA->nChiBangRes     = 0;            //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =1;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;   //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;   //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,sData.m_szName);
 	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 	/*pCA->szItemName	=  sData.m_szName;
 	pCA->szItemName	= NULL;
     pCA->szWonName  = "ÏµÍ³";
@@ -1378,19 +1378,19 @@ void KItem::operator = (const KBASICPROP_MEDICINE& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
     pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	//::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 	pCA->szImageName = sData.m_szImageName;
 	//pCA->szIntro = sData.m_szIntro;
 
-	// ¸³Öµ: »ù±¾ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	ZeroMemory(m_aryBaseAttrib, sizeof(m_aryBaseAttrib));
 	KItemNormalAttrib* pBA = m_aryBaseAttrib;
 	pBA[0].nAttribType = sData.m_aryAttrib[0].nAttrib;
@@ -1418,7 +1418,7 @@ void KItem::operator = (const KBASICPROP_MEDICINE& sData)
 	pBA[5].nValue[1]   = sData.m_aryAttrib[5].nTime;
 
 
-	
+
 	ZeroMemory(m_aryRequireAttrib, sizeof(m_aryRequireAttrib));
 	ZeroMemory(m_aryMagicAttrib, sizeof(m_aryMagicAttrib));
 
@@ -1433,22 +1433,22 @@ void KItem::operator = (const KBASICPROP_MEDICINE& sData)
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
 	//::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage,"%s", pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 }
 
 void KItem::operator = (const KBASICPROP_EQUIPMENT_UNIQUE& sData)
 {
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
@@ -1469,31 +1469,31 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_UNIQUE& sData)
 	pCA->nSetNum		 = 0;
 	pCA->nBigSet		 = 0;
 	pCA->nGoldId		 = 0;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = 0;               //Òş²ØÊôĞÔ1
-//    pCA->nYingNumb       = 0;              //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = 0;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = 0;            //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = 0;            //±ø¸»¼×Öµ
-	pCA->nChiBangRes     = 0;            //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma       = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    pCA->nYingNumb       = 0;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = 0;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	pCA->nChiBangRes     = 0;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      = 0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =0;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;   //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;   //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
-	pCA->nCanUse         =1;     //ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
+	pCA->nCanUse         =1;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
 	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 
 	/*pCA->szItemName	=  sData.m_szName;
 	pCA->szItemName	= NULL;
@@ -1507,15 +1507,15 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_UNIQUE& sData)
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 	//::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 
 	pCA->szImageName = sData.m_szImageName;
     //pCA->szIntro = sData.m_szIntro;
@@ -1525,22 +1525,22 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_UNIQUE& sData)
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
 	//::strcpy(m_Image.szImage, pCA->szImageName);
-	t_sprintf(m_Image.szImage,pCA->szImageName);
+	sprintf(m_Image.szImage, "%s", pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 }
-//°×½ğ
-void KItem::operator = (const KBASICPROP_EQUIPMENT_PLATINA& sData) //const 
+//ï¿½×½ï¿½
+void KItem::operator = (const KBASICPROP_EQUIPMENT_PLATINA& sData) //const
 {
-	KItemCommonAttrib* pCA = &m_CommonAttrib;	
+	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
 	pCA->nParticularType = sData.m_nParticularType;
@@ -1552,13 +1552,13 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_PLATINA& sData) //const
 	pCA->nWidth			 = sData.m_nWidth;
 	pCA->nHeight		 = sData.m_nHeight;
 	pCA->nSet			 = sData.m_nSet;
-	pCA->nSetId			 = sData.m_nSetId;  //Ì××°µÄID
+	pCA->nSetId			 = sData.m_nSetId;  //ï¿½ï¿½×°ï¿½ï¿½ID
 	pCA->nSetNum		 = sData.m_nSetNum; //
 	pCA->nBigSet		 = sData.m_nUpSet;
 	pCA->nSixSkill		 = sData.m_nSixSkill;
 	pCA->nTenSkill		 = sData.m_nTenSkill;
-	pCA->nGoldId		 = 0;              
-	pCA->nIsPlatina	     = 1;	         //°×½ğ
+	pCA->nGoldId		 = 0;
+	pCA->nIsPlatina	     = 1;	         //ï¿½×½ï¿½
 	pCA->nUseMap         = 0;
 	pCA->nUseKind	     = 0;
 	pCA->nRes            = 0;
@@ -1567,26 +1567,26 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_PLATINA& sData) //const
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = sData.m_nYingNuma;            //Òş²ØÊôĞÔ1
-//  pCA->nYingNumb       = sData.m_nYingNumb;            //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = sData.m_nRongNum;             //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = sData.m_nWengangPin;          //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //±ø¸»¼×Öµ
-    pCA->nChiBangRes     = 0;           //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma       = sData.m_nYingNuma;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//  pCA->nYingNumb       = sData.m_nYingNumb;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = sData.m_nRongNum;             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = sData.m_nWengangPin;          //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    pCA->nChiBangRes     = 0;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =0;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;     //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;     //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
-	pCA->nCanUse         =1;     //ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
+	pCA->nCanUse         =1;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
-	//::strcpy(pCA->szScript,"");	
+	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 	/*pCA->szItemName	=  sData.m_szName;
 	pCA->szItemName	= NULL;
     pCA->szWonName  = "ÏµÍ³";
@@ -1598,41 +1598,41 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_PLATINA& sData) //const
 	pCA->LimitTime.bMin = 0;
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 //	::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 	pCA->szImageName =  sData.m_szImageName;
 	//pCA->szIntro	 =  sData.m_szIntro;
-	
+
 	m_Image.Color.Color_b.a = 255;
 	m_Image.nFrame = 0;
 	m_Image.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_Image.nType = ISI_T_SPR;
-	//ÓÎÏ·ÎïÆ·Í¼±êÏÔÊ¾
+	//ï¿½ï¿½Ï·ï¿½ï¿½Æ·Í¼ï¿½ï¿½ï¿½ï¿½Ê¾
 	::strcpy(m_Image.szImage, pCA->szImageName);
 	m_Image.uImage = 0;
 	/*KImageParam	Param;
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 }
 
 
-//»Æ½ğ»ù±¾ÊôĞÔ
-void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const 
+//ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const
 {
-	KItemCommonAttrib* pCA = &m_CommonAttrib;	
+	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->nItemGenre		 = sData.m_nItemGenre;
 	pCA->nDetailType	 = sData.m_nDetailType;
 	pCA->nParticularType = sData.m_nParticularType;
@@ -1644,41 +1644,41 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const
 	pCA->nWidth			 = sData.m_nWidth;
 	pCA->nHeight		 = sData.m_nHeight;
 	pCA->nSet			 = sData.m_nSet;
-	pCA->nSetId			 = sData.m_nSetId;  // Ì××°µÄID
+	pCA->nSetId			 = sData.m_nSetId;  // ï¿½ï¿½×°ï¿½ï¿½ID
 	pCA->nSetNum		 = sData.m_nSetNum;
 	pCA->nBigSet		 = sData.m_nUpSet;
 	pCA->nGoldId		 = sData.m_nId;
-	pCA->nIsPlatina	     = 0;	         //°×½ğ
+	pCA->nIsPlatina	     = 0;	         //ï¿½×½ï¿½
 	pCA->nSixSkill		 = 0;
 	pCA->nTenSkill		 = 0;
 	pCA->nUseMap         = 0;
 	pCA->nUseKind	     = 0;
-	pCA->nRes            = 0;	         //¸Ä±äµÄÍâ¹Û
+	pCA->nRes            = 0;	         //ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->bStack			 = 0;
 	pCA->nStackNum		 = 1;
 	pCA->nEnChance		 = 0;
 	pCA->nPoint			 = 0;
 	pCA->nIsWhere        = 0;
-//	pCA->nYingNuma       = sData.m_nYingNuma;              //Òş²ØÊôĞÔ1
-//  pCA->nYingNumb       = sData.m_nYingNumb;              //Òş²ØÊôĞÔ2
-	pCA->nRongNum        = sData.m_nRongNum;               //¿ÉÈÜÊôĞÔÊıÁ¿
-    pCA->nWengangPin     = sData.m_nWengangPin;            //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //±ø¸»¼×Öµ
-    pCA->nChiBangRes     = 0;              //³á°òµÄÍâ¹ÛĞòºÅ
+//	pCA->nYingNuma       = sData.m_nYingNuma;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//  pCA->nYingNumb       = sData.m_nYingNumb;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	pCA->nRongNum        = sData.m_nRongNum;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    pCA->nWengangPin     = sData.m_nWengangPin;            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+    pCA->nBinfujiazhi    = sData.m_nBinfujiazhi;         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    pCA->nChiBangRes     = 0;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pCA->nRongpiont      =0;
 	pCA->nIsBang         =0;
 	pCA->nIsKuaiJie      =0;
-	pCA->nISMagic        =0;     //ÊÇ·ñÓĞÊôĞÔ
-	pCA->nSkillType      =0;   //¼¼ÄÜID
-	pCA->nMagicID        =0;     //¼¼ÄÜID
+	pCA->nISMagic        =0;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pCA->nSkillType      =0;   //ï¿½ï¿½ï¿½ï¿½ID
+	pCA->nMagicID        =0;     //ï¿½ï¿½ï¿½ï¿½ID
 	pCA->nIsUse          =0;
 	pCA->nLianjieFlg     =0;
-	pCA->nCanUse         =1;     //ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
+	pCA->nCanUse         =1;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	pCA->nSellModel      =0;
 	::strcpy(pCA->szItemName,  sData.m_szName);
-	//::strcpy(pCA->szScript,"");	
+	//::strcpy(pCA->szScript,"");
 	pCA->szScript = NULL;
-	::strcpy(pCA->szWonName,"ÏµÍ³");
+	::strcpy(pCA->szWonName,"ç³»ç»Ÿ");
 	/*
 	pCA->szItemName	=  sData.m_szName;
 	pCA->szItemName	= NULL;
@@ -1692,15 +1692,15 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const
 	//::strcpy(pCA->ItmeInfo,sData.m_szIntro);
 	/*char szIntro[516];
 	ZeroMemory(szIntro,sizeof(szIntro));
-	t_sprintf(szIntro,"%s", sData.m_szIntro);
-	t_sprintf(pCA->ItmeInfo,szIntro);*/
+	sprintf(szIntro,"%s", sData.m_szIntro);
+	sprintf(pCA->ItmeInfo,szIntro);*/
 	pCA->ItmeInfo = sData.m_szIntro;
 
-	pCA->uPrice = 0; 
+	pCA->uPrice = 0;
 	pCA->uLianjieFlg =0;
 	pCA->ncSellModel =0;
 //	::strcpy(pCA->szImageName, sData.m_szImageName);
-	t_sprintf(pCA->szIntro,sData.m_szIntro);
+	sprintf(pCA->szIntro, "%s", sData.m_szIntro);
 
 	pCA->szImageName	=  sData.m_szImageName;
 	//pCA->szIntro	=  sData.m_szIntro;
@@ -1715,13 +1715,13 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const
 	if (g_pRepresent)
 	{
 		if (!g_pRepresent->GetImageParam(m_Image.szImage, &Param, ISI_T_SPR))
-		{//Èç¹û°üÀïÃ»ÓĞÕâ¸öSPR ¾ÍÉèÖÃÄ¬ÈÏµÄSPRÂ·¾¶
-			t_sprintf(m_Image.szImage,"\\spr\\others\\ÎÊºÅ.spr");
-			t_sprintf(pCA->szIntro,"ÌáÊ¾:¿Í»§¶Ë×ÊÔ´²»×ã,Çë¸üĞÂÎª×îĞÂ¿Í»§¶Ë!");
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½SPR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½SPRÂ·ï¿½ï¿½
+			sprintf(m_Image.szImage,"\\spr\\others\\ï¿½Êºï¿½.spr");
+			sprintf(pCA->szIntro,"ï¿½ï¿½Ê¾:ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Â¿Í»ï¿½ï¿½ï¿½!");
 		}
 	}*/
 }
-//À¶×°
+//ï¿½ï¿½×°
 BOOL KItem::Gen_Equipment_Unique(const KBASICPROP_EQUIPMENT* pEqu,
 								 const KBASICPROP_EQUIPMENT_UNIQUE* pUni)
 {
@@ -1731,27 +1731,27 @@ BOOL KItem::Gen_Equipment_Unique(const KBASICPROP_EQUIPMENT* pEqu,
 	if (NULL == pEqu || NULL == pUni)
 		{ return FALSE;}
 
-	// ¸³Öµ: ¹²Í¬ÊôĞÔ²¿·Ö
-	*this = *pUni;		// ÔËËã·ûÖØÔØ
+	// ï¿½ï¿½Öµ: ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
+	*this = *pUni;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	KItemCommonAttrib* pCA = &m_CommonAttrib;
 	pCA->bStack  = pEqu->m_bStack;
 	pCA->nWidth  = pEqu->m_nWidth;
 	pCA->nHeight = pEqu->m_nHeight;
 
-	SetAttrib_Base(pEqu->m_aryPropBasic);		// ¸³Öµ: »ù±¾ÊôĞÔ²¿·Ö
-	SetAttrib_Req(pUni->m_aryPropReq);			// ¸³Öµ: ĞèÇóÊôĞÔ²¿·Ö
-	SetAttrib_MAB(pUni->m_aryMagicAttribs);		// ¸³Öµ: Ä§·¨ÊôĞÔ²¿·Ö
+	SetAttrib_Base(pEqu->m_aryPropBasic);		// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
+	SetAttrib_Req(pUni->m_aryPropReq);			// ï¿½ï¿½Öµ: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
+	SetAttrib_MAB(pUni->m_aryMagicAttribs);		// ï¿½ï¿½Öµ: Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
 
 	return TRUE;
 }
 
 void KItem::Remove()
-{//Ë÷ÒıÉèÖÃÎª0
+{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0
 	m_nIndex = 0;
 }
 
 void KItem::SetIndex(int i)
-{//Ë÷ÒıÉèÖÃÎª0
+{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0
 	m_nIndex = i;
 }
 
@@ -1786,36 +1786,36 @@ BOOL KItem::SetMagicAttrib(IN const KItemNormalAttrib* pAttrib)
 }
 
 //------------------------------------------------------------------
-//	Ä¥Ëğ£¬·µ»ØÖµ±íÊ¾Ê£ÓàÄÍ¾Ã¶È
+//	Ä¥ï¿½ğ£¬·ï¿½ï¿½ï¿½Öµï¿½ï¿½Ê¾Ê£ï¿½ï¿½ï¿½Í¾Ã¶ï¿½
 //------------------------------------------------------------------
 int KItem::Abrade(IN const int nRandRange)
 {
-	if (m_nCurrentDur == -1 || nRandRange == 0)	// ÓÀ²»Ä¥Ëğ
+	if (m_nCurrentDur == -1 || nRandRange == 0)	// ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 		return -1;
 
      if (nRandRange<0)
-	 {//Ğ¡ÓÚ0µÄ ±Ø¶¨Ä¥Ëğ 
+	 {//Ğ¡ï¿½ï¿½0ï¿½ï¿½ ï¿½Ø¶ï¿½Ä¥ï¿½ï¿½
 	      m_nCurrentDur--;
 	      if (m_nCurrentDur == 0)
-		  {  
+		  {
 		    return 0;
-		  } 
-	 } 
-     else if (g_Random(nRandRange) == 0)	// nRandRange·ÖÖ®Ò»µÄ¸ÅÂÊ
-	 { 
+		  }
+	 }
+     else if (g_Random(nRandRange) == 0)	// nRandRangeï¿½ï¿½Ö®Ò»ï¿½Ä¸ï¿½ï¿½ï¿½
+	 {
 		m_nCurrentDur--;
 		if (m_nCurrentDur == 0)
 		{
 			return 0;
 		}
-	 } 
+	 }
 	return m_nCurrentDur;
 }
 
 void KItem::SetItemInfo(int nVale)
-{  
+{
 	char strVal[516]={0};
-	t_sprintf(strVal,GetSItmeInfo());
+	sprintf(strVal, "%s", GetSItmeInfo());
 
  	if (strrchr(strVal,'.lua'))
 	{
@@ -1831,45 +1831,45 @@ void KItem::SetItemInfo(int nVale)
 		{
 			int nSafeIndex = 0;
 			nSafeIndex=pScript->SafeCallBegin();
-			//Ö´ĞĞÕâ¸ö½Å±¾µÄº¯Êı	
-		
+			//Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½Äºï¿½ï¿½ï¿½
+
 			pScript->CallFunction("GetItemDescription", 1, "sds",GetName(),nVale,"");
-			//	t_sprintf(Npc[Player[nIndex].m_nIndex].m_ItmeInfo,"²âÊÔËµÃ÷C:%s,%s,%d,%s",JView->nCallFun,JView->nCanShuA,JView->nCanShuB,JView->nCanShuC);
+			//	sprintf(Npc[Player[nIndex].m_nIndex].m_ItmeInfo,"ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½C:%s,%s,%d,%s",JView->nCallFun,JView->nCanShuA,JView->nCanShuB,JView->nCanShuC);
 			const char * szType = lua_typename(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
 			if (Lua_IsNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)
 			{//Lua_PushNumber
 				int nResult = (int)Lua_ValueToNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
-				t_sprintf(szResult, "%d", nResult);  // int ÀàĞÍ
+				sprintf(szResult, "%d", nResult);  // int ï¿½ï¿½ï¿½ï¿½
 			}
-			else if (Lua_IsString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)  // ×Ö·û´®ÀàĞÍ
+			else if (Lua_IsString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)  // ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
-				t_sprintf(szResult, (char *)Lua_ValueToString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)));
+				sprintf(szResult, "%s", (char *)Lua_ValueToString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)));
 				//szResult[strlen(szResult)]='\0';
-				//t_sprintf(Npc[Player[nIndex].m_nIndex].m_ItmeInfo,szResult);
+				//sprintf(Npc[Player[nIndex].m_nIndex].m_ItmeInfo,szResult);
 			}
 			else
-				t_sprintf(szResult,"<color=Red>Êı¾İ´íÎó,ÇëÁªÏµGM´¦Àí!<color>"); //JView->nCallFun,JView->nCanShuA,JView->nCanShuB,JView->nCanShuC
-			//	ParseString2MagicAttrib(nLevel, szSettingNameValue, szResult);  //½âÎö½Å±¾ÊôĞÔ	
+				sprintf(szResult,"<color=Red>æ•°æ®é”™è¯¯,è¯·è”ç³»GMå¤„ç†!<color>"); //JView->nCallFun,JView->nCanShuA,JView->nCanShuB,JView->nCanShuC
+			//	ParseString2MagicAttrib(nLevel, szSettingNameValue, szResult);  //ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
 			nSafeIndex=pScript->SafeCallBegin();
 			pScript->SafeCallEnd(nSafeIndex);
 		}
 		else
-		{					  
+		{
 				 pScript->Exit();
-			     t_sprintf(szResult,"Êı¾İÓĞÎó:%s,%s,%d,%s","GetItemDescription",GetName(),nVale,"ÔİÎŞÊı¾İ");
-			//       printf("[ËµÃ÷]:º¯Êı:%s,²ÎÊı1:%s,²ÎÊı2:%d,²ÎÊı3:%s,·µ»Ø:%s\n",pView->nCallFun,pView->nCanShuA,pView->nCanShuB,pView->nCanShuC,Npc[Player[nIndex].m_nIndex].m_ItmeInfo);
+			     sprintf(szResult,"æ•°æ®æœ‰è¯¯:%s,%s,%d,%s","GetItemDescription",GetName(),nVale,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			//       printf("[Ëµï¿½ï¿½]:ï¿½ï¿½ï¿½ï¿½:%s,ï¿½ï¿½ï¿½ï¿½1:%s,ï¿½ï¿½ï¿½ï¿½2:%d,ï¿½ï¿½ï¿½ï¿½3:%s,ï¿½ï¿½ï¿½ï¿½:%s\n",pView->nCallFun,pView->nCanShuA,pView->nCanShuB,pView->nCanShuC,Npc[Player[nIndex].m_nIndex].m_ItmeInfo);
 		}
 		SetSItmeInfo(szResult);
 	}
 }
-////////Ãè»æÏÔÊ¾Í¼±êµş·ÅÊıÁ¿///////////////////////////////////////////
-void KItem::Paint(int nX, int nY,BOOL bStack,int nzStackNum,int nKind)  //µş·ÅÎïÆ·µÄÑÕÉ«
+////////ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½///////////////////////////////////////////
+void KItem::Paint(int nX, int nY,BOOL bStack,int nzStackNum,int nKind)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½É«
 {
 	m_Image.oPosition.nX = nX;
 	m_Image.oPosition.nY = nY;
 
 	if (nKind==CGOG_NPCSELLITEM_PAI)
-	{//ÅÄÂôĞĞ
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (m_CommonAttrib.nWidth==1 && m_CommonAttrib.nHeight>1)
 		{//
 			m_Image.oPosition.nY -= (m_CommonAttrib.nHeight>>1)*25;
@@ -1886,31 +1886,32 @@ void KItem::Paint(int nX, int nY,BOOL bStack,int nzStackNum,int nKind)  //µş·ÅÎï
 	}
 
 	m_Image.bRenderStyle = IMAGE_RENDER_STYLE_ALPHA;//IMAGE_RENDER_STYLE_BORDER;
-	//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, TRUE);  //RU_T_IMAGE4 ¸öµã×ø±ê
-    
+	//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, TRUE);  //RU_T_IMAGE4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 	if (nKind!=CGOG_NPCSELLITEM_PAI && m_CommonAttrib.bStack && bStack)
-	{//ÊÇ·ñ»æ»­µş¼ÓÊıÁ¿
+	{//ï¿½Ç·ï¿½æ»­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nNum = m_CommonAttrib.nStackNum+nzStackNum;
 
-		if (nNum >= 1 && nNum < 5000)   //Ğ¡ÓÚ10000
+		if (nNum >= 1 && nNum < 5000)   //Ğ¡ï¿½ï¿½10000
 		{
 			int nFontSize = 14;
 			char szNum[16];
-			int nLen = t_sprintf(szNum, "%d", nNum);  //ÊıÁ¿
+			int nLen = sprintf(szNum, "%d", nNum);  //ï¿½ï¿½ï¿½ï¿½
 			    szNum[15] = 0;
 			/*g_pRepresent->OutputText(nFontSize, szNum, KRF_ZERO_END,
 				nX + (m_CommonAttrib.nWidth * 27) - nLen * (nFontSize ) / 2,
-				nY + (m_CommonAttrib.nHeight) + nFontSize + 1, TGetColor("255,255,0")); //»ÆÉ«
+				nY + (m_CommonAttrib.nHeight) + nFontSize + 1, TGetColor("255,255,0")); //ï¿½ï¿½É«
 			*/
 		}
 	}
 }
 
-char SubBuWei[15][24]={"ÎäÆ÷","°µÆ÷","ÒÂ·ş","½ä×Ó","ÏîÁ´","Ñ¥×Ó","Ñü´ø","Ã±×Ó","ÊÖïí»¤Íó","ÓñÅåÏãÄÒ","ÂíÆ¥","Ãæ¾ß","Åû·ç","Ó¡¼ø","ÊÎÆ·"};
+//char SubBuWei[15][24]={"ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½","ï¿½Â·ï¿½","ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½","Ñ¥ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½","Ã±ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½Æ¥","ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½","Ó¡ï¿½ï¿½","ï¿½ï¿½Æ·"};
+char SubBuWei[15][24]={"æ­¦å™¨","æš—å™¨","è¡£æœ","æˆ’å­","é¡¹é“¾","é´å­","è…°å¸¦","å¸½å­","æ‰‹é•¯æŠ¤è…•","ç‰ä½©é¦™å›Š","é©¬åŒ¹","é¢å…·","æŠ«é£","å°é‰´","é¥°å“"};
 
-void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveAttrib,int nType) //µÃµ½×°±¸µÄÃèÊö
+void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveAttrib,int nType) //ï¿½Ãµï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
-	char	szColor[item_number][32] = 
+	char	szColor[item_number][32] =
 	{
 		"",
 		"<color=White>",
@@ -1918,10 +1919,10 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		"",
 		"<color=Yellow>",
 	};
-	
+
 	if (m_CommonAttrib.nItemGenre == item_equip)
 	{
-		if (m_CommonAttrib.nGoldId)	// »Æ½ğ×°±¸
+		if (m_CommonAttrib.nGoldId)	// ï¿½Æ½ï¿½×°ï¿½ï¿½
 		{
 			if (m_CommonAttrib.nIsPlatina==0)
 			    strcpy(szColor[item_equip], "<color=Yellow>");	   //0xffdcdc00	 Yellow
@@ -1929,11 +1930,11 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			    strcpy(szColor[item_equip], "<bclr=blue><color=white>");
 		}
 
-		else if (m_CommonAttrib.nPoint > 0 && m_CommonAttrib.nPoint<=6 ) //×ÏÉ«
+		else if (m_CommonAttrib.nPoint > 0 && m_CommonAttrib.nPoint<=6 ) //ï¿½ï¿½É«
 		{
 			strcpy(szColor[item_equip], "<color=Purple>");
 		}
-		else if (m_aryMagicAttrib[0].nAttribType)	// À¶É«×°±¸
+		else if (m_aryMagicAttrib[0].nAttribType)	// ï¿½ï¿½É«×°ï¿½ï¿½
 		{
 			strcpy(szColor[item_equip], "<color=Blue>");
 		}
@@ -1947,7 +1948,7 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 	   strcpy(szColor[m_CommonAttrib.nItemGenre], "<color=White>");
 	}
 
-  
+
 
 	if (m_CommonAttrib.nEnChance)
 	{
@@ -1959,16 +1960,16 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		   if (nType==1)
 		   {
 			   if (m_CommonAttrib.nIsPlatina==0)
-		          t_sprintf(sItemName,"%s(ÒÑ×°±¸)<bclr=White><color=blue>+%d<color><bclr>",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//Ç¿»¯           
+		          sprintf(sItemName,"%s(å·²è£…å¤‡)<bclr=White><color=blue>+%d<color><bclr>",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//å¼ºåŒ–
 		   	   else
-				  t_sprintf(sItemName,"%s(ÒÑ×°±¸)+%d",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//Ç¿»¯      
+				  sprintf(sItemName,"%s(å·²è£…å¤‡)+%d",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//å¼ºåŒ–
 		   }
 		   else
-		   {   
+		   {
 			   if (m_CommonAttrib.nIsPlatina==0)
-		          t_sprintf(sItemName,"%s<bclr=White><color=blue>+%d<color><bclr>",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//Ç¿»¯
+		          sprintf(sItemName,"%s<bclr=White><color=blue>+%d<color><bclr>",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//å¼ºåŒ–
 		   		else
-				  t_sprintf(sItemName,"%s+%d",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//Ç¿»¯
+				  sprintf(sItemName,"%s+%d",m_CommonAttrib.szItemName,m_CommonAttrib.nEnChance);//Ç¿ï¿½ï¿½
 
 		   }
 		   char    TextLevel[128]={0};
@@ -1980,28 +1981,28 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 				{
 					if (LevelItem%10 == 0)
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem/(LevelItem/10));
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem/(LevelItem/10));
 					}
 					else
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem%10);
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem%10);
 					}
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem/(LevelItem/100));
 					}
 					else
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem%100);
 					}
 				}
 			}
 			else
 			{
-				t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem);
+				sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem);
 			}
 			strcat(pszMsg, TextLevel);
 
@@ -2030,10 +2031,10 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		  char sItemName[64]={0};
 
 		if (nType==1)
-		   t_sprintf(sItemName,"%s(ÒÑ×°±¸)",m_CommonAttrib.szItemName);       
-		else  
-		   t_sprintf(sItemName,"%s",m_CommonAttrib.szItemName);
-		
+		   sprintf(sItemName,"%s(å·²è£…å¤‡)",m_CommonAttrib.szItemName);
+		else
+		   sprintf(sItemName,"%s",m_CommonAttrib.szItemName);
+
 
 		char    TextLevel[128]={0};
 			int        LevelItem = m_CommonAttrib.nLevel;
@@ -2044,29 +2045,29 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 				{
 					if (LevelItem%10 == 0)
 					{
-						
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem/(LevelItem/10));
+
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem/(LevelItem/10));
 					}
 					else
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem%10);
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem%10);
 					}
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem/(LevelItem/100));
 					}
 					else
 					{
-						t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem%100);
 					}
 				}
 			}
 			else
 			{
-				t_sprintf(TextLevel, "%s[µÈ¼¶%d]", sItemName, LevelItem);
+				sprintf(TextLevel, "%s[ç­‰çº§%d]", sItemName, LevelItem);
 			}
 			strcat(pszMsg, TextLevel);
 			if (m_CommonAttrib.nIsPlatina==1)
@@ -2075,15 +2076,15 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			    strcat(pszMsg, "<color>\n");
 		}
 		else
-		{//·Ç×°±¸
+		{//ï¿½ï¿½×°ï¿½ï¿½
 			strcpy(pszMsg, szColor[m_CommonAttrib.nItemGenre]);
-			strcat(pszMsg, m_CommonAttrib.szItemName);  //ÎïÆ·Ãû×Ö
+			strcat(pszMsg, m_CommonAttrib.szItemName);  //ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 
 			if (m_CommonAttrib.nLevel>10)
 			{
 				char nMsg[32]={0};
-				t_sprintf(nMsg,"[%d]¼¶",m_CommonAttrib.nLevel);
-				strcat(pszMsg, nMsg); 
+				sprintf(nMsg,"[%d]çº§",m_CommonAttrib.nLevel);
+				strcat(pszMsg, nMsg);
 			}
 
 			if (m_CommonAttrib.nIsPlatina==1)
@@ -2091,104 +2092,104 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			else
 			    strcat(pszMsg, "<color>\n");
 		}
-   
+
 	}
 
 /*   if  (m_CommonAttrib.nPoint==7)
-    strcat(pszMsg, "[<color=green>VIP<color><color=pink>¹éÊôÕß:");
+    strcat(pszMsg, "[<color=green>VIP<color><color=pink>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:");
    else
-    strcat(pszMsg, "[<color=pink>¹éÊôÕß:");
-    strcat(pszMsg,m_CommonAttrib.szWonName);  //ËùÓĞÕß
+    strcat(pszMsg, "[<color=pink>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:");
+    strcat(pszMsg,m_CommonAttrib.szWonName);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     strcat(pszMsg, "<color>]\n");
 */
     strcat(pszMsg, "<color=green>");
 
 	if (m_CommonAttrib.nIsBang<=0)
-       strcat(pszMsg,"¸ÃÎïÆ·»¹Î´°ó¶¨");  
+       strcat(pszMsg,"è¯¥ç‰©å“è¿˜æœªç»‘å®š");
 	else
-       strcat(pszMsg,"¸ÃÎïÆ·ÒÑÓÀ¾Ã°ó¶¨");
+       strcat(pszMsg,"è¯¥ç‰©å“å·²æ°¸ä¹…ç»‘å®š");
 
     strcat(pszMsg, "<color>\n");
 
- 
+
 	 if (m_CommonAttrib.nUseMap>0)
-	 {  
+	 {
 		 char nMapKey[32]={0},nMapName[64]={0};
 		 ZeroStruct(nMapName);
-		 t_sprintf(nMapKey,"%d_name",m_CommonAttrib.nUseMap);
-		 
-		 g_NpcMapDropRate.GetString("List",nMapKey,"ÔİÎŞÊı¾İ",nMapName,sizeof(nMapName));
+		 sprintf(nMapKey,"%d_name",m_CommonAttrib.nUseMap);
+
+		 g_NpcMapDropRate.GetString("List",nMapKey,"æš‚æ— æ•°æ®",nMapName,sizeof(nMapName));
 
 		 if (m_CommonAttrib.nItemGenre == item_equip)
-		 {//Ëø»ê
-			 strcat(pszMsg, "<color=yellow>¸Ã×°±¸ÒÑ±»Ëø»ê£º");
+		 {//é”é­‚
+			 strcat(pszMsg, "<color=yellow>è¯¥è£…å¤‡å·²è¢«é”é­‚ï¼š");
 		 }
 		 else
-			 strcat(pszMsg, "<color=yellow>¸ÃÎïÆ·ÒÑ±»Ëø»ê£º");
+			 strcat(pszMsg, "<color=yellow>è¯¥ç‰©å“å·²è¢«é”é­‚ï¼š");
 
-		  if (m_CommonAttrib.nUseKind==0)  //Ëø»êµØÍ¼
+		  if (m_CommonAttrib.nUseKind==0)  //é”é­‚åœ°å›¾
 			     strcat(pszMsg, nMapName);
 		  else
-		  { 
-			  t_sprintf(nMapName,"µÈ¼¶<%d¼¶",m_CommonAttrib.nUseMap);
+		  {
+			  sprintf(nMapName,"ç­‰çº§<%dçº§",m_CommonAttrib.nUseMap);
 			  strcat(pszMsg, nMapName);
 		  }
 		  strcat(pszMsg, "<color>\n");
-	 }  
-	 
-	 if (m_CommonAttrib.nIsSell == 1 && m_CommonAttrib.nItemGenre != item_equip) //¿É½»Ò×
-	 {	
-		strcat(pszMsg, "<color=Green>¸ÃÎïÆ·¿ÉÒÔ½»Ò×<color>\n");
+	 }
+
+	 if (m_CommonAttrib.nIsSell == 1 && m_CommonAttrib.nItemGenre != item_equip) //å¯äº¤æ˜“
+	 {
+		strcat(pszMsg, "<color=Green>è¯¥ç‰©å“å¯ä»¥äº¤æ˜“<color>\n");
 	 }
 	 else if (m_CommonAttrib.nItemGenre != item_equip)
-	 {	
-		strcat(pszMsg, "<color=Red>¸ÃÎïÆ·²»¿ÉÒÔ½»Ò×<color>\n");
-	 } 
+	 {
+		strcat(pszMsg, "<color=Red>è¯¥ç‰©å“ä¸å¯ä»¥äº¤æ˜“<color>\n");
+	 }
 
 	 //if (m_CommonAttrib.nUseMap >0 && m_CommonAttrib.nItemGenre == item_medicine) //Ò©Æ·
-	 //{	
-	 //	 strcat(pszMsg, "<color=Red>¸ÃÒ©Æ·ÏŞÖÆµØÍ¼Ê¹ÓÃ<color>\n");
+	 //{
+	 //	 strcat(pszMsg, "<color=Red>ï¿½ï¿½Ò©Æ·ï¿½ï¿½ï¿½Æµï¿½Í¼Ê¹ï¿½ï¿½<color>\n");
 	 //}
-     
+
 	int qianghua=m_CommonAttrib.nEnChance;
 
     if (qianghua>0)
 	{
 		if (qianghua==1)
-			strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï<color><bclr>\n");
+			strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…<color><bclr>\n");
 		else if (qianghua==2)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…<color><bclr>\n");
 		else if (qianghua==3)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==4)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==5)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==6)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==7)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==8)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==9)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else if (qianghua==10)
-            strcat(pszMsg,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï¡ï<color><bclr>\n");
+            strcat(pszMsg,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…<color><bclr>\n");
 		else
 		{
 			char nInfo[64]={0};
-            t_sprintf(nInfo,"Ç¿»¯ĞÇ¼¶£º<bclr=blue><color=White>%d ¡ï<color><bclr>\n",qianghua);
+            sprintf(nInfo,"å¼ºåŒ–æ˜Ÿçº§ï¼š<bclr=blue><color=White>%d â˜…<color><bclr>\n",qianghua);
 		    strcat(pszMsg,nInfo);
 		}
 
 	}
-	
+
 	if (bShowPrice && nPriceScale > 0)
 	{
 		/*if (m_CommonAttrib.nPriceXu>0)//(m_CommonAttrib.nItemGenre == item_task || m_CommonAttrib.nItemGenre == item_mine)
-		{//½ğ±Ò
+		{//ï¿½ï¿½ï¿½
 			char szPrice[32];
-			t_sprintf(szPrice, "¼ÛÖµ£º%d½ğ±Ò", m_CommonAttrib.nPriceXu);
+			sprintf(szPrice, "ä»·å€¼ï¼š%dé‡‘å¸", m_CommonAttrib.nPriceXu);
 			strcat(pszMsg, szPrice);
 			strcat(pszMsg, "\n");
 		}
@@ -2198,142 +2199,142 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			char szPrice[32]={0},nInfo[4]={0};
 			//if (TakeTrader(m_CommonAttrib.nPrice,nPriceScale) < 10000)
 			if (m_CommonAttrib.ncSellModel==moneyunit_money || m_CommonAttrib.ncSellModel==moneyunit_moneya)
-				t_sprintf(nInfo,"Á½");
+				sprintf(nInfo,"ä¸¤");
 			else if (m_CommonAttrib.ncSellModel==moneyunit_xu)
-				t_sprintf(nInfo,"½ğ");
-			else 
-				t_sprintf(nInfo,"µã");
+				sprintf(nInfo,"é‡‘");
+			else
+				sprintf(nInfo,"ç‚¹");
 
 			if (m_CommonAttrib.nPrice/nPriceScale < 10000)
-			{//Íò
-			        //t_sprintf(szPrice, "¼ÛÖµ£º%dÁ½",TakeTrader(m_CommonAttrib.nPrice,nPriceScale));
-					t_sprintf(szPrice, "¼ÛÖµ£º%d%s",m_CommonAttrib.nPrice/nPriceScale,nInfo);
+			{//ä¸‡
+			        //sprintf(szPrice, "ä»·å€¼ï¼š%dä¸¤",TakeTrader(m_CommonAttrib.nPrice,nPriceScale));
+					sprintf(szPrice, "ä»·å€¼ï¼š%d%s",m_CommonAttrib.nPrice/nPriceScale,nInfo);
 			}
 			else
 			{
 					int vPrice = (m_CommonAttrib.nPrice/nPriceScale)/10000;//TakeTrader(TakeTrader(m_CommonAttrib.nPrice,nPriceScale), 10000);
 					int lPrice = (m_CommonAttrib.nPrice/nPriceScale)%10000;//TakeRemainder(TakeTrader(m_CommonAttrib.nPrice, nPriceScale),10000);
-					
+
 					if (lPrice == 0)
 					{
-						t_sprintf(szPrice, "¼ÛÖµ£º%dÍò%s", vPrice,nInfo);
+						sprintf(szPrice, "ä»·å€¼ï¼š%dä¸‡%s", vPrice,nInfo);
 					}
 					else
 					{
-						t_sprintf(szPrice, "¼ÛÖµ£º%dÍò%d%s", vPrice,lPrice,nInfo);
+						sprintf(szPrice, "ä»·å€¼ï¼š%dä¸‡%d%s", vPrice,lPrice,nInfo);
 					}
 			}
 		strcat(pszMsg, szPrice);
-		strcat(pszMsg, "\n");			
+		strcat(pszMsg, "\n");
 		}
 
 	}
 
- 
+
 /*     char  nMagid[6];
-        t_sprintf(nMagid,"<color=yellow>%d<color>",m_CommonAttrib.nIsUse);
-	    strcat(pszMsg,nMagid); //ÊÇ·ñÁ¢¼´Ê¹ÓÃ
+        sprintf(nMagid,"<color=yellow>%d<color>",m_CommonAttrib.nIsUse);
+	    strcat(pszMsg,nMagid); //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
         strcat(pszMsg, "\n");
 */
 
 //---------------------------------TASK
 	if (m_CommonAttrib.nItemGenre == item_task)
-	{	
+	{
           char nSkillType[4];
 		//	strcat(pszMsg, _itoa(m_CommonAttrib.nSkillType,nSkillType,10));
-		  if (m_CommonAttrib.nDetailType == 371)  //ÈÛÁ¶¾§Ê¯
-		  { 
+		  if (m_CommonAttrib.nDetailType == 371)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯
+		  {
 			strcat(pszMsg, "\n");
 			char szLevel[32];
-			int  mLeve; 
-			if (m_CommonAttrib.nLevel>0 && m_CommonAttrib.nLevel<=6) 
-				mLeve=m_CommonAttrib.nLevel; 
-			else if (m_CommonAttrib.nLevel>6) 
+			int  mLeve;
+			if (m_CommonAttrib.nLevel>0 && m_CommonAttrib.nLevel<=6)
+				mLeve=m_CommonAttrib.nLevel;
+			else if (m_CommonAttrib.nLevel>6)
 			    mLeve= 6;
-			t_sprintf(szLevel, "<color=Blue>(¿ÉÈÛÁ¶:%d¸öÊôĞÔ)<color>", mLeve);
+			sprintf(szLevel, "<color=Blue>(å¯ç†”ç‚¼:%dä¸ªå±æ€§)<color>", mLeve);
 		    strcat(pszMsg, szLevel);
-		  } 
-		  else if 	(m_CommonAttrib.nDetailType == 374 || m_CommonAttrib.nDetailType == 375)  //ÌáÁ¶¾§Ê¯
-		  { 
+		  }
+		  else if 	(m_CommonAttrib.nDetailType == 374 || m_CommonAttrib.nDetailType == 375)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯
+		  {
 			  strcat(pszMsg, "\n");
 			  char szLevel[32];
-			  t_sprintf(szLevel, "<color=Blue>(Æ·ÖÊµÈ¼¶:%dÆ·)<color>", m_CommonAttrib.nLevel);
+			  sprintf(szLevel, "<color=Blue>(å“è´¨ç­‰çº§:%då“)<color>", m_CommonAttrib.nLevel);
 		      strcat(pszMsg, szLevel);
-		  } 
+		  }
 
 			strcat(pszMsg, "\n");
 //	}
 
-        if (strstr(m_CommonAttrib.szItemName,"Ğş»ğÌ¿"))
+        if (strstr(m_CommonAttrib.szItemName,"ç„ç«ç‚­"))
 		{
 			/*if (m_CommonAttrib.nLevel==1)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚÒ»ÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==2)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚ¶şÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==3)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚÈıÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==4)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚËÄÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel==5)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚÎåÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			}
 			else if (m_CommonAttrib.nLevel>5)
 			{
-				strcat(pszMsg, "<color=Yellow>ËµÃ÷:<color><color=Blue>¿ÉÒÔÌáÁ¶µÚÁùÊôĞÔÎÆ¸Ö<color>\n");
+				strcat(pszMsg, "<color=Yellow>Ëµï¿½ï¿½:<color><color=Blue>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½<color>\n");
 				//strcat(pszMsg, "\n");
 			} */
-			strcat(pszMsg, "<color=Blue>¿ÉÒÔÌáÁ¶ËùÓĞÎÆ¸Ö<color>\n");
+			strcat(pszMsg, "<color=Blue>å¯ä»¥æç‚¼æ‰€æœ‰çº¹é’¢<color>\n");
 		}
 
 		if (m_CommonAttrib.nSkillType>0)
-		{//±êÊ¾ÊÇ·ñ¸øÆôÓÃµÄÎÆ¸Ö
+		{//ï¿½ï¿½Ê¾ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Æ¸ï¿½
 			char szIntor[64];
 			int szRows,nMin=0;
-			KTabFile MagicTab,MagicTabA;			
+			KTabFile MagicTab,MagicTabA;
 		    MagicTab.Load(TABFILE_MAGICALEVEL_PATH);
             MagicTab.GetString(m_CommonAttrib.nSkillType+1,"DESC","",szIntor,sizeof(szIntor));
 			MagicTab.GetInteger(m_CommonAttrib.nSkillType+1,"MAGATTRLVL_START",1,&szRows);
             MagicTabA.Load(TABFILE_MAGICATTRIB_PATH);
             MagicTabA.GetInteger(szRows+m_CommonAttrib.nLevel,6,1,&nMin);
-         /* if (strstr(m_CommonAttrib.szItemName,"ÎÆ¸Ö"))
+         /* if (strstr(m_CommonAttrib.szItemName,"ï¿½Æ¸ï¿½"))
 		  {
-            strcat(pszMsg, "<color=Yellow>ÎÆ¸ÖÊôĞÔ:<color><color=Cyan>");
+            strcat(pszMsg, "<color=Yellow>ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½:<color><color=Cyan>");
 			strcat(pszMsg, szIntor);
 			strcat(pszMsg, "<color>\n");
 			MagicTab.GetString(m_CommonAttrib.nSkillType+1,"FIT_EQUIP","",szIntor,sizeof(szIntor));
-			strcat(pszMsg, "<color=Yellow>ÎÆ¸ÖÎ»ÖÃ:<color><color=Cyan>");
+			strcat(pszMsg, "<color=Yellow>ï¿½Æ¸ï¿½Î»ï¿½ï¿½:<color><color=Cyan>");
 			strcat(pszMsg, szIntor);
 		    strcat(pszMsg, "<color>\n");
-			char szLevel[32]; 		
-			t_sprintf(szLevel, "<color=Blue>Æ·ÖÊµÈ¼¶:%dÆ·(Ôö¼Ó:%dµã)<color>", m_CommonAttrib.nLevel,nMin);
+			char szLevel[32];
+			sprintf(szLevel, "<color=Blue>Æ·ï¿½ÊµÈ¼ï¿½:%dÆ·(ï¿½ï¿½ï¿½ï¿½:%dï¿½ï¿½)<color>", m_CommonAttrib.nLevel,nMin);
 			strcat(pszMsg, szLevel);
 		  }
 		  else*/
-		 if (strstr(m_CommonAttrib.szItemName,"±¦Ê¯"))
+		 if (strstr(m_CommonAttrib.szItemName,"å®çŸ³"))
 		  {
-			  strcat(pszMsg, "<color=Yellow>ÁéºÏÊôĞÔ:<color><color=Cyan>");
+			  strcat(pszMsg, "<color=Yellow>çµåˆå±æ€§:<color><color=Cyan>");
 			  strcat(pszMsg, szIntor);
 			  strcat(pszMsg, "<color>\n");
 			  MagicTab.GetString(m_CommonAttrib.nSkillType+1,"FIT_EQUIP","",szIntor,sizeof(szIntor));
-			  strcat(pszMsg, "<color=Yellow>ÁéºÏÎ»ÖÃ:<color><color=Cyan>");
+			  strcat(pszMsg, "<color=Yellow>çµåˆä½ç½®:<color><color=Cyan>");
 			  strcat(pszMsg, szIntor);
 			  strcat(pszMsg, "<color>\n");
-			  char szLevel[64]={0}; 		
-			  t_sprintf(szLevel, "<color=Blue>Æ·ÖÊµÈ¼¶:%dÆ·(Ôö¼Ó:%dµã)<color>", m_CommonAttrib.nLevel,nMin);
+			  char szLevel[64]={0};
+			  sprintf(szLevel, "<color=Blue>å“è´¨ç­‰çº§:%då“(å¢åŠ :%dç‚¹)<color>", m_CommonAttrib.nLevel,nMin);
 			  strcat(pszMsg, szLevel);
 		  }
 
@@ -2341,100 +2342,100 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			MagicTab.Clear();
 		    strcat(pszMsg, "\n");
         //  strcat(pszMsg,)
-		}  
-		
+		}
+
 	}
 
-//---------------------------------×°±¸ ºÍ MINE 	
+//---------------------------------×°ï¿½ï¿½ ï¿½ï¿½ MINE
 	if (m_CommonAttrib.nItemGenre == item_equip ||
 		(m_CommonAttrib.nItemGenre == item_mine &&
 		(m_CommonAttrib.nParticularType == 150 ||
 		m_CommonAttrib.nParticularType == 152 ||
 		m_CommonAttrib.nParticularType == 154 ||
-		(m_CommonAttrib.nParticularType >= 200 && 
-		m_CommonAttrib.nParticularType <= 205)) //×°±¸»ò ¿×È¸Ô­Ê¯£¬¿×È¸Ê¯ £¬Ü½ÈØÊ¯
+		(m_CommonAttrib.nParticularType >= 200 &&
+		m_CommonAttrib.nParticularType <= 205)) //×°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸Ô­Ê¯ï¿½ï¿½ï¿½ï¿½È¸Ê¯ ï¿½ï¿½Ü½ï¿½ï¿½Ê¯
 		))
 	{
 		switch(m_CommonAttrib.nSeries)
 		{
 		case series_metal:
-			strcat(pszMsg, "<color=White>ÎåĞĞÊôĞÔ£º<color><color=Metal>½ğ<color>");
+			strcat(pszMsg, "<color=White>äº”è¡Œå±æ€§ï¼š<color><color=Metal>é‡‘<color>");
 			break;
 		case series_wood:
-			strcat(pszMsg, "<color=White>ÎåĞĞÊôĞÔ£º<color><color=Wood>Ä¾<color>");
+			strcat(pszMsg, "<color=White>äº”è¡Œå±æ€§ï¼š<color><color=Wood>æœ¨<color>");
 			break;
 		case series_water:
-			strcat(pszMsg, "<color=White>ÎåĞĞÊôĞÔ£º<color><color=Water>Ë®<color>");
+			strcat(pszMsg, "<color=White>äº”è¡Œå±æ€§ï¼š<color><color=Water>æ°´<color>");
 			break;
 		case series_fire:
-			strcat(pszMsg, "<color=White>ÎåĞĞÊôĞÔ£º<color><color=Fire>»ğ<color>");
+			strcat(pszMsg, "<color=White>äº”è¡Œå±æ€§ï¼š<color><color=Fire>ç«<color>");
 			break;
 		case series_earth:
-			strcat(pszMsg, "<color=White>ÎåĞĞÊôĞÔ£º<color><color=Earth>ÍÁ<color>");
+			strcat(pszMsg, "<color=White>äº”è¡Œå±æ€§ï¼š<color><color=Earth>åœŸ<color>");
 			break;
 		}
 			strcat(pszMsg, "\n");
 	}
-//----------------------------------ÆäËû----
-	/*if (strstr(m_CommonAttrib.szItemName,"ÈÎÎñ¾íÖá"))
+//----------------------------------ï¿½ï¿½ï¿½ï¿½----
+	/*if (strstr(m_CommonAttrib.szItemName,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"))
 	{
-		strcat(pszMsg, "<color=Orange>ÈÎÎñÃèÊö£º<color>\n");
+		strcat(pszMsg, "<color=Orange>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<color>\n");
 	} */
-	strcat(pszMsg, m_CommonAttrib.szIntro);  //ËµÃ÷ÎÄ×Ö  ÎïÆ·µÄËµÃ÷ÎÄ×Ö
+	strcat(pszMsg, m_CommonAttrib.szIntro);  //Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½Æ·ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	strcat(pszMsg, "\n"); //<color>
-  
-	/*if (strstr(m_CommonAttrib.szItemName,"ÈÎÎñ¾íÖá"))
+
+	/*if (strstr(m_CommonAttrib.szItemName,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"))
 	{
-		strcat(pszMsg, "<color=yellow>ÌáÊ¾£ºÓÒ¼üÊ¹ÓÃ¿É½ÓÈÎÎñ<color>\n");
+		strcat(pszMsg, "<color=yellow>ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ò¼ï¿½Ê¹ï¿½Ã¿É½ï¿½ï¿½ï¿½ï¿½ï¿½<color>\n");
 	} */
-//---------------------------------------------ÎÆ¸Ù
-    if (m_CommonAttrib.nItemGenre == item_fusion) //Èç¹ûÊÇÎÆ¸Ù
+//---------------------------------------------ï¿½Æ¸ï¿½
+    if (m_CommonAttrib.nItemGenre == item_fusion) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½
 	{
 		    char szIntor[64];
 		    int szRows,nMin=0;
 		    KTabFile MagicTab;
-						
-		    MagicTab.Load(TABFILE_MAGICAGOLD_PATH);
-            MagicTab.GetString(m_CommonAttrib.nSkillType,1,"ÔİÎŞÊı¾İ",szIntor,sizeof(szIntor));
-            MagicTab.GetInteger(m_CommonAttrib.nSkillType,6,1,&nMin);   //Ä§·¨µÄË÷Òı
 
-            strcat(pszMsg, "<color=Yellow>ÎÆ¸ÖÊôĞÔ£º<color><color=Cyan>");
+		    MagicTab.Load(TABFILE_MAGICAGOLD_PATH);
+            MagicTab.GetString(m_CommonAttrib.nSkillType,1,"æš‚æ— æ•°æ®",szIntor,sizeof(szIntor));
+            MagicTab.GetInteger(m_CommonAttrib.nSkillType,6,1,&nMin);   //é­”æ³•çš„ç´¢å¼•
+
+            strcat(pszMsg, "<color=Yellow>çº¹é’¢å±æ€§ï¼š<color><color=Cyan>");
 			strcat(pszMsg, szIntor);
 			strcat(pszMsg, "\n");
-			
-			if (strstr(m_CommonAttrib.szItemName,"×¨Êô"))
-			    t_sprintf(szIntor, "<color=Blue>Æ·ÖÊµÈ¼¶£º%dÆ·(Ôö¼Ó:%d%s)<color>\n", m_CommonAttrib.nWengangPin,nMin,"%%");
+
+			if (strstr(m_CommonAttrib.szItemName,"ä¸“å±"))
+			    sprintf(szIntor, "<color=Blue>å“è´¨ç­‰çº§ï¼š%då“(å¢åŠ :%d%s)<color>\n", m_CommonAttrib.nWengangPin,nMin,"%%");
 			else
-		        t_sprintf(szIntor, "<color=Blue>Æ·ÖÊµÈ¼¶£º%dÆ·(Ôö¼Ó:%dµã)<color>\n", m_CommonAttrib.nWengangPin,nMin);
+		        sprintf(szIntor, "<color=Blue>å“è´¨ç­‰çº§ï¼š%då“(å¢åŠ :%dç‚¹)<color>\n", m_CommonAttrib.nWengangPin,nMin);
 
 		    strcat(pszMsg, szIntor);
 
             MagicTab.Clear();
 
-	  for (int i = 0; i < 6; ++i)  //À¶×°£¬»Æ×°£¬×Ï×°
+	  for (int i = 0; i < 6; ++i)  //ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°
 	  {
-		if (m_aryMagicAttrib[i].nValue[0]>-1) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
+		if (m_aryMagicAttrib[i].nValue[0]>-1) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ // nAttribTypeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ë£¨intï¿½ï¿½ï¿½Ö£ï¿½
 		{
-             t_sprintf(szIntor, "<bclr=blue><color=White>¿ÉÎÆ¸ÙµÄ²¿Î»£º%s<color><bclr>",SubBuWei[m_aryMagicAttrib[i].nValue[0]]);
+             sprintf(szIntor, "<bclr=blue><color=White>å¯çº¹çº²çš„éƒ¨ä½ï¼š%s<color><bclr>",SubBuWei[m_aryMagicAttrib[i].nValue[0]]);
 		     strcat(pszMsg, szIntor);
 			 strcat(pszMsg, "\n");
 		}
 	  }
 	}
 //----------------------------------------------------MINE
-	if (m_CommonAttrib.nItemGenre == item_mine && 
-		m_CommonAttrib.nParticularType >= 200 && 
-		m_CommonAttrib.nParticularType <= 205)  //ĞşÌú¿ó----ÖÓÈéÊ¯
+	if (m_CommonAttrib.nItemGenre == item_mine &&
+		m_CommonAttrib.nParticularType >= 200 &&
+		m_CommonAttrib.nParticularType <= 205)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----ï¿½ï¿½ï¿½ï¿½Ê¯
 	{
 		char szIntor[64];
-		
+
 		KTabFile MagicTab;
-		
+
 		MagicTab.Load(TABFILE_MAGICALEVEL_PATH);
 
 		char szTmp[8];
 		int nskillidx,nRows;
-		//t_sprintf(szTmp,"%d",m_aryBaseAttrib[0].nValue[0]); //Ö»ÄÜÊÇµÚÒ»¸ö£¿ ĞĞÊı Îª ×ÔÉíµÄĞÒÔËÖµ
+		//sprintf(szTmp,"%d",m_aryBaseAttrib[0].nValue[0]); //Ö»ï¿½ï¿½ï¿½Çµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Îª ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		nRows=MagicTab.GetHeight();
         nskillidx=m_aryBaseAttrib[0].nValue[0];
       if (nskillidx>0)
@@ -2446,11 +2447,11 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		   if (nDestidx==nskillidx && nMagcType==0)
 		   {
 			   MagicTab.GetString(k+1,"DESC","",szIntor,64);
-			   strcat(pszMsg, "<color=Yellow>ÏâÇ¶ÊôĞÔ: <color><color=Cyan>");
+			   strcat(pszMsg, "<color=Yellow>é•¶åµŒå±æ€§: <color><color=Cyan>");
 			   strcat(pszMsg, szIntor);
 			   strcat(pszMsg, "<color>\n");
 			   MagicTab.GetString(k+1,"FIT_EQUIP","",szIntor,64);
-			   strcat(pszMsg, "<color=Yellow>ÏâÇ¶Î»ÖÃ: <color><color=Cyan>");
+			   strcat(pszMsg, "<color=Yellow>é•¶åµŒä½ç½®: <color><color=Cyan>");
 			   strcat(pszMsg, szIntor);
 		       strcat(pszMsg, "<color>\n");
 			   break;
@@ -2461,29 +2462,29 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		MagicTab.Clear();
 		/*
 		MagicTab.GetString(szTmp,"DESC","",szIntor,64);
-		strcat(pszMsg, "<color=Yellow>ÏâÇ¶ÊôĞÔËµÃ÷: <color><color=Cyan>");
+		strcat(pszMsg, "<color=Yellow>ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: <color><color=Cyan>");
 		strcat(pszMsg, szIntor);
 		strcat(pszMsg, "<color>\n");
 		MagicTab.GetString(szTmp,"FIT_EQUIP","",szIntor,64);
-		strcat(pszMsg, "<color=Yellow>¿ÉÒÔÏâÇ¶µÄ²¿¼şÎ»ÖÃ: <color><color=Cyan>");
+		strcat(pszMsg, "<color=Yellow>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½Ä²ï¿½ï¿½ï¿½Î»ï¿½ï¿½: <color><color=Cyan>");
 		strcat(pszMsg, szIntor);
 		strcat(pszMsg, "<color>\n");*/
 	//	strcat(pszMsg, "\n");
 	}
 
 	if (m_CommonAttrib.nItemGenre == item_mine && (m_CommonAttrib.nParticularType == 147 ||
-		(m_CommonAttrib.nParticularType >= 200 && m_CommonAttrib.nParticularType <= 205) || 
+		(m_CommonAttrib.nParticularType >= 200 && m_CommonAttrib.nParticularType <= 205) ||
 		(m_CommonAttrib.nParticularType >= 149 && m_CommonAttrib.nParticularType <= 154)
 		))
 	{
 		char szLevel[32];
-		t_sprintf(szLevel, "<color=Blue>Æ·ÖÊµÈ¼¶: %d<color>", m_CommonAttrib.nLevel);
+		sprintf(szLevel, "<color=Blue>å“è´¨ç­‰çº§: %d<color>", m_CommonAttrib.nLevel);
 		strcat(pszMsg, szLevel);
-		strcat(pszMsg, "\n");	
+		strcat(pszMsg, "\n");
 	}
-   
+
 	int i;
-	for ( i = 0; i < 7; i++)  //»ù±¾ÊôĞÔ
+	for ( i = 0; i < 7; i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if (!m_aryBaseAttrib[i].nAttribType)
 		{
@@ -2494,31 +2495,31 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		{
 			char	szDurInfo[64]={0};
 			if (m_nCurrentDur == -1)
-			{	
-				   t_sprintf(szDurInfo, "<color=Yellow>ÓÀ²»Ä¥Ëğ<color>\n");
+			{
+				   sprintf(szDurInfo, "<color=Yellow>æ°¸ä¸ç£¨æŸ<color>\n");
 			}
 			else
 			{
 				if  (GetDurability()<=3 && GetDurability()>0)
 				{
 					if (GetGenre()==item_equip && GetDetailType()==equip_mask)
-						t_sprintf(szDurInfo, "<color=blue>Ê£ÓàÊ¹ÓÃ´ÎÊı£º%d/%d<color>\n", GetDurability(), GetMaxDurability());
+						sprintf(szDurInfo, "<color=blue>å‰©ä½™ä½¿ç”¨æ¬¡æ•°ï¼š%d/%d<color>\n", GetDurability(), GetMaxDurability());
 					else
-                        t_sprintf(szDurInfo, "<color=red>ÄÍ¾Ã¶È(ĞèÒªĞŞÀí)£º%d/%d<color>\n", GetDurability(), GetMaxDurability());
+                        sprintf(szDurInfo, "<color=red>è€ä¹…åº¦(éœ€è¦ä¿®ç†)ï¼š%d/%d<color>\n", GetDurability(), GetMaxDurability());
 				}
-				else 
+				else
 				{
 					if (GetGenre()==item_equip && GetDetailType()==equip_mask)
-						t_sprintf(szDurInfo, "<color=blue>Ê£ÓàÊ¹ÓÃ´ÎÊı£º%d/%d<color>\n", GetDurability(), GetMaxDurability());
+						sprintf(szDurInfo, "<color=blue>å‰©ä½™ä½¿ç”¨æ¬¡æ•°ï¼š%d/%d<color>\n", GetDurability(), GetMaxDurability());
 					else
-				        t_sprintf(szDurInfo, "<color=White>ÄÍ¾Ã¶È£º%d/%d<color>\n", GetDurability(), GetMaxDurability());
+				        sprintf(szDurInfo, "<color=White>è€ä¹…åº¦ï¼š%d/%d<color>\n", GetDurability(), GetMaxDurability());
 				}
 			}
 			strcat(pszMsg, szDurInfo);
 		}
 		else
-		{//ÆäËûÊôĞÔ
-		 
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 			char* pszInfo = (char *)g_MagicDesc.GetDesc(&m_aryBaseAttrib[i]);
 			if (!pszInfo || !pszInfo[0])
 				continue;
@@ -2527,8 +2528,8 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			strcat(pszMsg, "<color>\n");
 		}
 	}
-	////°××°ĞèÇóÊôĞÔnAttribType
-	for (i = 0; i < 6; ++i) 
+	////ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nAttribType
+	for (i = 0; i < 6; ++i)
 	{
 		if (!m_aryRequireAttrib[i].nAttribType)
 		{
@@ -2548,57 +2549,57 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			strcat(pszMsg, "<color=Red>");
 			strcat(pszMsg, pszInfo);
 			strcat(pszMsg, "<color>\n");
-		}		
+		}
 	}
 
-	for (i = 0; i < 6; ++i)  //À¶×°£¬»Æ×°£¬×Ï×°
+	for (i = 0; i < 6; ++i)  //ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°
 	{
 		if (m_CommonAttrib.nItemGenre != item_equip)
 			break;
 
-		if (!m_aryMagicAttrib[i].nAttribType) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
+		if (!m_aryMagicAttrib[i].nAttribType) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ // nAttribTypeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ë£¨intï¿½ï¿½ï¿½Ö£ï¿½
 		{
-			if (IsPurple() && i< m_CommonAttrib.nPoint)  //´ò¿×ÁË
-			{//×Ï×°
-				strcat(pszMsg, "<color=GYellow>Î´ÏâÇ¶<color=white>\n");
+			if (IsPurple() && i< m_CommonAttrib.nPoint)  //æ‰“å­”äº†
+			{//ç´«è£…
+				strcat(pszMsg, "<color=GYellow>æœªé•¶åµŒ<color=white>\n");
 			}
 		//	else if (IsBlue())
 		//	{
-		//		  strcat(pszMsg, "<color=Yellow>¿É±æÊ¶ÊôĞÔ:<color>");	
-		//		  strcat(pszMsg,"<color=DYellow>Î´±æÊ¶<color=white>");
-		//		  strcat(pszMsg, "\n");	
+		//		  strcat(pszMsg, "<color=Yellow>ï¿½É±ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½:<color>");
+		//		  strcat(pszMsg,"<color=DYellow>Î´ï¿½ï¿½Ê¶<color=white>");
+		//		  strcat(pszMsg, "\n");
 		//	}
 			continue;
 		}
-		char* pszInfo = (char *)g_MagicDesc.GetDesc(&m_aryMagicAttrib[i]); 
+		char* pszInfo = (char *)g_MagicDesc.GetDesc(&m_aryMagicAttrib[i]);
 		if (!pszInfo||!pszInfo[0])
 			continue;
-		//char pPin[16]; 
-		//int smLevel=CheckBluePin(m_aryMagicAttrib[i].nAttribType,m_aryMagicAttrib[i].nValue[0]); //»ñÈ¡À¶×°Æ·ÖÊ
-		if ((i & 1) == 0) //i=1 Ä¬ÈÏÊÇ¼¤»î ÆæÊıÅĞ¶Ï
-		{//1 3 5 ÆæÊı
-			if (m_CommonAttrib.nGoldId > 0)  //»Æ½ğ×°
+		//char pPin[16];
+		//int smLevel=CheckBluePin(m_aryMagicAttrib[i].nAttribType,m_aryMagicAttrib[i].nValue[0]); //ï¿½ï¿½È¡ï¿½ï¿½×°Æ·ï¿½ï¿½
+		if ((i & 1) == 0) //i=1 Ä¬ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½
+		{//1 3 5 ï¿½ï¿½ï¿½ï¿½
+			if (m_CommonAttrib.nGoldId > 0)  //ï¿½Æ½ï¿½×°
 			{
 				strcat(pszMsg, "<color=HYellow>");
 			    strcat(pszMsg, pszInfo);
                 strcat(pszMsg, "<color>");
 			}
-			else if (IsPurple())   //×Ï×°
+			else if (IsPurple())   //ï¿½ï¿½×°
 			{
 				strcat(pszMsg, "<color=Purple>");
 			    strcat(pszMsg, pszInfo);
                 strcat(pszMsg, "<color>");
 			}
 			else
-			{//À¶×°
-				  strcat(pszMsg, "<color=HBlue>");  //À¶×°
+			{//ï¿½ï¿½×°
+				  strcat(pszMsg, "<color=HBlue>");  //ï¿½ï¿½×°
 			      strcat(pszMsg, pszInfo);
                   strcat(pszMsg, "<color>");
 			}
 		}
 		else
-		{//2 4 6 Å¼Êı
-			if ((i>>1) < nActiveAttrib) // Èç¹ûÊÇ±»¼¤»îµÄ
+		{//2 4 6 Å¼ï¿½ï¿½
+			if ((i>>1) < nActiveAttrib) // ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				if (m_CommonAttrib.nGoldId > 0)
 				{
@@ -2606,7 +2607,7 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 				    strcat(pszMsg, pszInfo);
                     strcat(pszMsg, "<color>");
 				}
-				else if (IsPurple()) 
+				else if (IsPurple())
 				{
 					strcat(pszMsg, "<color=Purple>");
 				    strcat(pszMsg, pszInfo);
@@ -2620,10 +2621,10 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 				}
 			}
 			else
-			{//Ã»ÓĞ±»¼¤»î
+			{//Ã»ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½ï¿½
 				if (m_CommonAttrib.nGoldId > 0)
 				{
-					strcat(pszMsg, "<color=DYellow>"); //  Ã»ÓĞ±»¼¤»îµÄ
+					strcat(pszMsg, "<color=DYellow>"); //  Ã»ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				    strcat(pszMsg, pszInfo);
                     strcat(pszMsg, "<color>");
 				}
@@ -2635,31 +2636,31 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 				}
 			}
 		}
-    //À¶ »Æ ×ÏÉ« »ù±¾Ä§·¨ÊôĞÔÏÔÊ¾
+    //ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½É« ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 	    strcat(pszMsg,"\n");
 	} //end for
-	
+
 	//strcat(pszMsg,"\n");
-//-----------------Á½¸öÒş²ØµÄÊôĞÔ---------------------------
-	for (i = 0; i < 2; ++i)  //À¶×°£¬»Æ×°£¬×Ï×°
+//-----------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½---------------------------
+	for (i = 0; i < 2; ++i)  //ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½×°
 	{
 		if (m_CommonAttrib.nItemGenre != item_equip)
 			break;
 
 		if (!m_yinMagicAttrib[i].nAttribType)
            continue;
-		
-		char* pszInfo = (char *)g_MagicDesc.GetDesc(&m_yinMagicAttrib[i]); 
+
+		char* pszInfo = (char *)g_MagicDesc.GetDesc(&m_yinMagicAttrib[i]);
 		if (!pszInfo||!pszInfo[0])
 		   continue;
 
 		if (m_CommonAttrib.nGoldId > 0)
 		{
 		   if (m_CommonAttrib.nLevel>= 5 && m_CommonAttrib.nLevel<10)
-		   {//µÚÒ»ÊôĞÔ
+		   {//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 			 if(i==0)
 			 {
-		       strcat(pszMsg, "<color=HYellow>"); //  ¼¤»îµÄ
+		       strcat(pszMsg, "<color=HYellow>"); //  ï¿½ï¿½ï¿½ï¿½ï¿½
 		       strcat(pszMsg, pszInfo);
 		       strcat(pszMsg, "<color>");
 		       strcat(pszMsg,"\n");
@@ -2673,8 +2674,8 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 			 }
 		   }
 		   else if (m_CommonAttrib.nLevel>=10)
-		   {//¶¼¼¤»î 
-			   strcat(pszMsg, "<color=HYellow>"); //  ¼¤»îµÄ
+		   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			   strcat(pszMsg, "<color=HYellow>"); //  ï¿½ï¿½ï¿½ï¿½ï¿½
 			   strcat(pszMsg, pszInfo);
 			   strcat(pszMsg, "<color>");
 			   strcat(pszMsg,"\n");
@@ -2689,136 +2690,136 @@ void KItem::GetDesc(char* pszMsg, bool bShowPrice, int nPriceScale, int nActiveA
 		}
 	}
 
-//==================ÏÔÊ¾»Æ½ğÈÛÁ¶ÊôĞÔ=========================
+//==================ï¿½ï¿½Ê¾ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=========================
 	int RongID;
 	char* pszInfor;
           RongID=m_CommonAttrib.nRongNum;
 
  if (RongID>0 && m_CommonAttrib.nRongpiont>0 && (m_CommonAttrib.nGoldId>0 || IsPurple()))
- {  
+ {
    for (i = 0; i < m_CommonAttrib.nRongpiont; ++i)
-   {  
-	 if (!m_ronMagicAttrib[i].nAttribType) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
-	 {            
-		 strcat(pszMsg,"<bclr=Blue><color=White>[Î´ÎÆ¸Ö]<color><bclr>\n");
+   {
+	 if (!m_ronMagicAttrib[i].nAttribType) //è¿™ä¸ªå±æ€§ä½ç½®çš„æ•°ç»„ä¸­æ²¡æœ‰æ•°æ®çš„ // nAttribTypeå±æ€§ç±»å‹ç¼–ç ï¼ˆintæ•°å­—ï¼‰
+	 {
+		 strcat(pszMsg,"<bclr=Blue><color=White>[æœªçº¹é’¢]<color><bclr>\n");
 	     continue;
 	 }
 	 pszInfor = (char *)g_MagicDesc.GetDesc(&m_ronMagicAttrib[i]);
 	 if (!pszInfor || !pszInfor[0])
 		continue;
 	//char pPin[32];
-	//t_sprintf(pPin,"<color=pink>%d<color>",m_CommonAttrib.nRongpiont);
+	//sprintf(pPin,"<color=pink>%d<color>",m_CommonAttrib.nRongpiont);
 	//strcat(pszMsg,pPin);
-	///int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //»ñÈ¡Æ·ÖÊ
-	//char pPin[32]; 
-	// t_sprintf(pPin,"<color=pink>%dÆ·<color>",smLevel);
+	///int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //ï¿½ï¿½È¡Æ·ï¿½ï¿½
+	//char pPin[32];
+	// sprintf(pPin,"<color=pink>%dÆ·<color>",smLevel);
     //strcat(pszMsg,pPin);
    	strcat(pszMsg, "<bclr=Blue><color=White>");
-	strcat(pszMsg, pszInfor); //ÈÛÁ¶ÊôĞÔ ÏÔÊ¾
+	strcat(pszMsg, pszInfor); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¾
 	strcat(pszMsg, "<color><bclr>\n");
-   } 	
- }  
-//=================ÏÔÊ¾ÈÛÁ¶ÊôĞÔ½áÊø======================
-//==================ÏÔÊ¾À¶×°ÊôĞÔ=========================
+   }
+ }
+//=================ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½======================
+//==================ï¿½ï¿½Ê¾ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½=========================
 char* szBlueInfo=NULL;
 
  if (RongID>0 && m_CommonAttrib.nRongpiont>0 && IsBlue())
- { 
+ {
 	 char pPin[32]={0};
 
 	 if (m_CommonAttrib.nIsWhere==-1)
-	 {  
-		 t_sprintf(pPin,"<color=yellow>¸Ã×°±¸¿ÉÒÔÏ´Á·³öËæ»úÌØÊâÊôĞÔ");
+	 {
+		 sprintf(pPin, "%s","<color=yellow>è¯¥è£…å¤‡å¯ä»¥æ´—ç»ƒå‡ºéšæœºç‰¹æ®Šå±æ€§");
 		 strcat(pszMsg,pPin);
 		 strcat(pszMsg, "<color>\n");
 	 }
 
 	 if (m_CommonAttrib.nIsWhere==-2)
 	 {
-		 t_sprintf(pPin,"<color=yellow>¸Ã×°±¸Ï´Á·ÊôĞÔ²»¿É¼û");
+		 sprintf(pPin, "%s","<color=yellow>è¯¥è£…å¤‡æ´—ç»ƒå±æ€§ä¸å¯è§");
 		 strcat(pszMsg,pPin);
 		 strcat(pszMsg, "<color>\n");
 	 }
 
     if (m_CommonAttrib.nIsWhere==0)
-	{ //ÈÛÁ¶
-    
+	{ //ï¿½ï¿½ï¿½ï¿½
+
 	 for (i = 0; i < m_CommonAttrib.nRongpiont; ++i)
-	 {  
-	   if (!m_ronMagicAttrib[i].nAttribType) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
-	   {            
-		   strcat(pszMsg,"<bclr=Blue><color=White>[Î´ÎÆ¸Ö]<color><bclr>\n");
+	 {
+	   if (!m_ronMagicAttrib[i].nAttribType) //è¿™ä¸ªå±æ€§ä½ç½®çš„æ•°ç»„ä¸­æ²¡æœ‰æ•°æ®çš„ // nAttribTypeå±æ€§ç±»å‹ç¼–ç ï¼ˆintæ•°å­—ï¼‰
+	   {
+		   strcat(pszMsg,"<bclr=Blue><color=White>[æœªçº¹é’¢]<color><bclr>\n");
 		   continue;
 	   }
 	   szBlueInfo = (char *)g_MagicDesc.GetDesc(&m_ronMagicAttrib[i]);
 	   if (!szBlueInfo || !szBlueInfo[0])
 		   continue;
-	   //int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //»ñÈ¡Æ·ÖÊ
-	   //char pPin[32]; 
-	   //t_sprintf(pPin,"<color=Pink>%dÆ·<color>",smLevel);
+	   //int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //ï¿½ï¿½È¡Æ·ï¿½ï¿½
+	   //char pPin[32];
+	   //sprintf(pPin,"<color=Pink>%dÆ·<color>",smLevel);
 	   //strcat(pszMsg,pPin);
 	   strcat(pszMsg, "<bclr=Blue><color=White>");
-	   strcat(pszMsg, szBlueInfo); //ÈÛÁ¶ÊôĞÔ ÏÔÊ¾
+	   strcat(pszMsg, szBlueInfo); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¾
 	   strcat(pszMsg, "<color><bclr>\n");
 	 }
    }
    else if (m_CommonAttrib.nIsWhere>0)
-   {//±æÊ¶ÊôĞÔ
+   {//ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½
 	 for (i = 0; i < m_CommonAttrib.nRongpiont; ++i)
-	 {   
-		if (!m_ronMagicAttrib[i].nAttribType) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
-		{            
-			strcat(pszMsg,"<bclr=Blue><color=White>[Î´Ï´Á·]<color><bclr>\n");
+	 {
+		if (!m_ronMagicAttrib[i].nAttribType) //è¿™ä¸ªå±æ€§ä½ç½®çš„æ•°ç»„ä¸­æ²¡æœ‰æ•°æ®çš„ // nAttribTypeå±æ€§ç±»å‹ç¼–ç ï¼ˆintæ•°å­—ï¼‰
+		{
+			strcat(pszMsg,"<bclr=Blue><color=White>[æœªæ´—ç»ƒ]<color><bclr>\n");
 			continue;
 		}
 		szBlueInfo = (char *)g_MagicDesc.GetDesc(&m_ronMagicAttrib[i]); //BaoShiGetDesc
 		if (!szBlueInfo || !szBlueInfo[0])
 			continue;
-		//int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //»ñÈ¡Æ·ÖÊ
-		//char pPin[32]; 
-		//t_sprintf(pPin,"<color=Cyan>%dÆ·",smLevel);
+		//int smLevel=CheckWenPin(m_ronMagicAttrib[i].nAttribType,m_ronMagicAttrib[i].nValue[0]); //ï¿½ï¿½È¡Æ·ï¿½ï¿½
+		//char pPin[32];
+		//sprintf(pPin,"<color=Cyan>%dÆ·",smLevel);
 		//strcat(pszMsg,pPin);
 		strcat(pszMsg, "<color=Cyan>");
-		strcat(pszMsg, szBlueInfo); //±æÊ¶ÊôĞÔ ÏÔÊ¾
+		strcat(pszMsg, szBlueInfo); //ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¾
 		strcat(pszMsg, "<color>\n");
-	 }  
+	 }
    }
- }  
-//=================ÏÔÊ¾À¶×°±æÊ¶ÊôĞÔ½áÊø
+ }
+//=================ï¿½ï¿½Ê¾ï¿½ï¿½×°ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½
 
-//=================ÏÔÊ¾±¦Ê¯ÊôĞÔ
+//=================ï¿½ï¿½Ê¾ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
 /* if  (m_CommonAttrib.nItemGenre==item_equip && m_CommonAttrib.nGoldId>0)
- { 
+ {
 	 if (GetBaoShiCount())
-	    strcat(pszMsg, "<color=green>±¦Ê¯ÁéºÏ:<color>\n");
+	    strcat(pszMsg, "<color=green>ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½:<color>\n");
 	 //else
-     //   strcat(pszMsg, "<color=green>±¦Ê¯ÁéºÏ:<color>ÔİÎŞÁéºÏ\n");
- 
+     //   strcat(pszMsg, "<color=green>ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½:<color>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
+
  //if (m_CommonAttrib.nGoldId > 0 && (m_CommonAttrib.nDetailType==equip_meleeweapon || m_CommonAttrib.nDetailType==equip_rangeweapon))
- //Ö»ÄÜÊÇÎäÆ÷ÏÔÊ¾
+ //Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 	for (i = 0; i < 6; ++i)
-	{  
-		if (!m_BaoShiMagicAttrib[i].nAttribType) //Õâ¸öÊôĞÔÎ»ÖÃµÄÊı×éÖĞÃ»ÓĞÊı¾İµÄ // nAttribTypeÊôĞÔÀàĞÍ±àÂë£¨intÊı×Ö£©
-		{            
-			//if (m_CommonAttrib.nGoldId>0 && m_CommonAttrib.nRongpiont>0)  //´ò¿×ÁË
-				//strcat(pszMsg,"<color=yellow>[Î´ÏâÇ¶±¦Ê¯]<color>");
+	{
+		if (!m_BaoShiMagicAttrib[i].nAttribType) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ // nAttribTypeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ë£¨intï¿½ï¿½ï¿½Ö£ï¿½
+		{
+			//if (m_CommonAttrib.nGoldId>0 && m_CommonAttrib.nRongpiont>0)  //ï¿½ï¿½ï¿½ï¿½ï¿½
+				//strcat(pszMsg,"<color=yellow>[Î´ï¿½ï¿½Ç¶ï¿½ï¿½Ê¯]<color>");
 				//strcat(pszMsg, "\n");
 			continue;
 		}
 		pszInfor = (char *)g_MagicDesc.BaoShiGetDesc(&m_BaoShiMagicAttrib[i]);
 		if (!pszInfor || !pszInfor[0])
 			continue;
-		//int smLevel=CheckWenPin(m_BaoShiMagicAttrib[i].nAttribType,m_BaoShiMagicAttrib[i].nValue[0]); //»ñÈ¡Æ·ÖÊ
-		//char pPin[32]; 
-		//t_sprintf(pPin,"<color=pink>%dÆ·<color>",smLevel);
+		//int smLevel=CheckWenPin(m_BaoShiMagicAttrib[i].nAttribType,m_BaoShiMagicAttrib[i].nValue[0]); //ï¿½ï¿½È¡Æ·ï¿½ï¿½
+		//char pPin[32];
+		//sprintf(pPin,"<color=pink>%dÆ·<color>",smLevel);
 		//strcat(pszMsg,pPin);
 		strcat(pszMsg, "<bclr=red><color=yellow>");
-		strcat(pszMsg, pszInfor); //±¦Ê¯ÊôĞÔ ÏÔÊ¾
+		strcat(pszMsg, pszInfor); //ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¾
 		strcat(pszMsg, "<color><bclr>\n");
-	} 
+	}
  } 	*/
-///////////////////ÏÔÊ¾±¦Ê¯ÊôĞÔ½áÊø//////////////////////////
-/*//////////////////Òş²ØÊôĞÔÏÔÊ¾/////////////////////////////
+///////////////////ï¿½ï¿½Ê¾ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½//////////////////////////
+/*//////////////////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾/////////////////////////////
 	int YingIDA,YingIDB;
 	char AszInfoy[16], BszInfoy[16];
     YingIDA=m_CommonAttrib.nYingNuma;
@@ -2826,34 +2827,34 @@ char* szBlueInfo=NULL;
  if (YingIDA>0)
  {
         strcat(pszMsg, "<color=White>");
-	    t_sprintf(AszInfoy,"[Òş²ØÊôĞÔ1ID:%d]",YingIDA);
-	    strcat(pszMsg, AszInfoy); //Ä§·¨ÊôĞÔ1 ÏÔÊ¾
+	    sprintf(AszInfoy,"[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ID:%d]",YingIDA);
+	    strcat(pszMsg, AszInfoy); //Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 ï¿½ï¿½Ê¾
 	    strcat(pszMsg, "<color>\n");
  }
  if (YingIDB>0)
  {      strcat(pszMsg, "<color=White>");
-	    t_sprintf(BszInfoy,"[Òş²ØÊôĞÔ2ID:%d]",YingIDB);
-		strcat(pszMsg, BszInfoy); //Ä§·¨ÊôĞÔ2 ÏÔÊ¾
+	    sprintf(BszInfoy,"[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ID:%d]",YingIDB);
+		strcat(pszMsg, BszInfoy); //Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2 ï¿½ï¿½Ê¾
 		strcat(pszMsg, "<color>\n");
  }
-*///////////////////Òş²ØÊôĞÔ½áÊø/////////////////////////////
-	if (m_CommonAttrib.LimitTime.bYear>0) // Ê±¼äÏŞÖÆ×°±¸
-	{ 
+*///////////////////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½/////////////////////////////
+	if (m_CommonAttrib.LimitTime.bYear>0) // Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
+	{
 		time_t rawtime;
-		struct tm * timeinfo;		
+		struct tm * timeinfo;
 		time (&rawtime);
 		timeinfo = localtime (&rawtime);
 		//timeinfo->tm_year
 		char sTmp[64];
 		if (m_CommonAttrib.nIsWhere>0 && m_CommonAttrib.nCanUse==0)
-		    t_sprintf(sTmp,"<color=Red>ÒÑµ½ÆÚ:%dÄê%dÔÂ%dÈÕ%dÊ±%d·Ö<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
+		    sprintf(sTmp,"<color=Red>å·²åˆ°æœŸ:%då¹´%dæœˆ%dæ—¥%dæ—¶%dåˆ†<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
 		else if (m_CommonAttrib.nCanUse==0)
 		{
-			t_sprintf(sTmp,"<color=Green>Ê¹ÓÃÆÚÏŞÖÁ:%dÄê%dÔÂ%dÈÕ%dÊ±%d·Ö<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
-		    strcat(sTmp,"<color=red>²»¿É×°±¸<color>\n");
+			sprintf(sTmp,"<color=Green>ä½¿ç”¨æœŸé™è‡³:%då¹´%dæœˆ%dæ—¥%dæ—¶%dåˆ†<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
+		    strcat(sTmp,"<color=red>ä¸å¯è£…å¤‡<color>\n");
 		}
 		else
-		    t_sprintf(sTmp,"<color=Green>Ê¹ÓÃÆÚÏŞÖÁ:%dÄê%dÔÂ%dÈÕ%dÊ±%d·Ö<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
+		    sprintf(sTmp,"<color=Green>ä½¿ç”¨æœŸé™è‡³:%då¹´%dæœˆ%dæ—¥%dæ—¶%dåˆ†<color>\n",m_CommonAttrib.LimitTime.bYear,m_CommonAttrib.LimitTime.bMonth,m_CommonAttrib.LimitTime.bDay,m_CommonAttrib.LimitTime.bHour,m_CommonAttrib.LimitTime.bMin);
 
 		strcat(pszMsg,sTmp);
 /*        int mYear = m_CommonAttrib.LimitTime.bYear-1900-timeinfo->tm_year;
@@ -2861,157 +2862,157 @@ char* szBlueInfo=NULL;
 		int mDay  = m_CommonAttrib.LimitTime.bDay-timeinfo->tm_mday;
 		int mHour = m_CommonAttrib.LimitTime.bHour-timeinfo->tm_hour;
 		int mMin  = m_CommonAttrib.LimitTime.bMin-timeinfo->tm_min;
-        t_sprintf(sTmp,"<color=Green>Ê£ÓàÊ±¼ä:");
+        sprintf(sTmp,"<color=Green>Ê£ï¿½ï¿½Ê±ï¿½ï¿½:");
         strcat(pszMsg, sTmp);
         if (mYear>0)
 		{
-           t_sprintf(sTmp,"%dÄê",mYear);
+           sprintf(sTmp,"%dï¿½ï¿½",mYear);
 		   strcat(pszMsg, sTmp);
 		}
 		if (mMon>0)
 		{
-		   t_sprintf(sTmp,"%dÔÂ",mMon);
+		   sprintf(sTmp,"%dï¿½ï¿½",mMon);
 		   strcat(pszMsg, sTmp);
 		}
 		if (mDay>0)
 		{
-			t_sprintf(sTmp,"%dÈÕ",mDay);
+			sprintf(sTmp,"%dï¿½ï¿½",mDay);
 			strcat(pszMsg, sTmp);
-		} 
+		}
 
 		if (mHour>0)
 		{
-			t_sprintf(sTmp,"%dĞ¡Ê±",mHour);
+			sprintf(sTmp,"%dĞ¡Ê±",mHour);
 			strcat(pszMsg, sTmp);
 		}
 
         if (mMin>0)
 		{
-			t_sprintf(sTmp,"%d·Ö",mMin);
+			sprintf(sTmp,"%dï¿½ï¿½",mMin);
 			strcat(pszMsg, sTmp);
 		}
 */
 		strcat(pszMsg, " \n");
 	}
-	
-    int IsShowThis=1;
-	    g_GameSetTing.GetInteger("SYSTEM","IsShowDesc",1,&IsShowThis);   //ÊÇ·ñÏÔÊ¾
 
-	if (nType==0 && (m_CommonAttrib.nColor==2 || m_aryMagicAttrib[0].nAttribType) && IsShowThis) //×°±¸ÀàĞÍ
-	{	
+    int IsShowThis=1;
+	    g_GameSetTing.GetInteger("SYSTEM","IsShowDesc",1,&IsShowThis);   //ï¿½Ç·ï¿½ï¿½ï¿½Ê¾
+
+	if (nType==0 && (m_CommonAttrib.nColor==2 || m_aryMagicAttrib[0].nAttribType) && IsShowThis) //×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{
 		strcat(pszMsg, " \n");
         switch(m_CommonAttrib.nDetailType)
         {
-        case equip_meleeweapon:  //ÎäÆ÷
+        case equip_meleeweapon:  //ï¿½ï¿½ï¿½ï¿½
             {
              switch(m_CommonAttrib.nSeries)
                 {
                   case series_metal:
-					  { 
+					  {
 			            strcat(pszMsg, "<color=Metal>");
-			            strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÒÂ·ş<color>ºÍ<color=Earth>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }  
+			            strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>è¡£æœ<color>å’Œ<color=Earth>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			      break;
 	         	  case series_wood:
 					  {
 			            strcat(pszMsg, "<color=Wood>");
-			            strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÒÂ·ş<color>ºÍ<color=Water>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
+			            strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>è¡£æœ<color>å’Œ<color=Water>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
 					  }
 			      break;
 		          case series_water:
 					  {
 			            strcat(pszMsg, "<color=Water>");
-		                strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÒÂ·ş<color>ºÍ<color=Metal>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					  } 
+		                strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>è¡£æœ<color>å’Œ<color=Metal>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			      break;
 	        	  case series_fire:
 					  {
 			            strcat(pszMsg, "<color=Fire>");
-			            strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÒÂ·ş<color>ºÍ<color=Wood>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
+			            strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>è¡£æœ<color>å’Œ<color=Wood>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
 					  }
 			      break;
 	        	  case series_earth:
-					  {  
+					  {
 			            strcat(pszMsg, "<color=Earth>");
-			            strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÒÂ·ş<color>ºÍ<color=Fire>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }  
+			            strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>è¡£æœ<color>å’Œ<color=Fire>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			      break;
 			 }
              break;
             }
-        case equip_rangeweapon:  // °µÆ÷
+        case equip_rangeweapon:  // ï¿½ï¿½ï¿½ï¿½
             {
                  switch(m_CommonAttrib.nSeries)
-				 {  
+				 {
 				    case series_metal:
-						{   
+						{
 						   strcat(pszMsg, "<color=Metal>");
-						   strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÒÂ·ş<color>ºÍ<color=Earth>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-						}  
+						   strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>è¡£æœ<color>å’Œ<color=Earth>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+						}
 					break;
 				   case series_wood:
-					   {  
+					   {
 						   strcat(pszMsg, "<color=Wood>");
-						   strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÒÂ·ş<color>ºÍ<color=Water>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }  
+						   strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>è¡£æœ<color>å’Œ<color=Water>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 					break;
 				   case series_water:
-					   { 
+					   {
 						   strcat(pszMsg, "<color=Water>");
-						   strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÒÂ·ş<color>ºÍ<color=Metal>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }  
+						   strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>è¡£æœ<color>å’Œ<color=Metal>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 					break;
 				   case series_fire:
-					   {  
+					   {
 						   strcat(pszMsg, "<color=Fire>");
-						   strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÒÂ·ş<color>ºÍ<color=Wood>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }  
+						   strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>è¡£æœ<color>å’Œ<color=Wood>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 					break;
 				   case series_earth:
-					   {   
+					   {
 						  strcat(pszMsg, "<color=Earth>");
-						  strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÒÂ·ş<color>ºÍ<color=Fire>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }   
+						  strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>è¡£æœ<color>å’Œ<color=Fire>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 					break;
-				 }  
-             break;   
+				 }
+             break;
             }
         case  equip_armor:
             {
                 switch(m_CommonAttrib.nSeries)
                 {
               	   case series_metal:
-					   { 
+					   {
 			             strcat(pszMsg, "<color=Metal>");
-			             strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÏÂ½ä<color>ºÍ<color=Earth>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }	  
+			             strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>ä¸‹æˆ’<color>å’Œ<color=Earth>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 			       break;
 	         	   case series_wood:
-					  { 
+					  {
 			             strcat(pszMsg, "<color=Wood>");
-			             strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÏÂ½ä<color>ºÍ<color=Water>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }  
+			             strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>ä¸‹æˆ’<color>å’Œ<color=Water>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			       break;
 		           case series_water:
-					  { 	 
+					  {
 			             strcat(pszMsg, "<color=Water>");
-			             strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÏÂ½ä<color>ºÍ<color=Metal>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }	 
+			             strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>ä¸‹æˆ’<color>å’Œ<color=Metal>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			       break;
 	        	   case series_fire:
-					  { 
+					  {
 			             strcat(pszMsg, "<color=Fire>");
-			             strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÏÂ½ä<color>ºÍ<color=Wood>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }  
+			             strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>ä¸‹æˆ’<color>å’Œ<color=Wood>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			       break;
 	        	   case series_earth:
-					  { 
+					  {
 			            strcat(pszMsg, "<color=Earth>");
-			            strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÏÂ½ä<color>ºÍ<color=Fire>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }  
+			            strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>ä¸‹æˆ’<color>å’Œ<color=Fire>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
                    break;
-				}  
-				break;   
+				}
+				break;
             }
         case equip_ring:
             {
@@ -3031,13 +3032,13 @@ char* szBlueInfo=NULL;
 		          break;
 	        	  case series_earth:
 		              strcat(pszMsg, "<color=Earth>");
-			     //     strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÏÂ½ä<color>ºÍ<color=Fire>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
+			     //     strcat(pszMsg, "ï¿½ï¿½Òª<color=Cyan>ï¿½ï¿½Ïµ<color><color=Fire>ï¿½Â½ï¿½<color>ï¿½ï¿½<color=Fire>ï¿½ï¿½ï¿½ï¿½<color>ï¿½ï¿½ï¿½î°µï¿½ï¿½ï¿½ï¿½<color>\n");
 			      break;
 				  default:
 					  strcat(pszMsg, "<color=White>");
 					  break;
-                } 
-				strcat(pszMsg, "ÉÏ½äĞèÒª<color=Cyan>ÒÂ·şºÍÍ·¿ø,<color><color=Cyan>ÏÂ½ä<color>ĞèÒª<color=Cyan>»¤ÍóºÍÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
+                }
+				strcat(pszMsg, "ä¸Šæˆ’éœ€è¦<color=Cyan>è¡£æœå’Œå¤´ç›”,<color><color=Cyan>ä¸‹æˆ’<color>éœ€è¦<color=Cyan>æŠ¤è…•å’Œç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
 			    break;
             }
         case equip_amulet:
@@ -3045,36 +3046,36 @@ char* szBlueInfo=NULL;
                 switch(m_CommonAttrib.nSeries)
                 {
               	   case series_metal:
-						{ 
+						{
 			                strcat(pszMsg, "<color=Metal>");
-			                strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÏÂ½ä<color>ºÍ<color=Earth>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-						}  
+			                strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>ä¸‹æˆ’<color>å’Œ<color=Earth>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+						}
 			       break;
 	         	   case series_wood:
-					   { 
+					   {
 			                strcat(pszMsg, "<color=Wood>");
-			                strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÏÂ½ä<color>ºÍ<color=Water>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }  
-			       break;
-		           case series_water:
-					   {   
-			                strcat(pszMsg, "<color=Water>");
-			                strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÏÂ½ä<color>ºÍ<color=Metal>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }   
-			       break;
-	        	   case series_fire:
-					   { 
-			                strcat(pszMsg, "<color=Fire>");
-			                strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÏÂ½ä<color>ºÍ<color=Wood>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }	 
-			       break;
-	        	   case series_earth:
-					   { 
-			                strcat(pszMsg, "<color=Earth>");
-		                    strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÏÂ½ä<color>ºÍ<color=Fire>Ñü´ø<color>¼¤»î°µÊôĞÔ<color>\n");
+			                strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>ä¸‹æˆ’<color>å’Œ<color=Water>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
 					   }
 			       break;
-                }    
+		           case series_water:
+					   {
+			                strcat(pszMsg, "<color=Water>");
+			                strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>ä¸‹æˆ’<color>å’Œ<color=Metal>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
+			       break;
+	        	   case series_fire:
+					   {
+			                strcat(pszMsg, "<color=Fire>");
+			                strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>ä¸‹æˆ’<color>å’Œ<color=Wood>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
+			       break;
+	        	   case series_earth:
+					   {
+			                strcat(pszMsg, "<color=Earth>");
+		                    strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>ä¸‹æˆ’<color>å’Œ<color=Fire>è…°å¸¦<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
+			       break;
+                }
 			break;
             }
          case equip_boots:
@@ -3082,36 +3083,36 @@ char* szBlueInfo=NULL;
                 switch(m_CommonAttrib.nSeries)
 				{
               	   case series_metal:
-					   { 
+					   {
 			               strcat(pszMsg, "<color=Metal>");
-			               strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>Í·¿ø<color>ºÍ<color=Earth>ÎäÆ÷<color>¼¤»î°µÊôĞÔ<color>\n");
+			               strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>å¤´ç›”<color>å’Œ<color=Earth>æ­¦å™¨<color>æ¿€æ´»æš—å±æ€§<color>\n");
 					   }
 			       break;
 	               case series_wood:
-					   { 
+					   {
 			              strcat(pszMsg, "<color=Wood>");
-			              strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>Í·¿ø<color>ºÍ<color=Water>ÎäÆ÷<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }   
+			              strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>å¤´ç›”<color>å’Œ<color=Water>æ­¦å™¨<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 			       break;
 		           case series_water:
-					   { 
+					   {
 			              strcat(pszMsg, "<color=Water>");
-			              strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>Í·¿ø<color>ºÍ<color=Metal>ÎäÆ÷<color>¼¤»î°µÊôĞÔ<color>\n");
-					   }	 
+			              strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>å¤´ç›”<color>å’Œ<color=Metal>æ­¦å™¨<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					   }
 			      break;
 	        	  case series_fire:
-					  { 
+					  {
 			              strcat(pszMsg, "<color=Fire>");
-			              strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>Í·¿ø<color>ºÍ<color=Wood>ÎäÆ÷<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }	 
+			              strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>å¤´ç›”<color>å’Œ<color=Wood>æ­¦å™¨<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 		 	      break;
 	        	  case series_earth:
-					  { 
+					  {
 			              strcat(pszMsg, "<color=Earth>");
-			              strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>Í·¿ø<color>ºÍ<color=Fire>ÎäÆ÷<color>¼¤»î°µÊôĞÔ<color>\n");
-					  }	 
+			              strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>å¤´ç›”<color>å’Œ<color=Fire>æ­¦å™¨<color>æ¿€æ´»æš—å±æ€§<color>\n");
+					  }
 			      break;
-				}    
+				}
             break;
 			 }
            case equip_belt:
@@ -3119,36 +3120,36 @@ char* szBlueInfo=NULL;
                        switch(m_CommonAttrib.nSeries)
                         {
               	          case series_metal:
-							  { 
+							  {
 			                     strcat(pszMsg, "<color=Metal>");
-			                     strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>»¤Íó<color>ºÍ<color=Earth>ÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }   
+			                     strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>æŠ¤è…•<color>å’Œ<color=Earth>ç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 	         	          case series_wood:
-							  {  
+							  {
 			                     strcat(pszMsg, "<color=Wood>");
-			                     strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>»¤Íó<color>ºÍ<color=Water>ÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }	  
+			                     strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>æŠ¤è…•<color>å’Œ<color=Water>ç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 		                  case series_water:
-							  {    
+							  {
 			                     strcat(pszMsg, "<color=Water>");
-			                     strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>»¤Íó<color>ºÍ<color=Metal>ÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }	   
+			                     strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>æŠ¤è…•<color>å’Œ<color=Metal>ç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 	        	          case series_fire:
-							  { 	    
+							  {
 			                     strcat(pszMsg, "<color=Fire>");
-			                     strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>»¤Íó<color>ºÍ<color=Wood>ÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }  
+			                     strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>æŠ¤è…•<color>å’Œ<color=Wood>ç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 	        	          case series_earth:
-							  { 
+							  {
 		                         strcat(pszMsg, "<color=Earth>");
-			                     strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>»¤Íó<color>ºÍ<color=Fire>ÓñÅå<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }		    
+			                     strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>æŠ¤è…•<color>å’Œ<color=Fire>ç‰ä½©<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
-					   }  
+					   }
                      break;
                     }
             case equip_helm:
@@ -3156,34 +3157,34 @@ char* szBlueInfo=NULL;
                         switch(m_CommonAttrib.nSeries)
                         {
               	          case series_metal:
-							   {  
+							   {
 			                      strcat(pszMsg, "<color=Metal>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÒÂ·ş<color>ºÍ<color=Earth>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");	
-							   }	    
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>è¡£æœ<color>å’Œ<color=Earth>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			              break;
 	         	          case series_wood:
-							  {   
+							  {
 			                      strcat(pszMsg, "<color=Wood>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÒÂ·ş<color>ºÍ<color=Water>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");	
-							  }	    
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>è¡£æœ<color>å’Œ<color=Water>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 		                  case series_water:
-							  { 	 
+							  {
 			                      strcat(pszMsg, "<color=Water>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÒÂ·ş<color>ºÍ<color=Metal>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");	
-							  }		 
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>è¡£æœ<color>å’Œ<color=Metal>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 	        	          case series_fire:
-							  {   
+							  {
 			                      strcat(pszMsg, "<color=Fire>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÒÂ·ş<color>ºÍ<color=Wood>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-							  } 	   
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>è¡£æœ<color>å’Œ<color=Wood>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 	        	          case series_earth:
-							  { 
+							  {
 			                      strcat(pszMsg, "<color=Earth>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÒÂ·ş<color>ºÍ<color=Fire>ÏîÁ´<color>¼¤»î°µÊôĞÔ<color>\n");
-							  }	  
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>è¡£æœ<color>å’Œ<color=Fire>é¡¹é“¾<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			              break;
 						}
                    break;
@@ -3193,36 +3194,36 @@ char* szBlueInfo=NULL;
                         switch(m_CommonAttrib.nSeries)
                         {
               	           case series_metal:
-							   {  
+							   {
 			                       strcat(pszMsg, "<color=Metal>");
-			                       strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÉÏ½ä<color>ºÍ<color=Earth>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }	 
+			                       strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>ä¸Šæˆ’<color>å’Œ<color=Earth>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			                break;
 	         	           case series_wood:
-							   {   
+							   {
 			                       strcat(pszMsg, "<color=Wood>");
-			                       strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÉÏ½ä<color>ºÍ<color=Water>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }	  
+			                       strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>ä¸Šæˆ’<color>å’Œ<color=Water>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			                break;
 		                   case series_water:
-							   {   
+							   {
 			                       strcat(pszMsg, "<color=Water>");
-			                       strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÉÏ½ä<color>ºÍ<color=Metal>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }   
+			                       strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>ä¸Šæˆ’<color>å’Œ<color=Metal>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			                break;
 	        	           case series_fire:
-							   {   
+							   {
 			                       strcat(pszMsg, "<color=Fire>");
-			                       strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÉÏ½ä<color>ºÍ<color=Wood>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }		 
+			                       strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>ä¸Šæˆ’<color>å’Œ<color=Wood>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			                break;
 	        	           case series_earth:
-							   {		 
+							   {
 			                       strcat(pszMsg, "<color=Earth>");
-			                       strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÉÏ½ä<color>ºÍ<color=Fire>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }	  
+			                       strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>ä¸Šæˆ’<color>å’Œ<color=Fire>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			                break;
-						}                       
+						}
                     break;
 					}
            case equip_pendant:
@@ -3230,41 +3231,41 @@ char* szBlueInfo=NULL;
                         switch(m_CommonAttrib.nSeries)
 						{
               	           case series_metal:
-							   { 
+							   {
 			                      strcat(pszMsg, "<color=Metal>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>ÍÁÏµ<color><color=Earth>ÉÏ½ä<color>ºÍ<color=Earth>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   } 	    
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>åœŸç³»<color><color=Earth>ä¸Šæˆ’<color>å’Œ<color=Earth>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			               break;
 	         	           case series_wood:
-							  { 
+							  {
 			                      strcat(pszMsg, "<color=Wood>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>Ë®Ïµ<color><color=Water>ÉÏ½ä<color>ºÍ<color=Water>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							  } 		 
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>æ°´ç³»<color><color=Water>ä¸Šæˆ’<color>å’Œ<color=Water>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			               break;
 		                   case series_water:
-							  {    
+							  {
 			                      strcat(pszMsg, "<color=Water>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>½ğÏµ<color><color=Metal>ÉÏ½ä<color>ºÍ<color=Metal>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							  } 	  
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>é‡‘ç³»<color><color=Metal>ä¸Šæˆ’<color>å’Œ<color=Metal>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							  }
 			               break;
 			               case series_fire:
-							   {  
+							   {
 			                      strcat(pszMsg, "<color=Fire>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>Ä¾Ïµ<color><color=Wood>ÉÏ½ä<color>ºÍ<color=Wood>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   } 	   
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>æœ¨ç³»<color><color=Wood>ä¸Šæˆ’<color>å’Œ<color=Wood>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			               break;
 	        	           case series_earth:
-							   {	 
+							   {
 			                      strcat(pszMsg, "<color=Earth>");
-			                      strcat(pszMsg, "ĞèÒª<color=Cyan>»ğÏµ<color><color=Fire>ÉÏ½ä<color>ºÍ<color=Fire>Ñ¥×Ó<color>¼¤»î°µÊôĞÔ<color>\n");
-							   }   
+			                      strcat(pszMsg, "éœ€è¦<color=Cyan>ç«ç³»<color><color=Fire>ä¸Šæˆ’<color>å’Œ<color=Fire>é´å­<color>æ¿€æ´»æš—å±æ€§<color>\n");
+							   }
 			               break;
-						} 
+						}
                        break;
 					}
 		   default:
-			    strcat(pszMsg, "<color=Cyan>Çë¿´F1°ïÖúÎåĞĞ¼¤»îÍ¼<color>\n");
-                break;  
+			    strcat(pszMsg, "<color=Cyan>è¯·çœ‹F1å¸®åŠ©äº”è¡Œæ¿€æ´»å›¾<color>\n");
+                break;
 				}
         }
 
@@ -3275,13 +3276,13 @@ char* szBlueInfo=NULL;
 		char szGoldName[80]={0};
 		GoldTab.Load("\\Settings\\item\\004\\GoldItem.txt");
 
-		for (int k = 0;k < m_CommonAttrib.nSetNum;++k)  //ÏÔÊ¾Ì××°ÁíÍâ¼şÊı
+		for (int k = 0;k < m_CommonAttrib.nSetNum;++k)  //ï¿½ï¿½Ê¾ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			GoldTab.GetString(m_CommonAttrib.nGoldId + 3 - m_CommonAttrib.nSetId + k,1,"",szGoldName,sizeof(szGoldName));
-			
+
 			int ncolor = Player[CLIENT_PLAYER_INDEX].m_ItemList.GetGoldColor(m_CommonAttrib.nSet,k + 1);
-			
-			//if (m_CommonAttrib.nSetId == k + 1)  //µ±Ç°×°±¸ //À©Õ¹Ì××°ĞòºÅ
+
+			//if (m_CommonAttrib.nSetId == k + 1)  //ï¿½ï¿½Ç°×°ï¿½ï¿½ //ï¿½ï¿½Õ¹ï¿½ï¿½×°ï¿½ï¿½ï¿½
 			//{
 			//	strcat(pszMsg, "<color=Yellow>");
 			//	strcat(pszMsg, szGoldName);
@@ -3296,32 +3297,32 @@ char* szBlueInfo=NULL;
 				strcat(pszMsg, "<color=DGreen>");
 			}
 			else if (ncolor == 1)
-			{//ËùÓĞÎïÆ·
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 				strcat(pszMsg, "<color=HGreen>");
 			}
 			else if (ncolor == 2)
-			{//×°±¸×ÅµÄ
-				strcat(pszMsg, "<color=Green>");	
+			{//×°ï¿½ï¿½ï¿½Åµï¿½
+				strcat(pszMsg, "<color=Green>");
 			}
 			else
 				strcat(pszMsg, "<color=White>");
 
 			strcat(pszMsg, szGoldName);
 			strcat(pszMsg, "<color>\n");
-		   
+
 		}	  //end for
 
 		GoldTab.Clear();
-	} 
-	
-	  
+	}
+
+
 		if (m_CommonAttrib.nIsWhere==-1)
-		{  
-		t_sprintf(pPin,"<color=yellow>¸Ã×°±¸¿ÉÒÔÏ´Á·³öËæ»úÌØÊâÊôĞÔ");
+		{
+		sprintf(pPin,"<color=yellow>ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		strcat(pszMsg,pPin);
 		strcat(pszMsg, "<color>\n");
-	 }	
-		  
+	 }
+
 	*/
 
 	if (nType==0 && m_CommonAttrib.nRongNum>0)
@@ -3338,21 +3339,21 @@ char* szBlueInfo=NULL;
 			{
 				if (m_ronMagicAttrib[nRong].nAttribType)
 					mRmun++;
-			}	
-			
+			}
+
 			if (GetIsWhere()>0)
 			{
-			   t_sprintf(sRong,"ÒÑÏ´Á·ÊôĞÔ£º%d/%d¸ö",mRmun,m_CommonAttrib.nRongNum);
+			   sprintf(sRong,"å·²æ´—ç»ƒå±æ€§ï¼š%d/%dä¸ª",mRmun,m_CommonAttrib.nRongNum);
 			}
 			else
 			{
-               t_sprintf(sRong,"ÒÑÏ´Á·ÊôĞÔ£º0/%d¸ö",m_CommonAttrib.nRongNum);
+               sprintf(sRong,"å·²æ´—ç»ƒå±æ€§ï¼š0/%dä¸ª",m_CommonAttrib.nRongNum);
 			}
 
 			strcat(pszMsg,sRong);
 			strcat(pszMsg,"\n");
 
-			t_sprintf(sDong,"×î´óÏ´Á·ÊôĞÔÊıÁ¿Îª%d",m_CommonAttrib.nRongNum);
+			sprintf(sDong,"æœ€å¤§æ´—ç»ƒå±æ€§æ•°é‡ä¸º%d",m_CommonAttrib.nRongNum);
 			strcat(pszMsg,sDong);
 			strcat(pszMsg,"<color>\n");
 		 }
@@ -3365,46 +3366,46 @@ char* szBlueInfo=NULL;
 			 {
 				 if (m_ronMagicAttrib[nRong].nAttribType>0)
 					 mRmun++;
-			 }	
-			 
-			 t_sprintf(sRong,"ÒÑÈÛÁ¶ÎÆ¸ÖÊıÁ¿£º%d/%d¸ö",mRmun,m_CommonAttrib.nRongNum);
+			 }
+
+			 sprintf(sRong,"å·²ç†”ç‚¼çº¹é’¢æ•°é‡ï¼š%d/%dä¸ª",mRmun,m_CommonAttrib.nRongNum);
 			 strcat(pszMsg,sRong);
 			 strcat(pszMsg,"\n");
 
-			 t_sprintf(sDong,"×î´ó¿ÉÈÛÁ¶ÎÆ¸ÖµÈ¼¶Îª%d",m_CommonAttrib.nWengangPin);
+			 sprintf(sDong,"æœ€å¤§å¯ç†”ç‚¼çº¹é’¢ç­‰çº§ä¸º%d",m_CommonAttrib.nWengangPin);
 			 strcat(pszMsg,sDong);
 			 strcat(pszMsg,"<color>\n");
 		 }
 	}
-	
+
 
 	if (nType==0 && m_CommonAttrib.nBinfujiazhi>0)
-	{  
+	{
 		strcat(pszMsg, "<color=HGREEN>");
 		char sBong[32]={0};
-		t_sprintf(sBong,"»ù´¡±ø¼×Öµ£º%d",m_CommonAttrib.nBinfujiazhi);
+		sprintf(sBong,"åŸºç¡€å…µç”²å€¼ï¼š%d",m_CommonAttrib.nBinfujiazhi);
 		strcat(pszMsg,sBong);
 		strcat(pszMsg,"\n");
 		strcat(pszMsg,VER_INFO);
 		strcat(pszMsg,"<color>\n");
-	} 
+	}
 /*	else
-	{  
+	{
 		strcat(pszMsg, "<color=HGREEN>");
-		strcat(pszMsg,"»ù´¡±ø¼×Öµ£º0");
+		strcat(pszMsg,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½0");
 		strcat(pszMsg,"\n");
 		strcat(pszMsg,VER_INFO);
 		strcat(pszMsg,"<color>\n");
 	}*/
 
 
-	if (m_CommonAttrib.uPrice > 0)  //°ÚÌ¯±ê¼Û
+	if (m_CommonAttrib.uPrice > 0)  //ï¿½ï¿½Ì¯ï¿½ï¿½ï¿½
 	{
 	    char nD[8];
         if (m_CommonAttrib.ncSellModel==2)
-	      t_sprintf(nD,"½ğ");
+	      sprintf(nD,"é‡‘");
 	    else
-          t_sprintf(nD,"Á½");
+          sprintf(nD,"ä¸¤");
 
 		strcat(pszMsg,"\n");
 		strcat(pszMsg, "<color=Yellow>");
@@ -3415,16 +3416,16 @@ char* szBlueInfo=NULL;
 		int nG = m_CommonAttrib.uPrice%10000;//TakeRemainder(m_CommonAttrib.uPrice,10000);
 
 	    if (nN > 0)
-		{  		
-		   t_sprintf(sOrice,"°ÚÌ¯¼ÛÖµ£º%dÒÚ%dÍò%d%s",nN,nW,nG,nD);
-		}  
+		{
+		   sprintf(sOrice,"æ‘†æ‘Šä»·å€¼ï¼š%däº¿%dä¸‡%d%s",nN,nW,nG,nD);
+		}
 	    else
-		{   
+		{
 		   if (nW == 0)
-		      t_sprintf(sOrice,"°ÚÌ¯¼ÛÖµ£º%d%s",nG,nD);
+		      sprintf(sOrice,"æ‘†æ‘Šä»·å€¼ï¼š%d%s",nG,nD);
 		   else
-		      t_sprintf(sOrice,"°ÚÌ¯¼ÛÖµ£º%dÍò%d%s",nW,nG,nD);
-		}  
+		      sprintf(sOrice,"æ‘†æ‘Šä»·å€¼ï¼š%dä¸‡%d%s",nW,nG,nD);
+		}
 		strcat(pszMsg,sOrice);
 		strcat(pszMsg,"<color>\n");
 	}
@@ -3440,12 +3441,12 @@ char* szBlueInfo=NULL;
 		else
 			GoldTab.Load("\\Settings\\item\\004\\platinaequip.txt");
 
-		for (int k = 0;k < m_CommonAttrib.nSetNum;++k)  //ÏÔÊ¾Ì××°ÁíÍâ¼şÊı
+		for (int k = 0;k < m_CommonAttrib.nSetNum;++k)  //ï¿½ï¿½Ê¾ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			GoldTab.GetString(m_CommonAttrib.nGoldId + 3 - m_CommonAttrib.nSetId + k,1," ",szGoldName,sizeof(szGoldName));
-			
+
 			int ncolor = Player[CLIENT_PLAYER_INDEX].m_ItemList.GetGoldColor(m_CommonAttrib.nSet,k + 1);
-			
+
 		    if (!szGoldName[0])
 			   continue;
 
@@ -3454,61 +3455,61 @@ char* szBlueInfo=NULL;
 				strcat(pszMsg, "<color=DGreen>");
 			}
 			else if (ncolor == 1)
-			{//ËùÓĞÎïÆ·
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 				strcat(pszMsg, "<color=HGreen>");
 			}
 			else if (ncolor == 2)
-			{//×°±¸×ÅµÄ
+			{//×°ï¿½ï¿½ï¿½Åµï¿½
 				strcat(pszMsg, "<color=Fire>");		  //Yellow
 			}
 			else
 				strcat(pszMsg, "<color=White>");
-			
-		   /*	if (m_CommonAttrib.nSetId == k + 1)  //µ±Ç°×°±¸ //À©Õ¹Ì××°ĞòºÅ
+
+		   /*	if (m_CommonAttrib.nSetId == k + 1)  //ï¿½ï¿½Ç°×°ï¿½ï¿½ //ï¿½ï¿½Õ¹ï¿½ï¿½×°ï¿½ï¿½ï¿½
 			{
 				strcat(pszMsg, "<color=Orange>");
 				strcat(pszMsg, szGoldName);
 				strcat(pszMsg, "<color>\n");
 			}*/
-			
+
 			strcat(pszMsg, szGoldName);
 			strcat(pszMsg, "<color>\n");
-		   
+
 		}	  //end for
 
 		GoldTab.Clear();
 	}
-	
+
 	//strcat(pszMsg,"\0");
 }
 
 int KItem::ExtractChars(const char *inStr,int scrLen,char *outStr)
 {
-	char *tmp=NULL;         //¶¨ÒåÒ»¸öÁÙÊ±Êı×é¿Õ¼ä£¬´æ·Å×Ö·û£»
-	tmp=outStr; 
+	char *tmp=NULL;         //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Õ¼ä£¬ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	tmp=outStr;
 	int nLen=0;
 	while(*inStr!='\0')
-	{//Ò»Ö±Ç°ĞĞ,Ö±µ½ÓĞ½áÊø·ûºÅ½«Í£Ö¹¡£
-		if(nLen==scrLen) //Èç¹û³¤¶ÈÏàµÈµÄÊ±ºò
+	{//Ò»Ö±Ç°ï¿½ï¿½,Ö±ï¿½ï¿½ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½Í£Ö¹ï¿½ï¿½
+		if(nLen==scrLen) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½Ê±ï¿½ï¿½
 		{
-			//*inStr='|';   //Ìæ»»µô¿ªÊ¼×Ö·û
-			*tmp++;         //ÏÂ¸ö×Ö·û    
-            *tmp='\n';      //¼Ó¸ö»»ĞĞ·ûºÅ
-			//inStr++;             //È¥µô½áÊø·ûºÅ
+			//*inStr='|';   //ï¿½æ»»ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ö·ï¿½
+			*tmp++;         //ï¿½Â¸ï¿½ï¿½Ö·ï¿½
+            *tmp='\n';      //ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½
+			//inStr++;             //È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
-		if (*inStr=='\0')          //Èç¹ûÃ»ÓĞÕÒµ½½áÊø·û£¬²¢ÇÒÒÑ¾­µ½ÁË½áÎ²£¬¾ÍÌø³öÁË£¡£¡
+		if (*inStr=='\0')          //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½
 			break;
-		*tmp=*inStr;               //ÔªÊı²»ÏàÍ¬£¬Ôò´æ·Åµ½tmpÖĞ¡£
-		tmp++;                     //½øĞĞÏÂÒ»¸öÔªÊıµÄ±È½Ï
-		inStr++;                    
+		*tmp=*inStr;               //Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½tmpï¿½Ğ¡ï¿½
+		tmp++;                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ä±È½ï¿½
+		inStr++;
 		nLen++;
 	}
-	*tmp='\0';              //Ô´×Ö·û´® ÌáÈ¡Íêºó ¼Ó¸ö½áÊø·û ·ÀÖ¹ÂÒÂë
+	*tmp='\0';              //Ô´ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½È¡ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½
     return nLen;
 }
 
 
-//×î´ó³Ö¾Ã¶È
+//ï¿½ï¿½ï¿½Ö¾Ã¶ï¿½
 int KItem::GetMaxDurability()
 {
 	for (int i = 0; i < 7; ++i)
@@ -3520,7 +3521,7 @@ int KItem::GetMaxDurability()
 	}
 	return -1;
 }
-//È¡µÃ×°±¸µÄÊôĞÔµÈ¼¶²ÎÊı
+//È¡ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔµÈ¼ï¿½ï¿½ï¿½ï¿½ï¿½
 int KItem::GetTotalMagicLevel()
 {
 	int nRet = 0;
@@ -3539,41 +3540,41 @@ int KItem::GetTotalMagicLevel()
 
 	return nRet;
 }
-//»ñÈ¡ĞŞÀí¼Û¸ñ
+//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
 int KItem::GetRepairPrice()
 {
 	if (ItemSet.m_sRepairParam.nMagicScale == 0)
 		return 0;
 
-	if (GetGenre() != item_equip)          //²»ÊÇ×°±¸
+	if (GetGenre() != item_equip)          //ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 		return 0;
 
-	if (m_nCurrentDur == -1)               //ÓÀ²»Ä¥Ëğ
+	if (m_nCurrentDur == -1)               //ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
 		return 0;
 
 	int nMaxDur   = GetMaxDurability();
-	int nSumMagic = GetTotalMagicLevel();  //Ä§·¨ÊôĞÔµÄ×ÜµÈ¼¶
+	int nSumMagic = GetTotalMagicLevel();  //Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ÜµÈ¼ï¿½
 
-	if (nMaxDur <= 0)                      //×î´ó³Ö¾Ã¶ÈÃ»ÓĞ
+	if (nMaxDur <= 0)                      //ï¿½ï¿½ï¿½Ö¾Ã¶ï¿½Ã»ï¿½ï¿½
 		return 0;
 
 	int nRepairPrice=0;
         nRepairPrice = m_CommonAttrib.nLevel*ItemSet.m_sRepairParam.nLevelScale + m_CommonAttrib.nPrice * ItemSet.m_sRepairParam.nPriceScale/100 * (nMaxDur - m_nCurrentDur)/nMaxDur * (ItemSet.m_sRepairParam.nMagicScale + nSumMagic)/ItemSet.m_sRepairParam.nMagicScale;
-    //ĞŞÀí¼Û¸ñ=ÎïÆ·µÈ¼¶*µÈ¼¶±¶ÂÊ+ÎïÆ·¼Û¸ñ*¼Û¸ñ±¶ÂÊ/100*(×î´ó³Ö¾Ã-µ±Ç°³Ö¾Ã)/×î´ó³Ö¾Ã*(Ä§·¨±¶ÂÊ+Ä§·¨ÊıÁ¿)/Ä§·¨±¶ÂÊ	
-	//¸ÃÎïÆ·µÄ¼Û¸ñXÎ¬ĞŞ¼Û¸ñµÄ±¶ÂÊ/100
+    //ï¿½ï¿½ï¿½ï¿½Û¸ï¿½=ï¿½ï¿½Æ·ï¿½È¼ï¿½*ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½Æ·ï¿½Û¸ï¿½*ï¿½Û¸ï¿½ï¿½ï¿½/100*(ï¿½ï¿½ï¿½Ö¾ï¿½-ï¿½ï¿½Ç°ï¿½Ö¾ï¿½)/ï¿½ï¿½ï¿½Ö¾ï¿½*(Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)/Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä¼Û¸ï¿½XÎ¬ï¿½Ş¼Û¸ï¿½Ä±ï¿½ï¿½ï¿½/100
 	return nRepairPrice;
 }
 
-//ÊÇ·ñÄÜĞŞ¸´
+//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½
 BOOL KItem::CanBeRepaired()
 {
 	if (GetGenre() != item_equip)
 		return FALSE;
 
-	//if (GetIsWhere()>0 && GetIsUse()<=0) //±æÊ¶×° ²¢ÇÒÊÇ²»¿ÉÊ¹ÓÃµÄ ²»ÄÜĞŞÀí
+	//if (GetIsWhere()>0 && GetIsUse()<=0) //ï¿½ï¿½Ê¶×° ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//   return FALSE;
 
-	if (m_nCurrentDur == -1)  //ÓÀÔ¶²»Ä¥Ëğ 
+	if (m_nCurrentDur == -1)  //ï¿½ï¿½Ô¶ï¿½ï¿½Ä¥ï¿½ï¿½
 		return FALSE;
 
 	int nMaxDur = GetMaxDurability();
@@ -3601,7 +3602,7 @@ BOOL KItem::CheckItemInfo(int nGen,int nDetail,int nParticular,char *KeyName)
 	return nReturn;
 }
 
-//ÊÇ·ñ¿ÉÒÔµş¼Ó
+//ï¿½Ç·ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½
 BOOL KItem::CanStack(int nOldIdx)
 {
 	if (m_CommonAttrib.bStack)
@@ -3612,16 +3613,16 @@ BOOL KItem::CanStack(int nOldIdx)
 		int nSeries     = Item[nOldIdx].GetSeries();
 		int m_nLevel    = Item[nOldIdx].GetLevel();
 
-		if (m_CommonAttrib.nItemGenre == nGen && m_CommonAttrib.nDetailType == nDetail && m_CommonAttrib.nParticularType == nParticular && Item[nOldIdx].GetStackNum() < MAX_STACKNUM)   //ÊıÁ¿Ğ¡ÓÚ50 ¾Í¿ÉÒÔµş¼Ó
-		{   
+		if (m_CommonAttrib.nItemGenre == nGen && m_CommonAttrib.nDetailType == nDetail && m_CommonAttrib.nParticularType == nParticular && Item[nOldIdx].GetStackNum() < MAX_STACKNUM)   //ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½50 ï¿½Í¿ï¿½ï¿½Ôµï¿½ï¿½ï¿½
+		{
 			if (CheckItemInfo(nGen,nDetail,nParticular,"NeedLevel"))
-			{//¼ì²âµÈ¼¶
+			{//ï¿½ï¿½ï¿½È¼ï¿½
 				if (m_CommonAttrib.nLevel != m_nLevel)
 					return FALSE;
 			}
 
 			if (CheckItemInfo(nGen,nDetail,nParticular,"NeedSeries"))
-			{//¼ì²âµÈ¼¶
+			{//ï¿½ï¿½ï¿½È¼ï¿½
 				if (m_CommonAttrib.nSeries != nSeries)
 					return FALSE;
 			}
@@ -3631,12 +3632,12 @@ BOOL KItem::CanStack(int nOldIdx)
 	}
 	return FALSE;
 }
-//ÊÇ·ñ¿ÉÒÔÔÙµş¼Ó
+//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½
 int KItem::Stack( int nIdx )
 {
 	m_CommonAttrib.nStackNum += nIdx;
-	
-	if (m_CommonAttrib.nStackNum > MAX_STACKNUM)  //¿Éµş¼ÓÎïÆ·µÄÊıÁ¿ÏŞÖÆ
+
+	if (m_CommonAttrib.nStackNum > MAX_STACKNUM)  //ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		return 0;
 	}
@@ -3670,18 +3671,18 @@ void KItem::SetBackUpBmagicAttrib()
   }*/
 }
 
-//Ä§·¨×°±¸µÄÇ¿»¯
+//Ä§ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
 int KItem::EnChance( int nEnChance /*= 1*/ )
 {
 	    int nCanEn=0,i;
 
 		if (nEnChance < 31)
 		{
-		   //int nOldEnChance = m_CommonAttrib.nEnChance;  //Ô­À´µÄ¼Ó³É
+		   //int nOldEnChance = m_CommonAttrib.nEnChance;  //Ô­ï¿½ï¿½ï¿½Ä¼Ó³ï¿½
 
 			for (i = 0;i < 6;++i)
 			{
-				nCanEn=CheckEnChance("ForBitEn",m_aryMagicAttrib[i].nAttribType);    
+				nCanEn=CheckEnChance("ForBitEn",m_aryMagicAttrib[i].nAttribType);
 
 				if (m_aryMagicAttrib[i].nAttribType && nCanEn==1)
 				{
@@ -3708,50 +3709,50 @@ int KItem::EnChance( int nEnChance /*= 1*/ )
 		{
 			m_CommonAttrib.nEnChance = 30;
 		}
-	
+
 	return 1;
 }
-//Ç¿»¯ÈÛÁ¶ÊôĞÔ
+//Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KItem::EnChanceRong( int nEnChance /*= 1*/ )
-{	
+{
 	int nCanEn=0;
 	if (nEnChance < 31)
 	{
-		int nOldEnChance = m_CommonAttrib.nEnChance;//Ô­À´µÄ¼Ó³É
+		int nOldEnChance = m_CommonAttrib.nEnChance;//Ô­ï¿½ï¿½ï¿½Ä¼Ó³ï¿½
 
 		for (int i = 0;i < 6;++i)
-		{		
-			nCanEn=CheckEnChance("ForBitEn",m_aryMagicAttrib[i].nAttribType);    
-		
+		{
+			nCanEn=CheckEnChance("ForBitEn",m_aryMagicAttrib[i].nAttribType);
+
 		    if (m_aryMagicAttrib[i].nAttribType && nCanEn==1)
-			{//À¶É«ÊôĞÔ	 
+			{//ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 			    if (m_aryMagicAttrib[i].nValue[0] >= (JIACHENG_VAL<<1))
-				{  
+				{
 				    int nTempVal=m_TempMagicAttrib[i].nValue[0]; //Ô­Ê¼Öµ
-				
+
 				    for (int j=0;j<nEnChance;++j)
 					{
 					     nTempVal +=nTempVal>>JIACHENG_VAL;//*j
 						        //if (nTempVal%JIACHENG_VAL>=2)
 						 if (nTempVal-(nTempVal>>JIACHENG_VAL<<JIACHENG_VAL)>2)
 						     nTempVal +=1;
-					} 
-				
+					}
+
 				    m_aryMagicAttrib[i].nValue[0] = nTempVal;
-				} 
+				}
 			}
-			
+
 			nCanEn=CheckEnChance("ForBitEn",m_ronMagicAttrib[i].nAttribType);
 			if (m_ronMagicAttrib[i].nAttribType && nCanEn==1)
-			{//±æÊ¶»ò ÎÆ¸ÖÊôĞÔ
+			{//ï¿½ï¿½Ê¶ï¿½ï¿½ ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½
 				if (m_ronMagicAttrib[i].nValue[0] >= (JIACHENG_VAL<<1))
 				{
-						/* if (nEnChance>nOldEnChance)      //³É¹¦µÄ
+						/* if (nEnChance>nOldEnChance)      //ï¿½É¹ï¿½ï¿½ï¿½
 						 {
-						    m_TempRMagicAttrib[i].nValue[0]=m_ronMagicAttrib[i].nValue[0]; //±£´æÕâ¸öÊôĞÔÔ­À´µÄ ÊôĞÔÖµ£¨ÓÃÓÚÇ¿»¯Ê§°ÜÓÃµÄ£©
+						    m_TempRMagicAttrib[i].nValue[0]=m_ronMagicAttrib[i].nValue[0]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ÃµÄ£ï¿½
 						    m_ronMagicAttrib[i].nValue[0] += m_ronMagicAttrib[i].nValue[0] * nEnChance/JIACHENG_VAL;
 						  }
-						 else if (nEnChance< nOldEnChance) //Ê§°ÜµÄ
+						 else if (nEnChance< nOldEnChance) //Ê§ï¿½Üµï¿½
 						 {
 						    m_ronMagicAttrib[i].nValue[0] = m_TempRMagicAttrib[i].nValue[0];//m_ronMagicAttrib[i].nValue[0] * (nEnChance+1)/JIACHENG_VAL;
 						 }*/
@@ -3788,17 +3789,17 @@ int KItem::EnChanceRong( int nEnChance /*= 1*/ )
 			}
 		}*/
 	}
-	
+
 	return 1;
 }
 
-//Ç¿»¯±¦Ê¯ÊôĞÔ
+//Ç¿ï¿½ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
 int KItem::EnChanceBao( int nEnChance /*= 1*/)
-{	
+{
 /*	int nCanEn=0;
 	if (nEnChance < 31)
 	{
-	    int nOldEnChance = m_CommonAttrib.nEnChance;//Ô­À´µÄ¼Ó³É
+	    int nOldEnChance = m_CommonAttrib.nEnChance;//Ô­ï¿½ï¿½ï¿½Ä¼Ó³ï¿½
 
 		for (int i = 0;i < 6;++i)
 		{
@@ -3808,13 +3809,13 @@ int KItem::EnChanceBao( int nEnChance /*= 1*/)
 			{
 				if (m_BaoShiMagicAttrib[i].nValue[0] >= JIACHENG_VAL)
 				{
-					if (nEnChance>nOldEnChance)      //³É¹¦µÄ
+					if (nEnChance>nOldEnChance)      //ï¿½É¹ï¿½ï¿½ï¿½
 					{
-					    m_TempBMagicAttrib[i].nValue[0]=m_BaoShiMagicAttrib[i].nValue[0]; //±£´æÕâ¸öÊôĞÔÔ­À´µÄ ÊôĞÔÖµ£¨ÓÃÓÚÇ¿»¯Ê§°ÜÓÃµÄ£©
+					    m_TempBMagicAttrib[i].nValue[0]=m_BaoShiMagicAttrib[i].nValue[0]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ÃµÄ£ï¿½
 					    m_BaoShiMagicAttrib[i].nValue[0] += m_BaoShiMagicAttrib[i].nValue[0] * nEnChance/JIACHENG_VAL;
 					}
-					else if (nEnChance< nOldEnChance) //Ê§°ÜµÄ
-					{//Ê§°Ü¾Í»¹Ô­Ô­À´µÄÖµ
+					else if (nEnChance< nOldEnChance) //Ê§ï¿½Üµï¿½
+					{//Ê§ï¿½Ü¾Í»ï¿½Ô­Ô­ï¿½ï¿½ï¿½ï¿½Öµ
 						m_BaoShiMagicAttrib[i].nValue[0] = m_TempBMagicAttrib[i].nValue[0];//m_BaoShiMagicAttrib[i].nValue[0] * (nEnChance+1)/JIACHENG_VAL;
 				    }
 					int nTempVal=m_TempBMagicAttrib[i].nValue[0]; //Ô­Ê¼Öµ
@@ -3840,7 +3841,7 @@ int KItem::EnChanceBao( int nEnChance /*= 1*/)
 int	KItem::CheckEnChance(char *nKey,int nAttribType)
 {
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=0;
-	
+
 	for (int i=2;i<nRow;++i)
 	{
 		int nMaps =0;
@@ -3853,7 +3854,7 @@ int	KItem::CheckEnChance(char *nKey,int nAttribType)
 			break;
 		}
 	}
-	return nReg;     
+	return nReg;
 }
 
 
@@ -3877,20 +3878,20 @@ BOOL KItem::HoldItem(int nIdx, int nWidth, int nHeight)
 //	return FALSE;
 }
 
-int KItem::IsPurple()  //ÊÇ×Ï×°
+int KItem::IsPurple()  //ï¿½ï¿½ï¿½ï¿½×°
 {
 	if (m_CommonAttrib.nPoint>0 && m_CommonAttrib.nPoint<=6)
 	return m_CommonAttrib.nPoint;
 
 	return 0;
-	
+
 }
 
-int KItem::GetPoint()  
+int KItem::GetPoint()
 {
 
    return m_CommonAttrib.nPoint;
-	
+
 }
 
 BOOL KItem::CheckReqability(int n)
@@ -3903,11 +3904,11 @@ BOOL KItem::CheckReqability(int n)
 	return FALSE;
 }
 
-int KItem::GetIsWhere()  
+int KItem::GetIsWhere()
 {
-	
+
    return m_CommonAttrib.nIsWhere;
-	
+
 }
 
 int KItem::getItemKind()
@@ -3935,22 +3936,22 @@ int KItem::IsPlatina()  //TB BACH KIM
 {
 	if (m_CommonAttrib.nGoldId>0 && m_CommonAttrib.nIsPlatina>0)
 		return 1;
-	
+
     return 0;
 }
 
 
-int KItem::IsRong()  //ÊÇÈÛÁ¶
+int KItem::IsRong()  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	return m_CommonAttrib.nRongpiont;
 }
 
-int KItem::IsGold()  //ÊÇÈÛÁ¶
+int KItem::IsGold()  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	return m_CommonAttrib.nGoldId;
 }
 
-//ÉèÖÃÎïÆ·µÄÊ¹ÓÃÊ±¼ä
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê¹ï¿½ï¿½Ê±ï¿½ï¿½
 void KItem::SetTime( int bYear,int bMonth,int bDay,int bHour,int bMin)
 {
 	if (bYear>0)
@@ -3971,126 +3972,126 @@ void KItem::SetTime( int bYear,int bMonth,int bDay,int bHour,int bMin)
 
 		int  nAllDay=30;
 
-		if (bYear%4==0)	   //µ±Äê
-		{//ÈóÄê
+		if (bYear%4==0)	   //ï¿½ï¿½ï¿½ï¿½
+		{//ï¿½ï¿½ï¿½ï¿½
 		   nIsYear=TRUE;
-		   //if (bMonth==2)  //µ±ÔÂ
+		   //if (bMonth==2)  //ï¿½ï¿½ï¿½ï¿½
 		//	   nAllDay=29;
 		}
 		else
-		{//Æ½Äê
+		{//Æ½ï¿½ï¿½
  			nIsYear=FALSE;
-			//if (bMonth==2)	//µ±ÔÂ
+			//if (bMonth==2)	//ï¿½ï¿½ï¿½ï¿½
 			 //  nAllDay=28;
 		}
-		//-----½øÈëÊ±ºòµÄµ±ÔÂ
+		//-----ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Äµï¿½ï¿½ï¿½
 		if (bMonth<=12)
-		{//Ğ¡ÓÚ12¸öÔÂ
+		{//Ğ¡ï¿½ï¿½12ï¿½ï¿½ï¿½ï¿½
 			if (bMonth==2 && nIsYear)
-			{//ÈóÄêµÄ2ÔÂ·İ
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay=29;
 			}
 			else if (bMonth==2 && !nIsYear)
-			{//Æ½ÄêµÄ2ÔÂ·İ
+			{//Æ½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay= 28;
 			}
 			else
 			{
-				if (bMonth==1 || bMonth==3 || bMonth==5|| bMonth==7|| bMonth==8|| bMonth==10 || bMonth==12) 
-				{//µ±ÔÂ
+				if (bMonth==1 || bMonth==3 || bMonth==5|| bMonth==7|| bMonth==8|| bMonth==10 || bMonth==12)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=31;
-				}	
-				else if (bMonth==4 || bMonth==6 || bMonth==9|| bMonth==11) 
-				{//µ±ÔÂ
+				}
+				else if (bMonth==4 || bMonth==6 || bMonth==9|| bMonth==11)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=30;
 				}
 			}
 		}
 		else
-		{//×ÜÔÂ·İ´óÓÚ12¸öÔÂµÄ
+		{//ï¿½ï¿½ï¿½Â·İ´ï¿½ï¿½ï¿½12ï¿½ï¿½ï¿½Âµï¿½
 			if (bMonth%12==2 && nIsYear)
-			{//ÈóÄêµÄ2ÔÂ·İ
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay=29;
 			}
 			else if (bMonth%12==2 && !nIsYear)
-			{//Æ½ÄêµÄ2ÔÂ·İ
+			{//Æ½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay= 28;
 			}
 			else
 			{
-				if (bMonth%12==0 || bMonth%12==1 || bMonth%12==3 || bMonth%12==5|| bMonth%12==7|| bMonth%12==8|| bMonth%12==10) 
-				{//µ±ÔÂ
+				if (bMonth%12==0 || bMonth%12==1 || bMonth%12==3 || bMonth%12==5|| bMonth%12==7|| bMonth%12==8|| bMonth%12==10)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=31;
-				}	
-				else if (bMonth%12==4 || bMonth%12==6 || bMonth%12==9|| bMonth%12==11) 
-				{//µ±ÔÂ
+				}
+				else if (bMonth%12==4 || bMonth%12==6 || bMonth%12==9|| bMonth%12==11)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=30;
 				}
-			}		
+			}
 		}
-		
+
 	 while (bDay > nAllDay)
 	 {
 
 	/*		if (((bMonth <= 7) && !(bMonth % 2)) || ((bMonth > 7) && !(bMonth % 2)))
-			{//Ë«ÔÂ 2 4 6 8 10 12 
+			{//Ë«ï¿½ï¿½ 2 4 6 8 10 12
 				bMonth++;
 				bDay -= 30;
 			}
 			else if (((bMonth <= 7) && !(bMonth % 2) && bDay > 31 )||((bMonth > 7) && (bMonth % 2) && bDay > 31))
-			{//Ë«ÔÂ 2 4 6  »ò   µ¥ÔÂ 9 11  ÌìÊı¡·31
+			{//Ë«ï¿½ï¿½ 2 4 6  ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ 9 11  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½31
 				bMonth++;
 				bDay -= 31;
 			}
 			else if (((bMonth <= 7) && !(bMonth % 2) && bDay == 31 )||((bMonth > 7) && (bMonth % 2) && bDay == 31))
-			{//µ¥ÔÂ 1 3 5 7  ÌìÊı=31 »ò Ë«ÔÂ 8 10 12 ÌìÊı=31
+			{//ï¿½ï¿½ï¿½ï¿½ 1 3 5 7  ï¿½ï¿½ï¿½ï¿½=31 ï¿½ï¿½ Ë«ï¿½ï¿½ 8 10 12 ï¿½ï¿½ï¿½ï¿½=31
 				break;
 			}*/
 
 			bMonth++;
 			bDay -= nAllDay;
 
-			//-----------ÏÂÒ»¸öÔÂ----------
+			//-----------ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½----------
 		 if (bMonth<=12)
-		 {//Ğ¡ÓÚ12¸öÔÂ
+		 {//Ğ¡ï¿½ï¿½12ï¿½ï¿½ï¿½ï¿½
 			if (bMonth==2 && nIsYear)
-			{//ÈóÄêµÄ2ÔÂ·İ
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay=29;
 			}
 			else if (bMonth==2 && !nIsYear)
-			{//Æ½ÄêµÄ2ÔÂ·İ
+			{//Æ½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 				nAllDay= 28;
 			}
 			else
 			{
-			   	if (bMonth==1 || bMonth==3 || bMonth==5|| bMonth==7|| bMonth==8|| bMonth==10 || bMonth==12) 
-				{//µ±ÔÂ
+			   	if (bMonth==1 || bMonth==3 || bMonth==5|| bMonth==7|| bMonth==8|| bMonth==10 || bMonth==12)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=31;
-				}	
-				else if (bMonth==4 || bMonth==6 || bMonth==9|| bMonth==11) 
-				{//µ±ÔÂ
+				}
+				else if (bMonth==4 || bMonth==6 || bMonth==9|| bMonth==11)
+				{//ï¿½ï¿½ï¿½ï¿½
 					nAllDay=30;
 				}
 			}
 		 }
 		 else
-		 {//×ÜÔÂ·İ´óÓÚ12¸öÔÂµÄ
+		 {//ï¿½ï¿½ï¿½Â·İ´ï¿½ï¿½ï¿½12ï¿½ï¿½ï¿½Âµï¿½
 				if (bMonth%12==2 && nIsYear)
-				{//ÈóÄêµÄ2ÔÂ·İ
+				{//ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 					nAllDay=29;
 				}
 				else if (bMonth%12==2 && !nIsYear)
-				{//Æ½ÄêµÄ2ÔÂ·İ
+				{//Æ½ï¿½ï¿½ï¿½2ï¿½Â·ï¿½
 					nAllDay= 28;
 				}
 				else
 				{
-					if (bMonth%12==0 || bMonth%12==1 || bMonth%12==3 || bMonth%12==5|| bMonth%12==7|| bMonth%12==8|| bMonth%12==10) 
-					{//µ±ÔÂ
+					if (bMonth%12==0 || bMonth%12==1 || bMonth%12==3 || bMonth%12==5|| bMonth%12==7|| bMonth%12==8|| bMonth%12==10)
+					{//ï¿½ï¿½ï¿½ï¿½
 						nAllDay=31;
-					}	
-					else if (bMonth%12==4 || bMonth%12==6 || bMonth%12==9|| bMonth%12==11) 
-					{//µ±ÔÂ
+					}
+					else if (bMonth%12==4 || bMonth%12==6 || bMonth%12==9|| bMonth%12==11)
+					{//ï¿½ï¿½ï¿½ï¿½
 						nAllDay=30;
 					}
 			}
@@ -4104,7 +4105,7 @@ void KItem::SetTime( int bYear,int bMonth,int bDay,int bHour,int bMin)
 			bYear++;
 			bMonth -= 12;
 		}
-         
+
 		if (bDay<=0)
 		{
 			bDay=1;
@@ -4136,7 +4137,7 @@ void KItem::SetTime( int bYear,int bMonth,int bDay,int bHour,int bMin)
 	}
 }
 
-//¼ì²âÎÆ¸ÖµÄÆ·ÖÊ
+//ï¿½ï¿½ï¿½ï¿½Æ¸Öµï¿½Æ·ï¿½ï¿½
 int  KItem::CheckBluePin(int pShuXingID,int pVal)
 
 {
@@ -4144,46 +4145,46 @@ int  KItem::CheckBluePin(int pShuXingID,int pVal)
 	MagicTab.Load(TABFILE_MAGICALEVEL_PATH);
 	int nRows=MagicTab.GetHeight();
 	int nReg=0,nStart=0,nEnd=0;
-	
+
 	for (int i=0;i<nRows;++i)
 	{
 		int nMagid=0;
-		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);  
-		if (nMagid==pShuXingID) //ÊÇ·ñ¿ÉÒÔÎÆ¸ÖÌáÈ¡µÄÊôĞÔ
-		{ 
-			MagicTab.GetInteger(i+1,"MAGATTRLVL_START",0,&nStart);  
+		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);
+		if (nMagid==pShuXingID) //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		{
+			MagicTab.GetInteger(i+1,"MAGATTRLVL_START",0,&nStart);
 			MagicTab.GetInteger(i+1,"MAGATTRLVL_END",0,&nEnd);
 			nReg=i;
 			break;
-		} 
+		}
 	}
     MagicTab.Clear();
 
-	if (nReg==0)  //Ã»ÓĞ¿ÉÒÔÌáÈ¡µÄÊôĞÔ
+	if (nReg==0)  //Ã»ï¿½Ğ¿ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             return 0;
 
-    if (nReg&&nStart&&nEnd)  //µÃµ½ĞĞÊı
+    if (nReg&&nStart&&nEnd)  //ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		MagicTabA.Load(TABFILE_MAGICATTRIB_PATH);
 		int nRowsA=MagicTabA.GetHeight(),nAValmin=0,nAValmax=0,nLevel=0;
 		for (nStart;nStart<nEnd;++nStart)
-		{  
+		{
 			MagicTabA.GetInteger(nStart+1,6,1,&nAValmin);
 			MagicTabA.GetInteger(nStart+1,7,1,&nAValmax);
-			if (pVal>=nAValmin && pVal<=nAValmax) //ÔÚÕâ¸ö·¶Î§ÄÚ
-			{ 
+			if (pVal>=nAValmin && pVal<=nAValmax) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
+			{
 				MagicTabA.GetInteger(nStart+1,4,1,&nLevel);
 				break;
-			} 
-			
-		} 
+			}
+
+		}
 		MagicTabA.Clear();
 		return nLevel;
 	}
     return 0;
 }
 
-//¼ì²âÎÆ¸ÖµÄÆ·ÖÊ
+//ï¿½ï¿½ï¿½ï¿½Æ¸Öµï¿½Æ·ï¿½ï¿½
 int  KItem::CheckWenPin(int pShuXingID,int pVal)
 
 {
@@ -4191,61 +4192,61 @@ int  KItem::CheckWenPin(int pShuXingID,int pVal)
 	MagicTab.Load(TABFILE_MAGICALEVEL_PATH);
 	int nRows=MagicTab.GetHeight();
 	int nReg=0,nStart=0,nEnd=0;
-	
+
 	for (int i=0;i<nRows;++i)
 	{
 		int nMagid=0;
-		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);  
+		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);
 		if (nMagid==pShuXingID)
-		{ 
-			MagicTab.GetInteger(i+1,"MAGATTRLVL_START",0,&nStart);  
+		{
+			MagicTab.GetInteger(i+1,"MAGATTRLVL_START",0,&nStart);
 			MagicTab.GetInteger(i+1,"MAGATTRLVL_END",0,&nEnd);
 			nReg=i;
 			break;
-		} 
+		}
 	}
     MagicTab.Clear();
-	
-    if (nReg&&nStart&&nEnd)  //µÃµ½ĞĞÊı
+
+    if (nReg&&nStart&&nEnd)  //ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		MagicTabA.Load(TABFILE_MAGICATTRIB_PATH);
 		int nRowsA=MagicTabA.GetHeight(),nAVal=0,nLevel=0;
 		for (nStart;nStart<nEnd;++nStart)
-		{  
+		{
 			MagicTabA.GetInteger(nStart+1,6,1,&nAVal);
 			if (nAVal==pVal)
-			{ 
+			{
 				MagicTabA.GetInteger(nStart+1,4,1,&nLevel);
 				break;
-			} 
-			
-		} 
+			}
+
+		}
 		MagicTabA.Clear();
 		return nLevel;
 	}
     return 0;
 }
 
-//¸ù¾İÎÆ¸ÖÊôĞÔID»ñÈ¡ÎïÆ·µÄ eventid ºÅ
+//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½ eventid ï¿½ï¿½
 int  KItem::GeteventID(int pShuXingID)
 
 {
 	KTabFile MagicTab;
 	MagicTab.Load(TABFILE_MAGICALEVEL_PATH);
 	int nRows=MagicTab.GetHeight();
-	int nReg=0;	
+	int nReg=0;
 	for (int i=0;i<nRows;++i)
 	{
 		int nMagid=0;
-		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);  
+		MagicTab.GetInteger(i+1,"MAGIC_ID",1,&nMagid);
 		if (nMagid==pShuXingID)
-		{ 
+		{
 			nReg=i;
 			break;
-		} 
+		}
 	}
     MagicTab.Clear();
-	
+
 		return nReg;
 }
 
@@ -4258,10 +4259,10 @@ int KItem::GetItemMagicLevel(int i)
 {
    return m_aryBaseAttrib[i].nValue[0];
 }
-//ÊÇ·ñÓĞÕâ¸öÊôĞÔ ×°±¸
+//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ×°ï¿½ï¿½
 BOOL KItem::HaveMaigc( int nAttribe,int nValue1Min,int nValue1Max,int nValue2Min,int nValue2Max,int nValue3Min,int nValue3Max )
 {
-	for (int i = 0;i < 6;++i)  //Ä§·¨
+	for (int i = 0;i < 6;++i)  //Ä§ï¿½ï¿½
 	{
 		if (m_aryMagicAttrib[i].nAttribType == nAttribe)
 		{

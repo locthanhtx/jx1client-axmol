@@ -29,12 +29,12 @@ KItemGenerator::~KItemGenerator()
 /******************************************************************************
 	���ܣ�	װ�����ݳ�ʼ��. ��tab file�ж�ȡ����
 ******************************************************************************/
-BOOL KItemGenerator::Init()   
+BOOL KItemGenerator::Init()
 {
 	if (!m_BPTLib.Init())		// �˵��ô����ɵ�tab file���������еĳ�ʼ����
 	{
 		//printf(" KItemGenerator::m_BPTLib() error!!!..\n");
-		ccMessageBox("m_BPTLib() error!","KItemGenerator::Init");
+		messageBox("m_BPTLib() error!","KItemGenerator::Init");
 		return FALSE;
 	}
 	for (int i = equip_meleeweapon; i < equip_detailnum - equip_meleeweapon; ++i)
@@ -76,22 +76,22 @@ BOOL KItemGenerator::Init()
 			break;
 		case equip_mask:	// mat na
 			m_EquipNumOfEntries[i] = m_BPTLib.GetMaskRecordNumber();
-			break;		
+			break;
 		case equip_pifeng:	// ����
 			m_EquipNumOfEntries[i] = m_BPTLib.GetPifengRecordNumber();
 			break;
-		case equip_yinjian:	// 
+		case equip_yinjian:	//
 			m_EquipNumOfEntries[i] = m_BPTLib.GetYinjianRecordNumber();
 			break;
-		case equip_shiping:	// 
+		case equip_shiping:	//
 			m_EquipNumOfEntries[i] = m_BPTLib.GetShipinRecordNumber();
-			break;			
-	
-		 } 
-	} 
+			break;
+
+		 }
+	}
 	  m_MedNumOfEntries = m_BPTLib.GetMedicineRecordNumber();
 	  //printf(" KItemGenerator::Init(%d) OK!!!..\n",equip_detailnum-equip_meleeweapon);
-	
+
 	return TRUE;
 }
 
@@ -115,7 +115,7 @@ BOOL KItemGenerator::Gen_Medicine(IN int nDetailType,
 		return false;
 
 	BOOL bEC = FALSE;
-	
+
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed();
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
@@ -159,7 +159,7 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 			return false;
 
 	BOOL bEC = FALSE;
-	
+
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed();
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
@@ -239,7 +239,7 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 		break;
 	case item_task:
 		{
-			Gen_Quest(nSeriesReq, pItem,nStackNum,nLevel);			
+			Gen_Quest(nSeriesReq, pItem,nStackNum,nLevel);
 		}
 		break;
 	case item_townportal:
@@ -251,13 +251,13 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 		{
 			int nParticularType = g_Random(500);
 			int nJaryLevel[6];
-			Gen_Mine(nParticularType, pItem,nStackNum,nLevel,nSeriesReq,nLucky,nJaryLevel);			
+			Gen_Mine(nParticularType, pItem,nStackNum,nLevel,nSeriesReq,nLucky,nJaryLevel);
 		}
 		break;
 	default:
 		break;
 	}
-	
+
 	return TRUE;
 } */
 
@@ -307,14 +307,14 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 
 	/*for (int k = 0;k < 6;k++)
-	{ 
+	{
 		char nMsgInfo[64]={0};
 		if (pItem->m_GeneratorParam.nRGeneratorLevel[k] > 0)
-		{ 
+		{
 			sprintf(nMsgInfo,"nRGenerator:%d",pItem->m_GeneratorParam.nRGeneratorLevel[k]);
 		}
 		if (pItem->m_GeneratorParam.nGeneratorLevel[k] > 0)
-		{ 
+		{
 			sprintf(nMsgInfo,"nGenerat--:%d",pItem->m_GeneratorParam.nGeneratorLevel[k]);
 		}
 	}
@@ -389,8 +389,8 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 	if (NULL == pEqu)
 	{//��ȡԭʼ����ʧ��
 	  //_ASSERT(FALSE);
-	  return NULL; 
-	}  
+	  return NULL;
+	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
 		//			nLevel ����?
@@ -434,9 +434,9 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongpoint)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -458,16 +458,16 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 			sMAR[r].nValue[0] = 0;
 			sMAR[r].nValue[1] = 0;
 			sMAR[r].nValue[2] = 0;
-		} 
+		}
 
 		MagicTabR.Clear();
 
 		pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetIsWhere(IsWhere); 
-		pItem->SetRPoint(nRongpoint); 		
+		pItem->SetIsWhere(IsWhere);
+		pItem->SetRPoint(nRongpoint);
 	    return bEC;
 	}
-	else if (nPoint ==7) 
+	else if (nPoint ==7)
 	{
 		KItemNormalAttrib sMA[6];
 		ZeroMemory(sMA,sizeof(sMA)); //�����ڴ�
@@ -499,7 +499,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 
 						nRows = nMax+IsWhere;
@@ -508,15 +508,15 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
-                
+
 				continue;
 			}
 			//ʣ�µ��趨Ϊ�տ�
@@ -526,10 +526,10 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		pItem->SetAttrib_MA(sMA);  //����ħ������
-		pItem->SetPoint(nPoint);   //��ֵ�� Point 	
+		pItem->SetPoint(nPoint);   //��ֵ�� Point
 		pItem->SetIsWhere(IsWhere);
 		//pItem->SetBackUpMagicAttrib();//����ԭʼħ������(����ǿ��)
-		pItem->EnChance(nEnChance);	
+		pItem->EnChance(nEnChance);
 		if (nIsShop)
 		{
 			if (nFsxu>0)
@@ -541,7 +541,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 		tabMagicAttribe.Clear();
 		return bEC;
 	}
-	else if (nPoint ==8) 
+	else if (nPoint ==8)
 	{
 		int bECR=0;
 
@@ -553,9 +553,9 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongpoint)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -575,7 +575,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						nRows = sMAR[r].nValue[2]+IsWhere;
 						if (nRows>nMinR)
@@ -583,14 +583,14 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMAR[r].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMAR[r].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
 
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMAR[r].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMAR[r].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
 					nJnLevel.Clear();
-				} 
+				}
 				continue;
 			}
 			sMAR[r].nAttribType = 0;
@@ -598,12 +598,12 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 			sMAR[r].nValue[1]   = 0;
 			sMAR[r].nValue[2]   = 0;
 			//  bEC=TRUE;
-		} 
+		}
 
 		MagicTabR.Clear();
 
 		bECR= pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetRPoint(nRongpoint); 		
+		pItem->SetRPoint(nRongpoint);
 
 		if (nIsShop)
 		{
@@ -644,7 +644,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 
 						nRows = nMax+IsWhere;
@@ -653,11 +653,11 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
 
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
 					nJnLevel.Clear();
 				}
@@ -671,9 +671,9 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		pItem->SetAttrib_MA(sMA);  //����ħ������
-		pItem->SetPoint(nPoint);   //��ֵ�� Point �ж��Ƿ�����װ		
+		pItem->SetPoint(nPoint);   //��ֵ�� Point �ж��Ƿ�����װ
 		tabMagicAttribe.Clear();
-		pItem->EnChance(nEnChance);	
+		pItem->EnChance(nEnChance);
 
 		if (nIsShop)
 		{
@@ -690,13 +690,13 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 		KItemNormalAttrib	sMAR[6];  // ħ��
 		ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		KTabFile MagicTabR;
-		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�		
+		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�
 		int nTypeR,nMaxR,nMinR;
 
 		for (j = 0;j < 6;j++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[j] > 0 && j < nRongpoint)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],7,0,&nMinR);
@@ -716,11 +716,11 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 			sMAR[j].nValue[0] = 0;
 			sMAR[j].nValue[1] = 0;
 			sMAR[j].nValue[2] = 0;
-		} 
+		}
 
 		MagicTabR.Clear();
 		bEC=pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetRPoint(nRongpoint); 
+		pItem->SetRPoint(nRongpoint);
 
 	    return bEC;
 	}
@@ -762,7 +762,7 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 		ZeroMemory(pItem->m_GeneratorParam.nGeneratorLevel, sizeof(int) * 6);
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck = nLucky;	                 //�������װ��������ֵ �浵
-#else												
+#else
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);       //���ÿͻ��˵��������
 	if (pnaryMALevel)
 		memcpy(pItem->m_GeneratorParam.nGeneratorLevel, pnaryMALevel, sizeof(int) * 6);
@@ -834,8 +834,8 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 	if (NULL == pEqu)
 	{//��ȡԭʼ����ʧ��
 	  //_ASSERT(FALSE);
-	  return NULL; 
-	}  
+	  return NULL;
+	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
 		//			nLevel ����?
@@ -868,14 +868,14 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 		}
 	    return bEC;
 	}
-	else if (nPoint ==7) 
+	else if (nPoint ==7)
 	{
 		KItemNormalAttrib sMA[6];
 		ZeroMemory(sMA,sizeof(sMA)); //�����ڴ�
-		
+
 		KTabFile tabMagicAttribe;
 		tabMagicAttribe.Load(TABFILE_MAGICATTRIB_PATH);
-		
+
 		if (nLucky > 10)//0--10֮��
 		{
 			nLucky = 10;
@@ -884,7 +884,7 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 		{
 			nLucky = 0;
 		}
-		
+
 		int nType,nMax,nMin;
 		for (int j = 0;j < 6;++j)
 		{
@@ -911,7 +911,7 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 
 						nRows = nMax+IsWhere;
@@ -920,15 +920,15 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
-                
+
 				continue;
 			}
 			//ʣ�µ��趨Ϊ�տ�
@@ -938,10 +938,10 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		pItem->SetAttrib_MA(sMA);  //����ħ������
-		pItem->SetPoint(nPoint);   //��ֵ�� Point 	
+		pItem->SetPoint(nPoint);   //��ֵ�� Point
 		pItem->SetIsWhere(IsWhere);
 		//pItem->SetBackUpMagicAttrib();//����ԭʼħ������(����ǿ��)
-		pItem->EnChance(nEnChance);	
+		pItem->EnChance(nEnChance);
 		if (nIsShop)
 		{
 			if (nFsxu>0)
@@ -995,9 +995,9 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		pItem->SetAttrib_MA(sMA);  //����ħ������
-		pItem->SetPoint(nPoint);   //��ֵ�� Point �ж��Ƿ�����װ		
+		pItem->SetPoint(nPoint);   //��ֵ�� Point �ж��Ƿ�����װ
 		tabMagicAttribe.Clear();
-		pItem->EnChance(nEnChance);	
+		pItem->EnChance(nEnChance);
 
 		if (nIsShop)
 		{
@@ -1026,7 +1026,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 {
     int nResult = false;
 
-    KBPT_ClassMAIT  SelectedMagicTable;	
+    KBPT_ClassMAIT  SelectedMagicTable;
 	// ��¼ÿһ����¼ѡ�е�ħ�����ԣ���Ҫ��Ϊ�����ʹ�ñ�־���
     KMAGICATTRIB_TABFILE *pMagicAttrTable[6] = {NULL, NULL, NULL, NULL, NULL, NULL};
 
@@ -1037,59 +1037,59 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
     if  (pnaryMALevel==NULL || pnaryMA==NULL)
     		return false;
 
-    for (i = 0; i < 6; ++i) 
+    for (i = 0; i < 6; ++i)
     {
-        // �������ħ������Ϊ�㣬��ʾ����Ҫ���������ˣ��˳� 
-        if (pnaryMALevel[i] == 0)	
+        // �������ħ������Ϊ�㣬��ʾ����Ҫ���������ˣ��˳�
+        if (pnaryMALevel[i] == 0)
         	break;
 
-		/*if (pnaryMALevel[i]-10 >0)	
+		/*if (pnaryMALevel[i]-10 >0)
         {//��������
 		int nnMgaRows = pnaryMALevel[i]-10;
 			//pnaryMA[i].nAttribType = pnaryMALevel[i];
-		 	
+
 			KTabFile tabMagicAttribe;
 			  tabMagicAttribe.Load(TABFILE_MAGICATTRIB_PATH);
 
-			  
+
 		    int nType,nMax,nMin;
-	
+
 			tabMagicAttribe.GetInteger(nnMgaRows,5,0,&nType);
 			tabMagicAttribe.GetInteger(nnMgaRows,6,0,&nMax);
 		    tabMagicAttribe.GetInteger(nnMgaRows,7,0,&nMin);
 		    pnaryMA[i].nAttribType = nType;
 		    pnaryMA[i].nValue[0] = nMax + ((nMin - nMax) * nLucky / 10);
-				
+
 		    tabMagicAttribe.GetInteger(nnMgaRows,8,0,&nMax);
 			tabMagicAttribe.GetInteger(nnMgaRows,9,0,&nMin);
 		    pnaryMA[i].nValue[1] = nMax + ((nMin - nMax) * nLucky / 10);
-				  
+
 			tabMagicAttribe.GetInteger(nnMgaRows,10,0,&nMax);
 			tabMagicAttribe.GetInteger(nnMgaRows,11,0,&nMin);
 			pnaryMA[i].nValue[2] = nMax + ((nMin - nMax) * nLucky / 10);
-			
+
 			tabMagicAttribe.Clear();
-					  
+
 			if (pnaryMA[i].nValue[2]>1)
-			{ 
+			{
 				nnMgaRows =	pnaryMA[i].nValue[2];
 
 				KTabFile nmpLevel;
 				if (nmpLevel.Load(TABFILE_MAGICAGOLD_PATH))
-				{  
+				{
 					int nMinVal=0,nMaxVal=0;
-	
+
 					nmpLevel.GetInteger(nnMgaRows,"����1��Сֵ",0,&nMinVal);
 					nmpLevel.GetInteger(nnMgaRows,"����1���ֵ",0,&nMaxVal);
-					pnaryMA[i].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						  
+					pnaryMA[i].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 					nmpLevel.GetInteger(nnMgaRows,"����3��Сֵ",0,&nMinVal);
 					nmpLevel.GetInteger(nnMgaRows,"����3���ֵ",0,&nMaxVal);
-					pnaryMA[i].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+					pnaryMA[i].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 				}
 				nmpLevel.Clear();
 			}
-		  
+
 		  continue;
 		}
 	    */
@@ -1099,10 +1099,10 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
         const KBPT_ClassMAIT *pCMITItem = m_BPTLib.GetCMIT(
             1 - (i & 1),        // ǰ׺��׺	��������
             nType,              // ��Ʒ���� ����  ñ�� ���ӵ�
-            nSeriesReq,         // �������� 
+            nSeriesReq,         // ��������
             pnaryMALevel[i]     // ħ�����Ե���  1-10  ���Եȼ�
         );
-			
+
         //_ASSERT(pCMITItem);
         if (!pCMITItem)
                break;
@@ -1112,7 +1112,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
         // 3.�Ƿ�����ͬ�ġ����Ե������
         // ȡ����Ӧ�������SelectedMagicTable��
         int nCMITItemCount = pCMITItem->GetCount();  //��ȡ����������ħ����������
-        int j = 0; 
+        int j = 0;
 		int nMinDropRate,nMaxDropRate;
         g_GameSetTing.GetInteger2("SYSTEM","ItemDropRate",&nMinDropRate,&nMaxDropRate);
 
@@ -1135,8 +1135,8 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 
             // ����������㣬ȡ��һ��
             if ((pMAItem->m_DropRate[nType]) <=1 || (pMAItem->m_DropRate[nType]) <= nDecide) //25/1250||3000/160000  10--2000
-                continue; //ͣ����ִ�У�ִ����һ��ѭ������ͷ��ʼfor�� 
-            
+                continue; //ͣ����ִ�У�ִ����һ��ѭ������ͷ��ʼfor��
+
             // ����Ƿ��Ѿ�����ͬ�ġ�ħ�����Ե����ࡱ
             int k = 0;
             for (k = 0; k < i; ++k)
@@ -1159,11 +1159,11 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
         int nSelectedCount = SelectedMagicTable.GetCount();   //��ȡ�Ѿ��������Ե�����
 
         if (nSelectedCount == 0)
-        {   
+        {
             // ���û������������ħ�����ԣ����˳�
             break;
         }
-        
+
         // �����������������ħ�����ԣ�������
         int nLuckyItemIndex = GetRandomNumber(0,nSelectedCount-1);//ȡ���ϵ����һ��
         KMAGICATTRIB_TABFILE *pMAItem = (KMAGICATTRIB_TABFILE *)m_BPTLib.GetMARecord(SelectedMagicTable.Get(nLuckyItemIndex));
@@ -1187,16 +1187,16 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 		{
 			KTabFile nJnLevel;
 			if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-			{  
+			{
 				int nMinVal=0,nMaxVal=0;
 
 				nJnLevel.GetInteger(pnaryMA[i].nValue[2],"����1��Сֵ",0,&nMinVal);
                 nJnLevel.GetInteger(pnaryMA[i].nValue[2],"����1���ֵ",0,&nMaxVal);
-                pnaryMA[i].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
+                pnaryMA[i].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
 
                 nJnLevel.GetInteger(pnaryMA[i].nValue[2],"����3��Сֵ",0,&nMinVal);
                 nJnLevel.GetInteger(pnaryMA[i].nValue[2],"����3���ֵ",0,&nMaxVal);
-                pnaryMA[i].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+                pnaryMA[i].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 			}
             nJnLevel.Clear();
 		}
@@ -1232,7 +1232,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 //BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel, int nSeriesReq, int nLucky,
 //									 KItemNormalAttrib* pnaryMA)
 //{
-//	
+//
 //    // ȷ�������ڸ�װ����ȫ��ħ�����Լ�������
 //	if (FALSE == GMA_GetAvaliableMA(nType))
 //		{ _ASSERT(FALSE); return FALSE; }
@@ -1435,8 +1435,8 @@ BOOL KItemGenerator::GetMedicineCommonAttrib(IN int nDetailType, IN int nLevel, 
 	}
 
 	if (j == 0)
-		goto Exit0;			 
-	nIndex = GetRandomNumber(0, j);	
+		goto Exit0;
+	nIndex = GetRandomNumber(0, j);
 	*pItem = *pArray[nIndex];
 Exit0:
 	return FALSE;
@@ -1447,7 +1447,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 	int i = 0;
 	int j = 0;
 	int nCount = 0;
-	
+
 #ifdef _SERVER	// �������汾
 	if (nIsLogin)
 		g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
@@ -1477,7 +1477,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 		}
 	}
 #endif
-	
+
 	nCount = m_BPTLib.GetPlatinaNumber();// ���Ա��ж���������
 	const KBASICPROP_EQUIPMENT_PLATINA* pTemp = m_BPTLib.GetPlatinaRecord(nIndex); //��ȡ�ƽ�ԭʼ����
 	if (nIndex >= nCount)
@@ -1488,16 +1488,16 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 	pItem->SetAttrib_BCBR((KBASICPROP_EQUIPMENT_PLATINA*)pTemp); //���û������Ժ� ��������
 	pItem->SetGoldId(nIndex);
 	pItem->SetLevel(nLevel);
-	
+
 	if (nSeries<0 || nSeries > 4)
 	{
 		pItem->SetSeries(::GetRandomNumber(0,4)); //��������
-	} 
+	}
 	else
 	{
 		pItem->SetSeries(nSeries);
 	}
-	
+
 	KItemNormalAttrib	sMA[6];
 	KTabFile MagicTab;
 	MagicTab.Load(TABFILE_MAGICAGOLD_PATH);   //�ƽ�װ��ħ�������ļ�
@@ -1507,7 +1507,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 		KItemNormalAttrib* pDst;
 		pSrc = &(pTemp->m_aryMagicAttribs[i]); //���ܱ��
 		pDst = &(sMA[i]);
-		
+
 		int nType,nLow,nHigh;
 		MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 		pDst->nAttribType = nType;
@@ -1524,7 +1524,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 		//pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 		pDst->nValue[2] =  GetRandomNumber(nLow,nHigh);
 	}
-	
+
 	pItem->SetAttrib_MA(sMA);  //��ֵ�� �������� ---m_aryMagicAttrib[i]  ,����ħ������
     pItem->SetRPoint(nRongpiont);
 	pItem->EnChance(nEnChance);
@@ -1536,7 +1536,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 		KItemNormalAttrib* pDst;
 		pSrc = &(pTemp->m_yinMagicAttribs[i]); //���ܱ��
 		pDst = &(syMA[i]);
-		
+
 		int nType,nLow,nHigh;
 		MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 		pDst->nAttribType = nType;	//����
@@ -1553,14 +1553,14 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 		//pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 		pDst->nValue[2] =  GetRandomNumber(nLow,nHigh);
 	}
-	pItem->SetAttrib_Yin(syMA); 
+	pItem->SetAttrib_Yin(syMA);
 	MagicTab.Clear();
 	return TRUE;
 }
 
 
 /******************************************************************************
-	���ܣ�	����ָ���ƽ�װ��װ��   ---ˢ�ƽ�װ��  
+	���ܣ�	����ָ���ƽ�װ��װ��   ---ˢ�ƽ�װ��
 	���:	nCondition: ǰ��������(Emf+Pmf)*Level��������
 			pItem: װ����Ŀָ�롣
 	����:	�ɹ�ʱ������, ��������� pItem ��ָ�����и���
@@ -1612,7 +1612,7 @@ BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN con
 	if (nSeries > 4 || nSeries < 0)
 	{
 		pItem->SetSeries(::GetRandomNumber(0,4)); //��������
-	} 
+	}
 	else
 	{
 		pItem->SetSeries(nSeries);
@@ -1629,7 +1629,7 @@ BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN con
 		KItemNormalAttrib* pDst;
 		pSrc = &(pTemp->m_aryMagicAttribs[i]); //���ܱ��
 		pDst = &(sMA[i]);
-		
+
 		int nType,nLow,nHigh;
 		MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 		pDst->nAttribType = nType;
@@ -1659,7 +1659,7 @@ BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN con
 		KItemNormalAttrib* pDst;
 		pSrc = &(pTemp->m_yinMagicAttribs[i]); //���ܱ��
 		pDst = &(syMA[i]);
-		
+
 		int nType,nLow,nHigh;
 		MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 		pDst->nAttribType = nType;	//����
@@ -1676,8 +1676,8 @@ BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN con
 		//pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 		pDst->nValue[2] =  GetRandomNumber(nLow,nHigh);
 	}
-	pItem->SetAttrib_Yin(syMA); 
-	MagicTab.Clear(); 
+	pItem->SetAttrib_Yin(syMA);
+	MagicTab.Clear();
 	return TRUE;
 }
 
@@ -1706,7 +1706,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 								   IN int Goidid,\
 								   IN const int* BaoMagLevel,IN BOOL nIsLogin)
 {
-	
+
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	  if  (this==NULL || pItem==NULL)
@@ -1714,7 +1714,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 
     int nCount = 0;
 	BOOL bEC = FALSE;
-	
+
 #ifdef _SERVER	// �������汾
 	if (nIsLogin)
 		g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
@@ -1738,7 +1738,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck = nLucky;
-    
+
 #else //�ͻ���
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 	if (pnaryMALevel)
@@ -1756,7 +1756,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 	else
 		ZeroMemory(pItem->m_GeneratorParam.nBGeneratorLevel, sizeof(int) * 6);*/
 #endif
-		
+
 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
 
 	nCount = m_BPTLib.GetPlatinaNumber();// װ��TXT���ж���������
@@ -1766,12 +1766,12 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 	if (Goidid >= nCount-1)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 	if (pTemp == NULL)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
@@ -1779,7 +1779,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 		//			ԭʼ��tab file������ m_BPTLib.m_BPTEquipment ��
 		//			���������������?
 	pItem->SetAttrib_BCBR((KBASICPROP_EQUIPMENT_PLATINA*)pTemp);  //���û������� ����������
-	pItem->SetSeries(nSeriesReq); 
+	pItem->SetSeries(nSeriesReq);
 
 	pItem->SetGoldId(Goidid);
 	pItem->SetLevel(nLevel);
@@ -1798,11 +1798,11 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 		MagicTab.Load(TABFILE_MAGICAGOLD_PATH);   //װ��ħ�������ļ�
 		int i;
 	     	for (i = 0;i< 6;++i)
-			{ 
+			{
 			const int* pSrc;
 			KItemNormalAttrib* pDst;
 			pSrc = &(pTemp->m_aryMagicAttribs[i]); //ԭʼ�ļ��ܱ��
-			pDst = &(sMA[i]);		
+			pDst = &(sMA[i]);
 			int nType,nLow,nHigh;
 			MagicTab.GetInteger(*pSrc + 1,5,0,&nType);
 			pDst->nAttribType = nType;
@@ -1818,7 +1818,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 			MagicTab.GetInteger(*pSrc + 1,11,0,&nHigh);
 			//pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 			pDst->nValue[2] =  GetRandomNumber(nLow,nHigh);
-			} 
+			}
 
             pItem->SetAttrib_MA(sMA);
 			//pItem->SetBackUpMagicAttrib();//����ԭʼħ������(����ǿ��)
@@ -1830,9 +1830,9 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 
 			int nType,nMax,nMin;
 	     	for (i = 0;i < 6;++i)
-			{ 
+			{
 			   if (pItem->m_GeneratorParam.nRGeneratorLevel[i] > 0 && i < nRongID)
-			   { 
+			   {
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],5,0,&nType);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],6,0,&nMax);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],7,0,&nMin);
@@ -1854,12 +1854,12 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 				sMAR[i].nValue[1] = 0;
 		    	sMAR[i].nValue[2] = 0;
               //  bEC=TRUE;
-			}  	
+			}
 		 pItem->SetAttrib_RON(sMAR);   //����ħ������
 		 //pItem->SetBackUpRmagicAttrib();
-	     pItem->SetRPoint(nRongID); 
+	     pItem->SetRPoint(nRongID);
 		 pItem->EnChanceRong(nEnChance);
-		 
+
 //==========================����Ϊ���ױ�ʯ����===================================
 /*         KItemNormalAttrib	sbMAR[6];// ħ��
 		 ZeroMemory(sbMAR,sizeof(sbMAR)); //�����ڴ�
@@ -1868,7 +1868,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 		 for (int b = 0;b < 6;b++)
 		 {
 			 if (pItem->m_GeneratorParam.nBGeneratorLevel[b] > 0)
-			 { 
+			 {
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],5,0,&nbType);
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],6,0,&nbMax);
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],7,0,&nbMin);
@@ -1886,7 +1886,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 			 sbMAR[b].nValue[0] = 0;
 			 sbMAR[b].nValue[1] = 0;
 			 sbMAR[b].nValue[2] = 0;
-		 }  	
+		 }
 		 pItem->SetAttrib_Bao(sbMAR);   //����ħ������
 		 pItem->EnChanceBao(nEnChance);	*/
 //-----------------��������------------------------------------------------------
@@ -1897,7 +1897,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 			 KItemNormalAttrib* pDst;
 			 pSrc = &(pTemp->m_yinMagicAttribs[i]); //���ܱ��
 			 pDst = &(syMA[i]);
-			 
+
 			 int nType,nLow,nHigh;
 			 MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 			 pDst->nAttribType = nType;	//����
@@ -1911,7 +1911,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 			 MagicTab.GetInteger(*pSrc + 1,"����3���ֵ",0,&nHigh);
 			 pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 		 }
-		 pItem->SetAttrib_Yin(syMA); 
+		 pItem->SetAttrib_Yin(syMA);
 //===============================================================================
 		 MagicTab.Clear();
      	 return TRUE;
@@ -1943,14 +1943,14 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 								   IN int nRongID,\
 								   IN BOOL nIsLogin,int nPoint)
 {
-	
+
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	  if  (this==NULL || pItem==NULL)
 		    		return false;
     int nCount = 0;
 	BOOL bEC = FALSE;
-	
+
 #ifdef _SERVER	// �������汾
 
 	if (nIsLogin)
@@ -1975,7 +1975,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck = nLucky;
-    
+
 #else //�ͻ���
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 	if (pnaryMALevel)
@@ -1993,7 +1993,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 	else
 		ZeroMemory(pItem->m_GeneratorParam.nBGeneratorLevel, sizeof(int) * 6);*/
 #endif
-		
+
 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
 
 	nCount = m_BPTLib.GetGoldItemNumber();// װ��TXT���ж���������
@@ -2002,12 +2002,12 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 	if (Goidid >= nCount)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 	if (pTemp == NULL)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
@@ -2027,11 +2027,11 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 		pItem->SetAttrib_MA(sMA);  //����ħ������
 
     pItem->EnChance(nEnChance);
-	
+
 	if (nSeriesReq > 4 || nSeriesReq < 0)
 	{
 		pItem->SetSeries(::GetRandomNumber(0,4)); //��������
-	} 
+	}
 	else
 	{
 		pItem->SetSeries(nSeriesReq);
@@ -2056,9 +2056,9 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 		    MagicTab.Load(TABFILE_MAGICAGOLD_PATH);   //�ƽ�װ��ħ�������ļ�
 			int nType,nMax,nMin,i;
 	     	for (i = 0;i < 6;++i)
-			{ 
+			{
 			   if (pItem->m_GeneratorParam.nRGeneratorLevel[i] > 0 && i < nRongID)
-			   { 
+			   {
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],5,0,&nType);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],6,0,&nMax);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],7,0,&nMin);
@@ -2081,10 +2081,10 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 				sMAR[i].nValue[1] = 0;
 		    	sMAR[i].nValue[2] = 0;
               //  bEC=TRUE;
-			}  	
+			}
 		 pItem->SetAttrib_RON(sMAR);   //����ħ������
 		 //pItem->SetBackUpRmagicAttrib();
-	     pItem->SetRPoint(nRongID); 
+	     pItem->SetRPoint(nRongID);
 		 pItem->EnChanceRong(nEnChance);
 //-----------------��������------------------------------------------------------
 		 KItemNormalAttrib	syMA[2];
@@ -2094,7 +2094,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 			 KItemNormalAttrib* pDst;
 			 pSrc = &(pTemp->m_yinMagicAttribs[i]); //���ܱ�� �к�
 			 pDst = &(syMA[i]);
-			 
+
 			 int nType,nLow,nHigh;
 			 MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 			 pDst->nAttribType = nType;	//����
@@ -2111,7 +2111,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 			// pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 			 pDst->nValue[2]   = GetRandomNumber(nLow,nHigh);
 		 }
-		 pItem->SetAttrib_Yin(syMA); 
+		 pItem->SetAttrib_Yin(syMA);
 //===============================================================================
 		 MagicTab.Clear();
      	 return TRUE;
@@ -2127,9 +2127,9 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 // Add by flying on May.30.2003
 // Try to get a "Gold Item" if possible.
 BOOL KItemGenerator::GetGoldItemByRong(IN int nIndex,
-									   OUT KItem * pItem, 
+									   OUT KItem * pItem,
 									   IN const int* pnay,
-									   IN int nSeries, 
+									   IN int nSeries,
 									   IN int nEnChance,
 									   IN int nRongID)
 ****************************************************************************
@@ -2157,14 +2157,14 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 								   IN int Goidid,\
 								   IN const int* BaoMagLevel,IN BOOL nIsLogin)
 {
-	
+
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	  if (this==NULL || pItem==NULL)
 		return false;
     int nCount = 0;
 	BOOL bEC = FALSE;
-	
+
 #ifdef _SERVER	// �������汾
 
 	if (nIsLogin)
@@ -2189,7 +2189,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck = nLucky;
-    
+
 #else //�ͻ���
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 	if (pnaryMALevel)
@@ -2207,7 +2207,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 	else
 		ZeroMemory(pItem->m_GeneratorParam.nBGeneratorLevel, sizeof(int) * 6);*/
 #endif
-		
+
 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
 
 	nCount = m_BPTLib.GetGoldItemNumber();// װ��TXT���ж���������
@@ -2215,12 +2215,12 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 	if (Goidid >= nCount)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 	if (pTemp == NULL)
 	{
 		//_ASSERT(FALSE);
-	     return bEC; 
+	     return bEC;
 	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
@@ -2228,7 +2228,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 		//			ԭʼ��tab file������ m_BPTLib.m_BPTEquipment ��
 		//			���������������?
 	pItem->SetAttrib_RCBR((KBASICPROP_EQUIPMENT_GOLD*)pTemp);  //���û������� ����������
-	pItem->SetSeries(nSeriesReq); 
+	pItem->SetSeries(nSeriesReq);
 	pItem->SetLevel(nLevel);
 
 		if (nLucky > 10)
@@ -2246,11 +2246,11 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 		MagicTab.Load(TABFILE_MAGICAGOLD_PATH);   //�ƽ�װ��ħ�������ļ�
 		int i;
 	     	for (i = 0;i< 6;++i)
-			{ 
+			{
 			const int* pSrc;
 			KItemNormalAttrib* pDst;
 			pSrc = &(pTemp->m_aryMagicAttribs[i]); //ԭʼ�ļ��ܱ��
-			pDst = &(sMA[i]);		
+			pDst = &(sMA[i]);
 			int nType,nLow,nHigh;
 			MagicTab.GetInteger(*pSrc + 1,5,0,&nType);
 			pDst->nAttribType = nType;
@@ -2266,7 +2266,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 			MagicTab.GetInteger(*pSrc + 1,11,0,&nHigh);
 			//pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 			pDst->nValue[2]   =GetRandomNumber(nLow,nHigh);
-			} 
+			}
 
             pItem->SetAttrib_MA(sMA);
 			//pItem->SetBackUpMagicAttrib();//����ԭʼħ������(����ǿ��)
@@ -2278,9 +2278,9 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 
 			int nType,nMax,nMin;
 	     	for (i = 0;i < 6;++i)
-			{ 
+			{
 			   if (pItem->m_GeneratorParam.nRGeneratorLevel[i] > 0 && i < nRongID)
-			   { 
+			   {
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],5,0,&nType);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],6,0,&nMax);
 				MagicTab.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[i],7,0,&nMin);
@@ -2303,12 +2303,12 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 				sMAR[i].nValue[1] = 0;
 		    	sMAR[i].nValue[2] = 0;
               //  bEC=TRUE;
-			}  	
+			}
 		 pItem->SetAttrib_RON(sMAR);   //����ħ������
 		 //pItem->SetBackUpRmagicAttrib();
-	     pItem->SetRPoint(nRongID); 
+	     pItem->SetRPoint(nRongID);
 		 pItem->EnChanceRong(nEnChance);
-		 
+
 //==========================����Ϊ���ױ�ʯ����===================================
 /*         KItemNormalAttrib	sbMAR[6];// ħ��
 		 ZeroMemory(sbMAR,sizeof(sbMAR)); //�����ڴ�
@@ -2317,7 +2317,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 		 for (int b = 0;b < 6;b++)
 		 {
 			 if (pItem->m_GeneratorParam.nBGeneratorLevel[b] > 0)
-			 { 
+			 {
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],5,0,&nbType);
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],6,0,&nbMax);
 				 MagicTab.GetInteger(pItem->m_GeneratorParam.nBGeneratorLevel[b],7,0,&nbMin);
@@ -2335,7 +2335,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 			 sbMAR[b].nValue[0] = 0;
 			 sbMAR[b].nValue[1] = 0;
 			 sbMAR[b].nValue[2] = 0;
-		 }  	
+		 }
 		 pItem->SetAttrib_Bao(sbMAR);   //����ħ������
 		 pItem->EnChanceBao(nEnChance);	 */
 //-----------------��������------------------------------------------------------
@@ -2346,7 +2346,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 			 KItemNormalAttrib* pDst;
 			 pSrc = &(pTemp->m_yinMagicAttribs[i]); //���ܱ��
 			 pDst = &(syMA[i]);
-			 
+
 			 int nType,nLow,nHigh;
 			 MagicTab.GetInteger(*pSrc + 1,"���Ե������",0,&nType);
 			 pDst->nAttribType = nType;	//����
@@ -2364,7 +2364,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 			 //pDst->nValue[2] =  nLow + ((nHigh - nLow) *  pItem->m_GeneratorParam.nGeneratorLevel[i] / 10);
 			 pDst->nValue[2]   = GetRandomNumber(nLow,nHigh);
 		 }
-		 pItem->SetAttrib_Yin(syMA); 
+		 pItem->SetAttrib_Yin(syMA);
 //===============================================================================
 		 MagicTab.Clear();
      	 return TRUE;
@@ -2405,7 +2405,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 								   IN int nIsDaZhao,\
 								   KMagicAttrib *nRogMag,IN int IsWhere,IN BOOL nIsLogin)
 {
-	
+
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
@@ -2420,7 +2420,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
         memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩
 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
 */
-	
+
 #ifdef _SERVER	// �������汾
 	if  (nIsLogin)
 		g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
@@ -2433,22 +2433,22 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 		ZeroMemory(pItem->m_GeneratorParam.nGeneratorLevel, sizeof(int) * 6);
 
 	if (rongALevel)
-        memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩	
+        memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩
     else
 		ZeroMemory(pItem->m_GeneratorParam.nRGeneratorLevel, sizeof(int) * 6);
 
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck    = nLucky;
-    
+
 #else //�ͻ���
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);  //�����������
 	if (pnaryMALevel)
-		memcpy(pItem->m_GeneratorParam.nGeneratorLevel,pnaryMALevel, sizeof(int) * 6);  //��Ʒ���Ը��²���	
+		memcpy(pItem->m_GeneratorParam.nGeneratorLevel,pnaryMALevel, sizeof(int) * 6);  //��Ʒ���Ը��²���
 	if (rongALevel)
 		memcpy(pItem->m_GeneratorParam.nRGeneratorLevel,rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩
 	//pItem->m_GeneratorParam.nLuck = nLucky;
 #endif
-    
+
 	int nGameVersion =pItem->m_GeneratorParam.nVersion;
 
 	// ������ڲ���, ȷ��װ���Ļ�������
@@ -2514,10 +2514,10 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 	}
    //����ʧ��
 	if (NULL == pEqu)
-	{ 
+	{
 	 // _ASSERT(FALSE);
-	  return bEC; 
-	}  
+	  return bEC;
+	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
 		//			nLevel ����?
@@ -2525,16 +2525,16 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 		//			���������������?
 	pItem->SetAttrib_CBR(pEqu);  //���û������� ����������
 
-	pItem->SetSeries(nSeriesReq); 
+	pItem->SetSeries(nSeriesReq);
 
 	// ȷ��װ����ħ������ һ��װ��
 	if (nPoint == 0)  //��װ  ��װ
 	{
-       int bECA=0;  
+       int bECA=0;
 		if (NULL == pnaryMALevel)  //��װ ����Ҫ����ħ������
 		return TRUE;
 		KItemNormalAttrib sMA[6];  //���ߵ�ħ������
-		
+
 		bECA = Gen_MagicAttrib(nDetailType, pnaryMALevel, nSeriesReq, nLucky, sMA, nGameVersion);
 		if (bECA)
 			pItem->SetAttrib_MA(sMA);  //  ���� ħ������
@@ -2561,9 +2561,9 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongID)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -2585,8 +2585,8 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 			sMAR[r].nValue[1] = 0;
 			sMAR[r].nValue[2] = 0;
 			//  bEC=TRUE;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 
 		pItem->SetAttrib_RON(sMAR);   //��������ħ������
@@ -2633,10 +2633,10 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 				sMA[j].nValue[2] = GetRandomNumber(nMax,nMin);
 
 				if (sMA[j].nValue[2]>1)
-				{ 
+				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						    nRows = sMA[j].nValue[2]+IsWhere;//nMax
 						if (nRows>nMin)
@@ -2644,18 +2644,18 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
 
 				continue;
 			}
-			
+
 			sMA[j].nAttribType = 0;
 			sMA[j].nValue[0] = 0;
 			sMA[j].nValue[1] = 0;
@@ -2671,7 +2671,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 
 	else if (nPoint ==8) //ָ����װ
 	{
-		/*int bECA=0;  
+		/*int bECA=0;
 		if (NULL == pnaryMALevel)  //��װ ����Ҫ����ħ������
 			return FALSE;
 		KItemNormalAttrib sMA[6];  //���ߵ�ħ������
@@ -2685,7 +2685,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 		KItemNormalAttrib sMA[6];
 		KTabFile tabMagicAttribe;
 		tabMagicAttribe.Load(TABFILE_MAGICATTRIB_PATH);
-	
+
 		pItem->m_GeneratorParam.nLuck = nLucky;  //���� ������ֵ
 
 		int nType,nMax,nMin;
@@ -2714,10 +2714,10 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 
 
 				if (sMA[j].nValue[2]>1)
-				{ 
+				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						    nRows = sMA[j].nValue[2]+IsWhere;
 						if (nRows>nMin)
@@ -2725,18 +2725,18 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
 
 				continue;
 			}
-			
+
 			sMA[j].nAttribType = 0;
 			sMA[j].nValue[0] = 0;
 			sMA[j].nValue[1] = 0;
@@ -2787,22 +2787,22 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 				sMA[j].nValue[2] = GetRandomNumber(nMax,nMin);
 
 				if (sMA[j].nValue[2]>1)
-				{ 
+				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						nRows = sMA[j].nValue[2]+IsWhere;
 						if (nRows>nMin)
                             nRows=nMin;
-						
+
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
@@ -2816,7 +2816,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		bEC=pItem->SetAttrib_MA(sMA);
-		pItem->SetPoint(nPoint);		
+		pItem->SetPoint(nPoint);
 		tabMagicAttribe.Clear();
 		//pItem->SetBackUpMagicAttrib();//����ԭʼħ������(����ǿ��)
 		pItem->EnChance(nEnChance);
@@ -2852,7 +2852,7 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 								   IN const int* pnaryMAValb,\
 								   IN const int* pnaryMAValc,IN int IsWhere)
 {
-	
+
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
@@ -2865,15 +2865,15 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 		memcpy(pItem->m_GeneratorParam.nGeneratorLevel, pnaryMALevel, sizeof(int) * 6); //ħ���ȼ���itemlevel���飩
 	else
 		ZeroMemory(pItem->m_GeneratorParam.nGeneratorLevel, sizeof(int) * 6);
-	
+
 	if (rongALevel)
-        memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩	
+        memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩
 	else
 		ZeroMemory(pItem->m_GeneratorParam.nRGeneratorLevel, sizeof(int) * 6);
 
 	pItem->m_GeneratorParam.nVersion = g_SubWorldSet.GetGameVersion();
 	pItem->m_GeneratorParam.nLuck = nLucky;
-    
+
 #else //�ͻ���
 
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
@@ -2882,8 +2882,8 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 	if (rongALevel)
         memcpy(pItem->m_GeneratorParam.nRGeneratorLevel, rongALevel, sizeof(int) * 6); //����ħ���ȼ���itemlevel���飩
 #endif
-    
-	int nGameVersion =pItem->m_GeneratorParam.nVersion;	
+
+	int nGameVersion =pItem->m_GeneratorParam.nVersion;
 	// ������ڲ���, ȷ��װ���Ļ�������
 	int i = nParticularType * 10 + nLevel - 1;// ����ʽ�ɲ߻�����
 												// ���SPE 2002��8��31��7:40
@@ -2947,18 +2947,18 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 	}
    //����ʧ��
 	if (NULL == pEqu)
-	{ 
+	{
 	//_ASSERT(FALSE);
-	return bEC; 
-	}  
+	return bEC;
+	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
 		//			nLevel ����?
 		//			ԭʼ��tab file������ m_BPTLib.m_BPTEquipment ��
 		//			���������������?
 	pItem->SetAttrib_CBR(pEqu);  //���û������� ����������
-	pItem->SetSeries(nSeriesReq); 
-//	pItem->SetRPoint(nRongID); 
+	pItem->SetSeries(nSeriesReq);
+//	pItem->SetRPoint(nRongID);
 	// ȷ��װ����ħ������ һ��װ��
 	if (nPoint == 0)  //��װ  ��װ
 	{
@@ -2993,9 +2993,9 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongID)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -3018,13 +3018,13 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 			sMAR[r].nValue[1] = 0;
 			sMAR[r].nValue[2] = 0;
 			//  bEC=TRUE;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 
 		pItem->SetAttrib_RON(sMAR);   //��������ħ������
-        pItem->SetIsWhere(IsWhere); 
-		pItem->SetRPoint(nRongID); 		
+        pItem->SetIsWhere(IsWhere);
+		pItem->SetRPoint(nRongID);
 //		pItem->EnChanceRong(nEnChance);
      	return bECA;
 
@@ -3070,7 +3070,7 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						   nRows = sMA[j].nValue[2]+IsWhere;
 						if (nRows>nMin)
@@ -3078,18 +3078,18 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
 
 				continue;
 			}
-			
+
 			sMA[j].nAttribType = 0;
 			sMA[j].nValue[0] = 0;
 			sMA[j].nValue[1] = 0;
@@ -3112,12 +3112,12 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 	  ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 	  KTabFile MagicTabR;
 	  MagicTabR.Load(TABFILE_MAGICATTRIB_PATH);  //������װ��ħ�������ļ�
-	  
+
 	  int nTypeR,nMaxR,nMinR;
 	  for (int r = 0;r < 6;r++)
-	  { 
+	  {
 		  if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongID)
-		  { 
+		  {
 			  MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 			  MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 			  MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -3137,22 +3137,22 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 			  {
 				  KTabFile nJnLevel;
 				  if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-				  {  
+				  {
 					  int nMinVal=0,nMaxVal=0,nRows;
 					  nRows = sMAR[r].nValue[2]+IsWhere;
 					  if (nRows>nMinR)
 						  nRows=nMinR;
-					  
+
 					  nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 					  nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-					  sMAR[r].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-					  
+					  sMAR[r].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 					  nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 					  nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-					  sMAR[r].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+					  sMAR[r].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 				  }
 				  nJnLevel.Clear();
-			  } 
+			  }
 			  continue;
 		  }
 		  sMAR[r].nAttribType = 0;
@@ -3160,12 +3160,12 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 		  sMAR[r].nValue[1]   = 0;
 		  sMAR[r].nValue[2]   = 0;
 		  //  bEC=TRUE;
-	  } 
-	  
+	  }
+
 	  MagicTabR.Clear();
-	  
+
 	  bECR= pItem->SetAttrib_RON(sMAR);   //��������ħ������
-	  pItem->SetRPoint(nRongID); 		
+	  pItem->SetRPoint(nRongID);
 	  //		pItem->EnChanceRong(nEnChance);
      return bECR;
 	}
@@ -3208,22 +3208,22 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						nRows = sMA[j].nValue[2]+IsWhere;
 						if (nRows>nMin)
 							nRows=nMin;
-						
+
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
 					nJnLevel.Clear();
-				} 
+				}
 				continue;
 			}
 
@@ -3233,7 +3233,7 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 			sMA[j].nValue[2] = 0;
 		}
 		bEC=pItem->SetAttrib_MA(sMA);
-		pItem->SetPoint(nPoint);		
+		pItem->SetPoint(nPoint);
 		tabMagicAttribe.Clear();
 		pItem->EnChance(nEnChance);
      	//return bEC;
@@ -3242,13 +3242,13 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 		KItemNormalAttrib	sMAR[6];  // ħ��
 		ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		KTabFile MagicTabR;
-		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�		
+		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�
 		int nTypeR,nMaxR,nMinR;
 
 		for (j = 0;j < 6;j++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[j] > 0 && j < nRongID)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],7,0,&nMinR);
@@ -3268,11 +3268,11 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 			sMAR[j].nValue[0] = 0;
 			sMAR[j].nValue[1] = 0;
 			sMAR[j].nValue[2] = 0;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 		bEC=pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetRPoint(nRongID); 
+		pItem->SetRPoint(nRongID);
 
 	   return bEC;
 	}
@@ -3331,7 +3331,7 @@ BOOL KItemGenerator::GetEquipmentCommonAttrib(IN int nDetailType, IN int nPartic
 		break;
 	case equip_pifeng:	//����
 		pEqu = m_BPTLib.GetPifengRecord(i);
-		break;	
+		break;
 	case equip_yinjian:	// mat na
 		pEqu = m_BPTLib.GetYinjianRecord(i);
 		break;
@@ -3355,7 +3355,7 @@ BOOL KItemGenerator::GetEquipmentCommonAttrib(IN int nDetailType, IN int nPartic
 }
 
 /******************************************************************************
-	���ܣ�	�������װ��    ��¼ʱ���� ͬ��װ��  ��װ ��װ 
+	���ܣ�	�������װ��    ��¼ʱ���� ͬ��װ��  ��װ ��װ
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
@@ -3394,7 +3394,7 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 
 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
 
-	
+
 	// ������ڲ���, ȷ��װ���Ļ�������
 	 int i = nParticularType * 10 + nLevel - 1;// ����ʽ�ɲ߻�����
 												// ���SPE 2002��8��31��7:40
@@ -3458,17 +3458,17 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 	}
    //����ʧ��
 	if (NULL == pEqu)
-	{ 
+	{
 	//_ASSERT(FALSE);
-	return bEC; 
-	}  
+	return bEC;
+	}
 		// �������˵�ֱ��ԭ��: ֻ��n��װ��, ������ i ��ֵ��[0,n-1]֮��
 		// ���3��: nParticularType ����?
 		//			nLevel ����?
 		//			ԭʼ��tab file������ m_BPTLib.m_BPTEquipment ��
 		//			���������������?
 	pItem->SetAttrib_CBR(pEqu);  //���û������� ����������
-	pItem->SetSeries(nSeriesReq); 
+	pItem->SetSeries(nSeriesReq);
 
 	// ȷ��װ����ħ������ һ��װ��
 
@@ -3497,16 +3497,16 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 		KItemNormalAttrib	sMAR[6];// ħ��
 		ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		KTabFile MagicTabR;
-		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�	
+		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�
 
 		if (nIsWhere>0)
             nRongpiont = nIsWhere;
 
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongpiont)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -3528,12 +3528,12 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 			sMAR[r].nValue[1] = 0;
 			sMAR[r].nValue[2] = 0;
 			//  bEC=TRUE;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 		pItem->SetAttrib_RON(sMAR);   //��������ħ������
 		pItem->SetIsWhere(nIsWhere);
-		pItem->SetRPoint(nRongpiont); 		
+		pItem->SetRPoint(nRongpiont);
 //		pItem->EnChanceRong(nEnChance);
      	return bECA;
 
@@ -3576,7 +3576,7 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						nRows = sMA[j].nValue[2]+nIsWhere;
 						if (nRows>nMin)
@@ -3584,18 +3584,18 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
 
 				continue;
 			}
-			
+
 			sMA[j].nAttribType = 0;
 			sMA[j].nValue[0] = 0;
 			sMA[j].nValue[1] = 0;
@@ -3616,12 +3616,12 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 		KItemNormalAttrib	sMAR[6];// ħ��
 		ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		KTabFile MagicTabR;
-		MagicTabR.Load(TABFILE_MAGICATTRIB_PATH);  //������װ��ħ�������ļ�		
+		MagicTabR.Load(TABFILE_MAGICATTRIB_PATH);  //������װ��ħ�������ļ�
 		int nTypeR,nMaxR,nMinR;
 		for (int r = 0;r < 6;r++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[r] > 0 && r < nRongpiont)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[r],7,0,&nMinR);
@@ -3643,11 +3643,11 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 			sMAR[r].nValue[1] = 0;
 			sMAR[r].nValue[2] = 0;
 			//  bEC=TRUE;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 		bECR=pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetRPoint(nRongpiont); 		
+		pItem->SetRPoint(nRongpiont);
 		//		pItem->EnChanceRong(nEnChance);
 		return bECR;
 	}
@@ -3690,19 +3690,19 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 				{
 					KTabFile nJnLevel;
 					if (nJnLevel.Load(TABFILE_MAGICAGOLD_PATH))
-					{  
+					{
 						int nMinVal=0,nMaxVal=0,nRows;
 						nRows = sMA[j].nValue[2]+nIsWhere;
 						if (nRows>nMin)
                             nRows=nMin;
-						
+
 						nJnLevel.GetInteger(nRows,"����1��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����1���ֵ",0,&nMaxVal);
-						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal); 
-						
+						sMA[j].nValue[0] = GetRandomNumber(nMinVal,nMaxVal);
+
 						nJnLevel.GetInteger(nRows,"����3��Сֵ",0,&nMinVal);
 						nJnLevel.GetInteger(nRows,"����3���ֵ",0,&nMaxVal);
-						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal); 
+						sMA[j].nValue[2] = GetRandomNumber(nMinVal,nMaxVal);
 					}
                     nJnLevel.Clear();
 				}
@@ -3717,7 +3717,7 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 		}
 
 		bEC=pItem->SetAttrib_MA(sMA);
-		pItem->SetPoint(nPoint);		
+		pItem->SetPoint(nPoint);
 		tabMagicAttribe.Clear();
 		pItem->EnChance(nEnChance);
 	   //----------------------�Ƹֵ�����
@@ -3725,13 +3725,13 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 		KItemNormalAttrib	sMAR[6];  // ħ��
 		ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		KTabFile MagicTabR;
-		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�		
+		MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�
 		int nTypeR,nMaxR,nMinR;
 
 		for (j = 0;j < 6;j++)
-		{ 
+		{
 			if (pItem->m_GeneratorParam.nRGeneratorLevel[j] > 0 && j < nRongpiont)
-			{ 
+			{
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],5,0,&nTypeR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],6,0,&nMaxR);
 				MagicTabR.GetInteger(pItem->m_GeneratorParam.nRGeneratorLevel[j],7,0,&nMinR);
@@ -3758,7 +3758,7 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 				sMAR[i].nValue[1] = nMaxR + ((nMinR - nMaxR) * nLuck / 10);
 				tabMagic.GetInteger(Item[nLindexID].GetItemParam()->nRGeneratorLevel[i],10,0,&nMaxR);
 				tabMagic.GetInteger(Item[nLindexID].GetItemParam()->nRGeneratorLevel[i],11,0,&nMinR);
-				sMAR[i].nValue[2] = nMaxR + ((nMinR - nMaxR) * nLuck / 10);	
+				sMAR[i].nValue[2] = nMaxR + ((nMinR - nMaxR) * nLuck / 10);
 				continue;
 				*/
 			}
@@ -3766,16 +3766,16 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 			sMAR[j].nValue[0] = 0;
 			sMAR[j].nValue[1] = 0;
 			sMAR[j].nValue[2] = 0;
-		} 
-		
+		}
+
 		MagicTabR.Clear();
 		bEC=pItem->SetAttrib_RON(sMAR);   //��������ħ������
-		pItem->SetRPoint(nRongpiont); 		
+		pItem->SetRPoint(nRongpiont);
 		//pItem->EnChanceRong(nEnChance);
 		return bEC;
 	   //----------------------
 	}
-} 
+}
 //������������Ʒ
 BOOL KItemGenerator::Gen_Quest(IN int nDetailType, IN OUT KItem* pItem,IN int nStackNum,IN int nLevel)
 {
@@ -3786,7 +3786,7 @@ BOOL KItemGenerator::Gen_Quest(IN int nDetailType, IN OUT KItem* pItem,IN int nS
 	BOOL bEC = FALSE;
 
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
-	
+
 
 	//if (nDetailType>m_BPTLib.GetQuestRecordNumber()-1);	  //�ݴ� ������Χ ���е� Mine��Ʒ�� ����
 	//   return bEC;
@@ -3815,10 +3815,10 @@ BOOL KItemGenerator::Gen_QuestShop(IN int nDetailType,\
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
-	
+
 	BOOL bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
-	
+
 	const KBASICPROP_QUEST* pQuest = NULL;
 	pQuest = m_BPTLib.GetQuestRecord(nDetailType);  //����ģ������ ��ques��
 	if (NULL == pQuest)
@@ -3838,7 +3838,7 @@ BOOL KItemGenerator::Gen_QuestShop(IN int nDetailType,\
 	pItem->SetLevel(nLevel);
 	pItem->SetBang(nIsBang);
 	pItem->SetModel(nPriceType);
-	
+
 	return TRUE;
 }
 
@@ -3855,7 +3855,7 @@ BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
 //	_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
-	
+
 	BOOL bEC = FALSE;
 /*
 	if (npnaryJBLevel)
@@ -3864,7 +3864,7 @@ BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
         ZeroMemory(pItem->m_GeneratorParam.nJGeneratorLevel, sizeof(int) * 7);
 */
     ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
-	
+
 	const KBASICPROP_FUSION* pQuest = NULL;
 
     /*#ifdef _SERVER	// �������汾
@@ -3882,26 +3882,26 @@ BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
 		//_ASSERT(FALSE);
 		return bEC;
 	}
-     
+
 	*pItem = *pQuest;
 
 	pItem->SetSeries(nSeries);
 	pItem->SetStackNum(nStackNum);
 	pItem->SetLevel(nLevel);
-		
+
 //if (nMagicA && pQuest->m_nParticularType >= 200 && pQuest->m_nParticularType <= 205)  //����ʯͷ�Ĳ���
 /*	KEQCP_BASIC sBAS[7];
 	ZeroMemory(sBAS,sizeof(sBAS));
-	
+
 		for (int i=0;i<7;++i)
 		{//�ű�ˢ��
 			if 	(pItem->m_GeneratorParam.nJGeneratorLevel[i] > 0 )  //0 1
-			{  
+			{
 				sBAS[i].nType = 0;  //����
 				sBAS[i].sRange.nMin = pItem->m_GeneratorParam.nJGeneratorLevel[i];
 				sBAS[i].sRange.nMax = pItem->m_GeneratorParam.nJGeneratorLevel[i];
 				continue;
-			}		
+			}
 			sBAS[i].nType =0;  //����
 			sBAS[i].sRange.nMin = 0;
 			sBAS[i].sRange.nMax = 0;
@@ -3924,7 +3924,7 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
-	
+
 	BOOL bEC = FALSE;
 	if (npnaryJBLevel)
         memcpy(pItem->m_GeneratorParam.nJGeneratorLevel, npnaryJBLevel, sizeof(int) * 7); //�������ԣ�itemlevel���飩
@@ -3937,7 +3937,7 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 	const KBASICPROP_MINE* pQuest = NULL;
 	pQuest = m_BPTLib.GetMine(nDetailType);
 
-	
+
 
 	if (NULL == pQuest)
 	{
@@ -3958,11 +3958,11 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
        Mine.GetInteger(i+2,"nMineItemID",0,&nParticular);
 	   Mine.GetInteger(i+2,"nMagciType",0,&nMagciType);
 	   if (nParticular==pQuest->m_nParticularType)
-	   {  
+	   {
 		  nReg=1;
 		  mReg=nMagciType;
 		  break;
-	   } 
+	   }
 	}
     Mine.Clear();
 
@@ -3971,11 +3971,11 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 	      ZeroMemory(sBAS,sizeof(sBAS));
 	if (nReg==1 && mReg==1)  //ͼ���� ����ʯ��
 	{//�ű�ˢ��
-		
+
 		for (i=0;i<7;++i)
 		{
 		    if 	(pItem->m_GeneratorParam.nJGeneratorLevel[i] > 0 )  //0 1
-			{  
+			{
 		     sBAS[i].nType = 0;  //����
 		     sBAS[i].sRange.nMin = pItem->m_GeneratorParam.nJGeneratorLevel[i];
 		     sBAS[i].sRange.nMax = pItem->m_GeneratorParam.nJGeneratorLevel[i];
@@ -3992,9 +3992,9 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 		pItem->m_GeneratorParam.nLuck = nMagicA; //����ֵ
 		sBAS[0].nType = 0;
 		sBAS[0].sRange.nMin = nMagicA;
-		sBAS[0].sRange.nMax = nMagicA;	
+		sBAS[0].sRange.nMax = nMagicA;
 	}
-	else 
+	else
 	{//ʲô�����ǵ�����
 		for (i=0;i<7;++i)
 		{
@@ -4014,10 +4014,10 @@ BOOL KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
-	
+
 	BOOL bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
-	
+
 	//if (nDetailType>m_BPTLib.GetMineRecordNumber()-1);	  //�ݴ� ������Χ ���е� Mine��Ʒ�� ����
 	//   return bEC;
 
@@ -4052,11 +4052,11 @@ BOOL KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int
 		MineShop.GetInteger(i+2,"nMineItemID",0,&nParticular);
 		MineShop.GetInteger(i+2,"nMagciType",0,&nMagciType);
 		if (nParticular==pQuest->m_nParticularType)
-		{  
+		{
 			nReg=1;
 			mReg=nMagciType;
 			break;
-		} 
+		}
 	}
     MineShop.Clear();
 	KEQCP_BASIC sBAS[7];
@@ -4077,7 +4077,7 @@ BOOL KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int
 			sBAS[i].nType =0;  //����
 			sBAS[i].sRange.nMin = 0;
 			sBAS[i].sRange.nMax = 0;
-		}	
+		}
 	}
 	pItem->SetAttrib_Base(sBAS);
 	return TRUE;
@@ -4091,7 +4091,7 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 
 	BOOL bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
-	
+
 	const KBASICPROP_TOWNPORTAL* pPortal = NULL;
 	pPortal = m_BPTLib.GetTownPortalRecord(0);
 	if (NULL == pPortal)
@@ -4107,14 +4107,14 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 // {
 // 	_ASSERT(this != NULL);
 // 	_ASSERT(pItem != NULL);
-// 	
+//
 // 	BOOL bEC = FALSE;
-// 	
+//
 // 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 // 	if (pnMagicLevel)
 // 		memcpy(pItem->m_GeneratorParam.nGeneratorLevel, pnMagicLevel, sizeof(int) * 6);
 // 	int nGameVersion = pItem->m_GeneratorParam.nVersion;
-// 	
+//
 // 	// ������ڲ���, ȷ��װ���Ļ�������
 // 	const int i = nParticular * 10 + nLevel - 1;// ����ʽ�ɲ߻�����
 // 	// ���SPE 2002��8��31��7:40
@@ -4171,7 +4171,7 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 // 	//			���������������?
 // 	pItem->SetAttrib_CBR(pEqu);
 // 	pItem->SetSeries(nSeries);
-// 
+//
 // 	pItem->m_GeneratorParam.nLuck = nPoint;
 // 	pItem->m_GeneratorParam.nVersion = nPoint;
 // 	pItem->SetSet(nPoint);
@@ -4180,7 +4180,7 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 // 	ZeroMemory(sMA,sizeof(sMA));
 // 	KTabFile tabMagicAttribe;
 // 	tabMagicAttribe.Load("\\Settings\\item\\magicattrib.txt");
-// 
+//
 // 	int nType,nMax,nMin;
 // 	for (int j = 0;j < nPoint;++j)
 // 	{
@@ -4208,7 +4208,7 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 // 	}
 // 	pItem->SetAttrib_MA(sMA);
 // 	pItem->EnChance(nEnChance);
-// 
+//
 // 	tabMagicAttribe.Clear();
 // 	return TRUE;
 // }

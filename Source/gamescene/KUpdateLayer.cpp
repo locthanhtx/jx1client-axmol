@@ -7,13 +7,13 @@
 #include "gameui/Klogin_f.h"
 #include "gameui/KuiInPutIp.h"
 #include "engine/dataChecksum.h"
-#include "audio/include/AudioEngine.h"
+#include "audio/AudioEngine.h"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
 #include <fstream>
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
+//#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #include <jni.h>
 #include <memory.h>
 #include <sys/stat.h>
@@ -23,8 +23,13 @@
 #ifdef WIN32
 #include <process.h>
 #endif
+
+#include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
+
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 iCoreShell * g_pCoreShell = NULL;
 extern KImageStore2 m_ImageStore; //ȫ�ֵ���
 //extern KPakList * g_pPakList;
@@ -80,7 +85,7 @@ bool KUpdateLayer::init()
 #ifndef WIN32
 //		m_MobileKey   = getappstrInfo();
 #endif
-		//ccMessageBox(m_downloadDir.c_str(),"m_downloadDir");
+		//messageBox(m_downloadDir.c_str(),"m_downloadDir");
 		m_downloadDir += "data"; //download
 		initDownloadDir(); //�����ļ���
 		creatDownloadDir("music");
@@ -101,7 +106,8 @@ bool KUpdateLayer::init()
 		*/
 		visibleSize        = ax::Director::getInstance()->getVisibleSize();//�ɼ���
 		origin             = ax::Director::getInstance()->getVisibleOrigin();
-		size               = ax::Director::getInstance()->getWinSize();
+//		size               = ax::Director::getInstance()->getWinSize();
+		kSize               = ax::Director::getInstance()->getWinSize();
 
 		//if (!isFileExist("package.ini"))
 		//�����ھͿ�ʼ����
@@ -152,7 +158,7 @@ bool KUpdateLayer::init()
             //����һ������ָ��
             downPtr = downloadFile::GetInst(nTempPaht,m_WritablePath);
             //if (downPtr)
-            //ccMessageBox(m_downloadDir.c_str(),"22222");
+            //messageBox(m_downloadDir.c_str(),"22222");
         }
 //        if (sprite)//�����߳�
             startload();
@@ -222,13 +228,13 @@ bool KUpdateLayer::init()
     m_pLabelLoading = Label::createWithTTF("loading...", UI_GAME_FONT_DEFAULT, 15);
     m_pLabelPercent = Label::createWithTTF("%0", UI_GAME_FONT_DEFAULT, 15);
 //		m_pLabelLoading->setPosition(ax::Vec2(size.width/2, size.height/4-70));
-    m_pLabelLoading->setPosition(Vec2(size.width / 2 + origin.x, size.height / 4 + origin.y));
-    m_pLabelPercent->setPosition(Vec2(size.width / 2 + origin.x, size.height / 5 + origin.y));
+    m_pLabelLoading->setPosition(Vec2(kSize.width / 2 + origin.x, kSize.height / 4 + origin.y));
+    m_pLabelPercent->setPosition(Vec2(kSize.width / 2 + origin.x, kSize.height / 5 + origin.y));
     this->addChild(m_pLabelLoading,2);
     this->addChild(m_pLabelPercent,2);
     //loading�Ķ���Ч��
     m_pLoadBarStart = Sprite::create("loadingStart.png");
-    m_pLoadBarStart->setPosition(ax::Vec2(size.width/2, size.height/7));
+    m_pLoadBarStart->setPosition(ax::Vec2(kSize.width/2, kSize.height/7));
     float sx  = m_pLoadBarStart->getTextureRect().getMaxX();
     //float sy  = m_pLoadBarStart->getTextureRect().getMaxY();
     m_pLoadBarStart->setScaleY(2.0f);
@@ -241,7 +247,7 @@ bool KUpdateLayer::init()
 
     m_pLoadBarEnd = ProgressTimer::create(m_pLoadEndSpr);
     m_pLoadBarEnd->setPercentage(1.0f);
-    m_pLoadBarEnd->setPosition(ax::Vec2(size.width/2, size.height/7));
+    m_pLoadBarEnd->setPosition(ax::Vec2(kSize.width/2, kSize.height/7));
     m_pLoadBarEnd->setType(ProgressTimer::Type::BAR);
     m_pLoadBarEnd->setBarChangeRate(ax::Vec2(1, 0));
     m_pLoadBarEnd->setMidpoint(ax::Vec2(0, 0));
@@ -293,14 +299,14 @@ void KUpdateLayer::startInPutCallback(Node *pNode)
 		return;
 	}
 
-    ccMessageBox("The Server Ip Error","Error");
+    messageBox("The Server Ip Error","Error");
 }
 
 void KUpdateLayer::creatDownloadDir(std::string nTempPath){
 
 	//�������Ŀ¼�����ڣ��򴴽�����Ŀ¼
     std::string m_TempDir = ccFileUtils->getWritablePath();
-	//ccMessageBox(m_downloadDir.c_str(),"m_downloadDir");
+	//messageBox(m_downloadDir.c_str(),"m_downloadDir");
 	m_TempDir += nTempPath; //download
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
 	DIR *pDir = NULL;
@@ -386,7 +392,7 @@ void KUpdateLayer::enterScene(Ref* pSender){
 		{
 			m_bIsClientConnecting = true;
 			nAcclient->Startup();     //������Ϸ���������߳�
-			ccMessageBox("���ӷ�����ʧ�ܣ�","��ʾ:");
+			messageBox("���ӷ�����ʧ�ܣ�","��ʾ:");
 			return;
 		}
 	}
@@ -426,7 +432,7 @@ void KUpdateLayer::copyData(const char* pFileName)
 #ifndef WIN32
 	if (!ccFileUtils->isFileExist(nCurpFileName))
 	{
-		ccMessageBox(nCurpFileName.c_str(),"file is Noexist!");
+		messageBox(nCurpFileName.c_str(),"file is Noexist!");
 		return;
 	}
 #endif
@@ -447,12 +453,12 @@ void KUpdateLayer::copyData(const char* pFileName)
 	//destPath += pFileName;
 	//char nMsg[128]={0};
 	//sprintf(nMsg,"last size:%u bit",len);
-	//ccMessageBox(nMsg,"getFileData");
+	//messageBox(nMsg,"getFileData");
 	if (!buffer)
 	{
 		//char mag[128]={0};
 		//sprintf(mag,"%s:%d",strPath.c_str(),readlen);
-		ccMessageBox(strPath.c_str(),"copy Error");
+		messageBox(strPath.c_str(),"copy Error");
 	}
 	//ax::FileUtils::getInstance()->addSearchPath();
 	//ax::FileUtils::getInstance()->SearchPath();
@@ -500,9 +506,9 @@ void KUpdateLayer::update(float delta)
 		 {
 			 errorLoop = 0;
 #ifdef WIN32
-			 ccMessageBox("�ͻ���ȱʧ��\n�뵽�ٷ����ظ��Ƶ�SD���С�","��ʾ");
+			 messageBox("�ͻ���ȱʧ��\n�뵽�ٷ����ظ��Ƶ�SD���С�","��ʾ");
 #else
-			 ccMessageBox(UTEXT("�ͻ���ȱʧ��\n�뵽�ٷ����ظ��Ƶ�SD���С�",1).c_str(),UTEXT("��ʾ",1).c_str());
+			 messageBox(UTEXT("�ͻ���ȱʧ��\n�뵽�ٷ����ظ��Ƶ�SD���С�",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		 }
 		 return;
@@ -515,9 +521,9 @@ void KUpdateLayer::update(float delta)
 		 {
 			 errorLoop = 0;
 #ifdef WIN32
-			 ccMessageBox("�����ϰ�","��ʾ");
+			 messageBox("�����ϰ�","��ʾ");
 #else
-			 ccMessageBox(UTEXT("�����ϰ�",1).c_str(),UTEXT("��ʾ",1).c_str());
+			 messageBox(UTEXT("�����ϰ�",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		 }
 		 return;
@@ -529,9 +535,9 @@ void KUpdateLayer::update(float delta)
 		 {
 			 errorLoop = 0;
 #ifdef WIN32
-			 ccMessageBox("�����ϰ��򲹶�������","��ʾ");
+			 messageBox("�����ϰ��򲹶�������","��ʾ");
 #else
-			 ccMessageBox(UTEXT("�����ϰ��򲹶�������",1).c_str(),UTEXT("��ʾ",1).c_str());
+			 messageBox(UTEXT("�����ϰ��򲹶�������",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		 }
 		 return;
@@ -544,9 +550,9 @@ void KUpdateLayer::update(float delta)
 		 {
 			 errorLoop = 0;
 #ifdef WIN32
-			 ccMessageBox("������ʧ","��ʾ");
+			 messageBox("������ʧ","��ʾ");
 #else
-			 ccMessageBox(UTEXT("������ʧ",1).c_str(),UTEXT("��ʾ",1).c_str());
+			 messageBox(UTEXT("������ʧ",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		 }
 		 return;
@@ -633,7 +639,7 @@ void KUpdateLayer::update(float delta)
 
 			 //char msg[64];
 			 //sprintf(msg,"%d",nPakCount);
-		     //ccMessageBox(msg,"pak");
+		     //messageBox(msg,"pak");
 		 }
 	 }
 
@@ -867,9 +873,9 @@ void KUpdateLayer::startload()
 	{//�����ھͿ�ʼ����
 		isHaveClient = false;
 #ifdef WIN32
-		ccMessageBox("�ͻ���û�а�װ\n�뵽�ٷ����ؿ�����SD���С�","��ʾ");
+		messageBox("�ͻ���û�а�װ\n�뵽�ٷ����ؿ�����SD���С�","��ʾ");
 #else
-		ccMessageBox(UTEXT("�ͻ���û�а�װ��\n�뵽�ٷ����ؿ�����SD���С�",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("�ͻ���û�а�װ��\n�뵽�ٷ����ؿ�����SD���С�",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		return;
 	}*/

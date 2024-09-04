@@ -179,13 +179,18 @@ KuiMyMenu* KuiMyMenu::initWithCenter(){
 
 	bgSprite = Sprite::create("useskill_b.png");
 	bgSprite->setPosition(centerPoint);   //����spr
+
 	jsSprite = Sprite::create("useskill_z.png");
 	jsSprite->setPosition(centerPoint);//����spr
 	//bgSprite->setTag(1000);
 	//bgSprite->retain();
 	//jsSprite->retain();
-	this->addChild(bgSprite);
-	this->addChild(jsSprite);
+
+    auto mItemBgSprite = MenuItemSprite::create(bgSprite, bgSprite);
+    auto mItemJsSprite = MenuItemSprite::create(jsSprite, jsSprite);
+
+	this->addChild(mItemBgSprite);
+	this->addChild(mItemJsSprite);
 	if(isFollowRole){
 		//this->setVisible(false);
 		setSpriteVisible(false);
@@ -215,7 +220,7 @@ void KuiMyMenu::registerWithTouchDispatcher()
 bool KuiMyMenu::ccTouchBegan(Touch* touch, Event* event)
 {
 	//��ִ��ң��
-	//ccMessageBox("KuiMyMenu::ccTouchBegan","Touch");
+	//messageBox("KuiMyMenu::ccTouchBegan","Touch");
 
 	if (!active)
 		return false;
@@ -224,7 +229,7 @@ bool KuiMyMenu::ccTouchBegan(Touch* touch, Event* event)
 	_useSkillModel=g_GameWorld->getUseSkillModel();//0 Ϊ�Զ� 1 Ϊ�ֶ�
 
 	//-------------------------------------------------
-	CC_UNUSED_PARAM(event);
+	AX_UNUSED_PARAM(event);
 	if (_state != Menu::State::WAITING || !isEnabled())
 	{
 		return false;
@@ -241,7 +246,7 @@ bool KuiMyMenu::ccTouchBegan(Touch* touch, Event* event)
 	_selectedItem = this->getItemForTouch(touch, Camera::getDefaultCamera());
 	if (_selectedItem)
 	{
-		//ccMessageBox("_selectedItem Began","_selectedItem");
+		//messageBox("_selectedItem Began","_selectedItem");
 		if (_useSkillModel==0) //������Զ� ��ִ��
 		   _selectedItem->activate();//ִ�лص�����
 
@@ -312,7 +317,7 @@ void KuiMyMenu::ccTouchMoved(Touch* touch, Event* event)
 		currentPoint = touchPoint;
 	}
 
-	CC_UNUSED_PARAM(event);
+	AX_UNUSED_PARAM(event);
 	CCAssert(_state == Menu::State::TRACKING_TOUCH, "[Menu ccTouchMoved] -- invalid state");
 	MenuItem *currentItem = this->getItemForTouch(touch, Camera::getDefaultCamera());
 	if (currentItem != _selectedItem)
@@ -415,10 +420,10 @@ void KuiMyMenu::ccTouchEnded(Touch* touch, Event* event)
 
 	g_GameWorld->setAttackSprVisible(false);
 	//this->Inactive();
-	//ccMessageBox("�ƶ�����","�ƶ�����");
+	//messageBox("�ƶ�����","�ƶ�����");
 
-	CC_UNUSED_PARAM(touch);
-	CC_UNUSED_PARAM(event);
+	AX_UNUSED_PARAM(touch);
+	AX_UNUSED_PARAM(event);
 	CCAssert(_state == Menu::State::TRACKING_TOUCH, "[Menu ccTouchEnded] -- invalid state");
 	if (_selectedItem)
 	{
@@ -447,8 +452,8 @@ void KuiMyMenu::ccTouchEnded(Touch* touch, Event* event)
 
 void KuiMyMenu::ccTouchCancelled(Touch *touch, Event* event)
 {
-	CC_UNUSED_PARAM(touch);
-	CC_UNUSED_PARAM(event);
+	AX_UNUSED_PARAM(touch);
+	AX_UNUSED_PARAM(event);
 	CCAssert(_state == Menu::State::TRACKING_TOUCH, "[Menu ccTouchCancelled] -- invalid state");
 	if (_selectedItem)
 	{

@@ -3,7 +3,7 @@
 //
 // File:	KPlayerPK.cpp
 // Date:	2003.07.15
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	PlayerPK Class
 //---------------------------------------------------------------------------
 #include	"KCore.h"
@@ -13,7 +13,7 @@
 #include "engine/Text.h"
 #include "CoreShell.h"
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º³õÊ¼»¯
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerPK::Init()
 {
@@ -34,7 +34,7 @@ void	KPlayerPK::Active()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨Õý³£PK×´Ì¬ TRUE ´ò¿ª£¬¿ÉÒÔ¿³ÈË  FALSE ¹Ø±Õ£¬²»¿ÉÒÔ¿³ÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½PK×´Ì¬ TRUE ï¿½ò¿ª£ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½  FALSE ï¿½Ø±Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerPK::SetNormalPKState(int bFlag, BOOL bShowMsg/* = TRUE*/)
 {
@@ -49,11 +49,11 @@ void	KPlayerPK::SetNormalPKState(int bFlag, BOOL bShowMsg/* = TRUE*/)
 	{
 		KSystemMessage	sMsg;
 		if (bFlag == 1)
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_NORMAL_FLAG_OPEN].c_str());//KPÄ£Ê½¿ªÆô
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_NORMAL_FLAG_OPEN].c_str());//KPÄ£Ê½ï¿½ï¿½ï¿½ï¿½
 		else if (bFlag == 2)
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_NORMAL_FLAG_DS].c_str());  //ÍÀÉ±
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_NORMAL_FLAG_DS].c_str());  //ï¿½ï¿½É±
 		else
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_NORMAL_FLAG_CLOSE].c_str());//pkÄ£Ê½¹Ø±Õ
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_NORMAL_FLAG_CLOSE].c_str());//pkÄ£Ê½ï¿½Ø±ï¿½
 
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
@@ -65,7 +65,7 @@ void	KPlayerPK::SetNormalPKState(int bFlag, BOOL bShowMsg/* = TRUE*/)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÏò·þÎñÆ÷ÉêÇë´ò¿ª¡¢¹Ø±ÕÕý³£PK×´Ì¬
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ª¡ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½PK×´Ì¬
 //-------------------------------------------------------------------------
 void	KPlayerPK::ApplySetNormalPKState(BYTE bFlag)
 {
@@ -80,7 +80,7 @@ void	KPlayerPK::ApplySetNormalPKState(BYTE bFlag)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃÕý³£PK×´Ì¬ TRUE ´ò¿ª£¬¿ÉÒÔ¿³ÈË  FALSE ¹Ø±Õ£¬²»¿ÉÒÔ¿³ÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PK×´Ì¬ TRUE ï¿½ò¿ª£ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½  FALSE ï¿½Ø±Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 int	KPlayerPK::GetNormalPKState()
 {
@@ -90,7 +90,7 @@ int	KPlayerPK::GetNormalPKState()
 
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÏò·þÎñÆ÷ÉêÇë³ðÉ±Ä³ÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±Ä³ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerPK::ApplyEnmityPK(char *lpszName)
 {
@@ -104,14 +104,14 @@ void	KPlayerPK::ApplyEnmityPK(char *lpszName)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÏò·þÎñÆ÷ÉêÇë³ðÉ±Ä³ÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±Ä³ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerPK::ApplyEnmityPK(int nNpcID)
 {
 	if (m_nEnmityPKState != enumPK_ENMITY_STATE_CLOSE)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_4].c_str());
+		sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_4].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -123,7 +123,7 @@ void	KPlayerPK::ApplyEnmityPK(int nNpcID)
 	if (!Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_FightMode)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_1].c_str());
+		sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_PK_ERROR_1].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -144,7 +144,7 @@ void	KPlayerPK::ApplyEnmityPK(int nNpcID)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨³ðÉ±PK×´Ì¬
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½É±PK×´Ì¬
 //-------------------------------------------------------------------------
 void	KPlayerPK::SetEnmityPKState(int nState, int nNpcID/* = 0*/, char *lpszName/* = NULL*/)
 {
@@ -157,7 +157,7 @@ void	KPlayerPK::SetEnmityPKState(int nState, int nNpcID/* = 0*/, char *lpszName/
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ENMITY_CLOSE].c_str());
+			sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_PK_ENMITY_CLOSE].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -181,10 +181,10 @@ void	KPlayerPK::SetEnmityPKState(int nState, int nNpcID/* = 0*/, char *lpszName/
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ENMITY_SUCCESS_1].c_str(), m_szEnmityAimName);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ENMITY_SUCCESS_1].c_str(), m_szEnmityAimName);
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ENMITY_SUCCESS_2].c_str());
+		sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_PK_ENMITY_SUCCESS_2].c_str());
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 	}
@@ -202,14 +202,14 @@ void	KPlayerPK::SetEnmityPKState(int nState, int nNpcID/* = 0*/, char *lpszName/
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ENMITY_OPEN].c_str());
+		sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_PK_ENMITY_OPEN].c_str());
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 	}
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º³ðÉ±µ¹¼ÆÊ±
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½Ê±
 //-------------------------------------------------------------------------
 void	KPlayerPK::EnmityPKCountDown()
 {
@@ -222,7 +222,7 @@ void	KPlayerPK::EnmityPKCountDown()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÇÐ´è×´Ì¬
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ð´ï¿½×´Ì¬
 //-------------------------------------------------------------------------
 void	KPlayerPK::SetExercisePKState(int nState, int nNpcID/* = 0*/, char *lpszName/* = NULL*/)
 {
@@ -245,7 +245,7 @@ void	KPlayerPK::SetExercisePKState(int nState, int nNpcID/* = 0*/, char *lpszNam
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨PKÖµ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨PKÖµ
 //-------------------------------------------------------------------------
 void	KPlayerPK::SetPKValue(int nValue)
 {
@@ -257,7 +257,7 @@ void	KPlayerPK::SetPKValue(int nValue)
 		m_nPKValue = MAX_DEATH_PUNISH_PK_VALUE;
 
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_VALUE].c_str(), m_nPKValue);
+	sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_VALUE].c_str(), m_nPKValue);
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 0;

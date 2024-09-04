@@ -4,19 +4,19 @@
 //��½���桡�����ʺ�����
 */
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include <gameui/Uiglobaldata.h>
 #include<list>
 #include "ImageStore/KImageStore2.h"
 #include "engine/KIniFile.h"
 #include "engine/Kgetinidata.h"
-#include "physics-nodes/CCPhysicsSprite.h"
+#include "physics-nodes/PhysicsSprite.h"
 
 #include "engine/KGbktoUtf8.h"
 #include "engine/KTimer.h"
 
 using namespace ax;
-using namespace ax::extension;
+
 using namespace std;
 using namespace ui;
 
@@ -26,14 +26,14 @@ public:
 	// Here's a difference. Method 'init' in ax-x returns bool, instead of returning 'id' in ax-iphone
 	KuiSelserver();
 	~KuiSelserver();
-	virtual bool init();  
+	virtual bool init();
 	static ax::Scene* scene();
-	
+
 	CREATE_FUNC(KuiSelserver);
 	//��дdraw()����
 //	virtual void draw();
-	virtual void update(float delta); 
-private: 
+	virtual void update(float delta);
+private:
 	LOGIN_LOGIC_STATUS			m_Status;  //���ͱ�ʶ����
 	LOGIN_LOGIC_RESULT_INFO		m_Result; //���ܱ�ʶ����
 

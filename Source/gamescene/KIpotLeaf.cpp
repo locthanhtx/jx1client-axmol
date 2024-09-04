@@ -114,7 +114,7 @@ void KIpotLeaf_PaintNoneObjectLayer(KIpotLeaf* pLeaf, RECT* pRepresentArea, int 
 				   CoreDrawGameObj(pObj->uGenre, pObj->nId, pObj->oPosition.x,pObj->oPosition.y, 0, 0, eLayer);
 			}
 		}
-	    
+
 		if (pLeaf->pRChild)
 			KIpotLeaf_PaintNoneObjectLayer(pLeaf->pRChild, pRepresentArea, eLayer);
 
@@ -152,7 +152,7 @@ void KIpotBuildinObj::PaintABuildinObject(RECT* pRepresentArea,int bRegionIndex)
 		Image.oPosition.nX = pBio->ImgPos1.x;
 		Image.oPosition.nY = pBio->ImgPos1.y;
 		Image.oPosition.nZ = pBio->ImgPos1.z;
-		
+
 		Image.oEndPos.nX = pBio->ImgPos3.x;
 		Image.oEndPos.nY = pBio->ImgPos3.y;
 		Image.oEndPos.nZ = pBio->ImgPos3.z;
@@ -160,7 +160,7 @@ void KIpotBuildinObj::PaintABuildinObject(RECT* pRepresentArea,int bRegionIndex)
 		if ((pBio->Props & SPBIO_P_SORTMANNER_MASK) == SPBIO_P_SORTMANNER_POINT)
 		{//��ľ���ݺ�һЩװ��Ʒ
 			if (Image.oEndPos.nY >= pRepresentArea->top)
-			{   
+			{
 				// / KScenePlaceRegionC::RWPP_AREGION_WIDTH;
 				//pos.y = m_FocusPosition.y / KScenePlaceRegionC::RWPP_AREGION_HEIGHT;
 				POINT nCurPoint;
@@ -169,7 +169,7 @@ void KIpotBuildinObj::PaintABuildinObject(RECT* pRepresentArea,int bRegionIndex)
 
 				//char msg[64];
 				//sprintf(msg,"RegX:%d,RegY:%d",nCurPoint.x,nCurPoint.y);
-				//ccMessageBox(msg,"�滭2");
+				//messageBox(msg,"�滭2");
 				if (Image.szImage[0])
 				g_GameWorld->DrawPrimitives_BigMap(bRegionIndex+1,1,&Image,0,MAP_NODE_TREES,0,false,nCurPoint);
 			}
@@ -199,7 +199,7 @@ void KIpotBuildinObj::PaintABuildinObject(RECT* pRepresentArea,int bRegionIndex)
 				if (Image.szImage[0])
 				    g_GameWorld->DrawPrimitives_BigMap(bRegionIndex+1,1,&Image,0,MAP_NODE_HOUSE,0,false,nCurPoint);
 				//g_pRepresent->DrawPrimitives(1, &Image, RU_T_IMAGE_4, false);
-				//ccMessageBox(Image.szImage,"�滭2");
+				//messageBox(Image.szImage,"�滭2");
 			}
 		}
 	}
@@ -212,7 +212,7 @@ void KIpotBuildinObj::PaintABuildinObject(RECT* pRepresentArea,int bRegionIndex)
 			Image.oPosition.nY = pBio->oPos1.y;
 			Image.oPosition.nZ = pBio->oPos1.z;
 //			g_pRepresent->DrawPrimitives(1, &Image, RU_T_IMAGE, false);
-			ccMessageBox(Image.szImage,"�滭3");
+			messageBox(Image.szImage,"�滭3");
 		}
 		BuildinObjNextFrame(pBio);
 	}*/
@@ -316,7 +316,7 @@ void  BuildinObjNextFrame(KBuildinObj* pBio)
 			Param.nNumFrames = 0;
 
 			m_ImageStore.GetImageParam(pBio->szImage,ISI_T_SPR,&Param);
-			
+
 			if (Param.nNumFrames > 1)
 			{
 				pBio->nImgNumFrames = Param.nNumFrames;
@@ -328,7 +328,7 @@ void  BuildinObjNextFrame(KBuildinObj* pBio)
 			{
 				pBio->nAniSpeed = 0;
 			}
-			
+
 		}
 
 		int nFrame = pBio->nFrame;

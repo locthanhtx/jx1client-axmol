@@ -3,7 +3,7 @@
 //
 // File:	KNpcResNode.cpp
 // Date:	2002.01.06
-// Code:	�߳�����
+// Code:	???????
 // Desc:	Obj Class
 //---------------------------------------------------------------------------
 #include "KCore.h"
@@ -42,114 +42,114 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 	char		szBuffer[FILE_NAME_LENGTH], szTemp[FILE_NAME_LENGTH], szBuf[FILE_NAME_LENGTH];
     const char *pcszTemp = NULL;
 	strcpy(m_szNpcName, lpszNpcName);
-	// �����ļ� ��������.txt
+	// ??????? ????????.txt
 //	g_SetFilePath(RES_INI_FILE_PATH);
 	if (!KindFile.Load(NPC_RES_KIND_FILE_NAME))
 	{
-		ccMessageBox("KindFile is Error","KindFile");
+		messageBox("KindFile is Error","KindFile");
 		return FALSE;
 	}
 
-	nFindNo = KindFile.FindRow(lpszNpcName); //����ĳ��
+	nFindNo = KindFile.FindRow(lpszNpcName); //???????
 	if (nFindNo < 0)
 	{
-		ccMessageBox(lpszNpcName,"KNpcResNode::Init");
+		messageBox(lpszNpcName,"KNpcResNode::Init");
 	    return FALSE;
 	}
 
 	KindFile.GetString(nFindNo,KIND_NAME_SECT,"", szBuffer, sizeof(szBuffer));
 
-	// �ж�npc����
+	// ?ж?npc????
 	if (strcmp(szBuffer, KIND_NAME_SPECIAL) == 0)
-		m_nNpcKind = NPC_RES_SPECIAL; //��������
+		m_nNpcKind = NPC_RES_SPECIAL; //????????
 	else
-		m_nNpcKind = NPC_RES_NORMAL;  //��ͨ����
-	// �õ���Դ�ļ�·��
-	KindFile.GetString(nFindNo,KIND_FILE_SECT5,"", m_szResPath, sizeof(m_szResPath)); //�л�Ů
+		m_nNpcKind = NPC_RES_NORMAL;  //???????
+	// ????????????
+	KindFile.GetString(nFindNo,KIND_FILE_SECT5,"", m_szResPath, sizeof(m_szResPath)); //?л??
 
-	// ����npc  �������
+	// ????npc  ???????
 	if (m_nNpcKind == NPC_RES_SPECIAL)
 	{
 		KTabFile	PartFile, SoundName, ShadowName;
-		// �õ�����˵���ļ���
+		// ???????????????
 		KindFile.GetString(nFindNo, KIND_FILE_SECT1, "", szBuffer, sizeof(szBuffer));
 		if (!szBuffer[0])
 			return FALSE;
 //		g_SetFilePath(RES_INI_FILE_PATH);
 		g_UnitePathAndName(RES_INI_FILE_PATH, szBuffer, szBuf);
-		if (!PartFile.Load(szBuf))   //���� �л�Ů�Ĳ���.txt
+		if (!PartFile.Load(szBuf))   //???? ?л???????.txt
 			return FALSE;
-		// �õ����������Ϣ
+		// ?????????????
 		m_nPartNum = 0;
 		for (i = 0; i < MAX_BODY_PART; ++i)
 		{//i = 2 3 4 5 6 7
 			for (j = 0; j < MAX_BODY_PART_SECT; ++j)
 			{
 				m_nSectInfo[i * MAX_BODY_PART_SECT + j].Clear();
-				//�ڶ��� �����п�ʼ j =3 4 5 6
+				//????? ?????п?? j =3 4 5 6
 				PartFile.GetString(i + 2,j + 3,"",m_nSectInfo[i * MAX_BODY_PART_SECT + j].szSectName,sizeof(m_nSectInfo[i * MAX_BODY_PART_SECT + j].szSectName));
-				if (m_nSectInfo[i * MAX_BODY_PART_SECT + j].szSectName[0])  //i=5,j=0 Ϊ���
-				{// i =1 Ϊװ�������+����+������ 4 + (0,1,2,3)= 4 5 6 7
+				if (m_nSectInfo[i * MAX_BODY_PART_SECT + j].szSectName[0])  //i=5,j=0 ????
+				{// i =1 ?????????+????+?????? 4 + (0,1,2,3)= 4 5 6 7
 					m_nSectInfo[i * MAX_BODY_PART_SECT + j].nFlag = 1;    //m_nSectInfo[5 * MAX_BODY_PART_SECT + 0] 20
-					m_nPartNum++;  //������������1
+					m_nPartNum++;  //????????????1
 				}
 			}
 		}
 		PartFile.Clear();
-		// �õ�ÿ����������Դ˵���ļ���
+		// ???????????????????????
 		for (i = 0; i < MAX_PART; ++i)  //24
 		{
 			if (m_nSectInfo[i].nFlag)
-			{//���������λ����
-				KindFile.GetString(nFindNo,m_nSectInfo[i].szSectName,"",m_nSectInfo[i].szSectResName,sizeof(m_nSectInfo[i].szSectResName));//��ֵ���������
-				// ��Դ��Ϣ˵���ļ�������Դ˵���ļ�������SPR_INFO_NAME������Ϣ����
+			{//?????????λ????
+				KindFile.GetString(nFindNo,m_nSectInfo[i].szSectName,"",m_nSectInfo[i].szSectResName,sizeof(m_nSectInfo[i].szSectResName));//????????????
+				// ???????????????????????????????SPR_INFO_NAME???????????
 				if (m_nSectInfo[i].szSectResName[0])
 				{
 					std::string Tempstr = m_nSectInfo[i].szSectResName;
 					std::string::size_type pos = Tempstr.find(".txt");
 					Tempstr.replace(pos,Tempstr.length(),"��Ϣ.txt");
-					t_sprintf(m_nSectInfo[i].szSectSprInfoName,Tempstr.c_str());
+					sprintf(m_nSectInfo[i].szSectSprInfoName, "%s", Tempstr.c_str());
 					/*g_StrCpyLen(
-						m_nSectInfo[i].szSectSprInfoName, 
-						m_nSectInfo[i].szSectResName, 
+						m_nSectInfo[i].szSectSprInfoName,
+						m_nSectInfo[i].szSectResName,
 						g_StrLen(m_nSectInfo[i].szSectResName) - 3
-						);//�����ȸ��� ȥ�� .TXT �����ַ�
+						);//????????? ??? .TXT ???????
 					*/
-					//g_StrCat(m_nSectInfo[i].szSectSprInfoName,SPR_INFO_NAME); //�ں���� ��Ϣ ������
-					//g_StrCat(m_nSectInfo[i].szSectSprInfoName, ".txt");//�õ� *****��Ϣ.TXT �ļ��� SPR ��Ϣ��
+					//g_StrCat(m_nSectInfo[i].szSectSprInfoName,SPR_INFO_NAME); //?????? ??? ??????
+					//g_StrCat(m_nSectInfo[i].szSectSprInfoName, ".txt");//??? *****???.TXT ????? SPR ?????
 				}
 			}
 		}
-		// �õ�ÿ�������ľ������Դ�ļ���
+		// ????????????????????????
 		KTabFile	SectFile, SectInfoFile;
 		int			nGetEquipNo, nActionCount;
 		for (i = 0; i < MAX_PART; ++i)
 		{
 			m_cResInfo[i].AutoDelete();
 			if (m_nSectInfo[i].nFlag)
-			{//��λ�������
+			{//??λ???????
 //				g_SetFilePath(RES_INI_FILE_PATH);
-				g_UnitePathAndName(RES_INI_FILE_PATH, m_nSectInfo[i].szSectResName, szBuf);     //��Ӧ������������Ĳ�����SPR·��
-				//t_sprintf(szBuf,"%s",U2G(szBuf).c_str());
-				//ccMessageBox(szBuf,"MAX_PARTA");
+				g_UnitePathAndName(RES_INI_FILE_PATH, m_nSectInfo[i].szSectResName, szBuf);     //?????????????????????SPR???
+				//sprintf(szBuf,"%s",U2G(szBuf).c_str());
+				//messageBox(szBuf,"MAX_PARTA");
 				if (!SectFile.Load(szBuf))
 					continue;
-				g_UnitePathAndName(RES_INI_FILE_PATH, m_nSectInfo[i].szSectSprInfoName, szBuf); //��Ů���� ��Ϣ ·��
-				//ccMessageBox(szBuf,"MAX_PARTB.....");
+				g_UnitePathAndName(RES_INI_FILE_PATH, m_nSectInfo[i].szSectSprInfoName, szBuf); //??????? ??? ???
+				//messageBox(szBuf,"MAX_PARTB.....");
 				if (!SectInfoFile.Load(szBuf))
 					continue;
 				nGetEquipNo = SectFile.GetHeight() - 1;
 				if (nGetEquipNo <= 0)
 					continue;
-				nActionCount = cActionName->GetActionCount();  // ����:	�õ�����������
+				nActionCount = cActionName->GetActionCount();  // ????:	?????????????
 				if (nActionCount <= 0)
 					continue;
-				m_cResInfo[i].AutoNew(nActionCount, nGetEquipNo); //�����ڴ���
+				m_cResInfo[i].AutoNew(nActionCount, nGetEquipNo); //?????????
 				for (j = 0; j < nGetEquipNo; ++j)
 				{
 					for (k = 0; k < nActionCount; ++k)	   //k=	nActionCount-1+2+1
 					{
-						// ���ַ����Ƚ�̫��������ֱ���ñ�ţ����Ǳ����뱣֤������
+						// ???????????????????????????????????????????
 						//cActionName->GetActionName(k, szBuffer, sizeof(szBuffer));
 //						SectFile.GetString(
 //							j + 2,
@@ -159,39 +159,39 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 //							80);
 						int nIsMa=0;
 						SectFile.GetString(j + 2,k + 2,"",szTemp,sizeof(szTemp));
-						SectFile.GetInteger(j + 2,"�ڲ�����",0,&nIsMa);
+						SectFile.GetInteger(j + 2,"内部调用",0,&nIsMa);
 
-						if (nIsMa==1 && strstr(lpszNpcName,"������"))
+						if (nIsMa==1 && strstr(lpszNpcName,"MainLady"))
 						{
 							ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName, "spr\\npcres\\woman", szTemp);
 						}
-						else if (nIsMa==1 && strstr(lpszNpcName,"Ů����"))
+						else if (nIsMa==1 && strstr(lpszNpcName,"MainMan"))
 						{
 							ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName, "spr\\npcres\\man", szTemp);
 						}
 						else
 						{
-							if  (strstr(lpszNpcName,"Ů����") && strstr(szBuf,"Ů������"))
+							if  (strstr(lpszNpcName,"女主角") && strstr(szBuf,"女主角马"))
 							{
 								ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName,"spr\\npcres",szTemp);
-								//ccMessageBox(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName,szTemp);
+								//messageBox(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName,szTemp);
 							}
 							else
 						        ComposePathAndName(m_cResInfo[i].m_cSprInfo[j * nActionCount + k].szFileName, m_szResPath, szTemp);
-							
-								///ccMessageBox(szBuf,"Ů����");
-							
+
+								///messageBox(szBuf,"?????");
+
 						}
-						
-						SectInfoFile.GetString(j + 2,k + 2,"16,8,1",szTemp,sizeof(szTemp));//��Ϣ�ļ� ֡�������򣬼��ʱ��
+
+						SectInfoFile.GetString(j + 2,k + 2,"16,8,1",szTemp,sizeof(szTemp));//?????? ??????????????
 
                         pcszTemp = szTemp;
-                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalFrames = KSG_StringGetInt(&pcszTemp,16);  //��֡��
-                        KSG_StringSkipSymbol(&pcszTemp, ','); //������ ȡֵ��
-                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalDirs = KSG_StringGetInt(&pcszTemp,8);     //�ܷ���
+                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalFrames = KSG_StringGetInt(&pcszTemp,16);  //?????
+                        KSG_StringSkipSymbol(&pcszTemp, ','); //?????? ????
+                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalDirs = KSG_StringGetInt(&pcszTemp,8);     //?????
                         KSG_StringSkipSymbol(&pcszTemp, ',');
-                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nInterval = KSG_StringGetInt(&pcszTemp, 1);     //ʱ����
-						//sscanf(szTemp, "%d,%d,%d", 
+                        m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nInterval = KSG_StringGetInt(&pcszTemp, 1);     //?????
+						//sscanf(szTemp, "%d,%d,%d",
 						//	&m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalFrames,
 						//	&m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nTotalDirs,
 						//	&m_cResInfo[i].m_cSprInfo[j * nActionCount + k].nInterval
@@ -202,18 +202,18 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 				SectFile.Clear();
 			}
 		}
-		// �õ�������Ϊ�������ļ���
+		// ?????????????????????
 		KTabFile	NoHorseFile, OnHorseFile;
 		int			nTableWidth, nTableHeight, nGetNo;
 		char	szNoHorseTableName[80], szOnHorseTableName[80];
 		KindFile.GetString(nFindNo, KIND_FILE_SECT2, "", szNoHorseTableName, sizeof(szNoHorseTableName));
 		KindFile.GetString(nFindNo, KIND_FILE_SECT3, "", szOnHorseTableName, sizeof(szOnHorseTableName));
-		// δ�����Ӧ��
+		// δ????????
 		if (szNoHorseTableName[0])
 		{
 //			g_SetFilePath(RES_INI_FILE_PATH);
-			g_UnitePathAndName(RES_INI_FILE_PATH, szNoHorseTableName, szBuf);  //�ϲ�·��
-			if (NoHorseFile.Load(szBuf)) //���ض�Ӧ���ļ���
+			g_UnitePathAndName(RES_INI_FILE_PATH, szNoHorseTableName, szBuf);  //??????
+			if (NoHorseFile.Load(szBuf)) //?????????????
 			{
 				nTableWidth = NoHorseFile.GetWidth() - 1;
 				nTableHeight = NoHorseFile.GetHeight() - 1;
@@ -223,14 +223,14 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 					for (j = 0; j < nTableWidth; ++j)
 					{
 						NoHorseFile.GetString(i + 2, j + 2, "", szBuffer, sizeof(szBuffer));
-						nGetNo = cActionName->GetActionNo(szBuffer);// ����:�ɶ������Ƶõ��������
-						m_NoHorseTable.SetValue(j, i, nGetNo);      // ����:�趨�����ĳһ���ֵ
+						nGetNo = cActionName->GetActionNo(szBuffer);// ????:??????????????????
+						m_NoHorseTable.SetValue(j, i, nGetNo);      // ????:?????????????
 					}
 				}
 			}
 		}
 		 NoHorseFile.Clear();
-		// �����Ӧ��
+		// ????????
 		if (szOnHorseTableName[0])
 		{
 //			g_SetFilePath(RES_INI_FILE_PATH);
@@ -252,15 +252,15 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 			}
 		}
 		OnHorseFile.Clear();
-		// �� ��������.TXT�� �õ���ͼ˳����ļ���
+		// ?? ????????.TXT?? ???????????????
 		if ( KindFile.GetString(nFindNo,KIND_FILE_SECT4, "", szBuffer, sizeof(szBuffer)) ) //
 		{
 			strcpy(m_cSortTable.m_sSortTableFileName, szBuffer);
-			m_cSortTable.GetcTable(szBuffer, cActionName, m_nPartNum);// ����:	�������ļ��а�������Ϣ��ȡ����
+			m_cSortTable.GetcTable(szBuffer, cActionName, m_nPartNum);// ????:	??????????а???????????????
 		}
 		 KindFile.Clear();
 
-		// ��ö�����Ӱ�ļ���Ϣ
+		// ???????????????
 //		g_SetFilePath(RES_INI_FILE_PATH);
 		nActionCount = cActionName->GetActionCount();
 		this->m_cShadowInfo.Init(nActionCount);
@@ -274,7 +274,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 				if (szTemp[0])
 					this->ComposePathAndName(m_cShadowInfo.m_psInfo[i].m_szName, m_szResPath, szTemp);
 				ShadowName.GetString(nFindNo, 2 + i * 2 + 1, "16,8,1", szTemp, sizeof(szTemp));
-				
+
                 pcszTemp = szTemp;
                 m_cShadowInfo.m_psInfo[i].m_nTotalFrame = KSG_StringGetInt(&pcszTemp, 16);
                 KSG_StringSkipSymbol(&pcszTemp, ',');
@@ -288,7 +288,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 			}
 		}
 		 ShadowName.Clear();
-		// ��ö�����Ч�ļ���
+		// ????????Ч?????
 //		g_SetFilePath(RES_INI_FILE_PATH);
 		SoundName.Load(PLAYER_SOUND_FILE);
 		nFindNo = SoundName.FindColumn(lpszNpcName);
@@ -306,7 +306,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 		SoundName.Clear();
 
 	}
-	//����
+	//????
 	else if (m_nNpcKind == NPC_RES_NORMAL)
 	{
 		int			nActionCount;
@@ -330,7 +330,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 //		g_SetFilePath(RES_INI_FILE_PATH);
 		if ( !NormalNpc.Load(NPC_NORMAL_RES_FILE))
 			return FALSE;
-		// ������Ϣ�ļ�û��û�б�Ҫ��ʼ�����ɹ�������û��If(!) return FALSE;
+		// ???????????????б?????????????????????If(!) return FALSE;
 		NormalNpcSprInfo.Load(NPC_NORMAL_SPRINFO_FILE);
 		SoundName.Load(NPC_SOUND_FILE);
 		nFindNo = NormalNpc.FindRow(lpszNpcName);
@@ -339,7 +339,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 
 		for (i = 0; i < nActionCount; ++i)
 		{
-			cNpcAction->GetActionName(i, szBuffer, sizeof(szBuffer));  //Ӣ��
+			cNpcAction->GetActionName(i, szBuffer, sizeof(szBuffer));  //???
 			NormalNpc.GetString(nFindNo, szBuffer,"", szTemp, sizeof(szTemp));
 			ComposePathAndName(m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].szFileName, m_szResPath, szTemp);
 			NormalNpcSprInfo.GetString(nFindNo, szBuffer, "16,8,0", szTemp, sizeof(szTemp));
@@ -350,7 +350,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
             m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].nTotalDirs = KSG_StringGetInt(&pcszTemp, 8);
             KSG_StringSkipSymbol(&pcszTemp, ',');
             m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].nInterval = KSG_StringGetInt(&pcszTemp, 0);
-            //sscanf(szTemp, "%d,%d,%d", 
+            //sscanf(szTemp, "%d,%d,%d",
 			//	&m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].nTotalFrames,
 			//	&m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].nTotalDirs,
 			//	&m_cResInfo[NORMAL_NPC_PART_NO].m_cSprInfo[i].nInterval
@@ -376,7 +376,7 @@ BOOL KNpcResNode::Init(char *lpszNpcName, CActionName *cActionName, CActionName 
 }
 
 //---------------------------------------------------------------------------
-// ����:	��·�����ļ����ϳ���һ���Ϊ��·�����ļ���
+// ????:	??????????????????????????????????
 //---------------------------------------------------------------------------
 void	KNpcResNode::ComposePathAndName(char *lpszGet, char *lpszPath, char *lpszName)
 {
@@ -406,10 +406,10 @@ void	KNpcResNode::ComposePathAndName(char *lpszGet, char *lpszPath, char *lpszNa
 	if (strstr(lpszName,"..\\"))
 	{//
 		std::string nTempsr = lpszName;
-		std::string::size_type pos = nTempsr.find("..\\");//��ʼ��λ��
+		std::string::size_type pos = nTempsr.find("..\\");//?????λ??
 		nTempsr.replace(pos,3,"");
 		strcat(lpszGet,nTempsr.c_str());
-		//t_sprintf(m_nSectInfo[i].szSectSprInfoName,Tempstr.c_str());
+		//sprintf(m_nSectInfo[i].szSectSprInfoName,Tempstr.c_str());
 		//nTempsr.replace()
 	}
 	else
@@ -417,7 +417,7 @@ void	KNpcResNode::ComposePathAndName(char *lpszGet, char *lpszPath, char *lpszNa
 }
 
 //---------------------------------------------------------------------------
-// ����:	�ж�ĳ�������Ƿ����
+// ????:	?ж??????????????
 //---------------------------------------------------------------------------
 BOOL	KNpcResNode::CheckPartExist(int nPartNo)
 {
@@ -429,7 +429,7 @@ BOOL	KNpcResNode::CheckPartExist(int nPartNo)
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ĳ��������ĳ��װ����ĳ�������µ� spr �ļ���
+// ????:	?????????????????????????????? spr ?????
 //---------------------------------------------------------------------------
 BOOL	KNpcResNode::GetFileName(int nPartNo, int nActionNo, int nEquipNo, char *lpszDefault, char *lpszGetName, int nStrLen)
 {
@@ -441,7 +441,7 @@ BOOL	KNpcResNode::GetFileName(int nPartNo, int nActionNo, int nEquipNo, char *lp
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ĳ��������ĳ��װ����ĳ�������µ� spr �ļ���Ϣ
+// ????:	?????????????????????????????? spr ??????
 //---------------------------------------------------------------------------
 int		KNpcResNode::GetInterval(int nPartNo, int nActionNo, int nEquipNo, int nDefault)
 {
@@ -452,7 +452,7 @@ int		KNpcResNode::GetInterval(int nPartNo, int nActionNo, int nEquipNo, int nDef
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ĳ��������ĳ��װ����ĳ�������µ� spr �ļ���Ϣ
+// ????:	?????????????????????????????? spr ??????
 //---------------------------------------------------------------------------
 int		KNpcResNode::GetTotalFrames(int nPartNo, int nActionNo, int nEquipNo, int nDefault)
 {
@@ -463,7 +463,7 @@ int		KNpcResNode::GetTotalFrames(int nPartNo, int nActionNo, int nEquipNo, int n
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ĳ��������ĳ��װ����ĳ�������µ� spr �ļ���Ϣ
+// ????:	?????????????????????????????? spr ??????
 //---------------------------------------------------------------------------
 int		KNpcResNode::GetTotalDirs(int nPartNo, int nActionNo, int nEquipNo, int nDefault)
 {
@@ -474,31 +474,31 @@ int		KNpcResNode::GetTotalDirs(int nPartNo, int nActionNo, int nEquipNo, int nDe
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ĳ����ĳ״̬�µĶ������
+// ????:	????????????????????
 //---------------------------------------------------------------------------
 int		KNpcResNode::GetActNo(int nDoing, int nEquipNo, BOOL bRideHorse)
 {
-	// ��ͨnpc Doing �� Action ��ͬ
+	// ???npc Doing ?? Action ???
 	if (m_nNpcKind == NPC_RES_NORMAL)
 		return nDoing;
 
-	// ���� npc�� ���
+	// ???? npc?? ???
 	if (bRideHorse == FALSE)
-	{//δ�����
+	{//δ?????
 		return m_NoHorseTable.GetValue(nEquipNo, nDoing);
 	}
 	else
-	{//�����
+	{//?????
 		return m_OnHorseTable.GetValue(nEquipNo, nDoing);
 	}
 }
 
 //---------------------------------------------------------------------------
-// ����:	�ӱ���еõ�һ��������Ϣ
+// ????:	?????е????????????
 //---------------------------------------------------------------------------
 BOOL	KNpcResNode::GetnSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int nTableLen)
 {
-	// ��ͨnpc
+	// ???npc
 	if (m_nNpcKind == NPC_RES_NORMAL)
 	{
 		if (!lpnTable || nTableLen <= 0)
@@ -510,7 +510,7 @@ BOOL	KNpcResNode::GetnSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, in
 		return TRUE;
 	}
 
-	// ����npc
+	// ????npc
 	if (m_cSortTable.GetSort(nActNo,nDir,nFrameNo,lpnTable,nTableLen))
 		return TRUE;
 
@@ -518,7 +518,7 @@ BOOL	KNpcResNode::GetnSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, in
 }
 
 //---------------------------------------------------------------------------
-// ���ܣ����ĳ��������Ӧ����Ч�ļ���
+// ??????????????????????Ч?????
 //---------------------------------------------------------------------------
 void	KNpcResNode::GetActionSoundName(int nAction, char *lpszSoundName)
 {
@@ -530,7 +530,7 @@ void	KNpcResNode::GetActionSoundName(int nAction, char *lpszSoundName)
 }
 
 //---------------------------------------------------------------------------
-// ���ܣ���Ĭ�Ϲ����һ��npc��sprͼ�ļ���ת������Ӧ����Ӱ�ļ���
+// ?????????????????npc??spr????????????????????????
 //---------------------------------------------------------------------------
 void	KNpcResNode::GetShadowName(char *lpszShadow, char *lpszSprName)
 {
@@ -553,7 +553,7 @@ void	KNpcResNode::GetShadowName(char *lpszShadow, char *lpszSprName)
 
 //---------------------------- class CActionName ----------------------------
 //---------------------------------------------------------------------------
-// ����:	���캯��
+// ????:	??????
 //---------------------------------------------------------------------------
 CActionName::CActionName()
 {
@@ -564,7 +564,7 @@ CActionName::CActionName()
 }
 
 //---------------------------------------------------------------------------
-// ����:	��ȡ�������ࡢ���Ƶ���Ϣ  "npc������.txt" �� "������ű�.txt"
+// ????:	???????????????????  "npc??????.txt" ?? "????????.txt"
 //---------------------------------------------------------------------------
 BOOL	CActionName::Init(char *lpszFileName)
 {
@@ -585,7 +585,7 @@ BOOL	CActionName::Init(char *lpszFileName)
 		caTabFile.Clear();
 		return FALSE;
 	}
-	if (m_nCurActionNo > m_nMaxAction)   //�������
+	if (m_nCurActionNo > m_nMaxAction)   //???????
 		m_nCurActionNo = m_nMaxAction;
 	for (i = 0; i < m_nCurActionNo; ++i)
 	{
@@ -596,7 +596,7 @@ BOOL	CActionName::Init(char *lpszFileName)
 }
 
 //---------------------------------------------------------------------------
-// ����:	�ɶ������Ƶõ��������
+// ????:	??????????????????
 //---------------------------------------------------------------------------
 int		CActionName::GetActionNo(char *lpszName)
 {
@@ -611,7 +611,7 @@ int		CActionName::GetActionNo(char *lpszName)
 }
 
 //---------------------------------------------------------------------------
-// ����:	�õ�����������
+// ????:	?????????????
 //---------------------------------------------------------------------------
 int		CActionName::GetActionCount()
 {
@@ -619,7 +619,7 @@ int		CActionName::GetActionCount()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�ɶ�����ŵõ���������
+// ????:	??????????????????
 //---------------------------------------------------------------------------
 BOOL	CActionName::GetActionName(int nNo, char *lpszName, int nSize)
 {
@@ -639,7 +639,7 @@ BOOL	CActionName::GetActionName(int nNo, char *lpszName, int nSize)
 //-------------------------- class CShadowFileName --------------------------
 
 //---------------------------------------------------------------------------
-// ���ܣ����캯��
+// ???????????
 //---------------------------------------------------------------------------
 CShadowFileName::CShadowFileName()
 {
@@ -648,7 +648,7 @@ CShadowFileName::CShadowFileName()
 }
 
 //---------------------------------------------------------------------------
-// ���ܣ���������
+// ?????????????
 //---------------------------------------------------------------------------
 CShadowFileName::~CShadowFileName()
 {
@@ -678,7 +678,7 @@ void	CShadowFileName::Init(int nActionCount)
 }
 
 //---------------------------------------------------------------------------
-// ���ܣ��õ�ĳ����������Ӱ�ļ�����������ļ���Ϣ
+// ??????????????????????????????????????
 //---------------------------------------------------------------------------
 BOOL	CShadowFileName::GetFile(int nActionNo, int *pnFrame, int *pnDir, int *pnInterval, int *pnCgX, int *pnCgY, char *lpszName)
 {
@@ -702,7 +702,7 @@ BOOL	CShadowFileName::GetFile(int nActionNo, int *pnFrame, int *pnDir, int *pnIn
 
 //------------------------- class CStateMagicTable --------------------------
 //---------------------------------------------------------------------------
-// ����:	���캯��
+// ????:	??????
 //---------------------------------------------------------------------------
 CStateMagicTable::CStateMagicTable()
 {
@@ -720,7 +720,7 @@ CStateMagicTable::CStateMagicTable()
 }
 
 //---------------------------------------------------------------------------
-// ����:	��ʼ��
+// ????:	?????
 //---------------------------------------------------------------------------
 BOOL CStateMagicTable::Init()
 {
@@ -735,7 +735,7 @@ BOOL CStateMagicTable::Init()
 	//KNpcResNode		Temp;
 	for (i = 0; i < MAX_RES_STATE; ++i)
 	{
-		cTabFile.GetString(i + 2, 3, "", szBuffer, sizeof(szBuffer));  //��λ
+		cTabFile.GetString(i + 2, 3, "", szBuffer, sizeof(szBuffer));  //??λ
 		if (strcmp(szBuffer, "Head") == 0)
 			m_nType[i] = STATE_MAGIC_HEAD;
 		else if (strcmp(szBuffer, "Foot") == 0)
@@ -753,8 +753,8 @@ BOOL CStateMagicTable::Init()
 		cTabFile.GetInteger(i + 2, 7, 1, &m_nTotalFrame[i]);
 		cTabFile.GetInteger(i + 2, 8, 1, &m_nTotalDir[i]);
 		cTabFile.GetInteger(i + 2, 9, 1, &m_nInterVal[i]);
-		cTabFile.GetString(i + 2, 2, "", szTemp, sizeof(szTemp)); //spr�ļ�·�� ���� �ļ���
-		g_StrCpy(m_szName[i], szTemp); //��ֵspr�ļ���
+		cTabFile.GetString(i + 2, 2, "", szTemp, sizeof(szTemp)); //spr?????? ???? ?????
+		g_StrCpy(m_szName[i], szTemp); //???spr?????
 //		Temp.ComposePathAndName(m_szName[i], RES_NPC_STYLE_PATH, szTemp);
 	}
 	//cTabFile.Clear();
@@ -762,8 +762,8 @@ BOOL CStateMagicTable::Init()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�õ�ĳ��״̬�Ĺ�ӰЧ������Ϣ
-// nNo �� 1 �� MAX_RES_STATE
+// ????:	????????????Ч???????
+// nNo ?? 1 ?? MAX_RES_STATE
 //---------------------------------------------------------------------------
 void	CStateMagicTable::GetInfo(int nNo, char *lpszGetName, int *pnType, int *pnPlayType, int *pnBackStart, int *pnBackEnd, int *pnTotalFrame, int *pnTotalDir, int *pnInterVal,int *MapPosX,int *MapPosY)
 {
@@ -796,7 +796,7 @@ void	CStateMagicTable::GetInfo(int nNo, char *lpszGetName, int *pnType, int *pnP
 
 //----------------------------- class CRESINFO ------------------------------
 //---------------------------------------------------------------------------
-// ����:	���캯��
+// ????:	??????
 //---------------------------------------------------------------------------
 CRESINFO::CRESINFO()
 {
@@ -806,7 +806,7 @@ CRESINFO::CRESINFO()
 }
 
 //---------------------------------------------------------------------------
-// ����:	��������
+// ????:	????????
 //---------------------------------------------------------------------------
 CRESINFO::~CRESINFO()
 {
@@ -814,7 +814,7 @@ CRESINFO::~CRESINFO()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�������
+// ????:	???????
 //---------------------------------------------------------------------------
 void	CRESINFO::AutoDelete()
 {
@@ -828,7 +828,7 @@ void	CRESINFO::AutoDelete()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�趨������������װ�����������������ڴ滺����
+// ????:	??????????????????????????????????????
 //---------------------------------------------------------------------------
 BOOL	CRESINFO::AutoNew(int nWidth, int nHeight)
 {
@@ -850,7 +850,7 @@ BOOL	CRESINFO::AutoNew(int nWidth, int nHeight)
 	if (!m_cSprInfo)
 		return FALSE;
 	ZeroMemory(m_cSprInfo, sizeof(CSPR_INFO) * m_nActionKind * m_nEquipKind);
-	
+
 	for (i = 0; i < m_nActionKind * m_nEquipKind; ++i)
 	{
 		m_cSprInfo[i].szFileName[0] = 0;
@@ -860,25 +860,25 @@ BOOL	CRESINFO::AutoNew(int nWidth, int nHeight)
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ݶ�����š�װ����ŵõ���Դ�ļ���
+// ????:	???????????????????????????
 //---------------------------------------------------------------------------
 BOOL	CRESINFO::GetName(int nActionNo, int nEquipNo, char *lpszDefault, char *lpszGetName, int nStrLen)
 {
 	if (!lpszGetName)
 		return FALSE;
-	if (!m_cSprInfo)  //��BUG
+	if (!m_cSprInfo)  //??BUG
 	{
-		//ccMessageBox("m_cSprInfo is NULL","GetName");
+		//messageBox("m_cSprInfo is NULL","GetName");
 		goto FALSE_LAB;
 	}
 	if (nActionNo < 0 || nActionNo >= m_nActionKind || nEquipNo < 0 || nEquipNo >= m_nEquipKind)
 	{
 		//CCString* msg = CCString::createWithFormat("aNo:%d,eNo:%d,aK:%d,eK:%d",nActionNo,nEquipNo,m_nActionKind,m_nEquipKind);
-		//ccMessageBox(msg->getCString(),"GetName");
+		//messageBox(msg->getCString(),"GetName");
 		goto FALSE_LAB;
 	}
 	strcpy(lpszGetName, m_cSprInfo[nEquipNo * m_nActionKind + nActionNo].szFileName);
-	//ccMessageBox(lpszGetName,"GetName is suss");
+	//messageBox(lpszGetName,"GetName is suss");
 	return TRUE;
 
 FALSE_LAB:
@@ -886,7 +886,7 @@ FALSE_LAB:
 	return FALSE;
 
 }
-//���ż��ʱ��
+//?????????
 int		CRESINFO::GetInterval(int nActionNo, int nEquipNo, int nDefault)
 {
 	if (nActionNo < 0 || nActionNo >= m_nActionKind || nEquipNo < 0 || nEquipNo >= m_nEquipKind)
@@ -894,7 +894,7 @@ int		CRESINFO::GetInterval(int nActionNo, int nEquipNo, int nDefault)
 
 	return m_cSprInfo[nEquipNo * m_nActionKind + nActionNo].nInterval;
 }
-//��֡��
+//?????
 int		CRESINFO::GetTotalFrames(int nActionNo, int nEquipNo, int nDefault)
 {
 	if (nActionNo < 0 || nActionNo >= m_nActionKind || nEquipNo < 0 || nEquipNo >= m_nEquipKind)
@@ -902,7 +902,7 @@ int		CRESINFO::GetTotalFrames(int nActionNo, int nEquipNo, int nDefault)
 
 	return m_cSprInfo[nEquipNo * m_nActionKind + nActionNo].nTotalFrames;
 }
-//�ܷ���
+//?????
 int		CRESINFO::GetTotalDirs(int nActionNo, int nEquipNo, int nDefault)
 {
 	if (nActionNo < 0 || nActionNo >= m_nActionKind || nEquipNo < 0 || nEquipNo >= m_nEquipKind)
@@ -914,7 +914,7 @@ int		CRESINFO::GetTotalDirs(int nActionNo, int nEquipNo, int nDefault)
 
 //------------------------- class CEquipStyleTable --------------------------
 //---------------------------------------------------------------------------
-// ����:	���캯��
+// ????:	??????
 //---------------------------------------------------------------------------
 CEquipStyleTable::CEquipStyleTable()
 {
@@ -924,7 +924,7 @@ CEquipStyleTable::CEquipStyleTable()
 }
 
 //---------------------------------------------------------------------------
-// ����:	��������
+// ????:	????????
 //---------------------------------------------------------------------------
 CEquipStyleTable::~CEquipStyleTable()
 {
@@ -932,7 +932,7 @@ CEquipStyleTable::~CEquipStyleTable()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�������
+// ????:	???????
 //---------------------------------------------------------------------------
 void	CEquipStyleTable::AutoDelete()
 {
@@ -946,7 +946,7 @@ void	CEquipStyleTable::AutoDelete()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�趨��񳤿���ʼ����񻺳���
+// ????:	?????????????????
 //---------------------------------------------------------------------------
 BOOL	CEquipStyleTable::AutoNew(int nWidth, int nHeight)
 {
@@ -968,7 +968,7 @@ BOOL	CEquipStyleTable::AutoNew(int nWidth, int nHeight)
 }
 
 //---------------------------------------------------------------------------
-// ����:	�趨�����ĳһ���ֵ
+// ????:	?????????????
 //---------------------------------------------------------------------------
 void	CEquipStyleTable::SetValue(int nXpos, int nYpos, int nValue)
 {
@@ -978,9 +978,9 @@ void	CEquipStyleTable::SetValue(int nXpos, int nYpos, int nValue)
 }
 
 //---------------------------------------------------------------------------
-// ����:	�õ������ĳһ���ֵ
-// ����:	nXpos : װ�����-��۱��  nYpos : ״̬���
-// ����:	�������
+// ????:	??????????????
+// ????:	nXpos : ??????-?????  nYpos : ?????
+// ????:	???????
 //---------------------------------------------------------------------------
 int		CEquipStyleTable::GetValue(int nXpos, int nYpos)
 {
@@ -995,7 +995,7 @@ int		CEquipStyleTable::GetValue(int nXpos, int nYpos)
 
 //---------------------------- class CSortTable -----------------------------
 //---------------------------------------------------------------------------
-// ����:	���캯��
+// ????:	??????
 //---------------------------------------------------------------------------
 CSortTable::CSortTable()
 {
@@ -1006,7 +1006,7 @@ CSortTable::CSortTable()
 }
 
 //---------------------------------------------------------------------------
-// ����:	��������
+// ????:	????????
 //---------------------------------------------------------------------------
 CSortTable::~CSortTable()
 {
@@ -1014,7 +1014,7 @@ CSortTable::~CSortTable()
 }
 
 //---------------------------------------------------------------------------
-// ����:	�������
+// ????:	???????
 //---------------------------------------------------------------------------
 void	CSortTable::Release()
 {
@@ -1032,8 +1032,8 @@ void	CSortTable::Release()
 }
 
 //---------------------------------------------------------------------------
-// ����:	���ַ����а�һϵ������ȡ����
-// ����:	lpszStr : �ַ���  lpnTable : �������ֵ�����  nTableSize : ����Ĵ�С
+// ????:	????????а??????????????
+// ????:	lpszStr : ?????  lpnTable : ?????????????  nTableSize : ??????С
 //---------------------------------------------------------------------------
 void	CSortTable::SortStrToNum(char *lpszStr, int *lpnTable, int nTableSize)
 {
@@ -1074,12 +1074,12 @@ void	CSortTable::SortStrToNum(char *lpszStr, int *lpnTable, int nTableSize)
 }
 
 //---------------------------------------------------------------------------
-// ����:	�������ļ��а�������Ϣ��ȡ����
-// ����:	
-//			lpszFileName: �����ļ���
-//			*cActionName: ���ڻ�ȡ�����ĸ�����Ϣ
-//			nPartNum������������
-// ����:	��ȡ�ɹ����
+// ????:	??????????а???????????????
+// ????:
+//			lpszFileName: ?????????
+//			*cActionName: ??????????????????
+//			nPartNum????????????
+// ????:	?????????
 //---------------------------------------------------------------------------
 BOOL	CSortTable::GetcTable(char *lpszFileName, CActionName *cActionName, int nPartNum)
 {
@@ -1096,7 +1096,7 @@ BOOL	CSortTable::GetcTable(char *lpszFileName, CActionName *cActionName, int nPa
 	BOOL nReg=FALSE;
 		 nReg=GetkTable(&SortIni, cActionName, nPartNum);
     SortIni.Clear();
-	return nReg;	
+	return nReg;
 }
 
 BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNum)
@@ -1115,33 +1115,33 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 //		return FALSE;
 //	KIniFile	*pIni = &SortIni;
 
-// ----------------------- ͨ�������ļ����� Table �Ĵ�С --------------------------
+// ----------------------- ?????????????? Table ???С --------------------------
 	Release();
-	//ȫ��Ĭ�ϲ��֣�16 ������
+	//??????????16 ??????
 	for (i = 0; i < MAX_SORT_DIR; ++i)
 	{
-		t_sprintf(szKey, "Dir%d", i + 1);
+		sprintf(szKey, "Dir%d", i + 1);
 		if( pIni->GetString("DEFAULT", szKey, "", szBuffer, sizeof(szBuffer)))
 			m_nSortTableSize ++;
 	}
 
-	// �������������
+	// ?????????????
 	nActNo = cActionName->GetActionCount();
 	if (nActNo <= 0)
 		return FALSE;
 	for (i = 0; i < nActNo; ++i)
 	{
-		// �õ�������
+		// ?????????
 		if (!cActionName->GetActionName(i,szActName,sizeof(szActName)) )
 			continue;
 
-		if(!pIni->IsSectionExist(szActName)) //���û���������
+		if(!pIni->IsSectionExist(szActName)) //?????????????
 			continue;
 
-		// �ж��Ƿ�ʹ��Ĭ�Ϸ���˳��
+		// ?ж????????????????
 		for (j = 0; j < MAX_SORT_DIR; ++j)
-		{//����������·�����
-			t_sprintf(szKey, "Dir%d", j + 1);
+		{//????????????????
+			sprintf(szKey, "Dir%d", j + 1);
 			if( pIni->GetString(szActName, szKey, "", szBuffer, sizeof(szBuffer)) )
 			{//
 				m_sActTableOff[i].bUseDefault = FALSE;
@@ -1150,11 +1150,11 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 				break;
 			}
 		}
-		// �ж��Ƿ�����Ҫ���������������
+		// ?ж????????????????????????
 		j = 1;
 		while (1)
 		{
-			t_sprintf(szKey, "Line%d", j);
+			sprintf(szKey, "Line%d", j);
 			if( pIni->GetString(szActName, szKey, "", szBuffer, sizeof(szBuffer)) )
 			{
 				if (m_sActTableOff[i].nActOff == 0)
@@ -1179,10 +1179,10 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 
 	if (m_nSortTableSize < MAX_SORT_DIR)
 		return FALSE;
-// --------------------- ͨ�������ļ����� Table �Ĵ�С end ------------------------
+// --------------------- ?????????????? Table ???С end ------------------------
 
-// ------------------------------ �������Ķ�Ӧ������ ----------------------------
-	// �� m_lpnSortTable �����ڴ�
+// ------------------------------ ???????????????? ----------------------------
+	// ?? m_lpnSortTable ???????
 	m_lpnSortTable = (int *)new int[m_nSortTableSize * (m_nPartNum + 1)];
 
 	if (m_lpnSortTable == NULL)
@@ -1196,38 +1196,38 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 		m_lpnSortTable[i] = -1;
 	}
 
-	//int nDirCount;  
+	//int nDirCount;
 	//	pIni->GetInteger("DEFAULT","DirNum",MAX_SORT_DIR,&nDirCount);
 	int		nTablePos = 0;
-	// default ���֣�16 ������
+	// default ?????16 ??????
 	for (i = 0; i < MAX_SORT_DIR; ++i)
 	{
-		t_sprintf(szKey, "Dir%d", i + 1);
+		sprintf(szKey, "Dir%d", i + 1);
 		if( pIni->GetString("DEFAULT", szKey, "", szBuffer, sizeof(szBuffer)) )
 		{
 			SortStrToNum(szBuffer, &m_lpnSortTable[nTablePos * (m_nPartNum + 1)], m_nPartNum + 1);
 		}
-		nTablePos++;  //�����λ���Լ�
+		nTablePos++;  //?????λ?????
 	}
 
-	// �������������
+	// ?????????????
 	for (i = 0; i < nActNo; ++i)
 	{
-		// �����ȫʹ��Ĭ��ֵ�������ٴ���
+		// ????????????????????????
 		if (m_sActTableOff[i].nActOff == 0)
 			continue;
-		// �õ�������
+		// ?????????
 		if ( !cActionName->GetActionName(i, szActName, sizeof(szActName)) )
 			continue;
 		if( !pIni->IsSectionExist(szActName) )
-			continue;//���û���������
+			continue;//?????????????
 
-		// �������ʹ��Ĭ��ֵ�����뷽��˳��
+		// ?????????????????????????
 		if (m_sActTableOff[i].bUseDefault == FALSE)
 		{
 			for (j = 0; j < MAX_SORT_DIR; ++j)
 			{
-				t_sprintf(szKey, "Dir%d", j + 1);
+				sprintf(szKey, "Dir%d", j + 1);
 				if ( pIni->GetString(szActName, szKey, "", szBuffer, sizeof(szBuffer)) )
 				{
 					SortStrToNum(szBuffer, &m_lpnSortTable[nTablePos * (m_nPartNum + 1)], m_nPartNum + 1);
@@ -1239,14 +1239,14 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 				nTablePos++;
 			}
 		}
-		// ����������˳��
-		if ((m_sActTableOff[i].bUseDefault == FALSE && m_sActTableOff[i].nLineNum > MAX_SORT_DIR) || 
+		// ?????????????
+		if ((m_sActTableOff[i].bUseDefault == FALSE && m_sActTableOff[i].nLineNum > MAX_SORT_DIR) ||
 			(m_sActTableOff[i].bUseDefault == TRUE && m_sActTableOff[i].nLineNum > 0))
 		{
 			j = 1;
 			while (1)
 			{
-				t_sprintf(szKey, "Line%d", j);
+				sprintf(szKey, "Line%d", j);
 				if( !pIni->GetString(szActName, szKey, "", szBuffer, sizeof(szBuffer)) )
 					break;
 				SortStrToNum(szBuffer, &m_lpnSortTable[nTablePos * (m_nPartNum + 1)], m_nPartNum + 1);
@@ -1255,20 +1255,20 @@ BOOL	CSortTable::GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNu
 			}
 		}
 	}
-// ---------------------------- �������Ķ�Ӧ������ end --------------------------
+// ---------------------------- ???????????????? end --------------------------
 
 	return TRUE;
 }
 
 //---------------------------------------------------------------------------
-// ����:	�ӱ���еõ�һ��������Ϣ
-// ����:	
-//			nActNo : �������
-//			nDir : ��ǰ���� ( 0 -- 16 )
-//			nFrameNo : ��ǰ�ڼ���
-//			lpnTable : ����������Ϣ������
-//			nTableLen : lpnTable�ĳ���
-// ����:	��ȡ�ɹ����
+// ????:	?????е????????????
+// ????:
+//			nActNo : ???????
+//			nDir : ??????? ( 0 -- 16 )
+//			nFrameNo : ????????
+//			lpnTable : ?????????????????
+//			nTableLen : lpnTable?????
+// ????:	?????????
 //---------------------------------------------------------------------------
 BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int nTableLen)
 {
@@ -1283,7 +1283,7 @@ BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int 
 
 	int		i;
 
-	// ��ȫʹ��Ĭ��
+	// ?????????
 	if (m_sActTableOff[nActNo].nActOff == 0)
 	{
 		if (nTableLen <= m_nPartNum)
@@ -1292,19 +1292,19 @@ BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int 
 		{
 			memcpy(lpnTable, &m_lpnSortTable[nDir * (m_nPartNum + 1) + 1], sizeof(int) * m_nPartNum);
 
-			for (i = m_nPartNum; i < nTableLen; ++i) //���������λ�ľͲ��滭
-				lpnTable[i] = -1;                    //��λ���滭
+			for (i = m_nPartNum; i < nTableLen; ++i) //?????????λ??????
+				lpnTable[i] = -1;                    //??λ????
 		}
 	}
 	else
 	{
-		// ����ʹ��Ĭ�ϣ���������
+		// ???????????????????
 		if (m_sActTableOff[nActNo].bUseDefault == TRUE)
 		{
-			// �ж��Ƿ���������
+			// ?ж????????????
 			for (i = 0; i < m_sActTableOff[nActNo].nLineNum; ++i)
 			{
-				// �ҵ�������
+				// ?????????
 				if (nFrameNo == m_lpnSortTable[(m_sActTableOff[nActNo].nActOff + i) * (m_nPartNum + 1)])
 				{
 					if (nTableLen <= m_nPartNum)
@@ -1318,7 +1318,7 @@ BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int 
 					return TRUE;
 				}
 			}
-			//���ˣ�û���ҵ�������
+			//?????????????????
 			if (nTableLen <= m_nPartNum)
 				memcpy(lpnTable, &m_lpnSortTable[nDir * (m_nPartNum + 1) + 1], sizeof(int) * nTableLen);
 			else
@@ -1328,13 +1328,13 @@ BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int 
 					lpnTable[i] = -1;
 			}
 		}
-		// ����ʹ��Ĭ��
+		// ??????????
 		else
 		{
-			// �ж��Ƿ���������
+			// ?ж????????????
 			for (i = MAX_SORT_DIR; i < m_sActTableOff[nActNo].nLineNum; ++i)
 			{
-				// �ҵ�������
+				// ?????????
 				if (nFrameNo == m_lpnSortTable[(m_sActTableOff[nActNo].nActOff + i) * (m_nPartNum + 1)])
 				{
 					if (nTableLen <= m_nPartNum)
@@ -1348,7 +1348,7 @@ BOOL	CSortTable::GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int 
 					return TRUE;
 				}
 			}
-			// ���ˣ�û���ҵ�������
+			// ?????????????????
 			if (nTableLen <= m_nPartNum)
 				memcpy(lpnTable, &m_lpnSortTable[(m_sActTableOff[nActNo].nActOff + nDir) * (m_nPartNum + 1) + 1], sizeof(int) * nTableLen);
 			else

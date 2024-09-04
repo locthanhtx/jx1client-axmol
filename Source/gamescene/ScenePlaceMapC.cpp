@@ -81,20 +81,20 @@ bool KScenePlaceMapC::Initialize()
 		int nCount = MAP_CELL_MAX_RANGE * MAP_CELL_MAX_RANGE;
 //		int	nIndex, i;
 		//MAP_CELL* pCell = &m_ElemsList[0][0];
-		
+
 		/*for (nIndex = i = 0; nIndex < nCount && i < 0x03335688; ++i)
 		{
-			t_sprintf(pCell->szImageName, "*PlaceMap_%d*", i);
-		
+			sprintf(pCell->szImageName, "*PlaceMap_%d*", i);
+
 //			pCell->uImageId = g_pRepresent->CreateImage(pCell->szImageName, MAP_CELL_MAP_WIDTH, MAP_CELL_MAP_HEIGHT, ISI_T_BITMAP16);
-			
+
 			if (pCell->uImageId)
 			{
 				pCell++;
 				nIndex++;
 			}
 		}*/
-	    
+
 		m_bInited = true;
 
 		/*KIniFile	ColorSetting;
@@ -114,7 +114,7 @@ bool KScenePlaceMapC::Initialize()
             KSG_StringSkipSymbol(&pcszTemp, ',');
 			Color.Color_b.b = KSG_StringGetInt(&pcszTemp, 255);
 			m_uSelfColor = Color.Color_dw;
-			
+
 			// ������ɫ
 			ColorSetting.GetString("Map", "TeammateColor", "255,255,255", szBuffer, sizeof(szBuffer));
             pcszTemp = szBuffer;
@@ -196,7 +196,7 @@ int KScenePlaceMapC::CreateFolder(char * nPath)
 	/* ��ʽ��·��������Ŀ¼ */
 	/*for (int i = 0; i < (int)strlen(nPath); i++)
 	{
-		if (nPath[i] == '/') 
+		if (nPath[i] == '/')
 		{
 			nPath[i] = '\\';
 		}
@@ -205,7 +205,7 @@ int KScenePlaceMapC::CreateFolder(char * nPath)
 	{
 		memcpy(oPath,nPath+1,strlen(nPath)-1);
 	}
-	else 
+	else
 	{
 		memcpy(oPath, nPath, strlen(nPath));
 	}*/
@@ -261,14 +261,14 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 		char m_jpgMapFile[256],nCurSavePath[256];
 		ZeroMemory(m_jpgMapFile,sizeof(m_jpgMapFile));
 		ZeroMemory(nCurSavePath,sizeof(nCurSavePath));
-		t_sprintf(m_jpgMapFile, "maps/%d" PLACE_MAP_FILE_NAME_NEW,nSubWoleID);
-		t_sprintf(m_szEntireMapFile,"%s" PLACE_MAP_FILE_NAME_APPEND, pszScenePlaceRootPath);
+		sprintf(m_jpgMapFile, "maps/%d" PLACE_MAP_FILE_NAME_NEW,nSubWoleID);
+		sprintf(m_szEntireMapFile,"%s" PLACE_MAP_FILE_NAME_APPEND, pszScenePlaceRootPath);
 		//m_bHavePicMap = g_FileExists(m_szEntireMapFile);           //�������ļ��Ƿ����
 		ZeroMemory(&m_PackRef,sizeof(XPackElemFileRef));
 		Texture2D* nPicTexture =NULL;
 		char nSprFileKey[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
-		t_sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
 		nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
 		if (nPicTexture==NULL)
 		{
@@ -280,7 +280,7 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 			   sBuf = (unsigned char *)malloc(m_PackRef.nSize+1);
 			   if (g_pPakList) //��ȡͼƬ������ addImageWihtData
 				  g_pPakList->ElemFileRead(m_PackRef,sBuf,m_PackRef.nSize);
-           
+
 			   if (sBuf)
 			   {
 //			     nPicTexture = CCTextureCache::sharedTextureCache()->addImageWihtData(nSprFileKey,sBuf,m_PackRef.nSize,0);
@@ -292,7 +292,7 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 			       sBuf = NULL;
 			   }
 			/*std::string nsavepath = ax::FileUtils::getInstance()->getWritablePath();
-			t_sprintf(nCurSavePath,"%s%s",nsavepath.c_str(),m_jpgMapFile);
+			sprintf(nCurSavePath,"%s%s",nsavepath.c_str(),m_jpgMapFile);
 			CreateFolder(nCurSavePath);
 			FILE *oFp ;
 			if((oFp=fopen(nCurSavePath,"wb+"))==0)
@@ -315,15 +315,15 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 		//m_bHavePicMap = ax::FileUtils::getInstance()->isFileExist(nCurFilePath);
         if (!m_bHavePicMap)
 		{
-			//ccMessageBox(nCurFilePath.c_str(),"������");
-            t_sprintf(m_szEntireMapFile,"maps/tongyong.jpg");   
+			//messageBox(nCurFilePath.c_str(),"������");
+            sprintf(m_szEntireMapFile,"maps/tongyong.jpg");
 			m_bHavePicMap =true;
 			m_bPicMapType = 1;
 		}
 
 		if (m_bHavePicMap)
 		{//�Ƿ���С��ͼ	 MapLTRegionIndex
-			
+
 			m_EntireMapLTPosition.x = -1;
 			pSetting->GetInteger2(PLACE_MAP_SAVE_SECTION,"MapLTRegionIndex",(int*)&m_EntireMapLTPosition.x, (int*)&m_EntireMapLTPosition.y);
 
@@ -342,20 +342,20 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 				//this->m_nMapWidth		= (m_MapRect.right  - m_MapRect.left+1);  // dat �ļ�  �����ͼ�ж��ٸ� �����(16)�Ŀ��
 				//this->m_nMapHeight	    = (m_MapRect.bottom - m_MapRect.top  + 1);  // �ļ���	 �����ͼ�ж��ٸ� �����(32)�Ŀ��
 				//char msg[64];
-			    //t_sprintf(msg,"w:%d,h:%d,%d",m_nMapWidth,m_nMapHeight,m_PackRef.nSize);
-			    //ccMessageBox(msg,"��ͼ��С");
+			    //sprintf(msg,"w:%d,h:%d,%d",m_nMapWidth,m_nMapHeight,m_PackRef.nSize);
+			    //messageBox(msg,"��ͼ��С");
 				//��ʼ��ʼ��С��ͼ����
-				
+
 				/*if (sBuf);
 				{//��ʼ�������
 					char nSprFilePath[64]={0};
 					DWORD nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
-					t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+					sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 					ax::TextureCache::getInstance()->addImage(nSprFilePath,sBuf,m_nMapWidth,m_nMapHeight,ax::Size((float)(m_nMapWidth), (float)(m_nMapHeight)));
 				}*/
 				//-------------------
 			if (m_EntireMapLTPosition.x != -1)
-			{//�Ŵ� ����   ת�� �������� 
+			{//�Ŵ� ����   ת�� ��������
 				m_EntireMapLTPosition.x *= KScenePlaceRegionC::RWPP_AREGION_WIDTH;   //ת����������
 				m_EntireMapLTPosition.y *= KScenePlaceRegionC::RWPP_AREGION_HEIGHT;
 
@@ -369,7 +369,7 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 				m_FocusLimit.top  = m_EntireMapLTPosition.y + (m_Size.cy * MAP_SCALE_V / 2);//*16
 				m_FocusLimit.bottom = m_FocusLimit.right = RIGHT_BOTTOM_NO_LIMIT;
 
-				m_bHavePicMap = true; 
+				m_bHavePicMap = true;
 				//m_bPicMapType = 1;
 			}
 			else
@@ -379,7 +379,7 @@ void KScenePlaceMapC::Load(KIniFile* pSetting,int nSubWoleID,const char* pszScen
 			}
 		}
 	}
-  //ccMessageBox("���سɹ�","���سɹ�");
+  //messageBox("���سɹ�","���سɹ�");
  }//end if
 
 }
@@ -432,17 +432,17 @@ void KScenePlaceMapC::FillCellsPicInfo()
 
 	if (m_szEntireMapFile[0])
 	{
-		
+
 		  //  nPicTexture = ax::Director::getInstance()->getTextureCache()->addImage(m_szEntireMapFile);
 		/*char nSprFileKey[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
-		t_sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
-		 //ccMessageBox(nSprFileKey,"FillCellsPicInfo");
+		sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
+		 //messageBox(nSprFileKey,"FillCellsPicInfo");
 		nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
 		*/
 		//if (nPicTexture)
 		{
-			//ccMessageBox(m_szEntireMapFile,"�������");
+			//messageBox(m_szEntireMapFile,"�������");
 			//Size n =  nPicTexture->getContentSize();
 			//m_CurPicWidth  = (int)n.width; //����Ŀ��
 			//m_CurPicHeight = (int)n.height;//����ĸ߶�
@@ -451,8 +451,8 @@ void KScenePlaceMapC::FillCellsPicInfo()
 			//m_pEntireMap->nHeight= m_CurPicHeight;
 			//m_pEntireMap->Data   = (unsigned short)nPicTexture;
 			//char msg[32];
-			//t_sprintf(msg,"w:%d,h:%d",m_CurPicWidth,m_CurPicHeight);
-			//ccMessageBox(msg,"FillCellsPicInfo");
+			//sprintf(msg,"w:%d,h:%d",m_CurPicWidth,m_CurPicHeight);
+			//messageBox(msg,"FillCellsPicInfo");
 		}
 
 		m_FocusLimit.right  = m_FocusLimit.left + (m_CurPicWidth - m_Size.cx)* MAP_SCALE_H;
@@ -484,7 +484,7 @@ void KScenePlaceMapC::FillCellsPicInfo()
 					uMask16 = RGB_565;
 				if (uMask16 >= 0)
 					m_pEntireMap = get_jpg_image(m_szEntireMapFile, uMask16);
-			}			
+			}
 		}
 		if (m_pEntireMap)
 		{
@@ -507,15 +507,15 @@ void KScenePlaceMapC::FillCellsPicInfo()
 	int nStartY = (m_PicLoadedLTPosition.y - m_EntireMapLTPosition.y) / MAP_SCALE_V;
 
 	//char msg[64];
-	//t_sprintf(msg,"nStartX:%d,nStartY:%d",nStartX,nStartY);
-	//ccMessageBox(msg,"С��ͼ");
+	//sprintf(msg,"nStartX:%d,nStartY:%d",nStartX,nStartY);
+	//messageBox(msg,"С��ͼ");
 	return;
 
 	SIZE	PicEntireSize;
 	PicEntireSize.cx = m_CurPicWidth;//m_pEntireMap->nWidth;
 	PicEntireSize.cy = m_CurPicHeight;//m_pEntireMap->nHeight;
 	POINT	DestPos;
-	
+
 	int	h, v, x, y, nFromX, nFromY, nToX, nToY;
 	for (v = 0, y = nStartY; v < MAP_CELL_MAX_RANGE; ++v, y += MAP_CELL_MAP_HEIGHT)
 	{
@@ -569,10 +569,10 @@ void KScenePlaceMapC::FillCellsPicInfo()
 					}
 					if (nToX > PicEntireSize.cx)
 						nToX = PicEntireSize.cx;
-					
+
 					/*short *pBuf = (short*)g_pRepresent->GetBitmapDataBuffer(
 						//m_ElemsList[v][h].szImageName, NULL);
-					
+
 					if (pBuf)
 					{
 						short* pEntire = (short*)(&m_pEntireMap->Data) +
@@ -655,9 +655,9 @@ void KScenePlaceMapC::Free()
 //��̬����
 void KScenePlaceMapC::PaintMap(int nX, int nY)
 {
-	m_MapPos.left = nX; 
+	m_MapPos.left = nX;
 	m_MapPos.top  = nY;
-	m_MapPos.right  = m_MapPos.left + m_Size.cx; 
+	m_MapPos.right  = m_MapPos.left + m_Size.cx;
 	m_MapPos.bottom = m_MapPos.top  + m_Size.cy;
 	//g_pRepresent
 	if (m_bHavePicMap  && m_bPicMapType==0)
@@ -675,8 +675,8 @@ void KScenePlaceMapC::PaintMap(int nX, int nY)
 			int nNpcX = LOWORD(Npc[nNpcIdx].m_dwRegionID) * MAP_A_REGION_NUM_MAP_PIXEL_H + Npc[nNpcIdx].m_MapX * 2;
 			int nNpcY = HIWORD(Npc[nNpcIdx].m_dwRegionID) * MAP_A_REGION_NUM_MAP_PIXEL_V + Npc[nNpcIdx].m_MapY;
             //char msg[32];
-			//t_sprintf(msg,"nNpcX:%dnNpcY:%d",nNpcX,nNpcY);
-			//ccMessageBox(msg,"FootSpot");
+			//sprintf(msg,"nNpcX:%dnNpcY:%d",nNpcX,nNpcY);
+			//messageBox(msg,"FootSpot");
 			KRUShadow	FootSpot;
 			if (nNpcX >= m_MapCoverArea.left && nNpcX < m_MapCoverArea.right &&
 				nNpcY >= m_MapCoverArea.top  && nNpcY < m_MapCoverArea.bottom)
@@ -686,7 +686,7 @@ void KScenePlaceMapC::PaintMap(int nX, int nY)
 				FootSpot.oPosition.nY   = nY + nNpcY - m_MapCoverArea.top  - 1;
 				FootSpot.oEndPos.nX     = FootSpot.oPosition.nX + 3;
 				FootSpot.oEndPos.nY     = FootSpot.oPosition.nY + 3;
-				//ccMessageBox("�滭��","�滭��");
+				//messageBox("�滭��","�滭��");
 				if (g_GameWorld)
 				   g_GameWorld->DrawPrimitives_RolePoint(0,1,&FootSpot,0,RU_T_SHADOW,2,true);
 			}
@@ -707,7 +707,7 @@ void KScenePlaceMapC::PaintMap(int nX, int nY)
 void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int Kind)
 {
 	//if (g_pRepresent)
-	{		
+	{
 		int nNpcX = 0;
 		int nNpcY = 0;
 
@@ -716,7 +716,7 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 
 			nNpcX = nPosX + nX + (m_FocusLimit.left / MAP_SCALE_H - m_Size.cx / 2) - m_MapCoverArea.left - 5;
 			nNpcY = nPosY + m_MapPos.top + (m_FocusLimit.top / MAP_SCALE_V - m_Size.cy / 2) - m_MapCoverArea.top - 5;
-			
+
 			switch (Kind)
 			{
 				case 0:
@@ -739,7 +739,7 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 						NamePoint.y = m_MapPos.top;
 					if (NamePos.bottom > m_MapPos.bottom)
 						NamePoint.y -= (NamePos.bottom - m_MapPos.bottom);
-					
+
 					if (NamePoint.x > nNpcX)
 						return;
 					if (NamePoint.y + (NORMAL_FONTSIZE + 1) < nNpcY)
@@ -748,7 +748,7 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 						return;
 					if (NamePoint.y > NamePos.bottom)
 						return;
-						
+
 //					g_pRepresent->OutputText(NORMAL_FONTSIZE,nContent, KRF_ZERO_END, NamePoint.x, NamePoint.y, 0x00ffff00);
 				}
 				break;
@@ -759,10 +759,10 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 
 					KImageParam	Param;
 //					g_pRepresent->GetImageParam(nContent, &Param, ISI_T_SPR);
-					
+
 					BYTE btSymbolW = Param.nWidth;
-					BYTE btSymbolH = Param.nHeight;					
-					
+					BYTE btSymbolH = Param.nHeight;
+
 					RUSymbol.nType = ISI_T_SPR;
 					RUSymbol.Color.Color_b.a = 255;
 					RUSymbol.bRenderStyle = IMAGE_RENDER_STYLE_ALPHA;
@@ -775,12 +775,12 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 					RUSymbol.oPosition.nZ = 0;
 
 					RECT PosSymbol;
-					
+
 					PosSymbol.left = RUSymbol.oPosition.nX + btSymbolW;
 					PosSymbol.right = RUSymbol.oPosition.nX;
 					PosSymbol.top = RUSymbol.oPosition.nY + btSymbolH;
 					PosSymbol.bottom = RUSymbol.oPosition.nY + btSymbolH;
-					
+
 					if ((PosSymbol.left - btSymbolW) < m_MapPos.left)
 						RUSymbol.oPosition.nX += m_MapPos.left - (PosSymbol.left - btSymbolW);
 					if (PosSymbol.top - btSymbolH < m_MapPos.top)
@@ -789,12 +789,12 @@ void KScenePlaceMapC::PaintSymbol(int nX ,int nPosX,int nPosY,char *nContent,int
 						RUSymbol.oPosition.nY -= PosSymbol.bottom - m_MapPos.bottom;
 					if (PosSymbol.right + btSymbolW > m_MapPos.right)
 						RUSymbol.oPosition.nX -= (PosSymbol.right + btSymbolW) - m_MapPos.right;
-						
-					if (PosSymbol.left < m_MapPos.left || 
-						PosSymbol.top < m_MapPos.top || 
-						PosSymbol.right > m_MapPos.right || 
+
+					if (PosSymbol.left < m_MapPos.left ||
+						PosSymbol.top < m_MapPos.top ||
+						PosSymbol.right > m_MapPos.right ||
 						PosSymbol.bottom > m_MapPos.bottom + btSymbolH)
-						break;	
+						break;
 //					g_pRepresent->DrawPrimitives(1, &RUSymbol, RU_T_IMAGE, true);
 				}
 				break;
@@ -813,8 +813,8 @@ void KScenePlaceMapC::MapGoTo()
 	/*
 	  	int         m_DestRegIdx_X;		    //  Ŀ�����ڵ����� ����
 		int         m_DestRegIdx_Y;
-		
-		  
+
+
 		int         m_YscRegIdx_X;		    //  �������ڵ����� ����
 		int         m_YscRegIdx_Y;
 
@@ -832,16 +832,16 @@ void KScenePlaceMapC::MapGoTo()
 	int nMapID=SubWorld[Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex].m_SubWorldID;
 
 	/*int  nYx,nYy;
-	int nRegidx =(m_YscRegIdx_X - m_MapRect.top) * m_nMapWidth +(m_YscRegIdx_Y - m_MapRect.left); 
+	int nRegidx =(m_YscRegIdx_X - m_MapRect.top) * m_nMapWidth +(m_YscRegIdx_Y - m_MapRect.left);
 	//int	nRegion = (nY - m_sMapRect.top) * m_nMapWidth + nX - m_sMapRect.left;
 	int nBarrier=0,lRet=0,lType=0;
 
 	nYx  = m_FocusPosition.x%16;
 	nYy  = m_FocusPosition.y%32;
-	
+
 	if (nRegidx>0 && nRegidx < m_nMapWidth*m_nMapHeight)
 		nBarrier = m_ppbtBarrier[nRegidx][nYy * REGION_GRID_WIDTH + nYx];
-	
+
 	if (nBarrier>=0)
 	{
 		lRet = nBarrier & 0x0000000f;
@@ -856,14 +856,14 @@ void KScenePlaceMapC::MapGoTo()
 	//��������Ѱ·��---------------------------------
 	 /*if (m_YscRegIdx_X == m_DestRegIdx_X && m_YscRegIdx_Y == m_DestRegIdx_Y)
 	 {//ͬһ������
-		 nMovePox_X = m_YscRegIdx_X*512; 
+		 nMovePox_X = m_YscRegIdx_X*512;
 		 nMovePox_Y = m_YscRegIdx_Y*1024;
 		 //m_FocusPosition.x/8/32, m_FocusPosition.y/16/32); //�������ڵĸ�������
 		 Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_BtnFindPath=FALSE;
 		 m_GreenLineDes.x = -123456;                         //����Ŀ������
 		 m_GreenLineDes.y = -123456;
 		 m_GreenLineYsc.x = 0;
-		 m_GreenLineYsc.y = 0; 
+		 m_GreenLineYsc.y = 0;
 		 m_DestRegIdx_X  = 0;
 		 m_DestRegIdx_Y  = 0;
 		 m_YscRegIdx_X   = 0;
@@ -880,7 +880,7 @@ void KScenePlaceMapC::MapGoTo()
 
 		}
 	 } */
-	//-----------------------------------------------	
+	//-----------------------------------------------
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].SendSerCommand(do_run, nMovePox_X,nMovePox_Y);
 	SendClientCmdRun(nMovePox_X,nMovePox_Y,nMapID);
 }
@@ -890,7 +890,7 @@ void KScenePlaceMapC::PaintPointYellow(int nX, int nY,int nNpcX, int nNpcY,char 
 {
 	//if (m_bHavePicMap && g_pRepresent)
 	{
-		
+
 		if (nNpcX >= m_MapCoverArea.left && nNpcX < (m_MapCoverArea.right - 5) &&
 			nNpcY >= m_MapCoverArea.top  && nNpcY < (m_MapCoverArea.bottom - 5))
 		{
@@ -903,7 +903,7 @@ void KScenePlaceMapC::PaintPointYellow(int nX, int nY,int nNpcX, int nNpcY,char 
 		YellowPoint.bRenderFlag = RUIMAGE_RENDER_FLAG_REF_SPOT;
 		if (nType==2)
 			strcpy(YellowPoint.szImage, szName);
-		else 
+		else
 		    strcpy(YellowPoint.szImage, "\\Spr\\obj\\box\\YellowPoint.spr");
 
 		YellowPoint.nFrame = 0;
@@ -949,7 +949,7 @@ void KScenePlaceMapC::PaintCharacters(int nX, int nY)
 	{
 		if (Npc[nNpcIdx].m_RegionIndex == -1)
 			continue;
-		
+
 		int nNpcX = LOWORD(Npc[nNpcIdx].m_dwRegionID) * MAP_A_REGION_NUM_MAP_PIXEL_H + Npc[nNpcIdx].m_MapX * 2;
 		int nNpcY = HIWORD(Npc[nNpcIdx].m_dwRegionID) * MAP_A_REGION_NUM_MAP_PIXEL_V + Npc[nNpcIdx].m_MapY;
 		if (nNpcX < m_MapCoverArea.left || nNpcX >= m_MapCoverArea.right ||
@@ -968,7 +968,7 @@ void KScenePlaceMapC::PaintCharacters(int nX, int nY)
 			/*int nType=0;
 		        nType =Npc[nNpcIdx].m_cGold.GetGoldType();
 
-				if (nType ==1) 
+				if (nType ==1)
 					uColor = 0xff00ff00;	// �̹�  ��Ǯ
 				else if (nType >=2 && nType <= 4)
 					uColor=GetColor("0,0,160");  //����
@@ -990,7 +990,7 @@ void KScenePlaceMapC::PaintCharacters(int nX, int nY)
 				nIsInTeam && //���������״̬
 				((DWORD)g_Team[0].m_nCaptain == Npc[nNpcIdx].m_dwID ||	    //���������ڶ���Ķӳ�
 					g_Team[0].FindMemberID(Npc[nNpcIdx].m_dwID) >= 0) &&	//���������ڶ���Ķ�Ա
-				nNumPartner < MAX_NUM_PARTNER)	
+				nNumPartner < MAX_NUM_PARTNER)
 			{
 				oPartnerPos[nNumPartner].x = nNpcX;
 				oPartnerPos[nNumPartner].y = nNpcY;
@@ -1042,7 +1042,7 @@ void KScenePlaceMapC::PaintCharacters(int nX, int nY)
 			FootSpot[i].oEndPos.nX = FootSpot[i].oPosition.nX + 3;
 			FootSpot[i].oEndPos.nY = FootSpot[i].oPosition.nY + 3;
 		}
-//		g_pRepresent->DrawPrimitives(nNumPartner, &FootSpot[0], RU_T_SHADOW, true);		
+//		g_pRepresent->DrawPrimitives(nNumPartner, &FootSpot[0], RU_T_SHADOW, true);
 	}
 }
 
@@ -1061,8 +1061,8 @@ void KScenePlaceMapC::PaintMapPic(int nX, int nY)
 	Img.oPosition.nY = nY;
 	//TOP = 0
 	//char msg[128];
-	//t_sprintf(msg,"MapW:%d,H:%d,fx:%d,fy:%d,Lx:%d,Ly:%d",m_nMapWidth,m_nMapHeight,m_FirstCellSkipWidth.cx,m_FirstCellSkipWidth.cy,m_LastCellSkipHeight.cx,m_LastCellSkipHeight.cy);
-    //ccMessageBox(msg,"PaintMapPic");
+	//sprintf(msg,"MapW:%d,H:%d,fx:%d,fy:%d,Lx:%d,Ly:%d",m_nMapWidth,m_nMapHeight,m_FirstCellSkipWidth.cx,m_FirstCellSkipWidth.cy,m_LastCellSkipHeight.cx,m_LastCellSkipHeight.cy);
+    //messageBox(msg,"PaintMapPic");
     /*if (m_bPicMapType==0)
 	for (int v = m_PaintCell.top; v < m_PaintCell.bottom; ++v)
 	{//�滭25��?
@@ -1112,7 +1112,7 @@ void KScenePlaceMapC::PaintMapPic(int nX, int nY)
 	{
 		Img.nType = ISI_T_SPR;
         Img.oPosition.nX = nX;
-        strcpy(Img.szImage,"\\maps\\С��ͼ\\С��ͼ.spr");		
+        strcpy(Img.szImage,"\\maps\\С��ͼ\\С��ͼ.spr");
         SetClientSpr(Img.szImage,Img.oPosition.nX,Img.oPosition.nY,0,1);
 		//g_pRepresent->DrawPrimitives(1, &Img,RU_T_IMAGE,true);
 	}
@@ -1131,22 +1131,22 @@ void KScenePlaceMapC::SetClientSpr(char *nSprPath,int nxLeft,int nyTop,int nzPos
 				strcpy(RUIconImage.szImage, nSprPath);  //�ı�����
 				RUIconImage.oPosition.nX = nxLeft;
 				RUIconImage.oPosition.nY = nyTop;
-				RUIconImage.oPosition.nZ = nzPos; 
-				KImageParam	 imgParam; 
+				RUIconImage.oPosition.nZ = nzPos;
+				KImageParam	 imgParam;
 				imgParam.nNumFrames = 0;
 
 				//g_pRepresent->GetImageParam(nSprPath, &imgParam, ISI_T_SPR);
 
 				if (imgParam.nNumFrames > 0 && m_DurFrame[i] < imgParam.nNumFrames)
-				{			
+				{
 					IR_NextFrame(m_DurFrame[i], imgParam.nNumFrames,imgParam.nInterval,uFlipTime[i]);
 					RUIconImage.nFrame = m_DurFrame[i];
 				}
 				else
 				{
 					m_DurFrame[i]=0;
-					RUIconImage.nFrame = 0;		
-				}	
+					RUIconImage.nFrame = 0;
+				}
 				//g_GameWorld->DrawPrimitives_minemap(RUIconImage.oPosition.nX,RUIconImage.oPosition.nY,m_MapRect,nCurFilePath);
                 //g_pRepresent->DrawPrimitives(1, &RUIconImage, RU_T_IMAGE, TRUE);
 }
@@ -1180,7 +1180,7 @@ void KScenePlaceMapC::SetSize(int cx, int cy)
 			if (m_FocusLimit.bottom < m_FocusLimit.top)
 				m_FocusLimit.bottom = m_FocusLimit.top;
 		}
-		
+
 		m_Size.cx = cx;
 		m_Size.cy = cy;
 
@@ -1228,27 +1228,27 @@ void KScenePlaceMapC::SetGreenLine(int nX, int nY, BOOL bSearch)
 	char nDebugmsg[200];
 	if (!bSearch)	//��С��ͼѰ· ��꽹�� ת���ɳ�������
 	{
-		
+
 		if ( nX > m_MapPos.left && nY > m_MapPos.top && nX < m_MapPos.right && nY < m_MapPos.bottom)
 		{//�ڷ�Χ��
 
 		Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_BtnFindPath	=TRUE;
-		  
+
 		m_GreenLineDes.x = nX - m_MapPos.left + m_MapCoverArea.left + 1; // ����Ŀ������
-		m_GreenLineDes.y = nY - m_MapPos.top + m_MapCoverArea.top + 1;			
-		
+		m_GreenLineDes.y = nY - m_MapPos.top + m_MapCoverArea.top + 1;
+
 		m_GreenLineYsc.x = m_GreenLineDes.x;
 		m_GreenLineYsc.y = m_GreenLineDes.y;
-		t_sprintf(nDebugmsg,"m_GreenLineYsc:%d,m_GreenLineYsc.y:%d",m_GreenLineYsc,m_GreenLineYsc.y);
-		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);	
-			
-			
+		sprintf(nDebugmsg,"m_GreenLineYsc:%d,m_GreenLineYsc.y:%d",m_GreenLineYsc,m_GreenLineYsc.y);
+		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);
+
+
 		   /*int nMapID=SubWorld[Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex].m_SubWorldID;
 			    Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].SendSerCommand(do_run, m_GreenLineDes.x*16, m_GreenLineDes.y*32);
 			    SendClientCmdRun(m_GreenLineDes.x*16, m_GreenLineDes.y*32,nMapID);
 
                 KSystemMessage	sMsg;
-				t_sprintf(sMsg.szMessage, MSG_CAN_NOT_PK_SUNYI);
+				sprintf(sMsg.szMessage, MSG_CAN_NOT_PK_SUNYI);
 				sMsg.eType = SMT_NORMAL;
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
@@ -1268,13 +1268,13 @@ void KScenePlaceMapC::SetGreenLine(int nX, int nY, BOOL bSearch)
 		m_GreenLineDes.x = nX*MAP_SCALE_H;
 		m_GreenLineDes.y = nY*MAP_SCALE_H;
 //		if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_FightMode == 0) //��ս��ģʽ�ſ���˲��
-//		{   
+//		{
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("tim duong 2");
 		    int nMapID=SubWorld[Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex].m_SubWorldID;
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].SendSerCommand(do_run, m_GreenLineDes.x*16, m_GreenLineDes.y*32);
-			SendClientCmdRun(m_GreenLineDes.x*16, m_GreenLineDes.y*32,nMapID); 
+			SendClientCmdRun(m_GreenLineDes.x*16, m_GreenLineDes.y*32,nMapID);
 			// KSystemMessage	sMsg;
-			// t_sprintf(sMsg.szMessage, strCoreInfo[MSG_CAN_NOT_PK_SUNYI].c_str());
+			// sprintf(sMsg.szMessage, strCoreInfo[MSG_CAN_NOT_PK_SUNYI].c_str());
 			// sMsg.eType = SMT_NORMAL;
 			// sMsg.byConfirmType = SMCT_NONE;
 			// sMsg.byPriority = 0;
@@ -1287,7 +1287,7 @@ void KScenePlaceMapC::SetGreenLine(int nX, int nY, BOOL bSearch)
 //		{
 //			SendClientCmdSunyi(53,m_GreenLineDes.x*16,m_GreenLineDes.y*32); //����˲������
 //		}
-		
+
 	}
 }
 
@@ -1298,9 +1298,9 @@ unsigned int KScenePlaceMapC::GetColor(LPCTSTR pString)
 {
 	if (pString == NULL)
 		return 0;
-	
+
 	unsigned int Color = 0xFF000000;  //��ɫ
-	
+
 	char Buf[16] = "";
 	int  i = 0;
 	int  n = 0;
@@ -1310,7 +1310,7 @@ unsigned int KScenePlaceMapC::GetColor(LPCTSTR pString)
 			return Color;
 		Buf[n++] = pString[i++];
 	}
-	
+
 	Buf[n] = 0;
 	Color += ((atoi(Buf) & 0xFF) << 16);
 	n = 0;
@@ -1338,7 +1338,7 @@ unsigned int KScenePlaceMapC::GetColor(LPCTSTR pString)
 
 // void KScenePlaceMapC::DrawGreenLine(int nX, int nY, int nX2, int nY2,LPCTSTR pString,int nLineNum) // ������
 // {
-// 	if (nX < -100000 || nY < -100000) 
+// 	if (nX < -100000 || nY < -100000)
 // 		return;
 // 	KRULine Line[2];
 // 	Line[0].oPosition.nX = nX;  //���
@@ -1357,7 +1357,7 @@ unsigned int KScenePlaceMapC::GetColor(LPCTSTR pString)
 // 	Line[1].oEndPos.nZ = 0;
 // 	Line[1].Color.Color_dw = GetColor(pString);	  //��ɫ
 
-// 	g_GameWorld->DrawPrimitives(nLineNum,Line, RU_T_LINE, TRUE); 
+// 	g_GameWorld->DrawPrimitives(nLineNum,Line, RU_T_LINE, TRUE);
 // }
 
 //�����ȡ��Ѱ·����״̬
@@ -1384,7 +1384,7 @@ void KScenePlaceMapC::PaintPointQiZi(int nX, int nY,int nNpcX, int nNpcY,char sz
 {
 	if (m_bHavePicMap )
 	{//&& g_pRepresent
-		
+
 		if (nNpcX >= m_MapCoverArea.left && nNpcX < (m_MapCoverArea.right - 5) &&
 			nNpcY >= m_MapCoverArea.top  && nNpcY < (m_MapCoverArea.bottom - 5))
 		{
@@ -1424,7 +1424,7 @@ void KScenePlaceMapC::GetMapBarrierBuf(INT **lpbtObstacle)
 		return;
 	//int	nRegion  = nY *m_MapWidth  + nX;  //����߶� �ж��ٸ� ����Ŀ��(nY - m_MapCoverArea.top) * m_nMapWidth + nX - m_MapCoverArea.left;
 	//return m_ppbtBarrier[nRegion];
-  
+
 //	INT *m_TempbtBarrier = m_ppbtBarrier;
 	lpbtObstacle = m_ppbtBarrier;
 	*/
@@ -1473,12 +1473,12 @@ void	KScenePlaceMapC::Draw(int nX, int nY)
 	//	return;
 	/*if (!this->m_pbyLoadFlag || !this->m_ppbtBarrier) //���û���ϰ� ��û�м����ϰ��Ͳ���ʾ
 		return;
-	
+
 	int		nRx, nRy, nOx, nOy, nSx, nSy, nTx, nTy;
-	
+
 	nSx = nX - REGION_GRID_WIDTH * m_nShowWidth / 2;
 	nSy = nY - REGION_GRID_HEIGHT * m_nShowHeight / 2;
-	
+
 	// ��ʾ�ϰ�
 	int m_nPointPos = 0;
 	KRUPoint	m_sPoint[MAX_NUM_CHARACTER];	// ���ڻ���
@@ -1499,7 +1499,7 @@ void	KScenePlaceMapC::Draw(int nX, int nY)
 				continue;
 			nOx = (nSx + i) % REGION_GRID_WIDTH;
 			nOy = (nSy + j) % REGION_GRID_HEIGHT;
-			
+
 			if (m_ppbtBarrier[nRy * m_nMapWidth + nRx][nOy * REGION_GRID_WIDTH + nOx])
 			{//������ϰ�
 				m_sPoint[m_nPointPos].Color.Color_dw = GetColor("0,225,64");	  //��ɫm_sBarrierColor.Color_dw;
@@ -1515,7 +1515,7 @@ void	KScenePlaceMapC::Draw(int nX, int nY)
 			}
 		}
 	}
-	
+
 	if (m_nPointPos > 0 && m_nPointPos < MAX_NUM_CHARACTER)
 	{
 //		g_pRepresent->DrawPrimitives(m_nPointPos, m_sPoint, RU_T_POINT, true);

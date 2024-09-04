@@ -18,7 +18,7 @@ CSocket::CSocket( SOCKET theSocket )
 	{
 	}
 }
-      
+
 CSocket::~CSocket()
 {
 	if (INVALID_SOCKET != m_socket)
@@ -36,16 +36,16 @@ CSocket::~CSocket()
 void CSocket::Attach( SOCKET theSocket )
 {
 	AbortiveClose();
-	
+
 	m_socket = theSocket;
 }
 
 SOCKET CSocket::Detatch()
 {
 	SOCKET theSocket = m_socket;
-	
+
 	m_socket = INVALID_SOCKET;
-	
+
 	return theSocket;
 }
 
@@ -64,18 +64,18 @@ void CSocket::Close()
 void CSocket::AbortiveClose()
 {
 	LINGER lingerStruct;
-	
+
 	lingerStruct.l_onoff = 1;
 	lingerStruct.l_linger = 0;
-	
+
 	if ( SOCKET_ERROR == setsockopt( m_socket,
-				SOL_SOCKET, 
-				SO_LINGER, 
+				SOL_SOCKET,
+				SO_LINGER,
 				(char *)&lingerStruct,
 				sizeof(lingerStruct)))
 	{
 	}
-	
+
 	Close();
 }
 
@@ -95,7 +95,7 @@ void CSocket::Listen( int32_t backlog )
 
 void CSocket::Bind( const SOCKADDR_IN &address )
 {
-	if ( SOCKET_ERROR == ::bind( m_socket, 
+	if ( SOCKET_ERROR == ::bind( m_socket,
 			reinterpret_cast< struct sockaddr * >( const_cast< SOCKADDR_IN * >( &address ) ),
 			sizeof( SOCKADDR_IN ) ) )
 	{
@@ -104,7 +104,7 @@ void CSocket::Bind( const SOCKADDR_IN &address )
 
 void CSocket::Bind( const struct sockaddr &address, uint32_t addressLength )
 {
-	if ( SOCKET_ERROR == ::bind( m_socket, 
+	if ( SOCKET_ERROR == ::bind( m_socket,
 			const_cast< struct sockaddr * >( &address ),
 			addressLength ) )
 	{
@@ -124,24 +124,24 @@ bool CSocket::Connect_(const std::string ip, unsigned short port)
 //#endif
 		//char nnet[128]={0};
 		//sprintf(nnet,"ip:%s,p:%d,s:%d",ip.c_str(),port,m_socket);
-		//ccMessageBox(nnet,"Connect_");
+		//messageBox(nnet,"Connect_");
 		return false;
 	}
 	return true;
 }
 void CSocket::Connect(const SOCKADDR_IN &address )
 {
-	if (SOCKET_ERROR ==::connect(m_socket, 
-		reinterpret_cast<struct sockaddr *>(const_cast<SOCKADDR_IN *>(&address)), 
+	if (SOCKET_ERROR ==::connect(m_socket,
+		reinterpret_cast<struct sockaddr *>(const_cast<SOCKADDR_IN *>(&address)),
 		sizeof(SOCKADDR_IN)))
 	{
 #ifndef WIN32
-		//ccMessageBox("connect fail..","connect");
+		//messageBox("connect fail..","connect");
 		 //close(m_socket);
 #endif
 		return;
 	}
-	//ccMessageBox("connect suss..","connect");
+	//messageBox("connect suss..","connect");
 }
 
 void CSocket::Connect( const struct sockaddr &address, uint32_t addressLength )
@@ -169,7 +169,7 @@ CSocket::InternetAddress::InternetAddress( uint32_t address, unsigned short port
 
 	sin_family = AF_INET;
 	sin_port = htons( port );
-	sin_addr.s_addr = htonl( address );  
+	sin_addr.s_addr = htonl( address );
 }
 
 CSocket::InternetAddress::InternetAddress(
@@ -179,7 +179,7 @@ CSocket::InternetAddress::InternetAddress(
 	sin_family = AF_INET;
 	sin_port = htons(port);
 	sin_addr.s_addr = inet_addr(addressToConnectServer.c_str());
-	
+
 	/*
 	 * struct sockaddr_in svraddr;
     svraddr.sin_family = AF_INET;

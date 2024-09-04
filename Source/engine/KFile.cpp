@@ -40,17 +40,17 @@ KFile::~KFile()
 bool KFile::Open(char * FileName)
 {
 	char PathName[MAXPATH]={0};
-	
+
 	// close prior file handle
 	//if (m_hFile != INVALID_HANDLE_VALUE)
 	//	Close();
 
 	if (m_hFile != NULL)
 		Close();
-	//ccMessageBox(FileName,"KFile::Open a");
+	//messageBox(FileName,"KFile::Open a");
 	// get full path name
 	g_GetFullPath(PathName, FileName);
-	//ccMessageBox(PathName,"KFile::Open a");
+	//messageBox(PathName,"KFile::Open a");
 /*#ifndef WIN32
 	char *name_ptr = PathName;
 	while(*name_ptr) {
@@ -98,10 +98,10 @@ bool KFile::Open(char * FileName)
 
 	if (m_hFile == NULL)
 	{
-		//ccMessageBox(PathName,"PATHE");
+		//messageBox(PathName,"PATHE");
 		return FALSE;
 	}
-	//ccMessageBox(PathName,"KFile::Open b");
+	//messageBox(PathName,"KFile::Open b");
 	return TRUE;
 }
 //---------------------------------------------------------------------------
@@ -113,14 +113,14 @@ bool KFile::Open(char * FileName)
 bool KFile::Create(char * FileName)
 {
 	char PathName[MAXPATH]={0};
-	
+
 	// close prior file handle
 	//if (m_hFile != INVALID_HANDLE_VALUE)
 	//	Close();
 
 	if (m_hFile != NULL) //������ھ͹ر�
 		Close();
-	
+
 	// get full path name
 	g_GetFullPath(PathName, FileName);
 
@@ -136,7 +136,7 @@ bool KFile::Create(char * FileName)
 		CREATE_ALWAYS,	// create or over write
 		FILE_ATTRIBUTE_NORMAL, // file attributes
 		NULL);			// template file
-*/	
+*/
 	m_hFile = fopen(PathName,"wb+");
 	// check file handle
 	if (m_hFile == INVALID_HANDLE_VALUE)
@@ -156,14 +156,14 @@ bool KFile::Create(char * FileName)
 bool KFile::Append(char * FileName)
 {
 	char PathName[MAXPATH]={0};
-	
+
 	// close prior file handle
 	//if (m_hFile != INVALID_HANDLE_VALUE)
 	//	Close();
 
 	if (m_hFile != NULL)
 		Close();
-	
+
 	// get full path name
 	g_GetFullPath(PathName, FileName);
 
@@ -181,7 +181,7 @@ bool KFile::Append(char * FileName)
 		NULL);			// template file*/
 	//if (m_hFile == INVALID_HANDLE_VALUE)
 	//	return FALSE;
-	
+
 	// check file handle
 	m_hFile = fopen(PathName, "ab");
 	if (m_hFile == NULL)
@@ -207,7 +207,7 @@ void KFile::Close()
 	{
 		fclose((FILE*)m_hFile);
 	}
-	
+
 	//m_hFile	= (FILE *)INVALID_HANDLE_VALUE;
 	m_hFile	= NULL;
 	m_dwLen	= 0;
@@ -223,20 +223,20 @@ void KFile::Close()
 uint32_t KFile::Read(void *lpBuffer,uint32_t dwReadBytes)
 {
 	uint32_t dwBytesRead;
-	
+
 	//if (m_hFile == INVALID_HANDLE_VALUE)
 	//	return 0;
 	if (m_hFile == NULL)
 		return 0;
-	
+
 //	ReadFile(m_hFile, lpBuffer, dwReadBytes, &dwBytesRead, NULL);
-	dwBytesRead = fread(lpBuffer, 1, dwReadBytes, m_hFile);	
+	dwBytesRead = fread(lpBuffer, 1, dwReadBytes, m_hFile);
 	m_dwPos += dwBytesRead;
-	
+
 	return dwBytesRead;
 
 	/* FILE *fp = fopen(fullPath.c_str(), pszMode);
-    CC_BREAK_IF(!fp);
+    AX_BREAK_IF(!fp);
 
     uint32_t size;
     fseek(fp,0,SEEK_END);
@@ -261,18 +261,18 @@ uint32_t KFile::Read(void *lpBuffer,uint32_t dwReadBytes)
 uint32_t KFile::Write(void * lpBuffer, uint32_t dwWriteBytes)
 {
 	uint32_t dwBytesWrite;
-	
+
 	//if (m_hFile == INVALID_HANDLE_VALUE)
 	//	return 0;
 
 	if (m_hFile == NULL)
 		return 0;
 
-	dwBytesWrite = fwrite(lpBuffer, 1, dwWriteBytes, m_hFile);	
+	dwBytesWrite = fwrite(lpBuffer, 1, dwWriteBytes, m_hFile);
 //	WriteFile(m_hFile, lpBuffer, dwWriteBytes, &dwBytesWrite, NULL);
-	
+
 	m_dwPos += dwBytesWrite;
-	
+
 	return dwBytesWrite;
 }
 //---------------------------------------------------------------------------

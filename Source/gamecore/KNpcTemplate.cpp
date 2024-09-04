@@ -1,5 +1,5 @@
 #include "KCore.h"
-#include "KNpc.h"    //Ô­À´Ã»ÓÐµÄ
+#include "KNpc.h"    //Ô­ï¿½ï¿½Ã»ï¿½Ðµï¿½
 #include "KNpcTemplate.h"
 
 //#include "KDropScript.h"
@@ -8,11 +8,11 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
-#else 
+#else
 #include <io.h>
 #include <direct.h>
 #endif
-//-------------ÐÂµÄ----------------------------------------------
+//-------------ï¿½Âµï¿½----------------------------------------------
 #include <algorithm>
 
 #define MAX_VALUE_LEN 300
@@ -26,29 +26,29 @@ BOOL KNpcTemplate::InitNpcBaseData(int nNpcTemplateId)
 	g_NpcSetting.GetString(nNpcTempRow, "Name", "", Name, sizeof(Name));
 
 	if (nGameVersion!=1)
-	{//Èç¹û°æ±¾²»ÊÇ1µÄ»° ¿ªÊ¼Ìæ»»Ãû×Ö   
+	{//ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½1ï¿½Ä»ï¿½ ï¿½ï¿½Ê¼ï¿½æ»»ï¿½ï¿½ï¿½ï¿½
 		if (strNpcInfo.count(Name))
-		{//Èç¹û´æÔÚ¾ÍÌæ»»µô
-			t_sprintf(Name,strNpcInfo[Name].c_str());
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½æ»»ï¿½ï¿½
+			sprintf(Name, "%s", strNpcInfo[Name].c_str());
 		}
-		//t_sprintf(Object[nFreeNo].m_szName,strObjInfo[nDataID + 1].c_str());
+		//sprintf(KObject[nFreeNo].m_szName,strObjInfo[nDataID + 1].c_str());
 	}
 
 	g_NpcSetting.GetInteger(nNpcTempRow, "Kind", 0, (int *)&m_Kind);
 	g_NpcSetting.GetInteger(nNpcTempRow, "Camp", 0, &m_Camp);
 	g_NpcSetting.GetInteger(nNpcTempRow, "Series", 0, &m_Series);
-	
+
 	g_NpcSetting.GetInteger(nNpcTempRow, "HeadImage",	0, &m_HeadImage);
 	g_NpcSetting.GetInteger(nNpcTempRow, "ClientOnly",	0, &m_bClientOnly);
-	g_NpcSetting.GetInteger(nNpcTempRow, "CorpseIdx",	0, &m_CorpseSettingIdx);  //Ê¬Ìå±àºÅ
-	
-	g_NpcSetting.GetInteger(nNpcTempRow, "DeathFrame",	12, &m_DeathFrame); //ËÀÍöÖ¡Êý
+	g_NpcSetting.GetInteger(nNpcTempRow, "CorpseIdx",	0, &m_CorpseSettingIdx);  //Ê¬ï¿½ï¿½ï¿½ï¿½
+
+	g_NpcSetting.GetInteger(nNpcTempRow, "DeathFrame",	12, &m_DeathFrame); //ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
 	g_NpcSetting.GetInteger(nNpcTempRow, "WalkFrame",	15, &m_WalkFrame);
 	g_NpcSetting.GetInteger(nNpcTempRow, "RunFrame",	15, &m_RunFrame);
 	g_NpcSetting.GetInteger(nNpcTempRow, "HurtFrame",	10, &m_HurtFrame);
 	g_NpcSetting.GetInteger(nNpcTempRow, "WalkSpeed",	5, &m_WalkSpeed);
-	g_NpcSetting.GetInteger(nNpcTempRow, "AttackSpeed",	20, &m_AttackFrame); //Íâ¹¦¹¥»÷ËÙ¶È
-	g_NpcSetting.GetInteger(nNpcTempRow, "CastSpeed",	20, &m_CastFrame);   //ÄÚ¹¦¹¥»÷ËÙ¶È
+	g_NpcSetting.GetInteger(nNpcTempRow, "AttackSpeed",	20, &m_AttackFrame); //ï¿½â¹¦ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+	g_NpcSetting.GetInteger(nNpcTempRow, "CastSpeed",	20, &m_CastFrame);   //ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 	g_NpcSetting.GetInteger(nNpcTempRow, "RunSpeed",	10, &m_RunSpeed);
 	g_NpcSetting.GetInteger(nNpcTempRow, "StandFrame",	15, &m_StandFrame);
 	g_NpcSetting.GetInteger(nNpcTempRow, "StandFrame1", 15, &m_StandFrame1);
@@ -62,12 +62,12 @@ BOOL KNpcTemplate::InitNpcBaseData(int nNpcTemplateId)
 	g_NpcSetting.GetString(nNpcTempRow, "ActionScript", "", ActionScript,sizeof(ActionScript));
 	g_NpcSetting.GetString(nNpcTempRow, "LevelScript", "", m_szLevelSettingScript, 100);
 	return TRUE;
-	
+
 }
-//´Ó½Å±¾ÖÐ»ñÈ¡NPC¸÷ÏîÔ­Ê¼Êý¾Ý
+//ï¿½Ó½Å±ï¿½ï¿½Ð»ï¿½È¡NPCï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
 BOOL KNpcTemplate::InitNpcLevelData(int nNpcTemplateId, KLuaScript * pLevelScript, int nLevel)
 {
-	if (nNpcTemplateId < 0 || nLevel <= 0 || (!pLevelScript)) 
+	if (nNpcTemplateId < 0 || nLevel <= 0 || (!pLevelScript))
 		return FALSE;
 	int nNpcTempRow = nNpcTemplateId + 2;
 
@@ -85,7 +85,7 @@ BOOL KNpcTemplate::InitNpcLevelData(int nNpcTemplateId, KLuaScript * pLevelScrip
 		g_NpcSetting.GetDouble(nNpcTempRow, "LifeParam3", 0, &ncParam3);
 
 		m_nLifeMax =(int) (GetNpcKeyDataFromScript(pLevelScript, "Life", nLevel, ncParam1, ncParam2, ncParam3,m_Series));
-		
+
 		if (m_nLifeMax <= 0) m_nLifeMax = 100;
 	}
 	nTopIndex=pLevelScript->SafeCallBegin();
@@ -93,7 +93,7 @@ BOOL KNpcTemplate::InitNpcLevelData(int nNpcTemplateId, KLuaScript * pLevelScrip
 
 	return TRUE;
 }
-//¶ÁÈ¡½Å±¾ ´Ó½Å±¾»ñÈ¡·µ»ØÖµ
+//ï¿½ï¿½È¡ï¿½Å±ï¿½ ï¿½Ó½Å±ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Öµ
 int KNpcTemplate::GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel, char * szParam,int nSeries)
 {
 	int nTopIndex = 0;
@@ -104,14 +104,14 @@ int KNpcTemplate::GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataN
 	}
 
 	nTopIndex=pScript->SafeCallBegin();
-	pScript->CallFunction("GetNpcLevelData",1, "ddss",nSeries,nLevel,szDataName,szParam);   // º¯ÊýÃüÁî
+	pScript->CallFunction("GetNpcLevelData",1, "ddss",nSeries,nLevel,szDataName,szParam);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nTopIndex = Lua_GetTopIndex(pScript->m_LuaState);
-	nReturn = (int) Lua_ValueToNumber(pScript->m_LuaState, nTopIndex);  //·µ»ØÊý×Ö
+	nReturn = (int) Lua_ValueToNumber(pScript->m_LuaState, nTopIndex);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nTopIndex=pScript->SafeCallBegin();
 	pScript->SafeCallEnd(nTopIndex);
 	return nReturn;
 }
-//»ñÈ¡½Å±¾NPC ¾­Ñé µÈ¼¶ ÉúÃüµÈÉèÖÃ
+//ï¿½ï¿½È¡ï¿½Å±ï¿½NPC ï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KNpcTemplate::GetNpcKeyDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel,double nParam1, double nParam2,double nParam3,int nSeries)
 {
 	int nTopIndex = 0;
@@ -129,7 +129,7 @@ int KNpcTemplate::GetNpcKeyDataFromScript(KLuaScript * pScript, char * szDataNam
 	return nReturn;
 }
 
-//½âÎöÖÐÎÄ¼¼ÄÜÃû ÔÚ¼¼ÄÜSKILLS ÎÄ±¾ÖÐµÄÎ»ÖÃ »ñÈ¡¼¼ÄÜµÄID
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½SKILLS ï¿½Ä±ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½ ï¿½ï¿½È¡ï¿½ï¿½ï¿½Üµï¿½ID
 int KNpcTemplate::SkillString2Id(char * szSkillString)
 {
 	if (!szSkillString[0]) return 0;
@@ -138,7 +138,7 @@ int KNpcTemplate::SkillString2Id(char * szSkillString)
 	for (int i = 0 ;  i < nSkillNum; ++i)
 	{
 		g_OrdinSkillsSetting.GetString(i + 2, "SkillName", "", szSkillName, sizeof(szSkillName));
-	//	if (g_StrCmp(szSkillString, szSkillName))  //¼¼ÄÜÏàµÈµÄ ÏàÍ¬µÄ  Ô­À´µÄ
+	//	if (g_StrCmp(szSkillString, szSkillName))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èµï¿½ ï¿½ï¿½Í¬ï¿½ï¿½  Ô­ï¿½ï¿½ï¿½ï¿½
 		if (strcmp(szSkillString, szSkillName) == 0)
 		{
 			int nSkillId = 0;
@@ -147,7 +147,7 @@ int KNpcTemplate::SkillString2Id(char * szSkillString)
 		}
 	}
 
-	//printf("---ÎÞ·¨½âÎöNpc.txtµ÷ÓÃµÄ¼¼ÄÜ[%s]Ä§·¨µÄId,Çë¼ì²é!--- \n", szSkillString);
+	//printf("---ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½Npc.txtï¿½ï¿½ï¿½ÃµÄ¼ï¿½ï¿½ï¿½[%s]Ä§ï¿½ï¿½ï¿½ï¿½Id,ï¿½ï¿½ï¿½ï¿½!--- \n", szSkillString);
 	return 0;
 }
 

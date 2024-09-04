@@ -73,9 +73,9 @@
 #endif
 USING_NS_AX;
 ////using namespace CocosDenshion;
-static uint32_t gs_holdrand = time(NULL);//time(NULL)%102400;  ////��ȡϵͳʱ�䣬��λΪ��
+static unsigned long gs_holdrand = time(NULL);//time(NULL)%102400;  ////��ȡϵͳʱ�䣬��λΪ��
 
-static inline uint32_t _Rand()
+static inline unsigned long _Rand()
 {
 	gs_holdrand = gs_holdrand * 244213L + 1541021L;	 //time(NULL)%102400;//
 	return gs_holdrand;//ȫ�ֵ�
@@ -348,15 +348,15 @@ extern KTabFile g_CompAtlas,g_GetMsg;
 
 extern Size visibleSize;
 extern Vec2 origin;
-extern Size size;
+extern Size kSize;
 extern std::string m_SDcardDirPath;
 extern std::string m_MobileKey;
 extern std::string maxMapPicPath;
 extern AudioEngine *__pSound;
 extern FileUtils* ccFileUtils;
 extern bool _openSound;
-extern uint32_t curMobileVer;
-extern uint32_t curMobileKey;
+extern unsigned int curMobileVer;
+extern unsigned int curMobileKey;
 //extern KSprCodec SprDecode;
 
 //USING_NS_AX;

@@ -3,11 +3,11 @@
 //
 // File:	KNpcGold.cpp
 // Date:	2003.07.23
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KNpcGold Class
 //---------------------------------------------------------------------------
 #include	"KCore.h"
-#include	"KSubWorld.h" 
+#include	"KSubWorld.h"
 #include	"KNpcTemplate.h"
 #include	"KNpc.h"
 #include	"KNpcSet.h"
@@ -65,7 +65,7 @@ void	KNpcGold::Init(int nIdx)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÎª»Æ½ð¹ÖÎï
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½Îªï¿½Æ½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KNpcGold::SetGoldType(BOOL bFlag)
 {
@@ -73,7 +73,7 @@ void	KNpcGold::SetGoldType(BOOL bFlag)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÀàÐÍÎª»Æ½ð¹ÖÎï£¬Í¬Ê±±¸·ÝÏàÓ¦Êý¾Ý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Îªï¿½Æ½ï¿½ï¿½ï¿½ï£¬Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KNpcGold::SetGoldTypeAndBackData()
 {
@@ -93,14 +93,14 @@ void	KNpcGold::SetGoldTypeAndBackData()
 	m_nPhycicsResistMax		= Npc[m_nNpcIdx].m_CurrentPhysicsResistMax;
 }
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÀàÐÍÎª»Æ½ð¹ÖÎï£¬Í¬Ê±±¸·ÝÏàÓ¦Êý¾Ý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Îªï¿½Æ½ï¿½ï¿½ï¿½ï£¬Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KNpcGold::SetBossTypeAndBackData(int nBoss)
 {
 	m_nIsGold = 1;
 	m_nIsGolding = 1;
 	m_nGoldType = nBoss;
-	
+
 	m_nFireResist			= Npc[m_nNpcIdx].m_CurrentFireResist;
 	m_nFireResistMax		= Npc[m_nNpcIdx].m_CurrentFireResistMax;
 	m_nColdResist			= Npc[m_nNpcIdx].m_CurrentColdResist;
@@ -114,7 +114,7 @@ void	KNpcGold::SetBossTypeAndBackData(int nBoss)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»Ö¸´¾ÉÊý¾Ý£¬±ä³ÉÆÕÍ¨npc
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨npc
 //---------------------------------------------------------------------------
 void	KNpcGold::RecoverBackData()
 {
@@ -123,8 +123,8 @@ void	KNpcGold::RecoverBackData()
 
 	m_nIsGolding = 0;
 
-	// ÓÃ±¸·ÝÊý¾Ý¸²¸Ç
-	Npc[m_nNpcIdx].m_CurrentFireResist			= m_nFireResist;	   //Ô­Ê¼Êý¾Ý
+	// ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentFireResist			= m_nFireResist;	   //Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
 	Npc[m_nNpcIdx].m_CurrentFireResistMax		= m_nFireResistMax;
 	Npc[m_nNpcIdx].m_CurrentColdResist			= m_nColdResist;
 	Npc[m_nNpcIdx].m_CurrentColdResistMax		= m_nColdResistMax;
@@ -140,7 +140,7 @@ void	KNpcGold::RecoverBackData()
 
 	KNpcGoldTemplateInfo	*pInfo = &NpcSet.m_cGoldTemplate.m_sInfo[m_nGoldType];
 
-	// °´±ÈÀýËõÐ¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 	//Npc[m_nNpcIdx].m_Experience					/= pInfo->m_nExp;
 	if  (pInfo->m_nLife>0)
 		Npc[m_nNpcIdx].m_CurrentLifeMax				/= pInfo->m_nLife;
@@ -169,15 +169,15 @@ void	KNpcGold::RecoverBackData()
 		Npc[m_nNpcIdx].m_CurrentDefend          = 0;
 
 	if (pInfo->m_nMinDamage>0)
-		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	/= pInfo->m_nMinDamage;	  //»ù±¾ÉËº¦
+		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	/= pInfo->m_nMinDamage;	  //ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
 	else
 		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0] = 0;
 	if (pInfo->m_nMaxDamage>0)
-		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	/= pInfo->m_nMaxDamage;	  //»ù±¾ÉËº¦--²»°üÀ¨¼¼ÄÜ
+		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	/= pInfo->m_nMaxDamage;	  //ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	else
 		Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2] = 5;
-	// ¿ÛµãÊý
-	Npc[m_nNpcIdx].m_CurrentTreasure	-= pInfo->m_nTreasure;   //µôÂä×°±¸µÄÊýÁ¿
+	// ï¿½Ûµï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentTreasure	-= pInfo->m_nTreasure;   //ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Npc[m_nNpcIdx].m_CurrentWalkSpeed	-= pInfo->m_nWalkSpeed;
 	Npc[m_nNpcIdx].m_CurrentRunSpeed	-= pInfo->m_nRunSpeed;   //
 	Npc[m_nNpcIdx].m_CurrentAttackSpeed	-= pInfo->m_nAttackSpeed;
@@ -185,12 +185,12 @@ void	KNpcGold::RecoverBackData()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º°´Ò»¶¨¸ÅÂÊ±ä³É»Æ½ð¹ÖÎï---À¶¹Ö¼¸ÂÊ²úÉúÉèÖÃ-
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½É»Æ½ï¿½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-
 //---------------------------------------------------------------------------
-void KNpcGold::RandChangeGold(BOOL bGold,int BossType,int nSubWorld)  //Ä¬ÈÏ 5 ºÍ flase
+void KNpcGold::RandChangeGold(BOOL bGold,int BossType,int nSubWorld)  //Ä¬ï¿½ï¿½ 5 ï¿½ï¿½ flase
 {
 	//if (SubWorld[nSubWorld].m_SubWorldID==38)
-	//printf("--BOSSÀàÐÍB£º%d µØÍ¼:%d--\n",BossType,SubWorld[nSubWorld].m_SubWorldID);
+	//printf("--BOSSï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½%d ï¿½ï¿½Í¼:%d--\n",BossType,SubWorld[nSubWorld].m_SubWorldID);
 
     if (BossType<0)
 	{
@@ -199,60 +199,60 @@ void KNpcGold::RandChangeGold(BOOL bGold,int BossType,int nSubWorld)  //Ä¬ÈÏ 5 º
         return;
 	}
     else if (BossType>0)
-	{ 
-      m_nGoldType =BossType;	
+	{
+      m_nGoldType =BossType;
 	  if (NpcSet.m_cGoldTemplate.m_nEffectTypeNum <= 0)
 		return;
-	} 
+	}
     else
-	{  
+	{
 	  if (/*m_nIsGold || */this->m_nIsGolding==1)
 		return;
 
 	  //if (SubWorld[nSubWorld].m_SubWorldID==38)
-	  //	  printf("--BOSSÀàÐÍA£º%d--\n",BossType);
+	  //	  printf("--BOSSï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½%d--\n",BossType);
 
 
       int npMapGoldRate=0,nMapAutoGoldNpcRank;
 	  char nMapGoldRate[32]={0};
-	  t_sprintf(nMapGoldRate,"%d_AutoGoldenNpc",SubWorld[nSubWorld].m_SubWorldID);  //38_AutoGoldenNpc
-      g_NpcMapDropRate.GetInteger("List",nMapGoldRate,0,&npMapGoldRate);//Éú³É¼ÓÇ¿¹ÖÎïµÄ¸ÅÂÊ
+	  sprintf(nMapGoldRate,"%d_AutoGoldenNpc",SubWorld[nSubWorld].m_SubWorldID);  //38_AutoGoldenNpc
+      g_NpcMapDropRate.GetInteger("List",nMapGoldRate,0,&npMapGoldRate);//ï¿½ï¿½ï¿½É¼ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 	  g_GameSetTing.GetInteger("SYSTEM","MapAutoGoldNpcRank",0,&nMapAutoGoldNpcRank);
-    
+
 	  if (npMapGoldRate>=0 && g_Random(npMapGoldRate)<g_Random(nMapAutoGoldNpcRank))
-	  {//ÆÕÍ¨¹ÖÎï   
+	  {//ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
 		return;
-	  }  
+	  }
 
 	if (NpcSet.m_cGoldTemplate.m_nEffectTypeNum <= 0)
 		return;
-//Ô­À´Ã»ÓÐµÄ  À¶»Æ¹Ö²úÉúÀàÐÍ
+//Ô­ï¿½ï¿½Ã»ï¿½Ðµï¿½  ï¿½ï¿½ï¿½Æ¹Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    if (bGold==1)
-   { 
+   {
 	   char nMapGoldType[32]={0};
        int  npMapGoldType=0;
-       t_sprintf(nMapGoldType,"%d_GoldenType"   ,SubWorld[nSubWorld].m_SubWorldID); 
+       sprintf(nMapGoldType,"%d_GoldenType"   ,SubWorld[nSubWorld].m_SubWorldID);
        g_NpcMapDropRate.GetInteger("List",nMapGoldType,4,&npMapGoldType);
 	  //if (SubWorld[nSubWorld].m_SubWorldID==38)
-	  //    printf("--BOSS¸ÅÂÊA£º%d--\n",npMapGoldRate);
+	  //    printf("--BOSSï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½%d--\n",npMapGoldRate);
        if (npMapGoldRate<0 || npMapGoldRate>1)
-	   {  
+	   {
          //if (g_Random(npMapGoldRate) >= g_Random(npMapGoldRate))
-	   	    m_nGoldType = GetRandomNumber(1,npMapGoldType); //ÂÌ À¶ »Æ ºì
+	   	    m_nGoldType = GetRandomNumber(1,npMapGoldType); //ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
          //else
-         // m_nGoldType = GetRandomNumber(1,4); //À¶¹Ö
-	   } 
+         // m_nGoldType = GetRandomNumber(1,4); //ï¿½ï¿½ï¿½ï¿½
+	   }
 	   else
 		   return;
 	}
     else
        return;
 	}
-////////////////////////////////////////////////////ÒÔÏÂÊÇ½Å±¾Ë¢¹Ö
+////////////////////////////////////////////////////ï¿½ï¿½ï¿½ï¿½ï¿½Ç½Å±ï¿½Ë¢ï¿½ï¿½
       m_nIsGolding = 1;
 
     KNpcGoldTemplateInfo	*pInfo              = &NpcSet.m_cGoldTemplate.m_sInfo[m_nGoldType];
-	// ÓÃÄ£°åÊý¾ÝÖ±½Ó¸¨Öµ
+	// ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½Öµ
 	Npc[m_nNpcIdx].m_CurrentFireResist			= pInfo->m_nFireResist;
 	Npc[m_nNpcIdx].m_CurrentFireResistMax		= pInfo->m_nFireResistMax;
 	Npc[m_nNpcIdx].m_CurrentColdResist			= pInfo->m_nColdResist;
@@ -263,25 +263,25 @@ void KNpcGold::RandChangeGold(BOOL bGold,int BossType,int nSubWorld)  //Ä¬ÈÏ 5 º
 	Npc[m_nNpcIdx].m_CurrentPoisonResistMax		= pInfo->m_nPoisonResistMax;
 	Npc[m_nNpcIdx].m_CurrentPhysicsResist		= pInfo->m_nPhycicsResist;
     Npc[m_nNpcIdx].m_CurrentPhysicsResistMax	= pInfo->m_nPhycicsResistMax;
-	// °´±ÈÀý·Å´ó
-	Npc[m_nNpcIdx].m_Experience					*= pInfo->m_nExp;   //Ä£°å¾­Ñé±ÈÀý
-	Npc[m_nNpcIdx].m_CurrentLifeMax				*= pInfo->m_nLife;  //Ä£°å±¶Êý
-	Npc[m_nNpcIdx].m_CurrentLifeReplenish		*= pInfo->m_nLifeReplenish;  //ÉúÃü»Ö¸´ËÙ¶È
-	Npc[m_nNpcIdx].m_CurrentAttackRating		*= pInfo->m_nAttackRating;  //ÃüÖÐ
-	Npc[m_nNpcIdx].m_CurrentDefend				*= pInfo->m_nDefense;   //ÉÁ±Üµã
-	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	*= pInfo->m_nMinDamage; //×îÐ¡ÎïÀíÉËº¦
-	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	*= pInfo->m_nMaxDamage; //×î´óÎïÀíÉËº¦
-	// ¼ÓµãÊý
-	Npc[m_nNpcIdx].m_CurrentTreasure	+= pInfo->m_nTreasure;   //µôÂä×°±¸µÄÊýÁ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½
+	Npc[m_nNpcIdx].m_Experience					*= pInfo->m_nExp;   //Ä£ï¿½å¾­ï¿½ï¿½ï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentLifeMax				*= pInfo->m_nLife;  //Ä£ï¿½å±¶ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentLifeReplenish		*= pInfo->m_nLifeReplenish;  //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ù¶ï¿½
+	Npc[m_nNpcIdx].m_CurrentAttackRating		*= pInfo->m_nAttackRating;  //ï¿½ï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentDefend				*= pInfo->m_nDefense;   //ï¿½ï¿½ï¿½Üµï¿½
+	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	*= pInfo->m_nMinDamage; //ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	*= pInfo->m_nMaxDamage; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+	// ï¿½Óµï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentTreasure	+= pInfo->m_nTreasure;   //ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Npc[m_nNpcIdx].m_CurrentWalkSpeed	+= pInfo->m_nWalkSpeed;
 	Npc[m_nNpcIdx].m_CurrentRunSpeed	+= pInfo->m_nRunSpeed;
-	Npc[m_nNpcIdx].m_CurrentAttackSpeed	+= pInfo->m_nAttackSpeed;  //Íâ¹¦ËÙ¶È
-	Npc[m_nNpcIdx].m_CurrentCastSpeed	+= pInfo->m_nCastSpeed;    //ÄÚ¹¥ËÙ
-    //ÉèÖÃÂúÑª
+	Npc[m_nNpcIdx].m_CurrentAttackSpeed	+= pInfo->m_nAttackSpeed;  //ï¿½â¹¦ï¿½Ù¶ï¿½
+	Npc[m_nNpcIdx].m_CurrentCastSpeed	+= pInfo->m_nCastSpeed;    //ï¿½Ú¹ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñª
 	Npc[m_nNpcIdx].m_CurrentLife = Npc[m_nNpcIdx].m_CurrentLifeMax;
 }
 
-//¶ÁÈ¡½Å±¾ ´Ó½Å±¾»ñÈ¡·µ»ØÖµ
+//ï¿½ï¿½È¡ï¿½Å±ï¿½ ï¿½Ó½Å±ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Öµ
 int KNpcGold::GetGoldNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel, char * szParam,int nSeries)
 {
 	int nTopIndex = 0;
@@ -291,9 +291,9 @@ int KNpcGold::GetGoldNpcLevelDataFromScript(KLuaScript * pScript, char * szDataN
 		return 0;
 	}
 	nTopIndex=pScript->SafeCallBegin();
-	pScript->CallFunction("GetNpcLevelData",1, "dssd",nSeries,nLevel,szDataName,szParam);   // º¯ÊýÃüÁî
+	pScript->CallFunction("GetNpcLevelData",1, "dssd",nSeries,nLevel,szDataName,szParam);   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nTopIndex = Lua_GetTopIndex(pScript->m_LuaState);
-	nReturn = (int) Lua_ValueToNumber(pScript->m_LuaState, nTopIndex);  //·µ»ØÊý×Ö
+	nReturn = (int) Lua_ValueToNumber(pScript->m_LuaState, nTopIndex);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	nTopIndex=pScript->SafeCallBegin();
 	pScript->SafeCallEnd(nTopIndex);
@@ -302,7 +302,7 @@ int KNpcGold::GetGoldNpcLevelDataFromScript(KLuaScript * pScript, char * szDataN
 
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃµ±Ç°»Æ½ðÀàÐÍ£¬0 ·Ç»Æ½ð¹Ö
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½Æ½ï¿½ï¿½ï¿½ï¿½Í£ï¿½0 ï¿½Ç»Æ½ï¿½ï¿½
 //---------------------------------------------------------------------------
 int		KNpcGold::GetGoldType()
 {
@@ -320,13 +320,13 @@ void	KNpcGold::SetGoldCurrentType(int nType,int nSubWorld)
 		m_nIsGolding	= 0;
 		return;
 	}
-	RecoverBackData();  //»Ö¸´»ù±¾Êý¾Ý
+	RecoverBackData();  //ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_nIsGold		= 1;
 	m_nIsGolding	= 1;
 	m_nGoldType		= nType;
 
     KNpcGoldTemplateInfo	*pInfo              = &NpcSet.m_cGoldTemplate.m_sInfo[m_nGoldType];
-	// ÓÃÄ£°åÊý¾ÝÖ±½Ó¸¨Öµ
+	// ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½Öµ
 	Npc[m_nNpcIdx].m_CurrentFireResist			= pInfo->m_nFireResist;
 	Npc[m_nNpcIdx].m_CurrentFireResistMax		= pInfo->m_nFireResistMax;
 	Npc[m_nNpcIdx].m_CurrentColdResist			= pInfo->m_nColdResist;
@@ -337,22 +337,22 @@ void	KNpcGold::SetGoldCurrentType(int nType,int nSubWorld)
 	Npc[m_nNpcIdx].m_CurrentPoisonResistMax		= pInfo->m_nPoisonResistMax;
 	Npc[m_nNpcIdx].m_CurrentPhysicsResist		= pInfo->m_nPhycicsResist;
     Npc[m_nNpcIdx].m_CurrentPhysicsResistMax	= pInfo->m_nPhycicsResistMax;
-	// °´±ÈÀý·Å´ó
-	Npc[m_nNpcIdx].m_Experience					*= pInfo->m_nExp;   //Ä£°å¾­Ñé±ÈÀý
-	Npc[m_nNpcIdx].m_CurrentLifeMax				*= pInfo->m_nLife;  //Ä£°å±¶Êý
-	Npc[m_nNpcIdx].m_CurrentLifeReplenish		*= pInfo->m_nLifeReplenish;  //ÉúÃü»Ö¸´ËÙ¶È
-	Npc[m_nNpcIdx].m_CurrentAttackRating		*= pInfo->m_nAttackRating;  //ÃüÖÐ
-	Npc[m_nNpcIdx].m_CurrentDefend				*= pInfo->m_nDefense;   //ÉÁ±Üµã
-	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	*= pInfo->m_nMinDamage; //×îÐ¡ÎïÀíÉËº¦
-	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	*= pInfo->m_nMaxDamage; //×î´óÎïÀíÉËº¦
-	
-	// ¼ÓµãÊý
-	Npc[m_nNpcIdx].m_CurrentTreasure	+= pInfo->m_nTreasure;   //µôÂä×°±¸µÄÊýÁ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½
+	Npc[m_nNpcIdx].m_Experience					*= pInfo->m_nExp;   //Ä£ï¿½å¾­ï¿½ï¿½ï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentLifeMax				*= pInfo->m_nLife;  //Ä£ï¿½å±¶ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentLifeReplenish		*= pInfo->m_nLifeReplenish;  //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ù¶ï¿½
+	Npc[m_nNpcIdx].m_CurrentAttackRating		*= pInfo->m_nAttackRating;  //ï¿½ï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentDefend				*= pInfo->m_nDefense;   //ï¿½ï¿½ï¿½Üµï¿½
+	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[0]	*= pInfo->m_nMinDamage; //ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+	Npc[m_nNpcIdx].m_PhysicsDamage.nValue[2]	*= pInfo->m_nMaxDamage; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+
+	// ï¿½Óµï¿½ï¿½ï¿½
+	Npc[m_nNpcIdx].m_CurrentTreasure	+= pInfo->m_nTreasure;   //ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Npc[m_nNpcIdx].m_CurrentWalkSpeed	+= pInfo->m_nWalkSpeed;
 	Npc[m_nNpcIdx].m_CurrentRunSpeed	+= pInfo->m_nRunSpeed;
-	Npc[m_nNpcIdx].m_CurrentAttackSpeed	+= pInfo->m_nAttackSpeed;  //Íâ¹¦ËÙ¶È
-	Npc[m_nNpcIdx].m_CurrentCastSpeed	+= pInfo->m_nCastSpeed;    //ÄÚ¹¥ËÙ
-    //ÉèÖÃÂúÑª
+	Npc[m_nNpcIdx].m_CurrentAttackSpeed	+= pInfo->m_nAttackSpeed;  //ï¿½â¹¦ï¿½Ù¶ï¿½
+	Npc[m_nNpcIdx].m_CurrentCastSpeed	+= pInfo->m_nCastSpeed;    //ï¿½Ú¹ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñª
 	//if (Npc[m_nNpcIdx].m_CurrentLifeMax>15000000)
 	//   Npc[m_nNpcIdx].m_CurrentLifeMax = 15000000;
 
@@ -371,7 +371,7 @@ KNpcGoldTemplate::KNpcGoldTemplate()
 	memset(this->m_sInfo, 0, sizeof(this->m_sInfo));
 	this->m_nEffectTypeNum = 0;
 }
-//À¶¹ÖµÄÄ£°å
+//ï¿½ï¿½ï¿½Öµï¿½Ä£ï¿½ï¿½
 BOOL	KNpcGoldTemplate::Init()
 {
 	KTabFile	cFile;
@@ -385,7 +385,7 @@ BOOL	KNpcGoldTemplate::Init()
             nRows=cFile.GetHeight()-1;
 	for (i = 0; i <nRows; ++i)
 	{
-        if (i>=defMAX_NPC_GOLD_TYEP)  
+        if (i>=defMAX_NPC_GOLD_TYEP)
 			break;
 		cFile.GetInteger(i + 2, "Exp", 1, &m_sInfo[i+1].m_nExp);
 		cFile.GetInteger(i + 2, "Life", 1, &m_sInfo[i+1].m_nLife);
@@ -438,12 +438,12 @@ BOOL	KNpcGoldTemplate::Init()
 		cFile.GetInteger(i + 2, "LightingDamageBase", 0, &m_sInfo[i+1].m_nLightingDamageBase);
 		cFile.GetInteger(i + 2, "LightingMagicBase", 0, &m_sInfo[i+1].m_nLightingMagicBase);
 		*/
-		//cFile.GetString(i + 2, 48, "", m_sInfo[i+1].m_nDeathScript, sizeof(m_sInfo[i+1].m_nDeathScript)); //ËÀÍö½Å±¾
-        //cFile.GetString(i + 2, 49, "", m_sInfo[i+1].m_nDropRate,sizeof(m_sInfo[i+1].m_nDropRate));        //±¬ÂÊ
-	    //cFile.GetInteger(i + 2, 50, 0, &m_sInfo[i+1].m_nRate);                                            //¸ÅÂÊ
-		
+		//cFile.GetString(i + 2, 48, "", m_sInfo[i+1].m_nDeathScript, sizeof(m_sInfo[i+1].m_nDeathScript)); //ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+        //cFile.GetString(i + 2, 49, "", m_sInfo[i+1].m_nDropRate,sizeof(m_sInfo[i+1].m_nDropRate));        //ï¿½ï¿½ï¿½ï¿½
+	    //cFile.GetInteger(i + 2, 50, 0, &m_sInfo[i+1].m_nRate);                                            //ï¿½ï¿½ï¿½ï¿½
+
 	}
-	this->m_nEffectTypeNum = i;                                                                             //Ä£°å »Æ½ð¹ÖÎïµÄÀàÐÍÊýÁ¿ 
+	this->m_nEffectTypeNum = i;                                                                             //Ä£ï¿½ï¿½ ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	cFile.Clear();
     //printf(" KNpcGoldTemplate::Init(%d) OK!!!..\n",this->m_nEffectTypeNum);
 	return TRUE;

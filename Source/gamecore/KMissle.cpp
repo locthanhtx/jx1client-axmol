@@ -2,8 +2,8 @@
 // FileName			:	KMissle.cpp
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-6-10 15:32:22
-// FileDescription	:	
-// Revision Count	:	
+// FileDescription	:
+// Revision Count	:
 *******************************************************************************/
 
 #include "KCore.h"
@@ -32,7 +32,7 @@
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 1
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 2
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 3
-	
+
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 4
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 5
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 6
@@ -41,7 +41,7 @@
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 9
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 10
 	{0,	0, -1, 0, -1, 1, 0, 1}, // 11
-	
+
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 12
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 13
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 14
@@ -50,7 +50,7 @@
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 17
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 18
 	{0,	0, -1, -1, -1, 0, -1, 1}, // 19
-	
+
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 20
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 21
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 22
@@ -59,7 +59,7 @@
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 25
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 26
 	{0,	0, 0, -1, -1, -1, -1, 0}, // 27
-	
+
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 28
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 29
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 30
@@ -68,7 +68,7 @@
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 33
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 34
 	{0,	0, -1, -1, 0, -1, 1, -1}, // 35
-	
+
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 36
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 37
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 38
@@ -77,7 +77,7 @@
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 41
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 42
 	{0,	0, 0, -1, 1, -1, 1, 0}, // 43
-	
+
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 44
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 45
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 46
@@ -86,7 +86,7 @@
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 49
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 50
 	{0,	0, 1, -1, 1, 0, 1, 1}, // 51
-	
+
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 52
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 53
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 54
@@ -95,7 +95,7 @@
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 57
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 58
 	{0,	0, 1, 0, 1, 1, 0, 1}, // 59
-	
+
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 60
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 61
 	{0,	0, -1, 1, 0, 1, 1, 1}, // 62
@@ -162,12 +162,12 @@ void KMissle::Release()
 
 KMissle::~KMissle()
 {
-	
+
 }
 /*!*****************************************************************************
 // Function		: KMissle::GetInfoFromTabFile
 // Purpose		: ���TabFile�й��ӵ��Ļ�����Ϣ
-// Return		: BOOL 
+// Return		: BOOL
 // Argumant		: int nMissleId
 // Comments		:
 // Author		: RomanDou
@@ -185,7 +185,7 @@ BOOL KMissle::GetInfoFromTabFile(KITabFile * pMisslesSetting, int nMissleId)
 	m_nMissleId		= nMissleId;
 	int nRow = nMissleId;
 	pMisslesSetting->GetString(nRow, "MissleName",		   "", m_szMissleName,sizeof(m_szMissleName), TRUE);
-	
+
 	int nHeightOld ;
 	pMisslesSetting->GetInteger(nRow, "MissleHeight",		0, &nHeightOld, TRUE);
 	m_nHeight = nHeightOld << 10;
@@ -210,7 +210,7 @@ BOOL KMissle::GetInfoFromTabFile(KITabFile * pMisslesSetting, int nMissleId)
 	pMisslesSetting->GetInteger(nRow, "Param1",			0, &m_nParam1, TRUE);
 	pMisslesSetting->GetInteger(nRow, "Param2",			0, &m_nParam2, TRUE);
 	pMisslesSetting->GetInteger(nRow, "Param3",			0, &m_nParam3, TRUE);
-	
+
 	BOOL bAutoExplode = 0;
 
 	m_nRate=0;
@@ -219,36 +219,36 @@ BOOL KMissle::GetInfoFromTabFile(KITabFile * pMisslesSetting, int nMissleId)
 	pMisslesSetting->GetInteger(nRow, "AutoExplode",    0, (int*)&ccUrval, TRUE);
 	bAutoExplode   = (ccUrval>0)?true:false;
 	m_bAutoExplode = bAutoExplode;
-	
+
 	pMisslesSetting->GetInteger(nRow, "DmgInterval",	0, (int*)&m_ulDamageInterval, TRUE);
 	char AnimFileCol[64]={0};
 	char SndFileCol[64]={0};
 	char AnimFileInfoCol[100]={0};
 	char szAnimFileInfo[100]={0};
-	
+
     const char *pcszTemp = NULL;
-	
+
 	pMisslesSetting->GetInteger(nRow, "RedLum",	    255, (int*)&m_btRedLum, TRUE);
 	pMisslesSetting->GetInteger(nRow, "GreenLum",	255, (int*)&m_btGreenLum, TRUE);
 	pMisslesSetting->GetInteger(nRow, "BlueLum",	255, (int*)&m_btBlueLum, TRUE);
-	
+
 	int nLightRadius = 0;
 	pMisslesSetting->GetInteger(nRow, "LightRadius", 50, (int*)&nLightRadius, TRUE);
 	m_usLightRadius = nLightRadius;
-	
+
 	pMisslesSetting->GetInteger(nRow, "MultiShow",		0, &ccUrval, TRUE);
 	m_bMultiShow  = (ccUrval>0)?true:false;
 
 	for (int i  = 0; i < MAX_MISSLE_STATUS; ++i) //�ӵ�״̬
 	{//0 1 2 3 456
-		t_sprintf(AnimFileCol, "AnimFile%d", i + 1);
-		t_sprintf(SndFileCol,  "SndFile%d", i + 1);
-		t_sprintf(AnimFileInfoCol,"AnimFileInfo%d", i + 1);
-		
+		sprintf(AnimFileCol, "AnimFile%d", i + 1);
+		sprintf(SndFileCol,  "SndFile%d", i + 1);
+		sprintf(AnimFileInfoCol,"AnimFileInfo%d", i + 1);
+
 		pMisslesSetting->GetString(nRow, AnimFileCol,			"", m_MissleRes.m_MissleRes[i].AnimFileName, sizeof(m_MissleRes.m_MissleRes[i].AnimFileName), TRUE);
 		pMisslesSetting->GetString(nRow, SndFileCol,			"", m_MissleRes.m_MissleRes[i].SndFileName,sizeof(m_MissleRes.m_MissleRes[i].SndFileName), TRUE);
 		pMisslesSetting->GetString(nRow, AnimFileInfoCol,		"", szAnimFileInfo, sizeof(szAnimFileInfo), TRUE);
-		
+
 		if (m_MissleRes.m_MissleRes[i].SndFileName[0])
 			g_StrCopy(m_SDcardDirPath,m_MissleRes.m_MissleRes[i].SndFileName);
 
@@ -259,15 +259,15 @@ BOOL KMissle::GetInfoFromTabFile(KITabFile * pMisslesSetting, int nMissleId)
         m_MissleRes.m_MissleRes[i].nDir = KSG_StringGetInt(&pcszTemp, 16);
         KSG_StringSkipSymbol(&pcszTemp, ',');
         m_MissleRes.m_MissleRes[i].nInterval = KSG_StringGetInt(&pcszTemp, 1);
-		
-		t_sprintf(AnimFileCol, "AnimFileB%d", i + 1);
-		t_sprintf(SndFileCol,  "SndFileB%d", i + 1);
-		t_sprintf(AnimFileInfoCol, "AnimFileInfoB%d", i + 1);
-		
+
+		sprintf(AnimFileCol, "AnimFileB%d", i + 1);
+		sprintf(SndFileCol,  "SndFileB%d", i + 1);
+		sprintf(AnimFileInfoCol, "AnimFileInfoB%d", i + 1);
+
 		pMisslesSetting->GetString(nRow, AnimFileCol,			"",m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].AnimFileName,sizeof(m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].AnimFileName), TRUE);
 		pMisslesSetting->GetString(nRow, SndFileCol,			"",m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].SndFileName, sizeof(m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].SndFileName), TRUE);
 		pMisslesSetting->GetString(nRow, AnimFileInfoCol,		"",szAnimFileInfo, sizeof(szAnimFileInfo), TRUE);
-		
+
 		if (m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].SndFileName[0])
 			g_StrCopy(m_SDcardDirPath,m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].SndFileName);
 
@@ -278,12 +278,12 @@ BOOL KMissle::GetInfoFromTabFile(KITabFile * pMisslesSetting, int nMissleId)
         KSG_StringSkipSymbol(&pcszTemp, ',');
         m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].nInterval = KSG_StringGetInt(&pcszTemp, 1);
 
-		//sscanf(szAnimFileInfo, "%d,%d,%d", 
+		//sscanf(szAnimFileInfo, "%d,%d,%d",
 		//	&m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].nTotalFrame,
 		//	&m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].nDir,
 		//	&m_MissleRes.m_MissleRes[i + MAX_MISSLE_STATUS].nInterval
         //);
-		
+
 	}
 	int ninVal = 0;
 	pMisslesSetting->GetInteger(nRow, "LoopPlay",0,&ninVal,TRUE);
@@ -306,15 +306,15 @@ BOOL KMissle::Init( int nLauncher, int nMissleId, int nXFactor, int nYFactor, in
 
 /*!*****************************************************************************
 // Function		: KMissle::Activate
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
 //�����ӵ����� ����ѭ�����ӵ���ײ�˺�Ч��
-int KMissle::Activate()   
-{	
-	 
+int KMissle::Activate()
+{
+
 	if (m_nMissleId <= 0 || m_nRegionId < 0)
 	{
 		return  0 ;
@@ -325,12 +325,12 @@ int KMissle::Activate()
 		DoVanish();
 		return 0;
 	}
-	
+
 	//�ӵ��������Ѿ��뿪��So �ӵ�����
 	if (!Npc[m_nLauncher].IsMatch(m_dwLauncherId) || Npc[m_nLauncher].m_SubWorldIndex != m_nSubWorldId || Npc[m_nLauncher].m_RegionIndex < 0)
 	{
 		DoVanish();
-		return 0;	
+		return 0;
 	}
 
 
@@ -346,9 +346,9 @@ int KMissle::Activate()
 			m_nFollowNpcIdx = 0;  //���ӵ����ٵ� NPC����
 		}
 	}
-	
+
 	eMissleStatus eLastStatus = m_eMissleStatus;
-	
+
 	//�����ǰ״̬���ӵ���������������׼������״̬ʱ�������������л�������ײ��
 	if (m_nCurrentLife >= m_nLifeTime && m_eMissleStatus != MS_DoVanish && m_eMissleStatus != MS_DoCollision)
 	{
@@ -357,10 +357,10 @@ int KMissle::Activate()
 			ProcessCollision();//������ײ
 		}
 
-		DoVanish();			
+		DoVanish();
 	}
 	//--------------
-	if (m_nCurrentLife == m_nStartLifeTime && m_eMissleStatus != MS_DoVanish)	
+	if (m_nCurrentLife == m_nStartLifeTime && m_eMissleStatus != MS_DoVanish)
 	{
 		if (PrePareFly())
 		{
@@ -427,19 +427,19 @@ int KMissle::Activate()
 	if (m_nMissleId > 0 && m_eMissleStatus != MS_DoVanish)
 	{
 		int nSrcX;
-		int nSrcY;	
+		int nSrcY;
 		SubWorld[0].NewMap2Mps(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY,m_nXOffset, m_nYOffset, &nSrcX, &nSrcY);
 		/*if (m_nLauncher>0 && m_nLauncher<MAX_NPC)
 		{
 			char msg[128]={0};
-			t_sprintf(msg,"������:%s,%s",Npc[m_nLauncher].Name,m_szMissleName);
-			ccMessageBox(msg,"Activate");
+			sprintf(msg,"������:%s,%s",Npc[m_nLauncher].Name,m_szMissleName);
+			messageBox(msg,"Activate");
 		}*/
 		if (m_usLightRadius && m_eMissleStatus != MS_DoWait)//�滭�ӵ�
 		{//�й��շ�Χ��
 			//g_ScenePlace.MoveObject(CGOG_MISSLE, m_nMissleId, nSrcX, nSrcY, m_nCurrentMapZ, m_SceneID, IPOT_RL_OBJECT | IPOT_RL_LIGHT_PROP );
 			if (g_GameWorld)
-				g_GameWorld->MoveObject(OBJ_NODE_MISS, m_nMissleId,false, nSrcX, nSrcY, m_nCurrentMapZ);//, m_SceneID, IPOT_RL_OBJECT | IPOT_RL_LIGHT_PROP 
+				g_GameWorld->MoveObject(OBJ_NODE_MISS, m_nMissleId,false, nSrcX, nSrcY, m_nCurrentMapZ);//, m_SceneID, IPOT_RL_OBJECT | IPOT_RL_LIGHT_PROP
 		}
 		else
 			//g_ScenePlace.MoveObject(CGOG_MISSLE, m_nMissleId, nSrcX, nSrcY, m_nCurrentMapZ, m_SceneID, IPOT_RL_OBJECT);
@@ -447,16 +447,16 @@ int KMissle::Activate()
 			if (g_GameWorld)
 				g_GameWorld->MoveObject(OBJ_NODE_MISS, m_nMissleId,false, nSrcX, nSrcY, m_nCurrentMapZ);
 		}
-	} 
-	
+	}
+
 	m_nCurrentLife ++;
 	return 1;
 }
 
 /*!*****************************************************************************
 // Function		: KMissle::OnWait
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: RomanDou
 ********************************************************************************/
@@ -466,14 +466,14 @@ void KMissle::OnWait()
 }
 /*!*****************************************************************************
 // Function		: KMissle::OnCollision
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
 void KMissle::OnCollision()
 {
-	return;	
+	return;
 }
 
 // 1��ʾ������ײ�����壬0��ʾδ��ײ���κ�����, -1��ʾ���
@@ -482,18 +482,18 @@ int KMissle::FsCheckCollision()
 	if  (m_nLauncher<=0 || m_nLauncher>=MAX_NPC || m_nSubWorldId<0 || m_nSubWorldId>=MAX_SUBWORLD)
 		return FALSE;
 
-	if (m_nCurrentMapZ <= MISSLE_MIN_COLLISION_ZHEIGHT) 
+	if (m_nCurrentMapZ <= MISSLE_MIN_COLLISION_ZHEIGHT)
 	{
 		return -1;
 	}
-	
+
 	//�ӵ��ڸ���һ���߶�ʱ��������Խ����ײ����
-	if (m_nCurrentMapZ > MISSLE_MAX_COLLISION_ZHEIGHT) 
+	if (m_nCurrentMapZ > MISSLE_MAX_COLLISION_ZHEIGHT)
 	{
 		return 0;
 	}
-	
-	if (m_nRegionId < 0) 
+
+	if (m_nRegionId < 0)
 	{
 		return -1;
 	}
@@ -515,16 +515,16 @@ int KMissle::FsCheckCollision()
 	int nNpcOffsetX = 0;
 	int nNpcOffsetY = 0;
 	BOOL bCollision = FALSE;
-	
+
 	int nColRegion = m_nRegionId;
 	int nColMapX = m_nCurrentMapX;	   //�ӵ��ĵ�ǰ��������X:0-16 Y:0-32
 	int nColMapY = m_nCurrentMapY;
-		
+
 	if (m_nCollideRange == 1) //��ײ��Χ
 	{//��������
 		if (m_bNeedReclaim && m_nCurrentLife >= m_nFirstReclaimTime && m_nCurrentLife <= m_nEndReclaimTime)
 		{//�ڴ���ʱ���� ������ʱ��Χ�Ƿ���NPC
-			if (m_nCurrentLife == m_nEndReclaimTime) 
+			if (m_nCurrentLife == m_nEndReclaimTime)
 				m_bNeedReclaim = FALSE;
 
 //nNpcIdx = SubWorld[m_nSubWorldId].m_Region[nColRegion].FindNpc(nColMapX, nColMapY, m_nLauncher, m_eRelation);
@@ -533,12 +533,12 @@ int KMissle::FsCheckCollision()
 		else
 		{
 //nNpcIdx = SubWorld[m_nSubWorldId].m_Region[nColRegion].FindNpc(nColMapX, nColMapY, m_nLauncher, m_eRelation);
-			nNpcIdx = CheckNearestCollision();	
+			nNpcIdx = CheckNearestCollision();
 		}
 		  int nIsOut=0;
 
 		  if (nNpcIdx > 0 && nNpcIdx<MAX_NPC)
-		  {//��NPC  
+		  {//��NPC
 		    if (m_nDamageRange == 1)       //��Ŀ��Npc����ײ  �˺���Χ
 			{//һ��һ����ײ
 			    if (ProcessCollision(m_nLauncher,Npc[nNpcIdx].m_RegionIndex,Npc[nNpcIdx].m_MapX,Npc[nNpcIdx].m_MapY,m_nDamageRange,m_eRelation,nNpcIdx))
@@ -571,7 +571,7 @@ int KMissle::FsCheckCollision()
 				//��ȡ�����Χ�ڵ����� �����ڵ�����
 				if (!GetOffsetAxis(m_nSubWorldId, m_nRegionId, m_nCurrentMapX, m_nCurrentMapY, i , j , nSearchRegion, nRMx, nRMy))
 					continue;
-				
+
 				//_ASSERT(nSearchRegion >= 0);
 				if  (nSearchRegion<0)
 					continue;
@@ -588,7 +588,7 @@ int KMissle::FsCheckCollision()
 				    if (ProcessCollision())//������ײ ���й�����Ҳ���Դ��е���
 						nIsOut=2;
 				}
-               
+
 				if (nIsOut)
 				{
 					DoCollision();          //�ӵ�����ײ���Ч��
@@ -633,9 +633,9 @@ void KMissle::OnFly()
 			}
 		}
 	}
-	
+
 //���м�⵱ǰλ���Ƿ����ϰ�
-	/*if (TestBarrier()) 
+	/*if (TestBarrier())
 	{//���ϰ���
 		int nSrcX3 = 0 ;
 		int nSrcY3 = 0 ;
@@ -644,23 +644,23 @@ void KMissle::OnFly()
 //#else
 //		if (Npc[m_nLauncher].IsPlayer())
 //	     	printf("--����ϰ���:��X:%d,Y:%d--\n",m_nCurrentMapX,m_nCurrentMapY);
-		DoVanish(); //�ӵ�����  
+		DoVanish(); //�ӵ�����
 		return;
 	}*/
 
 	if (m_nSubWorldId<0)
 	{
-		DoVanish(); //�ӵ�����  
+		DoVanish(); //�ӵ�����
 		return;
 	}
-	
+
 	int nDOffsetX = 0;
 	int nDOffsetY = 0;
 
 	if (m_nSpeed>32)
 		m_nSpeed=32;
 
-	
+
 	ZAxisMove();   //Z�����
 
 
@@ -675,9 +675,9 @@ void KMissle::OnFly()
 //			bNeverColide = TRUE;
 		}
 	}
-	
+
 #endif*/
-	
+
 	switch(this->m_eMoveKind) //�ƶ�����
 	{
 	case	MISSLE_MMK_Stand:							//	ԭ��
@@ -688,7 +688,7 @@ void KMissle::OnFly()
 		break;
 	case	MISSLE_MMK_Parabola:						//	������
 	case	MISSLE_MMK_Line:							//	ֱ�߷���
-		{	
+		{
 			if(this->m_nFollowNpcIdx > 0 && this->m_nFollowNpcIdx<MAX_NPC && this->m_eFollowKind == 2)  //ؤ�＼��
 			{//���湥��
 				//m_nFollowNpcIdx = 2;
@@ -736,9 +736,9 @@ void KMissle::OnFly()
 			}
 		}
 		break;
-	case MISSLE_MMK_RollBack: 
+	case MISSLE_MMK_RollBack:
 		{
-			if (!m_nTempParam1)	
+			if (!m_nTempParam1)
 			{
 				if (m_nTempParam2 <= m_nCurrentLife)
 				{
@@ -756,7 +756,7 @@ void KMissle::OnFly()
 		//������Ʒ�������������޷��ﵽ�ͷ����˵�ͬ��
 	case	MISSLE_MMK_Random:							//	������У����ڶ�Ů�׵�Charged Bolt��
 		{
-			
+
 		}break;
 		//����һ��ʾ˳ʱ�뻹����ʱ��ת��
 		//��������ʾ�̶�ԭ�Ļ���Χ�ķ�����
@@ -769,10 +769,10 @@ void KMissle::OnFly()
 			   m_nDir = m_nAngle + (MaxMissleDir>>2);
 			if (m_nDir >= MaxMissleDir) m_nDir = m_nDir - MaxMissleDir;
 			//int dx = (m_nSpeed + 250)  * (g_DirCos(m_nAngle,MaxMissleDir) - g_DirCos(nPreAngle,MaxMissleDir)) ;
-			//int dy = (m_nSpeed + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ; 
+			//int dy = (m_nSpeed + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ;
 			int dx = (m_nSpeed + 30)  * (g_DirCos(m_nAngle,MaxMissleDir) - g_DirCos(nPreAngle,MaxMissleDir)) ;
-			int dy = (m_nSpeed + 30)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ; 
-			
+			int dy = (m_nSpeed + 30)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ;
+
 			if (m_nParam2) //ԭ��ת
 			{
 				nDOffsetX = dx;
@@ -791,7 +791,7 @@ void KMissle::OnFly()
 				m_nYOffset		= Npc[m_nLauncher].m_OffY + 30  * (g_DirSin(m_nAngle,MaxMissleDir) + g_DirSin(nPreAngle,MaxMissleDir));
 
 				//CurRegion.AddRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
-				
+
 				if (nOldRegion != m_nRegionId)
 				{
 					//SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_CHANGE_REGION,nOldRegion,m_nRegionId,m_nMissleId);
@@ -801,7 +801,7 @@ void KMissle::OnFly()
 				nDOffsetY = dy;
 				//CurRegion.DecRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
 			}
-			
+
 			//˳ʱ�뻹����ʱ��
 			if (m_nParam1)
 			{
@@ -815,20 +815,20 @@ void KMissle::OnFly()
 				if (m_nAngle < 0 )
 					m_nAngle = MaxMissleDir - 1;
 			}
-			
+
 		}
-		break; 
-	/*	{ 
+		break;
+	/*	{
 		INT nPreAngle = m_nAngle - 1;
 		if (nPreAngle < 0) nPreAngle = MaxMissleDir - 1;
 		m_nDir = m_nAngle + (MaxMissleDir / 4);
 		if (m_nDir >= MaxMissleDir) m_nDir = m_nDir - MaxMissleDir;
 		INT dx = (m_nSpeed + 50)  * (g_DirCos(m_nAngle,MaxMissleDir) - g_DirCos(nPreAngle,MaxMissleDir)) ;
-		INT dy = (m_nSpeed + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ; 
-		
+		INT dy = (m_nSpeed + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle, MaxMissleDir)) ;
+
 		nDOffsetX = dx;
 		nDOffsetY = dy;
-		
+
 		//˳ʱ�뻹����ʱ��
 		if (m_nParam1)
 		{
@@ -842,25 +842,25 @@ void KMissle::OnFly()
 			if (m_nAngle < 0 )
 				m_nAngle = MaxMissleDir - 1;
 		}
-		
+
 		}
 		break;*/
-		
+
 		//����һ��ʾ˳ʱ�뻹����ʱ��ת��
 		//��������ʾ�̶�ԭ�Ļ���Χ�ķ�����
 	case	MISSLE_MMK_Helix:							//	�����׵������ߣ����ڶ�������Bless Hammer��
 		{
 			INT nPreAngle = m_nAngle - 1;
-			if (nPreAngle < 0) 
+			if (nPreAngle < 0)
 			{
 				nPreAngle = MaxMissleDir -1;
 			}
 			m_nDir = m_nAngle + (MaxMissleDir >>2);
 			if (m_nDir >= MaxMissleDir) m_nDir = m_nDir - MaxMissleDir;
-			
+
 			INT dx = (m_nSpeed + m_nCurrentLife + 50)  * (g_DirCos(m_nAngle,MaxMissleDir) - g_DirCos(nPreAngle, MaxMissleDir)) ;
-			INT dy = (m_nSpeed + m_nCurrentLife + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle,MaxMissleDir)) ; 
-			
+			INT dy = (m_nSpeed + m_nCurrentLife + 50)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle,MaxMissleDir)) ;
+
 			if (m_nParam2)  //ԭ��ת
 			{
 				nDOffsetX = dx;
@@ -882,11 +882,11 @@ void KMissle::OnFly()
 				{
 					//SubWorld[m_nSubWorldId].m_WorldMessage.Send(GWM_MISSILE_CHANGE_REGION, nOldRegion, m_nRegionId, m_nMissileIdx);
 					SubWorld[m_nSubWorldId].MissleChangeRegion(nOldRegion, m_nRegionId, m_nMissleId);
-				}  
+				}
 				nDOffsetX = dx;
 				nDOffsetY = dy;
 			}
-			
+
 			if (m_nParam1)
 			{
 				m_nAngle ++;
@@ -900,7 +900,7 @@ void KMissle::OnFly()
 					m_nAngle = MaxMissleDir - 1;
 			}
 		}
-		break; 
+		break;
 		/*{
 			int nPreAngle;
 			if (m_nTempParam1 == 0)
@@ -922,9 +922,9 @@ void KMissle::OnFly()
 			if (m_nDir >= MaxMissleDir) m_nDir = m_nDir - MaxMissleDir;
 
 			int dx = (m_nSpeed + m_nCurrentLife + 275)  * (g_DirCos(m_nAngle,MaxMissleDir) - g_DirCos(nPreAngle, MaxMissleDir)) ;
-			int dy = (m_nSpeed + m_nCurrentLife + 275)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle,MaxMissleDir)) ; 
-	
-			
+			int dy = (m_nSpeed + m_nCurrentLife + 275)  * (g_DirSin(m_nAngle,MaxMissleDir) - g_DirSin(nPreAngle,MaxMissleDir)) ;
+
+
 			if (m_nParam2) //ԭ��ת
 			{
 				nDOffsetX = dx;
@@ -940,18 +940,18 @@ void KMissle::OnFly()
 				m_nXOffset		= Npc[m_nLauncher].m_OffX + (35 * g_DirCos(Npc[m_nLauncher].m_Dir,64) + 100);
 				m_nYOffset		= Npc[m_nLauncher].m_OffY + (35 * g_DirSin(Npc[m_nLauncher].m_Dir,64) + 100);
 				//CurRegion.AddRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
-				
+
 				if (nOldRegion != m_nRegionId)
 				{
 					//SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_CHANGE_REGION,nOldRegion,m_nRegionId,m_nMissleId);
 					SubWorld[m_nSubWorldId].MissleChangeRegion(nOldRegion, m_nRegionId, m_nMissleId);
-				} 
-				
+				}
+
 				nDOffsetX = dx;
 				nDOffsetY = dy;
 				//CurRegion.DecRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
 			}
-			
+
 				m_nAngle ++;
 				if (m_nAngle >= MaxMissleDir)
 					m_nAngle = 0;
@@ -971,7 +971,7 @@ void KMissle::OnFly()
 					int nDesMpsY = 0;
 
                     int nDmap=0;
-					
+
 					GetMpsPos(&nSrcMpsX,&nSrcMpsY);
 					Npc[m_nFollowNpcIdx].GetMpsPos(&nDesMpsX,&nDesMpsY,&nDmap);
 
@@ -1000,7 +1000,7 @@ void KMissle::OnFly()
 				}
 			}
 			else
-			{	    
+			{
 				nDOffsetX    = (m_nSpeed * m_nXFactor);
 				nDOffsetY	 = (m_nSpeed * m_nYFactor);
 			}
@@ -1008,9 +1008,9 @@ void KMissle::OnFly()
 		break;
 	case	MISSLE_MMK_Motion:							//	��Ҷ�����
 		{
-			
+
 		}break;
-		
+
 	case MISSLE_MMK_SingleLine:						//	���еĵ�һֱ�߷���ħ��
 		{
 			//��һ�������ӵ�����ʽ�ڴ����Լ�������ͬ��������Ϸ�еĻ���ֱ��ħ��
@@ -1025,16 +1025,16 @@ void KMissle::OnFly()
 	default:
 		break;
 	}
-	
+
 	//
 	if (CheckBeyondRegion(nDOffsetX, nDOffsetY))
 	{
-		if (FsCheckCollision() == -1) 
+		if (FsCheckCollision() == -1)
 		{//�ӵ������
 			if (m_bAutoExplode)
 			{//�Ƿ��ٴ�	��ײ
 				ProcessCollision();//������ײ
-			}			  
+			}
 			int nSrcX4 = 0 ;
 			int nSrcY4 = 0 ;
 			SubWorld[0].NewMap2Mps(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY,m_nXOffset, m_nYOffset, &nSrcX4, &nSrcY4);
@@ -1050,8 +1050,8 @@ void KMissle::OnFly()
 }
 /*!*****************************************************************************
 // Function		: KMissle::OnVanish
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
@@ -1069,7 +1069,7 @@ void KMissle::OnVanish()
 //�滭�ӵ�
 void KMissle::Paint()
 {//�滭õ�廨����
-	if (m_nMissleId <= 0 ) 
+	if (m_nMissleId <= 0 )
 		return;
 
 	int nSrcX;
@@ -1096,7 +1096,7 @@ void KMissle::Paint()
 		   //SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_DEL, m_nMissleId);
 			if (Missle[m_nMissleId].m_nSubWorldId>=0 && Missle[m_nMissleId].m_nRegionId >= 0)
 				SubWorld[Missle[m_nMissleId].m_nSubWorldId].m_Region[Missle[m_nMissleId].m_nRegionId].RemoveMissle(m_nMissleId);
-			
+
 			MissleSet.Remove(m_nMissleId);
 		}
 	}
@@ -1105,17 +1105,17 @@ void KMissle::Paint()
 
 BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 {
-	if (m_nRegionId < 0) 
+	if (m_nRegionId < 0)
 		return FALSE;
 	//δ��
 	if (nDOffsetX == 0 && nDOffsetY == 0) return TRUE;
 
-	if (abs(nDOffsetX) > CellWidth) 
+	if (abs(nDOffsetX) > CellWidth)
 	{
 		return FALSE;
 	}
 
-	if (abs(nDOffsetY) > CellHeight) 
+	if (abs(nDOffsetY) > CellHeight)
 	{
 		return FALSE;
 	}
@@ -1126,25 +1126,25 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 	int nNewMapX		= m_nCurrentMapX;
 	int nNewMapY		= m_nCurrentMapY;
 	int nNewRegion		= m_nRegionId;
-	
+
 	DWORD nRegionWidth = RegionWidth;
 	DWORD nRegionHeight = RegionHeight;
-	
+
 	//CCAssert(abs(nNewXOffset) <= CellWidth * 2,"");
 	//CCAssert(abs(nNewYOffset) <= CellHeight * 2,"");
-	if (abs(nNewXOffset) > CellWidth * 2) 
+	if (abs(nNewXOffset) > CellWidth * 2)
 	{
 		return FALSE;
 	}
 
-	if (abs(nNewYOffset) > CellHeight * 2) 
+	if (abs(nNewYOffset) > CellHeight * 2)
 	{
 		return FALSE;
 	}
-	
+
 	//	����NPC��������
 	//	CELLWIDTH��CELLHEIGHT��OffX��OffY���ǷŴ���1024��
-	
+
 	if (nNewXOffset < 0)
 	{
 		nNewMapX--;
@@ -1155,7 +1155,7 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 		nNewMapX++;
 		nNewXOffset -= CellWidth;
 	}
-	
+
 	if (nNewYOffset < 0)
 	{
 		nNewMapY--;
@@ -1166,7 +1166,7 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 		nNewMapY++;
 		nNewYOffset -= CellHeight;
 	}
-	
+
 	if (nNewMapX < 0)
 	{
 		nNewRegion = LeftRegion(m_nRegionId);
@@ -1178,11 +1178,11 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 		nNewMapX -= nRegionWidth;
 	}
 
-	if (nNewRegion < 0) 
+	if (nNewRegion < 0)
 	{
-		return FALSE; 
+		return FALSE;
 	}
-	
+
 	if (nNewMapY < 0)
 	{
 		nNewRegion = UpRegion(nNewRegion);
@@ -1193,11 +1193,11 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 		nNewRegion = DownRegion(nNewRegion);
 		nNewMapY -= nRegionHeight;
 	}
-	
+
 	//��һ��λ��Ϊ���Ϸ�λ�ã�������
-	if (nNewRegion < 0) 
+	if (nNewRegion < 0)
 	{
-		return FALSE; 
+		return FALSE;
 	}
 	else
 	{
@@ -1209,7 +1209,7 @@ BOOL	KMissle::CheckBeyondRegion(int nDOffsetX, int nDOffsetY)
 		m_nXOffset	   = nNewXOffset;
 		m_nYOffset	   = nNewYOffset;
 		//CurRegion.AddRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
-		
+
 		if (nOldRegion != m_nRegionId)
 		{
 			//SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_CHANGE_REGION, nOldRegion, m_nRegionId, m_nMissleId);
@@ -1268,9 +1268,9 @@ KMissle&	KMissle::operator=(KMissle& Missle)
 	Missle.m_btBlueLum		= m_btBlueLum;
 	Missle.m_usLightRadius	= m_usLightRadius;
 	int nOffset = 0;
-	
+
 	//�������ͬ���ӵ������Բ�ͬ��ʽ��ʾʱ�����������
-	if (m_bMultiShow)		
+	if (m_bMultiShow)
 	{
 		if (g_Random(2) == 0)
 		{
@@ -1279,28 +1279,28 @@ KMissle&	KMissle::operator=(KMissle& Missle)
 		else
 			nOffset = MAX_MISSLE_STATUS;
 	}
-	
+
 	for (int t = 0; t < MAX_MISSLE_STATUS ; ++t)
 	{
 		strcpy(Missle.m_MissleRes.m_MissleRes[t].AnimFileName,m_MissleRes.m_MissleRes[t + nOffset].AnimFileName);
-		
+
 		Missle.m_MissleRes.m_MissleRes[t].nTotalFrame = m_MissleRes.m_MissleRes[t + nOffset].nTotalFrame;
 		Missle.m_MissleRes.m_MissleRes[t].nDir = m_MissleRes.m_MissleRes[t + nOffset].nDir;
 		Missle.m_MissleRes.m_MissleRes[t].nInterval = m_MissleRes.m_MissleRes[t + nOffset].nInterval;
-		
+
 		strcpy(Missle.m_MissleRes.m_MissleRes[t].SndFileName,m_MissleRes.m_MissleRes[t + nOffset].SndFileName);
 	}
 	Missle.m_MissleRes.m_bSubLoop = m_MissleRes.m_bSubLoop;
 	Missle.m_MissleRes.m_nSubStart = m_MissleRes.m_nSubStart;
 	Missle.m_MissleRes.m_nSubStop = m_MissleRes.m_nSubStop;
-	
+
 	return (Missle);
 }
 
 /*!*****************************************************************************
 // Function		: KMissle::ProcessDamage
-// Purpose		: 
-// Return		: BOOL 
+// Purpose		:
+// Return		: BOOL
 // Argumant		: int nNpcId
 // Comments		:
 // Author		: RomanDou   ���޳������ӵ��˺�  �ӵ�����--�˺���������
@@ -1316,7 +1316,7 @@ void KMissle::DoVanish()
 
 	m_MissleRes.m_bHaveEnd = TRUE;	//���ÿͻ��� �Ѿ��������
 	m_nCollideOrVanishTime = m_nCurrentLife;
-	if (m_bVanishedEvent)	
+	if (m_bVanishedEvent)
 	{//�ӵ�����ʱ �ͷŵĽ���ʱ�ļ���
 		//CCAssert(m_nSkillId < MAX_SKILL && m_nLevel < MAX_SKILLLEVEL,"");
 		KSkill * pOrdinSkill = (KSkill *) g_SkillManager.GetSkill(m_nSkillId,m_nLevel);
@@ -1332,7 +1332,7 @@ void KMissle::DoVanish()
 	  //SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_DEL, m_nMissleId);
 	   if (Missle[m_nMissleId].m_nSubWorldId>=0 && Missle[m_nMissleId].m_nRegionId >= 0)
 	   {
-		   SubWorld[Missle[m_nMissleId].m_nSubWorldId].m_Region[Missle[m_nMissleId].m_nRegionId].RemoveMissle(m_nMissleId); 
+		   SubWorld[Missle[m_nMissleId].m_nSubWorldId].m_Region[Missle[m_nMissleId].m_nRegionId].RemoveMissle(m_nMissleId);
 		}
 	    MissleSet.Remove(m_nMissleId);
    }
@@ -1348,14 +1348,14 @@ void KMissle::DoVanish()
 void KMissle::DoCollision()
 {
 
-	if (m_eMissleStatus == MS_DoCollision) 
+	if (m_eMissleStatus == MS_DoCollision)
 	   return;
-	
+
 	int nSrcX = 0 ;
 	int nSrcY = 0 ;
 	SubWorld[0].NewMap2Mps(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY,m_nXOffset, m_nYOffset, &nSrcX, &nSrcY);
-	
-	if (m_bCollideEvent)	
+
+	if (m_bCollideEvent)
 	{//��ײ����
 		//CCAssert(m_nSkillId < MAX_SKILL && m_nLevel < MAX_SKILLLEVEL,"");
 		KSkill * pOrdinSkill = (KSkill *)g_SkillManager.GetSkill(m_nSkillId, m_nLevel);
@@ -1364,7 +1364,7 @@ void KMissle::DoCollision()
 			pOrdinSkill->Collidsion(this);
         }
 	}
-	//����ײ���Ч��	
+	//����ײ���Ч��
 	if (m_MissleRes.SpecialMovieIsAllEnd())//����������� �ʹ�����ײЧ��
 		CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ);
 
@@ -1377,13 +1377,13 @@ void KMissle::DoCollision()
 		CreateSpecialEffect(MS_DoVanish, nSrcX5, nSrcY5, m_nCurrentMapZ);
 		DoVanish();
 	}
-	else 
-	{	
-		//����ײ���Ч��	
+	else
+	{
+		//����ײ���Ч��
 		//if (m_MissleRes.SpecialMovieIsAllEnd())//����������� �ʹ�����ײЧ��
 		//	CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ);
 
-		m_eMissleStatus = MS_DoFly;	   //MS_DoCollision;//	
+		m_eMissleStatus = MS_DoFly;	   //MS_DoCollision;//
 	}
 }
 
@@ -1395,7 +1395,7 @@ void KMissle::DoFly()
 }
 
 BOOL KMissle::GetOffsetAxis(int nSubWorld, int nSrcRegionId, int nSrcMapX, int nSrcMapY,
-							int nOffsetMapX, int nOffsetMapY, 
+							int nOffsetMapX, int nOffsetMapY,
 							int &nDesRegionId, int &nDesMapX, int &nDesMapY)
 {
 	if  (nSubWorld<0 || nSubWorld>=MAX_SUBWORLD)
@@ -1406,8 +1406,8 @@ BOOL KMissle::GetOffsetAxis(int nSubWorld, int nSrcRegionId, int nSrcMapX, int n
 	// ȷ��Ŀ�����ʵ�ʵ�REGION������ȷ��
 	nDesMapX = nSrcMapX + nOffsetMapX;
 	nDesMapY = nSrcMapY + nOffsetMapY;
-	
-	if (nSrcRegionId < 0) 
+
+	if (nSrcRegionId < 0)
 		return FALSE;
 
 	int nSearchRegion = nSrcRegionId;
@@ -1423,9 +1423,9 @@ BOOL KMissle::GetOffsetAxis(int nSubWorld, int nSrcRegionId, int nSrcMapX, int n
 		nDesMapX -= SubWorld[nSubWorld].m_nRegionWidth;
 	}
 
-	if (nSearchRegion < 0 || nSearchRegion>SubWorld[nSubWorld].m_nTotalRegion) 
+	if (nSearchRegion < 0 || nSearchRegion>SubWorld[nSubWorld].m_nTotalRegion)
 		return FALSE;
-//-------------------	
+//-------------------
 	if (nDesMapY < 0)
 	{
 		nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[4];
@@ -1435,22 +1435,22 @@ BOOL KMissle::GetOffsetAxis(int nSubWorld, int nSrcRegionId, int nSrcMapX, int n
 	{
 		nSearchRegion = SubWorld[nSubWorld].m_Region[nSearchRegion].m_nConnectRegion[0];
 		nDesMapY -= SubWorld[nSubWorld].m_nRegionHeight;
-	}	
+	}
 
-	if (nSearchRegion < 0 || nSearchRegion>SubWorld[nSubWorld].m_nTotalRegion) 
+	if (nSearchRegion < 0 || nSearchRegion>SubWorld[nSubWorld].m_nTotalRegion)
 		return FALSE;
 
 	nDesRegionId = nSearchRegion;
 
 	return TRUE;
-	// ��REGION��NPC�б��в�������������NPC		
+	// ��REGION��NPC�б��в�������������NPC
 	//int nNpcIdx = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nDesMapX, nDesMapY, nLauncherIdx, relation_all);
 }
 
 /*!*****************************************************************************
 // Function		: KMissle::ProcessCollision
-// Purpose		: 
-// Return		: int 
+// Purpose		:
+// Return		: int
 // Argumant		: int nLauncherIdx
 // Argumant		: int nRegionId
 // Argumant		: int nMapX
@@ -1463,23 +1463,23 @@ BOOL KMissle::GetOffsetAxis(int nSubWorld, int nSrcRegionId, int nSrcMapX, int n
 int KMissle::ProcessCollision(int nLauncherIdx, int nRegionId, int nMapX, int nMapY, int nRange , int eRelation,int mNpcIdx)
 {
 
-//#ifdef TOOLVERSION 
+//#ifdef TOOLVERSION
 //	return 0;
 //#endif
 	if (nLauncherIdx <= 0 ||nLauncherIdx>=MAX_NPC) return 0;
 
 	if (nRange <= 0) return 0;
-	
+
 	int nRangeX = nRange;	  //һ��������	/2
 	int	nRangeY = nRangeX;
 
 	int	nSubWorld = Npc[nLauncherIdx].m_SubWorldIndex;
-	
+
 	//CCAssert(Npc[nLauncherIdx].m_SubWorldIndex >= 0,"");
 	//CCAssert(nRegionId >= 0,"");
 	if (nSubWorld<0 || nSubWorld>=MAX_SUBWORLD || nRegionId<0)
 		return 0;
-	
+
 	int	nRegion = nRegionId;
 	int	nRet = 0;
 	int	nRMx, nRMy, nSearchRegion;
@@ -1491,18 +1491,18 @@ int KMissle::ProcessCollision(int nLauncherIdx, int nRegionId, int nMapX, int nM
 			int nSrcX = 0;
 			int nSrcY = 0;
 			SubWorld[0].NewMap2Mps(Npc[mNpcIdx].m_RegionIndex, Npc[mNpcIdx].m_MapX,Npc[mNpcIdx].m_MapY, Npc[mNpcIdx].m_OffX, Npc[mNpcIdx].m_OffY,&nSrcX,&nSrcY);
-			
+
 			if (m_bFollowNpcWhenCollid)	  //�Ƿ����
 				CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ, mNpcIdx);
-			else 
+			else
 				CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ);
 
 			//m_eMissleStatus = MS_DoCollision;
 		}
 
 		return TRUE;
-	} 
-	
+	}
+
 
 	// ��鷶Χ�ڵĸ������NPC
 	for (int i = -nRangeX; i <= nRangeX; ++i)
@@ -1521,19 +1521,19 @@ int KMissle::ProcessCollision(int nLauncherIdx, int nRegionId, int nMapX, int nM
 				continue;
 
 			int nNpcIdx =0 ;
-			// ��REGION��NPC�б��в�������������NPC	
+			// ��REGION��NPC�б��в�������������NPC
 			nNpcIdx = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, nLauncherIdx, eRelation);
-	
-			if (nNpcIdx > 0 && nNpcIdx<MAX_NPC)	
+
+			if (nNpcIdx > 0 && nNpcIdx<MAX_NPC)
 			{
 				nRet++;		//����NPC�ĸ���
 				int nSrcX = 0;
 				int nSrcY = 0;
 				SubWorld[0].NewMap2Mps(nSearchRegion, Npc[nNpcIdx].m_MapX,Npc[nNpcIdx].m_MapY, Npc[nNpcIdx].m_OffX, Npc[nNpcIdx].m_OffY,  &nSrcX, &nSrcY);
-				
+
 				if (m_bFollowNpcWhenCollid)	  //�Ƿ����
 					CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ, nNpcIdx);
-				else 
+				else
 					CreateSpecialEffect(MS_DoCollision, nSrcX, nSrcY, m_nCurrentMapZ);
 
 				//m_eMissleStatus = MS_DoCollision;
@@ -1552,7 +1552,7 @@ int KMissle::ProcessCollision()
 ///#ifdef TOOLVERSION
 //return 0;
 //#endif
-	if (m_bClientSend) 
+	if (m_bClientSend)
 		return 0;  //�ǿͻ��˼��� �����˺�
 
 	return ProcessCollision(m_nLauncher, m_nRegionId, m_nCurrentMapX, m_nCurrentMapY, m_nDamageRange , m_eRelation);
@@ -1562,12 +1562,12 @@ int KMissle::ProcessCollision()
 #define MISSLE_Y_OFFSET 1
 BOOL KMissle::CreateSpecialEffect(eMissleStatus eStatus, int nPX, int nPY, int nPZ, int nNpcIndex)
 {
-	if (!m_MissleRes.m_MissleRes[eStatus].AnimFileName[0]) 
+	if (!m_MissleRes.m_MissleRes[eStatus].AnimFileName[0])
 	{
 		//if (m_MissleRes.m_MissleRes[eStatus+MAX_MISSLE_STATUS].AnimFileName[0])
-		//	t_sprintf(m_MissleRes.m_MissleRes[eStatus].AnimFileName,m_MissleRes.m_MissleRes[eStatus+MAX_MISSLE_STATUS].AnimFileName);
+		//	sprintf(m_MissleRes.m_MissleRes[eStatus].AnimFileName,m_MissleRes.m_MissleRes[eStatus+MAX_MISSLE_STATUS].AnimFileName);
 		//else
-		  return FALSE; 
+		  return FALSE;
 	}
 
 	KSkillSpecialNode * pNode = NULL;
@@ -1577,7 +1577,7 @@ BOOL KMissle::CreateSpecialEffect(eMissleStatus eStatus, int nPX, int nPY, int n
 		pNode = (KSkillSpecialNode*)m_MissleRes.m_SkillSpecialList.GetHead();
 		while(pNode)
 		{
-			if (pNode->m_pSkillSpecial->m_dwMatchID == Npc[nNpcIndex].m_dwID) 
+			if (pNode->m_pSkillSpecial->m_dwMatchID == Npc[nNpcIndex].m_dwID)
 				return FALSE;
 
 			pNode = (KSkillSpecialNode*)pNode->GetNext();
@@ -1606,7 +1606,7 @@ BOOL KMissle::CreateSpecialEffect(eMissleStatus eStatus, int nPX, int nPY, int n
 		// ���X������Ϊ��ɫ���Ϊ40
 		if (m_nHurtRandX > 0)
 			pSkillSpecial->m_nXOffset	= ((INT)KSysService::Engine_Random(m_nHurtRandX) - m_nHurtRandX / 2) * 40 / 100;
-		
+
 		// ���Y������Ϊһ���ɫ�߶�Ϊ100
 		INT nNpcStature = Npc[nNpcIndex].m_DataRes.GetStature();
 		if (m_nHurtRandY > 0 && nNpcStature > 0)
@@ -1614,10 +1614,10 @@ BOOL KMissle::CreateSpecialEffect(eMissleStatus eStatus, int nPX, int nPY, int n
 	}*/
 
 	pNode->m_pSkillSpecial = pSkillSpecial;
-	
+
 	int nSrcX = nPX;
 	int nSrcY = nPY;
-	
+
 	pSkillSpecial->m_nMissleId = m_nMissleId;
 	pSkillSpecial->m_nPX = nSrcX;
 	pSkillSpecial->m_nPY = nSrcY - 5;// MISSLE_Y_OFFSET;
@@ -1640,7 +1640,7 @@ BOOL KMissle::CreateSpecialEffect(eMissleStatus eStatus, int nPX, int nPY, int n
 	pSkillSpecial->m_nCurDir    = g_DirIndex2Dir(m_nDirIndex, m_MissleRes.m_MissleRes[eStatus].nDir);
 	pSkillSpecial->Init();
 	m_MissleRes.m_SkillSpecialList.AddTail(pNode);
-	
+
 	return TRUE;
 }
 
@@ -1652,7 +1652,7 @@ BOOL	KMissle::CreateMissleForShow(char * szMovie, char * szFormat, char * szSoun
 	int nPY = 0;
 	int nMmap=0;
 	int nPZ = 0;
-	
+
 	if (pShowParam->nNpcIndex > 0)
 	{
 		Npc[pShowParam->nNpcIndex].GetMpsPos(&nPX, &nPY,&nMmap);
@@ -1665,9 +1665,9 @@ BOOL	KMissle::CreateMissleForShow(char * szMovie, char * szFormat, char * szSoun
 
 	int nSubWorldId = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SubWorldIndex;
 	int nMissleIndex = MissleSet.Add(nSubWorldId , nPX , nPY);
-	if (nMissleIndex < 0)	
+	if (nMissleIndex < 0)
 		return FALSE;
-	
+
 	Missle[nMissleIndex].m_nDir				= Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Dir;
 	Missle[nMissleIndex].m_nDirIndex		= g_Dir2DirIndex(Missle[nMissleIndex].m_nDir, MaxMissleDir);
 
@@ -1677,7 +1677,7 @@ BOOL	KMissle::CreateMissleForShow(char * szMovie, char * szFormat, char * szSoun
 	Missle[nMissleIndex].m_nSubWorldId		= nSubWorldId;
 	Missle[nMissleIndex].m_nLauncher		= pShowParam->nLauncherIndex;
 	Missle[nMissleIndex].m_dwLauncherId		= Npc[pShowParam->nLauncherIndex].m_dwID;
-	
+
 	Missle[nMissleIndex].m_nParentMissleIndex = 0;
 	Missle[nMissleIndex].m_nShangBei        = 0;   //�˺��ı���
 	Missle[nMissleIndex].m_nEnChance		= 0;
@@ -1702,15 +1702,15 @@ BOOL	KMissle::CreateMissleForShow(char * szMovie, char * szFormat, char * szSoun
 
 void	KMissle::GetLightInfo(KLightInfo * pLightInfo)
 {
-	if (!pLightInfo) 
+	if (!pLightInfo)
 	{
 		return ;
 	}
-	
+
 	int nPX, nPY, nPZ;
 	GetMpsPos(&nPX, &nPY);
 	nPZ = m_nCurrentMapZ;
-	
+
 	pLightInfo->oPosition.nX = nPX;
 	pLightInfo->oPosition.nY = nPY;
 	pLightInfo->oPosition.nZ = nPZ;
@@ -1726,7 +1726,7 @@ void KMissle::DoWait()
 	int nSrcY = 0 ;
 	SubWorld[0].NewMap2Mps(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY,m_nXOffset, m_nYOffset, &nSrcX, &nSrcY);
 	CreateSpecialEffect(MS_DoWait, nSrcX, nSrcY, m_nCurrentMapZ);
-	
+
 }
 //���ӵ�����fly״̬ʱ����Ҫ��������䶯
 BOOL	KMissle::PrePareFly()
@@ -1744,13 +1744,13 @@ BOOL	KMissle::PrePareFly()
 			return false;
 		}
 	}
-	
+
 	//�ӵ�λ����Ҫ����Ϊ���ʵ���λ�ã��ӵ��ĳ���������ĳ������λ���ڲ��ϱ仯������Ϊ�����
 	if (m_bHeelAtParent)
 	{
 		int nNewPX = 0;
 		int nNewPY = 0;
-		
+
 		if (m_nParentMissleIndex) // �ο���Ϊĸ�ӵ�
 		{
 			if (Missle[m_nParentMissleIndex].m_dwLauncherId != m_dwLauncherId)
@@ -1777,14 +1777,14 @@ BOOL	KMissle::PrePareFly()
 
 			int nParentPX, nParentPY,nPmap;
 			int nSrcPX, nSrcPY;
-			
+
 			Npc[m_nLauncher].GetMpsPos(&nParentPX, &nParentPY,&nPmap);
 			GetMpsPos(&nSrcPX, &nSrcPY);
-			
+
 			nNewPX = nSrcPX + (nParentPX - m_nRefPX);
 			nNewPY = nSrcPY + (nParentPY - m_nRefPY);
 		}
-		
+
 		int nOldRegion = m_nRegionId;
 
 		//CurRegion.DecRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
@@ -1797,13 +1797,13 @@ BOOL	KMissle::PrePareFly()
 		{
 			//SubWorld[m_nSubWorldId].m_WorldMessage.NewSend(GWM_MISSLE_CHANGE_REGION, nOldRegion, m_nRegionId, m_nMissleId);
 			SubWorld[m_nSubWorldId].MissleChangeRegion(nOldRegion, m_nRegionId, m_nMissleId);
-		} 
+		}
 		//CurRegion.DecRef(m_nCurrentMapX, m_nCurrentMapY, obj_missle);
 
 	}
-	
+
 	return true;
-	
+
 }
 
 int KMissle::CheckNearestCollision()
@@ -1891,23 +1891,23 @@ int KMissle::CheckNearestCollision()
 		{
 			if (!KMissle::GetOffsetAxis(
 				m_nSubWorldId,
-				m_nRegionId, 
-				m_nCurrentMapX, 
-				m_nCurrentMapY, 
-				i , 
-				j , 
-				nSearchRegion, 
-				nRMx, 
+				m_nRegionId,
+				m_nCurrentMapX,
+				m_nCurrentMapY,
+				i ,
+				j ,
+				nSearchRegion,
+				nRMx,
 				nRMy
 				))
 				continue;
-			
+
 			//_ASSERT(nSearchRegion >= 0);
 			if (nSearchRegion<0)
 				continue;
-			
+
 			nNpcIdx = SubWorld[m_nSubWorldId].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nLauncher, m_eRelation);
-			
+
 			if (nNpcIdx > 0 && nNpcIdx<MAX_NPC)
 			{
 				bCollision = TRUE;
@@ -1917,7 +1917,7 @@ int KMissle::CheckNearestCollision()
 				nNpcOffsetY = Npc[nNpcIdx].m_OffY;
 				nAbsX = abs(nDX);
 				nAbsY = abs(nDY);
-				
+
 				if (nAbsX)
 				{
 					if (nDX < 0)
@@ -1937,7 +1937,7 @@ int KMissle::CheckNearestCollision()
 						}
 					}
 				}
-				
+
 				if (nAbsY)
 				{
 					if (nDY <0)
@@ -1957,13 +1957,13 @@ int KMissle::CheckNearestCollision()
 						}
 					}
 				}
-				
+
 CheckCollision:
 				if (bCollision)
 					return nNpcIdx;
 			}
 		}
-		
+
 		return 0;
 
 }

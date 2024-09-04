@@ -236,7 +236,7 @@ void	KMapMusic::Play(int nMapID, int nGameTime, BOOL bFightMode)
 
 			// �ҵ��˵�ǰӦ�ò�����һ�����֣�����֮
 			// �����ǰ���ڲ���Ӧ�ò��ŵ����֣�����
-			if (__pMusic->isBackgroundMusicPlaying() && 
+			if (__pMusic->isBackgroundMusicPlaying() &&
 				strcmp(m_szCurName, m_pMusicInfo[m_nCurInfoNo].m_sMusic[m_nCurMusicNo].m_szFileName) == 0)
 			{
 				__pMusic->setBackgroundMusicVolume(GAMEVALUE_TO_HUNDREDTHS_OF_DECIBELS);
@@ -270,7 +270,7 @@ void	KMapMusic::Play(int nMapID, int nGameTime, BOOL bFightMode)
 				__pMusic->stopBackgroundMusic(true);
 				if (m_szCurName[0])
 				{
-					//ccMessageBox(m_szCurName,"11111");
+					//messageBox(m_szCurName,"11111");
 					__pMusic->setBackgroundMusicVolume(GAMEVALUE_TO_HUNDREDTHS_OF_DECIBELS);
 					__pMusic->playBackgroundMusic(m_szCurName);
 				}
@@ -302,7 +302,7 @@ void	KMapMusic::Play(int nMapID, int nGameTime, BOOL bFightMode)
 		__pMusic->stopBackgroundMusic(true);
 		if (m_szCurName[0])
 		{
-			//ccMessageBox(m_szCurName,"22222");
+			//messageBox(m_szCurName,"22222");
 			__pMusic->setBackgroundMusicVolume(GAMEVALUE_TO_HUNDREDTHS_OF_DECIBELS);
 			__pMusic->playBackgroundMusic(m_szCurName);
 		}
@@ -465,7 +465,7 @@ int KMapMusic::CreateFolder(char * nPath)
 	/* ��ʽ��·��������Ŀ¼ */
 	/*for (int i = 0; i < (int)strlen(nPath); i++)
 	{
-		if (nPath[i] == '/') 
+		if (nPath[i] == '/')
 		{
 			nPath[i] = '\\';
 		}
@@ -474,7 +474,7 @@ int KMapMusic::CreateFolder(char * nPath)
 	{
 		memcpy(oPath,nPath+1,strlen(nPath)-1);
 	}
-	else 
+	else
 	{
 		memcpy(oPath, nPath, strlen(nPath));
 	}*/
@@ -494,7 +494,7 @@ int KMapMusic::CreateFolder(char * nPath)
 			tPath[i] = 0;
 			char nTempDir[256];
 			ZeroMemory(nTempDir,sizeof(nTempDir));
-			t_sprintf(nTempDir,"%s%s",nSdcardPath.c_str(),tPath);
+			sprintf(nTempDir,"%s%s",nSdcardPath.c_str(),tPath);
 #ifdef WIN32 //����·��
 			_mkdir(nTempDir);//tPath
 #else
@@ -521,22 +521,22 @@ void KMapMusic::downLoadAllMapmusic(char *pMusicName)
 	XPackElemFileRef m_PackRef;
 	ZeroMemory(&m_PackRef,sizeof(XPackElemFileRef));
 	int nIsHave = 0;
-	    //ccMessageBox(pMusicName,nSdcardPath.c_str());
+	    //messageBox(pMusicName,nSdcardPath.c_str());
 		nIsHave  = g_pPakList->pGetFilePath(pMusicName,m_PackRef);
 	if (nIsHave)
 	{//��������������
-		//ccMessageBox(pMusicName,"�ҵ��ļ�");
+		//messageBox(pMusicName,"�ҵ��ļ�");
 		char * sBuf=NULL;
 		sBuf = (char *)malloc(m_PackRef.nSize+1);
 		if (sBuf)
 		{
 			CreateFolder(pMusicName);
 			g_pPakList->ElemFileRead(m_PackRef,sBuf,m_PackRef.nSize);
-			//t_sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
+			//sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
 #ifdef WIN32
-			t_sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
+			sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
 #else
-			t_sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),G2U(pMusicName).c_str());
+			sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),G2U(pMusicName).c_str());
 #endif
 			FILE *oFp = NULL;
 			if((oFp=fopen(m_szEntireMapFile,"wb+"))==0)

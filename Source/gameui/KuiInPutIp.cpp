@@ -120,7 +120,7 @@ void KuiInPutIp::addDialogData()
 	m_StartPos.x =10;//+ITEM_CELL_SIZE/2;
 	m_StartPos.y =140-24;//+ITEM_CELL_SIZE/2;
 	//char nTempStr[128];
-	//t_sprintf(nTempStr,pContent);
+	//sprintf(nTempStr,pContent);
 	/*Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,TextHAlignment::CENTER);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
 	pstrLabel->setPosition(ax::Vec2(128/2+30,m_size.height-50));
@@ -219,13 +219,13 @@ void KuiInPutIp::mianLoginCallback(Ref* pSender)
 
 			if  (strPas.empty() || strPas.empty())
 			{
-				ccMessageBox("Ip Is Empty","Error");
+				messageBox("Ip Is Empty","Error");
 				pPakList.Clear();
 				return;
 			}
 			if  (strAcc!=strPas)
 			{
-				ccMessageBox("Ip Is Error","Error");
+				messageBox("Ip Is Error","Error");
 				pPakList.Clear();
 				return;
 			}
@@ -235,10 +235,10 @@ void KuiInPutIp::mianLoginCallback(Ref* pSender)
 			ZeroMemory(donwPath,sizeof(donwPath));
 			ZeroMemory(nTempPaht,sizeof(nTempPaht));
 			nurlMask.SimplyDecrypt(donwPath,CLIENT_IP);
-			t_sprintf(nTempPaht,strAcc.c_str());
+			sprintf(nTempPaht, "%s", strAcc.c_str());
 			if  (!strstr(nTempPaht,donwPath))
 			{
-				ccMessageBox("Ip Is Error","Error");
+				messageBox("Ip Is Error","Error");
 				pPakList.Clear();
 				return;
 			}
@@ -250,7 +250,7 @@ void KuiInPutIp::mianLoginCallback(Ref* pSender)
 		buttonCallBackFunc(pSender,1);
 	}
 	else
-     ccMessageBox("The Client Is Error","Error");
+     messageBox("The Client Is Error","Error");
 
 }
 
@@ -318,7 +318,7 @@ bool KuiInPutIp::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiInPutIp::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -328,7 +328,7 @@ void KuiInPutIp::update(float delta)
 
 //void KuiInPutIp::draw()
 //{
-//	//ccMessageBox("����ѭ��","draw");
+//	//messageBox("����ѭ��","draw");
 //}
 
 
@@ -347,7 +347,7 @@ int KuiInPutIp::FilterTextColor(char* pMsgBuff, unsigned short nMsgLength)
 
 void KuiInPutIp::editBoxEditingDidBegin(EditBox *editBox)//��ʼʱ�ĺ���
 {
-	ccMessageBox("�����ʼ","�����ʼ");
+	messageBox("�����ʼ","�����ʼ");
 }
 void KuiInPutIp::editBoxEditingDidEnd(EditBox *editBox) //����ʱ�ĺ���
 {

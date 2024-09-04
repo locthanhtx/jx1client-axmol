@@ -22,7 +22,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "config.h"
+#include "../../libiconv/include/config.h"
 #include "localcharset.h"
 
 #ifdef __CYGWIN__

@@ -10,13 +10,14 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include "engine/KIniFile.h"
 #include "engine/KTabFile.h"
 #include "gameui/Uiglobaldata.h"
+#include "extensions/GUI/src/GUI/ControlExtension/ControlSwitch.h"
 //#include "network/Thread.h"
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 using namespace ui;
 
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
@@ -35,7 +36,7 @@ public:
 	//using CThread::Start;
 	static KuiAutoPlay_vn * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
-    virtual void onDraw(const ax::Mat4 &transform, uint32_t flags);
+    virtual void onDraw(const ax::Mat4 &transform, unsigned int flags);
 	void  _removeDelegate(bool isThis);
 	bool    isOpen;
 	//virtual void Run();
@@ -119,37 +120,37 @@ private:
 	CheckBox* checkBox_shiqu;
 	CheckBox* checkBox_savem;
 
-	ControlSwitch *switchControl_Auto_HP;
-	ControlSwitch *switchControl_baohu;
-	ControlSwitch *switchControl_team;
-	ControlSwitch *switchControl_team_g;
-	ControlSwitch *switchControl_team_d;
-	ControlSwitch *switchControl_team_y;
+	ax::extension::ControlSwitch *switchControl_Auto_HP;
+	ax::extension::ControlSwitch *switchControl_baohu;
+	ax::extension::ControlSwitch *switchControl_team;
+	ax::extension::ControlSwitch *switchControl_team_g;
+	ax::extension::ControlSwitch *switchControl_team_d;
+	ax::extension::ControlSwitch *switchControl_team_y;
 
-	ControlSwitch *switchControl_zhandou;
-	ControlSwitch *switchControl_shiqu;
-	ControlSwitch *switchControl_savem;
-	ControlSwitch *switchControl_fenjie;
-	ControlSwitch *switchControl_yanshi;
-    ControlSwitch *switchControl_skill[MAX_SKILL_COUNT];
+	ax::extension::ControlSwitch *switchControl_zhandou;
+	ax::extension::ControlSwitch *switchControl_shiqu;
+	ax::extension::ControlSwitch *switchControl_savem;
+	ax::extension::ControlSwitch *switchControl_fenjie;
+	ax::extension::ControlSwitch *switchControl_yanshi;
+    ax::extension::ControlSwitch *switchControl_skill[MAX_SKILL_COUNT];
 	Label      *skillnameLabel[MAX_SKILL_COUNT];
 
-	ControlSwitch *switchControl_item_m;
-	ControlSwitch *switchControl_item_d;
-	ControlSwitch *switchControl_item_z;
-	ControlSwitch *switchControl_item_zm;
-	ControlSwitch *switchControl_item_t;
+	ax::extension::ControlSwitch *switchControl_item_m;
+	ax::extension::ControlSwitch *switchControl_item_d;
+	ax::extension::ControlSwitch *switchControl_item_z;
+	ax::extension::ControlSwitch *switchControl_item_zm;
+	ax::extension::ControlSwitch *switchControl_item_t;
 
-	ControlSwitch *switchControl_yabiao;
-	ControlSwitch *switchControl_baoliu;
-	ControlSwitch *switchControl_useitem;
+	ax::extension::ControlSwitch *switchControl_yabiao;
+	ax::extension::ControlSwitch *switchControl_baoliu;
+	ax::extension::ControlSwitch *switchControl_useitem;
 
-	ControlSwitch *switchControl_dingdian;
-	ControlSwitch *switchControl_luxian;
-	ControlSwitch *switchControl_luzhi;
-	ControlSwitch *switchControl_miaosha;
-	ControlSwitch *switchControl_other_s;
-	ControlSwitch *switchControl_other_j;
+	ax::extension::ControlSwitch *switchControl_dingdian;
+	ax::extension::ControlSwitch *switchControl_luxian;
+	ax::extension::ControlSwitch *switchControl_luzhi;
+	ax::extension::ControlSwitch *switchControl_miaosha;
+	ax::extension::ControlSwitch *switchControl_other_s;
+	ax::extension::ControlSwitch *switchControl_other_j;
 
     EditBox *pLifeEditBox_2;
 	EditBox *pLifeEditBox;

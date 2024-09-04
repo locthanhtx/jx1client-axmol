@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #ifndef	KMissleH
 #define KMissleH
-#define MAX_MISSLE  30000    //10000�ӵ�����
+#define MAX_MISSLE  30000    //10000子弹限制
 #include "KCore.h"
 #include "SkillDef.h"
 #include "KObj.h"
@@ -41,132 +41,132 @@ class KMissle
 	friend class	KSkill;
 private:
 public:
-	//	�ӵ��趨�ļ���õ�����
+	//	子弹设定文件获得的数据
 	KIndexNode			m_Node;
-	int					m_nEnChance;			//  �ӵ����ܼӳ�
-	int                 m_nShangBei;            //  �˺��ı���
-//	char				m_szMissleName[32];		//	�ӵ�������
-	int					m_nAction;				//	��ǰ��Ϊ
-	BOOL				m_bIsSlow;				//	�Ƿ񱻼���
-	BOOL				m_bClientSend;			//	�Ƿ���Ҫ
-	BOOL				m_bRemoving;			//	��֪��Ҫ��һ��ѭ��ɾ�����ӵ�������Դ
-	BOOL				m_bIsMelee;				//	�ӵ��Ƿ��ǽ�����
-	eMissleMoveKind		m_eMoveKind;			//	�ӵ��˶�����(��ը��ֱ�߷��еȡ���)
-	eMissleFollowKind	m_eFollowKind;			//	�ӵ�����ʱ�Ĳ�������
-	int					m_nHeight;				//	�ӵ��߶�
-	int					m_nHeightSpeed;			//	�ӵ����еķ����ٶ�
-	int					m_nLifeTime;			//	��������
-	int					m_nSpeed;				//	�����ٶ�
-	int                 m_nRate;                //  �ӵ����еĸ���
-	int                 m_nHitCount;            //  �ӵ����е�����
+	int					m_nEnChance;			//  子弹技能加成
+	int                 m_nShangBei;            //  伤害的倍率
+//	char				m_szMissleName[32];		//	子弹的名称
+	int					m_nAction;				//	当前行为
+	BOOL				m_bIsSlow;				//	是否被减速
+	BOOL				m_bClientSend;			//	是否需要
+	BOOL				m_bRemoving;			//	获知需要下一个循环删除该子弹所有资源
+	BOOL				m_bIsMelee;				//	子弹是否是近身攻击
+	eMissleMoveKind		m_eMoveKind;			//	子弹运动类型(爆炸、直线飞行等……)
+	eMissleFollowKind	m_eFollowKind;			//	子碟发出时的参照类型
+	int					m_nHeight;				//	子弹高度
+	int					m_nHeightSpeed;			//	子弹纵行的飞行速度
+	int					m_nLifeTime;			//	生命周期
+	int					m_nSpeed;				//	飞行速度
+	int                 m_nRate;                //  子弹击中的概率
+	int                 m_nHitCount;            //  子弹击中的人数
 
-	int					m_nSkillId;				//	��Ӧ�ĸ�����
-	BOOL				m_bRangeDamage;			//	�Ƿ�Ϊ�����˺������Ƿ�����ܵ��˺�
-	int					m_eRelation;			//	Ŀ���뷢���ߵĹ�ϵ
-	BOOL				m_bAutoExplode;			//  ����ǰ�Ƿ��ٴ���ײ
+	int					m_nSkillId;				//	对应哪个技能
+	BOOL				m_bRangeDamage;			//	是否为区域伤害，即是否多人受到伤害
+	int					m_eRelation;			//	目标与发射者的关系
+	BOOL				m_bAutoExplode;			//  消亡前是否再次碰撞
 	BOOL				m_bTargetSelf;
-	BOOL				m_bBaseSkill;			//	�Ƿ�Ϊ��������ܣ�ֱ��ʹ���Ӽ��ܣ�
-	BOOL				m_bByMissle;			//	���ɸ����ܲ���ʱ���Ƿ��Ǹ������Ϊ���㻹���Ե�ǰ���ӵ�Ϊ����
-	INT					m_nInteruptTypeWhenMove;		//�ӵ��ļ����Ƿ��ܷ����ߵ��ƶ�����ֹ
-	BOOL				m_bHeelAtParent;		//	���ӵ�ʵ�ʼ���ʱ��λ�ø��ݸ���ǰλ�ö�ȷ��,�������ɲ����ǿ�parentλ�þ���
+	BOOL				m_bBaseSkill;			//	是否为最基本技能（直接使用子技能）
+	BOOL				m_bByMissle;			//	当由父技能产生时，是否是根据玩家为基点还是以当前的子弹为基点
+	INT					m_nInteruptTypeWhenMove;		//子弹的激活是否受发送者的移动而中止
+	BOOL				m_bHeelAtParent;		//	当子弹实际激活时，位置根据父当前位置而确定,而不是由产生那刻parent位置决定
 	int					m_nLauncherSrcPX;		
 	int					m_nLauncherSrcPY;
-	int					m_nCollideRange;		//	��ײ��Χ���򻯶������ײ�ã�
-	int					m_nDamageRange;			//	�˺���Χ
-	BOOL				m_bCollideVanish;		//	��ײ���Ƿ�����
-	BOOL				m_bCollideFriend;		//	�Ƿ����ײ��ͬ��
-	BOOL				m_bCanSlow;				//	�Ƿ�ᱻ���٣�����˵Slow Missle��ļ��ܣ�
-	int					m_nKnockBack;			//	���˾���
-	//int				m_nStunTime;			//	��ѣʱ��
+	int					m_nCollideRange;		//	碰撞范围（简化多边形碰撞用）
+	int					m_nDamageRange;			//	伤害范围
+	BOOL				m_bCollideVanish;		//	碰撞后是否消亡
+	BOOL				m_bCollideFriend;		//	是否会碰撞到同伴
+	BOOL				m_bCanSlow;				//	是否会被减速（比如说Slow Missle类的技能）
+	int					m_nKnockBack;			//	震退距离
+	//int				m_nStunTime;			//	晕眩时间
 	
-	BOOL				m_bFlyEvent;			//	�������й����е�
+	BOOL				m_bFlyEvent;			//	整个飞行过程中的
 	int					m_nFlyEventTime;
-	BOOL				m_bSubEvent;			//	�Ƿ���Ҫ�ڷ��й�����Ϣ�����ǣ�������ػص�����
-	BOOL				m_bStartEvent;			//	�Ƿ���Ҫ�ڼ��ܵ�һ��Activeʱ��������ػص�����
-	BOOL				m_bCollideEvent;		//	�Ƿ���Ҫ���Ӽ���ħ����ײʱ��������ػص�����
-	BOOL				m_bVanishedEvent;		//	�Ƿ���Ҫ���Ӽ�������ʱ��������صĻص�����
+	BOOL				m_bSubEvent;			//	是否需要在飞行过程消息发生是，调用相关回调函数
+	BOOL				m_bStartEvent;			//	是否需要在技能第一次Active时，调用相关回调函数
+	BOOL				m_bCollideEvent;		//	是否需要在子技能魔法碰撞时，调用相关回调函数
+	BOOL				m_bVanishedEvent;		//	是否需要在子技能消亡时，调用相关的回调函数
 	
-	uint32_t		m_ulDamageInterval;		//	�˺�����ļ��ʱ��,��Ҫָ�����ͻ�ǽ����
-	BOOL				m_bMustBeHit;			//  ���У����ӵ����������һ���ܴ��жԷ��������Ƿ�ʵ����ײ���Է�.
-	//	���ܻ�õ�����
-	int					m_nCurrentLife;			//	��ǰ����ʱ��
-	int					m_nStartLifeTime;		//	�����ܷ����󣬵ڼ�֡��ʼ
-	int					m_nCollideOrVanishTime; //  �ӵ�������ʱ��
-	int					m_nCurrentMapX;			//	��ǰ��X����
-	int					m_nCurrentMapY;			//	��ǰ��Y����
-	int					m_nCurrentMapZ;			//	��ǰ��Z����
-	int					m_nXOffset;				//	��ǰ��X����ƫ��
-	int					m_nYOffset;				//	��ǰ��Y����ƫ��
+	unsigned long		m_ulDamageInterval;		//	伤害计算的间隔时间,主要指对类型火墙技能
+	BOOL				m_bMustBeHit;			//  必中，即子弹无特殊情况一定能打中对方，无论是否实际碰撞到对方.
+	//	技能获得的数据
+	int					m_nCurrentLife;			//	当前生命时间
+	int					m_nStartLifeTime;		//	当技能发生后，第几帧开始
+	int					m_nCollideOrVanishTime; //  子弹消亡的时间
+	int					m_nCurrentMapX;			//	当前的X坐标
+	int					m_nCurrentMapY;			//	当前的Y坐标
+	int					m_nCurrentMapZ;			//	当前的Z坐标
+	int					m_nXOffset;				//	当前的X方向偏移
+	int					m_nYOffset;				//	当前的Y方向偏移
 	int					m_nRefPX;
 	int					m_nRefPY;
 	
-	int					m_nDesMapX;				//�����ӵ�ʱ��Ŀ������
+	int					m_nDesMapX;				//单颗子单时，目的坐标
 	int					m_nDesMapY;				
 	int					m_nDesRegion;
-	BOOL				m_bNeedReclaim;			//�Ƿ��Ѿ�����һ���ӵ��ķ�������
+	BOOL				m_bNeedReclaim;			//是否已纠正过一次子单的方向问题
 	//TMisslePos			m_NeedReclaimPos[4];
 
-	int 				m_bDoHurt;				//����ʱ�Ƿ���Ҫ�����˶���(����)
-	int                 m_nIsMagic;             //���⹦
+	int 				m_bDoHurt;				//受伤时是否需要作受伤动作(概率)
+	int                 m_nIsMagic;             //内外功
 	
-	//��һ�����ӵ�ʱ����ȷ���У�
+	//单一飞行子单时，精确命中！
 	int					m_nXFactor;
 	int					m_nYFactor;
-	int					m_nLevel;				//	���ܵȼ�
+	int					m_nLevel;				//	技能等级
 	
-	int					m_nFollowNpcIdx;		//	����˭
-	//int                 m_nLockNpcIndex;        //  �������Ǹ�NPC������
+	int					m_nFollowNpcIdx;		//	跟随谁
+	//int                 m_nLockNpcIndex;        //  锁定的那个NPC的索引
 	//DWORD				m_dwFollowNpcID;		//	
 	
-	int					m_nLauncher;			//	��������NpcSet�е�Index
-	DWORD				m_dwLauncherId;			//	�����ߵ�ΨһID
+	int					m_nLauncher;			//	发射者在NpcSet中的Index
+	DWORD				m_dwLauncherId;			//	发射者的唯一ID
 	int					m_nParentMissleIndex;   // if 0 then means parent is npclauncher
 	
-	//	�����ɵĶ�̬����	
-	int					m_nCurrentSpeed;		//	��ǰ�ٶȣ����ܱ����٣�
-	int					m_nZAcceleration;		//	Z��ļ��ٶ�
-	eMissleStatus		m_eMissleStatus;		//	�ӵ���ǰ��״̬
-	int					m_nMissleId;			//	�ӵ���Missle�е�ID
-	int					m_nSubWorldId;			//	������ID
-	int					m_nRegionId;			//	����ID
-	//�����˺�����
-	//int					m_nMaxDamage;			//	����˺�
-	//int					m_nElementType;			//	Ԫ���˺�����
-	//int					m_nMaxElementDamage;	//	���Ԫ���˺�(�״�)
-	//int					m_nElementTime;			//	Ԫ�س���ʱ��
-	//int					m_nElementInterval;		//	Ԫ�ؼ��ʱ��
-	//int					m_nElementPerDamage;	//	Ԫ���˺�ʱ��ÿ�η������ܵ��˺�ֵ
-	int					m_nParam1;				//	����һ
-	int					m_nParam2;				//	������
-	int					m_nParam3;				//	������
+	//	自生成的动态数据	
+	int					m_nCurrentSpeed;		//	当前速度（可能被减速）
+	int					m_nZAcceleration;		//	Z轴的加速度
+	eMissleStatus		m_eMissleStatus;		//	子弹当前的状态
+	int					m_nMissleId;			//	子弹在Missle中的ID
+	int					m_nSubWorldId;			//	子世界ID
+	int					m_nRegionId;			//	区域ID
+	//各项伤害数据
+	//int					m_nMaxDamage;			//	最大伤害
+	//int					m_nElementType;			//	元素伤害类型
+	//int					m_nMaxElementDamage;	//	最大元素伤害(首次)
+	//int					m_nElementTime;			//	元素持续时间
+	//int					m_nElementInterval;		//	元素间隔时间
+	//int					m_nElementPerDamage;	//	元素伤害时，每次发作所受的伤害值
+	int					m_nParam1;				//	参数一
+	int					m_nParam2;				//	参数二
+	int					m_nParam3;				//	参数三
 	
 	int					m_nFirstReclaimTime;
 	int					m_nEndReclaimTime;
 
-	int					m_nTempParam1;			//	������ʹ�õĲ���
+	int					m_nTempParam1;			//	运行期使用的参数
 	int					m_nTempParam2;
 	
-	int					m_nDirIndex;			//	��ǰ�˶����������
-	int					m_nDir;					//	��ǰ�����з���
-	int					m_nAngle;				//	���з���
-	DWORD				m_dwBornTime;			//	���ӵ�����ʱ��ʱ��
+	int					m_nDirIndex;			//	当前运动方向的索引
+	int					m_nDir;					//	当前的运行方向
+	int					m_nAngle;				//	飞行方向
+	DWORD				m_dwBornTime;			//	该子弹产生时的时间
 	BOOL				m_bUseAttackRating;		
 	
-	char				m_szMissleName[32];		//	�ӵ�������
-	BOOL				m_bMultiShow;			//	�ӵ���������ʾ
-	BOOL				m_bFollowNpcWhenCollid; //	��ըЧ�����汻���е�����
+	char				m_szMissleName[32];		//	子弹的名称
+	BOOL				m_bMultiShow;			//	子弹有两个显示
+	BOOL				m_bFollowNpcWhenCollid; //	爆炸效果跟随被击中的人物
 	int					m_btRedLum;
 	int					m_btGreenLum;
 	int					m_btBlueLum;
 	unsigned short		m_usLightRadius;
-	KMissleRes			m_MissleRes;			//	�ӵ�����Դ
-	uint32_t		m_SceneID;
+	KMissleRes			m_MissleRes;			//	子弹的资源
+	unsigned int		m_SceneID;
 	
 private:
 	BOOL				Init( int nLauncher, int nMissleId, int nXFactor, int nYFactor, int nLevel);
-	void				OnVanish();//������ʧ
-	void				OnCollision();//��ײ
-	void				OnFly();//���й�����
+	void				OnVanish();//即将消失
+	void				OnCollision();//碰撞
+	void				OnFly();//飞行过程中
 	void				OnWait();
 	void				DoWait();
 	void				DoFly();
@@ -176,13 +176,13 @@ private:
 	int					CheckNearestCollision();
 	friend				class KMissleSet;
 	void				Release();
-	int					FsCheckCollision();    //����Ƿ���ײ// 1��ʾ������ײ�����壬0��ʾδ��ײ���κ�����, -1��ʾ���
-	BOOL				CheckBeyondRegion(int nDOffsetX, int nDOffsetY);//����Ƿ�Խ��   //FALSE��ʾԽ��һ����Ч��λ�ã�TRUE��ʾOK
+	int					FsCheckCollision();    //检测是否碰撞// 1表示正常碰撞到物体，0表示未碰撞到任何物体, -1表示落地
+	BOOL				CheckBeyondRegion(int nDOffsetX, int nDOffsetY);//检测是否越界   //FALSE表示越到一个无效的位置，TRUE表示OK
 	//int				GetDir(int dx,int dy);
 	KMissle&			operator=(KMissle& Missle);
 	DWORD				GetCurrentSubWorldTime();
 	BOOL				ProcessDamage(int nNpcId,int nRata=0);
-	int					ProcessCollision();//������ײ
+	int					ProcessCollision();//处理碰撞
 	int					ProcessCollision(int nLauncherIdx, int nRegionId, int nMapX, int nMapY, int nRange , int eRelation,int mNpcIdx=0);
 
 	inline void	ZAxisMove()
@@ -199,11 +199,11 @@ private:
 			m_nCurrentMapZ = m_nHeight >> 10;
 		}
 	}
-	//TRUE��ʾ�����ϰ���FALSE��ʾδ������һ������
+	//TRUE表示遇到障碍，FALSE表示未遇到，一切正常
 	inline BOOL TestBarrier()
 	{
 		//int nBarrierKind = SubWorld[m_nSubWorldId].TestBarrier(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY, m_nXOffset, m_nYOffset, 0, 0);
-		//��ȷ����
+		//精确查找
 		int nBarrierKind = SubWorld[m_nSubWorldId].TestBarrierMin(m_nRegionId, m_nCurrentMapX, m_nCurrentMapY, m_nXOffset, m_nYOffset, 0, 0);
 		if (nBarrierKind == Obstacle_Normal/* || nBarrierKind == Obstacle_Jump*/)
 		{			

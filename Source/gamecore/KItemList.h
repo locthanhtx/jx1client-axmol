@@ -126,7 +126,7 @@ public:
 	BOOL		AddxCliet(int nRoom, int ni);
 	BOOL		CostXu(int nXu);
 	//BOOL		DecXu(int nXu);
-	int			GetXuAmount();					
+	int			GetXuAmount();
 	int			GetEquipmentXu();
 	/////////////////////////////////               // ------------
 	void		SetPlayerIdx(int nIdx);				// �趨�������
@@ -145,7 +145,7 @@ public:
 		{
 			nCount++;
 		}
-	    return nCount;*/	
+	    return nCount;*/
 		return m_ItemCount;
 	};
 	void		RemoveAllInOneRoom(int nRoom);//ɾ���������ж�����Ʒ
@@ -168,7 +168,7 @@ public:
 	int			UseItem(int nIdx,int cnx=0,int cny=0);					//nIdxָ��Ϸ�����е�������ı��
 	//BOOL		SearchPosition(int nWidth, int nHeight, ItemPos* pPos);
 	//BOOL        SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType);
-	BOOL		AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID=0);
+	BOOL		AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID=0);
 	void		MenuSetMouseItem();
 //	void		RemoveAllInOneRoom(int nRoom);
 	void		LockOperation();											// �����ͻ��˶�װ���Ĳ���

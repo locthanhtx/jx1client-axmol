@@ -204,9 +204,9 @@ void g_GetFullPath(LPSTR lpPathName, LPSTR lpFileName)
 	//std::string nPath =  ax::FileUtils::getInstance()->getWritablePath();
 	if  (m_SDcardDirPath!="")
 	    sprintf(szRootPath,"%s",m_SDcardDirPath.c_str());
-	//ccMessageBox(szRootPath,"szRootPath-a");
+	//messageBox(szRootPath,"szRootPath-a");
 #endif
-	//ccMessageBox(szRootPath,"szRootPath-b");
+	//messageBox(szRootPath,"szRootPath-b");
 	// ȥ��·��ĩβ�� '\'
 
 	int32_t len = g_StrLen(szRootPath);
@@ -480,7 +480,7 @@ BOOL g_FileExists(LPSTR FileName)
 // ����:	�ļ���ת���� Hash 32bit ID
 // ����:	lpFileName	�ļ���
 // ����:	FileName Hash 32bit ID
-// 
+//
 // ע��:	��Ϸ����������ؽ����������õĹ�ϣ��������Ҳ����
 //			������������������޸��������ʱҲ��Ӧ�޸�������
 //			�����Ӧ���Ǹ��������������������Common.lib���̵�Utils.h
@@ -517,7 +517,7 @@ void g_ChangeFileExt(LPSTR lpFileName, LPSTR lpNewExt)
 		if (lpFileName[i] == '.')
 			break;
 	}
-	
+
 	if (lpFileName[i] == '.')
 	{
 		g_StrCpy(&lpFileName[i + 1], lpNewExt);
@@ -600,14 +600,14 @@ uint32_t g_CheckFileExist(const char * lpFileName)
 			/*if (lpFileName[i] >= 0xE0) //���� 3���ֽ�
 			{
 				len = 3;
-				ccMessageBox("china","china");
+				messageBox("china","china");
 			}
 			else if (lpFileName[i]>= 0xC0)
 				len = 2;
 			else //Ӣ������
 			{
 				len = 1;
-				ccMessageBox("engish","engish");
+				messageBox("engish","engish");
 			}*/
 #ifdef WIN32
 			dwID =(dwID + (i + 1)*lpFileName[i])%0x8000000B*0xFFFFFFEF;//0x8000000B*0xFFFFFFEF;

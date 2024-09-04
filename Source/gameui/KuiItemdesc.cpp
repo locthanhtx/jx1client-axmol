@@ -155,7 +155,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 	int  i;
 	char nItemName[80],pszMsg[128];
 	ZeroMemory(&pszMsg,sizeof(pszMsg));
-	t_sprintf(nItemName,pItem->GetName());
+	sprintf(nItemName, "%s", pItem->GetName());
 	//Left=24
 	//Top=72
 	m_StartPos.x =24;//+ITEM_CELL_SIZE/2;
@@ -194,7 +194,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		{
 			if (pItem->IsPurple() && i< pItem->GetPoint())  //打孔了
 			{//紫装
-				t_sprintf(magicMsg, "Chưa khảm nạm");
+				sprintf(magicMsg, "Chưa khảm nạm");
 				Label *tempLabel = Label::createWithTTF(UTEXT(magicMsg,1).c_str(),UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 				tempLabel->setAnchorPoint(ax::Vec2(0,0));
 				nTempOff+=tempLabel->getContentSize().height-10;//DANG EDIT TAI DAY
@@ -217,7 +217,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 			continue;
 		if ((i & 1) == 0) //i=1 mặc định i là số lẻ
 		{//1 3 5 số lẻ
-			t_sprintf(magicMsg, pszInfo);
+			sprintf(magicMsg,  "%s", pszInfo);
 			Label *tempLabel = Label::createWithTTF(magicMsg,UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 			tempLabel->setAnchorPoint(ax::Vec2(0,0));
 			nTempOff -=tempLabel->getContentSize().height-10;
@@ -229,7 +229,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		{//2 4 6 số chẵn
 			if ((i>>1) < nActive) // nếu được kích hoạt
 			{
-				t_sprintf(magicMsg, pszInfo);
+				sprintf(magicMsg,  "%s", pszInfo);
 				Label *tempLabel = Label::createWithTTF(UTEXT(magicMsg,1).c_str(),UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 				tempLabel->setAnchorPoint(ax::Vec2(0,0));
 				nTempOff -=tempLabel->getContentSize().height-10;
@@ -240,7 +240,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 			}
 			else
 			{//chưa kích hoạt
-				t_sprintf(magicMsg, pszInfo);
+				sprintf(magicMsg,  "%s", pszInfo);
 				Label *tempLabel = Label::createWithTTF(UTEXT(magicMsg,1).c_str(),UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 				tempLabel->setAnchorPoint(ax::Vec2(0,0));
 				nTempOff -=tempLabel->getContentSize().height-10;
@@ -286,7 +286,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		if (!pszInfo || !pszInfo[0])
 			continue;
 		//strcat(reqMsg, pszInfo);
-		t_sprintf(reqMsg, pszInfo);
+		sprintf(reqMsg,  "%s", pszInfo);
 		//		Label *tempLabel = Label::createWithTTF(UTEXT(reqMsg,1).c_str(),UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 		Label *tempLabel = Label::createWithTTF(reqMsg,UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 		tempLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -321,22 +321,22 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 			char szDurInfo[64]={0};
 			int  m_nCurrentDur = pItem->GetDurability();
 			if (m_nCurrentDur == -1)
-			t_sprintf(szDurInfo, UTEXT("Vĩnh cửu",1).c_str());
+			sprintf(szDurInfo,  "%s", UTEXT("Vĩnh cửu",1).c_str());
 			else
 			{
 				if  (pItem->GetDurability()<=3 && pItem->GetDurability()>0)
 				{
 					if (nItemGenre==item_equip && nDetailType==equip_mask)
-						t_sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
+						sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
 					else
-						t_sprintf(szDurInfo, UTEXT("Độ bền (Yêu cầu sửa chữa)：%d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
+						sprintf(szDurInfo, UTEXT("Độ bền (Yêu cầu sửa chữa)：%d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
 				}
 				else
 				{
 					if (nItemGenre==item_equip && nDetailType==equip_mask)
-						t_sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
+						sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
 					else
-						t_sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
+						sprintf(szDurInfo, UTEXT("Độ bền: %d/%d",1).c_str(), pItem->GetDurability(), pItem->GetMaxDurability());
 				}
 			}
 			strcat(baseMsg, szDurInfo);
@@ -398,19 +398,19 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		switch(nSeries)
 		{
 		case series_metal:
-			t_sprintf(strSeries, "Thuộc tính ngũ hành: Kim");
+			sprintf(strSeries, "Thuộc tính ngũ hành: Kim");
 			break;
 		case series_wood:
-			t_sprintf(strSeries, "Thuộc tính ngũ hành: Mộc");
+			sprintf(strSeries, "Thuộc tính ngũ hành: Mộc");
 			break;
 		case series_water:
-			t_sprintf(strSeries, "Thuộc tính ngũ hành: Thủy");
+			sprintf(strSeries, "Thuộc tính ngũ hành: Thủy");
 			break;
 		case series_fire:
-			t_sprintf(strSeries, "Thuộc tính ngũ hành: Hỏa");
+			sprintf(strSeries, "Thuộc tính ngũ hành: Hỏa");
 			break;
 		case series_earth:
-			t_sprintf(strSeries, "Thuộc tính ngũ hành: Thổ");
+			sprintf(strSeries, "Thuộc tính ngũ hành: Thổ");
 			break;
 		}
 		Label *tempLabel = Label::createWithTTF(UTEXT(strSeries,1).c_str(),UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
@@ -422,10 +422,10 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 	}
 
 	//char szIntro[512];pdescLabel
-	t_sprintf(szIntro,pItem->GetItmeInfo());
+	sprintf(szIntro, "%s", pItem->GetItmeInfo());
 	if (szIntro[0])
 	{//mô tả vật phẩm
-		t_sprintf(szIntro,UTEXT(szIntro,1).c_str());
+		sprintf(szIntro, "%s", UTEXT(szIntro,1).c_str());
 		int newLen = TEncodeText(szIntro,strlen(szIntro));
 		Label *tempLabel = Label::createWithTTF(szIntro,UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
 		tempLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -454,7 +454,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		strcat(otherzMsg, "\n");
 		char nMapKey[32]={0},nMapName[64]={0};
 		ZeroMemory(&nMapName,sizeof(nMapName));
-		t_sprintf(nMapKey,"%d_name",nUseMap);
+		sprintf(nMapKey,"%d_name",nUseMap);
 		g_NpcMapDropRate.GetString("List",nMapKey,"Tạm thời chưa có số liệu",nMapName,sizeof(nMapName));
 
 		if (nItemGenre == item_equip)//锁魂
@@ -467,7 +467,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 			strcat(otherzMsg, nMapName);
 		else
 		{
-			t_sprintf(nMapName,"Cấp <%d",nUseMap);
+			sprintf(nMapName,"Cấp <%d",nUseMap);
 			strcat(otherzMsg, nMapName);
 		}
 	}
@@ -478,22 +478,22 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		char szPrice[32]={0},nInfo[4]={0};
 		int  ncSellModel =pItem->GetcModel();
 		if (ncSellModel==moneyunit_money || ncSellModel==moneyunit_moneya)
-			t_sprintf(nInfo,"Đồng");
+			sprintf(nInfo, "%s", "Đồng");
 		else if (ncSellModel==moneyunit_xu)
-			t_sprintf(nInfo,"Bạc");
+			sprintf(nInfo, "%s", "Bạc");
 		else
-			t_sprintf(nInfo,"Điểm");
+			sprintf(nInfo, "%s", "Điểm");
 		int  nPrice = pItem->GetPrice();
 		if (nPrice/BUY_SELL_SCALE_DE < 10000)//万
-			t_sprintf(szPrice, "Giá trị tài phú binh giáp: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
+			sprintf(szPrice, "Giá trị tài phú binh giáp: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
 		else
 		{
 			int vPrice = (nPrice/BUY_SELL_SCALE_DE)/10000;//TakeTrader(TakeTrader(m_CommonAttrib.nPrice,nPriceScale), 10000);
 			int lPrice = (nPrice/BUY_SELL_SCALE_DE)%10000;//TakeRemainder(TakeTrader(m_CommonAttrib.nPrice, nPriceScale),10000);
 			if (lPrice == 0)
-				t_sprintf(szPrice, "Giá trị tài phú binh giáp: %d vạn %s lượng", vPrice,nInfo);
+				sprintf(szPrice, "Giá trị tài phú binh giáp: %d vạn %s lượng", vPrice,nInfo);
 			else
-				t_sprintf(szPrice, "Giá trị tài phú binh giáp: %d vạn %d%s lượng", vPrice,lPrice,nInfo);
+				sprintf(szPrice, "Giá trị tài phú binh giáp: %d vạn %d%s lượng", vPrice,lPrice,nInfo);
 		}
 		strcat(otherzMsg, szPrice);
 		//strcat(otherzMsg,"\n");
@@ -510,7 +510,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		if (nItemGenre == 0)
 		{
 			char sItemName[80]={0};
-			t_sprintf(sItemName,"%s+%d",nItemName,nEnChance);//强化
+			sprintf(sItemName,"%s+%d",nItemName,nEnChance);//强化
 			char    TextLevel[128]={0};
 			int     LevelItem = nItemLevel;
 			if(LevelItem > 10)
@@ -518,20 +518,20 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 				if (LevelItem < 100)
 				{
 					if (LevelItem%10 == 0)
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/10));
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/10));
 					else
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%10);
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%10);
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/100));
 					else
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%100);
 				}
 			}
 			else
-				t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem);
+				sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem);
 			strcat(pszMsg,TextLevel);
 		}
 		else
@@ -544,7 +544,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 		if (nItemGenre == 0)
 		{//是装备
 			char sItemName[80]={0};
-			t_sprintf(sItemName,"%s",nItemName);
+			sprintf(sItemName,"%s",nItemName);
 			char    TextLevel[128]={0};
 			int     LevelItem = nItemLevel;
 
@@ -553,20 +553,20 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 				if (LevelItem < 100)
 				{
 					if (LevelItem%10 == 0)
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName,LevelItem/(LevelItem/10));
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName,LevelItem/(LevelItem/10));
 					else
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName,LevelItem%10);
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName,LevelItem%10);
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem/(LevelItem/100));
 					else
-						t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem%100);
 				}
 			}
 			else
-				t_sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem);
+				sprintf(TextLevel, "%s[Cấp %d]", sItemName, LevelItem);
 			strcat(pszMsg,TextLevel);
 		}
 		else
@@ -575,7 +575,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 			if (nItemLevel>10)
 			{
 				char nMsg[32]={0};
-				t_sprintf(nMsg,"[Cấp %d]",nItemLevel);
+				sprintf(nMsg,"[Cấp %d]",nItemLevel);
 				strcat(pszMsg, nMsg);
 			}
 		}
@@ -599,7 +599,7 @@ void KuiItemdesc::addshopdesc(int nshopIndex)
 	red = TintBy::create(0.2,0,-255,-255); //持续时间+颜色
 	red->retain();
 
-	//ccMessageBox("成功","成功");
+	//messageBox("成功","成功");
 }
 
 void KuiItemdesc::addDialogData()
@@ -639,7 +639,7 @@ void KuiItemdesc::addDialogData()
 	int  i;
 	char nItemName[80],pszMsg[128];
 	ZeroMemory(&pszMsg,sizeof(pszMsg));
-	t_sprintf(nItemName,Item[m_ItemData.uId].GetName());
+	sprintf(nItemName, "%s", Item[m_ItemData.uId].GetName());
 
 	m_StartPos.x =24;//+ITEM_CELL_SIZE/2;
 	m_StartPos.y =72;//+ITEM_CELL_SIZE/2;
@@ -667,7 +667,7 @@ void KuiItemdesc::addDialogData()
 		if (nItemGenre == 0)
 		{
 			char sItemName[80]={0};
-			t_sprintf(sItemName,"%s+%d",nItemName,nEnChance);//强化
+			sprintf(sItemName,"%s+%d",nItemName,nEnChance);//强化
 			char    TextLevel[128]={0};
 			int     LevelItem = nItemLevel;
 			if(LevelItem > 10)
@@ -675,20 +675,20 @@ void KuiItemdesc::addDialogData()
 				if (LevelItem < 100)
 				{
 					if (LevelItem%10 == 0)
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/10));
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/10));
 					else
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%10);
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%10);
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/100));
 					else
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%100);
 				}
 			}
 			else
-			   t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem);
+			   sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem);
 			strcat(pszMsg,TextLevel);
 		}
 		else
@@ -701,7 +701,7 @@ void KuiItemdesc::addDialogData()
 		if (nItemGenre == 0)
 		{//是装备
 			char sItemName[80]={0};
-			t_sprintf(sItemName,"%s",nItemName);
+			sprintf(sItemName,"%s",nItemName);
 			char    TextLevel[128]={0};
 			int     LevelItem = nItemLevel;
 
@@ -710,20 +710,20 @@ void KuiItemdesc::addDialogData()
 				if (LevelItem < 100)
 				{
 					if (LevelItem%10 == 0)
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName,LevelItem/(LevelItem/10));
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName,LevelItem/(LevelItem/10));
 					else
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName,LevelItem%10);
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName,LevelItem%10);
 				}
 				else if (LevelItem < 1000)
 				{
 					if (LevelItem%100 == 0)
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/100));
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem/(LevelItem/100));
 					else
-						t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%100);
+						sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem%100);
 				}
 			}
 			else
-				t_sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem);
+				sprintf(TextLevel, "%s [Cấp %d]", sItemName, LevelItem);
 			strcat(pszMsg,TextLevel);
 		}
 		else
@@ -732,7 +732,7 @@ void KuiItemdesc::addDialogData()
 			if (nItemLevel>10)
 			{
 				char nMsg[32]={0};
-				t_sprintf(nMsg,"[Cấp %d]",nItemLevel);
+				sprintf(nMsg,"[Cấp %d]",nItemLevel);
 				strcat(pszMsg, nMsg);
 			}
 		}
@@ -770,7 +770,7 @@ void KuiItemdesc::addDialogData()
         itemInfoMenu->addChild(tileLabel1);
         //Dòng 1 -> tên item
         //Dòng 2 mô tả vật phẩm
-        t_sprintf(szIntro,Item[m_ItemData.uId].GetItmeInfo());
+        sprintf(szIntro, "%s", Item[m_ItemData.uId].GetItmeInfo());
         if (szIntro[0])
         {
             Label *tempLabel = Label::createWithTTF(szIntro,UI_GAME_FONT_DEFAULT_VN, 12,nDsize,TextHAlignment::CENTER);//Arial
@@ -805,7 +805,7 @@ void KuiItemdesc::addDialogData()
         itemInfoMenu->addChild(tileLabel1);
         //Dòng 1 -> tên item
         //Dòng 2 mô tả vật phẩm
-        t_sprintf(szIntro,Item[m_ItemData.uId].GetItmeInfo());
+        sprintf(szIntro, "%s", Item[m_ItemData.uId].GetItmeInfo());
         if (szIntro[0])
         {
             Label *tempLabel = Label::createWithTTF(szIntro,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);//Arial
@@ -833,23 +833,23 @@ void KuiItemdesc::addDialogData()
             switch(nSeries)
             {
             case series_metal:
-                t_sprintf(strSeries, "Thuộc tính ngũ hành: Kim");
+                sprintf(strSeries, "Thuộc tính ngũ hành: Kim");
                 tempLabel->setColor(ax::Color3B::YELLOW);
                 break;
             case series_wood:
-                t_sprintf(strSeries, "Thuộc tính ngũ hành: Mộc");
+                sprintf(strSeries, "Thuộc tính ngũ hành: Mộc");
                 tempLabel->setColor(ax::Color3B::GREEN);
                 break;
             case series_water:
-                t_sprintf(strSeries, "Thuộc tính ngũ hành: Thuỷ");
+                sprintf(strSeries, "Thuộc tính ngũ hành: Thuỷ");
                 tempLabel->setColor(ax::Color3B::BLUE);
                 break;
             case series_fire:
-                t_sprintf(strSeries, "Thuộc tính ngũ hành: Hoả");
+                sprintf(strSeries, "Thuộc tính ngũ hành: Hoả");
                 tempLabel->setColor(ax::Color3B::ORANGE);
                 break;
             case series_earth:
-                t_sprintf(strSeries, "Thuộc tính ngũ hành: Thổ");
+                sprintf(strSeries, "Thuộc tính ngũ hành: Thổ");
                 tempLabel->setColor(ax::Color3B::GRAY);
                 break;
             }
@@ -884,22 +884,22 @@ void KuiItemdesc::addDialogData()
 			char szDurInfo[64]={0};
 			int  m_nCurrentDur = Item[m_ItemData.uId].GetDurability();
 			if (m_nCurrentDur == -1)
-            t_sprintf(szDurInfo, "Vĩnh cửu");
+            sprintf(szDurInfo, "Vĩnh cửu");
 			else
 			{
                 if  (Item[m_ItemData.uId].GetDurability()<=3 && Item[m_ItemData.uId].GetDurability()>0)
 				{
 					if (nItemGenre==item_equip && nDetailType==equip_mask)
-						t_sprintf(szDurInfo, "Độ bền: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
+						sprintf(szDurInfo, "Độ bền: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
 					else
-						t_sprintf(szDurInfo, "Độ bền(cần sửa chữa): %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
+						sprintf(szDurInfo, "Độ bền(cần sửa chữa): %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
 				}
 				else
 				{
 					if (nItemGenre==item_equip && nDetailType==equip_mask)
-						t_sprintf(szDurInfo, "Số lần SD còn: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
+						sprintf(szDurInfo, "Số lần SD còn: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
 					else
-						t_sprintf(szDurInfo, "Độ bền: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
+						sprintf(szDurInfo, "Độ bền: %d/%d", Item[m_ItemData.uId].GetDurability(), Item[m_ItemData.uId].GetMaxDurability());
 				}
 			}
 			strcat(baseMsg, szDurInfo);
@@ -958,7 +958,7 @@ void KuiItemdesc::addDialogData()
         if (!pszInfo || !pszInfo[0])
             continue;
         //strcat(reqMsg, pszInfo);
-        t_sprintf(reqMsg, pszInfo);
+        sprintf(reqMsg,  "%s", pszInfo);
         Label *tempLabel = Label::createWithTTF(reqMsg,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);//Arial
         nTempOff += tempLabel->getContentSize().height;
         tempLabel->setAnchorPoint(ax::Vec2(0,1));
@@ -998,7 +998,7 @@ void KuiItemdesc::addDialogData()
 		{
 			if (Item[m_ItemData.uId].IsPurple() && i< Item[m_ItemData.uId].GetPoint())  //打孔了
 			{//紫装
-				t_sprintf(magicMsg, " Chưa khảm");
+				sprintf(magicMsg, " Chưa khảm");
 				Label *tempLabel = Label::createWithTTF(magicMsg,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);//Arial
                 nTempOff += tempLabel->getContentSize().height;
 				tempLabel->setAnchorPoint(ax::Vec2(0,1));
@@ -1024,7 +1024,7 @@ void KuiItemdesc::addDialogData()
 			continue;
 		if ((i & 1) == 0) //i=1 默认是激活 奇数判断
 		{//1 3 5 奇数
-				t_sprintf(magicMsg, pszInfo);
+				sprintf(magicMsg,  "%s", pszInfo);
                 Label *tempLabel = Label::createWithTTF(magicMsg,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);
                 nTempOff += tempLabel->getContentSize().height;
 				tempLabel->setAnchorPoint(ax::Vec2(0,1));
@@ -1042,7 +1042,7 @@ void KuiItemdesc::addDialogData()
 		{//2 4 6 偶数
 			if ((i>>1) < nActive) // 如果是被激活的
 			{
-					t_sprintf(magicMsg, pszInfo);
+					sprintf(magicMsg,  "%s", pszInfo);
 					Label *tempLabel = Label::createWithTTF(magicMsg,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);//Arial
                     nTempOff += tempLabel->getContentSize().height;
 					tempLabel->setAnchorPoint(ax::Vec2(0,1));
@@ -1058,7 +1058,7 @@ void KuiItemdesc::addDialogData()
 			}
 			else
 			{//没有被激活
-					t_sprintf(magicMsg, pszInfo);
+					sprintf(magicMsg,  "%s", pszInfo);
 					Label *tempLabel = Label::createWithTTF(magicMsg,UI_GAME_FONT_DEFAULT_VN, 13,nDsize,TextHAlignment::CENTER);//Arial
                     nTempOff += tempLabel->getContentSize().height;
 					tempLabel->setAnchorPoint(ax::Vec2(0,1));
@@ -1092,7 +1092,7 @@ void KuiItemdesc::addDialogData()
 		strcat(otherzMsg, "\n");
 		char nMapKey[32]={0},nMapName[64]={0};
 		ZeroMemory(&nMapName,sizeof(nMapName));
-		t_sprintf(nMapKey,"%d_name",nUseMap);
+		sprintf(nMapKey,"%d_name",nUseMap);
 		g_NpcMapDropRate.GetString("List",nMapKey,"Tạm thời chưa có dữ liệu",nMapName,sizeof(nMapName));
 
 		if (nItemGenre == item_equip)//锁魂
@@ -1105,7 +1105,7 @@ void KuiItemdesc::addDialogData()
 			strcat(otherzMsg, nMapName);
 		else
 		{
-			t_sprintf(nMapName,"Cấp: %d",nUseMap);
+			sprintf(nMapName,"Cấp: %d",nUseMap);
 			strcat(otherzMsg, nMapName);
 		}
 	}
@@ -1115,22 +1115,22 @@ void KuiItemdesc::addDialogData()
 		char szPrice[32]={0},nInfo[4]={0};
 		int  ncSellModel =Item[m_ItemData.uId].GetcModel();
 		if (ncSellModel==moneyunit_money || ncSellModel==moneyunit_moneya)
-			t_sprintf(nInfo,"đồng");
+			sprintf(nInfo, "%s", "đồng");
 		else if (ncSellModel==moneyunit_xu)
-			t_sprintf(nInfo,"bạc");
+			sprintf(nInfo, "%s", "bạc");
 		else
-			t_sprintf(nInfo,"xu");
+			sprintf(nInfo, "%s", "xu");
 		int  nPrice = Item[m_ItemData.uId].GetSetPrice();
 		if (nPrice/BUY_SELL_SCALE < 10000)//万
-			t_sprintf(szPrice, "Giá: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
+			sprintf(szPrice, "Giá: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
 		else
 		{
 			int vPrice = (nPrice/BUY_SELL_SCALE_DE)/10000;//TakeTrader(TakeTrader(m_CommonAttrib.nPrice,nPriceScale), 10000);
 			int lPrice = (nPrice/BUY_SELL_SCALE_DE)%10000;//TakeRemainder(TakeTrader(m_CommonAttrib.nPrice, nPriceScale),10000);
 			if (lPrice == 0)
-				t_sprintf(szPrice, "Định giá: %d vạn %s", vPrice,nInfo);
+				sprintf(szPrice, "Định giá: %d vạn %s", vPrice,nInfo);
 			else
-				t_sprintf(szPrice, "Định giá: %d vạn %d%s", vPrice,lPrice,nInfo);
+				sprintf(szPrice, "Định giá: %d vạn %d%s", vPrice,lPrice,nInfo);
 		}
 		strcat(otherzMsg, szPrice);
 
@@ -1141,22 +1141,22 @@ void KuiItemdesc::addDialogData()
 			char szPrice[32]={0},nInfo[4]={0};
 			int  ncSellModel =Item[m_ItemData.uId].GetcModel();
 			if (ncSellModel==moneyunit_money || ncSellModel==moneyunit_moneya)
-				t_sprintf(nInfo,"đồng");
+				sprintf(nInfo, "%s", "đồng");
 			else if (ncSellModel==moneyunit_xu)
-				t_sprintf(nInfo,"bạc");
+				sprintf(nInfo, "%s", "bạc");
 			else
-				t_sprintf(nInfo,"xu");
+				sprintf(nInfo, "%s", "xu");
 			int  nPrice = Item[m_ItemData.uId].GetPrice();
 			if (nPrice/BUY_SELL_SCALE < 10000)//万
-				t_sprintf(szPrice, "Giá: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
+				sprintf(szPrice, "Giá: %d%s",nPrice/BUY_SELL_SCALE_DE,nInfo);
 			else
 			{
 					int vPrice = (nPrice/BUY_SELL_SCALE_DE)/10000;//TakeTrader(TakeTrader(m_CommonAttrib.nPrice,nPriceScale), 10000);
 					int lPrice = (nPrice/BUY_SELL_SCALE_DE)%10000;//TakeRemainder(TakeTrader(m_CommonAttrib.nPrice, nPriceScale),10000);
 					if (lPrice == 0)
-						t_sprintf(szPrice, "Định giá: %d vạn %s", vPrice,nInfo);
+						sprintf(szPrice, "Định giá: %d vạn %s", vPrice,nInfo);
 					else
-						t_sprintf(szPrice, "Định giá: %d vạn %d%s", vPrice,lPrice,nInfo);
+						sprintf(szPrice, "Định giá: %d vạn %d%s", vPrice,lPrice,nInfo);
 			}
 		strcat(otherzMsg, szPrice);
 	}
@@ -1181,7 +1181,7 @@ void KuiItemdesc::addDialogData()
     int widthSpr = 0;
 	ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
     if (Item[m_ItemData.uId].GetImagePath()){
-        t_sprintf(nItemSprPath,Item[m_ItemData.uId].GetImagePath());
+        sprintf(nItemSprPath, "%s", Item[m_ItemData.uId].GetImagePath());
     }
     if (nItemSprPath[0]){
         g_StrLower(nItemSprPath);
@@ -1513,7 +1513,7 @@ void KuiItemdesc::buttonSendChatFunc(Ref * pSender)
 	{//开始输入聊天信息框
 		char nTempStrVer[80];
 		ZeroMemory(nTempStrVer,sizeof(nTempStrVer));
-		t_sprintf(nTempStrVer,"<%s>",Item[m_ItemData.uId].GetName());
+		sprintf(nTempStrVer,"<%s>",Item[m_ItemData.uId].GetName());
 		g_GameWorld->setInputMsg(nTempStrVer);
 		Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid = Item[m_ItemData.uId].GetID();
 	}
@@ -1562,7 +1562,7 @@ void KuiItemdesc::chaiCallBackFunc(Ref * pSender)
 		if (g_pCoreShell->OperationRequest(GOI_NPC_ITEM_BREAK,(uintptr_t)(&Obj), 1))
 		{//
 			char nKey[32];
-			t_sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			Sprite *nItemSpr =(Sprite *)ParentNode_Team->getChildByName(nItemKey);
 			if (nItemSpr)
@@ -1571,7 +1571,7 @@ void KuiItemdesc::chaiCallBackFunc(Ref * pSender)
 				if (stacklabel)
 				{
 					int nstackCount = Item[Obj.Obj.uId].GetStackNum();
-					t_sprintf(nKey,"%d",nstackCount);
+					sprintf(nKey,"%d",nstackCount);
 					stacklabel->setString(nKey);
 				}
 			}
@@ -1940,7 +1940,7 @@ bool KuiItemdesc::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiItemdesc::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (isOpen && g_pCoreShell)
 	{
 		if (ptitleLabel)

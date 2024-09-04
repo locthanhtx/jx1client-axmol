@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------------
 // Sword3 Engine (c) 1999-2000 by Kingsoft
-// 
+//
 // File:	KLuaScript.cpp
 // Date:	2001-9-13 10:33:29
 // Code:	Romandou
-// Desc:	
+// Desc:
 //---------------------------------------------------------------------------
 #include "KPakFile.h"
 #include "KLuaScript.h"
@@ -13,16 +13,16 @@
 #include "KStrBase.h"
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::KLuaScript
-// ����:	
+// ����:
 // ����:	void
-// ����:	
+// ����:
 //---------------------------------------------------------------------------
  /*
-static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) 
+static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize)
 {//5.3.4
-	(void)ud; (void)osize; 
+	(void)ud; (void)osize;
 
-	if (nsize == 0) 
+	if (nsize == 0)
 	{//�ͷ��ڴ�
 		free(ptr);
 		return NULL;
@@ -46,20 +46,20 @@ KLuaScript::KLuaScript(void)
 	}
 
 	m_IsRuning				= TRUE;
-	m_szScriptName[0]		= '\0';	
+	m_szScriptName[0]		= '\0';
 }
 
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::KLuaScript
-// ����:	
+// ����:
 // ����:	int32_t StackSize
-// ����:	
+// ����:
 //---------------------------------------------------------------------------
 KLuaScript::KLuaScript(int32_t StackSize)
 {
 	m_LuaState	= Lua_Create(StackSize);	 //
-	
+
 	if (m_LuaState == NULL )
 	{
 		ScriptError(LUA_CREATE_ERROR);
@@ -73,9 +73,9 @@ KLuaScript::KLuaScript(int32_t StackSize)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::~KLuaScript
-// ����:	
+// ����:
 // ����:	void
-// ����:	
+// ����:
 //---------------------------------------------------------------------------
 KLuaScript::~KLuaScript(void)
 {
@@ -84,14 +84,14 @@ KLuaScript::~KLuaScript(void)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::LoadBuffer()
-// ����:	
+// ����:
 // ����:	PBYTE pBuffer
 // ����:	DWORD dwLen
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::LoadBuffer(PBYTE pBuffer, DWORD dwLen )
 {
-	if (dwLen < 0)	
+	if (dwLen < 0)
 	{
 		ScriptError(LUA_SCRIPT_LEN_ERROR);
 		return FALSE;
@@ -112,9 +112,9 @@ BOOL KLuaScript::LoadBuffer(PBYTE pBuffer, DWORD dwLen )
 }
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::Load
-// ����:	
+// ����:
 // ����:	LPSTR Filename
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Load(char * Filename)
 {
@@ -125,7 +125,7 @@ BOOL KLuaScript::Load(char * Filename)
 
 	// open file
 	if (!File.Open(Filename))	return FALSE;
-	
+
 	// get file size
 	nSize = File.Size();
 	//KLuaScript(nSize);
@@ -137,7 +137,7 @@ BOOL KLuaScript::Load(char * Filename)
 	{
 		File.Close();
 		return FALSE;
-	}	
+	}
 	// read file
 	if (File.Read(Memory.GetMemPtr(),nSize) != nSize)
 	{
@@ -147,7 +147,7 @@ BOOL KLuaScript::Load(char * Filename)
 	}
 	char * pszMem = (char *)Memory.GetMemPtr();
 	pszMem[nSize + 1] = 0;
-	
+
 	File.Close();
 
 	try
@@ -166,7 +166,7 @@ BOOL KLuaScript::Load(char * Filename)
 		Memory.Free();
 		return FALSE;
 	}
-		
+
 	if (!ExecuteCode())
 	{
 		printf("Load Script %s ����B!!\n",Filename);
@@ -180,22 +180,22 @@ BOOL KLuaScript::Load(char * Filename)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::Execute
-// ����:	
-// ����:	BOOL 
+// ����:
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Execute()
 {
 	if (m_IsRuning && m_LuaState)
 	return CallFunction(MAINFUNCTIONNAME,0,"");
-	
+
 	return FALSE;
 }
 
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::ExecuteCode
-// ����:	
-// ����:	BOOL 
+// ����:
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::ExecuteCode()
 {
@@ -205,7 +205,7 @@ BOOL KLuaScript::ExecuteCode()
 		printf("-------------m_LuaState Ϊ��---------------\n");
 		return FALSE;
 	}
-	
+
 	int32_t state;
 	if (state = Lua_Execute(m_LuaState) != 0)
 	{
@@ -213,7 +213,7 @@ BOOL KLuaScript::ExecuteCode()
 		//ScriptError(LUA_SCRIPT_EXECUTE_ERROR, state);
 		return FALSE;
 	}
-	
+
 	return	TRUE;
 }
 
@@ -223,20 +223,20 @@ BOOL KLuaScript::ExecuteCode()
 // ����:	����Lua�ű��ڵĺ���
 // ����:	LPSTR cFuncName
 // ����:	int32_t nResults
-// ����:	LPSTR cFormat  ����ʱ�������������� 
+// ����:	LPSTR cFormat  ����ʱ��������������
 //			n:������(double) d:����(int32_t) s:�ַ����� f:C������  n:Nil v:Value p:Point
 //        v��ΪLua֧�ֵģ�����Ϊ���ε���index��ָ����index��ָ��ջ�ı�����Ϊ
 //			 �ú����ĵ��ò�����
 //	ע�⣺���ڸú����в���������,�������֣�ϵͳ����ȷ��������double������int32_t
 //  ���ڣ����ֱ�����ʽ�ǲ�ͬ�ġ������Ҫע�⵱�������������ʱ����ʽ��Ӧ��d
 //  ��������n,����ǿ�иı�Ϊdouble�Ρ��������ּ���Ĵ���
-//   
+//
 // ����:	...
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat, va_list vlist)
 {
-	
+
 	double nNumber;
 	char * cString	= NULL;
 	void * pPoint	= NULL;
@@ -247,11 +247,11 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 	int32_t nRetcode;		//���ýű�������ķ�����
 
 	if (!(m_IsRuning && m_LuaState))
-	{//�ű�ֹͣ������ 
+	{//�ű�ֹͣ������
 		ScriptError(LUA_SCRIPT_STATES_IS_NULL);
 		return FALSE;
 	}
-	
+
 	{
 		Lua_GetGlobal(m_LuaState,cFuncName); //�ڶ�ջ�м�����Ҫ���õĺ�����
 
@@ -260,14 +260,14 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 			switch(cFormat[i])
 			{
 			case 'n'://�����������double�� NUMBER��Lua��˵��Double��
-				{ 
+				{
 					nNumber = va_arg(vlist, double);
 					Lua_PushNumber(m_LuaState, nNumber);
-					nArgnum ++;							
+					nArgnum ++;
 
 				}
 				break;
-			
+
 			case 'd'://���������Ϊ����
 				{
 					nNumber = (double)(va_arg(vlist, int32_t));
@@ -275,12 +275,12 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 					nArgnum ++;
 				}
 				break;
-				
+
 			case 's'://�ַ�����
 				{
 					cString = va_arg(vlist, char *);
 					Lua_PushString(m_LuaState, cString);
-					nArgnum ++;							
+					nArgnum ++;
 				}
 				break;
 			case 'N'://NULL
@@ -289,7 +289,7 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 					nArgnum ++;
 				}
 				break;
-			
+
 			case 'f'://�������CFun�Σ����ڲ�������   //����Ҫִ�еĺ���
 				{
 					CFunc = va_arg(vlist, Lua_CFunction);
@@ -297,7 +297,7 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 					nArgnum ++;
 				}
 				break;
-			
+
 			case 'v'://������Ƕ�ջ��IndexΪnIndex����������
 				{
 					nNumber = va_arg(vlist, int32_t);
@@ -308,12 +308,12 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 				break;
 			case 't'://����ΪһTable����
 				{//�зָ����'t\' �Ʊ��
-					
-					
+
+
 
 				}
 				break;
-			
+
 			case 'p':
 				{//����ָ��
 					pPoint = va_arg(vlist, void *);
@@ -322,16 +322,16 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 				}
 				break;
 			}
-				
-			i++;	
+
+			i++;
 		}
-		
+
 	}
-	
+
 	//printf("----Lua_Callǰ(%s)(%s),����:%d ��,����----\n",m_szScriptName,cFuncName,nArgnum);
 
 	    nRetcode =Lua_Call(m_LuaState,nArgnum,nResults);	 //��ʼִ���������	Lua_Call
-	
+
 	if (nRetcode != 0)
 	{
 		//Exit(); // �ͷ���Դ
@@ -343,7 +343,7 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 		ScriptError(LUA_SCRIPT_EXECUTE_ERROR, nRetcode);
 		//printf("----Lua_Call(%s),����:%d ��,ջԪ��:%d ��,�����쳣----\n", cFuncName,nArgnum,nTopIdx);
 		return FALSE;
-	}	
+	}
 
 	return	TRUE;
 }
@@ -351,7 +351,7 @@ BOOL KLuaScript::CallFunctionS(LPSTR cFuncName, int32_t nResults, LPSTR cFormat,
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::CallFunction
-// ����:	
+// ����:
 // ����:	LPSTR cFuncName
 // ����:	int32_t nResults
 // ����:	LPSTR cFormat
@@ -374,9 +374,9 @@ BOOL KLuaScript::CallFunction(LPSTR cFuncName, int32_t nResults, LPSTR cFormat, 
 // ����:	�Ӷ�ջ�л�ñ���
 // ����:	char * cFormat
 // ����:	...
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
-BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)	
+BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 {
 	va_list vlist;
 	double* pNumber = NULL;
@@ -390,9 +390,9 @@ BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 	if (! m_LuaState)
 		return FALSE;
 
-	nTopIndex = Lua_GetTopIndex(m_LuaState);	
+	nTopIndex = Lua_GetTopIndex(m_LuaState);
 	nValueNum = strlen(cFormat);
-	
+
 	if (nTopIndex == 0 || nValueNum == 0)//����ջ�������ݻ�ȡ�����Ƿ���FALSE
 		return FALSE;
 
@@ -400,34 +400,34 @@ BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 		return FALSE;
 
 	nIndex = nTopIndex - nValueNum +1;
-	
+
 	{
-		va_start(vlist, cFormat);     
-		
+		va_start(vlist, cFormat);
+
 		while (cFormat[i] != '\0')
 		{
-			
+
 			switch(cFormat[i])
 			{
 			case 'n'://����ֵΪ��ֵ��,Number,��ʱLuaֻ����double�ε�ֵ
 				{
 					pNumber = va_arg(vlist, double *);
-					
+
 					if (pNumber == NULL)
 						return FALSE;
 
 					if (Lua_IsNumber(m_LuaState, nIndex ))
 					{
 						* pNumber = Lua_ValueToNumber(m_LuaState, nIndex ++ );
-												
+
 					}
 					else
 					{
 						ScriptError(LUA_SCRIPT_NOT_NUMBER_ERROR);
 						return FALSE;
 					}
-					
-					
+
+
 				}
 				break;
 			case 'd':
@@ -450,14 +450,14 @@ BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 			case 's'://�ַ�����
 				{
 					pString = va_arg(vlist, const char **);
-					
+
 					if (pString == NULL)
 						return FALSE;
-					
+
 					if (Lua_IsString(m_LuaState, nIndex))
 					{
 						(*pString) = (const char *)Lua_ValueToString(m_LuaState, nIndex++);
-						
+
 					}
 					else
 					{
@@ -466,14 +466,14 @@ BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 					}
 				}
 				break;
-			
+
 			}
-			
-			
-		i ++;	
+
+
+		i ++;
 		}
 		va_end(vlist);     		/* Reset variable arguments.      */
-		
+
 	}
 	return	TRUE;
 }
@@ -481,27 +481,27 @@ BOOL KLuaScript::GetValuesFromStack(char * cFormat, ...)
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::Init
 // ����:	��ʼ���ű�����ע��ϵͳ��׼������
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Init()
 {
 	if (!m_LuaState)
 	{
 		m_LuaState	= Lua_Create(0);	 //0
-		
+
 		if (m_LuaState == NULL)
 		{
 			ScriptError(LUA_CREATE_ERROR);
 			m_IsRuning			= FALSE;
 			return FALSE;
 		}
-		
+
 		m_IsRuning				= TRUE;
 		m_szScriptName[0]		= '\0';
-		m_UserTag =TRUE; 
+		m_UserTag =TRUE;
 	    lua_newtag(m_LuaState);
 	}
-	
+
 	RegisterStandardFunctions();
 	//printf(" KLuaScript::Init() OKB!!!..\n");
 	return	TRUE;
@@ -512,7 +512,7 @@ void KLuaScript::SetInIt(int32_t nStackSize,TLua_Funcs Funcs[], int32_t n)
 {
 	if (m_LuaState)
 	   Exit();
-	
+
     //if (m_LuaState)
 	//m_LuaState->stacksize = nStackSize;
 
@@ -524,7 +524,7 @@ void KLuaScript::SetInIt(int32_t nStackSize,TLua_Funcs Funcs[], int32_t n)
 		m_IsRuning			= FALSE;
 		return ;
 	}
-	
+
 	m_IsRuning				= TRUE;
 	m_szScriptName[0]		= '\0';
 
@@ -540,7 +540,7 @@ void KLuaScript::SetInIt(int32_t nStackSize,TLua_Funcs Funcs[], int32_t n)
 // ����:	void* Func      ʵ����Ӧ��C����ָ��
 // ����:	int32_t Args = 0    //��KScript�ӿ����ݣ�����
 // ����:	int32_t Flag = 0    //��KScript�ӿ�����, ����
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::RegisterFunction(LPSTR FuncName , void* Func)
 {
@@ -552,9 +552,9 @@ BOOL KLuaScript::RegisterFunction(LPSTR FuncName , void* Func)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::Compile
-// ����:	
+// ����:
 // ����:	char *
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Compile(char *)
 {
@@ -566,13 +566,13 @@ BOOL KLuaScript::Compile(char *)
 // ����:	����ע��Lua���ڲ�C������������������Ϣ������TLua_Funcs��������
 // ����:	TLua_Funcs *Funcs �����ָ��
 // ����:	int32_t n ��������������Ϊ�㣬��ϵͳ����õ���
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::RegisterFunctions(TLua_Funcs Funcs[], int32_t n)
 {
-	if (! m_LuaState)	
+	if (! m_LuaState)
 		return FALSE;
-	if (n == 0)	
+	if (n == 0)
 		n = sizeof(Funcs) / sizeof(Funcs[0]);
 	for (int32_t i = 0; i < n; i ++)
 		Lua_Register(m_LuaState, Funcs[i].name, Funcs[i].func);
@@ -583,18 +583,18 @@ BOOL KLuaScript::RegisterFunctions(TLua_Funcs Funcs[], int32_t n)
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::RegisterStandardFunctions
 // ����:	ע��Luaϵͳ��׼�ĺ�����
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 void KLuaScript::RegisterStandardFunctions()
 {
-	//printf("��ʼע�ắ�� OKB!!!..\n");	
+	//printf("��ʼע�ắ�� OKB!!!..\n");
 	if (!m_LuaState)
 	{
 		printf("m_LuaState Ϊ��!!!..\n");
 		return ;
 
 	}
-	
+
 //	Lua_OpenAllLib(m_LuaState);		//��ʼ�����л�����
  try
  {
@@ -609,21 +609,21 @@ void KLuaScript::RegisterStandardFunctions()
 	 printf("----ע��ű����������----\n");
 	 printf("----ע��ű����������----\n");
 	 printf("----ע��ű����������----\n");
-	 
+
  }
-	
-	return;	
+
+	return;
 }
 
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::ReleaseScript
 // ����:	�ͷŸýű���Դ��
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 void KLuaScript::Exit()
 {
-	if (!m_LuaState)		
+	if (!m_LuaState)
 		return;
 	Lua_Release(m_LuaState);
 	m_LuaState = NULL;
@@ -632,14 +632,14 @@ void KLuaScript::Exit()
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::ScriptError
-// ����:	
+// ����:
 // ����:	int32_t Error
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 void KLuaScript::ScriptError(int32_t Error)
 {
 	char lszErrMsg[200];
-	t_sprintf(lszErrMsg, "ScriptError %d. (%s) \n", Error, m_szScriptName);
+	sprintf(lszErrMsg, "ScriptError %d. (%s) \n", Error, m_szScriptName);
 	lua_outerrmsg(lszErrMsg);
 	//Exit();
 	return;
@@ -647,15 +647,15 @@ void KLuaScript::ScriptError(int32_t Error)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::ScriptError
-// ����:	
+// ����:
 // ����:	int32_t Error1
 // ����:	int32_t Error2
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 void KLuaScript::ScriptError(int32_t Error1 ,int32_t Error2)
 {
 	char lszErrMsg[200]={0};
-	t_sprintf(lszErrMsg, "ScriptError %d:[%d] (%s) \n", Error1, Error2, m_szScriptName);
+	sprintf(lszErrMsg, "ScriptError %d:[%d] (%s) \n", Error1, Error2, m_szScriptName);
 	lua_outerrmsg(lszErrMsg);
 	//Exit();
 	return;
@@ -663,9 +663,9 @@ void KLuaScript::ScriptError(int32_t Error1 ,int32_t Error2)
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::SafeCallBegin
-// ����:	
+// ����:
 // ����:	int32_t * pIndex
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 // SafeCallBegin��SafeCallEnd������Ӧ����ʹ�ã��Է�ֹ�ڵ���Lua���ⲿ����֮��
@@ -675,20 +675,20 @@ void KLuaScript::ScriptError(int32_t Error1 ,int32_t Error2)
 //---------------------------------------------------------------------------
 int32_t KLuaScript::SafeCallBegin()
 {
-	if (!m_LuaState)		
+	if (!m_LuaState)
 		return 0;
   return Lua_SafeBegin(m_LuaState);
-}		    
+}
 
 //---------------------------------------------------------------------------
 // ����:	KLuaScript::SafeCallEnd
-// ����:	
+// ����:
 // ����:	int32_t nIndex
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 void KLuaScript::SafeCallEnd(int32_t nIndex)
 {
-	if (!m_LuaState)	
+	if (!m_LuaState)
 		return;
 	Lua_SafeEnd(m_LuaState, nIndex);
 }
@@ -697,7 +697,7 @@ void KLuaScript::SafeCallEnd(int32_t nIndex)
 // ����:	KLuaScript::StopScript
 // ����:	��ֹ�ű�
 // ����:	void
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Stop(void)
 {
@@ -711,7 +711,7 @@ BOOL KLuaScript::Stop(void)
 // ����:	KLuaScript::ResumeScript
 // ����:	�ָ�����ֹ�Ľű�
 // ����:	void
-// ����:	BOOL 
+// ����:	BOOL
 //---------------------------------------------------------------------------
 BOOL KLuaScript::Resume(void)
 {
@@ -726,15 +726,15 @@ BOOL KLuaScript::Resume(void)
 // ����:	KLuaScript::CreateTable
 // ����:	����һ��Lua��Table���ڵ��øú���������Table������Ա֮�󣬱������
 //			SetGlobalName()�������Tableָ��һ�����֡�
-// ����:	DWORD 
+// ����:	DWORD
 //---------------------------------------------------------------------------
 DWORD KLuaScript::CreateTable()
 {
 	 int32_t nIndex = 0;
-	
+
 	nIndex = Lua_GetTopIndex(m_LuaState) ;
 	Lua_NewTable(m_LuaState);
-	if (Lua_GetTopIndex(m_LuaState) != ++nIndex ) 
+	if (Lua_GetTopIndex(m_LuaState) != ++nIndex )
 		return -1;
 
 	return nIndex;
@@ -744,7 +744,7 @@ DWORD KLuaScript::CreateTable()
 // ����:	KLuaScript::SetGlobalName
 // ����:	����Lua��ջ����������һ������
 // ����:	LPSTR szName
-// ����:	void 
+// ����:	void
 //---------------------------------------------------------------------------
 void KLuaScript::SetGlobalName(LPSTR szName)
 {
@@ -770,16 +770,16 @@ int32_t KLuaScript::GetStackSpace()
 // ����:	LPSTR szTableName
 // ����:	DWORD ��Lua�в����ڸ�Table�򷵻�-1
 //---------------------------------------------------------------------------
-DWORD KLuaScript::ModifyTable(LPSTR szTableName) 
+DWORD KLuaScript::ModifyTable(LPSTR szTableName)
 {
 	if (! szTableName[0])		return -1;
-	
+
 	int32_t nIndex = Lua_GetTopIndex(m_LuaState);
-	
+
 	Lua_GetGlobal(m_LuaState, szTableName);
 
-	if (Lua_GetTopIndex(m_LuaState) != ++nIndex)		
+	if (Lua_GetTopIndex(m_LuaState) != ++nIndex)
 		return -1;
-	
+
 	return nIndex;
 }

@@ -69,8 +69,8 @@ KuigetStringInUI * KuigetStringInUI::create(char* pszTitle,int nMinLen, int nMax
 	popLayer->isOpen = true;
 	if (!outKind)
 	{
-		t_sprintf(popLayer->strCallBackfun,pszCallback);
-		t_sprintf(popLayer->strErrorfun,pszError);
+		sprintf(popLayer->strCallBackfun, "%s", pszCallback);
+		sprintf(popLayer->strErrorfun, "%s", pszError);
 	}
 
 	return popLayer;
@@ -101,7 +101,7 @@ bool KuigetStringInUI::init()
 	//\\spr\\Ui3\\������\\���������.spr
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����Ի���\\����������2.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����Ի���\\����������2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -194,7 +194,7 @@ void KuigetStringInUI::setcoloseButton(Ref * callbackListener,const std::functio
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -220,7 +220,7 @@ void KuigetStringInUI::setcoloseButton(Ref * callbackListener,const std::functio
 	okConfirm->setPosition(ax::Vec2(-28,11));
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -248,9 +248,9 @@ void KuigetStringInUI::_getstringgCallBackFunc(Ref * pSender)
 		if (strText.length()>maxMsgLen || strText.length()< minMsgLen)
 		{
 #ifdef WIN32
-			ccMessageBox("����Ϊ�ջ����","����");
+			messageBox("����Ϊ�ջ����","����");
 #else
-			ccMessageBox(G2U("����Ϊ�ջ����").c_str(),G2U("����").c_str());
+			messageBox(G2U("����Ϊ�ջ����").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -258,9 +258,9 @@ void KuigetStringInUI::_getstringgCallBackFunc(Ref * pSender)
 	else
 	{
 #ifdef WIN32
-		ccMessageBox("�������󣮣�","����");
+		messageBox("�������󣮣�","����");
 #else
-		ccMessageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -298,9 +298,9 @@ void KuigetStringInUI::_getstringgCallBackFunc(Ref * pSender)
 		{
 
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,����\nֻ����������!","����");
+			messageBox("���зǷ��ַ�,����\nֻ����������!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,����\nֻ����������!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,����\nֻ����������!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -311,9 +311,9 @@ void KuigetStringInUI::_getstringgCallBackFunc(Ref * pSender)
 		{
 
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,����\n��������ո�!","����");
+			messageBox("���зǷ��ַ�,����\n��������ո�!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,����\n��������ո�!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,����\n��������ո�!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -347,9 +347,9 @@ void KuigetStringInUI::getstringgCallBackFunc(Ref * pSender)
 		if (strText.length()>maxMsgLen || strText.length()< minMsgLen)
 		{
 #ifdef WIN32
-			ccMessageBox("����Ϊ�ջ����","����");
+			messageBox("����Ϊ�ջ����","����");
 #else
-			ccMessageBox(G2U("����Ϊ�ջ����").c_str(),G2U("����").c_str());
+			messageBox(G2U("����Ϊ�ջ����").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -357,9 +357,9 @@ void KuigetStringInUI::getstringgCallBackFunc(Ref * pSender)
 	else
 	{
 #ifdef WIN32
-		ccMessageBox("�������󣮣�","����");
+		messageBox("�������󣮣�","����");
 #else
-		ccMessageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -392,8 +392,8 @@ void KuigetStringInUI::getstringgCallBackFunc(Ref * pSender)
 	}
 
 	PLAYER_STRINGUI pSRING;
-	t_sprintf(pSRING.m_SCallback,"%s",strCallBackfun);
-	t_sprintf(pSRING.m_SError,"%s",strErrorfun);
+	sprintf(pSRING.m_SCallback,"%s",strCallBackfun);
+	sprintf(pSRING.m_SError,"%s",strErrorfun);
 	pSRING.m_nNum=inPutKind;
 	char nContent[125]={0};
 	if (inPutKind==1)
@@ -402,14 +402,14 @@ void KuigetStringInUI::getstringgCallBackFunc(Ref * pSender)
 		{
 
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,����\nֻ����������!","����");
+			messageBox("���зǷ��ַ�,����\nֻ����������!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,����\nֻ����������!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,����\nֻ����������!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
 
-		t_sprintf(pSRING.m_Content,"%s",strText.c_str());
+		sprintf(pSRING.m_Content,"%s",strText.c_str());
 	}
 	else if (inPutKind>=2)
 	{//�ַ���
@@ -417,13 +417,13 @@ void KuigetStringInUI::getstringgCallBackFunc(Ref * pSender)
 		{
 
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,����\n��������ո�!","����");
+			messageBox("���зǷ��ַ�,����\n��������ո�!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,����\n��������ո�!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,����\n��������ո�!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
-		t_sprintf(pSRING.m_Content,"%s",strText.c_str());
+		sprintf(pSRING.m_Content,"%s",strText.c_str());
 	}
 	else
 	{
@@ -497,7 +497,7 @@ bool KuigetStringInUI::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuigetStringInUI::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	    /*m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -505,13 +505,13 @@ void KuigetStringInUI::update(float delta)
 		char nPointCount[32];
 	   if (pMoneyLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nMoney);
+		   sprintf(nPointCount,"%d",m_nMoney);
 		  // pSkillPointLabel->setColor(ccWit)
 		   pMoneyLabel->setString(nPointCount);
 	   }
 	   if  (pXuLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nXu);
+		   sprintf(nPointCount,"%d",m_nXu);
 		   // pSkillPointLabel->setColor(ccWit)
 		   pXuLabel->setString(nPointCount);
 	   }*/

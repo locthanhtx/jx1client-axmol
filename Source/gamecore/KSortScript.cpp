@@ -8,14 +8,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
-#else 
+#else
 #include <io.h>
 #include <direct.h>
 #endif
 
 KLuaScript g_ScriptSet[MAX_SCRIPT_IN_SET];   //�ű���������
 //KScriptBinTree g_ScriptBinTree;
-uint32_t   nCurrentScriptNum;
+unsigned int   nCurrentScriptNum;
 
 void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir);
 //���ز�������
@@ -23,7 +23,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir);
 {
 	return ScriptLeft.GetScriptID() < ScriptRight.GetScriptID();
 };
-	
+
 int operator==(KSortScriptNode ScriptLeft, KSortScriptNode ScriptRight)
 {
 	return ScriptLeft.GetScriptID() == ScriptRight.GetScriptID();
@@ -42,9 +42,9 @@ private:
 		{//KEYֵ
 			delete (cValue.second);
 			(cValue.second) = NULL;
-		} 
+		}
 	}
-	
+
 public:
 	~KLuaScriptRateMap()
 	{//ɾ��ȫ���ڵ�
@@ -70,7 +70,7 @@ const KScript * g_GetScript(DWORD dwScriptId)
 	if (g_ScriptRateMap.count(dwScriptId) > 0)
 	{
 		return g_ScriptRateMap[dwScriptId];
-	} 
+	}
 
 	return NULL;
 }
@@ -102,30 +102,30 @@ static void KSceGetFliePath(char* nName,char * nPath,int nMaxRows)
 		//nFile.Save(nTongApplyPath);
 		nFile.Close();
 	}
-	
+
 	if (nScirptFile.Load(nTongApplyPath))
 	{
 		int nRows=nScirptFile.GetHeight();
 		if  (nRows==0)
 			nRows=1;
-		
+
 		if (nRows>=nMaxRows)
 		{
 			//nScirptFile.Clear();
 			//return;
 			while(nScirptFile.GetHeight()>0)
-			{ 
+			{
 				nScirptFile.Remove(nScirptFile.GetHeight());
 				nScirptFile.Save(nTongApplyPath);
 			}
 		}
-		
+
 		sprintf(szCol,"--%s:(%s)--",nName,nPath);
 		nScirptFile.InsertAfter(nRows);
 		nScirptFile.WriteString(nRows,1, szCol);                                    //�к�
 		//nTong.WriteString(nRows,2,Npc[Player[m_nPlayerIndex].m_nIndex].Name);     //����
 		//nTong.WriteInteger(nRows,3,Npc[Player[m_nPlayerIndex].m_nIndex].m_Level); //�ȼ�
-		nScirptFile.Save(nTongApplyPath);	
+		nScirptFile.Save(nTongApplyPath);
 		//nFile.Write(szCol, sizeof(szCol));
 	}
 	nScirptFile.Clear();
@@ -139,9 +139,9 @@ static BOOL LoadScriptToSortListA(char * szRelativeFile)
 	int t  =strlen(szRelativeFile);
 
 	if (t >= 256)
-		ccMessageBox("path is to long ","script");
+		messageBox("path is to long ","script");
 		//printf("[�ű�]���ؽű�[%s]���ȹ���,�ýű����ܳ���!����! \n", szRelativeFile);
-	
+
 	if (nCurrentScriptNum < MAX_SCRIPT_IN_SET)  //�ű����ƣ�
 	{
 		g_ScriptSet[nCurrentScriptNum].Init();  //��ʼ���ű�������
@@ -152,7 +152,7 @@ static BOOL LoadScriptToSortListA(char * szRelativeFile)
 			//printf("-[�ű�]����[%s]����,����!-\n", szRelativeFile);
 			g_ScriptSet[nCurrentScriptNum].Exit();
 			return FALSE;
-		}		
+		}
 	}
 	else
 	{
@@ -168,7 +168,7 @@ static BOOL LoadScriptToSortListA(char * szRelativeFile)
 }
 
 //��szFilePathĿ¼�µ����нű��ļ����ؽ�ScriptBinTree��������
-static uint32_t LoadAllScript(char * szFilePath,BOOL nIsSer)
+static unsigned int LoadAllScript(char * szFilePath,BOOL nIsSer)
 {
 	g_SetFilePath("\\");
 
@@ -208,14 +208,14 @@ static uint32_t LoadAllScript(char * szFilePath,BOOL nIsSer)
 		nMapScript.Clear();
 	}
 	//-----------------------------------------------------------------
-	chdir(szOldRootPath);   
+	chdir(szOldRootPath);
 	//chdir ��C�����е�һ��ϵͳ���ú�����ͬcd����
 	//���ڸı䵱ǰ����Ŀ¼�������ΪPath Ŀ��Ŀ¼�������Ǿ���Ŀ¼�����Ŀ¼��
 	//SetCurrentDirectory(szOldRootPath);
 	return nCurrentScriptNum;
 }
 
-uint32_t g_IniScriptEngine(char * nScriptDir,BOOL nIsSer,BOOL nIsClear)
+unsigned int g_IniScriptEngine(char * nScriptDir,BOOL nIsSer,BOOL nIsClear)
 {
 	//g_szCurScriptDir[0] = 0;
 	if (nIsClear)
@@ -225,7 +225,7 @@ uint32_t g_IniScriptEngine(char * nScriptDir,BOOL nIsSer,BOOL nIsClear)
        ClearAllScript();
 	}
 	return LoadAllScript(nScriptDir,nIsSer);
-	
+
 }
 
 //���ؽű������ļ�������Ϊʵ��Ŀ¼
@@ -239,8 +239,8 @@ static BOOL LoadScriptToSortList(char * szFileName)
 	}
 
 	//int nFileNameLen = strlen(szFileName);
-	
-	char szRootPath[MAX_PATH];	
+
+	char szRootPath[MAX_PATH];
 	g_GetRootPath(szRootPath);
 //	char szRelativePath[MAX_PATH];
 	char *szRelativePath;
@@ -291,7 +291,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
 			LoadScriptInDirectory(szRealDir, FindData.name);
 		}
 		else
-		{	
+		{
 			nFlag = 0;
 			for (int i = 0; i < (int)strlen(FindData.name);  i++)
 			{
@@ -310,7 +310,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
 			else
 			{
 				char szExt[50];
-				if (strlen(FindData.name) >= 4) 
+				if (strlen(FindData.name) >= 4)
 				{
 					strcpy(szExt, FindData.name + strlen(FindData.name) - 4);
 					g_StrUpper(szExt); //ת�ɴ�д
@@ -321,7 +321,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
 			}
 		}
 		if(_findnext(dir, &FindData)) break;
-	} 
+	}
 	_findclose(dir);
 	chdir(lpszRootDir);
 #else
@@ -333,7 +333,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
      if(dp) {
           while(ep = readdir(dp)) {
             if(strcmp(ep->d_name, ".") == 0 || strcmp(ep->d_name, "..") == 0) continue;
-            
+
             if(ep->d_type ==4) {
                 LoadScriptInDirectory(szRealDir, ep->d_name);
             }
@@ -402,10 +402,10 @@ int ReLoadScript(const char * szRelativePathScript)
 	return nCurrentScriptNum;
 }
 
-uint32_t  ReLoadAllScript()
+unsigned int  ReLoadAllScript()
 {
 //	g_ScriptBinTree.ClearList();
-	
+
 	ClearAllScript();
 	return g_IniScriptEngine("\\script");
 }
@@ -419,10 +419,10 @@ void  ClearAllScript()
 			delete it->second;
 			it->second = NULL;
 		}
-	} 
+	}
 
 	g_ScriptRateMap.clear();
 
 }
 
- 
+

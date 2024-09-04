@@ -62,7 +62,7 @@ private:
 			//ZeroStruct(m_adwDataFlag);
 			memset(&m_adwDataFlag,0,sizeof(m_adwDataFlag));
 		}
-		
+
 		BOOL HasData(INT nX, INT nY) const
 		{
 			return (m_adwDataFlag[nX] & (1 << nY)) != 0;
@@ -72,9 +72,9 @@ private:
 			INT nResult	= 0;
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			if (m_adwDataFlag[nX] & (1 << nY))
@@ -89,9 +89,9 @@ Exit0:
 			DWORD dwId	= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			if (nData)
@@ -112,14 +112,14 @@ Exit0:
 			DWORD dwId	= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 			  goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
-			
+
 			if (m_adwDataFlag[nX] & (1 << nY))	// �Ѿ��еģ�+1
 			{
-				m_mapData[dwId]++;  
+				m_mapData[dwId]++;
 			}
 			else								// �µģ�ֱ����1
 			{
@@ -135,9 +135,9 @@ Exit0:
 			DWORD dwId		= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			//KGLOG_PROCESS_ERROR(m_adwDataFlag[nX] & (1 << nY));
@@ -147,8 +147,8 @@ Exit0:
 				{
 					m_mapData.erase(dwId);
 					m_adwDataFlag[nX] &= ~(1 << nY);
-				} 
-			}		
+				}
+			}
 Exit0:
 			return bResult;
 		}
@@ -161,12 +161,12 @@ Exit0:
 			//   m_mapData.erase(it);
 			m_mapData.clear();
 			return TRUE;
-		}	
+		}
 	private:
 		DWORD m_adwDataFlag[REGION_WIDTH];	// ��λ�����ĳ���Ƿ������ݣ��պ�REGION_HEIGHT == 32����һ��DWORD��
 		typedef std::map<DWORD, INT> _mapData;
 		_mapData m_mapData;
-	};	
+	};
 //---------------------------------------------------------
 	int			m_nNpcSyncCounter;					// ͬ��������
 	//int		m_nLoopCounter;					// ͬ��������
@@ -217,11 +217,11 @@ public:
 		return TRUE;
 	}
 
-	inline BOOL	IsActive() 
+	inline BOOL	IsActive()
 	{
 		return TRUE;
 	};
- 
+
     BOOL	HasNpc(INT nMapX, INT nMapY) const { return m_cNpcRef.HasData(nMapX, nMapY); }
 	INT		GetNpcRef(INT nMapX, INT nMapY) const { return m_cNpcRef.HasData(nMapX, nMapY); }
 	BOOL	AddNpcRef(INT nMapX, INT nMapY) { return m_cNpcRef.IncData(nMapX, nMapY); }
@@ -284,15 +284,15 @@ inline int KRegion::CheckNpcInDisten(int nScyNpcIdx, int nTarNpcIdx,int nDis)
 //--------------------------------------------------------------------------
 inline int KRegion::FindNpc(int nMapX, int nMapY, int nNpcIdx, DWORD nRelation,int nType)
 {
-	//if (m_pNpcRef[nMapY * m_nWidth + nMapX] == 0) 
+	//if (m_pNpcRef[nMapY * m_nWidth + nMapX] == 0)
 	//	return 0;
 	if (GetNpcRef(nMapX,nMapY)<=0)
 		return 0;
 
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = (KIndexNode *)m_NpcList.GetHead();
-	
+
 	while(pNode)
 	{
 		if (Npc[pNode->m_nIndex].m_MapX == nMapX && Npc[pNode->m_nIndex].m_MapY == nMapY)
@@ -301,19 +301,19 @@ inline int KRegion::FindNpc(int nMapX, int nMapY, int nNpcIdx, DWORD nRelation,i
 		  {
 			if (NpcSet.GetRelation(nNpcIdx, pNode->m_nIndex) & nRelation) //λ�ƶԱ� �ǵ��˵Ļ�
 			{
-               return pNode->m_nIndex;  
+               return pNode->m_nIndex;
 			}
 		  }
 		  else if (nType==1)
 		  {
-			  if (nRelation==Npc[pNode->m_nIndex].m_NpcSettingIdx) 
+			  if (nRelation==Npc[pNode->m_nIndex].m_NpcSettingIdx)
 			  {
                      return pNode->m_nIndex;
 			  }
 		  }
 		  else if (nType==2)
 		  {
-			  if (nRelation==Npc[pNode->m_nIndex].m_dwID) 
+			  if (nRelation==Npc[pNode->m_nIndex].m_dwID)
 			  {
                      return pNode->m_nIndex;
 			  }
@@ -321,7 +321,7 @@ inline int KRegion::FindNpc(int nMapX, int nMapY, int nNpcIdx, DWORD nRelation,i
 
 		}
 		pNode = (KIndexNode *)pNode->GetNext();
-	}	
+	}
 	return 0;
 }
 
@@ -334,9 +334,9 @@ inline int KRegion::FindNpcAuto(int nMapX, int nMapY, int nNpcIdx, DWORD nRelati
 		return 0;
 
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = (KIndexNode *)m_NpcList.GetHead();
-	
+
 	while(pNode)
 	{
 		if (Npc[pNode->m_nIndex].m_MapX == nMapX && Npc[pNode->m_nIndex].m_MapY == nMapY)
@@ -353,13 +353,13 @@ inline int KRegion::FindNpcAuto(int nMapX, int nMapY, int nNpcIdx, DWORD nRelati
 							   return pNode->m_nIndex;
 					   }
 					   else
-                           return pNode->m_nIndex;  
+                           return pNode->m_nIndex;
 				   }
 			}
 		  }
 		  else if (nType==1)
 		  {
-			  if (nRelation==Npc[pNode->m_nIndex].m_NpcSettingIdx) 
+			  if (nRelation==Npc[pNode->m_nIndex].m_NpcSettingIdx)
 			  {
                     if (Npc[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 					{
@@ -369,14 +369,14 @@ inline int KRegion::FindNpcAuto(int nMapX, int nMapY, int nNpcIdx, DWORD nRelati
 								return pNode->m_nIndex;
 						}
 						else
-							return pNode->m_nIndex;  
+							return pNode->m_nIndex;
 					}
 
 			  }
 		  }
 		  else if (nType==2)
 		  {
-			  if (nRelation==Npc[pNode->m_nIndex].m_dwID) 
+			  if (nRelation==Npc[pNode->m_nIndex].m_dwID)
 			  {
                      if (Npc[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 					 {
@@ -386,13 +386,13 @@ inline int KRegion::FindNpcAuto(int nMapX, int nMapY, int nNpcIdx, DWORD nRelati
 								 return pNode->m_nIndex;
 						 }
 						 else
-							 return pNode->m_nIndex;  
+							 return pNode->m_nIndex;
 					 }
 			  }
 		  }
 		}
 		pNode = (KIndexNode *)pNode->GetNext();
-	}	
+	}
 	return 0;
 }
 
@@ -406,29 +406,29 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 	char nTempItemName[128];
 	while(pNode)
 	{
-		if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
+		if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
 		{
-			if (Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
-			{//û��ȡ��ʰȡ�ġ� 
-				//t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName,1).c_str());
+			if (KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+			{//û��ȡ��ʰȡ�ġ�
+				//sprintf(nTempItemName,UTEXT(KObject[pNode->m_nIndex].m_szName,1).c_str());
 				//if (nItemName && strstr(nTempItemName,nItemName))
 				//	return pNode->m_nIndex;
 				//����
-				if  (pAutoInfo->isopenmoney && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
+				if  (pAutoInfo->isopenmoney && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
 				{//�������ʰȡǮ
 					*m_CurState = 3;//PICCK_ITEM_MONEY;
 					return pNode->m_nIndex;
 				}
 				//����
-				if  (pAutoInfo->isopendaoju && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
+				if  (pAutoInfo->isopendaoju && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
 				{//��ʼѭ����⡡�Ƿ����б��ڡ�����ڷ��� Npc[m_Index].m_AutoplayId==1
 				   if (Npc[nNpcIdx].m_AutoplayId==1)
 				   {//�һ�״̬
 					  char _nItemName[64]={0};
 					  for(int i=0;i<16;++i)
-					  { 	
-						  nToolItem.GetString(i+1,1,"������",_nItemName,sizeof(_nItemName)); 
-						  t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName, 1).c_str());
+					  {
+						  nToolItem.GetString(i+1,1,"������",_nItemName,sizeof(_nItemName));
+						  sprintf(nTempItemName, "%s", UTEXT(KObject[pNode->m_nIndex].m_szName, 1).c_str());
 						  if (strstr(nTempItemName,_nItemName))
 						  {
 							*m_CurState = 5;//PICCK_TOOL;
@@ -438,7 +438,7 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 				   }
 				   else
 				   {//�ֶ�ʰȡ��
-					  if (Object[pNode->m_nIndex].m_nColorID==8)
+					  if (KObject[pNode->m_nIndex].m_nColorID==8)
 					  {
 					    *m_CurState = 5;//PICCK_TOOL;
 					    return pNode->m_nIndex;
@@ -446,9 +446,9 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 				   }
 				}
 				//װ��
-				if  (pAutoInfo->insopenzhuang && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
+				if  (pAutoInfo->insopenzhuang && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
 				{//��ʼѭ����⡡�Ƿ����б��ڡ�����ڷ���
-					if (Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4)
+					if (KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4)
 					{
 						*m_CurState = 2;//PICCK_ITEM;
 						return pNode->m_nIndex;
@@ -457,13 +457,13 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 				//װ����Ǯ
 				if  (pAutoInfo->ismonyeandzhuang)
 				{//��ʼѭ����⡡�Ƿ����б��ڡ�����ڷ���
-					if (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item &&(Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4))
+					if (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item &&(KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4))
 					{
 						*m_CurState = 2;//PICCK_ITEM;
 						return pNode->m_nIndex;
 					}
 
-					if (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
+					if (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
 					{//�������ʰȡǮ
 						*m_CurState = 3;//PICCK_ITEM_MONEY;
 						return pNode->m_nIndex;
@@ -478,14 +478,14 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 
 //----------------------------------------------------
 	/*if (nKind==-1)
-	{ 
+	{
 		while(pNode)
 		{//ֱ�Ӽ������
-			if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
+			if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
 			{
-				if (Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
-				{	 
-					t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName,1).c_str());
+				if (KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+				{
+					sprintf(nTempItemName,UTEXT(KObject[pNode->m_nIndex].m_szName,1).c_str());
 					if (nItemName && strstr(nTempItemName,nItemName))
 						return pNode->m_nIndex;
 				}
@@ -498,32 +498,32 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nNpcIdx,void *pData,
 	else
 	{
 		while(pNode)
-		{  
-			if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
+		{
+			if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
 			{
-				if (nKind==1 && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+				if (nKind==1 && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 					return pNode->m_nIndex;
-				else if (nKind==2 && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+				else if (nKind==2 && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 				{//�����Ե�װ��
-					if (Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4)
+					if (KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4)
 						return pNode->m_nIndex;
 				}
-				else  if (nKind==3 && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+				else  if (nKind==3 && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 				{
-					if  (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
+					if  (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
 						return pNode->m_nIndex;
-					else if (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
+					else if (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
 					{
-						if (Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4)
+						if (KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4)
 							return pNode->m_nIndex;
 					}
 				}
-				else if (nKind==4 && nItemName && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+				else if (nKind==4 && nItemName && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 				{//ͼ��
-					t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName,1).c_str());
+					sprintf(nTempItemName,UTEXT(KObject[pNode->m_nIndex].m_szName,1).c_str());
 					if (strstr(nTempItemName,nItemName))
 						return pNode->m_nIndex;
-				}	      
+				}
 			}
 			pNode = (KIndexNode *)pNode->GetNext();
 		}
@@ -539,16 +539,16 @@ inline int KRegion::FindObjectAuto(int nMapX, int nMapY,int nKind,char *nItemNam
 {
 KIndexNode *pNode = NULL;
 pNode = (KIndexNode *)m_ObjList.GetHead();
-char nTempItemName[128];		
+char nTempItemName[128];
 if (nKind==-1)
-{ 
+{
 while(pNode)
 {
-if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
+if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
 {
-if (Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
-{	 
-t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName,1).c_str());
+if (KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+{
+sprintf(nTempItemName,UTEXT(KObject[pNode->m_nIndex].m_szName,1).c_str());
 if (nItemName && strstr(nTempItemName,nItemName))
 return pNode->m_nIndex;
 }
@@ -561,32 +561,32 @@ return 0;
 else
 {
 while(pNode)
-{  
-if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
 {
-if (nKind==1 && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
+{
+if (nKind==1 && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 return pNode->m_nIndex;
-else if (nKind==2 && Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+else if (nKind==2 && KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 {
-if (Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4)
-return pNode->m_nIndex;
-}
-else  if (nKind==3 && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
-{
-if  (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
-return pNode->m_nIndex;
-else if (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
-{
-if (Object[pNode->m_nIndex].m_nColorID==1 || Object[pNode->m_nIndex].m_nColorID==3 || Object[pNode->m_nIndex].m_nColorID==4)
+if (KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4)
 return pNode->m_nIndex;
 }
+else  if (nKind==3 && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+{
+if  (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Money)
+return pNode->m_nIndex;
+else if (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
+{
+if (KObject[pNode->m_nIndex].m_nColorID==1 || KObject[pNode->m_nIndex].m_nColorID==3 || KObject[pNode->m_nIndex].m_nColorID==4)
+return pNode->m_nIndex;
 }
-else if (nKind==4 && nItemName && Object[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
+}
+else if (nKind==4 && nItemName && KObject[pNode->m_nIndex].m_AttackerDwid!=Npc[nNpcIdx].m_dwID)
 {//ͼ��
-t_sprintf(nTempItemName,UTEXT(Object[pNode->m_nIndex].m_szName,1).c_str());
+sprintf(nTempItemName,UTEXT(KObject[pNode->m_nIndex].m_szName,1).c_str());
 if (strstr(nTempItemName,nItemName))
 return pNode->m_nIndex;
-}	      
+}
 }
 pNode = (KIndexNode *)pNode->GetNext();
 }

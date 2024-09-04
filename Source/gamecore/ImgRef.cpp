@@ -4,9 +4,9 @@
 
 //iRepresentShell*	g_pRepresent = 0;
 
-uint32_t	l_Time = 0;
+unsigned int	l_Time = 0;
 
-uint32_t IR_GetCurrentTime()
+unsigned int IR_GetCurrentTime()
 {
 	return l_Time;
 }
@@ -21,7 +21,7 @@ void IR_UpdateTime()
 	l_Time = m_pStartUpdate.tv_sec*1000+m_pStartUpdate.tv_usec/1000;//����timeGetTime();���ϵͳ���е�ʱ��
 }
 
-int	IR_IsTimePassed(uint32_t uInterval, uint32_t& uLastTimer)
+int	IR_IsTimePassed(unsigned int uInterval, unsigned int& uLastTimer)
 {
 	if ((l_Time - uLastTimer) >= uInterval)
 	{
@@ -31,9 +31,9 @@ int	IR_IsTimePassed(uint32_t uInterval, uint32_t& uLastTimer)
 	return 0;
 }
 //��ȡʣ��ʱ�䣬���ʱ���Ѿ�����/���ˣ�����ֵ��Ϊ0
-uint32_t IR_GetRemainTime(uint32_t uInterval, uint32_t uLastTimer)
+unsigned int IR_GetRemainTime(unsigned int uInterval, unsigned int uLastTimer)
 {
-	uint32_t uRemain;
+	unsigned int uRemain;
 	if ((uRemain = l_Time - uLastTimer) < uInterval)
 		return (uInterval - uRemain);
 	return 0;
@@ -41,7 +41,7 @@ uint32_t IR_GetRemainTime(uint32_t uInterval, uint32_t uLastTimer)
 //--------------------------------------------------------------------------
 //	���ܣ���֡����
 //--------------------------------------------------------------------------
-void IR_NextFrame(int& nFrame, int nTotalFrame, uint32_t uInterval, uint32_t& uFlipTime)
+void IR_NextFrame(int& nFrame, int nTotalFrame, unsigned int uInterval, unsigned int& uFlipTime)
 {
 	if (nTotalFrame > 1 && uInterval)
 	{

@@ -100,12 +100,12 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 	//std::string fullPath = fullPathForFilename(pszFileName);
 	m_hFile = fopen(pszPackFileName, "rb");
 
-	//ccMessageBox(pszPackFileName,"bool XPackFile::Open start");
+	//messageBox(pszPackFileName,"bool XPackFile::Open start");
 	while (m_hFile)
 	{
 		//m_uFileSize = ::GetFileSize(m_hFile, NULL);
 		//m_uFileSize = m_hFile->size();
-		
+
 		fseek(m_hFile,0,SEEK_END);
 		m_uFileSize = ftell(m_hFile);  //�ļ��Ĵ�С
 		fseek(m_hFile,0,SEEK_SET);     //ָ��������ͷ
@@ -131,7 +131,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 			break;
 		}
 		//--���ļ���������ݵĺϷ����ж�--
-		
+
 		if (dwReaded != sizeof(Header) ||
 			*(int32_t*)(&Header.cSignature) != XPACKFILE_SIGNATURE_FLAG ||
 			Header.uCount == 0 ||
@@ -140,7 +140,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 			Header.uDataOffset < sizeof(XPackFileHeader) ||
 			Header.uDataOffset >= m_uFileSize)
 		{
-			
+
 			break;
 		}
 		//--��ȡ��������Ϣ��--
@@ -177,8 +177,8 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 
 	if (bResult == false)
 		Close();
-
-	//ccMessageBox(pszPackFileName,"bool XPackFile::Open return");
+    fileName = std::string(pszPackFileName);
+	//messageBox(pszPackFileName,"bool XPackFile::Open return");
 	return bResult;
 }
 //-------------------------------------------------
@@ -217,7 +217,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		{
 			break;
 		}
-		
+
 		//--��ȡ��������Ϣ��--
 		dwListSize = sizeof(XPackIndexInfoX) * xHeader.SubHeader[0].uCount;
 		m_pIndexListX = (XPackIndexInfoX*)malloc(dwListSize);   //�����ڴ档������
@@ -230,7 +230,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		if (::ReadFile(m_hFile, m_pIndexListX, dwListSize, &dwReaded, NULL) == FALSE)
 			break;
 		if (dwReaded != dwListSize)
-			break;		
+			break;
 		m_nElemFileCount= xHeader.SubHeader[0].uCount;  //���ļ�����
 		bResult = true;
 		break;
@@ -348,11 +348,11 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 		if (uExtractSize == uSize)
 			bResult = DirectRead(pBuffer, uOffset, uSize);
 
-		//ccMessageBox("DirectRead","ExtractRead");
+		//messageBox("DirectRead","ExtractRead");
 	}
 	else
 	{
-		//ccMessageBox("ucl_nrv2e_decompress_8_1","ExtractRead");
+		//messageBox("ucl_nrv2e_decompress_8_1","ExtractRead");
 		void*	pReadBuffer = malloc(uSize);  //�����ڴ�
 		//|| lCompressType == TYPE_BZIP2
 		if (pReadBuffer)
@@ -362,14 +362,14 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 				uint32_t uDestLength = 0;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_1((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
-				bResult =  (uDestLength == uExtractSize); 
+				bResult =  (uDestLength == uExtractSize);
 			}
 			else if ((/*lCompressType == TYPE_FRAGMENT || */lCompressType ==TYPE_FRAGMENT_OLD) && DirectRead(pReadBuffer, uOffset, uSize))
 			{//0x03000000
 				uint32_t uDestLength;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_2((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
-				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength); 
+				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 				bResult =  (uDestLength == uExtractSize);
 			}
 			else if ((/*lCompressType == TYPE_FRAGMENTA || */lCompressType == TYPE_FRAGMENTA_OLD)  && DirectRead(pReadBuffer, uOffset, uSize))
@@ -377,22 +377,22 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 				uint32_t uDestLength;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_3((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
-				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength); 
+				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 				bResult =  (uDestLength == uExtractSize);
 			}
-			else 
-			{//�°� 
+			else
+			{//�°�
 				if (DirectRead(pReadBuffer, uOffset, uSize))  //����ԭʼ����
-				{ 
+				{
 					uint32_t uDestLength;
-					//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength); 
+					//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 					//ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 					//ucl_nrv2b_decompress_safe_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
-					ucl_decompress_8_New((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength); 
+					ucl_decompress_8_New((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 
 					bResult =  (uDestLength == uExtractSize);                                            //��ѹ����
-				} 
-			}  
+				}
+			}
 			free (pReadBuffer);
 		}
 	}
@@ -410,7 +410,7 @@ typedef uint32_t        uint32;
 
 #define _BYTE  uint8
 #define BYTEn(x, n)   (*((_BYTE*)&(x)+n))
-#define BYTE1(x)      BYTEn(x,  1)  
+#define BYTE1(x)      BYTEn(x,  1)
 //
 int32_t  XPackFile::ucl_decompress_8_New(unsigned char * a1, uint32_t a2, unsigned char * a3, uint32_t *a4) const
 	//(_BYTE *a1, int32_t a2, int32_t a3, _DWORD *a4)
@@ -1135,7 +1135,7 @@ int32_t XPackFile::ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int32_t s_siz
 	uint32_t repeat_cnt;			// repeat count
 	uint32_t d_cnt=0;
 	unsigned char * bak_s_buf;		    //���ݵ�����
-	
+
 	bak_s_buf=s_buf;
 	do
 	{
@@ -1221,7 +1221,7 @@ int32_t XPackFile::ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int32_t s_siz
 		return 0;
 	if(s_size<(s_buf-bak_s_buf))
 		return -1;
-	
+
 	return 0;
 }
 //-------------------------------------------------
@@ -1299,7 +1299,7 @@ bool XPackFile::XFindElemFile(uint32_t uId, XPackElemFileRef& ElemRef)
 void* XPackFile::ReadElemFile(int32_t nElemIndex) const
 {
 	//_ASSERT(nElemIndex >= 0 && nElemIndex < m_nElemFileCount);
-	if (nElemIndex<0 || nElemIndex >= m_nElemFileCount) 
+	if (nElemIndex<0 || nElemIndex >= m_nElemFileCount)
 	{
 		//MessageBox(NULL,"�����ļ�ʧ��","Information",MB_OK | MB_ICONEXCLAMATION);
 		return NULL;
@@ -1579,7 +1579,7 @@ SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &n
 				{
 					char ddd[64];
 					sprintf(ddd,"pFrameList->lSize:%d",lTempValue);
-					ccMessageBox(ddd,"pFrameList->lSize");
+					messageBox(ddd,"pFrameList->lSize");
 				}*/
 
 				if (lTempValue < 0)
@@ -1596,7 +1596,7 @@ SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &n
 					if (pFrame = (SPRFRAME*)malloc(lTempValue))
 					{
 						bOk = ExtractRead(pFrame,lTempValue,lCompressType,uSrcOffset,pFrameList->lCompressSize);
-					    
+
 						if (bOk)
 							nSingFrameSize = lTempValue;//pFrameList->lCompressSize;
 					}
@@ -1606,7 +1606,7 @@ SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &n
 				{
 					free(pFrame);
 					pFrame = NULL;
-					ccMessageBox("GetSprFrame--filed","ExtractRead");
+                    messageBox("GetSprFrame--filed","ExtractRead");
 				}
 			}
 		}
@@ -1617,8 +1617,8 @@ SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &n
 #endif
 	}
 
-	if (pFrame==NULL) 
-		ccMessageBox("pFrame IS NULL","GetSprFrame");
+	if (pFrame==NULL)
+		messageBox("pFrame IS NULL","GetSprFrame");
 
-	return pFrame;	
+	return pFrame;
 }

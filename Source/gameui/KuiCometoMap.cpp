@@ -102,7 +102,7 @@ bool KuiCometoMap::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\activityguideui.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\activityguideui.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -147,7 +147,7 @@ void KuiCometoMap::addDialogData()
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\pagebutton.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\pagebutton.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -231,7 +231,7 @@ void KuiCometoMap::addDialogData()
 	btnPageBox_5->addTouchEventListener(CC_CALLBACK_2(KuiCometoMap::touchPageBtnEvent, this));
 	m_pMainUiLayer->addChild(btnPageBox_5);
 	//char nTempStr[128];
-	//t_t_sprintf(nTempStr,pContent);
+	//t_sprintf(nTempStr,pContent);
 	/*Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,TextHAlignment::CENTER);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
 	pstrLabel->setPosition(ax::Vec2(128/2+30,m_size.height-50));
@@ -244,7 +244,7 @@ void KuiCometoMap::addDialogData()
 	*/
 	//ͼ��
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\gameicon.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\gameicon.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	Sprite *iconSprite=NULL;
@@ -268,7 +268,7 @@ void KuiCometoMap::addDialogData()
 
 	ZeroMemory(nSprName,sizeof(nSprName));
 	//�������汳����� \spr\Ui3\activityguide\calendarpage.spr
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\calendarpage.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\calendarpage.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -291,7 +291,7 @@ void KuiCometoMap::addDialogData()
 
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbarback.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbarback.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur)
@@ -304,7 +304,7 @@ void KuiCometoMap::addDialogData()
 	}
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbar.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbar.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 
@@ -420,9 +420,9 @@ void KuiCometoMap::addDialogData()
 	char nTmepStr[256];
 	ZeroMemory(nTmepStr,sizeof(nTmepStr));
 	if (_clientlanguage!=1)
-		t_sprintf(nTmepStr,"\\Ui\\Ui3\\uiactivityguide\\recommendmap_vn.ini");
+		sprintf(nTmepStr,"\\Ui\\Ui3\\uiactivityguide\\recommendmap_vn.ini");
 	else
-		t_sprintf(nTmepStr,"\\Ui\\Ui3\\uiactivityguide\\recommendmap.ini");
+		sprintf(nTmepStr,"\\Ui\\Ui3\\uiactivityguide\\recommendmap.ini");
 
 	if (mapData.Load(nTmepStr))
 	{
@@ -446,7 +446,7 @@ void KuiCometoMap::addDialogData()
 
 		for (i = 0; i < m_MaxCount; ++i)
 		{//8���ȼ��ֶ�
-			t_sprintf(nKeyName,"recommend_%d",i+1);
+			sprintf(nKeyName,"recommend_%d",i+1);
 			char nstrName[32];
 			mapData.GetString(nKeyName,"Text","",nstrName,sizeof(nstrName)); //ax::TextHAlignment::LEFT
 			m_recommend[i] = Label::createWithTTF(UTEXT(nstrName,1).c_str(),UI_GAME_FONT_DEFAULT,14);//Arial
@@ -470,7 +470,7 @@ void KuiCometoMap::addDialogData()
 					char nNameMame[32]={0};
 					ZeroMemory(nNameMame,sizeof(nNameMame));
 					int _MapId=0;
-					t_sprintf(nKeyName,"map_%d",inMapIdx[j]);
+					sprintf(nKeyName,"map_%d",inMapIdx[j]);
 					mapData.GetString(nKeyName,"MapName","����",nNameMame,sizeof(nNameMame));
 					mapData.GetInteger(nKeyName,"MapId",0,&_MapId);
 					int nFonSize = 12;
@@ -484,7 +484,7 @@ void KuiCometoMap::addDialogData()
 					//mapNameLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);//���¾���
 					MenuItemLabel* mserLabel1=MenuItemLabel::create(mapNameLabel,CC_CALLBACK_1(KuiCometoMap::movemapCallBack, this));
 					mserLabel1->setTag(_MapId);
-					t_sprintf(nKeyName,"%d",inMapIdx[j]+1);
+					sprintf(nKeyName,"%d",inMapIdx[j]+1);
                     int mapKey = std::hash<std::string>{}(nKeyName);
 					mserLabel1->setTag(mapKey);
 					mserLabel1->setPosition(ax::Vec2(backBtnW+2,startPosY));
@@ -709,7 +709,7 @@ void KuiCometoMap::touchPageBtnEvent(Ref *pSender, ax::ui::AbstractCheckButton::
 				if  (nTbtn->getTag()==AUTOBTN_PAGE_BASE)
 				{
 					//buttonCallBackFunc(NULL);
-					//ccMessageBox(nTbtn->getTag().c_str(),"���°�ť");
+					//messageBox(nTbtn->getTag().c_str(),"���°�ť");
 				}
 			}
 		}
@@ -798,13 +798,13 @@ void KuiCometoMap::movemapCallBack(Ref* menuItem)
 		if (nCerBox)
 		{
             //char msg[64];
-			//t_sprintf(msg,"map:%d,index:%s",nCerBox->getTag(),nCerBox->getTag().c_str());
-			//ccMessageBox(msg,"1111");
+			//sprintf(msg,"map:%d,index:%s",nCerBox->getTag(),nCerBox->getTag().c_str());
+			//messageBox(msg,"1111");
 			//����ʼִ�пͻ��˴��ͽű�
 			if (g_pCoreShell)
 			{
 				char nTempstr[32];
-				t_sprintf(nTempstr, reinterpret_cast<const char *>(nCerBox->getTag()));
+				sprintf(nTempstr, "%s",  reinterpret_cast<const char *>(nCerBox->getTag()));
 				int nIndex =g_Atoui(nTempstr);
 			    g_pCoreShell->OperationRequest(GOI_PLAYER_SYSSHOP,0,nIndex-1,3);
 			}
@@ -829,7 +829,7 @@ void KuiCometoMap::setcoloseButton(Ref * callbackListener,const std::function<vo
 	//���һ���رհ�ť��\spr\Ui3\activityguide\closebutton.spr
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -913,7 +913,7 @@ bool KuiCometoMap::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiCometoMap::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
   if (isOpen && g_pCoreShell)
   {
 	  switch(_curPage)
@@ -1003,7 +1003,7 @@ void KuiCometoMap::update(float delta)
 
 //void KuiCometoMap::draw()
 //{
-//	//ccMessageBox("����ѭ��","draw");
+//	//messageBox("����ѭ��","draw");
 //}
 
 

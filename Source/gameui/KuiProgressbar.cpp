@@ -69,11 +69,11 @@ KuiProgressbar * KuiProgressbar::create(KUiJinDuTiaoInfo* pJinDu,Ref * callbackL
 	if (pJinDu->nTimes<=0)
        popLayer->proData.nTimeVal =10;
 
-	t_sprintf(popLayer->ntitle,pJinDu->nTitle);
-	t_sprintf(popLayer->proData.szCallFun,pJinDu->nCallFuc);
-	t_sprintf(popLayer->proData.szParma,pJinDu->szParma);
-	t_sprintf(popLayer->proData.szParmb,pJinDu->szParmb);
-	t_sprintf(popLayer->proData.szParmc,pJinDu->szParmc);
+	sprintf(popLayer->ntitle, "%s", pJinDu->nTitle);
+	sprintf(popLayer->proData.szCallFun, "%s", pJinDu->nCallFuc);
+	sprintf(popLayer->proData.szParma, "%s", pJinDu->szParma);
+	sprintf(popLayer->proData.szParmb, "%s", pJinDu->szParmb);
+	sprintf(popLayer->proData.szParmc, "%s", pJinDu->szParmc);
 	popLayer->addDialogData();
 	popLayer->setcoloseButton(callbackListener,callfun);
 	popLayer->isOpen = true;
@@ -102,7 +102,7 @@ bool KuiProgressbar::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\progressbar\\progressbar_back.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\progressbar\\progressbar_back.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -139,7 +139,7 @@ void KuiProgressbar::addDialogData()
 	m_StartPos.y =140-24;//+ITEM_CELL_SIZE/2;
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\progressbar\\progressbar_bit.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\progressbar\\progressbar_bit.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -248,7 +248,7 @@ bool KuiProgressbar::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiProgressbar::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell && proSpr)
 	{
 		KUiPlayerGameTime	pInfo;

@@ -2,8 +2,8 @@
 // FileName			:	KSkillSpecial.cpp
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-9-23 21:12:12
-// FileDescription	:	
-// Revision Count	:	
+// FileDescription	:
+// Revision Count	:
 *******************************************************************************/
 #include "KCore.h"
 #include "engine/KEngine.h"
@@ -29,7 +29,7 @@ KSkillSpecial::KSkillSpecial()
 	m_RUImage.nISPosition = IMAGE_IS_POSITION_INIT;
 	m_RUImage.bRenderFlag = RUIMAGE_RENDER_FLAG_REF_SPOT;
 	//m_eStatus = 0;
-	
+
 #ifdef TOOLVERSION
 	m_pSprNode = NULL;
 #endif
@@ -47,10 +47,10 @@ BOOL KSkillSpecial::Init()
 //������ײЧ��
 void KSkillSpecial::DrawC(DWORD nCurLifeFrame)
 {
-	
+
 	if (nCurLifeFrame > m_nEndTime) return;
-	
-	t_sprintf(m_RUImage.szImage, m_pMissleRes->AnimFileName);
+
+	sprintf(m_RUImage.szImage, "%s", m_pMissleRes->AnimFileName);
 
 	if (m_nNpcIndex > 0 && m_nNpcIndex<MAX_NPC && Npc[m_nNpcIndex].IsMatch(m_dwMatchID))
 	{
@@ -67,7 +67,7 @@ void KSkillSpecial::DrawC(DWORD nCurLifeFrame)
 		m_RUImage.oPosition.nY =	m_nPY;
 		m_RUImage.oPosition.nZ =	m_nPZ;
 	}
-	
+
 	if (m_pMissleRes->nInterval > 0 && m_pMissleRes->nDir!=0)
 	{
 		int	nImageDir = (m_nCurDir / (64 /m_pMissleRes->nDir));
@@ -80,10 +80,10 @@ void KSkillSpecial::DrawC(DWORD nCurLifeFrame)
 		    g_GameWorld->DrawSpecial_miss(m_nMissleId,m_eStatus,m_nNpcIndex,m_dwMatchID,1,&m_RUImage,false,0,0,0);
 	}
 	return;
-	
+
 }
 
-void KSkillSpecial::SetAnimation(char * szFile, uint32_t uImage)
+void KSkillSpecial::SetAnimation(char * szFile, unsigned int uImage)
 {
 	if (szFile)	strcpy(m_RUImage.szImage, szFile);
 	m_RUImage.uImage = uImage;
@@ -101,5 +101,5 @@ if (m_pObj)
 //	::RemoveMissle(g_pGraphics, m_pObj);
 RELEASE(m_pObj);
 }
-	*/	
+	*/
 }

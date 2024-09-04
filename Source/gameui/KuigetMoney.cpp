@@ -80,7 +80,7 @@ bool KuigetMoney::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\ȡǮ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\ȡǮ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -162,7 +162,7 @@ void KuigetMoney::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -183,7 +183,7 @@ void KuigetMoney::setcoloseButton(Ref * callbackListener,const std::function<voi
 	okConfirm->setPosition(ax::Vec2(-28,11));
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -213,9 +213,9 @@ void KuigetMoney::getmoneyCallBackFunc(Ref * pSender)
 		if (nCurMoney.length()>10 || nCurMoney.length()<= 0)
 		{
 #ifdef WIN32
-			ccMessageBox("����Ϊ�ղ����Ȳ��ܴ���10","����");
+			messageBox("����Ϊ�ղ����Ȳ��ܴ���10","����");
 #else
-			ccMessageBox(G2U("����Ϊ�ղ����Ȳ��ܴ���10").c_str(),G2U("����").c_str());
+			messageBox(G2U("����Ϊ�ղ����Ȳ��ܴ���10").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -249,9 +249,9 @@ void KuigetMoney::getmoneyCallBackFunc(Ref * pSender)
 		if (spaceNum>0 || chineseNum>0 || xiaoxie >0 || other>0 || letter>0)
 		{ 	//system("pause");
 #ifdef WIN32
-			ccMessageBox("ֻ����д����!","����");
+			messageBox("ֻ����д����!","����");
 #else
-			ccMessageBox(G2U("ֻ����д����!").c_str(),G2U("����").c_str());
+			messageBox(G2U("ֻ����д����!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -260,9 +260,9 @@ void KuigetMoney::getmoneyCallBackFunc(Ref * pSender)
 	else
 	{
 #ifdef WIN32
-		ccMessageBox("�������󣮣�","����");
+		messageBox("�������󣮣�","����");
 #else
-		ccMessageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -270,7 +270,7 @@ void KuigetMoney::getmoneyCallBackFunc(Ref * pSender)
 	unsigned int nMoney=0;
 	char nstrInfo[64];
 	ZeroMemory(nstrInfo,sizeof(nstrInfo));
-	t_sprintf(nstrInfo,nCurMoney.c_str());
+	sprintf(nstrInfo, "%s", nCurMoney.c_str());
 	nMoney = g_Atoui(nstrInfo);
 	if (nMoney > 0)
 	{
@@ -334,7 +334,7 @@ bool KuigetMoney::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuigetMoney::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	    /*m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -342,13 +342,13 @@ void KuigetMoney::update(float delta)
 		char nPointCount[32];
 	   if (pMoneyLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nMoney);
+		   sprintf(nPointCount,"%d",m_nMoney);
 		  // pSkillPointLabel->setColor(ccWit)
 		   pMoneyLabel->setString(nPointCount);
 	   }
 	   if  (pXuLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nXu);
+		   sprintf(nPointCount,"%d",m_nXu);
 		   // pSkillPointLabel->setColor(ccWit)
 		   pXuLabel->setString(nPointCount);
 	   }*/

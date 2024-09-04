@@ -87,9 +87,9 @@ uint32_t KPakList::FileNameToId(const char* pszFileName)
 	int32_t index = 0;
 	while(*ptr)
 	{
-		if(*ptr >= 'A' && *ptr <= 'Z') 
+		if(*ptr >= 'A' && *ptr <= 'Z')
 			id = (id + (++index) * (*ptr + 'a' - 'A')) % 0x8000000b * 0xffffffef;
-		else 
+		else
 		    id = (id + (++index) * (*ptr)) % 0x8000000b * 0xffffffef;
 		ptr++;
 	}
@@ -136,7 +136,7 @@ int32_t KPakList::Open(char* pPakListFile,int32_t nKind)
 	bool bResult = false;
 	if (IniFile.Load(pPakListFile)) //���ر��ص� packpage.ini
 	{
-		//ccMessageBox(pPakListFile,"KPakList::Open::IniFile.Load");
+		//messageBox(pPakListFile,"KPakList::Open::IniFile.Load");
 
 		char szBuffer[32]={0}, szKey[32]={0}, szFile[MAX_PATH]={0};
 
@@ -144,10 +144,10 @@ int32_t KPakList::Open(char* pPakListFile,int32_t nKind)
 		{
 #ifndef WIN32
 			strcat(szBuffer,"data");
-#endif 
+#endif
 			g_GetFullPath(szFile, szBuffer);
 			//MessageBox(NULL, szFile,"Information",MB_OK | MB_ICONEXCLAMATION);
-			//ccMessageBox(szFile,"IniFile.GetString");
+			//messageBox(szFile,"IniFile.GetString");
 
 			int32_t nNameStartPos = strlen(szFile);
 			if (szFile[nNameStartPos - 1] != '\\' || szFile[nNameStartPos - 1] != '/')
@@ -164,11 +164,11 @@ int32_t KPakList::Open(char* pPakListFile,int32_t nKind)
 			for (int32_t i = 0; i < MAX_PAK; ++i)   //PAK��������
 			{
 				//itoa(i, szKey, 10);
-				t_sprintf(szKey,"%d",i);
+				sprintf(szKey,"%d",i);
 
 				if (!IniFile.GetString(SECTION,szKey,"", szBuffer, sizeof(szBuffer)))
 					continue;
-				
+
 				if (szBuffer[0] == 0)
 					continue;
 
@@ -176,7 +176,7 @@ int32_t KPakList::Open(char* pPakListFile,int32_t nKind)
 				m_PakFilePtrList[m_nPakNumber] = new XPackFile;  //�����ڴ�
 
 				//printf("--(%s)PAK�������ڴ�:%u b..--\n",szBuffer,sizeof(XPackFile));
-					
+
 				if (m_PakFilePtrList[m_nPakNumber])
 				{
 					if (m_PakFilePtrList[m_nPakNumber]->Open(szFile, m_nPakNumber)) //����Ƿ��ܴ�PAK��
@@ -238,7 +238,7 @@ bool KPakList::pGetFilePath(char* pszFileName, XPackElemFileRef& ElemRef)
 		g_GetPackPath(szPackName + 1, (char*)pszFileName);//�ϲ�·�� ȥ��.. ת��Сд
 		//char BackStr[256];                       //����ԭ����·��
 		//ZeroMemory(BackStr,sizeof(BackStr));
-		//t_sprintf(BackStr,szPackName);
+		//sprintf(BackStr,szPackName);
 		uint32_t uId = 0;
 		uId = g_CheckFileExist(U2G(szPackName).c_str());
 		bFounded = pFindElemFileA(uId, ElemRef);
@@ -247,7 +247,7 @@ bool KPakList::pGetFilePath(char* pszFileName, XPackElemFileRef& ElemRef)
 			uId = g_CheckFileExist(G2U(szPackName).c_str());//FileNameToId(szPackName);
 			bFounded = pFindElemFileA(uId, ElemRef);
 			if (!bFounded)
-			{//��ת�ٲ���һ�� ���Ҳ��� ����û�е��� 
+			{//��ת�ٲ���һ�� ���Ҳ��� ����û�е���
 				uId = g_CheckFileExist(szPackName);//FileNameToId(szPackName);
 				bFounded = pFindElemFileA(uId, ElemRef);
 			}

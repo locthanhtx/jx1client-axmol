@@ -12,23 +12,23 @@ class KSkillManager
 {
     friend class KSkill;
 
-	typedef struct 
+	typedef struct
 	{
 		int m_nTabFileRowId;
 		int m_nSkillStyle;
-		uint32_t	m_ulFirstLoadLevel;
-		uint32_t	m_ulMaxSkillLevel;
+		unsigned int	m_ulFirstLoadLevel;
+		unsigned int	m_ulMaxSkillLevel;
 	}	TSkillInfo;
-	
+
 private:
-	
+
 	TSkillInfo m_SkillInfo[MAX_SKILL];
 	//TOrdinSkillCommonData * m_pOrdinSkillCommonData[MAX_SKILL];
-	ISkill*			m_pOrdinSkill[MAX_SKILL][MAX_SKILLLEVEL];// 
-	
+	ISkill*			m_pOrdinSkill[MAX_SKILL][MAX_SKILLLEVEL];//
+
 private:
-	ISkill*	InstanceSkill( uint32_t ulSkillID, uint32_t ulSkillLevel);
-	int		GetSkillStyle(uint32_t ulSkill);
+	ISkill*	InstanceSkill( unsigned int ulSkillID, unsigned int ulSkillLevel);
+	int		GetSkillStyle(unsigned int ulSkill);
 
 	int   nSkillNum;
 
@@ -43,7 +43,7 @@ public:
 	int    GetSkillStyleID(int nSkillID){return GetSkillStyle(nSkillID);};
 	int    GetSkillCount(){return nSkillNum;};
 
-	uint32_t	GetSkillMaxLevel(int nSkill)
+	unsigned int	GetSkillMaxLevel(int nSkill)
 	{
 		if (nSkill<= 0 ) return 0;
 
@@ -56,7 +56,7 @@ public:
 };
 
 
-inline int KSkillManager::GetSkillStyle(uint32_t ulSkillID)
+inline int KSkillManager::GetSkillStyle(unsigned int ulSkillID)
 {
 	if (m_SkillInfo[ulSkillID - 1].m_nTabFileRowId > 0)
 		return m_SkillInfo[ulSkillID - 1].m_nSkillStyle;
@@ -88,12 +88,12 @@ inline ISkill *KSkillManager::GetSkill(int nSkillID, int nSkillLevel)
 	if (nSkillID>GetSkillCount())
 		return NULL;
 
-    uint32_t ulSkillID    = nSkillID;
-    uint32_t ulSkillLevel = nSkillLevel;
+    unsigned int ulSkillID    = nSkillID;
+    unsigned int ulSkillLevel = nSkillLevel;
 
    //�Ѿ��� InstanceSkill �������˴���
     if (m_pOrdinSkill[ulSkillID - 1][ulSkillLevel - 1])
-    {//�������ԭʼ�ļ������� 
+    {//�������ԭʼ�ļ�������
         return m_pOrdinSkill[ulSkillID - 1][ulSkillLevel - 1];
     }
 

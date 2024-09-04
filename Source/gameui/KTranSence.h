@@ -4,18 +4,18 @@
 //��½���桡�����ʺ�����
 */
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include <gameui/Uiglobaldata.h>
 #include<list>
 #include "ImageStore/KImageStore2.h"
 #include "engine/Kgetinidata.h"
-#include "physics-nodes/CCPhysicsSprite.h"
+#include "physics-nodes/PhysicsSprite.h"
 #include "network/Thread.h"
 #include "engine/KGbktoUtf8.h"
 #include "engine/KTimer.h"
 
 using namespace ax;
-using namespace ax::extension;
+
 using namespace std;
 
 class KTranSence : public Layer,protected CThread//,public EditBoxDelegate
@@ -24,13 +24,13 @@ public:
 	// Here's a difference. Method 'init' in ax-x returns bool, instead of returning 'id' in ax-iphone
 	KTranSence();
 	~KTranSence();
-	virtual bool init();  
+	virtual bool init();
 	/*virtual void onEnter();
     virtual void onExit();
     virtual void onEnterTransitionDidFinish();
    */
 	using CThread::Start;
-	virtual void update(float delta); 
+	virtual void update(float delta);
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 	CREATE_FUNC(KTranSence);
@@ -38,7 +38,7 @@ public:
 //	virtual void draw();
 	virtual void  Run();
 	//KImageStore2 m_ImageStore;
-private: 
+private:
 	void loadSuccess();
 	//��ȡ�Ļص�����
 	void loadingCallBack(Ref *obj);

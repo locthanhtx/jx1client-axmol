@@ -1,5 +1,5 @@
 #pragma once
 //---------------------------------------------
-//		接受游戏世界数据改变通知的函数
+//		锟斤拷锟斤拷锟斤拷戏锟斤拷锟斤拷锟斤拷锟捷改憋拷通知锟侥猴拷锟斤拷
 //---------------------------------------------
-void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nParam,int inVal);
+void CoreDataChangedCallback(unsigned int uDataId, uintptr_t uParam, int nParam,int inVal);

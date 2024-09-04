@@ -28,7 +28,7 @@ KPlayerSet::KPlayerSet()
 BOOL	KPlayerSet::Init()
 {
 	int i;
-	
+
 	// �Ż����ұ�
 	m_FreeIdxPlayerSet.Init(MAX_PLAYER);
 	m_UseIdxPlayerSet.Init(MAX_PLAYER);
@@ -95,7 +95,7 @@ int KPlayerSet::FindSame(DWORD dwID)
 
 int KPlayerSet::CheckLiXian(LPSTR szName)
 {
-	int nUseIdx = 0;	
+	int nUseIdx = 0;
 	nUseIdx = m_UseIdxPlayerSet.GetNext(0);
 	while(nUseIdx && Player[nUseIdx].m_nNetConnectIdx>=0)
 	{
@@ -109,7 +109,7 @@ int KPlayerSet::CheckLiXian(LPSTR szName)
 
 int KPlayerSet::FindByTongName(LPSTR szTongName)
 {
-	/*int nUseIdx = 0;	
+	/*int nUseIdx = 0;
 	    nUseIdx = m_UseIdxPlayerSet.GetNext(0);
 	while(nUseIdx)
 	{
@@ -127,7 +127,7 @@ int KPlayerSet::FindByTongName(LPSTR szTongName)
 
 int KPlayerSet::FindNameID(LPSTR szName)
 {
-	int nUseIdx = 0;	
+	int nUseIdx = 0;
 	nUseIdx = m_UseIdxPlayerSet.GetNext(0);
 	while(nUseIdx)
 	{
@@ -141,7 +141,7 @@ int KPlayerSet::FindNameID(LPSTR szName)
 int KPlayerSet::FindPlayerID(DWORD dwID)
 {
 	int nUseIdx = 0;
-	
+
 	nUseIdx = m_UseIdxPlayerSet.GetNext(0);
 	while(nUseIdx)
 	{
@@ -528,7 +528,7 @@ BOOL	KNewPlayerAttribute::Init()
 /*#ifdef _SERVER
 void KPlayerSet::AutoSave()
 {
-	uint32_t uTime = g_SubWorldSet.GetGameTime();	//���������е� ѭ����
+	unsigned int uTime = g_SubWorldSet.GetGameTime();	//���������е� ѭ����
 
 	if (uTime >= m_ulNextSaveTime)//���������´δ浵ʱ��
 	{
@@ -536,7 +536,7 @@ void KPlayerSet::AutoSave()
 
 		while(nUseIdx)
 		{
-			//printf("--ѭ��:%d,��¼:%d,���:%d,�´�:%d--\n",uTime,Player[nUseIdx].m_ulLastSaveTime,m_ulMaxSaveTimePerPlayer,m_ulNextSaveTime); 
+			//printf("--ѭ��:%d,��¼:%d,���:%d,�´�:%d--\n",uTime,Player[nUseIdx].m_ulLastSaveTime,m_ulMaxSaveTimePerPlayer,m_ulNextSaveTime);
 			if (Player[nUseIdx].CanSave() && uTime - Player[nUseIdx].m_ulLastSaveTime >= m_ulMaxSaveTimePerPlayer)
 			{//���˴浵ʱ��
 				if (Player[nUseIdx].Save())
@@ -548,7 +548,7 @@ void KPlayerSet::AutoSave()
 					const char *nPinfo=NULL;
 					if (g_pServer)
 					    nPinfo=g_pServer->GetClientInfo(Player[nUseIdx].m_nNetConnectIdx);
-					if (nPinfo) 
+					if (nPinfo)
 						sprintf(Player[nUseIdx].m_PlayerIpInfo,nPinfo);
 
 					break;

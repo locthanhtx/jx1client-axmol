@@ -13,16 +13,16 @@
 
 extern const char * g_MagicID2String(int nAttrib);
 
-const char MAGIC_ATTRIB_STRING[][64] = 
+const char MAGIC_ATTRIB_STRING[][64] =
 {
 //改变技能的属性
 	"skill_begin",
 	"skill_cost_v",							// 消耗MANA
-	"skill_costtype_v",		                //	
+	"skill_costtype_v",		                //
 	"skill_mintimepercast_v",		        // 每次发魔法的间隔时间
-	"skill_misslenum_v",		            // 
-	"skill_misslesform_v",		
-	"skill_param1_v",		
+	"skill_misslenum_v",		            //
+	"skill_misslesform_v",
+	"skill_param1_v",
 	"skill_param2_v",
 	"skill_attackradius",	                //   skill_reserve1
 	"skill_mintimepercastonhorse_v",
@@ -46,7 +46,7 @@ const char MAGIC_ATTRIB_STRING[][64] =
 	"missle_reserve4",
 	"missle_reserve5",
 	"missle_end",
-//装备属性需求属性	
+//装备属性需求属性
 	"item_begin",
 	"weapondamagemin_v",
 	"weapondamagemax_v",
@@ -76,7 +76,7 @@ const char MAGIC_ATTRIB_STRING[][64] =
 	"item_reserve10",
 	"item_end",
 //伤害技能 --攻击技能
-	"damage_begin",		
+	"damage_begin",
 	"attackrating_v",
 	"attackrating_p",
 	"ignoredefense_p",
@@ -205,7 +205,7 @@ const char MAGIC_ATTRIB_STRING[][64] =
 	"fatallystrikeres_p",
 	"addskilldamage1",
 	"addskilldamage2",
-	"expenhance_p", //expenhance_p  杀死敌人获得经验 加 
+	"expenhance_p", //expenhance_p  杀死敌人获得经验 加
 	"addskilldamage3",
 	"addskilldamage4",
 	"addskilldamage5",
@@ -261,9 +261,9 @@ const char MAGIC_ATTRIB_STRING[][64] =
     "reduceskillcd1",                      //reduceskillcd1=减少#l1-冷却时间#f3-秒
     "reduceskillcd2",                      //reduceskillcd2=减少#l1-冷却时间#f3-秒
     "reduceskillcd3",                      //reduceskillcd3=减少#l1-冷却时间#f3-秒
-    "clearallcd",                          //clearallcd=#d1+%的几率清除自己所有技能冷却时间   
+    "clearallcd",                          //clearallcd=#d1+%的几率清除自己所有技能冷却时间
 	"addblockrate",                        //addblockrate=周围每#d1+个人#d3+%格挡率
-    "walkrunshadow",                       //walkrunshadow=凌波微步     
+    "walkrunshadow",                       //walkrunshadow=凌波微步
     "returnskill2enemy",                   //returnskill2enemy=被敌人攻击时有#d1+%几率使敌人被技能#l3-攻击
     "manatoskill_enhance",                 //manatoskill_enhance=满内力时对攻击技能加成：#d1+%
 	"add_alldamage_v",                     //加深伤害点
@@ -411,11 +411,11 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 		ZeroMemory(&strReturn, sizeof(strReturn));
 		return;
 	}
-	t_sprintf(szTempDesc,szTempDesc); //这个才是正常的字符显示	
-	
+	sprintf(szTempDesc,"%s", szTempDesc); //这个才是正常的字符显示
+
 	int strleng = strlen(szTempDesc)+1;
 	szTempDesc[strleng]='\0';
-	
+
 	char* pTempDesc = szTempDesc;
 	//char* pszDesc = m_szDesc;
 	char szMsg[64]={0};
@@ -444,7 +444,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 				break;
 			}
 			int nValue = 0;
-			
+
 			switch(*(pTempDesc + 2))  //第三个字符
 			{
 			case '1':
@@ -485,7 +485,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 			case 'm':		// 门派
 				{
 					char mTemp[64];
-					t_sprintf(mTemp,g_Faction.m_sAttribute[nValue].m_szName);
+					sprintf(mTemp,"%s", g_Faction.m_sAttribute[nValue].m_szName);
 					strcat(m_szDesc,mTemp);
 					i += strlen(mTemp);
 				}
@@ -553,7 +553,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 							   nValue = -nValue;
 							   nIsFu=TRUE;
 							   strcat(m_szDesc, "-");
-						} 
+						}
 						i += 6;
 						break;
 					case 1:	 //加
@@ -567,13 +567,13 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 							nValue = -nValue;
 							nIsFu=TRUE;
 							strcat(m_szDesc,"-");
-						} 
-						i +=6;	
+						}
+						i +=6;
 						break;
 					case 2:	 //~
 						if (nValue >= 0)
 						{
-							strcat(m_szDesc,"\0");	
+							strcat(m_szDesc,"\0");
 							//i += 1;
 						}
 						else
@@ -582,11 +582,11 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 							nIsFu=TRUE;
 							//strcat(m_szDesc, "-");
 							//i += 1;
-						} 
+						}
 						break;
 					case 3:
 						break;
-					case 7:				
+					case 7:
 						break;
 					case 9:
 						break;
@@ -599,12 +599,12 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 					if (nIsFu && nValue==1)
 					{
 						if (nIsTwo)       //第二个值为 -1	 strstr(m_szDesc,"概率")
-							t_sprintf(szMsg, "100");
+							sprintf(szMsg, "100");
 						else
-						    t_sprintf(szMsg, "%d", nValue);
+						    sprintf(szMsg, "%d", nValue);
 					}
 					else
-					   t_sprintf(szMsg, "%d", nValue);
+					   sprintf(szMsg, "%d", nValue);
 
 					strcat(m_szDesc, szMsg);
 					i += strlen(szMsg);
@@ -618,12 +618,12 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 				i += 6;
 				break;
 			case 'f':		//
-				t_sprintf(szMsg, "%d", nValue);
+				sprintf(szMsg, "%d", nValue);
 				strcat(m_szDesc, szMsg);
 				i += strlen(szMsg);
 				break;
 			case 't':	    //时间
-				t_sprintf(szMsg, "%d", nValue/18);
+				sprintf(szMsg, "%d", nValue/18);
 				strcat(m_szDesc, szMsg);
 				i += strlen(szMsg);
 				break;
@@ -635,14 +635,14 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 						  if (pSkill)
 						  {
 							  char mTempStr[64];
-							  t_sprintf(mTempStr,pSkill->GetSkillName());
-						      t_sprintf(szMsg, "[%s]",mTempStr);
+							  sprintf(mTempStr,"%s", pSkill->GetSkillName());
+						      sprintf(szMsg, "[%s]",mTempStr);
 						  }
 						  else
-						      t_sprintf(szMsg,"[kỹ năng sai]");
+						      sprintf(szMsg,"[kỹ năng sai]");
 					}
 					else
-						t_sprintf(szMsg, "[Tất cả]"); //HGreen
+						sprintf(szMsg, "[Tất cả]"); //HGreen
 
 					    strcat(m_szDesc, szMsg);
 					    i += strlen(szMsg);
@@ -654,17 +654,17 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 
             //char xmsg[64];
 			//ZeroMemory(xmsg,sizeof(xmsg));
-			//t_sprintf(xmsg,"123456");
+			//sprintf(xmsg,"123456");
             //strcat(m_szDesc,"123456\0");//"Không hệ"
             //strcat(m_szDesc,"123456");    //
-           // strcpy(m_szDesc[i],"123456",6); 
+           // strcpy(m_szDesc[i],"123456",6);
            // strncpy(pszDesc,"123456",6);
 			//i+=6;                         //strlen(xmsg);*/
 			pTempDesc += 4;               //过滤掉原始字符的4个字节 #mx+- 等
 
 			//char msg[128];
-			//t_sprintf(msg,"len:%d",strlen(m_szDesc));
-			//ccMessageBox(msg,m_szDesc);
+			//sprintf(msg,"len:%d",strlen(m_szDesc));
+			//messageBox(msg,m_szDesc);
 		}
 		else
 		{//截取 #符号前面的字符串
@@ -677,7 +677,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 		}
 	}
 	m_szDesc[i]='\0';
-	t_sprintf(strReturn,m_szDesc);
+	sprintf(strReturn,"%s", m_szDesc);
 	//return m_szDesc; //返回一个字符串
 }
 
@@ -687,7 +687,7 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 	int		i = 0;
 	ZeroMemory(&szTempDesc, sizeof(szTempDesc));
 	ZeroMemory(&m_szDesc, sizeof(m_szDesc));
-	
+
 	if (!pData)
 		return NULL;
 
@@ -722,7 +722,7 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 				break;
 			}
 			int nValue = 0;
-			
+
 			switch(*(pTempDesc + 2))          //第三个字符
 			{
 			case '1':
@@ -826,8 +826,8 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 						{
 							   nValue = -nValue;
 							   nIsFu=TRUE;
-							   strcat(m_szDesc, "-"); 
-						} 
+							   strcat(m_szDesc, "-");
+						}
 						i += 6;
 						break;
 					case 1:	 //加
@@ -838,22 +838,22 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 							nValue = -nValue;
 							nIsFu=TRUE;
 							strcat(m_szDesc, "-");
-						} 
-						i += 6;	
+						}
+						i += 6;
 						break;
 					case 2:	 //~
 						if (nValue >= 0)
 						{
-							strcat(m_szDesc, "\0");	
+							strcat(m_szDesc, "\0");
 							i += 1;
 						}
 						else
 						{
 							nValue = -nValue;
 							nIsFu=TRUE;
-						} 
+						}
 						break;
-					case 7:				
+					case 7:
 						break;
 					case 9:
 						break;
@@ -866,12 +866,12 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 					if (nIsFu && nValue==1)
 					{
 						if (nIsTwo)       //第二个值为 -1	 strstr(m_szDesc,"概率")
-							t_sprintf(szMsg, "100");
+							sprintf(szMsg, "100");
 						else
-						    t_sprintf(szMsg, "%d", nValue);
+						    sprintf(szMsg, "%d", nValue);
 					}
 					else
-					   t_sprintf(szMsg, "%d", nValue);
+					   sprintf(szMsg, "%d", nValue);
 
 					strcat(m_szDesc, szMsg);
 					i += strlen(szMsg);
@@ -885,7 +885,7 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 				i += 6;
 				break;
 			case 'f':		//
-				t_sprintf(szMsg, "%d", nValue);
+				sprintf(szMsg, "%d", nValue);
 				strcat(m_szDesc, szMsg);
 				i += strlen(szMsg);
 				break;
@@ -895,12 +895,12 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 					{
 						  ISkill* pSkill =  g_SkillManager.GetSkill(nValue, 1);
 						  if (pSkill)
-						      t_sprintf(szMsg, "[%s]", pSkill->GetSkillName());
+						      sprintf(szMsg, "[%s]", pSkill->GetSkillName());
 						  else
-						      t_sprintf(szMsg, "[Kỹ năng sai]");
+						      sprintf(szMsg, "[Kỹ năng sai]");
 					}
 					else
-						t_sprintf(szMsg, "[Tất cả]"); //HGreen
+						sprintf(szMsg, "[Tất cả]"); //HGreen
 
 					    strcat(m_szDesc, szMsg);
 					    i += strlen(szMsg);
@@ -927,7 +927,7 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 	int		i = 0;
 	ZeroMemory(&szTempDesc, sizeof(szTempDesc));
 	ZeroMemory(&m_szDesc, sizeof(m_szDesc));
-	
+
 	if (!pData)
 		return NULL;
 
@@ -962,7 +962,7 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 				break;
 			}
 			int nValue = 0;
-			
+
 			switch(*(pTempDesc + 2))  //第三个字符
 			{
 			case '1':
@@ -1066,8 +1066,8 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 						{
 							   nValue = -nValue;
 							   nIsFu=TRUE;
-							   strcat(m_szDesc, "-"); 
-						} 
+							   strcat(m_szDesc, "-");
+						}
 						i += 4;
 						break;
 					case 1:	 //加
@@ -1081,13 +1081,13 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 							nValue = -nValue;
 							nIsFu=TRUE;
 							strcat(m_szDesc, "-");
-						} 
-						i += 4;	
+						}
+						i += 4;
 						break;
 					case 2:	 //~
 						if (nValue >= 0)
 						{
-							strcat(m_szDesc, "\0");	
+							strcat(m_szDesc, "\0");
 						}
 						else
 						{
@@ -1095,9 +1095,9 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 							nIsFu=TRUE;
 							//strcat(m_szDesc, "-");
 							//i += 1;
-						} 
+						}
 						break;
-					case 7:				
+					case 7:
 						break;
 					case 9:
 						break;
@@ -1110,12 +1110,12 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 					if (nIsFu && nValue==1)
 					{
 						if (nIsTwo)       //第二个值为 -1	 strstr(m_szDesc,"概率")
-							t_sprintf(szMsg, "100");
+							sprintf(szMsg, "100");
 						else
-						    t_sprintf(szMsg, "%d", nValue);
+						    sprintf(szMsg, "%d", nValue);
 					}
 					else
-					   t_sprintf(szMsg, "%d", nValue);
+					   sprintf(szMsg, "%d", nValue);
 
 					strcat(m_szDesc, szMsg);
 					i += strlen(szMsg);
@@ -1133,13 +1133,13 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 					strcat(m_szDesc, "%d",nValue);
 				else
 					strcat(m_szDesc, "测试");*/
-				
-				t_sprintf(szMsg, "%d", nValue);
+
+				sprintf(szMsg, "%d", nValue);
 				strcat(m_szDesc, szMsg);
 				i += strlen(szMsg);
 				break;
 			case 't':	//
-				t_sprintf(szMsg,"%d",nValue/18);
+				sprintf(szMsg,"%d",nValue/18);
 				strcat(m_szDesc, szMsg);
 				i += strlen(szMsg);
 				break;
@@ -1149,7 +1149,7 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 					/*if (nValue > 0 && nValue<=2000)
 					{
 						ISkill* pSkill =  g_SkillManager.GetSkill(nValue, 1);
-						t_sprintf(szMsg, "<color=HGreen>[%s]<color>", pSkill->GetSkillName());
+						sprintf(szMsg, "<color=HGreen>[%s]<color>", pSkill->GetSkillName());
 					}
 				    else */
 					if (nValue>1)
@@ -1161,19 +1161,19 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
                     //      nMagci.GetInteger(nValue,"参数3最小值",0,&nValue);
 						  ISkill* pSkill =  g_SkillManager.GetSkill(nValue, 1);
 						  if (pSkill)
-						      t_sprintf(szMsg, "[%s]", pSkill->GetSkillName());
+						      sprintf(szMsg, "[%s]", pSkill->GetSkillName());
 						  else
-						      t_sprintf(szMsg, "[Kỹ năng sai]");
+						      sprintf(szMsg, "[Kỹ năng sai]");
 						}
 				    //	else
 					//	{
-					//	  t_sprintf(szMsg, "<color=blue>[数据有误](%d)<color>", nValue);
-					//	} 
+					//	  sprintf(szMsg, "<color=blue>[数据有误](%d)<color>", nValue);
+					//	}
 
 					//	nMagci.Clear();
 					}
 					else
-						t_sprintf(szMsg, "[Tất cả]"); //HGreen
+						sprintf(szMsg, "[Tất cả]"); //HGreen
 
 					    strcat(m_szDesc, szMsg);
 					    i += strlen(szMsg);
@@ -1199,7 +1199,7 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 	char	szTempDesc[256]; //临时魔法属性 名称！
 	int		i = 0;
 	ZeroMemory(m_szDesc, 256); //分配内存
-	
+
 	if (!pData)
 		return NULL;
 
@@ -1229,14 +1229,14 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 				break;
 			}
 			int nValue = 0;
-			
+
 			switch(*(pTempDesc + 2))   //第三个字符
 			{
 			case '1':
 				nValue = pAttrib->nValue[0];//最小值
 				break;
 			case '2':
-				nValue = pAttrib->nValue[1];  
+				nValue = pAttrib->nValue[1];
 				break;
 			case '3':
 				nValue = pAttrib->nValue[2];  //最大值
@@ -1325,14 +1325,14 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 						i += 1;
 						break;
 					case 2:
-						strcat(m_szDesc, "\0");					
+						strcat(m_szDesc, "\0");
 					//    i += 1;
 						break;
 					default:
 						break;
 					}
 					char	szMsg[16];
-					t_sprintf(szMsg, "%d", nValue);
+					sprintf(szMsg, "%d", nValue);
 					strcat(m_szDesc, szMsg);
 					i += strlen(szMsg);
 				}
@@ -1357,7 +1357,7 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 				/*if (nValue > 0 && nValue<=2000)
 					{
 						ISkill* pSkill =  g_SkillManager.GetSkill(nValue, 1);
-						t_sprintf(szMsg, "<color=HGreen>[%s]<color>", pSkill->GetSkillName());
+						sprintf(szMsg, "<color=HGreen>[%s]<color>", pSkill->GetSkillName());
 					}
 				    else */
 					if (nValue>1)
@@ -1367,23 +1367,23 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 					//	if (nMagci.Load(TABFILE_MAGICAGOLD_PATH))
 					//	{
 					//		nMagci.GetInteger(nValue,"参数3最小值",0,&nSkillid);
-							ISkill* pSkill =NULL; 
+							ISkill* pSkill =NULL;
 								    pSkill =  g_SkillManager.GetSkill(nValue, 1);
 							if (pSkill)
-							   t_sprintf(szMsg, "<color=blue>[%s]<color>", pSkill->GetSkillName());
+							   sprintf(szMsg, "<color=blue>[%s]<color>", pSkill->GetSkillName());
 							else
-							   t_sprintf(szMsg, "<color=red>[Kỹ năng sai]<color>");
-							//t_sprintf(szMsg, "<color=blue>[技能有误](%d)<color>", nSkillid);
+							   sprintf(szMsg, "%s", "<color=red>[Kỹ năng sai]<color>");
+							//sprintf(szMsg, "<color=blue>[技能有误](%d)<color>", nSkillid);
 					//	}
 					//	else
 					//	{
-					//		t_sprintf(szMsg, "<color=HGreen>[数据有误](%d)<color>", nValue);
-					//	} 
+					//		sprintf(szMsg, "<color=HGreen>[数据有误](%d)<color>", nValue);
+					//	}
 					//	nMagci.Clear();
 					}
 					else
-						//t_sprintf(szMsg, "%s");
-						t_sprintf(szMsg, "<color=HGreen>[Tất cả]<color>"); //HGreen
+						//sprintf(szMsg, "%s");
+						sprintf(szMsg, "%s", "<color=HGreen>[Tất cả]<color>"); //HGreen
 
 					strcat(m_szDesc, szMsg);
 					i += strlen(szMsg);
@@ -1406,7 +1406,7 @@ const char* KMagicDesc::BaoShiGetDesc(void *pData)
 
 const char * g_MagicID2String(int nAttrib)  // 将数字 转化成 魔法属性对应的编号
 {
-	if ((nAttrib < 0) || nAttrib >= magic_normal_end) 
+	if ((nAttrib < 0) || nAttrib >= magic_normal_end)
 	return MAGIC_ATTRIB_STRING[magic_normal_end];
 
 	return 	MAGIC_ATTRIB_STRING[nAttrib];  // 返回对应的 魔法类型字符串
@@ -1414,12 +1414,12 @@ const char * g_MagicID2String(int nAttrib)  // 将数字 转化成 魔法属性�
 //获取魔法属性ID
 int	g_String2MagicID(char * szMagicAttribName)
 {
-	if ((!szMagicAttribName) || (!szMagicAttribName[0])) 
+	if ((!szMagicAttribName) || (!szMagicAttribName[0]))
 		return -1;
 
 	//nValue2 当值为-1时为永久性状态，0为非状态，其它值为有时效性状态魔法效果
 	//需要将状态数据与非状态数据分离出来，放入相应的数组内，并记录总数量
-	
+
 	for (int i  = 0 ; i <= magic_normal_end; i ++)
 	{
 		if (!strcmp(szMagicAttribName, g_MagicID2String(i)))  //获取属性名

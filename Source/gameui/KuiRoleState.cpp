@@ -472,7 +472,7 @@ void KuiRoleState::addDialogData()
 	m_ExeProcessSprite->setVisible(false);
 	ProcessBg->setVisible(false);
 	// ZeroMemory(nSprName,sizeof(nSprName));
-	// t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbarback.spr");
+	// sprintf(nSprName,"\\spr\\Ui3\\activityguide\\progressbarback.spr");
 	// g_StrLower(nSprName);
 	// bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 
@@ -573,7 +573,7 @@ void KuiRoleState::setcoloseButton(Ref * callbackListener,const std::function<vo
 	itemConfirm->setPosition(ax::Vec2(m_size.width/2-10,m_size.height-60));
 
 	//thao trang bi
-	// t_sprintf(nSprName,"\\spr\\Ui3\\主界面\\卸下装备.spr");
+	// sprintf(nSprName,"\\spr\\Ui3\\主界面\\卸下装备.spr");
 	// g_StrLower(nSprName);
 	// bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	// if (bgCur==NULL)
@@ -588,7 +588,7 @@ void KuiRoleState::setcoloseButton(Ref * callbackListener,const std::function<vo
 	//  itemEqConfirm->setPosition(ax::Vec2(100,24));
 
 	 //sua trang bi
-	//  t_sprintf(nSprName,"\\spr\\Ui3\\主界面\\修理装备.spr");
+	//  sprintf(nSprName,"\\spr\\Ui3\\主界面\\修理装备.spr");
 	//  g_StrLower(nSprName);
 	//  bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	//  if (bgCur==NULL)
@@ -656,9 +656,9 @@ void KuiRoleState::addCallBackFunc(Ref * pSender)
 	if (spaceNum>0 || chineseNum>0 || xiaoxie >0 || other>0 || letter>0)
 	{ 	//system("pause");
 #ifdef WIN32
-		ccMessageBox("只能填写数字!","警告");
+		messageBox("只能填写数字!","警告");
 #else
-		ccMessageBox(G2U("只能填写数字!").c_str(),G2U("警告").c_str());
+		messageBox(G2U("只能填写数字!").c_str(),G2U("警告").c_str());
 #endif
 		return;
 	}
@@ -672,27 +672,27 @@ void KuiRoleState::addCallBackFunc(Ref * pSender)
 		neistr ="0";
 	char nTemStr[16];
 	ZeroMemory(nTemStr,sizeof(nTemStr));
-	t_sprintf(nTemStr,listr.c_str());
+	sprintf(nTemStr, "%s", listr.c_str());
 	int liCount = g_Atoui(nTemStr);
 
 	ZeroMemory(nTemStr,sizeof(nTemStr));
-	t_sprintf(nTemStr,waistr.c_str());
+	sprintf(nTemStr, "%s", waistr.c_str());
 	int waiCount = g_Atoui(nTemStr);
 
 	ZeroMemory(nTemStr,sizeof(nTemStr));
-	t_sprintf(nTemStr,shenstr.c_str());
+	sprintf(nTemStr, "%s", shenstr.c_str());
 	int shenCount = g_Atoui(nTemStr);
 
 	ZeroMemory(nTemStr,sizeof(nTemStr));
-	t_sprintf(nTemStr,neistr.c_str());
+	sprintf(nTemStr, "%s", neistr.c_str());
 	int neiCount = g_Atoui(nTemStr);
 
 	if (liCount<0 || liCount>10 || waiCount<0 || waiCount>10 ||shenCount<0 ||shenCount>10|| neiCount<0||neiCount>10)
 	{
 #ifdef WIN32
-		ccMessageBox("潜能点分配范围(1-10)","提示");
+		messageBox("潜能点分配范围(1-10)","提示");
 #else
-		ccMessageBox(G2U("潜能点分配范围(1-10)").c_str(),G2U("提示").c_str());
+		messageBox(G2U("潜能点分配范围(1-10)").c_str(),G2U("提示").c_str());
 #endif
 		return;
 	}
@@ -714,9 +714,9 @@ void KuiRoleState::addCallBackFunc(Ref * pSender)
 	}
 
 #ifdef WIN32
-	ccMessageBox("潜能点不足!","警告");
+	messageBox("潜能点不足!","警告");
 #else
-	ccMessageBox(G2U("潜能点不足!").c_str(),G2U("警告").c_str());
+	messageBox(G2U("潜能点不足!").c_str(),G2U("警告").c_str());
 #endif
 
 }
@@ -726,9 +726,9 @@ void KuiRoleState::buttonxiuCallBackFunc(Ref * pSender)
 	if (m_CurSelItemIndex<=0 || m_CurSelItemIndex>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个装备","提示");
+		messageBox("请选择一个装备","提示");
 #else
-		ccMessageBox(UTEXT("请选择一个装备",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("请选择一个装备",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return;
 	}
@@ -749,9 +749,9 @@ void KuiRoleState::buttonxiuCallBackFunc(Ref * pSender)
 		if (g_pCoreShell->GetAutoplayid())
 		{
 #ifdef WIN32
-			ccMessageBox("挂机中,禁止修理!","提示");
+			messageBox("挂机中,禁止修理!","提示");
 #else
-			ccMessageBox(UTEXT("挂机中,禁止修理!",1).c_str(),UTEXT("提示",1).c_str());
+			messageBox(UTEXT("挂机中,禁止修理!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			return;
 		}
@@ -776,9 +776,9 @@ void KuiRoleState::buttonEqCallBackFunc(Ref * pSender)
 	if (m_CurSelItemIndex<=0 || m_CurSelItemIndex>=MAX_ITEM)
 	{
 #ifdef WIN32
-	ccMessageBox("请选择一个装备","提示");
+	messageBox("请选择一个装备","提示");
 #else
-	ccMessageBox(UTEXT("请选择一个装备",1).c_str(),UTEXT("提示",1).c_str());
+	messageBox(UTEXT("请选择一个装备",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 	  return;
 	}
@@ -799,9 +799,9 @@ void KuiRoleState::buttonEqCallBackFunc(Ref * pSender)
 		if (g_pCoreShell->GetAutoplayid())
 		{
 #ifdef WIN32
-			ccMessageBox("挂机中,禁止卸载!","提示");
+			messageBox("挂机中,禁止卸载!","提示");
 #else
-			ccMessageBox(UTEXT("挂机中,禁止卸载!",1).c_str(),UTEXT("提示",1).c_str());
+			messageBox(UTEXT("挂机中,禁止卸载!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			return;
 		}
@@ -865,9 +865,9 @@ void KuiRoleState::UpdateAllEquips()
 void KuiRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 {
 	char nKey[32];
-	t_sprintf(nKey,"%s",CtrlItemMap[index].pIniSection);
+	sprintf(nKey,"%s",CtrlItemMap[index].pIniSection);
 	std::string m_ItemBoxKey = nKey;
-	t_sprintf(nKey,"%s_color",CtrlItemMap[index].pIniSection);
+	sprintf(nKey,"%s_color",CtrlItemMap[index].pIniSection);
 	std::string m_colorbgKey = nKey;//颜色层的key
 	if  (isAdd)
 	{//增加
@@ -973,14 +973,14 @@ void KuiRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 			m_itemIndexBox[index]=nItemIndx;
 			ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 			if  (Item[nItemIndx].GetImagePath())
-				t_sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
+				sprintf(nItemSprPath, "%s", Item[nItemIndx].GetImagePath());
 			else
-				t_sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
+				sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
 
 			if  (nItemSprPath[0])
 			{
 
-				//t_sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
+				//sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
 				g_StrLower(nItemSprPath);
 				int m_nWidth,m_nHeight,nFrams;
 				SPRFRAMSINFO nSprInfo;
@@ -1000,16 +1000,16 @@ void KuiRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 
 			if  (nItemKind==1){
 			  	nItemColor = Color4B(249, 229, 12, 150); //TB HOANG KIM
-				t_sprintf(bgImageName,"ui/itembaseGold.png");
+				sprintf(bgImageName,"ui/itembaseGold.png");
 			}else if (nItemKind==2){
 				nItemColor = Color4B(61, 103, 242, 150);   //TB XANH
-				t_sprintf(bgImageName,"ui/itembaseBlue.png");
+				sprintf(bgImageName,"ui/itembaseBlue.png");
 			}else if (nItemKind==3){
 				nItemColor = Color4B(214, 34, 241, 150);//TB TIM
-				t_sprintf(bgImageName,"ui/itembasePurple.png");
+				sprintf(bgImageName,"ui/itembasePurple.png");
 			}else{
 				nItemColor = Color4B(112, 128, 144, 150);
-				t_sprintf(bgImageName,"ui/itembaseWhite.png");
+				sprintf(bgImageName,"ui/itembaseWhite.png");
 			}
 		   Size bgsize;
 		   bgsize.width  = CtrlItemMap[index].nCellx*itemSize;
@@ -1041,7 +1041,7 @@ void KuiRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 					for (int i=1;i<=16;i++){
 
                         char filename[10];
-                        t_sprintf(filename,"%d.png",i);
+                        sprintf(filename,"%d.png",i);
 						SpriteFrame* spriteframe = SpriteFrameCache::getInstance()->getSpriteFrameByName(filename);
 						bgItemFrames.pushBack(spriteframe);
 					}
@@ -1189,11 +1189,11 @@ void KuiRoleState::UpdateEquip(KUiObjAtRegion* pEquip, int bAdd)
 				if (bAdd)//增加
 					//m_EquipBox[i].HoldObject(pEquip->Obj.uGenre, pEquip->Obj.uId,
 					//pEquip->Region.Width, pEquip->Region.Height);
-					//ccMessageBox(Item[pEquip->Obj.uId].GetImagePath(),"增加");
+					//messageBox(Item[pEquip->Obj.uId].GetImagePath(),"增加");
 					addpicBox(i,pEquip->Obj.uId,true);
 				else//移除
 					addpicBox(i,pEquip->Obj.uId,false);
-					//ccMessageBox(Item[pEquip->Obj.uId].GetImagePath(),"移除");
+					//messageBox(Item[pEquip->Obj.uId].GetImagePath(),"移除");
 					//m_EquipBox[i].HoldObject(CGOG_NOTHING, 0, 0, 0);
 
 				break;
@@ -1266,13 +1266,13 @@ bool KuiRoleState::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	for (int i = 0; i < _ITEM_COUNT; ++i)
 	{
 		char nKey[32];
-		t_sprintf(nKey,"%s",CtrlItemMap[i].pIniSection);
+		sprintf(nKey,"%s",CtrlItemMap[i].pIniSection);
 		std::string m_ItemBoxKey = nKey;
-		t_sprintf(nKey,"%s_color",CtrlItemMap[i].pIniSection);
+		sprintf(nKey,"%s_color",CtrlItemMap[i].pIniSection);
 		std::string m_colorbgKey = nKey;//颜色层的key
 		itemBoxSpr = (Sprite *)ParentNode_Team->getChildByName(m_ItemBoxKey);
 		LayerColor *colorBoxbg = (LayerColor *)ParentNode_Team->getChildByName(m_colorbgKey);
-		//ccMessageBox("点击开始","点击开始");
+		//messageBox("点击开始","点击开始");
 		if  (itemBoxSpr && colorBoxbg)
 		{
 			if (getRect(colorBoxbg,i+1).containsPoint(location))
@@ -1336,13 +1336,13 @@ void KuiRoleState::BreatheUpdateInfo()
 
 	char nTempS4tr[64];
 	ZeroMemory(nTempS4tr,sizeof(nTempS4tr));
-	t_sprintf(nTempS4tr,"%d/%d",Info.nLife,Info.nLifeFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nLife,Info.nLifeFull);
 	pLife->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nMana,Info.nManaFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nMana,Info.nManaFull);
 	pMana->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nStamina,Info.nStaminaFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nStamina,Info.nStaminaFull);
 	pTili->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nExperience,Info.nExperienceFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nExperience,Info.nExperienceFull);
 	pExp->setString(nTempS4tr);
 
 	//UiNewStatus* pStatus = UiNewStatus::GetIfVisible();
@@ -1361,34 +1361,34 @@ void  KuiRoleState::BreathAttributeUpdate()
 
 	char nTempS4tr[64];
 	ZeroMemory(nTempS4tr,sizeof(nTempS4tr));
-	t_sprintf(nTempS4tr,"%d",Info.nAttack);//tấn công/chính xác
+	sprintf(nTempS4tr,"%d",Info.nAttack);//tấn công/chính xác
 	pMingZhong->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nAttackSpeed,Info.nCastSpeed);//外/内 攻击速度
+	sprintf(nTempS4tr,"%d/%d",Info.nAttackSpeed,Info.nCastSpeed);//外/内 攻击速度
 	pActpeed->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nDefence);   //né tránh
+	sprintf(nTempS4tr,"%d",Info.nDefence);   //né tránh
 	pShanBi->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nDexterity); // Thân pháp
+	sprintf(nTempS4tr,"%d",Info.nDexterity); // Thân pháp
 	pShenFa->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nEnergy);    // Nội công
+	sprintf(nTempS4tr,"%d",Info.nEnergy);    // Nội công
 	pNeiGong->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nStrength);  //sức mạnh
+	sprintf(nTempS4tr,"%d",Info.nStrength);  //sức mạnh
 	pLiLiang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nVitality);  //ngoại công
+	sprintf(nTempS4tr,"%d",Info.nVitality);  //ngoại công
 	pWauGong->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nFuYuan);  //Phục hồi
+	sprintf(nTempS4tr,"%d",Info.nFuYuan);  //Phục hồi
 	pFuYuan->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nRepute);  // Danh vọng
+	sprintf(nTempS4tr,"%d",Info.nRepute);  // Danh vọng
 	pShenWang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nLevel);  //cấp
+	sprintf(nTempS4tr,"%d",Info.nLevel);  //cấp
 	proelLevel->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%s",Info.StatusDesc);  //hệ
+	sprintf(nTempS4tr,"%s",Info.StatusDesc);  //hệ
 	pSex->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nBARemainPoint);  //tiềm năng còn lại
+	sprintf(nTempS4tr,"%d",Info.nBARemainPoint);  //tiềm năng còn lại
 	__RemainPoint = Info.nBARemainPoint;
 	pMicCount->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nMoveSpeed);    //tốc độ chạy
+	sprintf(nTempS4tr,"%d",Info.nMoveSpeed);    //tốc độ chạy
 	pRunSpeed->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d",Info.nRankInWorld);  //xếp hạng
+	sprintf(nTempS4tr,"%d",Info.nRankInWorld);  //xếp hạng
 	pPaiMing->setString(nTempS4tr);
 
 	int nTempVal =Player[CLIENT_PLAYER_INDEX].m_cVip.GetRoleVipNum()*Player[CLIENT_PLAYER_INDEX].m_cVip.GetRoleVipDamageMaxVal();
@@ -1415,39 +1415,39 @@ void  KuiRoleState::BreathAttributeUpdate()
 	}
 
 
-	t_sprintf(nTempS4tr,"%d/%d(%d)",Info.nKillMIN,Info.nKillMAX,nTempVal);            //左攻击
+	sprintf(nTempS4tr,"%d/%d(%d)",Info.nKillMIN,Info.nKillMAX,nTempVal);            //左攻击
 	pLeftAct->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d(%d)",Info.nRightKillMin,Info.nRightKillMax,nTempVal);  //左攻击
+	sprintf(nTempS4tr,"%d/%d(%d)",Info.nRightKillMin,Info.nRightKillMax,nTempVal);  //左攻击
 	pRigthAct->setString(nTempS4tr);
 	if (pRoleVip)
 	{
 	   _VipLevel = Player[CLIENT_PLAYER_INDEX].m_cVip.GetRoleVipNum();
 	   char nTempInfo[64];
 	   ZeroMemory(nTempInfo,sizeof(nTempInfo));
-	   t_sprintf(nTempInfo,"VIP:%d",_VipLevel);
+	   sprintf(nTempInfo,"VIP:%d",_VipLevel);
 	   pRoleVip->setString(UTEXT(nTempInfo,1).c_str());
 	   if (_VipLevel>0)
           pRoleVip->setVisible(true);
 	}
 
-	t_sprintf(nTempS4tr,"%s",Info.nPhyDef);
+	sprintf(nTempS4tr,"%s",Info.nPhyDef);
 	pPuFang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%s",Info.nCoolDef);
+	sprintf(nTempS4tr,"%s",Info.nCoolDef);
 	pBingFang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%s",Info.nFireDef);
+	sprintf(nTempS4tr,"%s",Info.nFireDef);
 	pHuoFang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%s",Info.nLightDef);
+	sprintf(nTempS4tr,"%s",Info.nLightDef);
 	pLeiFang->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%s",Info.nPoisonDef);
+	sprintf(nTempS4tr,"%s",Info.nPoisonDef);
 	pDuFang->setString(nTempS4tr);
 
-	t_sprintf(nTempS4tr,"%d",Info.nPKValue);
+	sprintf(nTempS4tr,"%d",Info.nPKValue);
 	pPk->setString(nTempS4tr);
 
-	t_sprintf(nTempS4tr,"%d",Info.nReBorn);
+	sprintf(nTempS4tr,"%d",Info.nReBorn);
 	pZhuanSheng->setString(UTEXT(nTempS4tr,1).c_str());
 
-	//t_sprintf(nTempS4tr,"转生次数:%d",Info.);
+	//sprintf(nTempS4tr,"转生次数:%d",Info.);
 	//pZhuanSheng->setString(UTEXT(nTempS4tr,1).c_str());
 
 }

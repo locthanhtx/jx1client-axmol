@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTong.cpp
 // Date:	2003.08.12
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KPlayerTong Class
 //---------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@
 		sMsg.byConfirmType = SMCT_NONE;		\
 		sMsg.byPriority = 0;				\
 		sMsg.byParamSize = 0;				\
-		t_sprintf(sMsg.szMessage, str);		\
+		sprintf(sMsg.szMessage, "%s", str);		\
 		if (nKind==0)\
 		   sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));\
 		else\
@@ -43,7 +43,7 @@
 	}
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º³õÊ¼»¯
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerTong::Init(int nPlayerIdx)
 {
@@ -56,7 +56,7 @@ void	KPlayerTong::Init(int nPlayerIdx)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÇå¿Õ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerTong::Clear()
 {
@@ -78,43 +78,43 @@ void	KPlayerTong::Clear()
 	m_CurRenShu			= 0;
 	m_nLevel            = 1;
 
-	m_nAttackNum		= 0;	                            // ²ÎÕ½³¡Êý
-    m_nWinNum		    = 0;								// Ê¤Àû³¡Êý
+	m_nAttackNum		= 0;	                            // ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½
+    m_nWinNum		    = 0;								// Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     m_nLoseNum		    = 0;
-    t_sprintf(m_AttackName,"ÔÝÎÞ");
+    sprintf(m_AttackName,"ï¿½ï¿½ï¿½ï¿½");
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇë´´½¨°ï»á
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ë´´ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
 {
 	defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_CREATE].c_str(),1);
-	// °ï»áÃûÎÊÌâ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (!lpszTongName || !lpszTongName[0] || strlen(lpszTongName) > defTONG_NAME_MAX_LENGTH)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR01].c_str(),1);
 		return FALSE;
 	}
-	// °ï»áÕóÓªÎÊÌâ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
 	if (nCamp != camp_justice && nCamp != camp_evil && nCamp != camp_balance)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR06].c_str(),1);
 		return FALSE;
 	}
-	// ÒÑ¾­ÊÇ°ï»á³ÉÔ±
+	// ï¿½Ñ¾ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ô±
 	if (m_nFlag)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR05].c_str(),1);
 		return FALSE;
 	}
-	// ×Ô¼ºµÄÕóÓªÎÊÌâ
+	// ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
 	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentCamp != camp_free)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR04].c_str(),1);
 		return FALSE;
 	}
-	// µÈ¼¶ÎÊÌâ
+	// ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Level < PlayerSet.m_sTongParam.m_nLevel)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR07].c_str(),1);
@@ -125,20 +125,20 @@ BOOL	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR06].c_str(),1);
 		return FALSE;
 	}
-	// ½»Ò×¹ý³ÌÖÐ
+	// ï¿½ï¿½ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Player[CLIENT_PLAYER_INDEX].CheckTrading())
 	{
 		return FALSE;
 	}
-	// Ç®ÎÊÌâ
+	// Ç®ï¿½ï¿½ï¿½ï¿½
 	if (Player[CLIENT_PLAYER_INDEX].m_ItemList.GetMoneyAmount() < PlayerSet.m_sTongParam.m_nMoney)
 	{
 		char	szBuf[80];
-		t_sprintf(szBuf, strCoreInfo[MSG_TONG_CREATE_ERROR08].c_str(), PlayerSet.m_sTongParam.m_nMoney);
+		sprintf(szBuf, strCoreInfo[MSG_TONG_CREATE_ERROR08].c_str(), PlayerSet.m_sTongParam.m_nMoney);
 		defFuncShowNormalMsg(szBuf,1);
 		return FALSE;
 	}
-	// ×é¶Ó²»ÄÜ½¨°ï»á
+	// ï¿½ï¿½Ó²ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½
 	if (Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_ERROR09].c_str(),1);
@@ -159,29 +159,29 @@ BOOL	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇë¼ÓÈë°ï»á
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyAddTong(DWORD dwNpcID)
 {
 	defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_ADD].c_str(),1);
-	// ÒÑ¾­ÊÇ°ï»á³ÉÔ±
+	// ï¿½Ñ¾ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ô±
 	if (m_nFlag)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_ADD_ERROR1].c_str(),1);
 		return FALSE;
 	}
-	// ×Ô¼ºµÄÕóÓªÎÊÌâ
+	// ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
 	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentCamp != camp_free)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_ADD_ERROR2].c_str(),1);
 		return FALSE;
 	}
-	// ½»Ò×¹ý³ÌÖÐ
+	// ï¿½ï¿½ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Player[CLIENT_PLAYER_INDEX].CheckTrading())
 	{
 		return FALSE;
 	}
-	// ×é¶Ó²»ÄÜ½¨°ï»á
+	// ï¿½ï¿½Ó²ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½
 	if (Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag)
 	{
 		defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_ADD_ERROR3].c_str(),1);
@@ -200,9 +200,9 @@ BOOL	KPlayerTong::ApplyAddTong(DWORD dwNpcID)
 	return TRUE;
 }
 
-//¿Í»§¶Ë
+//ï¿½Í»ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºµÃµ½·þÎñÆ÷Í¨Öª´´½¨°ï»á
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerTong::Create(TONG_CREATE_SYNC *psCreate)
 {
@@ -220,27 +220,27 @@ void	KPlayerTong::Create(TONG_CREATE_SYNC *psCreate)
 	m_AttackCamp        = 0;
     m_AttackTime        = 0;
     m_AttackName[0]     = 0;
-	m_nAttackNum		= 0;	                            // ²ÎÕ½³¡Êý
-    m_nWinNum		    = 0;								// Ê¤Àû³¡Êý
+	m_nAttackNum		= 0;	                            // ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½
+    m_nWinNum		    = 0;								// Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     m_nLoseNum		    = 0;
 
-	memset(m_szName, 0, sizeof(m_szName)); //°ï»áÃû
+	memset(m_szName, 0, sizeof(m_szName)); //ï¿½ï¿½ï¿½ï¿½ï¿½
 	memcpy(m_szName, psCreate->m_szName, sizeof(psCreate->m_szName));
 	strcpy(m_BMasterName,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name);//Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name)
 	//strcpy(m_szMasterName,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name);//Npc[P
 	m_dwTongNameID	= g_FileName2Id(psCreate->m_szName);
 
-	// ½çÃæÍ¨Öª°ï»á½¨Á¢³É¹¦
+	// ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½á½¨ï¿½ï¿½ï¿½É¹ï¿½
 	defFuncShowNormalMsg(strCoreInfo[MSG_TONG_CREATE_SUCCESS].c_str(),1);
 
-	// Í¨Öª°ï»áÆµµÀ ¸üÐÂ»ù±¾ÐÅÏ¢
+	// Í¨Öªï¿½ï¿½ï¿½Æµï¿½ï¿½ ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	CoreDataChanged(GDCNI_PLAYER_BASE_INFO, 0, 0);
 
 }
 
 void KPlayerTong::Active()
 {
-	
+
 /*	ActiveLoop++;
 	//if (!m_nFlag)
 	//	return;
@@ -276,10 +276,10 @@ void KPlayerTong::Active()
 }
 
 void KPlayerTong::SendAttack(char *lpszTongName)
-{	
+{
 	if (!m_nFlag)
 	{
-		defFuncShowNormalMsg("ÌáÊ¾:Ö»ÓÐ ¼ÓÈë°ïÅÉ ²Å¿ÉÒÔ·¢Æð°ï»áÐûÕ½!",0);
+		defFuncShowNormalMsg("ï¿½ï¿½Ê¾:Ö»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¿ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½!",0);
 		return;
 	}
 	if (m_nFigure== enumTONG_FIGURE_MASTER || m_nFigure == enumTONG_FIGURE_DIRECTOR)
@@ -296,7 +296,7 @@ void KPlayerTong::SendAttack(char *lpszTongName)
 	}
     else
 	{
-		defFuncShowNormalMsg("ÌáÊ¾:Ö»ÓÐ °ïÖ÷ »ò ³¤ÀÏ ²Å¿ÉÒÔ·¢Æð°ï»áÐûÕ½!",0);
+		defFuncShowNormalMsg("ï¿½ï¿½Ê¾:Ö»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¿ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½!",0);
 	}
 	return;
 }
@@ -307,33 +307,33 @@ void    KPlayerTong::SetTongLevel(char *lpszTongName,int nLevel)
 }
 
 void    KPlayerTong::SetTongMap(char *lpszTongName,int nMap)
-{	
-	
-}
-
-void	KPlayerTong::SetTongCredit(char *lpszTongName,int nCredit)        //½¨Éè×Ê½ð
 {
 
 }
-void	KPlayerTong::SetTongMasterTitle(char *lpszTongName,char *nTitle)  //°ïÖ÷³ÆºÅ
+
+void	KPlayerTong::SetTongCredit(char *lpszTongName,int nCredit)        //ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½
 {
 
 }
-void	KPlayerTong::SetTongDirectorTitle(char *lpszTongName,char *nTitle)//³¤ÀÏ³ÆºÅ
+void	KPlayerTong::SetTongMasterTitle(char *lpszTongName,char *nTitle)  //ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½
 {
 
 }
-void	KPlayerTong::SetTongManagerTitle(char *lpszTongName,char *nTitle)//¶Ó³¤³ÆºÅ
+void	KPlayerTong::SetTongDirectorTitle(char *lpszTongName,char *nTitle)//ï¿½ï¿½ï¿½Ï³Æºï¿½
 {
 
 }
-void	KPlayerTong::SetTongNormalTitle(char *lpszTongName,char *nTitle)  //°ïÖÚ³ÆºÅ
+void	KPlayerTong::SetTongManagerTitle(char *lpszTongName,char *nTitle)//ï¿½Ó³ï¿½ï¿½Æºï¿½
+{
+
+}
+void	KPlayerTong::SetTongNormalTitle(char *lpszTongName,char *nTitle)  //ï¿½ï¿½ï¿½Ú³Æºï¿½
 {
 
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÊÇ·ñ½ÓÊÜ³ÉÔ± bFlag == TRUE ½ÓÊÜ == FALSE ²»½ÓÊÜ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ü³ï¿½Ô± bFlag == TRUE ï¿½ï¿½ï¿½ï¿½ == FALSE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KPlayerTong::AcceptMember(int nPlayerIdx, DWORD dwNameID, BOOL bFlag)
 {
@@ -344,8 +344,8 @@ void	KPlayerTong::AcceptMember(int nPlayerIdx, DWORD dwNameID, BOOL bFlag)
 	sAccept.ProtocolType	= c2s_extendtong;
 	sAccept.m_wLength		= sizeof(TONG_ACCEPT_MEMBER_COMMAND) - 1;
 	sAccept.m_btMsgId		= enumTONG_COMMAND_ID_ACCEPT_ADD;
-	sAccept.m_nPlayerIdx	= nPlayerIdx;   // ÉêÇëµÄPlayerid
-	sAccept.m_dwNameID		= dwNameID;     // ÉêÇëÈËµÄÃû×ÖID  Npc[Player[nPlayerIdx].m_nIndex].m_dwID;//
+	sAccept.m_nPlayerIdx	= nPlayerIdx;   // ï¿½ï¿½ï¿½ï¿½ï¿½Playerid
+	sAccept.m_dwNameID		= dwNameID;     // ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ID  Npc[Player[nPlayerIdx].m_nIndex].m_dwID;//
 	sAccept.m_btFlag		= (bFlag != 0);
 
 	if (g_pClient)
@@ -367,13 +367,13 @@ void	KPlayerTong::GetTongName(char *lpszGetName)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º¼ÓÈë°ï»á£¬³ÉÎªÆÕÍ¨°ïÖÚ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á£¬ï¿½ï¿½Îªï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *lpszMaster)
 {
 	if (!lpszTongName || !lpszTongName[0]/* || strlen(lpszTongName) > defTONG_NAME_MAX_LENGTH*/)
 		return FALSE;
-	// °ï»áÕóÓªÎÊÌâ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
 	if (nCamp != camp_justice && nCamp != camp_evil && nCamp != camp_balance)
 		return FALSE;
 
@@ -400,7 +400,7 @@ BOOL	KPlayerTong::AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇëÈÎÃü
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int nNewPos, char *lpszName)
 {
@@ -419,13 +419,13 @@ BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int 
 	switch (m_nFigure)
 	{
 	case enumTONG_FIGURE_MEMBER:
-		// °ïÖÚÃ»ÓÐÈÎÃüÈ¨Á¦
+		// ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
 		return FALSE;
 	case enumTONG_FIGURE_MANAGER:
-		// ¶Ó³¤Ã»ÓÐÈÎÃüÈ¨Á¦
+		// ï¿½Ó³ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
 		return FALSE;
 	case enumTONG_FIGURE_DIRECTOR:
-		// ³¤ÀÏÖ»ÓÐ¶Ô¶Ó³¤¡¢°ïÖÚµÄÈÎÃüÈ¨Á¦
+		// ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ð¶Ô¶Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
 		if ((nCurFigure != enumTONG_FIGURE_MANAGER && nCurFigure != enumTONG_FIGURE_MEMBER) ||
 			(nNewFigure != enumTONG_FIGURE_MANAGER && nNewFigure != enumTONG_FIGURE_MEMBER))
 			return FALSE;
@@ -435,7 +435,7 @@ BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int 
 			return FALSE;
 		break;
 	case enumTONG_FIGURE_MASTER:
-		// °ïÖ÷ÓÐ¶Ô³¤ÀÏ¡¢¶Ó³¤¡¢°ïÖÚµÄÈÎÃüÈ¨Á¦
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ô³ï¿½ï¿½Ï¡ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½
 		if (nCurFigure == enumTONG_FIGURE_MASTER || nNewFigure == enumTONG_FIGURE_MASTER)
 			return FALSE;
 		if (nCurFigure == enumTONG_FIGURE_MANAGER && nCurPos >= defTONG_MAX_MANAGER)
@@ -473,7 +473,7 @@ BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int 
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇëÌßÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
 {
@@ -482,22 +482,22 @@ BOOL	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
 	if (!m_nFlag)
 		return FALSE;
 
-	if (m_nFigure != enumTONG_FIGURE_MASTER && m_nFigure != enumTONG_FIGURE_DIRECTOR)   //Ö´ÐÐÌßÈËµÄÖ°Î»
+	if (m_nFigure != enumTONG_FIGURE_MASTER && m_nFigure != enumTONG_FIGURE_DIRECTOR)   //Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ö°Î»
 	{
-		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÌáÊ¾:²»ÄÜ½øÐÐÌßÈË²Ù×÷!");
+		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½Ê¾:ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½!");
 		return FALSE;
 	}
 
-	if (nCurFigure != enumTONG_FIGURE_MANAGER && nCurFigure != enumTONG_FIGURE_MEMBER)  //±»ÌßµÄÈËµÄÖ°Î»
+	if (nCurFigure != enumTONG_FIGURE_MANAGER && nCurFigure != enumTONG_FIGURE_MEMBER)  //ï¿½ï¿½ï¿½ßµï¿½ï¿½Ëµï¿½Ö°Î»
 	{
-		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÌáÊ¾:²»ÄÜ¶Ô³¤ÀÏ½øÐÐ²Ù×÷ !");
+		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½Ê¾:ï¿½ï¿½ï¿½Ü¶Ô³ï¿½ï¿½Ï½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ !");
 		return FALSE;
 	}
 
 	if (nCurFigure == enumTONG_FIGURE_MANAGER /*&& (nCurPos < 0 || nCurPos >= defTONG_MAX_MANAGER)*/)
 	{
-        Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÌáÊ¾:²»ÄÜ¶Ô¶Ó³¤½øÐÐ²Ù×÷ !");
-		return FALSE;//±»ÌßÈËµÄÖ°Î»
+        Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½Ê¾:ï¿½ï¿½ï¿½Ü¶Ô¶Ó³ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ !");
+		return FALSE;//ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ö°Î»
 	}
 
 	TONG_APPLY_KICK_COMMAND	sKick;
@@ -512,13 +512,13 @@ BOOL	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sKick, sKick.m_wLength + 1);
 	char msg[64];
-	t_sprintf(msg,"ÌáÊ¾:ÒÑ½«(%s),Ìß³ö°ï»á!",lpszName);
+	sprintf(msg,"ï¿½ï¿½Ê¾:ï¿½Ñ½ï¿½(%s),ï¿½ß³ï¿½ï¿½ï¿½ï¿½!",lpszName);
     Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 	return TRUE;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇë´«Î»
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ë´«Î»
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName)
 {
@@ -544,7 +544,7 @@ BOOL	KPlayerTong::ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇëÀë¿ª°ï»á ÅÑ°ï
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyLeave()
 {
@@ -577,7 +577,7 @@ BOOL	KPlayerTong::ApplyLeave()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉêÇë»ñµÃ°ï»áÐÅÏ¢
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ï¢
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, char *lpszName/*=NULL*/)
 {
@@ -589,29 +589,29 @@ BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, 
 	sInfo.m_btMsgId = enumTONG_COMMAND_ID_APPLY_INFO;
 	sInfo.m_btInfoID = nInfoID;
 	sInfo.m_nParam1 = nParam1;	  //TONGID
-	sInfo.m_nParam2 = nParam2;	  //¿ªÊ¼Î»ÖÃ
-	sInfo.m_nParam3 = nParam3;    //Ã¿´Î»ñÈ¡ÊýÁ¿
+	sInfo.m_nParam2 = nParam2;	  //ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+	sInfo.m_nParam3 = nParam3;    //Ã¿ï¿½Î»ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 
 	switch (nInfoID)
 	{
-	case enumTONG_APPLY_INFO_ID_SELF:  //×Ô¼º²éÑ¯×Ô¼ºµÄ°ï»áÐÅÏ¢
+	case enumTONG_APPLY_INFO_ID_SELF:  //ï¿½Ô¼ï¿½ï¿½ï¿½Ñ¯ï¿½Ô¼ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ï¿½Ï¢
 		sInfo.m_wLength = sizeof(sInfo) - 1 - sizeof(sInfo.m_szBuf);
 		if (g_pClient)   //gs
 			g_pClient->SendPackToServer(&sInfo, sInfo.m_wLength + 1);
 		break;
 
-	case enumTONG_APPLY_INFO_ID_MASTER: //°ïÖ÷
+	case enumTONG_APPLY_INFO_ID_MASTER: //ï¿½ï¿½ï¿½ï¿½
 		break;
 
-	case enumTONG_APPLY_INFO_ID_DIRECTOR: //³¤ÀÏ
+	case enumTONG_APPLY_INFO_ID_DIRECTOR: //ï¿½ï¿½ï¿½ï¿½
 		break;
 
-	case enumTONG_APPLY_INFO_ID_MANAGER:  // ¶Ó³¤
+	case enumTONG_APPLY_INFO_ID_MANAGER:  // ï¿½Ó³ï¿½
 		if (!m_nFlag)
 			break;
 		/*if (this->m_nFigure != enumTONG_FIGURE_MASTER &&
 			this->m_nFigure != enumTONG_FIGURE_DIRECTOR)
-			break;*///Ö»ÄÜÊÇ°ïÖ÷ºÍ³¤ÀÏ²Å¸üÐÂ
+			break;*///Ö»ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½Ï²Å¸ï¿½ï¿½ï¿½
 
 		sInfo.m_wLength = sizeof(sInfo) - 1 - sizeof(sInfo.m_szBuf);
 		if (g_pClient)
@@ -625,20 +625,20 @@ BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, 
 			g_pClient->SendPackToServer(&sInfo, sInfo.m_wLength + 1);
 		}
 		break;
-	case enumTONG_APPLY_INFO_ID_MEMBER:   //°ïÖÚ
+	case enumTONG_APPLY_INFO_ID_MEMBER:   //ï¿½ï¿½ï¿½ï¿½
 		if (!m_nFlag)
 			break;
 		/*if (this->m_nFigure != enumTONG_FIGURE_MASTER &&
 			this->m_nFigure != enumTONG_FIGURE_DIRECTOR)
-			break;*///Ö»ÄÜÊÇ°ïÖ÷ºÍ³¤ÀÏ²Å¸üÐÂ
-            
+			break;*///Ö»ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½Ï²Å¸ï¿½ï¿½ï¿½
+
 		sInfo.m_wLength = sizeof(sInfo) - 1 - sizeof(sInfo.m_szBuf);
 		if (g_pClient)
 			g_pClient->SendPackToServer(&sInfo, sInfo.m_wLength + 1);
 
 		break;
 
-	case enumTONG_APPLY_INFO_ID_ONE:  //Ä³ÈË°ï»á³ÉÔ±µÄÐÅÏ¢
+	case enumTONG_APPLY_INFO_ID_ONE:  //Ä³ï¿½Ë°ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ï¢
 		if (!lpszName || !lpszName[0])
 			break;
 		if (strlen(lpszName) >= 32)
@@ -648,11 +648,11 @@ BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, 
 		if (g_pClient)
 			g_pClient->SendPackToServer(&sInfo, sInfo.m_wLength + 1);
 		break;
-	case enumTONG_APPLY_INFO_ID_TONG_HEAD:  //»ñÈ¡°ïÖ÷£¬³¤ÀÏµÈÐÅÏ¢
+	case enumTONG_APPLY_INFO_ID_TONG_HEAD:  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ï¢
 		if (nParam1 <= 0 || nParam1 >= MAX_NPC)
 			break;
 		if (nParam1 != Player[CLIENT_PLAYER_INDEX].m_nIndex && Npc[nParam1].m_nTongFlag == 0)
-			break;   
+			break;
 		sInfo.m_nParam1 = Npc[nParam1].m_dwID;
 		sInfo.m_wLength = sizeof(sInfo) - 1 - sizeof(sInfo.m_szBuf);
 		if (g_pClient)
@@ -672,7 +672,7 @@ DWORD	KPlayerTong::GetTongNameID()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÊÇ·ñÓÐÈ¨Á¦²éÑ¯¶Ó³¤ÐÅÏ¢
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Ó³ï¿½ï¿½ï¿½Ï¢
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::CanGetManagerInfo(DWORD dwTongNameID)
 {
@@ -686,7 +686,7 @@ BOOL	KPlayerTong::CanGetManagerInfo(DWORD dwTongNameID)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÊÇ·ñÓÐÈ¨Á¦²éÑ¯°ïÖÚÐÅÏ¢
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //-------------------------------------------------------------------------
 BOOL	KPlayerTong::CanGetMemberInfo(DWORD dwTongNameID)
 {
@@ -698,17 +698,17 @@ BOOL	KPlayerTong::CanGetMemberInfo(DWORD dwTongNameID)
 	//	return TRUE;
 	return TRUE;
 }
-//·þÎñÆ÷¶Ë Í¬²½¸ø¿Í»§¶Ë
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½
 #ifndef _SERVER
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨×ÔÉí°ï»áÐÅÏ¢
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //-------------------------------------------------------------------------
 void	KPlayerTong::SetSelfInfo(TONG_SELF_INFO_SYNC *pInfo)
 {
 	if (pInfo->m_btJoinFlag == 0)
-	{//Ã»ÓÐÈë°ïµÄ
+	{//Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (m_nFlag)
-		{//¿Í»§¶ËÔ­À´ÊÇ °ï»á³ÉÔ±
+		{//ï¿½Í»ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô±
 			KUiGameObjectWithName	sUi;
 			strcpy(sUi.szName, Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name);
 			sUi.nData = TONG_ACTION_LEAVE;
@@ -717,8 +717,8 @@ void	KPlayerTong::SetSelfInfo(TONG_SELF_INFO_SYNC *pInfo)
 			sUi.szString[0] = 0;
 			CoreDataChanged(GDCNI_TONG_ACTION_RESULT, (uintptr_t)&sUi, 1);
 
-			// ±»Ìß³ö°ï»á
-			defFuncShowNormalMsg("ÌáÊ¾:Äú±»Ìß³ö°ï»á!",0);
+			// ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½
+			defFuncShowNormalMsg("ï¿½ï¿½Ê¾:ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½!",0);
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Camp = camp_free;
 			if (!Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag)
 				Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentCamp = camp_free;
@@ -732,15 +732,15 @@ void	KPlayerTong::SetSelfInfo(TONG_SELF_INFO_SYNC *pInfo)
 	}
 
 	if (m_nFlag == 1 && m_nFigure != pInfo->m_btFigure)
-	{	// ±»ÈÎÃü
-		defFuncShowNormalMsg("ÌáÊ¾:ÄúÔÚ°ïÅÉÖÐÖ°Î»·¢Éú±ä»¯!",0);
+	{	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		defFuncShowNormalMsg("ï¿½ï¿½Ê¾:ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½Ö°Î»ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯!",0);
 	}
 
-	this->m_nFlag = 1;                   //¿Í»§¶ËÊÇ·ñÈë°ï
-	this->m_nFigure = pInfo->m_btFigure; //¿Í»§¶Ë°ïÅÉµÄÉí·Ý
-	this->m_nCamp = pInfo->m_btCamp;     //¿Í»§¶Ë°ïÅÉµÄÕóÓª
-	this->m_nMoney = pInfo->m_dwMoney;   //¿Í»§µ¥°ïÅÉµÄÇ®
-	this->m_AttackState= pInfo->m_nAttackState;	  //°ï»áµÄÐûÕ½×´Ì¬
+	this->m_nFlag = 1;                   //ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	this->m_nFigure = pInfo->m_btFigure; //ï¿½Í»ï¿½ï¿½Ë°ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½
+	this->m_nCamp = pInfo->m_btCamp;     //ï¿½Í»ï¿½ï¿½Ë°ï¿½ï¿½Éµï¿½ï¿½ï¿½Óª
+	this->m_nMoney = pInfo->m_dwMoney;   //ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½Ç®
+	this->m_AttackState= pInfo->m_nAttackState;	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½×´Ì¬
 	this->m_nDeathCount= pInfo->m_nDeathCount;
 	this->m_nLevel=pInfo->m_nLevel;
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Camp = m_nCamp;
@@ -748,21 +748,21 @@ void	KPlayerTong::SetSelfInfo(TONG_SELF_INFO_SYNC *pInfo)
 	if (Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag == 0)
 		Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentCamp = m_nCamp;
 
-	memcpy(this->m_BMasterName, pInfo->m_szMaster, sizeof(pInfo->m_szMaster)); //ÖØÐÂÉèÖÃÁË°ïÖ÷µÄÃû×Ö
-	memcpy(this->m_szName, pInfo->m_szTongName, sizeof(pInfo->m_szTongName));  //°ï»áÃû
-	memcpy(this->m_szTitle, pInfo->m_szTitle, sizeof(pInfo->m_szTitle));       //°ï»áÖÐµÄÖ°Î»
-	m_dwTongNameID	= g_FileName2Id(pInfo->m_szTongName);                      //°ï»áµÄ´úÂë
-    //¸üÐÂ½çÃæÐÅÏ¢
+	memcpy(this->m_BMasterName, pInfo->m_szMaster, sizeof(pInfo->m_szMaster)); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	memcpy(this->m_szName, pInfo->m_szTongName, sizeof(pInfo->m_szTongName));  //ï¿½ï¿½ï¿½ï¿½ï¿½
+	memcpy(this->m_szTitle, pInfo->m_szTitle, sizeof(pInfo->m_szTitle));       //ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ö°Î»
+	m_dwTongNameID	= g_FileName2Id(pInfo->m_szTongName);                      //ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	CoreDataChanged(GDCNI_PLAYER_BASE_INFO, 0, 0);
 }
 #endif
 
-//´ò¿ª½¨°ïUI
+//ï¿½ò¿ª½ï¿½ï¿½ï¿½UI
 void    KPlayerTong::OpenCreateInterface()
 {
 	CoreDataChanged(GDCNI_OPEN_TONG_CREATE_SHEET, 1, 0);
 }
-//°ï»§´æÇ®
+//ï¿½ï»§ï¿½ï¿½Ç®
 BOOL KPlayerTong::ApplySaveMoney(DWORD nMoney)
 {
 	if (!m_nFlag)
@@ -772,7 +772,7 @@ BOOL KPlayerTong::ApplySaveMoney(DWORD nMoney)
 	if (Player[CLIENT_PLAYER_INDEX].m_ItemList.GetsMon(room_equipment) < nMoney)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage,"ÄúÉíÉÏÃ»ÓÐÄÇÃ´¶àÇ®ÄØ!");
+		sprintf(sMsg.szMessage,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ç®ï¿½ï¿½!");
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -791,10 +791,10 @@ BOOL KPlayerTong::ApplySaveMoney(DWORD nMoney)
 	strcpy(sSave.m_szName, Npc[Player[m_nPlayerIndex].m_nIndex].Name);
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sSave, sSave.m_wLength + 1);
-	
+
 	return TRUE;
 }
-//°ï»áÈ¡Ç®
+//ï¿½ï¿½ï¿½È¡Ç®
 BOOL KPlayerTong::ApplyGetMoney(DWORD nMoney)
 {
 	if (!m_nFlag)
@@ -806,7 +806,7 @@ BOOL KPlayerTong::ApplyGetMoney(DWORD nMoney)
 	if (this->m_nMoney < nMoney)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, "ÌáÊ¾:½ðÇ®²»×ã!");
+		sprintf(sMsg.szMessage, "ï¿½ï¿½Ê¾:ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½!");
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -825,24 +825,24 @@ BOOL KPlayerTong::ApplyGetMoney(DWORD nMoney)
 	strcpy(sSave.m_szName, Npc[Player[m_nPlayerIndex].m_nIndex].Name);
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sSave, sSave.m_wLength + 1);
-	
+
 	return TRUE;
 }
 
-//¿Í»§¶Ë
+//ï¿½Í»ï¿½ï¿½ï¿½
 void    KPlayerTong::SetAttAckCityInfo(BYTE *Msg)
-{ 
+{
 	  CTONG_CITY_INFO_SYNC	*pAinfo = (CTONG_CITY_INFO_SYNC*)Msg;
 
 	  for (int i =1;i<pAinfo->m_WarCityCount+1;++i)
-	  {  
+	  {
 
-		  nAttAckInfo[i].m_idx = pAinfo->snWarInfo[i-1].m_idx; 
+		  nAttAckInfo[i].m_idx = pAinfo->snWarInfo[i-1].m_idx;
 		  nAttAckInfo[i].m_levle=pAinfo->snWarInfo[i-1].m_levle;
 		  nAttAckInfo[i].m_mapidx=pAinfo->snWarInfo[i-1].m_mapidx;
 		  nAttAckInfo[i].m_shushou=pAinfo->snWarInfo[i-1].m_shushou;
 		  nAttAckInfo[i].m_Mastername = pAinfo->snWarInfo[i-1].m_Mastername;
-		  nAttAckInfo[i].m_szMapName = pAinfo->snWarInfo[i-1].m_szMapName; //µØÍ¼Ãû
+		  nAttAckInfo[i].m_szMapName = pAinfo->snWarInfo[i-1].m_szMapName; //ï¿½ï¿½Í¼ï¿½ï¿½
 		  nAttAckInfo[i].m_Tongmaster = pAinfo->snWarInfo[i-1].m_Tongmaster;
 
 		/*AttAck[i].m_idx=pAinfo->snWarInfo[i].m_idx;
@@ -850,17 +850,17 @@ void    KPlayerTong::SetAttAckCityInfo(BYTE *Msg)
 		AttAck[i].m_mapidx=pAinfo->snWarInfo[i].m_mapidx;
 		AttAck[i].m_shushou=pAinfo->snWarInfo[i].m_shushou;
 		sprintf(AttAck[i].m_Mastername,pAinfo->snWarInfo[i].m_Mastername);
-		sprintf(AttAck[i].m_szMapName,pAinfo->snWarInfo[i].m_szMapName); //µØÍ¼Ãû
+		sprintf(AttAck[i].m_szMapName,pAinfo->snWarInfo[i].m_szMapName); //ï¿½ï¿½Í¼ï¿½ï¿½
 		sprintf(AttAck[i].m_Tongmaster,pAinfo->snWarInfo[i].m_Tongmaster);
 		*/
 		// Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(AttAck[i].m_Tongmaster);
-		/*if (m_nFlag && strstr(m_szName,AttAck[i].m_Tongmaster)) //Èç¹ûÈë°ïÁË
-		   //Èç¹û°ï»áÏàÍ¬,¾ÍÊÇÊôÓÚÕâ¸ö³ÇÊÐµÄ³ÉÔ±
+		/*if (m_nFlag && strstr(m_szName,AttAck[i].m_Tongmaster)) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ³ï¿½Ô±
 		  Npc[Player[m_nPlayerIndex].m_nIndex].m_IsWarCity=AttAck[i].m_mapidx;
 		else
 		  Npc[Player[m_nPlayerIndex].m_nIndex].m_IsWarCity=-1; */
 
-	  }  	
+	  }
 }
 
 
@@ -886,19 +886,19 @@ void    KPlayerTong::SetAttAckInfo(BYTE *Msg)
 	m_nDeathCount=pAinfo->m_YDeathCount;
 	m_nDDeathCount=pAinfo->m_DDeathCount;
 	m_Mapid= pAinfo->m_nMapidx;
-	m_nAttackNum=pAinfo->m_nAttackNum;	                            // ²ÎÕ½³¡Êý
-	m_nWinNum=pAinfo->m_nWinNum;								// Ê¤Àû³¡Êý
+	m_nAttackNum=pAinfo->m_nAttackNum;	                            // ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½
+	m_nWinNum=pAinfo->m_nWinNum;								// Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_nLoseNum=pAinfo->m_nLoseNum;
-	t_sprintf(m_AttackName,pAinfo->m_szAttackName); //¶ÔÕ½µÄ°ï»á
+	sprintf(m_AttackName, "%s", pAinfo->m_szAttackName); //ï¿½ï¿½Õ½ï¿½Ä°ï¿½ï¿½
 
 	if (pAinfo->m_nMapidx>0)
-	{//¿Í»§¶Ë °ï»áµØÍ¼µÄÉèÖÃ
+	{//ï¿½Í»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//sprintf(SubWorld[pAinfo->m_nMapidx].m_WarSubTongname,m_szName);
 		SubWorld[pAinfo->m_nMapidx].nWorldMapInfo[STR_MAP_ZTONGNAME] = m_szName;
 	}
 }
 
-//°ï»á·¢Ç®
+//ï¿½ï¿½á·¢Ç®
 BOOL KPlayerTong::ApplySndMoney(DWORD nMoney)
 {
 	if (!m_nFlag)
@@ -910,7 +910,7 @@ BOOL KPlayerTong::ApplySndMoney(DWORD nMoney)
 	if (this->m_nMoney < nMoney)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, "ÌáÊ¾:½ðÇ®²»×ã!");
+		sprintf(sMsg.szMessage, "ï¿½ï¿½Ê¾:ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½!");
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -919,7 +919,7 @@ BOOL KPlayerTong::ApplySndMoney(DWORD nMoney)
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		return FALSE;
 	}
-	
+
 	TONG_APPLY_SAVE_COMMAND	sSave;
 	sSave.ProtocolType		= c2s_extendtong;
 	sSave.m_wLength			= sizeof(sSave) - 1;
@@ -929,6 +929,6 @@ BOOL KPlayerTong::ApplySndMoney(DWORD nMoney)
 	strcpy(sSave.m_szName, Npc[Player[m_nPlayerIndex].m_nIndex].Name);
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sSave, sSave.m_wLength + 1);
-	
+
 	return TRUE;
 }

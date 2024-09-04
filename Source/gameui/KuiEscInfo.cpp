@@ -65,8 +65,7 @@ bool KuiEscInfo::init()
 	//����֡����
 	//SpriteFrameCache * sfCache = SpriteFrameCache::sharedSpriteFrameCache();
 	//sfCache->addSpriteFramesWithFile("p_tips.plist");
-	//���ģ̬����
-	winSize = ax::Director::getInstance()->getWinSize();
+	//���ģ̬����?	winSize = ax::Director::getInstance()->getWinSize();
 	/*Color4B color(112, 128, 144, 150);
 	LayerColor * colorLayer = LayerColor::create(color);//��ɫ��
 	colorLayer->setPosition(ax::Vec2::ZERO);
@@ -75,7 +74,7 @@ bool KuiEscInfo::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ2.spr");
+    t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -88,8 +87,8 @@ bool KuiEscInfo::init()
 	ParentNode_Task= spriteBox;
 	spriteBox->setPosition(ax::Vec2(winSize.width/2,winSize.height/2));
 	this->addChild(spriteBox);
-	//��ñ���ͼƬ�Ĵ�С
-	Size contentSize = spriteBox->getContentSize();
+	//��ñ���ͼƬ�Ĵ��?
+    Size contentSize = spriteBox->getContentSize();
 	m_size = contentSize;
 	m_origin = spriteBox->getPosition();
 
@@ -98,8 +97,7 @@ bool KuiEscInfo::init()
 
 	this->scheduleUpdate();                   //���ú���
 	auto listener = ax::EventListenerTouchOneByOne::create();
-ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);   //��ֹ��㴥��
-	return true;
+ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);   //��ֹ��㴥��?	return true;
 }
 
 void KuiEscInfo::addDialogData()
@@ -121,7 +119,7 @@ void KuiEscInfo::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣҳ\\����ҳ-�����Ϣ.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣҳ\\����ҳ-������?spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -155,7 +153,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ���˳�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ���˳�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -172,7 +170,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	ExitGameConfirm->setPosition(ax::Vec2(m_size.width/2,m_size.height-15));
 	ExitGameConfirm->setTag(1);
 	//
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ������.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ������.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -190,7 +188,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	GameHelpConfirm->setTag(2);
 
 	//
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ��ѡ��.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ��ѡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -208,7 +206,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	OptionsConfirm->setTag(3);
 
 	//\spr\Ui3\ϵͳ\ϵͳ�������й�.spr
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ�������й�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ�������й�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -227,7 +225,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 
 
 	//������Ϸ
-	t_sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ������.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\ϵͳ\\ϵͳ������.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -243,15 +241,15 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	MenuItemSprite * LeaveConfirm = MenuItemSprite::create(sprite_Leave_normal, sprite_Leave_select, CC_CALLBACK_1(KuiEscInfo::btnCallBackFunc, this));
 	LeaveConfirm->setPosition(ax::Vec2(m_size.width/2,m_size.height-165));
 	LeaveConfirm->setTag(5);
-	//����˵�
-	Menu * menu = Menu::create(ExitGameConfirm,GameHelpConfirm,OptionsConfirm,OfflineConfirm,LeaveConfirm,NULL);
+	//����˵�?
+    Menu * menu = Menu::create(ExitGameConfirm,GameHelpConfirm,OptionsConfirm,OfflineConfirm,LeaveConfirm,NULL);
 	menu->setAnchorPoint(ax::Vec2(0,0));
 	menu->setPosition(ax::Vec2(0,0));             //�˵�λ������Ϊ����������
 	ParentNode_Task->addChild(menu);         //�ӵ�������
 }
 
 
-//�����ť�ص�����
+//�����ť�ص�����?
 void KuiEscInfo::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchEventType type)
 {
 	if  (!g_pCoreShell || !g_GameWorld) return;
@@ -327,8 +325,7 @@ void KuiEscInfo::buttonCallBackFunc(Ref * pSender)
 	Node * node = NULL;
 	if (pSender)
 		node= dynamic_cast<Node *>(pSender);
-	//node->setTag(3000);//����tag���ڵ��ò���Ի�ȡ��
-	if (m_callfun &&  m_callbackListener)
+	//node->setTag(3000);//����tag���ڵ��ò���Ի�ȡ��?	if (m_callfun &&  m_callbackListener)
 		(m_callfun)(node);
 
 	this->removeFromParentAndCleanup(true);
@@ -346,7 +343,7 @@ void KuiEscInfo::registerWithTouchDispatcher()
     auto touchListener = ax::EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
     ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//����Ĵ������ȼ�����Ϊ��128����CCMenuͬ������֤�������·��Ĵ���
+	//����Ĵ������ȼ�����Ϊ��?28����CCMenuͬ������֤�������·��Ĵ���
 //	//ax::Director::getInstance()->getTouchDispatcher()->addTargetedDelegate(this,128, true);
 }
 
@@ -386,7 +383,7 @@ bool KuiEscInfo::ccTouchBegan(Touch *pTouch, Event *pEvent)
 {
 	Point point = ParentNode_Task->convertToNodeSpace(ax::Director::getInstance()->convertToGL(pTouch->getLocationInView()));
 	Rect rect = ax::Rect(0, 0, winSize.width/*ParentNode_Task->getContentSize().width*/,winSize.height/* ParentNode_Task->getContentSize().height*/);
-	m_bScrolling = rect.containsPoint(point); //����ڷ�Χ�� �Ϳ����϶�
+	m_bScrolling = rect.containsPoint(point); //����ڷ�Χ��?�Ϳ����϶�
 	m_lastPoint = point;
 	return true;
 }
@@ -396,7 +393,7 @@ bool KuiEscInfo::ccTouchBegan(Touch *pTouch, Event *pEvent)
 //--------------------------------------------------------------------------
 void KuiEscInfo::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}
@@ -404,5 +401,5 @@ void KuiEscInfo::update(float delta)
 
 //void KuiEscInfo::draw()
 //{
-//	//ccMessageBox("����ѭ��","draw");
+//	//messageBox("����ѭ��","draw");
 //}

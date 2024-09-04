@@ -269,37 +269,37 @@ int KuiChatList::NewChannelMessageArrival(DWORD nChannelID, char* szSendName,cha
 
 			if (nID == CH_WORLD) //世界
 			{
-				t_sprintf(nTempSendName,"[Thế giới]%s:",szSendName);
+				sprintf(nTempSendName,"[Thế giới]%s:",szSendName);
 			    addmsg(nTempSendName,pMsgBuff,4,0,nPackage);
 			}
 			else if (nID == CH_CITY)//城市
 			{
-				t_sprintf(nTempSendName,"[Thành thị]%s:",szSendName);
+				sprintf(nTempSendName,"[Thành thị]%s:",szSendName);
 				addmsg(nTempSendName,pMsgBuff,5,0,nPackage);
 			}
 			else if (nID == CH_TONG) //帮派
 			{
-				t_sprintf(nTempSendName,"[Bang hội]%s:",szSendName);
+				sprintf(nTempSendName,"[Bang hội]%s:",szSendName);
 				addmsg(nTempSendName,pMsgBuff,6,0,nPackage);
 			}
 			else if (nID == CH_TEAM)
 			{
-				t_sprintf(nTempSendName,"[Nhóm]%s:",szSendName);
+				sprintf(nTempSendName,"[Nhóm]%s:",szSendName);
 				addmsg(nTempSendName,pMsgBuff,7,0,nPackage);
 			}
 			else if (nID == CH_FACTION)
 			{
-				t_sprintf(nTempSendName,"[Môn phái]%s:",szSendName);
+				sprintf(nTempSendName,"[Môn phái]%s:",szSendName);
 				addmsg(szSendName,pMsgBuff,8,0,nPackage);
 			}
 			else if (nID == CH_SYSTEM)
 			{
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempSendName,"%s:",szSendName);
 				addmsg(nTempSendName,pMsgBuff,9,0,nPackage);
 			}
 			else if (nID == CH_NEARBY)
 			{//附近聊天
-				t_sprintf(nTempSendName,"[Cận]%s:",szSendName);
+				sprintf(nTempSendName,"[Cận]%s:",szSendName);
 				addmsg(nTempSendName,pMsgBuff,10,0,nPackage);
 			}
 			else
@@ -437,7 +437,7 @@ void KuiChatList::selectedItemEvent(Ref *pSender, ListView::EventType type)
 			ListView* listViewEx = static_cast<ListView*>(pSender);
 			if (listViewEx)
 			{
-				t_sprintf(msg,"Bắt đầu:%d",listViewEx->getCurSelectedIndex());
+				sprintf(msg,"Bắt đầu:%d",listViewEx->getCurSelectedIndex());
 			}
 				//CCLOG("select child start index = %d", listViewEx->getCurSelectedIndex());
 			break;
@@ -446,7 +446,7 @@ void KuiChatList::selectedItemEvent(Ref *pSender, ListView::EventType type)
 		{
 			ListView* listViewEx = static_cast<ListView*>(pSender);
 			if (listViewEx)
-				t_sprintf(msg,"Kết thúc:%d",listViewEx->getCurSelectedIndex());
+				sprintf(msg,"Kết thúc:%d",listViewEx->getCurSelectedIndex());
 				//CCLOG("select child end index = %d", listViewEx->getCurSelectedIndex());
 			break;
 		}
@@ -454,7 +454,7 @@ void KuiChatList::selectedItemEvent(Ref *pSender, ListView::EventType type)
 		break;
 	}
 
-	//ccMessageBox(msg,"点击事件");
+	//messageBox(msg,"点击事件");
 }
 
 
@@ -496,7 +496,7 @@ bool KuiChatList::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiChatList::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}
@@ -504,5 +504,5 @@ void KuiChatList::update(float delta)
 
 //void KuiChatList::draw()
 //{
-//	//ccMessageBox("无限循环","draw");
+//	//messageBox("无限循环","draw");
 //}

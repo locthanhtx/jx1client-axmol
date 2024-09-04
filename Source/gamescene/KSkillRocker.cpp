@@ -40,18 +40,18 @@ float KSkillRocker::getAngleSigned()
 {//ccpSub(centerPoint, currentPoint),CCPointMake(0, 1))
 	//return CC_RADIANS_TO_DEGREES(ccpAngleSigned(ccpSub(centerPoint, currentPoint),CCPointMake(0, 1)));
 	/*  //#define PI 3.141592654    float angle = 180.f / PI * rad; ==���ڽǶ�
-	float dx = currentPoint.x - centerPoint.x;  
-	float dy = currentPoint.y - centerPoint.y;  
-	float t = dx/dy;  
+	float dx = currentPoint.x - centerPoint.x;
+	float dy = currentPoint.y - centerPoint.y;
+	float t = dx/dy;
 
-	float  at = atan(t);  
-	return at/3.1415926*180; 
-	
+	float  at = atan(t);
+	return at/3.1415926*180;
+
 	// ��ȡ�Ƕ�
 	Point p1 = this->getPosition(); //ҡ�˵����ĵ�λ��
 	Point p2 = touch->getLocation();//�������λ��
-	
-	*/  
+
+	*/
     float rad = getRad(centerPoint,currentPoint);
 
 	return 180.f/3.141592654*rad;
@@ -121,7 +121,7 @@ bool KSkillRocker::ccTouchBegan(Touch* touch, Event* event)
 		jsSprite->setPosition(currentPoint);
 		this->getChildByTag(1000)->setPosition(currentPoint);
 	}
-	//ccMessageBox("��ʼ�ƶ���","��ʼ�ƶ���");
+	//messageBox("��ʼ�ƶ���","��ʼ�ƶ���");
 	return true;
 }
 void  KSkillRocker::ccTouchMoved(Touch* touch, Event* event)
@@ -146,7 +146,7 @@ void  KSkillRocker::ccTouchMoved(Touch* touch, Event* event)
 	//char nPiontinfo[128]={0};
     /*sprintf(nPiontinfo,"CurrentPointX:%f,CurrentPointY:%f\nCenterPointX:%f,CenterPointY:%f",
 		    currentPoint.x,currentPoint.y,centerPoint.x,centerPoint.y);
-	ccMessageBox(nPiontinfo,"ҡ���ƶ���");*/
+	messageBox(nPiontinfo,"ҡ���ƶ���");*/
 	float nVer = getAngleSigned();  //���ĵ��봥����ľ���
     float nDestPontX,nDestPontY;
 	if (nVer==0)
@@ -209,7 +209,7 @@ void  KSkillRocker::ccTouchMoved(Touch* touch, Event* event)
 		moveEndPoint.y = nDestPontY;
 		pCoreShell->GotoWhere(nDestPontX,nDestPontY,0); //������������
 	}*/
-	
+
 }
 
 void  KSkillRocker::ccTouchEnded(Touch* touch, Event* event)
@@ -229,7 +229,7 @@ void  KSkillRocker::ccTouchEnded(Touch* touch, Event* event)
 	//setSpriteOpacity(100);
 	setSpritePiont(ax::Vec2(visibleSize.width,-100.0f));
 	//this->Inactive();
-	//ccMessageBox("�ƶ�����","�ƶ�����");
+	//messageBox("�ƶ�����","�ƶ�����");
 }
 
 KSkillRocker* KSkillRocker::initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole){

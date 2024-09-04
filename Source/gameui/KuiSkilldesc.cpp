@@ -73,8 +73,8 @@ KuiSkilldesc * KuiSkilldesc::create(int nskillId,int nLevel,KUiItemdObject nKill
 	popLayer->_nKind          = nKind;
 	//popLayer->setTitle(title);
 	//char msg[64];
-	//t_sprintf(msg,"%d",popLayer->m_ItemData.uId);
-	//ccMessageBox(msg,"KuiSkilldesc");
+	//sprintf(msg,"%d",popLayer->m_ItemData.uId);
+	//messageBox(msg,"KuiSkilldesc");
 	popLayer->addDialogData();
 	//设置按钮
 	popLayer->setcoloseButton(callbackListener,callfun);
@@ -206,11 +206,11 @@ void KuiSkilldesc::addDialogData()
 	 char nKey[8]={0};
 	 int m_nEquiptLimited = pTempSkill->GetEquiptLimited();
 	 if (m_nEquiptLimited==-2)
-		 t_sprintf(nKey,"%s","F1");  //无限制
+		 sprintf(nKey,"%s","F1");  //无限制
 	 else if (m_nEquiptLimited==-1)
-		 t_sprintf(nKey,"%s","F2");  //空手
+		 sprintf(nKey,"%s","F2");  //空手
 	 else
-		 t_sprintf(nKey,"%d",m_nEquiptLimited);
+		 sprintf(nKey,"%d",m_nEquiptLimited);
 
 	 g_GameSetTing.GetString("WeaponLimit_m",nKey,"Không có",nSkillDesc,sizeof(nSkillDesc));
 	 strcat(strLimited, nSkillDesc);
@@ -278,9 +278,9 @@ void KuiSkilldesc::addDialogData()
 	//if (skillData.uGenre != CGOG_SKILL_SHORTCUT)
 	{
 	  if (skillData.DataH)//如果有额外的技能点
-		t_sprintf(szTemp, "cấp độ hiện tại:%d(%d+%d)",ulCurLevel , ulCurLevel - skillData.DataH,skillData.DataH);
+		sprintf(szTemp, "cấp độ hiện tại:%d(%d+%d)",ulCurLevel , ulCurLevel - skillData.DataH,skillData.DataH);
 	  else
-		t_sprintf(szTemp, "cấp độ hiện tại:%d", ulCurLevel);
+		sprintf(szTemp, "cấp độ hiện tại:%d", ulCurLevel);
 	  strcat(strSeries, szTemp);
 	  strcat(strSeries, "\n");
 	}
@@ -302,14 +302,14 @@ void KuiSkilldesc::addDialogData()
 		if (m_nSKillExp)
 			nper= nCurExpSKill/(m_nSKillExp/100);
 
-		t_sprintf(szTemp, "Trình độ hiện tại:%d%s", nper,"%");
+		sprintf(szTemp, "Trình độ hiện tại:%d%s", nper,"%");
 		strcat(strSeries, szTemp);
 		strcat(strSeries, "\n");
 	}
 	int  nEnChance = skillData.DataW;
 	if (nEnChance)   //技能加成
 	{
-		t_sprintf(szTemp, "Tăng cường bởi các kỹ năng:+%d%s", nEnChance,"%");
+		sprintf(szTemp, "Tăng cường bởi các kỹ năng:+%d%s", nEnChance,"%");
 		strcat(strSeries, szTemp);
 		strcat(strSeries, "\n");
 	}
@@ -321,7 +321,7 @@ void KuiSkilldesc::addDialogData()
 	pdescLabel->addChild(tempLabel);
 	//武功流派
 	int  m_eSkillStyle = pTempSkill->GetSkillStyle();
-	//t_sprintf(szIntro,Item[m_ItemData.uId].GetItmeInfo());
+	//sprintf(szIntro,Item[m_ItemData.uId].GetItmeInfo());
 	if (m_eSkillStyle == SKILL_SS_Melee||m_eSkillStyle ==SKILL_SS_PassivityNpcState||m_eSkillStyle ==SKILL_SS_InitiativeNpcState|| m_eSkillStyle == SKILL_SS_Missles)
 	{
 		int nAttribId = pTempSkill->IsAttrib();  //武功流派
@@ -336,7 +336,7 @@ void KuiSkilldesc::addDialogData()
 		else
 		{//技能描述
 			char nSkey[6]={0},sDecsInfo[125]={0};
-			t_sprintf(nSkey,"%d",nAttribId);
+			sprintf(nSkey,"%d",nAttribId);
 			g_GameSetTing.GetString("SkillAttrib",nSkey,"Không có dữ liệu",sDecsInfo,sizeof(sDecsInfo));
 			strcat(szIntro, sDecsInfo);
 		}
@@ -346,7 +346,7 @@ void KuiSkilldesc::addDialogData()
 	if (szIntro[0])
 	{
 
-		t_sprintf(szIntro,UTEXT(szIntro,1).c_str());
+		sprintf(szIntro, "%s", UTEXT(szIntro,1).c_str());
 		int newLen = TEncodeText(szIntro,strlen(szIntro));
 		Label *tempLabel = Label::createWithTTF(szIntro,UI_GAME_FONT_DEFAULT, 12,nDsize,TextHAlignment::CENTER);
 		tempLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -373,7 +373,7 @@ void KuiSkilldesc::addDialogData()
 	offSet +=potherLabel->getContentSize().height+1;
 	//物品名称　等级
 	ZeroMemory(&pszMsg,sizeof(pszMsg));
-	t_sprintf(pszMsg,pTempSkill->GetSkillName());
+	sprintf(pszMsg, "%s", pTempSkill->GetSkillName());
     ptitleLabel = Label::createWithTTF(UTEXT(pszMsg,1).c_str(),UI_GAME_FONT_DEFAULT,12,nDsize,TextHAlignment::CENTER);//Arial
 	ptitleLabel ->setColor(ax::Color3B::YELLOW);
 	ptitleLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -470,7 +470,7 @@ bool KuiSkilldesc::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiSkilldesc::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	/*if (isOpen && g_pCoreShell)
 	{
 		if (ptitleLabel)

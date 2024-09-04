@@ -102,7 +102,7 @@ void KuiMoveToMap::addDialogData()
 	int  NewscrX= nRoleMpsX,NewscrY= nRoleMpsY;
 	SubWorld[0].GetLocalPositionByMps(NewscrX,NewscrY,0);      //�������꣭��������Ļ����
 	sprintf(msg,"x:%d,y:%d",NewscrX,NewscrY);
-	ccMessageBox(msg,"DSTEN");*/
+	messageBox(msg,"DSTEN");*/
 	//\Spr\Ui3\С��ͼ\�����ɽ��ͼ.spr
 
 
@@ -113,7 +113,7 @@ void KuiMoveToMap::addDialogData()
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\С��ͼ\\�����ɽ��ͼ.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\С��ͼ\\�����ɽ��ͼ.spr");
 	g_StrLower(nSprName);
 
 	nPicTexture = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -196,7 +196,7 @@ void KuiMoveToMap::addDialogData()
 				/*char nTemp[64],mapName[128];
 				ZeroMemory(nTemp,sizeof(nTemp));
 				ZeroMemory(mapName,sizeof(mapName));
-				t_sprintf(nTemp,"%d_name",nSubwordId);
+				sprintf(nTemp,"%d_name",nSubwordId);
 				g_NpcMapDropRate.GetString("List",nTemp,0,mapName,sizeof(mapName));
 				m_MoveMapBtn[i].m_MoveMapBtn->setTitleText(UTEXT(mapName,1).c_str());
 				*/
@@ -278,7 +278,7 @@ void KuiMoveToMap::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::Touch
 				//m_bScrolling = rect.containsPoint(point);
 				char nTempPoit[128];
 				sprintf(nTempPoit,"%s:%f/%f",nTbtn->getTitleText(),curPos.x,curPos.y);
-				ccMessageBox(nTempPoit,"test");
+				messageBox(nTempPoit,"test");
 */
 			}
 		}
@@ -394,7 +394,7 @@ void KuiMoveToMap::ccTouchesEnded(const std::vector<ax::Touch*>&pTouches, Event 
 }
 void KuiMoveToMap::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (g_GameWorld && isOpen && g_pCoreShell)
 	{
 		if  (clipper)

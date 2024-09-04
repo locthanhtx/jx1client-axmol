@@ -53,11 +53,11 @@ CSocketClient::CSocketClient(
 		//m_ReadEvent(_CreateEvent(true, true))
 {
 	 // m_ReadEvent = _CreateEvent(true, true);
-#ifdef WIN32 
+#ifdef WIN32
 	unsigned short wVersionRequested = 0x202;
 	if ( 0 != ::WSAStartup(wVersionRequested, &m_data ))
 	{
-		ccMessageBox("socket is fail..","socket");
+		messageBox("socket is fail..","socket");
 		//throw CWin32Exception( _T("CUsesWinsock::CUsesWinsock()"), ::WSAGetLastError() );
 	}
 #endif
@@ -74,11 +74,11 @@ CSocketClient::CSocketClient(
 	m_SocketNo(mSocketNo)
 {
 	//m_ReadEvent = _CreateEvent(true, true);
-#ifdef WIN32 
+#ifdef WIN32
 	unsigned short wVersionRequested = 0x202;
 	if ( 0 != ::WSAStartup(wVersionRequested, &m_data ))
 	{
-		ccMessageBox("socket is fail..","socket");
+		messageBox("socket is fail..","socket");
 		//throw CWin32Exception( _T("CUsesWinsock::CUsesWinsock()"), ::WSAGetLastError() );
 	}
 #endif
@@ -102,7 +102,7 @@ CSocketClient::~CSocketClient()
 		StopConnections();
 	}
 	catch(...)
-	{	
+	{
 	}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	::WSACleanup();
@@ -112,7 +112,7 @@ CSocketClient::~CSocketClient()
 bool CSocketClient::StartConnections()
 {
 	CCriticalSection::Owner lock(m_criticalSection_s);
-    
+
 	if (INVALID_SOCKET == m_connectSocket)
 	{//����ǿ����ӵĻ� �ʹ���һ������
 		/*
@@ -122,12 +122,12 @@ bool CSocketClient::StartConnections()
 		/*
 		 * call to unqualified virtual function
 		 */
-		//ccMessageBox("CreateConnectionSocket","Socket");
+		//messageBox("CreateConnectionSocket","Socket");
 		m_connectSocket = CreateConnectionSocket(m_address, m_port);
 
 		if (!WaitAndVerifyCipher())
 		{//�ȴ���֤����
-			//ccMessageBox("WaitAndVerifyCipher false","Socket");
+			//messageBox("WaitAndVerifyCipher false","Socket");
 			return false;
 		}
 
@@ -150,23 +150,23 @@ void CSocketClient::StopConnections()
 		 */
 		/*
 		 * Force an abortive close.
-		 */	
+		 */
 		LINGER lingerStruct;
-		
+
 		lingerStruct.l_onoff = 1;
 		lingerStruct.l_linger = 0;
-		
-		if (SOCKET_ERROR == ::setsockopt(m_connectSocket, 
-								SOL_SOCKET, 
-								SO_LINGER, 
-								(char *)&lingerStruct, 
+
+		if (SOCKET_ERROR == ::setsockopt(m_connectSocket,
+								SOL_SOCKET,
+								SO_LINGER,
+								(char *)&lingerStruct,
 								sizeof(lingerStruct)))
 		{
 		}
 		//�������ź� �Ͽ���
 		//m_ReadEvent->Reset();
 		//m_eventSelect.DissociateEvent();
-		
+
 #ifdef WIN32
 	if (0!= ::closesocket(m_connectSocket))
 		{
@@ -184,7 +184,7 @@ void CSocketClient::StopConnections()
 	}
 }
 
-SOCKET CSocketClient::CreateConnectionSocket( 
+SOCKET CSocketClient::CreateConnectionSocket(
 					  const std::string &addressToConnectServer,
 					  unsigned short port)
 {
@@ -197,7 +197,7 @@ SOCKET CSocketClient::CreateConnectionSocket(
 	ret=ioctlsocket(s,FIONBIO,(uint32_t *)&ul);//���óɷ�����ģʽ��
 	if(ret==SOCKET_ERROR)//����ʧ�ܡ�
 	{
-	  ccMessageBox("ioctlsocket is fail..","ioctlsocket");
+	  messageBox("ioctlsocket is fail..","ioctlsocket");
 	}
 #else
 	SOCKET s = socket(AF_INET, SOCK_STREAM,IPPROTO_IP);
@@ -207,13 +207,13 @@ SOCKET CSocketClient::CreateConnectionSocket(
 	char ninfo[64]={0};
 	if ( INVALID_SOCKET == s )
 	{
-		t_sprintf(ninfo,"INVALID_SOCKET:%d",s);
-		ccMessageBox(ninfo,"CreateConnectionSocket");
+		sprintf(ninfo,"INVALID_SOCKET:%d",s);
+		messageBox(ninfo,"CreateConnectionSocket");
 		return INVALID_SOCKET;
 	}
 
-	//t_sprintf(ninfo,"SOCKET:%d",s);
-	//ccMessageBox(ninfo,"CreateConnectionSocket");
+	//sprintf(ninfo,"SOCKET:%d",s);
+	//messageBox(ninfo,"CreateConnectionSocket");
 
 	CSocket connectionSocket(s);
 #ifdef WIN32
@@ -224,7 +224,7 @@ SOCKET CSocketClient::CreateConnectionSocket(
 	connectionSocket.Connect_(addressToConnectServer,port);
 #endif
 
-	return connectionSocket.Detatch();	
+	return connectionSocket.Detatch();
 }
 
 void CSocketClient::InitiateShutdown()
@@ -262,18 +262,18 @@ void CSocketClient::WaitForShutdownToComplete(int32_t isCleartheThread)
 		//Wait();
 		Terminate(1);
 	}
-#endif 
+#endif
 }
 /*
 void CSocketClient::Run()
 {//�������������� sk ��������
 	//return;
 	try
-	{		
+	{
 		timeval pstTime = {0,0};
 		DWORD g_nServiceLoop = 0;
 		while (true)
-		{ 
+		{
 		 if (++g_nServiceLoop & 0x80000000)
 		 {
 			g_nServiceLoop = 0;
@@ -315,9 +315,9 @@ void CSocketClient::Run()
 					//uint32_t used = pBuffer->GetUsed();
 					uint32_t nSize          = pReadContext->GetUsed();
 					const unsigned char* pBuffer = pReadContext->GetBuffer();
-					
+
 					PROTOCOL_MSG_TYPE*	pMsg = (PROTOCOL_MSG_TYPE*)pBuffer; //��ǰ��
-					
+
 					while(pMsg < (PROTOCOL_MSG_TYPE*)(pBuffer + nSize))
 					{//˧ѡ���ݰ�
 						PROTOCOL_MSG_TYPE Msg = *pMsg;
@@ -330,28 +330,28 @@ void CSocketClient::Run()
 						else if (g_pCoreShell)
 						{
 							char xieyi[64]={0};
-							t_sprintf(xieyi,"%d:%d",Msg,dwNumBytes);
+							sprintf(xieyi,"%d:%d",Msg,dwNumBytes);
 
-							ccMessageBox(xieyi,"g_pCoreShell");
+							messageBox(xieyi,"g_pCoreShell");
 							if  (Msg <= s2c_clientbegin ||  Msg >= s2c_end || g_pCoreShell->GetProtocolSize(Msg)==0)
 								break;
 							if (Msg == s2c_syncworld)
-								ccMessageBox("s2c_syncworld...","s2c_syncworld");
+								messageBox("s2c_syncworld...","s2c_syncworld");
 							if (Msg == s2c_syncnpc)
-								ccMessageBox("s2c_syncnpc...","s2c_syncnpc");
+								messageBox("s2c_syncnpc...","s2c_syncnpc");
 							if (Msg == s2c_syncplayer)
-								ccMessageBox("s2c_syncplayer...","s2c_syncplayer");
+								messageBox("s2c_syncplayer...","s2c_syncplayer");
 							if (Msg == s2c_synonlineplayer) //�ղ���
-								ccMessageBox("s2c_synonlineplayer...","s2c_synonlineplayer");
+								messageBox("s2c_synonlineplayer...","s2c_synonlineplayer");
 							if (Msg == s2c_syncclientend)
-								ccMessageBox("s2c_syncclientend....","s2c_syncclientend");
+								messageBox("s2c_syncclientend....","s2c_syncclientend");
 
 							g_pCoreShell->NetMsgCallbackFunc(pMsg);          //���ܴӷ�����������Э����Ϣ
 
 							if (g_pCoreShell->GetProtocolSize(Msg) > 0)
 								pMsg = (PROTOCOL_MSG_TYPE*)(((char*)pMsg) + g_pCoreShell->GetProtocolSize(Msg));
 							else //û�����Ƴ��ȵ� -1
-								pMsg = (PROTOCOL_MSG_TYPE*)(((char*)pMsg) + PROTOCOL_MSG_SIZE + (*(unsigned short*)(((char*)pMsg) + PROTOCOL_MSG_SIZE)));			
+								pMsg = (PROTOCOL_MSG_TYPE*)(((char*)pMsg) + PROTOCOL_MSG_SIZE + (*(unsigned short*)(((char*)pMsg) + PROTOCOL_MSG_SIZE)));
 						}
 	                 }//END WIHEL
 			  }
@@ -361,11 +361,11 @@ void CSocketClient::Run()
 			OnRead(pReadContext);
 		}
 		pReadContext->Release();
-	  } // while ( ... 
+	  } // while ( ...
 	}
 	catch(...)
 	{
-		ccMessageBox("run is catch Error","Run");
+		messageBox("run is catch Error","Run");
 		StopConnections();
 		//m_ReadEvent->Reset();
 	}
@@ -377,13 +377,13 @@ void CSocketClient::Run()
 {//�������������� sk ��������
 	//return;
 	try
-	{		
+	{
 		timeval pstTime = {0,0};
 		DWORD g_nServiceLoop = 0;
 		//fd_set fdRead={0};
 		//fd_set fdRead;
 		 while (true)
-		 { 
+		 {
 
 			//��½�������� �ʺŷ��������� ����������
 			if (m_SocketNo==0 && m_bIsGameSevConnecting)
@@ -396,14 +396,14 @@ void CSocketClient::Run()
 			//fdRead.fd_array[0] = m_connectSocket;
 			//�Ƿ������ݿ���
 			//int32_t ret = select(m_connectSocket+1,&fdRead,NULL,NULL,0); //&pstTime
-			//if (ret== SOCKET_ERROR || ret==0)  
-			//{//����   
-				//break;  
-			//}  
-			//else if (ret>0)  
-			//{   
+			//if (ret== SOCKET_ERROR || ret==0)
+			//{//����
+				//break;
+			//}
+			//else if (ret>0)
+			//{
 			   //if(FD_ISSET(m_connectSocket, &fdRead))
-			   //{ 
+			   //{
 		       //}
 			//}
 			if  (INVALID_SOCKET == m_connectSocket)
@@ -426,11 +426,11 @@ void CSocketClient::Run()
 			usleep(10000); //΢�� ����=1000΢��  sleep Ϊ��
 			//sleep(1);
 #endif
-		} // while ( ... 	
+		} // while ( ...
 	}
 	catch(...)
 	{
-		//ccMessageBox("run is catch Error","Run");
+		//messageBox("run is catch Error","Run");
 		StopConnections();
 		//m_ReadEvent->Reset();
 	}
@@ -465,22 +465,22 @@ void CSocketClient::OnRead( CIOBuffer *pBuffer )
 				lastError == WSAECONNRESET ||
 				lastError == WSAEDISCON)        //Զ�˽��������ӡ�
 			{
-			
+
 				//ECONNRESET��linux���������̲����Ĵ��󣬴�����Ϊ104��
 				//WSAECONNRESET��windows���������̲����Ĵ��󣬴�����Ϊ10054
-				//���߲�����ԭ��һ���������¼�������� 
-				//- ���ն�recv����read�� �Զ��Ѿ��ر����ӣ�recv/read���ظô��� 
-				//- �Զ��������ӣ���δ�������� 
+				//���߲�����ԭ��һ���������¼��������
+				//- ���ն�recv����read�� �Զ��Ѿ��ر����ӣ�recv/read���ظô���
+				//- �Զ��������ӣ���δ��������
 				//- ���Ͷ��Ѿ��Ͽ����ӣ����ǵ���send�ᴥ���������
-			
-				//ccMessageBox("read is  Error and stop sk","read");
+
+				//messageBox("read is  Error and stop sk","read");
 				//StopConnections();
 			}
 		}
 	}
 	*/
 	if (dwNumBytes>0)
-	{	
+	{
 		pBuffer->Use(dwNumBytes);//���ó��������˶���
 		//������ݽ��� ��仺����
 		ReadCompleted(pBuffer);
@@ -503,11 +503,11 @@ void CSocketClient::Write( const char *pData, uint32_t dataLength )
 		pData )
 	{
 		CIOBuffer *pBuffer = Allocate();
-		
+
 		pBuffer->AddData( pData, dataLength );
 
 		Write( pBuffer );
-		
+
 		pBuffer->Release();
 	}
 }
@@ -531,7 +531,7 @@ bool CSocketClient::Write( CIOBuffer *pBuffer )
 
 	int32_t nError = 0;
 	DWORD lastError= 0;
-	
+
 	DWORD dwFlags = 0;//MSG_NOSIGNAL;
 	DWORD dwSendNumBytes = 0;
 	timeval gs_CheckRW_timeout = {0,0};
@@ -554,18 +554,18 @@ bool CSocketClient::Write( CIOBuffer *pBuffer )
 			writefds.fd_count = 1;
 			writefds.fd_array[0] = m_connectSocket;   //
 			nError = select(1,NULL,&writefds,NULL,0); //������������m_connectSocket+1
-			//ccMessageBox("select is end","send");
+			//messageBox("select is end","send");
 			if (SOCKET_ERROR==nError || 0 ==nError)
 			{//����������� ֱ�ӷ�����
 				//StopConnections();
-				//ccMessageBox("select is error","send");
+				//messageBox("select is error","send");
 				break;
 			}
 
 			if (nError>0)
 #endif*/
 			{//���Է�������
-				//ccMessageBox("send is ok","send");
+				//messageBox("send is ok","send");
 				wsa.len		-= dwSendNumBytes;
 				wsa.buf		+= dwSendNumBytes;//���͵��ӽ�
 				uDataLength	-= dwSendNumBytes;
@@ -581,7 +581,7 @@ bool CSocketClient::Write( CIOBuffer *pBuffer )
 				{//��������,ֱ�ӷ�����
 					return true;
 				}
-			}	
+			}
 		} while (true);
 	return false;
 }
@@ -593,7 +593,7 @@ bool CSocketClient::WaitAndVerifyCipher()
 	fd_set	fdRead  = { 0 };
 	timeval stTime;
 	timeval	*pstTime = NULL;
-	if (-1 != g_dwTimeout) 
+	if (-1 != g_dwTimeout)
 	{
 		stTime.tv_sec = g_dwTimeout; //��
 		stTime.tv_usec = 0;
@@ -630,10 +630,10 @@ bool CSocketClient::WaitAndVerifyCipher()
 			if (res > 0)
 			{
 				dwBytesRead = res;
-				dwTotalLength += dwBytesRead;			
+				dwTotalLength += dwBytesRead;
 			}
 		}
-		
+
 		if (res <= 0)
 		{
 			/*
@@ -641,20 +641,20 @@ bool CSocketClient::WaitAndVerifyCipher()
 			 */
 			//m_ReadEvent->Reset();
 			//char ninfo[64]={0};
-			//t_sprintf(ninfo,"Timeout and exit:%d",s);
-			//ccMessageBox(ninfo,"WaitAndVerifyCipher");
+			//sprintf(ninfo,"Timeout and exit:%d",s);
+			//messageBox(ninfo,"WaitAndVerifyCipher");
 			break;
 		}
-		
+
 		if (dwTotalLength == sizeof(m_theSendAccountBegin))
 		{
 			ACCOUNT_BEGIN *pAccountBegin = ( ACCOUNT_BEGIN * )(&m_theSendAccountBegin.AccountBegin);
-			
+
 			if (pAccountBegin->ProtocolType == CIPHER_PROTOCOL_TYPE)
 			{
 				if (pAccountBegin->nMode != 0)
 				{
-					ccMessageBox("Server send cliper mode error","cliper");
+					messageBox("Server send cliper mode error","cliper");
 				/*
 				* Write this message and then shutdown the sending side of the socket.
 					*/
@@ -670,7 +670,7 @@ bool CSocketClient::WaitAndVerifyCipher()
 					m_connectSocket = INVALID_SOCKET;
 					return false;
 				}
-				m_uKeyMode   = pAccountBegin->nMode; 
+				m_uKeyMode   = pAccountBegin->nMode;
 				m_uServerKey = ~(pAccountBegin->ServerKey);
 				m_uClientKey = ~(pAccountBegin->ClientKey);
 				//m_ReadEvent->Reset();

@@ -16,7 +16,7 @@ enum WAIT_OTHER_WND_OPER_PARAM
 //--------------------------------------------------------------------------
 //	���ܣ�������Ϸ�������ݸı�֪ͨ�ĺ���   ---�յ�������֪ͨ����Ӧ����
 //--------------------------------------------------------------------------
-void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nParam,int inVal)
+void CoreDataChangedCallback(unsigned int uDataId, uintptr_t uParam, int nParam,int inVal)
 {
 	//KUiTrade* pTradeBar = NULL;
 	if (!g_GameWorld || !nisgetinfo) return;
@@ -29,14 +29,14 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 	case GDCNI_TASK_INFO:           //����ϵͳ
 		{
 			if (uParam)
-			{ 
+			{
 				if  (nParam==0)
 					g_GameWorld->taskCilentMsgArrival((KNewsMessage*)uParam, nParam,inVal);
 					//KUiTask::MessageArrival((KNewsMessage*)uParam, nParam);
 				else if (nParam==1)
 					g_GameWorld->taskCilentFindPathArrival((KTaskPathInfo*)uParam, nParam,inVal);
 					//KUiTask::MsgFindPathArrival((KTaskPathInfo*)uParam, nParam);
-			}      
+			}
 		}
 		break;
 	case GDCNI_NEWS_MESSAGE:	 //�ɹ���������Ϣ
@@ -88,24 +88,24 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 			} */
 			   // KUiMsgCentrePad::SetMissGroupIdx(Info.nMissionGroup);
 
-			if ((Info.nCurFaction >= 0) || 
-				(Info.nCurTong != 0) || 
+			if ((Info.nCurFaction >= 0) ||
+				(Info.nCurTong != 0) ||
 				(Info.nMissionGroup >= 0)
 				)
 				g_GameWorld->QueryAllChannel();
-			
-			
+
+
 			if (Info.nCurFaction < 0)
 				//KUiMsgCentrePad::CloseSelfChannel(KUiMsgCentrePad::ch_Faction);
-			
+
 			if (Info.nCurTong == 0)
 				//KUiMsgCentrePad::CloseSelfChannel(KUiMsgCentrePad::ch_Tong);
-			
+
 			if (Info.nMissionGroup < 0)
 			{
 				//KUiMsgCentrePad::CloseSelfChannel(KUiMsgCentrePad::ch_Msgr);
 			}
-			
+
 			//if (Info.nRoomId < 0)
 			//	KUiMsgCentrePad::CloseSelfChannel(KUiMsgCentrePad::ch_Cr);
 		}
@@ -133,24 +133,24 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 		break;
 	case GDCNI_GIVE:  //�򿪸�����棿
 		{
-			PLAYER_GIVEUI* pObject = (PLAYER_GIVEUI*)uParam; //   
+			PLAYER_GIVEUI* pObject = (PLAYER_GIVEUI*)uParam; //
 			if (pObject->m_szTitle==NULL)
-				t_sprintf(pObject->m_szTitle,"%s","����(���ɽ���)����");
+				sprintf(pObject->m_szTitle,"%s","����(���ɽ���)����");
 
 			g_GameWorld->openGive(pObject->m_szTitle,pObject->m_szName,nParam,pObject->m_Callback,pObject->m_Error);
 		}
-		break;	
+		break;
 	case GDCNI_CLOSE_BAITAN:
 		{
 			if (nParam==0)
 			    g_GameWorld->ClosePlayerShop();
 		}
 		break;
-	case GDCNI_VIEW_PLAYERSELLITEM: 
+	case GDCNI_VIEW_PLAYERSELLITEM:
 		{//�򿪰�̯���
            g_GameWorld->OpenPlayerShopDialog((KUiPlayerItem*)uParam);
 		}
-		break;	
+		break;
 	case GDCNI_VIEW_PLAYERUPDATEITEM:
 		{//���°�̯�����Ϣ
 			if (nParam==0)
@@ -175,7 +175,7 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 		break;
 	case GDCNI_OPEN_JINDUTIAO:
 		{
-		    g_GameWorld->openProgressbar((KUiJinDuTiaoInfo*)uParam);	
+		    g_GameWorld->openProgressbar((KUiJinDuTiaoInfo*)uParam);
 		}
 		break;
 	case GDCNI_SKILL_CHANGE:			//��������һ������
@@ -202,7 +202,7 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 	case GDCNI_OPEN_STORE_BOX://�򿪴�����
 		g_GameWorld->openStorebox();
 		break;
-	case GDCNI_SYSTEM_MESSAGE: 
+	case GDCNI_SYSTEM_MESSAGE:
 		{//����ϵͳ������Ϣ��
 			if (uParam)
 				g_GameWorld->AMessageArrival((KSystemMessage*)uParam, (void*)nParam);
@@ -222,13 +222,13 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 			else
 				g_GameWorld->CreatNpcDialog((KUiQuestionAndAnswer*)uParam);//�Ƿ�ʱ�ر�
 		}
-		break; 
+		break;
 	case GDCNI_OBJECT_CHANGED:
 		{//����ɾ����Ʒ
 			if (!g_GameWorld) break;
 			if (uParam)
 			{
-				KUiObjAtContRegion* pObject = (KUiObjAtContRegion*)uParam;
+				KUiObjAtContRegion* pObject = reinterpret_cast<KUiObjAtContRegion*>(uParam);
 				switch(pObject->eContainer)
 				{
 				case UOC_ITEM_TAKE_WITH:
@@ -248,7 +248,7 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 					{
                        if (g_GameWorld->GetuistoreIfVisible())//�򿪵� �͸���
 						   g_GameWorld->UpdateExBox((KUiObjAtRegion*)uParam, nParam,UOC_EX_BOX1);
-					} 
+					}
 					break;
 				case UOC_EX_BOX2:
 					{
@@ -286,7 +286,7 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 					break;
 				case UOC_TO_BE_TRADE:
 					{//�Լ�������ͼ��
-						//ccMessageBox("��ʼ������Ʒ","TEST");
+						//messageBox("��ʼ������Ʒ","TEST");
 						g_GameWorld->OnSelfChangedItem(pObject, nParam);
 					}
 				default:
@@ -311,7 +311,7 @@ void CoreDataChangedCallback(unsigned int uDataId, unsigned int uParam, int nPar
 				{//��ĸ��
 						if (g_GameWorld->GetuiItemExIfVisible())//�����Ǵ򿪵� �͸���
 							g_GameWorld->UpdateItemEx((KUiObjAtRegion*)uParam, nParam);
-				}  
+				}
 				if (pObject->eContainer == UOC_STORE_BOX)
 				{
 					if (g_GameWorld->GetuistoreIfVisible())//�����Ǵ򿪵� �͸���

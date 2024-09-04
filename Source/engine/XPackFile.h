@@ -42,6 +42,7 @@ public:
 	SPRHEAD*	GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTable);
 	//��ȡ��֡ѹ����spr��һ֡������
 	SPRFRAME*	GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &nSingFrameSize);
+    std::string fileName;
 
 private:
 	//ֱ�Ӷ�ȡ���ļ������е����ݵ�������

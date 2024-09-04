@@ -104,7 +104,7 @@ void KuiShowSprite::mianDialogSet(char * nFilePath,int nXpos,int nYpos,bool nTou
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	//ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprNamePath,nFilePath);
+	sprintf(nSprNamePath, "%s", nFilePath);
 	g_StrLower(nSprNamePath);
 
 	sFarmsTexture	=_getinidata.getinidata_one(nSprNamePath,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -246,7 +246,7 @@ Size KuiShowSprite::getShowSize()
 
 void KuiShowSprite::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (g_GameWorld && isOpen && g_pCoreShell)
 	{
 	}
@@ -260,7 +260,7 @@ Texture2D * KuiShowSprite::ccgetTxtData_s(char *sprPath,int nFramIndex,int nMpsX
 
 	    char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,sprPath);
+		sprintf(nSprName, "%s", sprPath);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -317,7 +317,7 @@ Texture2D * KuiShowSprite::ccgetTxtData_s(char *sprPath,int nFramIndex,int nMpsX
 	return bgCur;
 }
 
-void KuiShowSprite::draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags)
+void KuiShowSprite::draw(ax::Renderer* renderer, const ax::Mat4& transform, unsigned int flags)
 {
     Layer::draw(renderer, transform, flags);
 
@@ -365,7 +365,7 @@ void KuiShowSprite::draw(ax::Renderer* renderer, const ax::Mat4& transform, uint
 //			   /*if (ptestLabel)
 //			   {
 //				   char nTemp[64];
-//				   t_sprintf(nTemp,"F:%d W:%d H:%d X:%d Y:%d",_nFarms,m_nWidth,m_nHeight,mScreeX,mScreeY);
+//				   sprintf(nTemp,"F:%d W:%d H:%d X:%d Y:%d",_nFarms,m_nWidth,m_nHeight,mScreeX,mScreeY);
 //				   ptestLabel->setString(nTemp);
 //			   }*/
 //		   }

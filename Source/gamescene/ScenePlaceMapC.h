@@ -12,7 +12,6 @@
 //#include	"KLittleMap.h"
 #include "cocos2d.h"
 using namespace ax;
-using namespace ax::extension;
 using namespace std;
 #define	MAX_NUM_CHARACTER	40 //40
 
@@ -132,7 +131,7 @@ private:
 	int		m_bHavePicMap;			//�˳����Ƿ�������ͼ��ʽ��С��ͼ
 	int     m_bPicMapType;			//�˳����Ƿ�������ͼ��ʽ��С��ͼ
 	bool	m_bInited;				//�Ƿ�ִ�й���ʼ��
-    int     bFlag; 
+    int     bFlag;
 	BOOL    bSearch;
 	int     m_SubWorld;
 	RECT    m_MapPos;
@@ -145,7 +144,7 @@ private:
 	char	m_szEntireMapFile[128];	 //��ͼͼ�ļ�����
 	//KSGImageContent*	m_pEntireMap;//���������Ե�ͼ
 
-	POINT	m_EntireMapLTPosition;	//������ͼ�����Ͻǵĳ������� 
+	POINT	m_EntireMapLTPosition;	//������ͼ�����Ͻǵĳ�������
 
 
 	POINT	m_EndMapRBPosition;	    //���½ǳ�������

@@ -23,7 +23,7 @@
 
 #define		OBJ_SHOW_NAME_Y_OFF	30	 //48 20
 
-KObj	*Object = NULL;//Object[MAX_OBJECT];
+KObj	*KObject = NULL;//KObject[MAX_OBJECT];
 
 //-------------------------------------------------------------------------
 //	���ܣ�	��ʼ��
@@ -411,10 +411,10 @@ void	KObj::SetScriptFile(char *lpszScriptFile)
 			if (strstr(szScript,".lua"))
 			{//���������Ļ� ���ǽű� �����
 				m_dwScriptID = g_CheckFileExist(szScript);
-			}  
+			}
 			else
 				m_dwScriptID=0;
-			
+
 		}
 	}
 }
@@ -439,7 +439,7 @@ void KObj::DrawInfo()
 
 	GetMpsPos(&nMpsX, &nMpsY);
 	nHeightOff = OBJ_SHOW_NAME_Y_OFF;
-	//dwColor = this->m_dwNameColor;  //������Ʒ���ֵ���ɫ 
+	//dwColor = this->m_dwNameColor;  //������Ʒ���ֵ���ɫ
   //  int nMsgLen = TEncodeText(m_szName, strlen(m_szName));
 //    g_pRepresent->OutputText(12,m_szName, KRF_ZERO_END, nMpsX - 12*g_StrLen(m_szName)/4, nMpsY, dwColor, 0, nHeightOff, 0XFF000000);
 }
@@ -487,7 +487,7 @@ void KObj::Draw()
 	   m_nameColor   = ax::Color3B::WHITE;
 	else if (m_nColorID==1)
 	{
-		
+
 		//m_nameColor  = {100,100,255};//ax::Color3B::BLUE;
 		m_nameColor.r = 100;
 		m_nameColor.g = 100;
@@ -507,14 +507,14 @@ void KObj::Draw()
 	switch(m_nKind)
 	{
 	case Obj_Kind_MapObj:
-		g_GameWorld->DrawPrimitives_obj(m_nIndex,0,&m_Image,0,0,1,0,m_nameColor,m_szName,_clientObjName);	
+		g_GameWorld->DrawPrimitives_obj(m_nIndex,0,&m_Image,0,0,1,0,m_nameColor,m_szName,_clientObjName);
 		break;
 	case Obj_Kind_Prop:
 		if (m_nState == OBJ_PROP_STATE_DISPLAY )
 		    g_GameWorld->DrawPrimitives_obj(m_nIndex,0,&m_Image,0,0,1,0,m_nameColor,m_szName,_clientObjName);
 		break;
 	default:
-		    g_GameWorld->DrawPrimitives_obj(m_nIndex,0,&m_Image,0,0,1,0,m_nameColor,m_szName,_clientObjName);	
+		    g_GameWorld->DrawPrimitives_obj(m_nIndex,0,&m_Image,0,0,1,0,m_nameColor,m_szName,_clientObjName);
 		break;
 	}
 }
@@ -540,7 +540,7 @@ void KObj::Activate()
 		 m_AttackerTime=0;
 	  }
    }
-  
+
 	int	nMask = IPOT_RL_OBJECT | IPOT_RL_INFRONTOF_ALL;	// mat na
 	switch(m_nKind)
 	{
@@ -785,28 +785,28 @@ void	KObj::ExecScript(int nPlayerIdx,int nObjIdx,int nOgjWorlID)
 	{
 		printf("-------OBJ�ű�������,ִ��ʧ��!-------- \n");
 		return;
-	} 
+	}
 
 	int nTopIndex = 0;
 	try
 	{
 		if (pScript)
-		{		
+		{
 			if (Player[nPlayerIdx].m_nIndex < 0) return ;
 
 			Npc[Player[nPlayerIdx].m_nIndex].m_ActionScriptID = dwScriptId;
 
 			Lua_PushNumber(pScript->m_LuaState, Player[nPlayerIdx].GetPlayerIndex());
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Player[nPlayerIdx].GetPlayerID());
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_nIndex);
 			pScript->SetGlobalName(SCRIPT_OBJINDEX);
-			
+
 			nTopIndex=pScript->SafeCallBegin();
-			
+
 			BOOL bResult = FALSE;
 			     bResult = pScript->CallFunction("main",0,"%d%d",nObjIdx,nOgjWorlID);
 			if (bResult)
@@ -818,19 +818,19 @@ void	KObj::ExecScript(int nPlayerIdx,int nObjIdx,int nOgjWorlID)
 			//lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		}
            if (bExecuteScriptMistake)
-		   { 
+		   {
 //			    Player[nPlayerIdx].m_bWaitingPlayerFeedBack = false;
 	 		 	Npc[Player[nPlayerIdx].m_nIndex].m_ActionScriptID=0;
 				return;
 		   }
 
-	}   
+	}
 	catch(...)
 	{
 		if (pScript)
 		{
 			nTopIndex=pScript->SafeCallBegin();
-			pScript->SafeCallEnd(nTopIndex);   
+			pScript->SafeCallEnd(nTopIndex);
 		}
 
 		printf("-----ִ����Ʒ�ű��������� Obj-----!\n");
@@ -857,34 +857,34 @@ BOOL KObj::ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfun
 	{
 		printf("-------�ű�������,ִ��[%s][%s]ʧ��!-------- \n",m_szScriptName,m_szcallfuns);
 		return FALSE;
-	} 
-	
+	}
+
 	if (pScript)
 		{
-            
+
 			if (Player[nPlayerIdx].m_nIndex < 0) return -1;
 
 			//Npc[Player[nPlayerIdx].m_nIndex].m_ActionScriptID = dwScriptId;
 
 			Lua_PushNumber(pScript->m_LuaState, Player[nPlayerIdx].GetPlayerIndex());
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Player[nPlayerIdx].GetPlayerID());
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_nIndex);
 			pScript->SetGlobalName(SCRIPT_OBJINDEX);
-			
+
 			int nTopIndex = 0;
 
 			nTopIndex=pScript->SafeCallBegin();
-			
+
 			char *bResultchar=NULL;
 			if (pScript->CallFunction(m_szcallfuns,1, "ddssdd", nParm1,nParm2,sSubName,gsName,nParm3,0))
 			{
                bExecuteScriptMistake=false;
 			}
-			
+
 			if (bExecuteScriptMistake==false)
 			{
 		 	   const char * szType = lua_typename(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
@@ -893,28 +893,28 @@ BOOL KObj::ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfun
 			       bResult = (int)Lua_ValueToNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
 			   }
 			   else if (Lua_IsString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)  // �ַ�������
-			   { 
+			   {
 			       bResultchar = (char *)Lua_ValueToString(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
 			       bResult     = atoi(bResultchar);
 			   }
-			   
+
 			   nTopIndex=pScript->SafeCallBegin();
-			   pScript->SafeCallEnd(nTopIndex); 
+			   pScript->SafeCallEnd(nTopIndex);
 			  // printf("Obj����Ʒ�ű��ɹ� [%d:%s]!\n",bResult,m_szScriptName);
 		       return bResult;
 			}
 			  nTopIndex=pScript->SafeCallBegin();
-			  pScript->SafeCallEnd(nTopIndex); 
+			  pScript->SafeCallEnd(nTopIndex);
 			  //lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		}
 		 if (bExecuteScriptMistake)
-		 { 
+		 {
 //			Player[nPlayerIdx].m_bWaitingPlayerFeedBack = false;
 			Npc[Player[nPlayerIdx].m_nIndex].m_ActionScriptID=0;
 //			printf("Obj����Ʒ�ű�ʧ�� [%d:%s]!\n",bResult,m_szScriptName);
 			return 0;
-		 } 	
-	
+		 }
+
 	return 0;
 }
 //-------------------------------------------------------------------------
@@ -962,12 +962,12 @@ void KObj::Remove(BOOL bSoundFlag,BOOL nIsClear)
 	{
 	  if (!nIsClear)
 	  {
-		if (Object[m_nIndex].m_nSubWorldID>=0 && Object[m_nIndex].m_nRegionIdx >= 0)
-			SubWorld[Object[m_nIndex].m_nSubWorldID].m_Region[Object[m_nIndex].m_nRegionIdx].RemoveObj(m_nIndex);
+		if (KObject[m_nIndex].m_nSubWorldID>=0 && KObject[m_nIndex].m_nRegionIdx >= 0)
+			SubWorld[KObject[m_nIndex].m_nSubWorldID].m_Region[KObject[m_nIndex].m_nRegionIdx].RemoveObj(m_nIndex);
 		ObjSet.Remove(m_nIndex);
 	  }
 
-	} 
+	}
 }
 
 int		KObj::GetKind()
@@ -1050,14 +1050,14 @@ void KObj::DrawBorder()
 	switch(m_nKind)
 	{
 	case Obj_Kind_MapObj:
-		//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);	
+		//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);
 		break;
 	case Obj_Kind_Prop:
 		//if (m_nState == OBJ_PROP_STATE_DISPLAY )
-			//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);	
+			//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);
 		break;
 	default:
-		//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);	
+		//g_pRepresent->DrawPrimitives(1, &m_Image, RU_T_IMAGE, 0);
 		break;
 	}
 	//m_Image.bRenderStyle = IMAGE_RENDER_STYLE_ALPHA;

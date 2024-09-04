@@ -89,7 +89,7 @@ bool Klogin::init()
 	m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 	char nSprName[128]={0};
 	int nFrams=0;
-	t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_ok.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_ok.spr");
 	g_StrLower(nSprName);
 	MenuItemImage *pCancelItem=NULL;
 	MenuItemImage *pLoginItem=NULL;
@@ -98,11 +98,11 @@ bool Klogin::init()
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pLoginItem = MenuItemImage::create();
@@ -116,18 +116,18 @@ bool Klogin::init()
 	}
 
 	nFrams=0;
-	t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_cancel.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_cancel.spr");
 	g_StrLower(nSprName);
 	Texture2D *Cancel = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pCancelItem = MenuItemImage::create();
@@ -160,7 +160,7 @@ bool Klogin::init()
 	//FileUtils::getPathForFilename()
 	//std::string nPath = ax::FileUtils::getInstance()->getWritablePath();
 
-	//ccMessageBox(nPath.c_str(),"getWritablePath");//�ɶ�д·�� /data/data/����/files/
+	//messageBox(nPath.c_str(),"getWritablePath");//�ɶ�д·�� /data/data/����/files/
 	//nPath = ax::FileUtils::getInstance()->fullPathForFilename("package.ini");
 	//nPath = ax::FileUtils::getInstance()->getWritablePath();//getWriteablePath();
 	//nPath += "download";
@@ -179,7 +179,7 @@ bool Klogin::init()
 	//fullPathForFilename(filename.c_str());
 	pMainLabel = Label::createWithTTF(strTiele,UI_GAME_FONT_DEFAULT, 20);
 	pMainLabel->setString(UTEXT("",1).c_str());//������ʾ������
-	//ccMessageBox(nPath.c_str(),"title");
+	//messageBox(nPath.c_str(),"title");
 	// position the label on the center of the screen
 	pMainLabel->setPosition(ax::Vec2(origin.x + visibleSize.width/2,
 		origin.y + visibleSize.height - pMainLabel->getContentSize().height-10));
@@ -212,7 +212,7 @@ bool Klogin::init()
 		//memset()
 		//\\Spr\\Ui3\\�������\\��½����_6_�߿�.spr  \Spr\Ui3\�������\����С����\Ҷ��Ʈ��.spr  \\spr\\Ui3\\loginui\\uidonghua\\yezi.spr
 
-		 t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
+		 sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
 		 g_StrLower(nSprName);
 		 Texture2D *bgCur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		 if  (bgCur)
@@ -232,12 +232,14 @@ bool Klogin::init()
 			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
-				t_sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
+				//messageBox(nSprFilePath,"animation");
                 auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                Rect rect = Rect::ZERO;
-                rect.size = texture->getContentSize();
-                animation->addSpriteFrameWithTexture(texture, rect);
+                if (texture) {
+                    Rect rect = Rect::ZERO;
+                    rect.size = texture->getContentSize();
+                    animation->addSpriteFrameWithTexture(texture, rect);
+                }
 //                texture->release();
 //				animation->addSpriteFrameWithFile(nySprFilePath);//�����������������֡
 			}
@@ -259,7 +261,7 @@ bool Klogin::init()
             }
 		 }
 		 //�����ʺš����� "\\Spr\\Ui3\\�������\\��½����_6_�߿�.spr"
-		 t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\longi_6_b.spr");//"\\spr\\Ui3\\loginui\\longi_6_b.spr"
+		 sprintf(nSprName,"\\spr\\Ui3\\loginui\\longi_6_b.spr");//"\\spr\\Ui3\\loginui\\longi_6_b.spr"
 		 g_StrLower(nSprName);
 		 nFrams=0;
 		 Texture2D *Cur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
@@ -295,7 +297,7 @@ bool Klogin::init()
 				pAccEditBox->setPositionY(testSprite->getPositionY());
 				///m_sprCount++;
 				accinfo.GetString("info","acc","",nTempStr,sizeof(nTempStr));
-				pAccEditBox->setText("xtnet001");
+				pAccEditBox->setText("kull3");
 				this->addChild(pAccEditBox,4,1000);
 			}
 
@@ -326,8 +328,8 @@ bool Klogin::init()
 			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
-				t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,i);
+				//messageBox(nSprFilePath,"animation");
 				animation->addSpriteFrameWithFile(nSprFilePath);//�����������������֡
 			}
 			//���ö���֡��ʱ����
@@ -425,7 +427,7 @@ bool Klogin::init()
 	//��ʼ���� �Ƿ��Ƴɹ�....
 	if (isFileExist("laohuji.spr"))
 	{//�����ھͿ�ʼ����
-		ccMessageBox("suee","isFileExist");
+		messageBox("suee","isFileExist");
 	}*/
 	//this->draw();
 	this->scheduleUpdate();  //ң�˸��µ��ú���
@@ -460,9 +462,9 @@ void Klogin::mianLoginCallback(Ref* pSender)
 		if (strAcc.length()>16 || strAcc.length()<=0 || strPas.length()>16 || strPas.length()<=0)
 		{
 #ifdef WIN32
-			ccMessageBox("Sai t��i kho?n ho?c m?t kh?u","Ch�� y");
+			messageBox("Sai t��i kho?n ho?c m?t kh?u","Ch�� y");
 #else
-			ccMessageBox(G2U("Sai t��i kho?n ho?c m?t kh?u��").c_str(),G2U("Ch�� y").c_str());
+			messageBox(G2U("Sai t��i kho?n ho?c m?t kh?u��").c_str(),G2U("Ch�� y").c_str());
 #endif
 			return;
 		}
@@ -497,9 +499,9 @@ if (_clientlanguage==1)
 		if (spaceNum>0 || chineseNum >0 || other>0 || letter>0)
 		{ 	//system("pause");
 #ifdef WIN32
-			ccMessageBox("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!","����");
+			messageBox("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!","����");
 #else
-			ccMessageBox(G2U("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!").c_str(),G2U("����").c_str());
+			messageBox(G2U("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -509,9 +511,9 @@ else
 	if (spaceNum>0 || chineseNum >0 || other>0)
 	{ 	//system("pause");
 #ifdef WIN32
-		ccMessageBox("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!","����");
+		messageBox("���зǷ��ַ�,�����ʺ�,����\n���ܺ��пո�,��д��ĸ���������!","����");
 #else
-		ccMessageBox("Invalid character,please check your name!\n Cannot contain special symbols such as chinese, spaces, etc.!","Warning");
+		messageBox("Invalid character,please check your name!\n Cannot contain special symbols such as chinese, spaces, etc.!","Warning");
 #endif
 		return;
 	}
@@ -521,9 +523,9 @@ else
 	else
 	{
 #ifdef WIN32
-		ccMessageBox("�������󣮣�","����");
+		messageBox("�������󣮣�","����");
 #else
-		ccMessageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -531,10 +533,10 @@ else
 	if (accinfo.Load("accinfo.ini",true))
 	{
 		char nTempStr[64];
-		t_sprintf(nTempStr,strAcc.c_str());
+		sprintf(nTempStr, "%s", strAcc.c_str());
 		accinfo.WriteString("info","acc",nTempStr);
 
-		t_sprintf(nTempStr,strPas.c_str());
+		sprintf(nTempStr, "%s", strPas.c_str());
 		accinfo.WriteString("info","pas",nTempStr);
 		accinfo.Save("accinfo.ini");
 		accinfo.Clear();
@@ -545,9 +547,9 @@ else
 		if  (m_ClientChoices.nServerRegionIndex<=0)
 		{
 #ifdef WIN32
-			ccMessageBox("��ѡ���½��������","����");
+			messageBox("��ѡ���½��������","����");
 #else
-			ccMessageBox(G2U("��ѡ���½��������").c_str(),G2U("����").c_str());
+			messageBox(G2U("��ѡ���½��������").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -559,7 +561,7 @@ else
 		BYTE Buff[sizeof(KLoginAccountInfo) + PROTOCOL_MSG_SIZE];
 		RandMemSet(sizeof(Buff),(BYTE*)Buff);		// random memory for make a cipher
 		char pszAccount[32]={0};
-		t_sprintf(pszAccount,strAcc.c_str());
+		sprintf(pszAccount, "%s", strAcc.c_str());
 
 		(*(PROTOCOL_MSG_TYPE*)Buff) = c2s_login_fhgyrinhkmvnsheypo;
 		KLoginAccountInfo* pInfo = (KLoginAccountInfo*)&Buff[PROTOCOL_MSG_SIZE];
@@ -587,14 +589,14 @@ else
 			ax::Director::getInstance()->replaceScene(Klogin_f::scene());
 		}
 		//ax::Director::getInstance()->replaceScene(KSelPlayer::scene());
-		//ccMessageBox("send suss","send suss");
+		//messageBox("send suss","send suss");
 	}
 }
 //�رհ�ť�ص�����
 void Klogin::mianSkillCallback(Ref* pSender)
 {//�ر�
 /*#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	ax::Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -612,7 +614,7 @@ void Klogin::update(float delta)
 		ax::Director::getInstance()->replaceScene(KSelPlayer::scene());
 		return;
 	}
-	uint32_t nSize;
+	unsigned int nSize;
 	const char* pBuffer = NULL;
 	if (m_bIsClientConnecting)
 	{ //�˺ŷ�����
@@ -642,7 +644,7 @@ void Klogin::update(float delta)
     //Point nCurPoint= joystick->getDirection();
 	//float n = joystick->getAngleSigned();
 	/*char nPiontInfo[64]={0};
-	t_sprintf(nPiontInfo,"%f",n);
+	sprintf(nPiontInfo,"%f",n);
 	pMainLabel->setString(nPiontInfo);
     */
 	switch(newY)
@@ -665,7 +667,7 @@ void Klogin::update(float delta)
 //{
 	/*nTestCount ++;
 	char nPiontInfo[64]={0};
-	t_sprintf(nPiontInfo,"%d",nTestCount);
+	sprintf(nPiontInfo,"%d",nTestCount);
 	pMainLabel->setString(nPiontInfo);*/
 	//��Ļ�ߴ��С
 	//Size mysize      = ax::Director::getInstance()->getVisibleSize();
@@ -757,7 +759,7 @@ bool Klogin::isFileExist(const char* pFileName)
 void Klogin::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::binary | std::ios::ate);
@@ -884,7 +886,7 @@ void Klogin::AcceptNetMsg(void* pMsgData) //ѭ�����ܴ�����Ϣ
 {
 	if (pMsgData == NULL)  //���ݰ�Ϊ�� �򷵻�
 		return;
-	//ccMessageBox("�ص��ɹ�","GetPackFromServer");
+	//messageBox("�ص��ɹ�","GetPackFromServer");
 	switch(m_Status)       //�������ݰ���ʶ����
 	{
 	case LL_S_ACCOUNT_CONFIRMING:  //�˺���֤
@@ -975,9 +977,9 @@ void Klogin::ProcessAccountLoginResponse(KLoginStructHead* pResponse)
 				//ReturnToIdle();//�Ͽ�����
 				nBVer.Clear();
 #ifdef WIN32
-				ccMessageBox("�汾����","��ʾ:");
+				messageBox("�汾����","��ʾ:");
 #else
-                ccMessageBox(UTEXT("�汾����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                messageBox(UTEXT("�汾����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 				return;
 			}
@@ -1012,9 +1014,9 @@ void Klogin::ProcessAccountLoginResponse(KLoginStructHead* pResponse)
 			if (pInfo->ProtocolVersion!=KPROTOCOL_VERSION)
 			{
 #ifdef WIN32
-				ccMessageBox("�汾������!","��ʾ:");
+				messageBox("�汾������!","��ʾ:");
 #else
-				ccMessageBox(UTEXT("�汾������!",1).c_str(),UTEXT("��ʾ:",1).c_str());
+				messageBox(UTEXT("�汾������!",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 				m_Result = LL_R_INVALID_PROTOCOLVERSION;  //�汾����
 				return;
@@ -1029,7 +1031,7 @@ void Klogin::ProcessAccountLoginResponse(KLoginStructHead* pResponse)
 				//m_LeftTime = pInfo->nLeftTime;
 				//m_VipType  = pInfo->nVipType;
 				//m_ExtPiont = pInfo->nExtPiont;
-				//ccMessageBox("��½�ɹ�","ProcessAccountLoginResponse");
+				//messageBox("��½�ɹ�","ProcessAccountLoginResponse");
 			}
 			else
 			{
@@ -1040,59 +1042,59 @@ void Klogin::ProcessAccountLoginResponse(KLoginStructHead* pResponse)
 					//eResult = LL_R_ACCOUNT_PWD_ERROR;
 					m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 #ifdef WIN32
-					ccMessageBox("�������","��ʾ:");
+					messageBox("�������","��ʾ:");
 #else
-					ccMessageBox(UTEXT("�������",1).c_str(),UTEXT("��ʾ:",1).c_str());
+					messageBox(UTEXT("�������",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					break;
 				case LOGIN_R_ACCOUNT_EXIST:   //�˺Ÿ�����  --�˺�����ʹ��
 					//eResult = LL_R_ACCOUNT_LOCKED;
 #ifdef WIN32
-					ccMessageBox("�ʺ�����ʹ��","��ʾ:");
+					messageBox("�ʺ�����ʹ��","��ʾ:");
 #else
-                   ccMessageBox(UTEXT("�ʺ�����ʹ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                   messageBox(UTEXT("�ʺ�����ʹ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 					break;
 				case LOGIN_R_FREEZE:  // �˺ű�����
 					//eResult = LL_R_ACCOUNT_FREEZE;
 #ifdef WIN32
-					ccMessageBox("�ʺű�����","��ʾ:");
+					messageBox("�ʺű�����","��ʾ:");
 #else
-                    ccMessageBox(UTEXT("�ʺű�����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                    messageBox(UTEXT("�ʺű�����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 					break;
 				case LOGIN_R_INVALID_PROTOCOLVERSION: // �汾������
 					//eResult = LL_R_INVALID_PROTOCOLVERSION
 #ifdef WIN32
-					ccMessageBox("�汾������","��ʾ:");
+					messageBox("�汾������","��ʾ:");
 #else
-                   ccMessageBox(UTEXT("�汾������",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                   messageBox(UTEXT("�汾������",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					break;
 				case LOGIN_R_FAILED:  //����ʧ��
 					//eResult = LL_R_CONNECT_SERV_BUSY; // ��ʾ������æ
 #ifdef WIN32
-					ccMessageBox("����ʧ��","��ʾ:");
+					messageBox("����ʧ��","��ʾ:");
 #else
-                    ccMessageBox(UTEXT("����ʧ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                    messageBox(UTEXT("����ʧ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					break;
 				case LOGIN_R_TIMEOUT: // �˺�ʹ��ʱ�䵽
 					//eResult = LL_R_ACCOUNT_NOT_ENOUGH_POINT;
 #ifdef WIN32
-					ccMessageBox("�ʺ��Ѿ�����","��ʾ:");
+					messageBox("�ʺ��Ѿ�����","��ʾ:");
 #else
-                    ccMessageBox(UTEXT("�ʺ��Ѿ�����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+                    messageBox(UTEXT("�ʺ��Ѿ�����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 					break;
 				default:
 #ifdef WIN32
-					ccMessageBox("����ʧ��","��ʾ:");
+					messageBox("����ʧ��","��ʾ:");
 #else
-					ccMessageBox(UTEXT("����ʧ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
+					messageBox(UTEXT("����ʧ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 					break;
 				}
@@ -1146,7 +1148,7 @@ void Klogin::ProcessRoleListResponse(TProcessData* pResponse)
 		//g_NetConnectAgent.UpdateClientRequestTime(true);
 		m_Status = LL_S_ROLE_LIST_READY;
 
-		///ccMessageBox("��ɫ����׼���õ�½","ProcessRoleListResponse");
+		///messageBox("��ɫ����׼���õ�½","ProcessRoleListResponse");
 		//m_Result = LL_R_NOTHING;
 		/*if (m_bInAutoProgress)
 		{//������Զ���½
@@ -1159,7 +1161,7 @@ void Klogin::ProcessRoleListResponse(TProcessData* pResponse)
 
 void Klogin::mExit(Ref* pSender){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	ax::Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

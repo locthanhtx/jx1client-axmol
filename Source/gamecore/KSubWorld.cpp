@@ -168,7 +168,7 @@ void KSubWorld::SetFocusPosition(int nX, int nY, int nZ)
 }
 
 void KSubWorld::LookAt(int nX, int nY, int nZ)
-{//m_Canvas.GetWidth() ==800  m_Canvas.GetHeight() ==480 
+{//m_Canvas.GetWidth() ==800  m_Canvas.GetHeight() ==480
 	m_nLeft = nX - visibleSize.width/2;
 	m_nTop  = nY / 2 - ((nZ * 887) >> 10) - visibleSize.height/2;
 }
@@ -184,7 +184,7 @@ void KSubWorld::GetMpsByLocalPosition(int& nX,	int& nY, int  nZ)
 void KSubWorld::GetLocalPositionByMps(int& nX, int& nY, int nZ)
 {//��������-->��Ļ����
 	nX = nX - m_nLeft;
-	nY = nY / 2 - m_nTop - ((nZ * 887) >> 10);	// * sqrt(3) / 
+	nY = nY / 2 - m_nTop - ((nZ * 887) >> 10);	// * sqrt(3) /
 }
 
 void KSubWorld::NewMap2Mps(int nR, int nX, int nY, int nDx, int nDy, int *nRx, int *nRy)
@@ -203,19 +203,19 @@ void KSubWorld::NewMap2Mps(int nR, int nX, int nY, int nDx, int nDy, int *nRx, i
 	}
 
 	int x, y;
-	
+
 	x = m_Region[nR].m_nRegionX;
 	y = m_Region[nR].m_nRegionY;
-	
+
 	x += nX * m_nCellWidth;
 	y += nY * m_nCellHeight;
-	
+
 	x += (nDx >> 10);
 	y += (nDy >> 10);
-	
+
 	*nRx = x;
 	*nRy = y;
-	
+
 }
 /*/�����е� ����ת���� ��������(����)
 void KSubWorld::Map2Mps(int nRx, int nRy, int nX, int nY, int nDx, int nDy, int *pnX, int *pnY)
@@ -297,7 +297,7 @@ void KSubWorld::Mps2MapClient(int Rx, int Ry, int * nR, int * nX, int * nY, int 
 	{
 		*nR = -1;
 		return;
-	} 
+	}
 //////�Ӹ��ϰ����ж�/////////////////
 
 /////////////////////////////////////
@@ -320,18 +320,18 @@ void KSubWorld::Mps2MapnRodom(int * nR, int * nX, int * nY, int *nDx, int * nDy,
 	int x,y;
     for (int n=0;n<m_nRegionEndX;++n)
     {
-      x =GetRandomNumber(m_nRegionBeginX+nOffwminx,m_nWorldRegionWidth +m_nRegionBeginX -nOffwmaxx);  
+      x =GetRandomNumber(m_nRegionBeginX+nOffwminx,m_nWorldRegionWidth +m_nRegionBeginX -nOffwmaxx);
 	  for (int s=0;s<m_nRegionEndY;++s)
-	  {	 
+	  {
 	  y =GetRandomNumber(m_nRegionBeginY+nOffhminy,m_nWorldRegionHeight + m_nRegionBeginY-nOffhmaxy);
       *Rx=x*(m_nRegionWidth * m_nCellWidth); //=x*16*32
       *Ry=y*(m_nRegionHeight * m_nCellHeight);//=y*32*32
 	//int Rxx=x*(m_nRegionWidth * m_nCellWidth);
-         int nBarrier = GetBarrier(*Rx, *Ry); ///���������ϰ����ж�	
+         int nBarrier = GetBarrier(*Rx, *Ry); ///���������ϰ����ж�
 	     if (nBarrier==Obstacle_NULL)
-		 { 
+		 {
 		    break;
-		 } 
+		 }
          continue;
 	  }
     }
@@ -349,14 +349,14 @@ void KSubWorld::Mps2MapnRodom(int * nR, int * nX, int * nY, int *nDx, int * nDy,
 		return;
 	}
 	//////�Ӹ��ϰ����ж�/////////////////
-	
+
 	/////////////////////////////////////
 	x = *Rx - m_Region[*nR].m_nRegionX;
 	y = *Ry - m_Region[*nR].m_nRegionY;
-	
+
 	*nX = x / m_nCellWidth;
 	*nY = y / m_nCellHeight;
-	
+
 	*nDx = (x - *nX * m_nCellWidth) << 10;
 	*nDy = (y - *nY * m_nCellHeight) << 10;
 }
@@ -366,7 +366,7 @@ BYTE	KSubWorld::TestBarrier(int nMpsX, int nMpsY)
 {
 	if (m_nCellWidth == 0 || m_nCellHeight == 0 || m_nRegionWidth == 0 || m_nRegionHeight == 0)
 		return 0xff;
-	
+
 	int x = nMpsX / (m_nRegionWidth * m_nCellWidth);
 	int	y = nMpsY / (m_nRegionHeight * m_nCellHeight);
 	int nRegion = FindRegion(MAKELONG(x, y));
@@ -374,16 +374,16 @@ BYTE	KSubWorld::TestBarrier(int nMpsX, int nMpsY)
 		return 0xff;
 	if (nRegion >= m_nTotalRegion)
 		return 0xff;
-	
+
 	x = nMpsX - m_Region[nRegion].m_nRegionX;
 	y = nMpsY - m_Region[nRegion].m_nRegionY;
-	
+
 	int nCellX = x / m_nCellWidth;
 	int nCellY = y / m_nCellHeight;
-	
+
 	int nOffX = x - nCellX * m_nCellWidth;
 	int nOffY = y - nCellY * m_nCellHeight;
-	
+
 	BYTE bRet = (BYTE)g_ScenePlace.GetObstacleInfo(nMpsX, nMpsY);  //��ȡ�ϰ�����Ϣ
 	if (bRet != Obstacle_NULL)
 		return bRet;
@@ -409,7 +409,7 @@ BYTE KSubWorld::TestBarrier(int nRegion, int nMapX, int nMapY, int nDx, int nDy,
 		nDx -= (m_nCellWidth << 10);
 		nMapX++;
 	}
-	
+
 	if (nDy < 0)
 	{
 		nDy += (m_nCellHeight << 10);
@@ -420,7 +420,7 @@ BYTE KSubWorld::TestBarrier(int nRegion, int nMapX, int nMapY, int nDx, int nDy,
 		nDy -= (m_nCellHeight << 10);
 		nMapY++;
 	}
-	
+
 	if (nMapX < 0)
 	{
 		if (m_Region[nRegion].m_nConnectRegion[DIR_LEFT] == -1)
@@ -436,7 +436,7 @@ BYTE KSubWorld::TestBarrier(int nRegion, int nMapX, int nMapY, int nDx, int nDy,
 		nRegion = m_Region[nRegion].m_nConnectRegion[DIR_RIGHT];
 		nMapX -= m_nRegionWidth;
 	}
-	
+
 	if (nMapY < 0)
 	{
 		if (m_Region[nRegion].m_nConnectRegion[DIR_UP] == -1)
@@ -483,7 +483,7 @@ BYTE KSubWorld::TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int n
 		nDx -= (m_nCellWidth << 10);
 		nMapX++;
 	}
-	
+
 	if (nDy < 0)
 	{
 		nDy += (m_nCellHeight << 10);
@@ -494,7 +494,7 @@ BYTE KSubWorld::TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int n
 		nDy -= (m_nCellHeight << 10);
 		nMapY++;
 	}
-	
+
 	if (nMapX < 0)
 	{
 		if (m_Region[nRegion].m_nConnectRegion[DIR_LEFT] == -1)
@@ -510,7 +510,7 @@ BYTE KSubWorld::TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int n
 		nRegion = m_Region[nRegion].m_nConnectRegion[DIR_RIGHT];
 		nMapX -= m_nRegionWidth;
 	}
-	
+
 	if (nMapY < 0)
 	{
 		if (m_Region[nRegion].m_nConnectRegion[DIR_UP] == -1)
@@ -591,25 +591,25 @@ BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 		memset(szKeyName, 0, sizeof(szKeyName));
 		memset(szPathName, 0, sizeof(szPathName));
 		g_SetFilePath("/");
-        
+
 		if (IniFile.Load("settings\\MapList.ini"))
 		{
-			t_sprintf(szKeyName,"%d", nId);
+			sprintf(szKeyName,"%d", nId);
 			IniFile.GetString("List",szKeyName,"",szPathName, sizeof(szPathName));
-			t_sprintf(m_szMapPath,"maps\\%s",szPathName);	 //�����·��
+			sprintf(m_szMapPath,"maps\\%s",szPathName);	 //�����·��
 			IniFile.Clear();
 		}
 		m_SubWorldID = nId;
 		g_ScenePlace.OpenPlace(nId);  //�򿪳����ռ�
 
-		/*t_sprintf(szPathName, "\\maps\\%d.ini", nId);
+		/*sprintf(szPathName, "\\maps\\%d.ini", nId);
 		if (Ini.Load(szPathName))
 			g_ScenePlace.LoadIni(&Ini);
 		else
 		{
 			g_ScenePlace.ClearBgInfo();
 		}
-		Ini.Clear(); 
+		Ini.Clear();
 		*/
 		m_nRegionWidth  = 16;//KScenePlaceRegionC::RWPP_AREGION_WIDTH>>5;  //=16
 		m_nRegionHeight = 32;//KScenePlaceRegionC::RWPP_AREGION_HEIGHT>>5;//=32
@@ -631,7 +631,7 @@ BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 		{
 			m_Region[nIdx].m_nIndex = nIdx;//���������
 			m_Region[nIdx].Init(m_nRegionWidth, m_nRegionHeight);
-			m_Region[nIdx].LoadObjectC(0, nX, nY, m_szMapPath);//���� obj 
+			m_Region[nIdx].LoadObjectC(0, nX, nY, m_szMapPath);//���� obj
 		}
 	}
 	//���ý��㣨���λ��
@@ -651,13 +651,13 @@ BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 				continue;
 
 			  if (m_Region[nConIdx].Load(nX + nXOff[i], nY + nYOff[i]))
-			  { 
+			  {
 				m_Region[nConIdx].m_nIndex = nConIdx;
 				m_Region[nConIdx].Init(m_nRegionWidth, m_nRegionHeight);
 				m_Region[nConIdx].LoadObjectC(0, nX + nXOff[i], nY + nYOff[i], m_szMapPath);
 			  }
 			  else
-			  { 
+			  {
 				m_Region[nConIdx].m_nIndex   = -1;
 				m_Region[nConIdx].m_RegionID = -1;
 				nConIdx = -1;
@@ -815,7 +815,7 @@ BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 		m_Region[m_Region[nIdx].m_nConnectRegion[6]].m_pConRegion[6] = NULL;
 		m_Region[m_Region[nIdx].m_nConnectRegion[6]].m_pConRegion[7] = NULL;
 	}
-	
+
 	if (m_Region[nIdx].m_nConnectRegion[7] >= 0)
 	{
 		m_Region[m_Region[nIdx].m_nConnectRegion[7]].m_nConnectRegion[0] = -1;
@@ -836,7 +836,7 @@ BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 		m_Region[m_Region[nIdx].m_nConnectRegion[7]].m_pConRegion[6] = NULL;
 		m_Region[m_Region[nIdx].m_nConnectRegion[7]].m_pConRegion[7] = NULL;
 	}
-	//ccMessageBox("���ӵ�ͼ���","LoadMapC");
+	//messageBox("���ӵ�ͼ���","LoadMapC");
 	//g_ScenePlace.setIsPaint(true);
 	//Player[CLIENT_PLAYER_INDEX].m_bExchangeServer =false;
 
@@ -888,7 +888,7 @@ void KSubWorld::ProcessMsg(KWorldMsgNode *pMsg)
 				SubWorld[nSubWorld].m_Region[nRegion].RemoveNpc(nIdx);
 				SubWorld[nSubWorld].m_Region[nRegion].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
 			}
-			
+
 		}
 		NpcSet.Remove(pMsg->m_nParam[0]);
 		break;
@@ -900,9 +900,9 @@ void KSubWorld::ProcessMsg(KWorldMsgNode *pMsg)
 		if  (pMsg->m_nParam[0]<=0 || pMsg->m_nParam[0]>=MAX_OBJECT)
 			break;
 //#ifndef _SERVER
-		if (Object[pMsg->m_nParam[0]].m_nRegionIdx >= 0)
-			SubWorld[Object[pMsg->m_nParam[0]].m_nSubWorldID].m_Region[Object[pMsg->m_nParam[0]].m_nRegionIdx].RemoveObj(pMsg->m_nParam[0]);
-		
+		if (KObject[pMsg->m_nParam[0]].m_nRegionIdx >= 0)
+			SubWorld[KObject[pMsg->m_nParam[0]].m_nSubWorldID].m_Region[KObject[pMsg->m_nParam[0]].m_nRegionIdx].RemoveObj(pMsg->m_nParam[0]);
+
 		ObjSet.Remove(pMsg->m_nParam[0]);
 		break;
 	case GWM_OBJ_CHANGE_REGION:
@@ -954,9 +954,9 @@ void KSubWorld::NpcChangeRegion(int nSrcRnidx, int nDesRnIdx, int nIdx,bool isCl
 
 	KIndexNode *pNode = &Npc[nIdx].m_Node;
 	if (nDest >= 0)
-	{//���Ŀ������ 
+	{//���Ŀ������
 		m_Region[nDest].AddNpc(nIdx);
-		
+
 		if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nIdx)
 		{//����ǿͻ���
 			LoadMapC(m_SubWorldID, m_Region[nDest].m_RegionID,isClearAll);
@@ -967,7 +967,7 @@ void KSubWorld::NpcChangeRegion(int nSrcRnidx, int nDesRnIdx, int nIdx,bool isCl
 
 	}
 	else if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nIdx)
-	{//����ǿͻ������� 
+	{//����ǿͻ�������
 		LoadMapC(m_SubWorldID,nDesRnIdx,isClearAll);
 
 		nDest = SubWorld[0].FindRegion(nDesRnIdx);
@@ -992,7 +992,7 @@ void KSubWorld::ObjChangeRegion(int nSrcRnidx, int nDesRnIdx, int nIdx)
 
 	if (nDesRnIdx == -1 && nSrcRnidx>=0)
 	{
-		SubWorld[Object[nIdx].m_nSubWorldID].m_Region[nSrcRnidx].RemoveObj(nIdx);
+		SubWorld[KObject[nIdx].m_nSubWorldID].m_Region[nSrcRnidx].RemoveObj(nIdx);
 //		ObjSet.Remove(nIdx);
 		return;
 	}
@@ -1059,12 +1059,12 @@ void KSubWorld::GetMps(int *nX, int *nY, int nSpeed, int nDir, int nMaxDir /* = 
 		}
 		//nWantDir = MaxMissleDir+ nWantDir;
 	}
-	
+
 	if (nDir >= MaxMissleDir)
 	{
 		n=nDir/MaxMissleDir;
 		nDir -= MaxMissleDir*n;
-	} 
+	}
 
 	*nX += (g_DirCos(nDir, nMaxDir) * nSpeed) >> 10;
 	*nY += (g_DirSin(nDir, nMaxDir) * nSpeed) >> 10;
@@ -1129,7 +1129,7 @@ void KSubWorld::AddPlayer(int nRegion, int nIdx)
 			int nConRegion = m_Region[nRegion].m_nConnectRegion[i];
 			if (nConRegion == -1)
 				continue;
-			
+
 			m_Region[nConRegion].m_nActive++;  //����������1
 		}
 		//g_ScenePlace.setIsPaint(true);
@@ -1146,21 +1146,21 @@ void KSubWorld::RemovePlayer(int nRegion, int nIdx)
 		return;
 
 	if (m_Region[nRegion].RemovePlayer(nIdx))
-	{	
-		m_Region[nRegion].m_nActive--;		
+	{
+		m_Region[nRegion].m_nActive--;
 
 		if (m_Region[nRegion].m_nActive < 0)
 		{
 			//_ASSERT(0);
 			m_Region[nRegion].m_nActive = 0;
 		}
-		
+
 		for (int i = 0; i < 8; i++)
 		{
 			int nConRegion = m_Region[nRegion].m_nConnectRegion[i];
 			if (nConRegion == -1)
 				continue;
-			
+
 			m_Region[nConRegion].m_nActive--;
 
 			if (m_Region[nConRegion].m_nActive < 0)
@@ -1206,9 +1206,9 @@ void KSubWorld::GetFreePos(POINT& pos)
 			else
 			{
 			}
-     
+
 	        posTemp.y = posLocal.y+(i+1)*yPos;
-			posTemp.x = posLocal.x;                  //���±� 
+			posTemp.x = posLocal.x;                  //���±�
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
 				pos = posTemp;
@@ -1220,7 +1220,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 
 			posTemp.y = posLocal.y;
-			posTemp.x = posLocal.x-(i+1)*xPos;       //����� 
+			posTemp.x = posLocal.x-(i+1)*xPos;       //�����
 
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
@@ -1233,7 +1233,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 
 			posTemp.y = posLocal.y-(i+1)*yPos;
-			posTemp.x = posLocal.x;                  //���ϱ� 
+			posTemp.x = posLocal.x;                  //���ϱ�
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
 				pos = posTemp;
@@ -1253,7 +1253,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 			else
 			{
-				
+
 			}
 
 			posTemp.y = posLocal.y + (i+1) * yPos;
@@ -1265,7 +1265,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 			else
 			{
-				
+
 			}
 
 			posTemp.y = posLocal.y - (i+1) * yPos;             //�����Ϸ���
@@ -1277,7 +1277,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 			else
 			{
-				
+
 			}
 
 			posTemp.y = posLocal.y - (i+1) * yPos;
@@ -1289,7 +1289,7 @@ void KSubWorld::GetFreePos(POINT& pos)
 			}
 			else
 			{
-				
+
 			}
 
 		}
@@ -1309,20 +1309,20 @@ void KSubWorld::GetFreeObjPos(POINT& pos)
 	POINT	posLocal = pos;
 	POINT	posTemp;
 	INT nLayer = 1;
-	
+
 	//	if (CanPutObj(posLocal))
 	//		return;
 	int /*xPos=16,yPos=16,*/nCheckNum=32,nIsCheckNpcPos=0,nModel=0,nIsCheckNpc=0;
 	//g_GameSetTing.GetInteger2("Item","ItemDropPos",&xPos,&yPos); // ƫ��
 	g_GameSetTing.GetInteger2("Item","ItemDropCheckNum",&nCheckNum,&nIsCheckNpcPos); // ���ҵķ�Χ
 	g_GameSetTing.GetInteger2("Item","ItemDropModel",&nModel,&nIsCheckNpc);
-       
+
 	if (nIsCheckNpcPos==1) //��� NPC���ڵĵط��ܵ����� �� ����
 	{//���NPC��
 	    if (CanPutObj(posLocal,nModel,nIsCheckNpc))
 		    return;
 	}
-	
+
 	while(1)
 	{
 		for (INT i = 0; i <= nLayer; ++i)
@@ -1377,7 +1377,7 @@ void KSubWorld::GetFreeNewObjPos(POINT& pos)
        g_GameSetTing.GetInteger2("Item","ItemDropPos",&xPos,&yPos); // ƫ��
 	   g_GameSetTing.GetInteger2("Item","ItemDropCheckNum",&nCheckNum,&nIsCheckNpcPos); // ���ҵķ�Χ
 	   g_GameSetTing.GetInteger2("Item","ItemDropModel",&nModel,&nIsCheckNpc);
-       
+
     if (nIsCheckNpcPos==1) //��� NPC���ڵĵط��ܵ����� �� ����
 	{//���NPC��
 	   if (CanPutObj(posLocal,nModel,nIsCheckNpc))
@@ -1396,9 +1396,9 @@ void KSubWorld::GetFreeNewObjPos(POINT& pos)
 				pos = posTemp;
 				return;
 			}
-     
+
 	        posTemp.y = posLocal.y+(i+1)*yPos;
-			posTemp.x = posLocal.x;                  //���±� 
+			posTemp.x = posLocal.x;                  //���±�
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
 				pos = posTemp;
@@ -1406,7 +1406,7 @@ void KSubWorld::GetFreeNewObjPos(POINT& pos)
 			}
 
 			posTemp.y = posLocal.y;
-			posTemp.x = posLocal.x-(i+1)*xPos;       //����� 
+			posTemp.x = posLocal.x-(i+1)*xPos;       //�����
 
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
@@ -1415,7 +1415,7 @@ void KSubWorld::GetFreeNewObjPos(POINT& pos)
 			}
 
 			posTemp.y = posLocal.y-(i+1)*yPos;
-			posTemp.x = posLocal.x;                  //���ϱ� 
+			posTemp.x = posLocal.x;                  //���ϱ�
 			if (CanPutObj(posTemp,nModel,nIsCheckNpc))
 			{
 				pos = posTemp;
@@ -1469,7 +1469,7 @@ BOOL KSubWorld::CanPutObj(POINT pos,int nModle,BOOL nIsCheckNpc)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY,nIsShowInfo=0,nIsShowHave=0;
 	    Mps2Map(pos.x,pos.y,&nRegion,&nMapX,&nMapY,&nOffX,&nOffY);
-   
+
 if (nModle==0)
 {
 	if (nRegion >= 0 \
@@ -1479,7 +1479,7 @@ if (nModle==0)
            	return TRUE;
 		}
 }
-else 
+else
 {
 	if (nRegion >= 0 \
 		&& !m_Region[nRegion].GetBarrierNewMin(nMapX,nMapY,nOffX,nOffY,nIsCheckNpc)\

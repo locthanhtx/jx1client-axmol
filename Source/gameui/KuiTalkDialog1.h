@@ -10,9 +10,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 using namespace ui;
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
 //#define ITEM_CELL_SIZE	28   //ÿ�����ӵĸ߶ȺͿ��

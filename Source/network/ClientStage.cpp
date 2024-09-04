@@ -12,7 +12,7 @@ CCriticalSection;
 static inline unsigned _Rand()
 {
     gs_holdrand = gs_holdrand * 214013L + 2531011L;
-     
+
     return gs_holdrand;
 }
 
@@ -65,8 +65,8 @@ bool CGameClient::Startup()
 	catch(...)
 	{
 	}
-	
-	return hr;	
+
+	return hr;
 }
 
 bool CGameClient::Cleanup(int32_t isCleartheThread)
@@ -95,7 +95,7 @@ bool CGameClient::Cleanup(int32_t isCleartheThread)
 }
 
 bool CGameClient::FsGameServerConnectTo(
-				const char * const &pAddressToConnectServer, 
+				const char * const &pAddressToConnectServer,
 				unsigned short usPortToConnectServer )
 {
 	bool hr = false;
@@ -103,7 +103,7 @@ bool CGameClient::FsGameServerConnectTo(
 	try
 	{
 		Connect(pAddressToConnectServer,usPortToConnectServer);
-		
+
 		if (StartConnections())
 		{
 			hr = true;
@@ -112,12 +112,12 @@ bool CGameClient::FsGameServerConnectTo(
 	catch(...)
 	{
 	}
-	
+
 	return hr;
 }
 /*
-bool CGameClient::RegisterMsgFilter( 
-				void * lpParam, 
+bool CGameClient::RegisterMsgFilter(
+				void * lpParam,
 				CALLBACK_CLIENT_EVENT pfnEventNotify )
 {
 	m_lpCallBackParam = lpParam;
@@ -136,7 +136,7 @@ bool CGameClient::SendPackToServer(
 				const uint32_t &datalength )
 {
 	static const uint32_t s_len_protocol = sizeof(WORD);//2�ֽ�
-	
+
 	if (!pData || 0 == datalength)
 	{
 		return false;
@@ -198,10 +198,10 @@ bool CGameClient::QueryInterface( void** ppv )
 	/*
 	 * By definition all COM objects support the IUnknown interface
 	 */
-	*ppv = dynamic_cast< void * >(this);	
+	*ppv = dynamic_cast< void * >(this);
 	return true;
 }
-    
+
 uint32_t CGameClient::AddRef()
 {
 #ifdef WIN32
@@ -271,7 +271,7 @@ uint32_t CGameClient::GetMinimumMessageSize() const
 //uint32_t GetMessageSize(const CIOBuffer *pBuffer) const;
 uint32_t CGameClient::GetMessageSize(const CIOBuffer *pBuffer) const
 {
-	const unsigned char *pData = pBuffer->GetBuffer();   
+	const unsigned char *pData = pBuffer->GetBuffer();
 	const uint32_t used = pBuffer->GetUsed();
 	WORD wHeadLen = (WORD)(*(WORD *)(pData));
 	return (uint32_t)(wHeadLen);
@@ -289,9 +289,9 @@ CIOBuffer *CGameClient::ProcessDataStream(CIOBuffer *pBuffer)
 		if (messageSize == 0)
 		{//���Ϊ������
 			if (used == (pBuffer->GetSize() - 1))
-			{//�����Ѿ����� �� �رգ�				
-     			Shutdown();			
-				pBuffer->Empty();					
+			{//�����Ѿ����� �� �رգ�
+     			Shutdown();
+				pBuffer->Empty();
 			}
 		}
 		else if (used == messageSize)
@@ -338,23 +338,23 @@ void CGameClient::OnStopConnections()
 	//{
 		//m_pfnCallbackClientEvent(m_lpCallBackParam, enumServerConnectClose);
 	//}
-	//ccMessageBox("�������Ѿ��Ͽ�","�������Ѿ��Ͽ�");
+	//messageBox("�������Ѿ��Ͽ�","�������Ѿ��Ͽ�");
 #endif
 }
 //����հ� ��仺����
 void CGameClient::ReadCompleted(CIOBuffer *pBuffer)
 {
 	try
-	{	
+	{
 		const unsigned char *pPackData = pBuffer->GetBuffer();
 		uint32_t used = pBuffer->GetUsed();
 		if (used > 0)
 		{
-			CCriticalSection::Owner locker(m_csReadAction);	
+			CCriticalSection::Owner locker(m_csReadAction);
 			m_pRecvBuffer->AddData(reinterpret_cast< const char * >(pPackData), used);
 			//char xieyi[1024]={0};
 			//sprintf(xieyi,"%s:%d",pPackData,used);
-			//ccMessageBox(xieyi,"ReadCompleted");
+			//messageBox(xieyi,"ReadCompleted");
 		}
 		pBuffer->Empty();
 	}

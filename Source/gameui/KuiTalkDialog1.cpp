@@ -48,7 +48,7 @@ KuiTalkDialog1 * KuiTalkDialog1::create(char * pContent, char *OkbtnStr,char *No
 	KuiTalkDialog1 * popLayer = KuiTalkDialog1::create();
 	popLayer->__nParam = nParam;
 	if (strParam)
-	   t_sprintf(popLayer->__strParam,strParam);
+	   sprintf(popLayer->__strParam, "%s", strParam);
 	//popLayer->setTitle(title);
 	popLayer->addDialogData(pContent,nKind);
 	//���ð�ť
@@ -79,7 +79,7 @@ bool KuiTalkDialog1::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\NPC�Ի���\\�Ի���2.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\NPC�Ի���\\�Ի���2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -113,7 +113,7 @@ void KuiTalkDialog1::addDialogData(char * pContent,int nKind)
 	nSize.width =256;
 	nSize.height=24;
 	char nTempStr[128];
-	t_sprintf(nTempStr,pContent);
+	sprintf(nTempStr, "%s", pContent);
 	__Kind = nKind;
 	Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,ax::TextHAlignment::LEFT);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
@@ -176,8 +176,8 @@ void KuiTalkDialog1::setcoloseButton(char *OkbtnStr,char *NobtnStr,Ref * callbac
 		{
 			//ͬ��
 			char nOkStr[64],nNoStr[64];
-			t_sprintf(nOkStr,OkbtnStr);
-			t_sprintf(nNoStr,NobtnStr);
+			sprintf(nOkStr, "%s", OkbtnStr);
+			sprintf(nNoStr, "%s", NobtnStr);
 
 			Button* button = Button::create();
 			button->setTouchEnabled(true);
@@ -285,8 +285,8 @@ void KuiTalkDialog1::touchEvent(Ref *pSender, ax::ui::AbstractCheckButton::Touch
 							   g_pCoreShell->TongOperation(GTOI_TONG_JOIN_REPLY,__nParam,false,0,__strParam);	//nSelAction=0����Ӧ, nSelAction=1���ܾ�
 
 						   //char nTemp[64];
-						   //t_sprintf(nTemp,"%u:%s",__nParam,__strParam);
-						   //ccMessageBox(UTEXT(nTemp,1).c_str(),"test");
+						   //sprintf(nTemp,"%u:%s",__nParam,__strParam);
+						   //messageBox(UTEXT(nTemp,1).c_str(),"test");
 					   }
 					   break;
 				   case SMCT_UI_TRADE:
@@ -303,7 +303,7 @@ void KuiTalkDialog1::touchEvent(Ref *pSender, ax::ui::AbstractCheckButton::Touch
 					{//ͬ���ܾ����˵��������
 						if (nTbtn->getTag() == 1)
 						{
-							//ccMessageBox("dlalog","ͬ�����");
+							//messageBox("dlalog","ͬ�����");
 							g_pCoreShell->TeamOperation(TEAM_OI_APPLY_RESPONSE,__nParam,true);
 						}
 						else
@@ -401,7 +401,7 @@ bool KuiTalkDialog1::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiTalkDialog1::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);

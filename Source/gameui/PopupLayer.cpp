@@ -51,7 +51,7 @@ bool PopupLayer::init()
     bool bRef = false;
     do
     {
-        CC_BREAK_IF(!Layer::init());
+        AX_BREAK_IF(!Layer::init());
         this->setContentSize(ax::Size::ZERO);
         // ��ʼ����Ҫ�� Menu
         Menu* menu = Menu::create();
@@ -86,13 +86,13 @@ PopupLayer* PopupLayer::create(const char *backgroundImage,int nKind)
 	if  (!nKind)
 	{
       ml->setSpriteBackGround(Sprite::create(backgroundImage));//�����ľ���
-      ml->setSprite9BackGround(ax::ui::Scale9Sprite::create(backgroundImage));
+//      ml->setSprite9BackGround(ax::ui::Scale9Sprite::create(backgroundImage));
 	}
 	else
 	{//������أ���������
 		char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,backgroundImage);
+		sprintf(nSprName, "%s", backgroundImage);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -244,10 +244,10 @@ void PopupLayer::onExit()
 
 void PopupLayer::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 }
 
 //void PopupLayer::draw()
 //{
-//	//ccMessageBox("����ѭ��","draw");
+//	//messageBox("����ѭ��","draw");
 //}

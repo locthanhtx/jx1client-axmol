@@ -4,18 +4,18 @@
 //��½���� ѡ������ ���� ɾ����
 */
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include <gameui/Uiglobaldata.h>
 #include<list>
 #include "ImageStore/KImageStore2.h"
 #include "engine/Kgetinidata.h"
-#include "physics-nodes/CCPhysicsSprite.h"
+#include "physics-nodes/PhysicsSprite.h"
 
 #include "engine/KGbktoUtf8.h"
 #include "engine/KTimer.h"
 
 using namespace ax;
-//using namespace ax::extension;
+//
 using namespace std;
 struct KRoleInfonew
 {
@@ -23,7 +23,7 @@ struct KRoleInfonew
 	unsigned	char	Gender;			//�Ա�	be one of the SSC_CHARACTER_GENDER value
 	unsigned	char	Attribute;		//��������
 	unsigned short	NativePlaceId;	//������ID
-	short			nLevel;			//�ȼ�		
+	short			nLevel;			//�ȼ�
 };
 class KuiNewPlayer : public ax::Layer,public Rect//,public EditBoxDelegate
 {
@@ -31,17 +31,17 @@ public:
 	// Here's a difference. Method 'init' in ax-x returns bool, instead of returning 'id' in ax-iphone
 	KuiNewPlayer();
 	~KuiNewPlayer();
-	virtual bool init();  
-	virtual void update(float delta); 
+	virtual bool init();
+	virtual void update(float delta);
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 	CREATE_FUNC(KuiNewPlayer);
 	//��дdraw()����
-    virtual void onDraw(const ax::Mat4 &transform, uint32_t flags);
+    virtual void draw(Renderer* renderer, const Mat4& transform, unsigned int flags) override;
 	KImageStore2 m_ImageStore;
 	//Size visibleSize;
 	//Point origin;
-private: 
+private:
     /*Label* pRoela;
 	Label* pRoelb;
 	Label* pRoelc;*/

@@ -42,7 +42,7 @@ public:
 // Client�ϲ��еļ�������
 	void	SetPing(DWORD dwTimer) { m_dwPing = dwTimer; }
 	DWORD	GetPing() { return m_dwPing; }
-	uint32_t getCilentRunTime();
+	unsigned int getCilentRunTime();
 	//void	Paint();
 };
 extern  KSubWorldSet g_SubWorldSet;

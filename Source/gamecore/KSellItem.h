@@ -10,7 +10,7 @@
 class KSellItem
 {
 private:
-	uint32_t	m_dwNpcID;			// �Է���ҵ� npc �� id
+	unsigned int	m_dwNpcID;			// �Է���ҵ� npc �� id
 	char		m_szName[32];			// �Է���ҵ�����
 	int			m_nProcess;
 	int         m_nLProcess;
@@ -28,13 +28,13 @@ public:
 public:
 	KSellItem();						// ����
 	void		Init();					// ��ʼ��
-	void		ApplyViewItem(uint32_t dwNpcID);
-	void		UpdateItem(uint32_t dwNpcID);
-	void		UpdateLianItem(uint32_t dwNpcID,char * nName);
+	void		ApplyViewItem(unsigned int dwNpcID);
+	void		UpdateItem(unsigned int dwNpcID);
+	void		UpdateLianItem(unsigned int dwNpcID,char * nName);
 	int         GetLCount();
-	void		Check(int nCount, uint32_t dwId);
+	void		Check(int nCount, unsigned int dwId);
 	int			GetCount();
-	void        CheckLian( int nCount, uint32_t dwId,char * nName);
+	void        CheckLian( int nCount, unsigned int dwId,char * nName);
 	void		DeleteAll(int nUpdate = 0);
 	void	    DeleteLAll(int nUpdate= 0);
 	void		GetData(BYTE* pMsg ,int nUpdate = 0);

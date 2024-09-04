@@ -10,10 +10,10 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include "gamescene/KScenePlaceC.h"
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 using namespace ui;
 //#include "Kuiplayerfun.h"
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
@@ -33,7 +33,7 @@ public:
 	void mianDialogSet(char * nFilePath,int nXpos,int nYpos,bool nTouchesModel=true,int nRenderFlag=0);
 	void setcoloseButton(Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
-	virtual void draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags);
+	virtual void draw(ax::Renderer* renderer, const ax::Mat4& transform, unsigned int flags);
 	bool    isOpen;
 	Size getShowSize();
 	void   removeShowSprite();

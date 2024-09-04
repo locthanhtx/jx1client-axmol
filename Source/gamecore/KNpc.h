@@ -111,7 +111,7 @@ enum CLIENTACTION
 	cdo_magic,
 	cdo_sit,
 	cdo_jump,
-	cdo_none,   
+	cdo_none,
 	cdo_count,
 };
  //�˺�����
@@ -178,7 +178,7 @@ struct KChanelBaseInfo
 	int		m_ColdDamage;	           // Npc�ĵ�ǰ���˺�
 	int		m_LightDamage;	           // Npc�ĵ�ǰ���˺�
 	int		m_PoisonDamage;	           // Npc�ĵ�ǰ���˺�
-	
+
 	int		m_FireResist;	            // Npc�ĵ�ǰ����
 	int		m_ColdResist;	            // Npc�ĵ�ǰ������
 	int		m_PoisonResist;	            // Npc�ĵ�ǰ������
@@ -196,7 +196,7 @@ struct skillAuraInfo
 struct sNpcShadowInfo
 {
 	bool bInMenu;
-	uint32_t uImage;
+	unsigned int uImage;
 	short nFrame;
 	int nX;
 	int nY;
@@ -207,7 +207,7 @@ struct sNpcShadowInfo
 //����
 struct CFuMoInfo
 {
-	int nNpcIdx;  
+	int nNpcIdx;
 	int nNpcSetings;     //NPC settings	�浵
 	int	nNpcSkill;       //ͬ��ļ���id �浵
 	int nSkillLevel;	 //���ܵȼ�     �浵
@@ -220,7 +220,7 @@ struct CFuMoInfo
 //���ܼӳ�
 struct CEnhanceInfo
 {
-	int	nSkillIdx;   
+	int	nSkillIdx;
 	int nEnhance;
 };
 /*
@@ -325,7 +325,7 @@ public:
 	BYTE                 m_WarZhongShu;          //����
 	BYTE                 m_WarShangShu;          //����
     BYTE                 m_WarMiShu;             //����
-	BYTE                 m_WarTaiLe;             //̫��	
+	BYTE                 m_WarTaiLe;             //̫��
 	*/
     BYTE                m_IsDoing;              //�Ƿ�����ִ�нű�
 	int                 m_ReviceNum;            //��������
@@ -346,8 +346,8 @@ public:
 	BYTE                m_IsShuai;               //�Ƿ��Ѿ�˦��
 	BYTE                m_GuziMenber;            //1Ϊ�������� 2Ϊ�Թ���ע��
 	BYTE                m_ZuoWeihao;             //��λ��
-*/	
-//	BYTE                IsDeath;                 
+*/
+//	BYTE                IsDeath;
 	int                 IsJinYan;                 //�����
 	int                 IsLuKey;                  //�����
 	int                 m_GoldLucky;              //ȫ������
@@ -365,7 +365,7 @@ public:
 	BYTE                IsCreatTongBan;           //�Ƿ��Ѿ������ٻ�ͬ��
 	int                 m_ZhuaVal;                //��ǰ�ı�ץ��ֵ
     DWORD               m_TongBanNum;             //ͬ������
-	BYTE                m_IsSerLock;              //�Ƿ���סĳ��    
+	BYTE                m_IsSerLock;              //�Ƿ���סĳ��
 	BOOL                m_nIsOver;
 
     BOOL                m_bIsHideNpc;
@@ -387,8 +387,8 @@ public:
 
 	//����Npcģ����У���FALSE��ʾ��Npc���ݵ�ǰ����Ч�� ����ֵδ�����ű����㣬��Ҫ����.
 	//TRUE��ʾ��Ч����
-	//BOOL				m_bHaveLoadedFromTemplate;// 
-	
+	//BOOL				m_bHaveLoadedFromTemplate;//
+
 	//KState			m_PowerState;			// ŭ��״̬
 
 	//typedef std::map<INT, KState> _KStateNote;                 //SkillId,Echance
@@ -420,7 +420,7 @@ public:
 	KState              m_Rescueskill; 	        //�����Զ��ͷż���
 	KState              m_Replyskill; 	        //�Զ���������
 	//KState            m_Staticmagicshield;    //ħ����״̬
-	
+
 	int                 m_AdjustColorKind;      //NPC�ĵ�ǰƫɫ
 	int					m_RideState;            //Npc����������ʱ������
 
@@ -582,14 +582,14 @@ public:
 	int					m_CurrentAddPhysicsDamage;		// ��ǰ�����⹦�յ� ֱ�ӵ������˺���ǿ����
 	int                 m_CurrentAddPhysicsDamageP;     // ��ǰ�������հٷֱ�
    	int                 m_CurrentAddFireDamagev;        // ��ǰ��������
- 	int                 m_CurrentAddColdDamagev;        // ��ǰ��������� 
+ 	int                 m_CurrentAddColdDamagev;        // ��ǰ���������
 	int                 m_CurrentAddLighDamagev;        // ��ǰ�������׵�
 	int                 m_CurrentAddPoisonDamagev;      // ��ǰ�����ⶾ��
     BOOL                m_IsDel;                        // �Ƿ�ɾ��NPC
     int                 m_CurrentAddmagicphysicsDamage; // ��ǰ�������յ�
 	int                 m_CurrentAddmagicphysicsDamageP;// ��ǰ�������հٷֱ�
 	int                 m_CurrentAddmagicColdDamagicv;  // ��ǰ�����ڱ���
-	int                 m_CurrentAddmagicFireDamagicv;  // ��ǰ�����ڻ��  
+	int                 m_CurrentAddmagicFireDamagicv;  // ��ǰ�����ڻ��
 	int                 m_CurrentAddmagicLightDamagicv; // ��ǰ�������׵�
 	int                 m_CurrentAddmagicPoisonDamagicv;// ��ǰ�����ڶ���
 
@@ -606,7 +606,7 @@ public:
 	int                  m_CurrentCreatnpcv;             //��ǰץ��BB�ĸ���
     int                  m_CurrentAllJiHuo;              //�Ƿ�ȫ����
 	int                  m_CurrentCreatStatus;           //��ǰ������״̬
-	int                  m_Currentbaopoisondmax_p;  
+	int                  m_Currentbaopoisondmax_p;
 	int                  m_nCurNpcLucky;
 
     int                  m_Me2metaldamage_p;              //=�Խ�ϵ�˺����ӣ�#d1+%
@@ -630,11 +630,11 @@ public:
 	int					m_MapX, m_MapY, m_MapZ;			// Npc�ĵ�ͼ����(��������) x ��0-15�� y��0-31��
 	int					m_OffX, m_OffY;					// Npc�ڸ����е�ƫ�����꣨�Ŵ���1024����
 	int					m_DesX, m_DesY;					// Npc����Ҫ�ƶ�����Ŀ������
-	int					m_SkillParam1, m_SkillParam2;   // 
+	int					m_SkillParam1, m_SkillParam2;   //
 	int					m_OriginX, m_OriginY;			// Npc��ԭʼ���� ���������꣩
 	DWORD				m_NextAITime;
 	BYTE				m_AIMAXTime;                //NpcAI
-// Npc��װ���������ͻ��˵Ļ�װ����	
+// Npc��װ���������ͻ��˵Ļ�װ����
 	int					m_HelmType;					// Npc��ͷ������
 	int					m_ArmorType;				// Npc�Ŀ�������
 	int					m_WeaponType;				// Npc����������
@@ -645,7 +645,7 @@ public:
 	int 				m_PifengType;				// Npc ���繦��
 	BYTE				m_ChiBangType;				// Npc ���繦��
 	int					m_MaskMark;					// ����г�
-	//BYTE				m_IsFuMo;					// 
+	//BYTE				m_IsFuMo;					//
 	BYTE				m_BaiTan;					// Npc�Ƿ��ڰ�̯
 	//char				ShopName[32];
 //�ͻ���
@@ -679,13 +679,13 @@ public:
 #ifdef _SERVER
 				 printf("--��ȡ(%s)�ű�:%s --\n",Name,it->second.c_str());
 #endif
-				 t_sprintf(str,it->second.c_str());
+				 sprintf(str,it->second.c_str());
 			     return str;
 			 }
 		} */
 		if (nstrNoteInfo.count(i)>0)
 		{//�������
-			t_sprintf(str,nstrNoteInfo[i].c_str());
+			sprintf(str,"%s", nstrNoteInfo[i].c_str());
 
 /*#ifdef _SERVER
 			printf("--��ȡ(%s)(%d)�ű�:%s --\n",Name,i,nstrNoteInfo[i].c_str());
@@ -707,13 +707,13 @@ public:
 	}
 
 	DWORD				m_ActionScriptID;		// Npc����Ϊ�ű�ID��ʹ��ʱ�������������
-	
+
 	DWORD				m_TrapScriptID;			// Npc�ĵ�ǰTrap�ű�ID;
 
 	int					m_nPeopleIdx;			// ��ס�Ķ�����������
 	int					m_nLastDamageIdx;		// ���һ���˺�����������
 	int					m_nLastPoisonDamageIdx;	// ���һ�ζ��˺�����������
-	int                 m_nLastBurnDamageIdx;	// ���һ�λ��˺����������� 
+	int                 m_nLastBurnDamageIdx;	// ���һ�λ��˺�����������
 	int					m_nObjectIdx;			// ������Ʒ
 
 	// Npc�Ļ������ݣ�δ����װ�������ܵ�Ӱ�죩
@@ -756,11 +756,11 @@ public:
 	int					m_HitRecover;			// Npc���ܻ��ظ��ٶ�
 	int					m_Treasure;				// Npc����װ��������(NPC.txt����)
 	BOOL				m_bClientOnly;			// �Ƿ���ؿͻ���NPC����
-//	int					m_AttackFrame;          // �⹦����֡��						  
+//	int					m_AttackFrame;          // �⹦����֡��
 //	int					m_CastFrame;            // �ڹ�����֡��
 //	int					m_nCurrentMeleeSkill;	// Npc��ǰ��ִ�еĸ񶷼���
-	int					m_nCurrentMeleeTime;	
-	
+	int					m_nCurrentMeleeTime;
+
 	// AI����
 	int					m_AiMode;				// AIģʽ  �һ�ģʽ
 	int					m_AiParam[MAX_AI_PARAM];// ����AIģ�����AI
@@ -783,7 +783,7 @@ public:
 	int					m_nChatContentLen;
 	int					m_nChatNumLine;
 	int					m_nChatFontWidth;
-	uint32_t		m_nCurChatTime;
+	unsigned int		m_nCurChatTime;
 	BYTE				m_nSleepFlag;
 	int					m_nHurtHeight;
 	int					m_nHurtDesX;
@@ -823,7 +823,7 @@ private:
 	int					m_ResDir;
 	KNpcRes				m_DataRes;				// Npc�Ŀͻ�����Դ��ͼ��������
    	int                 m_DurFrame[20];
-    uint32_t        uFlipTime[20];
+    unsigned int        uFlipTime[20];
 
 	// ������ͨս��npcðѪ����
 	int			    	m_nBloodNo[defMAX_SHOW_BLOOD_NUM][2];
@@ -831,7 +831,7 @@ private:
 	char				m_szBloodNo[64];
 private:
 	BOOL				WaitForFrame(); //�ȴ�����֡��
-	BOOL				IsReachFrame(int nPercent); 
+	BOOL				IsReachFrame(int nPercent);
 	void				DoStand();
 	void				OnStand();
 	void				DoRevive(); //����
@@ -870,7 +870,7 @@ private:
 	BOOL				DoRunAttack();
 	void				OnRunAttack();
 	BOOL				CastMeleeSkill(KSkill * pSkill);
-//-----------------------------------------------------------	
+//-----------------------------------------------------------
 	void				OnPlayerTalk();
 	void				DoSpecial1();
 	void				OnSpecial1();
@@ -931,10 +931,10 @@ public:
 	void				SetBayBan(BOOL bBayBan);//bayban
 	void				TurnTo(int nIdx);
 	void                setNpcDir(int nX2,int nY2);
-	int                 GetAttackFrame(){return m_AttackFrame;};    
-	int                 GetCastFrame(){return m_CastFrame;}; 
-	void                SetAttackFrame(int nCurFrame){ m_AttackFrame=nCurFrame;};    
-	void                SetCastFrame(int nCurFrame){m_CastFrame=nCurFrame;}; 
+	int                 GetAttackFrame(){return m_AttackFrame;};
+	int                 GetCastFrame(){return m_CastFrame;};
+	void                SetAttackFrame(int nCurFrame){ m_AttackFrame=nCurFrame;};
+	void                SetCastFrame(int nCurFrame){m_CastFrame=nCurFrame;};
 	void				SendSerCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
 	void				ProcCommand(int nAI);
 	ISkill* 			GetActiveSkill();
@@ -978,7 +978,7 @@ public:
 	BOOL				ModifyMissleCollsion(BOOL bCollsion);
 	void				RestoreNpcBaseInfo(); //Set Current_Data ;
 	int                 GetNpcPepoleID(){return m_nPlayerIdx;};
-//	int                 GetNpcIsReviveID(){return m_IsRevive;};   
+//	int                 GetNpcIsReviveID(){return m_IsRevive;};
 	void				SetNpcIsRe(int nIsRe,int nTime) {m_IsRevive = nIsRe; m_ReviveFrame= nTime;};
 	void				SetNpcIsReFrame(int nIsRe,int nTime) {m_IsRe = nIsRe; m_ReviveFrame= nTime;};
 	void				RestoreState();
@@ -1017,8 +1017,8 @@ public:
 //	void				SetBaseRunSpeed(int nSpeed);							// �趨�ܲ��ٶ�
 	int					GetCurActiveWeaponSkill();
 	void				LoadDataFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
-    //uint32_t	    GetColor(const char* pString); //���ַ�����ɫת����16����
-	//const               char* GetColorString(uint32_t nColor); //��16������ɫת���� �ַ�����ʽ
+    //unsigned int	    GetColor(const char* pString); //���ַ�����ɫת����16����
+	//const               char* GetColorString(unsigned int nColor); //��16������ɫת���� �ַ�����ʽ
 	void				ReSetRes(int nMark);
 	void				GetFrameCopyFromTemplate(int nNpcTemplateId, int nLevel);
 	void				LoadFrameFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
@@ -1059,7 +1059,7 @@ public:
 	void				SetInstantSpr(int nNo);
 	int					GetNormalNpcStandDir(int nFrame);
 	KNpcRes*			GetNpcRes(){return NULL;/*&m_DataRes;*/};  //�õ�NPC�����
-  //KImageParam	        imgParam;  
+  //KImageParam	        imgParam;
 	int                 GetNpcPate();
 	int                 GetNpcPatePeopleInfo();
 

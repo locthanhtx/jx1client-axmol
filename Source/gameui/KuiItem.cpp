@@ -159,9 +159,9 @@ void KuiItem::addDialogData()
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-				   t_sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
+				   sprintf(nItemSprPath, "%s", "\\spr\\others\\问号.spr");
 
 				if  (nItemSprPath[0])
 				{
@@ -174,7 +174,7 @@ void KuiItem::addDialogData()
 					if (bgCur==NULL)
 						return;
 					char nItemKey[32];
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -214,7 +214,7 @@ void KuiItem::addDialogData()
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //随身携带
 
 					Color4B color(0, 56, 33, 150); //112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey = nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -232,7 +232,7 @@ void KuiItem::addDialogData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//item xep chong
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_VN,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -637,15 +637,15 @@ void KuiItem::diuCallBackFunc(Ref * pSender)
 	}
 	/*if (m_CurSelItemIndex<0)
 	{
-		ccMessageBox("请选择一个物品","提示:");
+		messageBox("请选择一个物品","提示:");
 		return;
 	}*/
 	if  (nstrCurSelItemKey=="" || m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -654,9 +654,9 @@ void KuiItem::diuCallBackFunc(Ref * pSender)
 	{
 		nstrCurSelItemKey="";
 #ifdef WIN32
-		ccMessageBox("限时/邦定物品禁止丢弃","提示:");
+		messageBox("限时/邦定物品禁止丢弃","提示:");
 #else
-		ccMessageBox(UTEXT("限时/邦定物品禁止丢弃",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("限时/邦定物品禁止丢弃",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -679,8 +679,8 @@ void KuiItem::diuCallBackFunc(Ref * pSender)
 	Player[CLIENT_PLAYER_INDEX].AutoAwayItem(Item[m_ItemData[nstrCurSelItemKey].uId].GetID(),isYes);
 	nstrCurSelItemKey="";
 	//char msg[64];
-	//t_sprintf(msg,"丢弃:%d",m_CurSelItemIndex);
-	//ccMessageBox(msg,"提示");
+	//sprintf(msg,"丢弃:%d",m_CurSelItemIndex);
+	//messageBox(msg,"提示");
 }
 
 
@@ -698,15 +698,15 @@ void KuiItem::lianCallBackFunc(Ref * pSender)
 	}
 	/*if (m_CurSelItemIndex<0)
 	{
-		ccMessageBox("请选择一个物品","提示:");
+		messageBox("请选择一个物品","提示:");
 		return;
 	}*/
 	if  (nstrCurSelItemKey=="" || m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -715,9 +715,9 @@ void KuiItem::lianCallBackFunc(Ref * pSender)
 	{
 		nstrCurSelItemKey="";
 #ifdef WIN32
-		ccMessageBox("限时/邦定物品禁止出售","提示:");
+		messageBox("限时/邦定物品禁止出售","提示:");
 #else
-		ccMessageBox(UTEXT("限时/邦定物品禁止出售",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("限时/邦定物品禁止出售",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -726,7 +726,7 @@ void KuiItem::lianCallBackFunc(Ref * pSender)
 	{//开始输入聊天信息框
 		char nTempStrVer[80];
 		ZeroMemory(nTempStrVer,sizeof(nTempStrVer));
-		t_sprintf(nTempStrVer,"<%s>",Item[m_ItemData[nstrCurSelItemKey].uId].GetName());
+		sprintf(nTempStrVer,"<%s>",Item[m_ItemData[nstrCurSelItemKey].uId].GetName());
 		g_GameWorld->setInputMsg(nTempStrVer);
 		Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid = Item[m_ItemData[nstrCurSelItemKey].uId].GetID();
 	}
@@ -761,9 +761,9 @@ void KuiItem::xiuCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -773,9 +773,9 @@ void KuiItem::xiuCallBackFunc(Ref * pSender)
 		if (Item[m_ItemData[nstrCurSelItemKey].uId].GetGenre()!=item_equip)
 		{
 #ifdef WIN32
-			ccMessageBox("该物品不能修理!","提示:");
+			messageBox("该物品不能修理!","提示:");
 #else
-			ccMessageBox(UTEXT("该物品不能修理!",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("该物品不能修理!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 			return;
 		}
@@ -812,9 +812,9 @@ void KuiItem::maiCallBackFunc(Ref * pSender)
 	if  (nstrCurSelItemKey=="" || m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -860,9 +860,9 @@ void KuiItem::chaiCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品","提示:");
+		messageBox("请选择一个物品","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -872,9 +872,9 @@ void KuiItem::chaiCallBackFunc(Ref * pSender)
 		if (Item[m_ItemData[nstrCurSelItemKey].uId].GetGenre()==0)
 		{
 #ifdef WIN32
-		ccMessageBox("该物品不能拆分","提示:");
+		messageBox("该物品不能拆分","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能拆分",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能拆分",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		    return;
 		}
@@ -893,7 +893,7 @@ void KuiItem::chaiCallBackFunc(Ref * pSender)
 		if (g_pCoreShell->OperationRequest(GOI_NPC_ITEM_BREAK,(uintptr_t)(&Obj), 1))
 		{//拆分成功了,设置显示
 			char nKey[32];
-			t_sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			Sprite *nItemSpr =(Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if (nItemSpr)
@@ -902,7 +902,7 @@ void KuiItem::chaiCallBackFunc(Ref * pSender)
 				if (stacklabel)
 				{
 					int nstackCount = Item[Obj.Obj.uId].GetStackNum();
-					t_sprintf(nKey,"%d",nstackCount);
+					sprintf(nKey,"%d",nstackCount);
 					stacklabel->setString(nKey);
 				}
 			}
@@ -926,9 +926,9 @@ void KuiItem::chuCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -936,9 +936,9 @@ void KuiItem::chuCallBackFunc(Ref * pSender)
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-			ccMessageBox("该物品不能储存","提示:");
+			messageBox("该物品不能储存","提示:");
 #else
-			ccMessageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 			return;
 	}
@@ -955,9 +955,9 @@ void KuiItem::chuCallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -981,9 +981,9 @@ void KuiItem::zhengCallBackFunc(Ref * pSender)
 	if (g_pCoreShell->GetAutoplayid())
 	{
 #ifdef WIN32
-		ccMessageBox("挂机中,禁止整理!","提示");
+		messageBox("挂机中,禁止整理!","提示");
 #else
-		ccMessageBox(UTEXT("挂机中,禁止整理!",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("挂机中,禁止整理!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return;
 	}
@@ -1002,18 +1002,18 @@ void KuiItem::zhengCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能整理","提示:");
+		messageBox("该物品不能整理","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能整理",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能整理",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1030,9 +1030,9 @@ void KuiItem::zhengCallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 #ifdef WIN32
-		ccMessageBox("整理的太频繁了","提示:");
+		messageBox("整理的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("整理的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("整理的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1068,18 +1068,18 @@ void KuiItem::kuaiCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能移动","提示:");
+		messageBox("该物品不能移动","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能移动",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能移动",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1095,9 +1095,9 @@ void KuiItem::kuaiCallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -1131,27 +1131,27 @@ void KuiItem::ziCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能储存","提示:");
+		messageBox("该物品不能储存","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (!m_nIstrue)
 	{
 #ifdef WIN32
-		ccMessageBox("子母袋还没有开启","提示:");
+		messageBox("子母袋还没有开启","提示:");
 #else
-		ccMessageBox(UTEXT("子母袋还没有开启",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("子母袋还没有开启",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1167,9 +1167,9 @@ void KuiItem::ziCallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -1204,9 +1204,9 @@ void KuiItem::kuo1CallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1214,9 +1214,9 @@ void KuiItem::kuo1CallBackFunc(Ref * pSender)
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能储存","提示:");
+		messageBox("该物品不能储存","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1232,9 +1232,9 @@ void KuiItem::kuo1CallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -1251,9 +1251,9 @@ void KuiItem::kuo1CallBackFunc(Ref * pSender)
 		g_pCoreShell->OperationRequest(GOI_ADDITEM_CLIENT,(intptr_t)(&Obj),room_exbox1);
 	/*
 #ifdef WIN32
-	ccMessageBox("扩展箱暂时关闭","提示:");
+	messageBox("扩展箱暂时关闭","提示:");
 #else
-	ccMessageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
+	messageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 
 }
@@ -1273,18 +1273,18 @@ void KuiItem::kuo2CallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能储存","提示:");
+		messageBox("该物品不能储存","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1300,9 +1300,9 @@ void KuiItem::kuo2CallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -1319,9 +1319,9 @@ void KuiItem::kuo2CallBackFunc(Ref * pSender)
 		g_pCoreShell->OperationRequest(GOI_ADDITEM_CLIENT,(intptr_t)(&Obj),room_exbox2);
 	/*
 #ifdef WIN32
-	ccMessageBox("扩展箱暂时关闭","提示:");
+	messageBox("扩展箱暂时关闭","提示:");
 #else
-	ccMessageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
+	messageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 }
 void KuiItem::kuo3CallBackFunc(Ref * pSender)
@@ -1340,18 +1340,18 @@ void KuiItem::kuo3CallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品!","提示:");
+		messageBox("请选择一个物品!","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("该物品不能储存","提示:");
+		messageBox("该物品不能储存","提示:");
 #else
-		ccMessageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("该物品不能储存",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -1367,9 +1367,9 @@ void KuiItem::kuo3CallBackFunc(Ref * pSender)
 	{//间隔２秒
 		//nBakChickTime = nCurChicktime;
 /*#ifdef WIN32
-		ccMessageBox("移动的太频繁了","提示:");
+		messageBox("移动的太频繁了","提示:");
 #else
-		ccMessageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("移动的太频繁了",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 		return;
 	}
@@ -1385,9 +1385,9 @@ void KuiItem::kuo3CallBackFunc(Ref * pSender)
 	if (g_pCoreShell)
 		g_pCoreShell->OperationRequest(GOI_ADDITEM_CLIENT,(intptr_t)(&Obj),room_exbox3);
 /*#ifdef WIN32
-	ccMessageBox("扩展箱暂时关闭","提示:");
+	messageBox("扩展箱暂时关闭","提示:");
 #else
-	ccMessageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
+	messageBox(UTEXT("扩展箱暂时关闭",1).c_str(),UTEXT("提示:",1).c_str());
 #endif*/
 
 }
@@ -1461,13 +1461,13 @@ void KuiItem::ccTouchEnded(Touch *pTouch, Event *pEvent)
 		{////����ĳ���ܵļӳ�
 			char nKey[32];
 			//char msg[50];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
-			// t_sprintf(msg,"ccTouchEnded:%d,nKey:%d",nKey,nKey);
+			// sprintf(msg,"ccTouchEnded:%d,nKey:%d",nKey,nKey);
 			// ClientShowMsg(msg);
 			if(ParentNode_ItemMove->getTag() == std::hash<std::string>{}(nItemKey)){
 				if (SkillNode)
@@ -1534,7 +1534,7 @@ void KuiItem::ccTouchEnded(Touch *pTouch, Event *pEvent)
 }
 void KuiItem::ClientShowMsg(const char *Msg)
 {
-	// ccMessageBox(Msg,"ClientShowMsg");
+	// messageBox(Msg,"ClientShowMsg");
 	KSystemMessage	sMsg;
 	ZeroMemory(&sMsg,sizeof(sMsg));
 	sMsg.byConfirmType = SMCT_NONE;
@@ -1543,9 +1543,9 @@ void KuiItem::ClientShowMsg(const char *Msg)
 	sMsg.byPriority    = 0;
 
 	if (sizeof(Msg)<125)
-	  t_sprintf(sMsg.szMessage,Msg);
+	  sprintf(sMsg.szMessage, "%s", Msg);
 	else
-	  t_sprintf(sMsg.szMessage,"Tin nhắn quá dài không thể gửi!");
+	  sprintf(sMsg.szMessage, "%s", "Tin nhắn quá dài không thể gửi!");
 
 	sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg,0);
@@ -1583,10 +1583,10 @@ void KuiItem::ccTouchMoved(Touch *pTouch, Event *pEvent)
 		if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 		{////����ĳ���ܵļӳ�
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if(ParentNode_ItemMove->getTag() == std::hash<std::string>{}(nItemKey)){
@@ -1625,10 +1625,10 @@ bool KuiItem::ccTouchBegan(Touch *pTouch, Event *pEvent)
 		if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 		{////重置某技能的加成
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if  (nCurColorlayer)
@@ -1792,7 +1792,7 @@ void KuiItem::closeItemPadCallback(Node *pNode)
 }
 void KuiItem::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (isOpen && g_pCoreShell)
 	{
 	    m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -1817,14 +1817,14 @@ void KuiItem::update(float delta)
 					sprintf(nPointCount, "%d vạn %d lượng", m_nMoney/10000, m_nMoney%10000);
 				}
 			}
-		  // t_sprintf(nPointCount,"%d",m_nMoney);
+		  // sprintf(nPointCount,"%d",m_nMoney);
 		  // pSkillPointLabel->setColor(ccWit)
 		   pMoneyLabel->setString(nPointCount);
 		   pMoneyLabel->setColor(ax::Color3B::RED);
 	   }
 	   if  (pXuLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nXu);
+		   sprintf(nPointCount,"%d",m_nXu);
 		   // pSkillPointLabel->setColor(ccWit)
 		   pXuLabel->setString(nPointCount);
 		   pXuLabel->setColor(ax::Color3B::YELLOW);
@@ -1845,7 +1845,7 @@ void KuiItem::update(float delta)
 					   continue;
 
 				   char nItemKey[32];
-				   t_sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
+				   sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
 				   std::string nKey =nItemKey;
 				   Sprite *nTempSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 				   if  (nTempSpr)
@@ -1854,7 +1854,7 @@ void KuiItem::update(float delta)
 					   if  (stuckCountlabel)
 					   {
 						   char nCount[32];
-						   t_sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
+						   sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
 						   stuckCountlabel->setString(nCount);
 					   }
 				   }
@@ -1865,7 +1865,7 @@ void KuiItem::update(float delta)
 
 //void KuiItem::draw()
 //{
-//	//ccMessageBox("无限循环","draw");
+//	//messageBox("无限循环","draw");
 //}
 
 void KuiItem::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
@@ -1882,7 +1882,7 @@ void KuiItem::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 
 		if  (Obj.uId<=0 || Obj.uId>=MAX_ITEM)
 		{
-			//ccMessageBox("数据有误","物品");
+			//messageBox("数据有误","物品");
 			return;
 		}
 
@@ -1895,10 +1895,10 @@ void KuiItem::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 		else      //减少
 		{
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
-			t_sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
 			nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
 			m_ItemData.erase(nItemKey);
@@ -1922,11 +1922,11 @@ void KuiItem::UpdateData()
 	   if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 	   {////重置某技能的加成
 		   char nKey[32];
-		   t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 		   std::string nItemKey = nKey;
 		   ParentNode_Item->removeChildByName(nItemKey,true);
 		   //nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-		   t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 		   nItemKey = nKey;
 		   //SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 		   ParentNode_Item->removeChildByName(nItemKey,true);
@@ -1935,10 +1935,10 @@ void KuiItem::UpdateData()
    m_ItemData.clear();
   /* for (int i=0;i<m_nNumObjects;++i)
    {
-	t_sprintf(nItemKey,"item_%d",i+1);
+	sprintf(nItemKey,"item_%d",i+1);
 	std::string nKey =nItemKey;
 	ParentNode_Item->removeChildByName(nKey,true);
-	t_sprintf(nItemKey,"color_%d",i+1);
+	sprintf(nItemKey,"color_%d",i+1);
 	nKey =nItemKey;
 	ParentNode_Item->removeChildByName(nKey,true);
 	//LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -1980,14 +1980,14 @@ void KuiItem::UpdateData()
 
 				if (!Item[pObjs[i].Obj.uId].GetImagePath())
 				{
-					t_sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
 				}
 				else
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1998,7 +1998,7 @@ void KuiItem::UpdateData()
 						return;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -2012,7 +2012,7 @@ void KuiItem::UpdateData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//不是装备 可叠加物品
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -2033,7 +2033,7 @@ void KuiItem::UpdateData()
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //随身携带
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -2107,10 +2107,10 @@ int KuiItem::AddObject(KUiDraggedObject* pObject, int nCount)
 
 				if (!Item[pObject->uId].GetImagePath())
 				{
-					t_sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
 				}
 				else
-					t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObject->uId].GetImagePath());
 
 				if  (nItemSprPath[0])
 				{
@@ -2123,17 +2123,17 @@ int KuiItem::AddObject(KUiDraggedObject* pObject, int nCount)
 					bgCur = _getinidata.getinidata_one(nItemSprPath,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 					if (bgCur==NULL)
 					{
-						t_sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
+						sprintf(nItemSprPath,"\\spr\\others\\问号.spr");
 						g_StrLower(nItemSprPath);
 						bgCur = _getinidata.getinidata_one(nItemSprPath,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 						//return false;
 					}
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
-					//t_sprintf(msg,"AddObject:%d,nKey:%d",nItemKey,nItemKey);
+					//sprintf(msg,"AddObject:%d,nKey:%d",nItemKey,nItemKey);
 					//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nItemKey);
 					if (!nItemSpr)
 					{
@@ -2152,7 +2152,7 @@ int KuiItem::AddObject(KUiDraggedObject* pObject, int nCount)
 						if  (Item[pObject->uId].GetGenre()!=item_equip && Item[pObject->uId].IsStack())
 						{//不是装备 可叠加物品
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::WHITE);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));

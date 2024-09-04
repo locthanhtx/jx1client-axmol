@@ -53,7 +53,7 @@ bool uiskill::init()
     bool bRef = false;
     do
     {
-        CC_BREAK_IF(!Layer::init());
+        AX_BREAK_IF(!Layer::init());
 
         this->setContentSize(ax::Size::ZERO);
         // ��ʼ����Ҫ�� Menu
@@ -95,7 +95,7 @@ uiskill* uiskill::create(const char *backgroundImage,int nKind)
 	{//������أ���������
 		char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,backgroundImage);
+		sprintf(nSprName, "%s", backgroundImage);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -127,15 +127,15 @@ uiskill* uiskill::create(const char *backgroundImage,int nKind)
 			  //pSkill->DrawSkillIcon(x, y, Width, Height,inParam);  //���Ƽ���ͼ��
 			  //pSkill->getIconPath()
 			  //char msg[64];
-			  //t_sprintf(msg,"idx:%d,Skillid:%d",i,Skills[i].uId);
-			  //ccMessageBox(pSkill->getIconPath().c_str(),"�滭����ͼ��");
+			  //sprintf(msg,"idx:%d,Skillid:%d",i,Skills[i].uId);
+			  //messageBox(pSkill->getIconPath().c_str(),"�滭����ͼ��");
 			  //Sprite *nSkillSpr =Sprite::create();
 			  //nSkillSpr->setAnchorPoint(ax::Vec2(0,0));
 			  //nFightNode->addChild(nSkillSpr,1,i+1);
 
 			  char nSprName[128]={0};
 			  ZeroMemory(nSprName,sizeof(nSprName));
-			  t_sprintf(nSprName,pSkill->getIconPath().c_str());
+			  sprintf(nSprName, "%s", pSkill->getIconPath().c_str());
 			  g_StrLower(nSprName);
 			  int m_nWidth,m_nHeight,nFrams;
 			  Texture2D *bgCur = NULL;
@@ -300,5 +300,5 @@ void uiskill::onExit()
 
 void uiskill::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 }

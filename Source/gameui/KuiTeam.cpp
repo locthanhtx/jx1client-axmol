@@ -101,7 +101,7 @@ bool KuiTeam::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\���2.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\���2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -150,7 +150,7 @@ void KuiTeam::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\��ӿ���.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\��ӿ���.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -258,7 +258,7 @@ void KuiTeam::addDialogData()
 		button->setTitleFontSize(12);
 		//static_cast<CCString*>(m_array->objectAtIndex(index))->getCString()
 		char nTempstr[32];   //static_cast<CCString*>(
-		t_sprintf(nTempstr,static_cast<CCString*>(m_array->objectAtIndex(index))->getCString());
+		sprintf(nTempstr,static_cast<CCString*>(m_array->objectAtIndex(index))->getCString());
 		button->setTitleText(UTEXT(nTempstr,1));
 	}
 	*/
@@ -285,7 +285,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\���\\�ر�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\���\\�ر�.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -307,7 +307,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 	colseConfirm->setPosition(ax::Vec2(177+177/2,m_size.height-207-sprite_colse_select->getContentSize().height/2));
 	//�������
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\�������.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\�������.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -327,7 +327,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 
 	//�߳����� \Spr\Ui3\���\�������.spr
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\�߳�����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\�߳�����.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -346,7 +346,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 	KickConfirm->setTag(2);
 	//�ӳ��ƽ� \Spr\Ui3\���\�ӳ��ƽ�.spr
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\�ӳ��ƽ�.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\�ӳ��ƽ�.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -365,7 +365,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 	AppointConfirm->setTag(3);
 	//ˢ��
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\ˢ���б�.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\ˢ���б�.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -385,7 +385,7 @@ void KuiTeam::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 
 	//�뿪����
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\�뿪����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\�뿪����.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -553,7 +553,7 @@ void KuiTeam::selectedBoxStateEvent(Ref* pSender, CheckBox::EventType type)
 		break;
 	case CheckBox::EventType::SELECTED:
 		//m_pDisplayValueLabel->setText(CCString::createWithFormat("Selected")->getCString());
-		//ccMessageBox("ѡ��","ѡ��");
+		//messageBox("ѡ��","ѡ��");
 		if (!g_pCoreShell->TeamOperation(TEAM_OI_CLOSE,0,1))
 		{//��ʧ��
 		   if  (checkBox)
@@ -603,7 +603,7 @@ void KuiTeam::selectedItemEvent(Ref *pSender, ListView::EventType type)
 		break;
 	}
 
-	//ccMessageBox(msg,"����¼�");
+	//messageBox(msg,"����¼�");
 }
 
 
@@ -708,7 +708,7 @@ void KuiTeam::OnRefresh()
 				custom_button->setContentSize(btnSize);
 				custom_button->setTitleFontSize(12);
 				char nTempstr[32];
-				t_sprintf(nTempstr,m_pNearbyPlayersList[i].Name);
+				sprintf(nTempstr, "%s", m_pNearbyPlayersList[i].Name);
 				custom_button->setTitleText(UTEXT(nTempstr,1));
 
 				Layout *custom_item = Layout::create();
@@ -731,7 +731,7 @@ void KuiTeam::OnRefresh()
 		custom_button->setContentSize(btnSize);
 		custom_button->setTitleFontSize(12);
 		char nTempstr[32];
-		t_sprintf(nTempstr,"��������ڸ���");
+		sprintf(nTempstr, "%s", "��������ڸ���");
 		custom_button->setTitleText(UTEXT(nTempstr,1));
 
 		Layout *custom_item = Layout::create();
@@ -754,7 +754,7 @@ void KuiTeam::UpdateData(KUiPlayerTeam* pInfo)
 	memset(&LeaderShip, 0, sizeof(KUiPlayerLeaderShip));
 	g_pCoreShell->GetGameData(GDI_PLAYER_LEADERSHIP,(uintptr_t)&LeaderShip, 0);  //����ͳ˧������ص�����
 	char msg[64];
-	t_sprintf(msg,"%d",LeaderShip.nLeaderShipLevel);
+	sprintf(msg,"%d",LeaderShip.nLeaderShipLevel);
 	pMoneyLabel->setString(msg);//m_LeaderAbility.SetIntText(LeaderShip.nLeaderShipLevel);  //ͳ˧
 
 	if (pInfo)
@@ -795,7 +795,7 @@ void KuiTeam::UpdateData(KUiPlayerTeam* pInfo)
 					custom_button->setContentSize(btnSize);
 					custom_button->setTitleFontSize(12);
 					char nTempstr[32];
-					t_sprintf(nTempstr,m_pPlayersList[i].Name);
+					sprintf(nTempstr, "%s", m_pPlayersList[i].Name);
 					custom_button->setTitleText(UTEXT(nTempstr,1));
 
 					Layout *custom_item = Layout::create();
@@ -845,7 +845,7 @@ void KuiTeam::Clear()
 }
 void KuiTeam::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}

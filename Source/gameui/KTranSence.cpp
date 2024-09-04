@@ -73,20 +73,20 @@ bool KTranSence::init()
 	}
 
 	/*if (g_GameWorld)
-		ccMessageBox("g_GameWorld is true","KTranSence");
+		messageBox("g_GameWorld is true","KTranSence");
 	else
-		ccMessageBox("g_GameWorld is null","KTranSence");
+		messageBox("g_GameWorld is null","KTranSence");
 	*/
 	m_sprCount =0;
 	m_nWidth   = 0;
 	m_nHeight  = 0;
-    auto listener = ax::EventListenerTouchOneByOne::create();
-    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+//    auto listener = ax::EventListenerTouchOneByOne::create();
+//    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	m_Status = LL_S_WAIT_INPUT_ACCOUNT;
 	char nSprName[128]={0};
 	int nFrams=0;
 
-	/*t_sprintf(nSprName,"\\Spr\\Ui3\\�������\\����-���˺�-������ť\\��½����_6_ȷ��.spr");
+	/*sprintf(nSprName,"\\Spr\\Ui3\\�������\\����-���˺�-������ť\\��½����_6_ȷ��.spr");
 	g_StrLower(nSprName);
 	MenuItemImage *pCancelItem=NULL;
 	MenuItemImage *pLoginItem=NULL;
@@ -95,11 +95,11 @@ bool KTranSence::init()
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		pLoginItem = MenuItemImage::create(
 			pNormalTexture,
@@ -142,8 +142,8 @@ bool KTranSence::init()
 	DWORD nFielpahtdwid = g_FileName2Id(nSprName);
 	for (int i=0;i<5;i++)
 	{
-		//t_sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-		//ccMessageBox(nSprFilePath,"animation");
+		//sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
+		//messageBox(nSprFilePath,"animation");
 		animation->addSpriteFrameWithFile("transence.png");//�����������������֡
 	}
 	//���ö���֡��ʱ����
@@ -168,15 +168,15 @@ bool KTranSence::init()
 	m_nLoadedResources = 0;  //�Ѿ������˵�����
 	m_fProgressIndex = 0.0;
 	//m_fWaitTime = 0;
-	m_pLabelLoading = Label::createWithTTF("loading...", "Arial", 15);
-	m_pLabelPercent = Label::createWithTTF("%0", "Arial", 15);
-	m_pLabelLoading->setPosition(ax::Vec2(size.width/2, size.height/4-70));
-	m_pLabelPercent->setPosition(ax::Vec2(size.width/2+50, size.height/4-70));
+	m_pLabelLoading = Label::createWithSystemFont("loading...", "Arial", 15);
+	m_pLabelPercent = Label::createWithSystemFont("%0", "Arial", 15);
+	m_pLabelLoading->setPosition(ax::Vec2(kSize.width/2, kSize.height/4-70));
+	m_pLabelPercent->setPosition(ax::Vec2(kSize.width/2+50, kSize.height/4-70));
 	this->addChild(m_pLabelLoading,1);
 	this->addChild(m_pLabelPercent,1);
 	//loading�Ķ���Ч��
 	m_pLoadBarStart = Sprite::create("loadingStart.png");
-	m_pLoadBarStart->setPosition(ax::Vec2(size.width/2, size.height/4-50));
+	m_pLoadBarStart->setPosition(ax::Vec2(kSize.width/2, kSize.height/4-50));
 	float sx  = m_pLoadBarStart->getTextureRect().getMaxX();
 	//float sy  = m_pLoadBarStart->getTextureRect().getMaxY();
 	m_pLoadBarStart->setScaleY(2.0f);
@@ -189,7 +189,7 @@ bool KTranSence::init()
 
 	m_pLoadBarEnd = ProgressTimer::create(m_pLoadEndSpr);
 	m_pLoadBarEnd->setPercentage(1.0f);
-	m_pLoadBarEnd->setPosition(ax::Vec2(size.width/2, size.height/4-50));
+	m_pLoadBarEnd->setPosition(ax::Vec2(kSize.width/2, kSize.height/4-50));
 	m_pLoadBarEnd->setType(ProgressTimer::Type::BAR);
 	m_pLoadBarEnd->setBarChangeRate(ax::Vec2(1, 0));
 	m_pLoadBarEnd->setMidpoint(ax::Vec2(0, 0));
@@ -211,7 +211,7 @@ void KTranSence::loadingCallBack(Ref *obj)
 {//���ý������Ľ���
 	++m_nLoadedResources;
 	char tmp[10];
-	t_sprintf(tmp,"%%%d",(int)(((float)m_nLoadedResources/m_nAllLoadResources)*100));
+	sprintf(tmp,"%%%d",(int)(((float)m_nLoadedResources/m_nAllLoadResources)*100));
 	m_pLabelPercent->setString(tmp);
 	m_fProgressIndex = (((float)m_nLoadedResources/m_nAllLoadResources)*100);
 	m_pLoadBarEnd->setPercentage(m_fProgressIndex);
@@ -259,7 +259,7 @@ void KTranSence::update(float delta)
 
 	if (/*m_bIsGameSevConnecting && */g_pClient)
 	{
-		uint32_t nSize;
+		unsigned int nSize;
 		const char* pBuffer = NULL;
 
 		while (true)
@@ -324,7 +324,7 @@ bool KTranSence::isFileExist(const char* pFileName)
 void KTranSence::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::binary | std::ios::ate);
@@ -441,7 +441,7 @@ void KTranSence::ClearAccountPassword(bool bAccount, bool bPassword)
 
 void KTranSence::mExit(Ref* pSender){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	ax::Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

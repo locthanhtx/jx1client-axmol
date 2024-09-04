@@ -26,7 +26,7 @@
 #endif
 
 #define _GL_USE_STDLIB_ALLOC 1
-#include <config.h>
+#include "../../libiconv/include/config.h"
 
 /* Specification.  */
 #include "relocatable.h"

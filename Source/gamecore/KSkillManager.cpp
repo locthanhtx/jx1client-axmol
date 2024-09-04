@@ -1,10 +1,10 @@
- 
+
 #include "KCore.h"
 #include "KSkillManager.h"
 //#include "MyAssert.H"
 #include "KThiefSkill.h"
 
-uint32_t g_ulSkillCount = 0;
+unsigned int g_ulSkillCount = 0;
 KSkillManager g_SkillManager;
 
 KSkillManager::KSkillManager()
@@ -15,9 +15,9 @@ KSkillManager::KSkillManager()
 // Add By Freeway Chen in 2003.6.6
 KSkillManager::~KSkillManager()
 {
-    uint32_t i = 0;
-    uint32_t j = 0;
-    
+    unsigned int i = 0;
+    unsigned int j = 0;
+
     for (i = 0; i < MAX_SKILL; ++i)
     {
         for (j = 0; j < MAX_SKILLLEVEL; ++j)
@@ -45,12 +45,12 @@ BOOL KSkillManager::Init()
 
 	memset(m_SkillInfo, 0,  sizeof(m_SkillInfo));
 
-	//	Load OrdinSkill Info 
+	//	Load OrdinSkill Info
 	   nSkillNum = g_OrdinSkillsSetting.GetHeight();
 
-	if (nSkillNum <= 0 ) 
+	if (nSkillNum <= 0 )
 		return FALSE;
-	
+
 	for (i = 0; i < nSkillNum-1; ++i)
 	{
 		int nSkillId = -1;
@@ -59,11 +59,11 @@ BOOL KSkillManager::Init()
 		g_OrdinSkillsSetting.GetInteger(i + 2, "SkillId", -1, &nSkillId);
 		g_OrdinSkillsSetting.GetInteger(i + 2, "SkillStyle", -1, &nSkillStyle);
 		g_OrdinSkillsSetting.GetInteger(i + 2, "MaxLevel", 20, &nSkillMaxLevel);
-		
+
 		//_ASSERT(nSkillMaxLevel >= 0);
 		if  (nSkillMaxLevel<0)
 			nSkillMaxLevel = 0;
-		
+
 		if (nSkillId > 0 && nSkillStyle >= 0)
 		{
 			m_SkillInfo[nSkillId - 1].m_nSkillStyle = nSkillStyle;
@@ -95,12 +95,12 @@ BOOL KSkillManager::Init()
 	return TRUE;
 }
 //�������ܽű�����
-ISkill*	KSkillManager::InstanceSkill( uint32_t ulSkillID, uint32_t ulSkillLevel)
+ISkill*	KSkillManager::InstanceSkill( unsigned int ulSkillID, unsigned int ulSkillLevel)
 {
 	ISkill *pRetSkill = NULL;
 
     int nStyle = GetSkillStyle(ulSkillID);
-	
+
 	switch (nStyle) // eSkillStyle
 	{
 	case SKILL_SS_Missles:			        //	�ӵ��� 0	���������ڷ����ӵ���
@@ -109,10 +109,10 @@ ISkill*	KSkillManager::InstanceSkill( uint32_t ulSkillID, uint32_t ulSkillLevel)
 	case SKILL_SS_PassivityNpcState:		//	������ 3	���������ڸı�Npc�ı���״̬
 		{
             KSkill * pNewOrdinSkill = NULL;
-			uint32_t ulFirstLoadLevel = 0;
+			unsigned int ulFirstLoadLevel = 0;
 
             if (m_pOrdinSkill[ulSkillID - 1][ulSkillLevel - 1])
-            { 
+            {
                 pRetSkill = m_pOrdinSkill[ulSkillID - 1][ulSkillLevel - 1];
 				break;
             }
@@ -141,14 +141,14 @@ ISkill*	KSkillManager::InstanceSkill( uint32_t ulSkillID, uint32_t ulSkillLevel)
 				//�ӽű���ȡ��������
 				pNewOrdinSkill->LoadSkillLevelData(ulSkillLevel, m_SkillInfo[ulSkillID - 1].m_nTabFileRowId);
 			 }
-			
+
 			pNewOrdinSkill->SetSkillId(ulSkillID);
 			pNewOrdinSkill->SetSkillLevel(ulSkillLevel);
 
 			m_pOrdinSkill[ulSkillID - 1][ulSkillLevel - 1] = pNewOrdinSkill;
 
 			pRetSkill = pNewOrdinSkill;
-            pNewOrdinSkill = NULL;		
+            pNewOrdinSkill = NULL;
         }
 		break;
 	case SKILL_SS_Thief:
@@ -163,15 +163,15 @@ ISkill*	KSkillManager::InstanceSkill( uint32_t ulSkillID, uint32_t ulSkillLevel)
 			}
 
 			pRetSkill = m_pOrdinSkill[ulSkillID - 1][0];
-			
+
 			((KThiefSkill*)pRetSkill)->LoadSetting(THIEFSKILL_SETTINGFILE);
 
 		}
-		break;	
+		break;
 	default:
 		break;
 	}
-    		
+
 	return pRetSkill;
 }
 

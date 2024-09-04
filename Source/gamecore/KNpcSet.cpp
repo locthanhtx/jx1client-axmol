@@ -62,7 +62,7 @@ void KNpcSet::Init()
 
 	//if (!m_cTabFile.Load(NPC_SETTING_FILE))
 	//	return;
-	
+
 	/*INT nNpcTemplateHeight = g_NpcSetting.GetHeight();
 	INT nNpcTemplateId;
 	ZeroStruct(m_anTemplateRowId);
@@ -74,8 +74,8 @@ void KNpcSet::Init()
 		{
 			_ASSERT(FALSE);
 			continue;
-		} 
-		
+		}
+
 		if (nNpcTemplateId > 0 && nNpcTemplateId <= MAX_NPCSTYLE)
 			m_anTemplateRowId[nNpcTemplateId]	= nRowId; //�к�
 	} */
@@ -137,7 +137,7 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
 	// ·����Ӫû��ս����ϵ
 	if (Camp1 == camp_event || Camp2 == camp_event)
 		return relation_none;
-	
+
 	// ���ֺͶ��ﻹ��ս����ϵ
 	if ((Camp1 == camp_begin && Camp2 == camp_animal)
 		||(Camp1 == camp_animal && Camp2 == camp_begin))
@@ -146,7 +146,7 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
 	// ֻҪ��һ�����֣��Ͳ�����ս����ϵ(��ͬ�˹�ϵ����Ұ�����)
 	if (Camp1 == camp_begin || Camp2 == camp_begin)
 		return relation_ally;
-	
+
     // �����������
 	if (Kind1 == kind_player && Kind2 == kind_player)
 	{
@@ -182,9 +182,9 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
                 for (nCamp2 = 0; nCamp2 < camp_num; ++nCamp2)
                 {
                     m_RelationTable[nKind1][nKind2][nCamp1][nCamp2] = GenOneRelation(
-                        (NPCKIND)nKind1, 
-                        (NPCKIND)nKind2, 
-                        (NPCCAMP)nCamp1, 
+                        (NPCKIND)nKind1,
+                        (NPCKIND)nKind2,
+                        (NPCCAMP)nCamp1,
                         (NPCCAMP)nCamp2
                     );
                 }
@@ -432,12 +432,12 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 		char nMapNpc[32]={0};
 		int  nIsCreat=0;
 		ZeroMemory(nMapNpc,sizeof(nMapNpc));
-		t_sprintf(nMapNpc,"%d_IsScript",SubWorld[nSubWorld].m_SubWorldID);
+		sprintf(nMapNpc,"%d_IsScript",SubWorld[nSubWorld].m_SubWorldID);
 		g_NpcMapDropRate.GetInteger("List",nMapNpc,0,&nIsCreat);
-		Npc[nRet].IsExeGoldScript = nIsCreat; 
-		t_sprintf(nMapNpc,"%d_IsCreat",SubWorld[nSubWorld].m_SubWorldID);
+		Npc[nRet].IsExeGoldScript = nIsCreat;
+		sprintf(nMapNpc,"%d_IsCreat",SubWorld[nSubWorld].m_SubWorldID);
 		g_NpcMapDropRate.GetInteger("List",nMapNpc,0,&nIsCreat);//Ĭ��ִ��ȫ�ֽű�
-		Npc[nRet].IsCreatBoss     = nIsCreat; 
+		Npc[nRet].IsCreatBoss     = nIsCreat;
 
 
 		// ����ǻƽ�����������
@@ -451,11 +451,11 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 		}
 
 		if (pKSNpcInfo->szScript[0]) //�ű����ȿ�
-		{  
+		{
 		    int zVal=CheckThisNpc(Npc[nRet].m_NpcSettingIdx,"NoScript");//����Ƿ��ڽ�ֹ�б���
 		    if (zVal)
 			{//�ڽ�ֹ�б��У��Ͳ����ؽű�
-			  return nRet; 
+			  return nRet;
 			}
 			char nMsg[256]={0};
 			/*
@@ -481,7 +481,7 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 	return nRet;
 }
 //�ű�ˢNPC�� ��ҵ����ӣ�addNPC��
-int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss,int nRodom,int nOffwminx,int nOffwmaxx,int nOffhminy,int nOffhmaxy,int nNpcKind,uint32_t nNpcDwidx)
+int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss,int nRodom,int nOffwminx,int nOffwmaxx,int nOffhminy,int nOffhmaxy,int nNpcKind,unsigned int nNpcDwidx)
 {
 	int nRegion, nmMapX, nmMapY, nOffX, nOffY;
 	if (nSubWorld < 0 || nSubWorld >=MAX_SUBWORLD)
@@ -498,19 +498,19 @@ int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int
             return 0;
 	}
 	else
-	{ 
+	{
 		//SubWorld[nSubWorld].Mps2Map(nMpsX, nMpsY, &nRegion, &nmMapX, &nmMapY, &nOffX, &nOffY);
         	 //�ϰ����ж�
 	   POINT	ptLocal;
 	   //KMapPos	Pos;
-	   //GetMpsPos(&nX, &nY,&nMap);                          // ���������=ת���������  
+	   //GetMpsPos(&nX, &nY,&nMap);                          // ���������=ת���������
        ptLocal.x = nMpsX;
        ptLocal.y = nMpsY;
-	
+
 	   SubWorld[nSubWorld].GetFreeObjPos(ptLocal);           //��ȡ��Χû���ϰ��������(λ�ý���)
 
 	   SubWorld[nSubWorld].Mps2Map(ptLocal.x, ptLocal.y,&nRegion, &nmMapX, &nmMapY,&nOffX, &nOffY);
-	  
+
 		//if (nRegion < 0)
 		//{
 		 // printf("[Map]���ͷǷ����� Pos(%d,%d,m:%d,��:%d) ��Ч����!\n", nX, nY,dwSubWorldID,nTargetSubWorld);
@@ -523,22 +523,22 @@ int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int
 		return 0;
 
 	int nIndexID=0;
-        nIndexID=AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nmMapX, nmMapY, nOffX, nOffY,nBoss);	
-	
+        nIndexID=AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nmMapX, nmMapY, nOffX, nOffY,nBoss);
+
 	if (nIndexID >0)
 	{
 	  // ����ǻƽ����
 	  if (nBoss>0 && Npc[nIndexID].m_Kind==kind_normal) //����NPC  g_NpcMapDropRate
 	  {//if(!IsPlayer() && m_Kind!=kind_dialoger && m_Kind!=kind_partner)
 		Npc[nIndexID].m_cGold.SetGoldCurrentType(nBoss,nSubWorld);
-		//Npc[nIndexID].m_cGold.RandChangeGold(0,0,nBoss,nSubWorld);  //ͬ���������� 
+		//Npc[nIndexID].m_cGold.RandChangeGold(0,0,nBoss,nSubWorld);  //ͬ����������
 	  }
 //-----------------------------------------------------------------------------------------
 //��ͨNPC ������NPC ͨ��
 	  if (Npc[nIndexID].m_DataRes.Init(Npc[nIndexID].szNpcTypeName,&g_NpcResList,nIndexID))
 	  {
 		  //if  (nNpcKind >-1 && nNpcKind==kind_player)
-			//  ccMessageBox(Npc[nIndexID].szNpcTypeName,"m_DataRes.Init");
+			//  messageBox(Npc[nIndexID].szNpcTypeName,"m_DataRes.Init");
 	  }//��۳�ʼ��
 
 	  /*Npc[nIndexID].m_DataRes.SetAction(Npc[nIndexID].m_ClientDoing);            //�趨�����Ϊ�Խ�
@@ -549,13 +549,13 @@ int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int
 	  Npc[nIndexID].m_DataRes.SetWeapon(Npc[nIndexID].m_WeaponType);             //����
 	 */
 	  if (Npc[nIndexID].m_Kind==kind_player)
-	  {  
+	  {
 	      //Npc[nIndexID].m_DataRes.SetPifeng(Npc[nIndexID].m_PifengType);             //����
 	      //Npc[nIndexID].m_DataRes.SetChiBang(Npc[nIndexID].m_ChiBangType);
 	  }
-//-----------------------------------------------------------------------------------------	
+//-----------------------------------------------------------------------------------------
 	}
-	return nIndexID;	
+	return nIndexID;
 }
 //ˢѺ��NPC
 int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, IN int nSeries, IN int nComp,IN int nRindexid,int nBoss)
@@ -569,7 +569,7 @@ int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMp
 	int indexid;
 	    indexid= AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nMapX, nMapY, nOffX, nOffY,-1);
 	if (indexid >0 && nRindexid>0 )
-	{   
+	{
 		Npc[indexid].m_Camp       = Npc[nRindexid].m_Camp;
 		Npc[indexid].m_btRankFFId = 88;
 		Npc[indexid].m_IsRevive   = g_FileName2Id(Npc[nRindexid].Name);
@@ -581,8 +581,8 @@ int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMp
 		ZeroMemory(Npc[indexid].Name,32); // ����
         g_StrCpyLen(nPCname,Npc[nRindexid].Name,sizeof(Npc[nRindexid].Name));
 		strcat(nPCname,"��(�ڳ�)");
-        t_sprintf(Npc[indexid].Name,"%s",nPCname);
-        //t_sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
+        sprintf(Npc[indexid].Name,"%s",nPCname);
+        //sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
 		//char nstrName[64]={0};
 		Npc[indexid].SetstrInfo(STR_GUISHU_NAME,Npc[nRindexid].Name);
 		return indexid;
@@ -606,14 +606,14 @@ int KNpcSet::AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nM
 	int indexid;
 	    indexid= AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nMapX, nMapY, nOffX, nOffY,-1);
 	if (indexid >0 && nRindexid>0 )
-	{   
+	{
 		Npc[indexid].m_Camp       = Npc[nRindexid].m_Camp;
 		Npc[indexid].m_btRankFFId = 99;
 		Npc[indexid].m_GuiShuDwid = Npc[nRindexid].m_dwID;
 		Npc[indexid].m_IsRevive   = g_FileName2Id(Npc[nRindexid].Name);  // ���ֵ�ת����
 		Npc[indexid].m_Kind       = kind_partner;
 		Npc[indexid].m_bClientOnly = FALSE;
-		//t_sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
+		//sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
 		//char nstrName[64]={0};
 		Npc[indexid].SetstrInfo(STR_GUISHU_NAME,Npc[nRindexid].Name);
 
@@ -623,7 +623,7 @@ int KNpcSet::AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nM
 	{
 		return 0;
 	}
-	
+
 }
 //ˢ��
 int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX /* = 0 */, int nOffY,int nBoss)
@@ -632,21 +632,21 @@ int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, i
 
     if  (nNpcSettingIdx>g_NpcSetting.GetHeight()-2) //NPC.txt ������
 	{
-		//ccMessageBox("NPC����ʧ��","NPC����ʧ��");
+		//messageBox("NPC����ʧ��","NPC����ʧ��");
 	    return 0;
 	}
 
 	int i = FindFreeNpcSet();
 	if (i <= 0)
 	{//���ҿ��нڵ�
-		//ccMessageBox("NPC�Ѿ���Ա(ˢ��ʧ��)","NPC�Ѿ���Ա(ˢ��ʧ��)");
+		//messageBox("NPC�Ѿ���Ա(ˢ��ʧ��)","NPC�Ѿ���Ա(ˢ��ʧ��)");
 	    return 0;
 	}
 	Npc[i].m_sClientNpcID.m_dwRegionID = 0;
 	Npc[i].m_sClientNpcID.m_nNo = -1;
 	Npc[i].Remove();                       //��ʼ�� ɾ����ۣ�
 	//int nNpcSettingIdx = (short)HIWORD(nNpcSettingIdxInfo);// >> 7; //����128
-	int nLevel         = LOWORD(nNpcSettingIdxInfo);// & 0x7f; 
+	int nLevel         = LOWORD(nNpcSettingIdxInfo);// & 0x7f;
 	Npc[i].m_Index     = i; //�ڵ������
 	Npc[i].m_SkillList.m_nNpcIndex = i;
 	Npc[i].Load(nNpcSettingIdx, nLevel,nSubWorld,nBoss);  //����NPC��Ϣ��  �������� ��
@@ -659,7 +659,7 @@ int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, i
 	Npc[i].m_MapX = nMapX;
 	Npc[i].m_MapY = nMapY;
 	Npc[i].m_OffX = nOffX;
-	Npc[i].m_OffY = nOffY;	
+	Npc[i].m_OffY = nOffY;
 
 	SubWorld[nSubWorld].NewMap2Mps(nRegion, nMapX, nMapY, nOffX, nOffY, &Npc[i].m_OriginX, &Npc[i].m_OriginY);
 	// �޸Ŀ�����ʹ�ñ�
@@ -679,13 +679,13 @@ int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, i
 	Npc[i].m_DataRes.SetWeapon(Npc[i].m_WeaponType);             //����
 	*/
   if (Npc[i].m_Kind==kind_player)
-  {  
-	 // ccMessageBox("������ӳɹ�","������ӳɹ�");
+  {
+	 // messageBox("������ӳɹ�","������ӳɹ�");
     //if (Npc[i].m_PifengType>0)
 	//   Npc[i].m_DataRes.SetPifeng(Npc[i].m_PifengType);             //����
 	  //if (Npc[i].m_ChiBangType>0)
 	    //Npc[i].m_DataRes.SetChiBang(Npc[i].m_ChiBangType);           //���
-  }  
+  }
 //---------------------------------------------------------------------------
 	return i;
 }
@@ -694,7 +694,7 @@ void KNpcSet::Remove(int nIdx,BOOL isNeedSyn)
 {
 	if (nIdx <= 0 || nIdx >= MAX_NPC)
 		return;
-	//ccMessageBox("ɾ����npc","Remove npc");
+	//messageBox("ɾ����npc","Remove npc");
 	Npc[nIdx].ClearNpcState();
 	Npc[nIdx].m_SkillList.Clear();
 	Npc[nIdx].Remove(); ////���ɾ��
@@ -704,7 +704,7 @@ void KNpcSet::Remove(int nIdx,BOOL isNeedSyn)
 
 void KNpcSet::RemoveAll()
 {
-	//ccMessageBox("ɾ��������npc","RemoveAll npc");
+	//messageBox("ɾ��������npc","RemoveAll npc");
 	int nIdx = m_UseIdxNpcSet.GetNext(0);
 	int nIdx1 = 0;
 	while(nIdx)
@@ -734,7 +734,7 @@ void	KNpcSet::InsertNpcToRegion(int nRegionIdx)
 
 		if (nIdx == 0)
 		{//NPC ����
-			//ccMessageBox("nIdx is NULL break;","InsertNpcToRegion");
+			//messageBox("nIdx is NULL break;","InsertNpcToRegion");
 			break;
 		}
 
@@ -745,7 +745,7 @@ void	KNpcSet::InsertNpcToRegion(int nRegionIdx)
 			Npc[nIdx].m_dwRegionID = SubWorld[0].m_Region[nRegionIdx].m_RegionID;
 			Npc[nIdx].m_SyncSignal = SubWorld[0].m_dwCurrentTime;
 			Npc[nIdx].SendSerCommand(do_stand);
-			//ccMessageBox("InsertNpcToRegion","InsertNpcToRegion");
+			//messageBox("InsertNpcToRegion","InsertNpcToRegion");
 		}
 	}
 }
@@ -778,7 +778,7 @@ int KNpcSet::GetDistance(int nIdx1, int nIdx2) //��ȡ�����ľ��
 	else
 	{
 		int X1, Y1;
-		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex, 
+		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex,
 			Npc[nIdx1].m_MapX,
 			Npc[nIdx1].m_MapY,
 			Npc[nIdx1].m_OffX,
@@ -786,7 +786,7 @@ int KNpcSet::GetDistance(int nIdx1, int nIdx2) //��ȡ�����ľ��
 			&X1,
 			&Y1);
 		int X2, Y2;
-		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex, 
+		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex,
 			Npc[nIdx2].m_MapX,
 			Npc[nIdx2].m_MapY,
 			Npc[nIdx2].m_OffX,
@@ -818,7 +818,7 @@ int		KNpcSet::GetDistanceSquare(int nIdx1, int nIdx2)
 	else
 	{
 		int X1, Y1;
-		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex, 
+		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex,
 			Npc[nIdx1].m_MapX,
 			Npc[nIdx1].m_MapY,
 			Npc[nIdx1].m_OffX,
@@ -826,7 +826,7 @@ int		KNpcSet::GetDistanceSquare(int nIdx1, int nIdx2)
 			&X1,
 			&Y1);
 		int X2, Y2;
-		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex, 
+		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex,
 			Npc[nIdx2].m_MapX,
 			Npc[nIdx2].m_MapY,
 			Npc[nIdx2].m_OffX,
@@ -850,7 +850,7 @@ INT	KNpcSet::GetMapDisX(INT nIdx1, INT nIdx2)
 	INT nSubWorldIdx = Npc[nIdx1].m_SubWorldIndex;
 	INT region1 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx1].m_RegionIndex].m_RegionID,
 		region2 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx2].m_RegionIndex].m_RegionID;
-	return abs((LOWORD(region1) - LOWORD(region2)) * 
+	return abs((LOWORD(region1) - LOWORD(region2)) *
 		SubWorld[nSubWorldIdx].m_nRegionWidth + Npc[nIdx1].m_MapX - Npc[nIdx2].m_MapX);
 }
 
@@ -863,7 +863,7 @@ INT	KNpcSet::GetMapDisY(INT nIdx1, INT nIdx2)
 	INT nSubWorldIdx = Npc[nIdx1].m_SubWorldIndex;
 	INT region1 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx1].m_RegionIndex].m_RegionID,
 		region2 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx2].m_RegionIndex].m_RegionID;
-	return abs((HIWORD(region1) - HIWORD(region2)) * 
+	return abs((HIWORD(region1) - HIWORD(region2)) *
 		SubWorld[nSubWorldIdx].m_nRegionHeight + Npc[nIdx1].m_MapY - Npc[nIdx2].m_MapY);
 }
 
@@ -880,37 +880,37 @@ int  KNpcSet::CheckForBit(int *nVal,char *mKey,int Model)
   int nRows=g_ForbitMap.GetHeight()+1,nReg=0;
 
   for(int i=2;i<nRows;++i)
-  { 
+  {
 	  if (Model==1)
-	  { 
-		 int zVal; 
+	  {
+		 int zVal;
          g_ForbitMap.GetInteger(i,mKey,0,&zVal);
 	     if (zVal==nVal[0])
-		 { 
+		 {
            nReg=1;
 		   break;
-		 } 
-	  } 
+		 }
+	  }
 	  else if(Model==2)
 	  {
-		  int zVal[2];   
+		  int zVal[2];
 		  g_ForbitMap.GetInt2s(i,mKey,zVal);
 		  if ((zVal[0]==nVal[0])&&(zVal[1]==nVal[1]))
-		  { 
+		  {
 			  nReg=1;
 			  break;
-		 } 
+		 }
 
 	  }
 	  else if(Model==3)
 	 {
-		  int zVal[3];   
+		  int zVal[3];
 		  g_ForbitMap.GetInt3s(i,mKey,zVal);
 		  if ((zVal[0]==nVal[0])&&(zVal[1]==nVal[1])&&(zVal[2]==nVal[2]))
-		  { 
+		  {
 			  nReg=1;
 			  break;
-		  } 	  
+		  }
 	  }
   }
 
@@ -920,9 +920,9 @@ int  KNpcSet::CheckForBit(int *nVal,char *mKey,int Model)
 
 BOOL KNpcSet::CheckThisNpc(int nSetings,char *nKey)
 {
-     
+
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=FALSE;
-	
+
 	for (int i=2;i<nRow;++i)
 	{
 		int nSkilid =0;
@@ -933,7 +933,7 @@ BOOL KNpcSet::CheckThisNpc(int nSetings,char *nKey)
 			break;
 		}
 	}
-	return nReg;   
+	return nReg;
 }
 
 void KNpcSet::CheckBalance()
@@ -1000,9 +1000,9 @@ void KNpcSet::CheckBalance()
 		if (SubWorld[0].m_dwCurrentTime - m_RequestNpc[nIdx].dwRequestTime > 100)
 		{
 			DWORD	dwID = m_RequestNpc[nIdx].dwRequestId;
-			m_RequestNpc[nIdx].dwRequestId = 0;	
+			m_RequestNpc[nIdx].dwRequestId = 0;
 			m_RequestNpc[nIdx].dwRequestTime = 0;
-			
+
 			m_RequestUseIdx.Remove(nIdx);
 			m_RequestFreeIdx.Insert(nIdx);
 		}
@@ -1044,7 +1044,7 @@ int		KNpcSet::GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount)
 			if ((DWORD)g_Team[0].m_nCaptain == Npc[nIdx].m_dwID)  //�ӳ�����ʾ
 				continue;
 			nNum++;
-		}	
+		}
 		return nNum;
 	}
 	if (!pList)
@@ -1078,7 +1078,7 @@ int		KNpcSet::GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount)
 		strcpy(pList[nNum].Name, Npc[nIdx].Name);
 		nNum++;
 	}
-	
+
 	return nNum;
 }
 
@@ -1107,7 +1107,7 @@ int		KNpcSet::GetAroundPlayer(KUiPlayerItem *pList, int nCount)
 //				continue;
 			nNum++;
 		}
-		
+
 		return nNum;
 	}
 
@@ -1134,7 +1134,7 @@ int		KNpcSet::GetAroundPlayer(KUiPlayerItem *pList, int nCount)
 		pList[nNum].nData  = Npc[nIdx].GetMenuState();
 		nNum++;
 	}
-	
+
 	return nNum;
 }
 
@@ -1261,7 +1261,7 @@ void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 		if (Npc[nIdx].GetMenuState() == PLAYER_MENU_STATE_TEAMOPEN)
 			nNum++;
 	}
-	
+
 	if (nNum > 0)
 	{
 		KUiTeamItem* const pTeamList = new KUiTeamItem[nNum];
@@ -1340,7 +1340,7 @@ int	KNpcSet::SearchNpcAt(int nX, int nY, int nRelation, int nRange)
 
 		if (!(GetRelation(Player[CLIENT_PLAYER_INDEX].m_nIndex, nIdx) & nRelation))
 			continue;
-		
+
 		int x, y;
 		SubWorld[0].NewMap2Mps(Npc[nIdx].m_RegionIndex, Npc[nIdx].m_MapX, Npc[nIdx].m_MapY,
 			Npc[nIdx].m_OffX, Npc[nIdx].m_OffY, &x, &y);
@@ -1398,7 +1398,7 @@ void KNpcSet::RemoveNpcRequest(DWORD dwID)
 	int nIndex = GetRequestIndex(dwID);
 
 	// because _ASSERT(IsNpcRequestExist()); so nIndex > 0;
-	m_RequestNpc[nIndex].dwRequestId = 0;	
+	m_RequestNpc[nIndex].dwRequestId = 0;
 	m_RequestNpc[nIndex].dwRequestTime = 0;
 
 	m_RequestUseIdx.Remove(nIndex);
@@ -1498,25 +1498,25 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			return relation_ally;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
-	else if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId1) 
+	else if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId1)
 	{//���� �� �Է��Ĺ�ϵ()
 		//Npc[nId1].GetstrInfo(STR_GUISHU_NAME,nstrNamea);
 		Npc[nId2].GetstrInfo(STR_GUISHU_NAME,nstrNameb);
 
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetExercisePKAim() == Npc[nId2].m_dwID)  // �д�״̬
 			return relation_enemy;
-		
+
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKState() == enumPK_ENMITY_STATE_PKING &&
 			Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKAimNpcID() == Npc[nId2].m_dwID)  //��ɱ
 			return relation_enemy;
 
         if ((Npc[nId1].m_CurrentCamp == Npc[nId2].m_CurrentCamp) && (Npc[nId1].m_CurrentCamp!=camp_free || Npc[nId2].m_CurrentCamp!=camp_free))
-		{ 
+		{
 			return relation_ally;  //������ �� �����
 		}
 
@@ -1537,7 +1537,7 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 				  return relation_none;
 			 }
 		}
-			
+
         if (Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_FightMode==0 || Npc[nId2].m_FightMode==0))  //����һ��Ϊ��ս��ģʽ
             return relation_none;  // ��ƽ
 
@@ -1548,19 +1548,19 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			return relation_none;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
-	else	// if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId2)  
+	else	// if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId2)
 	{//���֮��	�� ���� �� ����
 		if (Npc[nId1].m_Kind == kind_normal && Npc[nId2].m_Kind == kind_normal)
 			return relation_ally;
 
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetExercisePKAim() == Npc[nId1].m_dwID)
 			return relation_enemy;
-		
+
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKState() == enumPK_ENMITY_STATE_PKING &&
 			Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKAimNpcID() == Npc[nId1].m_dwID)
 			return relation_enemy;
@@ -1589,9 +1589,9 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			return relation_none;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
 //��������
@@ -1602,10 +1602,10 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 	if (nNpcTemplateId < 0 || nNpcTemplateId > MAX_NPCSTYLE-1 || nLevel<0 || nLevel > MAX_NPC_LEVEL-1)
 	{
 		return NULL;
-	} 
+	}
 
 	char nFlag[32]={0};
-	t_sprintf(nFlag,"idx_%d_level_%d",nNpcTemplateId,nLevel);	  //���IDX ����ȼ�������
+	sprintf(nFlag,"idx_%d_level_%d",nNpcTemplateId,nLevel);	  //���IDX ����ȼ�������
 
 	DWORD dwKey = g_FileName2Id(nFlag);
 
@@ -1618,9 +1618,9 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 		{
 			return it->second;	   //�ҵ���
 		}
-		
+
 		// ������0����������
-		t_sprintf(nFlag,"idx_%d_level_0",nNpcTemplateId);
+		sprintf(nFlag,"idx_%d_level_0",nNpcTemplateId);
 		DWORD dwBaseKey	= g_FileName2Id(nFlag);//dwKey & 0xffffff00;
 		it	= m_mapTemplate.find(dwBaseKey);
 		if (it == m_mapTemplate.end())
@@ -1640,7 +1640,7 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 			m_mapTemplate[dwBaseKey]	= pTemplate;
 
 		}
-		
+
 		// ���Ҫ�ľ���0���ģ�ֱ�ӷ���
 		KNpcTemplate* pBaseTemplate	= m_mapTemplate[dwBaseKey];
 
@@ -1683,11 +1683,11 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 			{
 				delete pTemplate;
 				pTemplate =NULL;
-			} 
+			}
 			return NULL;
 		}
 		m_mapTemplate[dwKey]	= pTemplate; //��ֵ������ڵ�
-		
+
 		return pTemplate;
 	}else
 		return NULL;
@@ -1736,7 +1736,7 @@ void	KInstantSpecial::LoadSoundName()
 		return;
 	for (i = 0; i < MAX_INSTANT_SOUND; ++i)
 	{
-		t_sprintf(szTemp, "%d", i);
+		sprintf(szTemp, "%d", i);
 		cSoundName.GetString("Game", szTemp, "", this->m_szSoundName[i], sizeof(m_szSoundName[i]));
 	}
 	cSoundName.Clear();

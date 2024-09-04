@@ -15,16 +15,16 @@ enum REPRESENT_UNIT_TYPE
 {
     //##Documentation
     //## ���	KRUPoint
-    RU_T_POINT, 
+    RU_T_POINT,
     //##Documentation
     //## �߶�	KRULine
     RU_T_LINE,
 	//## ���α߿�	KRURect
-	RU_T_RECT,	
+	RU_T_RECT,
     //##Documentation
     //## ͼ��(����ͼ�Σ�ֻ��������ͼԪ�����)	KRUImage
-    RU_T_IMAGE, 
-    //##Documentation	
+    RU_T_IMAGE,
+    //##Documentation
     //## ͼ�ξֲ�	KRUImagePart
     RU_T_IMAGE_PART,
 	//##Documentation	KRUImage4
@@ -35,7 +35,7 @@ enum REPRESENT_UNIT_TYPE
 	RU_T_IMAGE_STRETCH,
     //##Documentation
     //## �����ֵĹ���ͼ�Ρ�
-    RU_T_DIVIDED_LIT_IMAGE, 
+    RU_T_DIVIDED_LIT_IMAGE,
     //##Documentation
     //## ��Ӱ
     RU_T_SHADOW,
@@ -74,7 +74,7 @@ struct KRepresentUnit
 union KRColor
 {
 	struct {unsigned char b, g, r, a; } Color_b;
-	uint32_t	Color_dw;
+	unsigned int	Color_dw;
 };
 
 //##ModelId=3DB617B20036
@@ -152,7 +152,7 @@ struct KRUImage : public KRepresentUnit
 
 	//���Ʊ��,ȡֵΪRUIMAGE_RENDER_FLAGö��ֵ����ϡ�
 	unsigned char bRenderFlag;
-  
+
     //##ModelId=3DCF5BB001B7
     //##Documentation
     //## ���Ƶ�ͼ�ε�����
@@ -166,7 +166,7 @@ struct KRUImage : public KRepresentUnit
     //##ModelId=3DCBEAF50291
     //##Documentation
     //## ͼ��id
-    uint32_t uImage;
+    unsigned int uImage;
 
     //##ModelId=3DCBEB170189
     //##Documentation
@@ -264,7 +264,7 @@ enum KIS_IMAGE_TYPE
     //## 16λ��֡λͼ��
     //## ISI_T_BITMAP16�ĸ�ʽΪ D3DFMT_R5G6B5 ���� D3DFMT_X1R5G5B5
     //## ������Ϊ���ָ�ʽ��iImageStore�ڲ�ȷ��������ͨ������iImageStore::IsBitmapFormat565��֪���������ָ�ʽ��
-    ISI_T_BITMAP16, 
+    ISI_T_BITMAP16,
     //##Documentation
     //##  spr��ʽ�Ĵ�alphaѹ��ͼ�Σ�����֡
     ISI_T_SPR,

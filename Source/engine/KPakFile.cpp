@@ -46,7 +46,7 @@ SPRHEAD* SprGetHeader(char* pszFileName, SPROFFS*& pOffsetTable)
 	{
 		//char springo[128]={0};
 		//sprintf(springo,"frams:%d,w:%d,h:%d",pSprHeader->Frames,pSprHeader->Width,pSprHeader->Height);
-		//ccMessageBox(pszFileName,"SprGetHeader");
+		//messageBox(pszFileName,"SprGetHeader");
 		return NULL;
 	}
 
@@ -65,7 +65,7 @@ SPRHEAD* SprGetHeader(char* pszFileName, SPROFFS*& pOffsetTable)
 	}
 	else
 	{
-		//ccMessageBox(pszFileName,"SprGetHeader");
+		//messageBox(pszFileName,"SprGetHeader");
 		bool			bOk = false;
 		SPRHEAD			Header;
 		//---���ļ�ͷ�����ж��Ƿ�Ϊ�Ϸ���sprͼ�ļ�---
@@ -179,7 +179,7 @@ KSGImageContent* get_jpg_image(const char cszName[], unsigned uRGBMask16)
     nRetCode = jpeg_decode_init(bRGB555, TRUE);
 	if(!nRetCode)
         goto Exit0;
-         
+
 	nRetCode = jpeg_decode_info(pbyFileData, &JpegInfo);
     if (!nRetCode)
         goto Exit0;
@@ -406,44 +406,44 @@ void KPakFile::Close()
 	m_nPackage = g_pPakList->Search(FileName, &m_dwFileOfs, &m_dwFileLen);
 	if (m_nPackage < 0)
 		return FALSE;
-	
+
 	// m_nBlocks ����ĸ���, Դ�ļ�ÿ64K��Ϊһ����
 	// m_nBlocks * 2 Ϊ�鳤�ȱ�Ĵ�С(ÿ��Ĵ�С��һ��WORD��¼)
 	m_nBlocks = (m_dwFileLen + 0xffff) >> 16;
-	
+
 	// �� block buffer �����ڴ�
 	if (!m_MemBlock.Alloc(m_nBlocks * 2))
 		return FALSE;
-	
+
 	// �� file buffer �����ڴ�64K, Ϊ��ѹ��׼��
 	if (!m_MemFile.Alloc(BLOCK_SIZE))
 		return FALSE;
-	
+
 	// �� read buffer �����ڴ�64K, Ϊ��ѹ��׼��
 	if (!m_MemRead.Alloc(BLOCK_SIZE))
 		return FALSE;
-	
+
 	// �ļ�������ָ��
 	m_pBuffer = (PBYTE)m_MemFile.GetMemPtr();
-	
+
 	// ÿ��ĳ��ȱ�
 	m_pBlocks = (PWORD)m_MemBlock.GetMemPtr();
-	
+
 	// �ƶ����ļ���ʼ
 	g_pPakList->Seek(m_dwFileOfs, FILE_BEGIN);
-	
+
 	// ����ÿ��Ĵ�С
 	g_pPakList->Read(m_pBlocks, m_nBlocks * 2);
-	
+
 	// ��һ��ѹ�����ݵ�ƫ����
 	m_dwFileOfs = m_dwFileOfs + m_nBlocks * 2;
-	
+
 	// ��ȡѹ��������ʼλ��
 	m_dwDataPtr = m_dwFileOfs;
-	
+
 	// ��ָ���λ��(������λ��) = 0;
 	m_dwFilePtr = 0;
-	
+
 	// �ɹ����ļ�
 	return TRUE;
 }
@@ -463,7 +463,7 @@ DWORD KPakFile::ReadPak(PVOID pBuffer, DWORD dwSize)
 	DWORD	dwReadSize = 0;
 	DWORD	dwBlockPos = 0;
 	PBYTE	pOutBuf = (PBYTE)pBuffer;
-	
+
 	// �����ȡ���ȴ���ʣ���ļ�����
 	if (m_dwFilePtr + dwSize > m_dwFileLen)
 	{
@@ -497,7 +497,7 @@ DWORD KPakFile::ReadPak(PVOID pBuffer, DWORD dwSize)
 
 			return dwSize;
 		}
-		
+
 		// Ҫ�������ݳ��ȴ���64K
 		g_MemCopyMmx(pOutBuf, m_pBuffer + dwBlockPos, BLOCK_SIZE - dwBlockPos);
 		pOutBuf += BLOCK_SIZE - dwBlockPos;
@@ -642,16 +642,16 @@ BOOL KPakFile::Save(const char* pszFileName)
 void KPakFile::ReadBlock(PBYTE pBuffer, int32_t nBlock)
 {
 	TCodeInfo	CodeInfo;
-	
+
 	// ���õ�ǰʹ�õ��ļ���
 	g_pPakList->SetActivePak(m_nPackage);
-	
+
 	// ����ѹ���ӿڽṹ
 	CodeInfo.lpPack = (PBYTE)m_MemRead.GetMemPtr();
 	CodeInfo.dwPackLen = m_pBlocks[nBlock];
 	CodeInfo.lpData = pBuffer;
 	CodeInfo.dwDataLen = BLOCK_SIZE;
-	
+
 	// ����Ƿ�ѹ����
 	if (CodeInfo.dwPackLen == 0) // û��ѹ��
 	{
@@ -659,13 +659,13 @@ void KPakFile::ReadBlock(PBYTE pBuffer, int32_t nBlock)
 		g_pPakList->Read(CodeInfo.lpData, CodeInfo.dwDataLen);
 		return;
 	}
-	
+
 	// ���һ���ʵ�ʳ��ȣ�ֻ��LHA�ã�
 	if (nBlock == (m_nBlocks - 1))
 	{
 		CodeInfo.dwDataLen = m_dwFileLen - nBlock * BLOCK_SIZE;
 	}
-	
+
 	// �ƶ�ָ�룬��ȡѹ�����ݣ��ٽ�ѹ��
 	g_pPakList->Seek(m_dwDataPtr, FILE_BEGIN);
 	g_pPakList->Read(CodeInfo.lpPack, CodeInfo.dwPackLen);

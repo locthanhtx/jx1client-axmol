@@ -241,7 +241,7 @@ void g_StrCpy(LPSTR lpDest, LPCSTR lpSrc)
 		rep		movsb
 	};
 #else
-//	t_sprintf(lpDest,"%s",lpSrc);
+//	sprintf(lpDest,"%s",lpSrc);
 	sprintf(lpDest,"%s",lpSrc);
 #endif
 }
@@ -718,7 +718,7 @@ bool __CreateFolder(std::string nSdcardPath, char * nPath)
 			tPath[i] = 0;
 			char nTempDir[256];
 			ZeroMemory(nTempDir,sizeof(nTempDir));
-			t_sprintf(nTempDir,"%s%s",nSdcardPath.c_str(),tPath);
+			sprintf(nTempDir,"%s%s",nSdcardPath.c_str(),tPath);
 #ifdef WIN32 //����·��
 			_mkdir(nTempDir);//tPath
 #else
@@ -745,22 +745,22 @@ void g_StrCopy(std::string nSdcardPath, char *pMusicName)
 	XPackElemFileRef m_PackRef;
 	ZeroMemory(&m_PackRef,sizeof(XPackElemFileRef));
 	int32_t nIsHave = 0;
-	//ccMessageBox(pMusicName,nSdcardPath.c_str());
+	//messageBox(pMusicName,nSdcardPath.c_str());
 	nIsHave  = g_pPakList->pGetFilePath(pMusicName,m_PackRef);
 	if (nIsHave)
 	{//��������������
-		//ccMessageBox(pMusicName,"�ҵ��ļ�");
+		//messageBox(pMusicName,"�ҵ��ļ�");
 		char * sBuf=NULL;
 		sBuf = (char *)malloc(m_PackRef.nSize+1);
 		if (sBuf)
 		{
 			__CreateFolder(nSdcardPath,pMusicName);
 			g_pPakList->ElemFileRead(m_PackRef,sBuf,m_PackRef.nSize);
-			//ccMessageBox(m_szEntireMapFile,"��ʼ����");
+			//messageBox(m_szEntireMapFile,"��ʼ����");
 #ifdef WIN32
-			t_sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
+			sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),pMusicName);
 #else
-			t_sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),G2U(pMusicName).c_str());
+			sprintf(m_szEntireMapFile,"%s%s",nSdcardPath.c_str(),G2U(pMusicName).c_str());
 #endif
 			FILE *oFp = NULL;
 			if((oFp=fopen(m_szEntireMapFile,"wb+"))==0)

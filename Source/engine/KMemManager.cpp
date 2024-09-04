@@ -111,7 +111,7 @@ void KMemManager::FreeChunk(KChunkHeader *ch)
 void* KMemManager::Malloc(int32_t size)
 {
     char* p = NULL;
-    
+
 	if (size > (1<<MAX_BLOCK))
 	{
         p = (char *)NewChunk(size, 1);
@@ -138,7 +138,7 @@ void* KMemManager::Malloc(int32_t size)
         }
         if (NULL == m_blocks[i])
 		{
-			m_blocks[i] = NewChunk(m_block_size[i], 
+			m_blocks[i] = NewChunk(m_block_size[i],
 				CHUNK_SIZE / m_block_size[i]);
 		}
         p = (char *)m_blocks[i];
@@ -184,7 +184,7 @@ void KMemManager::Free(void* p)
 
     // ����Ƿ�����ڴ�Խ�����
     if ((bh->magic != HEAD_MAGIC) || (bp->magic != TAIL_MAGIC))
-		ccMessageBox("Memory Corrupted","Free");
+		messageBox("Memory Corrupted","Free");
         //ccMs("Memory Corrupted(Խ��) : Size = %d", bh->size);
 
 	// ����������ڴ��

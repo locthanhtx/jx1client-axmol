@@ -130,7 +130,7 @@ void KuiSortSkill_r::addDialogData(int nKind)
 			ISkill *pSkill = g_SkillManager.GetSkill(m_Skills[i].uId,1);
 			if (pSkill)
 			{//�滭����ͼ��
-			  t_sprintf(nSprName,pSkill->getIconPath().c_str());
+			  sprintf(nSprName, "%s", pSkill->getIconPath().c_str());
 			  g_StrLower(nSprName);
 			  Sprite* btn_sprite = NULL;
 			  bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -177,7 +177,7 @@ void KuiSortSkill_r::skillCallback(Ref* pSender)
 			int nCurLevel= m_Skills[nSkillIdx].nLevel;
 			char nIconName[128];
 			ZeroMemory(nIconName,sizeof(nIconName));
-		    t_sprintf(nIconName,pSkill->getIconPath().c_str());
+		    sprintf(nIconName, "%s", pSkill->getIconPath().c_str());
 
 			KUiItemdObject skillData;
 			ZeroMemory(&skillData,sizeof(KUiItemdObject));
@@ -195,7 +195,7 @@ void KuiSortSkill_r::skillCallback(Ref* pSender)
 			ParentNode_ItemEx->addChild(sDescLayer,2,1001);
 
 
-			//t_sprintf(nIconName,pSkill->getIconPath().c_str());
+			//sprintf(nIconName,pSkill->getIconPath().c_str());
 		    if (g_GameWorld)
 			   g_GameWorld->setaauxiliaryskillInfo(m_Skills[nSkillIdx].uId,m_Skills[nSkillIdx].uGenre,nIconName);
 		  }
@@ -276,7 +276,7 @@ bool KuiSortSkill_r::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiSortSkill_r::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);

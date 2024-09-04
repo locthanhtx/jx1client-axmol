@@ -634,7 +634,7 @@ void KNpcAI::FollowObject(int nIdx)
 	int nX1, nY1,nMap1, nX2, nY2;
 
 	Npc[m_nIndex].GetMpsPos(&nX1, &nY1,&nMap1);
-	Object[nIdx].GetMpsPos(&nX2, &nY2);
+	KObject[nIdx].GetMpsPos(&nX2, &nY2);
 
 	if ((nX1 - nX2) * (nX1 - nX2) + (nY1 - nY2) * (nY1 - nY2) < PLAYER_PICKUP_CLIENT_DISTANCE * PLAYER_PICKUP_CLIENT_DISTANCE)
 	{
@@ -778,7 +778,7 @@ void KNpcAI::FollowPeople(int nIdx)
 
 
 			/*char nMSG[64];
-			t_sprintf(nMSG,"--��ǰ��������:--%d--����:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);
+			sprintf(nMSG,"--��ǰ��������:--%d--����:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMSG);
 			*/
 
@@ -899,7 +899,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 
     /*KTabFile nPos;
 	   char nFiledPath[128];
-	   t_sprintf(nFiledPath,"\\FsAi\\%s_Pos.txt",Npc[m_Index].Name);
+	   sprintf(nFiledPath,"\\FsAi\\%s_Pos.txt",Npc[m_Index].Name);
 
 	   if (!nPos.Load(nFiledPath))
 	   {
@@ -949,7 +949,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
     if (nDesMpsX<=0 || nDesMpsY<=0)
 	{
 	      /*char msg[64];
-		  t_sprintf(msg,"�ű�(X:%s,Y:%d)����,(%d)ֹͣ�һ���",nDesMpsX,nDesMpsY,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
+		  sprintf(msg,"�ű�(X:%s,Y:%d)����,(%d)ֹͣ�һ���",nDesMpsX,nDesMpsY,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
 	      Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);*/
 		  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsHaveDo=0;
 		  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
@@ -962,7 +962,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
        Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos=nDesMpsY;
 
 
-	//t_sprintf(msg,"��ʾ:��ǰ(%d)����,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
+	//sprintf(msg,"��ʾ:��ǰ(%d)����,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
     //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
@@ -972,7 +972,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 
 	if (AiCheckDistance(xx,yy,nDesMpsX,nDesMpsY,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentRunSpeed))  //16
 	{//�ܵ���ĳ����
-	   //t_sprintf(msg,"��ʾ:�ߵ�Ŀ��,�� %d �������",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
+	   //sprintf(msg,"��ʾ:�ߵ�Ŀ��,�� %d �������",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
        //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
        Player[CLIENT_PLAYER_INDEX].m_Autoplay.nRunLoop = 0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos=nDesMpsX;
@@ -1094,7 +1094,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
     //nPos.Clear();
 
-	 //t_sprintf(msg,"��ʾ:��ǰ(%d)����,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
+	 //sprintf(msg,"��ʾ:��ǰ(%d)����,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
      //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
@@ -1246,14 +1246,14 @@ void KNpcAI::mainPickItem(int m_Index)  //������ť
 
 	if  (Npc[m_Index].m_nObjectIdx>0)
 	{
-		//ccMessageBox("�ҵ���Ʒ","test");
+		//messageBox("�ҵ���Ʒ","test");
 		int xx,yy,Mmap,nMapIdx;
 		Npc[m_Index].GetMpsPos(&xx, &yy,&Mmap);
 
 		int x, y,nObjectIdx;
 		nObjectIdx = Npc[m_Index].m_nObjectIdx;
 
-		Object[nObjectIdx].GetMpsPos(&x, &y);
+		KObject[nObjectIdx].GetMpsPos(&x, &y);
 		if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 		{
 			Npc[m_Index].SendSerCommand(do_run,x,y);  //����Ŀ��
@@ -1597,7 +1597,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 	     /*char msg[64];
 	     int DisJuli = g_GetDistance(xx,yy,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos);
-	         t_sprintf(msg,"X:%d,Y:%d,����:%d,��Χ:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos,DisJuli,fanwei);
+	         sprintf(msg,"X:%d,Y:%d,����:%d,��Χ:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos,DisJuli,fanwei);
 			 Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);*/
 
       if(KeepActiveJiaoBen(fanwei,m_Index,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos)) //���ֻ��Χ
@@ -1641,7 +1641,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	   return;
    }
 
-   if (Npc[m_Index].m_nObjectIdx>0 && Object[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Object[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
+   if (Npc[m_Index].m_nObjectIdx>0 && KObject[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && KObject[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
    {//����Ǳ��˶��ľͲ�ʰȡ����
      Npc[m_Index].m_nObjectIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
@@ -1749,9 +1749,9 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 //-----------------------------------------------ͼ��
   if (nRetaTuPu==1 && nPickState == PICCK_NONE)
   {
-	     t_sprintf(nTempItemName,UTEXT("����ͼ־",1).c_str());
+	     sprintf(nTempItemName,UTEXT("����ͼ־",1).c_str());
 	     int nObjectIdx =  GetNearestObject(m_Index,-1,nTempItemName);//��ȡ������Χ��Ʒ������
-		 t_sprintf(nTempItemName,UTEXT("����·־",1).c_str());
+		 sprintf(nTempItemName,UTEXT("����·־",1).c_str());
 		 int nObjectIdxa=  GetNearestObject(m_Index,-1,nTempItemName);
 
 		 if (nObjectIdx>0)
@@ -2024,7 +2024,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iPickState)
 {
 	     int x, y;
-		 Object[nObjIdx].GetMpsPos(&x, &y);
+		 KObject[nObjIdx].GetMpsPos(&x, &y);
 
 		 if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 		 {
@@ -2056,8 +2056,8 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 
 			    if (nLoop>nLtime && (nLoop%(nLtime*18)==0))
 				{
-				   Object[nObjIdx].m_AttackerDwid=Npc[nIndex].m_dwID;
-				   Object[nObjIdx].m_IsHaveAttack=1;
+				   KObject[nObjIdx].m_AttackerDwid=Npc[nIndex].m_dwID;
+				   KObject[nObjIdx].m_IsHaveAttack=1;
 				   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("����:ԭ�ش�ת,ִ��ȡ����ȡ!");
 
 				   //if (iPickState==PICCK_ITEM)
@@ -2148,7 +2148,7 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 		   }
 
 		   //char mag[64];
-		   //  t_sprintf(mag,"NPC:L:%d,MAXl:%d,DWID:%d,num:%d",Npc[i].m_CurrentLife,Npc[i].m_CurrentLifeMax,Npc[i].m_AttackerDwid,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum);
+		   //  sprintf(mag,"NPC:L:%d,MAXl:%d,DWID:%d,num:%d",Npc[i].m_CurrentLife,Npc[i].m_CurrentLifeMax,Npc[i].m_AttackerDwid,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum);
 		   //  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(mag);
 	   }
 
@@ -2204,8 +2204,8 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ���
 
         if (Npc[indexid].m_nObjectIdx>0)
 		{
-           Object[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
-		   Object[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
+           KObject[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
+		   KObject[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
 		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("����:��Ʒ�������Χ,ִ��ȡ��ʰȡ!");
 		   nPickState=PICCK_NONE;
 		}
@@ -2266,8 +2266,8 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ��
         }
         if (Npc[indexid].m_nObjectIdx>0)
 		{
-           Object[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
-		   Object[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
+           KObject[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
+		   KObject[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
 		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("����:��Ʒ�������Χ,ִ��ȡ��ʰȡ!");
 		   nPickState=PICCK_NONE;
 		}
@@ -2295,7 +2295,7 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ��
 	 return;
    }
 
-   if (Npc[m_Index].m_nObjectIdx>0 && Object[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Object[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
+   if (Npc[m_Index].m_nObjectIdx>0 && KObject[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && KObject[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
    {//�����������
      Npc[m_Index].m_nObjectIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
@@ -3393,7 +3393,7 @@ void	KNpcAI::ProcessChargedart()
 
 	/*
      char isname[32];
-     t_sprintf(isname,"%s��[�ڳ�]",Npc[nEnemyIdx].Name);
+     sprintf(isname,"%s��[�ڳ�]",Npc[nEnemyIdx].Name);
 	if (Npc[m_nIndex].Name!=isname)
 	{
      Npc[m_nIndex].m_nPeopleIdx=0;
@@ -3537,11 +3537,11 @@ void	KNpcAI::ProcessCompanion()
 				}
 			}
 
-			if (nObjectIdx>0 && (Object[nObjectIdx].m_nKind == Obj_Kind_Money/*||(Object[nObjectIdx].m_nKind == Obj_Kind_Item && Object[nObjectIdx].m_nColorID==1 ) */) )
+			if (nObjectIdx>0 && (KObject[nObjectIdx].m_nKind == Obj_Kind_Money/*||(KObject[nObjectIdx].m_nKind == Obj_Kind_Item && KObject[nObjectIdx].m_nColorID==1 ) */) )
 			{
 				Npc[m_nIndex].m_nPeopleIdx=0;
 				int x, y;
-				Object[nObjectIdx].GetMpsPos(&x, &y);
+				KObject[nObjectIdx].GetMpsPos(&x, &y);
 				Npc[m_nIndex].SendSerCommand(do_run, x, y);  //����Ǯ
 			//	SendClientCmdRun(x, y); //����Ǯ
 	            Player[nPepID].PickUpMoney(nObjectIdx,m_nIndex);
@@ -3883,11 +3883,11 @@ void	KNpcAI::ProcessAIType01()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 		        //strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4106,11 +4106,11 @@ void	KNpcAI::ProcessAIType02()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4332,11 +4332,11 @@ void	KNpcAI::ProcessAIType03()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4565,10 +4565,10 @@ void	KNpcAI::ProcessAIType04()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4772,10 +4772,10 @@ void	KNpcAI::ProcessAIType05()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -5002,10 +5002,10 @@ void	KNpcAI::ProcessAIType06()
 				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\ͬ������\\tongyong.lua");  //�趨�����ű�
 				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\ͬ������\\tongyong.lua");
 				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\ͬ������\\tongyong.lua");
-				//t_sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
+				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				t_sprintf(Npc[m_nIndex].Name,"����");
+				sprintf(Npc[m_nIndex].Name,"����");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;

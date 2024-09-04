@@ -25,6 +25,7 @@
 
 #include "AppDelegate.h"
 #include "MainScene.h"
+#include "gamescene/KUpdateLayer.h"
 
 #define USE_AUDIO_ENGINE 1
 
@@ -32,9 +33,9 @@
 #    include "audio/AudioEngine.h"
 #endif
 
-USING_NS_AX;
+using namespace ax;
 
-static ax::Size designResolutionSize = ax::Size(720, 1280);
+static ax::Size designResolutionSize = ax::Size(800, 600);
 
 AppDelegate::AppDelegate() {}
 
@@ -46,6 +47,8 @@ void AppDelegate::initGLContextAttrs()
 {
     // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
+    // since axmol-2.2 vsync was enabled in engine by default
+    // glContextAttrs.vsync = false;
 
     GLView::setGLContextAttrs(glContextAttrs);
 }
@@ -78,7 +81,8 @@ bool AppDelegate::applicationDidFinishLaunching()
                                     ResolutionPolicy::SHOW_ALL);
 
     // create a scene. it's an autorelease object
-    auto scene = utils::createInstance<MainScene>();
+//    auto scene = utils::createInstance<MainScene>();
+    auto scene = KUpdateLayer::scene();
 
     // run
     director->runWithScene(scene);

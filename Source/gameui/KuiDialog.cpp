@@ -84,7 +84,7 @@ bool KuiDialog::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\new\\bg_task_to.spr");
+	sprintf(nSprName,"\\Spr\\new\\bg_task_to.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -148,7 +148,7 @@ void KuiDialog::addDialogData(KUiQuestionAndAnswer* pContent, KUiNpcSpr* pImage,
 			{//动态创建选项节点
 				Sprite  *nAnswerspr=NULL;
 				char mKey[32];
-				t_sprintf(mKey,"answer_%d",i);
+				sprintf(mKey,"answer_%d",i);
 				std::string nKeyName = mKey;
 				nAnswerspr = (Sprite *)ParentNode_ItemEx->getChildByName(nKeyName);
 				if (!nAnswerspr)
@@ -307,7 +307,7 @@ bool KuiDialog::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	for (int i = 0; i < m_AnswerCount; ++i)
 	{
 		char mKey[32];
-		t_sprintf(mKey,"answer_%d",i);
+		sprintf(mKey,"answer_%d",i);
 		std::string nKeyName = mKey;
 		sprNode = (Sprite *)ParentNode_ItemEx->getChildByName(nKeyName);
 		if  (sprNode)
@@ -335,7 +335,7 @@ bool KuiDialog::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiDialog::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (isOpen && g_pCoreShell)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -345,7 +345,7 @@ void KuiDialog::update(float delta)
 
 //void KuiDialog::draw()
 //{
-//	//ccMessageBox("无限循环","draw");
+//	//messageBox("无限循环","draw");
 //}
 
 

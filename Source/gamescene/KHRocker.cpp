@@ -2,9 +2,6 @@
 #include "KHRocker.h"
 #include "gamecore/GameDataDef.h"
 #include "gameui/Uiglobaldata.h"
-#include "base/CCDirector.h"
-#include "base/CCEventDispatcher.h"
-#include "base/CCEventListenerTouch.h"
 USING_NS_AX;
 
 void HRocker::updatePos(float dt){
@@ -20,8 +17,8 @@ void HRocker::Active()
 	{
 		active=true;
 		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //���ˢ�º���
-        auto listener = ax::EventListenerTouchOneByOne::create();
-		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+//        auto listener = ax::EventListenerTouchOneByOne::create();
+//		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	}else {
 	}
 }
@@ -134,7 +131,7 @@ bool HRocker::ccTouchBegan(Touch* touch, Event* event)
 		jsSprite->setPosition(currentPoint);
 		this->getChildByTag(1000)->setPosition(currentPoint);
 	}
-	//ccMessageBox("��ʼ�ƶ���","��ʼ�ƶ���");
+	//messageBox("��ʼ�ƶ���","��ʼ�ƶ���");
 	return true;
 }
 void  HRocker::ccTouchMoved(Touch* touch, Event* event)
@@ -159,7 +156,7 @@ void  HRocker::ccTouchMoved(Touch* touch, Event* event)
 	//char nPiontinfo[128]={0};
     /*sprintf(nPiontinfo,"CurrentPointX:%f,CurrentPointY:%f\nCenterPointX:%f,CenterPointY:%f",
 		    currentPoint.x,currentPoint.y,centerPoint.x,centerPoint.y);
-	ccMessageBox(nPiontinfo,"ҡ���ƶ���");*/
+	messageBox(nPiontinfo,"ҡ���ƶ���");*/
 	float nVer = getAngleSigned();  //���ĵ��봥����ľ���
     float nDestPontX,nDestPontY;
 	if (nVer==0)
@@ -262,7 +259,7 @@ void  HRocker::ccTouchEnded(Touch* touch, Event* event)
 		pCoreShell->SetNpcCurPos();
 	  // pCoreShell->setSand();
 	isRun = true;
-	//ccMessageBox("�ƶ�����","�ƶ�����");
+	//messageBox("�ƶ�����","�ƶ�����");
 }
 
 HRocker* HRocker::initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole){

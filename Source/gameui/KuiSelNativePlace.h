@@ -4,18 +4,18 @@
 //��½���� ѡ������ ���� ɾ����
 */
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include <gameui/Uiglobaldata.h>
 #include<list>
 #include "ImageStore/KImageStore2.h"
 #include "engine/Kgetinidata.h"
-#include "physics-nodes/CCPhysicsSprite.h"
+#include "physics-nodes/PhysicsSprite.h"
 
 #include "engine/KGbktoUtf8.h"
 #include "engine/KTimer.h"
 
 using namespace ax;
-//using namespace ax::extension;
+//
 using namespace std;
 
 struct KNativePlace
@@ -35,12 +35,12 @@ public:
 	// Here's a difference. Method 'init' in ax-x returns bool, instead of returning 'id' in ax-iphone
 	KuiSelNativePlace();
 	~KuiSelNativePlace();
-	virtual bool init();  
+	virtual bool init();
 	/*virtual void onEnter();
     virtual void onExit();
     virtual void onEnterTransitionDidFinish();
    */
-	virtual void update(float delta); 
+	virtual void update(float delta);
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 
@@ -52,7 +52,7 @@ public:
 	KImageStore2 m_ImageStore;
 	//Size visibleSize;
 	//Point origin;
-private: 
+private:
 	//Label*pMainLabel;
 	//Label* pBugLabel;
 	Label* pDescLabel; //˵��

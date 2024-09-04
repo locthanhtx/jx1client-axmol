@@ -10,13 +10,11 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
 #include "ui/CocosGUI.h"
 #include "ui/UIListView.h"
 #include "ui/UICheckBox.h"
 
 USING_NS_AX;
-USING_NS_CC_EXT;
 using namespace ui;
 
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
@@ -228,7 +226,7 @@ private:
     ListView* pListView_bangpai;
 
 	CheckBox* checkBox;
-	Size btnSize;
+    Vec2 btnSize;
 	KUiPlayerTeam	m_Info;
 	KUiPlayerItem*	m_pPlayersList;
 	KUiPlayerItem*	m_pNearbyPlayersList;

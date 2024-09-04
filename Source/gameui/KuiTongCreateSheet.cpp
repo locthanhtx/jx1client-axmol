@@ -82,7 +82,7 @@ bool KuiTongCreateSheet::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣ�޸ĵ�ͼ.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣ�޸ĵ�ͼ.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -149,7 +149,7 @@ void KuiTongCreateSheet::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣ�޸ĵ�ͼ.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣ�޸ĵ�ͼ.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -205,7 +205,7 @@ void KuiTongCreateSheet::setcoloseButton(Ref * callbackListener,const std::funct
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	//����
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-����.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -224,7 +224,7 @@ void KuiTongCreateSheet::setcoloseButton(Ref * callbackListener,const std::funct
 
 	//а��
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-а��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-а��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -243,7 +243,7 @@ void KuiTongCreateSheet::setcoloseButton(Ref * callbackListener,const std::funct
 
 	//����
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-����.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -263,7 +263,7 @@ void KuiTongCreateSheet::setcoloseButton(Ref * callbackListener,const std::funct
 
 	//ȷ��
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-ȷ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -282,7 +282,7 @@ void KuiTongCreateSheet::setcoloseButton(Ref * callbackListener,const std::funct
 
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���ɴ���-ȡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -330,8 +330,8 @@ void KuiTongCreateSheet::btnCallBackFunc(Ref * pSender)
 				char Buff[32],nTempBuff[32];
 				ZeroMemory(Buff,sizeof(Buff));
 				ZeroMemory(nTempBuff,sizeof(nTempBuff));
-				t_sprintf(nTempBuff,pNameEditBox->getText());
-				t_sprintf(Buff,U2G(nTempBuff).c_str());
+				sprintf(nTempBuff, "%s", pNameEditBox->getText());
+				sprintf(Buff, "%s", U2G(nTempBuff).c_str());
 				if(Buff[0] && g_pCoreShell)
 				{
 					if(__nSelCamp != -1){
@@ -445,7 +445,7 @@ bool KuiTongCreateSheet::ccTouchBegan(Touch *pTouch, Event *pEvent)
 //--------------------------------------------------------------------------
 void KuiTongCreateSheet::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}

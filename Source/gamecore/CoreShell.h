@@ -43,13 +43,13 @@ enum GAMEDATA_INDEX
 	GDI_GAME_OBJ_DESC = 1,		//��Ϸ��������˵���ı���
 	//uParam = (KUiObjAtContRegion*) ������Ϸ����Ľṹ���ݵ�ָ�룬����KUiObjAtContRegion::Region�����ݹ̶�Ϊ0�������塣
 	//nParam = (KGameObjDesc*) ��ָ�Ľṹ�ռ����ڱ���ȡ�õ�����˵����
-	
+
 	GDI_GAME_OBJ_DESC_INCLUDE_TRADEINFO,	//��Ϸ��������˵���ı���(�������������Ϣ)
 	//��������ͬGDI_GAME_OBJ_DESC
 
 	GDI_GAME_OBJ_DESC_INCLUDE_REPAIRINFO,	//��Ϸ��������˵���ı���(�������������Ϣ)
 	//��������ͬGDI_GAME_OBJ_DESC
-	
+
 	GDI_GAME_OBJ_LIGHT_PROP,	//����Ĺ�Դ��������
 	//uParam = (KUiGameObject*) ������Ϸ����Ľṹ���ݵ�ָ��
 	//nParam = to be def
@@ -71,7 +71,7 @@ enum GAMEDATA_INDEX
 	GDI_PLAYER_HOLD_MONEY,		//��������Я����Ǯ
 	//nRet = ��������Я����Ǯ
 	GDI_PLAYER_HOLD_XU,
-	
+
 	GDI_PLAYER_IS_MALE,			//�����Ƿ�����
 	//nRet = (int)(bool)bMale	�Ƿ�����
 
@@ -120,7 +120,7 @@ enum GAMEDATA_INDEX
 	//nParam = (KUiItemBuySelInfo*) pPriceInfo -> ���ڽ�����Ʒ����������õ���Ϣ
 	//Return = (int)(bool) �ɷ�����
      GDI_ITEM_NAME,
-	
+
 
 	GDI_TRADE_OPER_DATA,		//���ײ�����ص�����
 	//uParam = (UI_TRADE_OPER_DATA)eOper ���庬���UI_TRADE_OPER_DATA
@@ -175,7 +175,7 @@ enum GAMEDATA_INDEX
 	//			��ʱKUiObjAtContRegion::Region�����ݹ̶�Ϊ0�������塣
 	//nParam = (int)(bool)bJustTry  �Ƿ�ֻ�ǳ��Է���
 	//Return = (ITEM_IN_ENVIRO_PROP)eProp ��Ʒ������״̬
-	
+
 	GDI_CHAT_SEND_CHANNEL_LIST,		//��ҿ��Է�����Ϣ������Ƶ�����б�
 	//uParam = (KUiChatChannel*) pList -> KUiChatChannel�ṹ�����ָ��
 	//nParam = pList�����а���KUiChatChannel�ṹ����Ŀ
@@ -210,43 +210,43 @@ enum GAMEDATA_INDEX
 	//Return = (int)(bool)bShow	�Ƿ���ʾ
 	GDI_SHOW_PLAYERS_MANA,			//��ȡ��ʾ���������
 	//Return = (int)(bool)bShow	�Ƿ���ʾ
-	
-	GDI_IS_CHEST_UNLOCKED,		
+
+	GDI_IS_CHEST_UNLOCKED,
 	//Return = (int)(bool)Player[CLIENT_PLAYER_INDEX].m_CUnlocked
-	
+
 	GDI_ITEM_IN_EX_BOX1,
 
 	GDI_ITEM_IN_EX_BOX2,
-	
+
 	GDI_ITEM_IN_EX_BOX3,
-	
+
 	GDI_ITEM_EX,
-	
+
 	GDI_EXBOX_ID,
-	
+
 	GDI_SELL_ITEM_NUM,
-	
+
 	GDI_PARADE_EQUIPMENT,				//�����װ����Ʒ,��Ϣ����ͬGDI_EQUIPMENT
-	
+
 	GDI_IMMEDIATEITEM_NUM,				//ȡ�ÿ����Ʒ����
 	//uParam = nIndex��0��1��2��
 
 	GDI_TRADE_PLAYER_ITEM,
-	
+
 	GDI_TRADE_PLAYER_ITEM_COUNT,
-	
+
 	GDI_TRADE_PLAYER_UPDATE,
-	
+
 	GDI_PLAYER_IS_BAITAN,
-	
+
 	GDI_PLAYER_TK_TIME,
-	
+
 	GDI_PLAYER_TK_POINT,
-	
+
 	GDI_PLAYER_TK_PLAYER,
-	
+
 	GDI_PLAYER_TK_NPC,
-	
+
 	GDI_PLAYER_TK_XEPHANG,
 
     GDI_PLAYER_CK_LIANJIE,
@@ -254,7 +254,7 @@ enum GAMEDATA_INDEX
 	GDI_TRADE_LIAN_ITEM,
 
 	GDI_TONGBAN_INFO,
-    
+
 	GDI_JINGMAI_INFO,
 
 	GDI_JMLEVEL_INFO,
@@ -339,7 +339,7 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	//				KUiObjAtRegion::Region::v ��ʾ�����ĸ�λ�õ�װ��,��ֵΪö������
 	//				UI_EQUIPMENT_POSITION��ȡֵ֮һ����ο�UI_EQUIPMENT_POSITION��ע�͡�
 	//nParam = bAdd -> 0ֵ��ʾ���������Ʒ����0ֵ��ʾ���������Ʒ
-	
+
 	GDCNI_CONTAINER_OBJECT_CHANGED,	//���������Ķ���ȫ������
 	//uParam = (UIOBJECT_CONTAINER)eContainer;	//���λ��
 
@@ -353,7 +353,7 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	//nParam = �¼�����ͬ��е�����λ��
 
 	GDCNI_PLAYER_LEADERSHIP,	//����ͳ˧������ص����ݷ����仯
-	
+
 	GDCNI_TEAM,					//������Ϣ�����仯�������ɢ���������������飬�ӳ�Ȩ��ת�����˵ȣ���ע���˵Ķ���ȣ�
 	//uParam = (KUiPlayerTeam*)pTeam -> ������Ϣ,����ΪNULL,��ʾ��������˶���
     GDCNI_TEAM_UI,
@@ -411,7 +411,7 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	//uParam = (KUiPlayerItem*)pFriend ����״̬�仯�ĺ���
 	//			KUiPlayerItem::nData = (CHAT_STATUS)eFriendStatus ���ѵĵ�ǰ״̬
 	//nParam = nGroupIndex ���������ڵ��������
-	
+
 	GDCNI_CHAT_MESSAGE,			//���з�����ѶϢ
 	//uParam = (KUiChatMessage*)pMessage ��Ϣ����
 	//nParam = (KUiPlayerItem*)pFriend   ����ѶϢ�ĺ���
@@ -429,27 +429,27 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	//nParam = \Ui\???\���.ini�и�����ͼ��������ֵ
 
 	GDCNI_OPEN_STORE_BOX,		//�򿪴�����
-	
+
 	GDCNI_OPEN_RESET_PASS,
-	
+
 	GDCNI_OPEN_STRING_BOX,
 
 	GDCNI_OPEN_DATAU_BOX,  //����ͷ�������
-	
+
 	GDCNI_OPEN_EX_BOX,  // ��չ�� 1
-	
+
 	GDCNI_OPEN_EX_BOX2, // ��չ�� 2
-	
+
 	GDCNI_OPEN_EX_BOX3, // ��չ�� 3
-	
+
 	GDCNI_OPEN_ITEMEX,  // ��ĸ��
-	
+
 	GDCNI_OPEN_MARKET,  //�������(��Ч)
-	
+
 	GDCNI_MARKET,		//th�m
-	
+
 	GDCNI_UPDATE_MARKET,  //���������
-	
+
 	GDCNI_SWITCHING_SCENEPLACE,	//��ͼ�л�
 	//nParam = (int)(bool)bStart Ϊ��0ֵ��ʾ��ʼ��ͼ�л���Ϊ0ֵ��ʾ������ͼ�л�
 
@@ -504,9 +504,9 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	GDCNI_SET_ITEM,
 
 	GDCNI_VIEW_PLAYERSELLITEM,  //����̯��Ʒ
-	
+
 	GDCNI_VIEW_PLAYERUPDATEITEM,
-	
+
 	GDCNI_CLOSE_BAITAN,
 
 	GDCNI_GIVE,   //�������
@@ -538,7 +538,7 @@ enum GAMEDATA_CHANGED_NOTIFY_INDEX
 	GDCNI_GAME_FIED,		  //��¼ʧ��
 	GDCNI_SUPERSHOP,
 
-	
+
 };
 
 enum GAMEDEBUGCONTROL
@@ -571,7 +571,7 @@ enum GAMEOPERATION_INDEX
 	//uParam = (KUiObjAtContRegion*)pObject -> ����������Ʒ
 
 	GOI_MONEY_INOUT_STORE_BOX,	//��StoreBox��ȡǮ
-	//uParam = (uint32_t)bIn Ϊ��0ֵʱ��ʾ���룬�����ʾȡ��
+	//uParam = (unsigned int)bIn Ϊ��0ֵʱ��ʾ���룬�����ʾȡ��
 	//nParam = Ǯ������
 
 	GOI_PLAYER_ACTION,		//���ִ��/ȡ��ĳ������
@@ -629,7 +629,7 @@ enum GAMEOPERATION_INDEX
 
 	GOI_TRADE,					//����
 	//nParam = (int)(bool)bTrading
-	
+
 	GOI_TRADE_CANCEL,			//����ȡ��
 
 	//============����npc���������================
@@ -649,7 +649,7 @@ enum GAMEOPERATION_INDEX
 	//uParam = (KUiGameObject*)pObject -> ��Ʒ��Ϣ
 	//nParam = ���϶������ĵ�ǰ���꣨�������꣩���������ڵ�16λ���������ڸ�16λ��(���ص�����)
 	//Return = �Ƿ���Է���
-	
+
 //	GOI_DROP_ITEM,				//������Ʒ����Ϸ����
 	//��������ͬGOI_DROP_ITEM_QUERY����������ͬ
 	//Return = �Ƿ�����������
@@ -657,11 +657,11 @@ enum GAMEOPERATION_INDEX
 	GOI_SEND_MSG,				//����Լ�˵��������Ϣ
 	//uParam = (const char*)pMsgBuff ��Ϣ���ݻ�����
 	//nParam = (KUiMsgParam*)pMsgParam ��Ϣ����
-	
+
 	//============�������================
 	GOI_SET_SEND_CHAT_CHANNEL,	//���õ�ǰ������Ϣ��Ƶ��
 	//uParam = (KUiChatChannel*) pChannelInfo Ҫ���õ�Ƶ������Ϣ
-	
+
 	GOI_SET_SEND_WHISPER_CHANNEL,//���õ�ǰ������Ϣ��Ƶ��Ϊ��ĳ�˵���
 	//uParam = (KUiPlayerItem*) pFriend
 
@@ -731,7 +731,7 @@ enum GAMEOPERATION_INDEX
 	//nParam = (int)(bool)bShow	�Ƿ���ʾ
 
 	GOI_GAMESPACE_DISCONNECTED,	//��Ϸ����Ͽ�������
-	
+
 	GOI_VIEW_PLAYERITEM,		//���뿴���װ��
 	//uParam = dwNpcID	��ҵ�m_dwID
 	GOI_VIEW_PLAYERITEM_END,	//�����װ������
@@ -748,25 +748,25 @@ enum GAMEOPERATION_INDEX
 
 
 	GOi_SET_WINDOWS_ITEM,		//������
-	
+
 	GOI_COMPITEM_COM,			//�ϳ�
-	
+
 	GOI_COMPITEM_DISTILL,		//��ȡ
-	
+
 	GOI_COMPITEM_FORGE,			//����
-	
+
 	GOI_COMPITEM_ENCHASE,		//��Ƕ
-	
+
 	GOI_COMPITEM_ALTAL,         //ͼ��
 
 	GDI_SET_TRADE_ITEM,			//��̯���
-	
+
 	GDI_PLAYER_TRADE,			//��̯
-	
+
 	GOI_VIEW_PLAYERSELLITEM,
-	
+
 	GOI_VIEW_PLAYERSELLITEM_END,
-	
+
 	GOI_TRADE_PLAYER_BUY,
 
 	GOI_PLAYER_SYSSHOP,   //û���õ�  ���õ� ŭ������
@@ -778,25 +778,25 @@ enum GAMEOPERATION_INDEX
 	GOI_GIVE_ITEM_NOBACK,//uparam = item nparam = num
 
 	GOI_GIVE_ITEM_FAIL,
-	
-	GOI_CP_UNLOCK, 
-	
-	GOI_CP_LOCK,  	
-	
-	GOI_CP_CHANGE,  
-	
+
+	GOI_CP_UNLOCK,
+
+	GOI_CP_LOCK,
+
+	GOI_CP_CHANGE,
+
 	GOI_CP_RESET,
-	
+
 	GOI_MARKET,   //�̳�
 
 	GOI_STRINGBOX,  //�ַ�������
-	
+
 	GOI_DATAU, //��ͷ���ｱ��
 
 	GOI_AUTO_COMMAND,  //��ҹ��ܿ����ر�
 
 	GOI_FINDPOS,
-	
+
 	GOI_PKVALUE,
 
 	GOI_AUTOPALYOPEN,  //�����һ�
@@ -1012,7 +1012,7 @@ enum GAME_TEAM_OPERATION_INDEX
 //-------��Ϸ�������ݸı��֪ͨ����ԭ��---------
 struct IClientCallback
 {
-	virtual void CoreDataChanged(uint32_t uDataId, uint32_t uParam, int nParam,int inVal=0) = 0;
+	virtual void CoreDataChanged(unsigned int uDataId, uintptr_t uParam, int nParam,int inVal=0) = 0;
 	virtual void ChannelMessageArrival(DWORD nChannelID, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx=0) = 0;
 	virtual void MSNMessageArrival(char* szSourceName, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx=0) = 0;
 	/*virtual void NotifyChannelID(char* ChannelName, DWORD channelid, BYTE cost) = 0;
@@ -1026,7 +1026,7 @@ struct IClientCallback
 
 struct KClientCallback : public IClientCallback
 {
-	void CoreDataChanged(uint32_t uDataId, uint32_t uParam, int nParam,int inVal=0);
+	void CoreDataChanged(unsigned int uDataId, uintptr_t uParam, int nParam,int inVal=0);
 	void ChannelMessageArrival(DWORD nChannelID, char* szSendName,const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx=0);
 	void MSNMessageArrival(char* szSourceName, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx=0);
 	/*void NotifyChannelID(char* ChannelName, DWORD channelid, BYTE cost);
@@ -1045,16 +1045,16 @@ struct  iCoreShell
 	virtual	int  ClearUp() = 0;
 	virtual void Run() =0;
 	virtual int  Breathe() = 0;
-	virtual uint32_t  GetSubGameTime() = 0;
+	virtual unsigned long  GetSubGameTime() = 0;
 	virtual	int	 GetProtocolSize(BYTE byProtocol) = 0;
 	//��������ɴ���������Ϣ
 	virtual void NetMsgCallbackFunc(void* pMsgData) = 0;
-	virtual int	 OperationRequest(uint32_t uOper, uint32_t uParam, int nParam,int nIsMianBan=0,char* strVal=NULL) = 0;
+	virtual int	 OperationRequest(unsigned int uOper, uintptr_t uParam, int nParam,int nIsMianBan=0,char* strVal=NULL) = 0;
 	//����Ϸ�����ȡ����
-	virtual int	 GetGameData(uint32_t uDataId, uint32_t uParam, int nParam,int inParam=0) = 0;
+	virtual int	 GetGameData(unsigned int uDataId, uintptr_t uParam, int nParam,int inParam=0) = 0;
 	//�������صĲ�����uOper��ȡֵ���� GAME_TEAM_OPERATION_INDEX
-	virtual int TeamOperation(uint32_t uOper, uint32_t uParam, int nParam) = 0;
-	virtual int	TongOperation(uint32_t uOper, uint32_t uParam, int nParam,int vnParam=0,char *strParam=NULL) = 0;
+	virtual int TeamOperation(unsigned int uOper, uintptr_t uParam, int nParam) = 0;
+	virtual int	TongOperation(unsigned int uOper, uintptr_t uParam, int nParam,int vnParam=0,char *strParam=NULL) = 0;
 	virtual void GotoWhere(int x, int y, int mode) = 0;	//mode 0 is auto, 1 is walk, 2 is run
 	virtual void setNpcDir(int x, int y)=0;
 	//��x, y��ָ��Player
@@ -1069,7 +1069,7 @@ struct  iCoreShell
 	virtual void SetRepresentAreaSize(int nWidth, int nHeight)=0;
 	virtual int	 SetCallDataChangedNofify(IClientCallback* pNotifyFunc) = 0;
 	virtual void SendNewDataToServer(void* pData, int nLength) = 0;
-	virtual int  GetDataNpcShop(int nSaleId, uint32_t uParam, int nParam) = 0;
+	virtual int  GetDataNpcShop(int nSaleId, uintptr_t uParam, int nParam) = 0;
 	virtual int  UseSkill(int x, int y, int nSkillID,int m_Kind)=0;
 	virtual void MainAttack(int m_Kind)=0;
 	virtual void clientPickItem()=0;
@@ -1088,7 +1088,7 @@ struct  iCoreShell
 	virtual void __opensysui(int nKind,int ver)=0;//SendClientRunScript(0,nIdx,mSkillId,Npc[nIndex].m_dwID);
 	virtual void TradeApplyStart(int nIndex)=0;
 	virtual bool getTradeState()=0;
-	virtual int GetDataDynamicShop(int nSaleId, uint32_t uParam, int nParam) = 0;
+	virtual int GetDataDynamicShop(int nSaleId, uintptr_t uParam, int nParam) = 0;
 	virtual void setPadCanMove(int _PadIndex,bool ver) = 0;
 };
 
@@ -1097,6 +1097,6 @@ struct  iCoreShell
 extern  iCoreShell* CoreGetShell();
 //#else
 	//���ⷢ����Ϸ�������ݷ����ı��֪ͨ
-void	CoreDataChanged(uint32_t uDataId, uint32_t uParam, int nParam,int inVal=0);
-//int	SceneMapOperation(uint32_t uOper, uint32_t uParam, int nParam);
+void	CoreDataChanged(unsigned int uDataId, uintptr_t uParam, int nParam,int inVal=0);
+//int	SceneMapOperation(unsigned int uOper, unsigned int uParam, int nParam);
 //#endif

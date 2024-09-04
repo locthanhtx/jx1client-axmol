@@ -2,8 +2,8 @@
 // FileName			:	KMissleRes.cpp
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-7-8 16:21:44
-// FileDescription	:	
-// Revision Count	:	�ӵ��滭 
+// FileDescription	:
+// Revision Count	:	�ӵ��滭
 *******************************************************************************/
 #include "KCore.h"
 #include "engine/KEngine.h"
@@ -25,7 +25,7 @@ KMissleRes::KMissleRes()
 	m_bLoopAnim = 0;
 	m_nLastShadowLifeTime = 0;
 	m_bHaveEnd = FALSE;
-	
+
 	for (int i = 0 ; i < MAX_MISSLE_STATUS; ++i)
 	{
 		m_RUImage[i].nType = ISI_T_SPR;
@@ -36,14 +36,14 @@ KMissleRes::KMissleRes()
 		m_RUImage[i].bRenderFlag = RUIMAGE_RENDER_FLAG_REF_SPOT;
 	}
 /*
-	
+
 	  IMAGE_RENDER_STYLE_ALPHA = 0,		    //��alpha����
 	  IMAGE_RENDER_STYLE_OPACITY,			//ֻ��ȫͨ͸����ȫ��͸����KRUImage::Alphaֵ�����ԡ�
 	  IMAGE_RENDER_STYLE_3LEVEL,			//����alpha���ƣ�KRUImage::Alphaֵ�����ԡ�
 	  IMAGE_RENDER_STYLE_BORDER,            //�滭�߿�
 	  IMAGE_RENDER_STYLE_ALPHA_NOT_BE_LIT,  //��alpha���Ƶ��ǲ�������
-	  IMAGE_RENDER_STYLE_ALPHA_COLOR_ADJUST,//��alpha���ƣ��Ҵ�ƫɫ����	
-*/	
+	  IMAGE_RENDER_STYLE_ALPHA_COLOR_ADJUST,//��alpha���ƣ��Ҵ�ƫɫ����
+*/
 #ifdef TOOLVERSION
 	m_pSprNode = NULL;
 #endif
@@ -61,8 +61,8 @@ KMissleRes::~KMissleRes()
 }
 /*!*****************************************************************************
 // Function		: KMissleRes::LoadResource
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Argumant		: eMissleStatus nStatus
 // Argumant		: char * MissleImage
 // Argumant		: char * MissleSound
@@ -94,7 +94,7 @@ void KMissleRes::Clear()
 		m_ShadowList.RemoveHead();
 
 	m_nLastShadowLifeTime = 0;
-	
+
 	while(m_SkillSpecialList.GetHead())
 	{//ɾ����һ��?
 		KSkillSpecialNode * pNode = (KSkillSpecialNode*)m_SkillSpecialList.GetHead();
@@ -111,7 +111,7 @@ void KMissleRes::Clear()
             pNode=NULL;
 		}
 	}
-	
+
 	for(int i = 0; i <MAX_MISSLE_STATUS; ++i)
 	{
 		m_RUImage[i].szImage[0] = 0;
@@ -121,8 +121,8 @@ void KMissleRes::Clear()
 
 /*!*****************************************************************************
 // Function		: KMissleRes::Draw
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Argumant		: int nX ʵ�����ص�����
 // Argumant		: int nY ʵ�����ص�����
 // Argumant		: int nZ
@@ -138,21 +138,21 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 	//return FALSE;
 	if (eStatus == MS_DoWait)
 	{
-		
+
 	}
 
 	if (eStatus == MS_DoFly)
 	{
-		if (nCurLifeFrame < 0 || (nAllFrame != 0 && nAllFrame < nCurLifeFrame)) 
+		if (nCurLifeFrame < 0 || (nAllFrame != 0 && nAllFrame < nCurLifeFrame))
 			return FALSE;
-		
+
 		if (!m_RUImage[eStatus].szImage[0])
 		{
 //			g_GetFullPath(SprFileName, m_MissleRes[eStatus].AnimFileName);
 			//g_StrCpy(m_RUImage[eStatus].szImage, m_MissleRes[eStatus].AnimFileName);
-			t_sprintf(m_RUImage[eStatus].szImage, m_MissleRes[eStatus].AnimFileName);
+			sprintf(m_RUImage[eStatus].szImage, "%s", m_MissleRes[eStatus].AnimFileName);
 		}
-		
+
 		int nSprDir    = m_MissleRes[eStatus].nDir;        //1
 		int nSprFrames = m_MissleRes[eStatus].nTotalFrame; //90
 
@@ -161,14 +161,14 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 			//�����ӵ���ʾʱʵ�ʷ���
 			int	nImageDir = (nDir / (64 / nSprDir));
 			int nImageDir1 = (nDir % (64 / nSprDir));
-			if (nImageDir1 >= 32 / nSprDir) 	
+			if (nImageDir1 >= 32 / nSprDir)
 				nImageDir ++;
-			if (nImageDir >= nSprDir)		
+			if (nImageDir >= nSprDir)
 				nImageDir = 0;
 
 			int nFramePerDir = (nSprFrames / nSprDir);	//ÿ�������ж���֡��
 
-			if (nAllFrame == 0) 
+			if (nAllFrame == 0)
 				nAllFrame = nFramePerDir;
 
 			int nFirstFrame = nImageDir * nFramePerDir;
@@ -178,7 +178,7 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 				if (m_bLoopAnim) //�����ѭ�����ŵĻ���ÿ֡����֡
 				{
 					if (!m_bSubLoop)//������ʾѭ��
-					{	
+					{
 						nFrame = (nCurLifeFrame/m_MissleRes[eStatus].nInterval)%nTotalFrame;
 					}
 					else
@@ -188,7 +188,7 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 							nFrame = nCurLifeFrame/m_MissleRes[eStatus].nInterval;
 						else
 						{
-							if (m_nSubStart == m_nSubStop) 
+							if (m_nSubStart == m_nSubStop)
 								nFrame = m_nSubStart;
 							else
 								nFrame = m_nSubStart + ((nCurLifeFrame - m_nSubStart)/m_MissleRes[eStatus].nInterval)%(m_nSubStop - m_nSubStart);
@@ -198,7 +198,7 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 				else
 					nFrame = nTotalFrame * nCurLifeFrame/nAllFrame;
 
-				if (nFrame > (nTotalFrame - 1)) 
+				if (nFrame > (nTotalFrame - 1))
 					return FALSE;
 			}
 			nFrame = nFirstFrame + nFrame;
@@ -208,15 +208,15 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 			m_RUImage[eStatus].oPosition.nZ = nZ;
 			m_RUImage[eStatus].nFrame = nFrame;
 			//char msg[128];
-			//t_sprintf(msg,"misid:%d,nSprDir:%d,TotalFrame:%d nFrame:%d eStatus:%d\n CurLifeFrame:%d nFirstFrame:%d nInterval:%d",m_nMissleId,nSprDir,m_MissleRes[eStatus].nTotalFrame,m_RUImage[eStatus].nFrame,eStatus,nCurLifeFrame,nFirstFrame,m_MissleRes[eStatus].nInterval);
-			//ccMessageBox(msg,m_RUImage[eStatus].szImage);
-			
+			//sprintf(msg,"misid:%d,nSprDir:%d,TotalFrame:%d nFrame:%d eStatus:%d\n CurLifeFrame:%d nFirstFrame:%d nInterval:%d",m_nMissleId,nSprDir,m_MissleRes[eStatus].nTotalFrame,m_RUImage[eStatus].nFrame,eStatus,nCurLifeFrame,nFirstFrame,m_MissleRes[eStatus].nInterval);
+			//messageBox(msg,m_RUImage[eStatus].szImage);
+
 			if (g_GameWorld)
 			   g_GameWorld->DrawPrimitives_miss(m_nMissleId,eStatus,&m_RUImage[eStatus],0,0,1,0);//[eStatus]
 		}
 	}
 
-	KSkillSpecialNode * pNode = (KSkillSpecialNode*)m_SkillSpecialList.GetHead(); 
+	KSkillSpecialNode * pNode = (KSkillSpecialNode*)m_SkillSpecialList.GetHead();
 	while (pNode)
 	{//��ײЧ��
 		DWORD dwCurrentTime =  g_SubWorldSet.GetGameTime();
@@ -241,16 +241,16 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 			if (pNode->m_pSkillSpecial->m_nBeginTime <= dwCurrentTime)
 				pNode->m_pSkillSpecial->DrawC(dwCurrentTime);
 		}
-		
+
 		pNode = (KSkillSpecialNode*)pNode->GetNext();
-	} 
+	}
 	return TRUE;
 }
 
 /*!*****************************************************************************
 // Function		: KMissleRes::PlaySound
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Argumant		: int nLoop
 // Argumant		: int nPan
 // Argumant		: int nVal
@@ -279,11 +279,11 @@ void KMissleRes::PlaySound(int eStatus, int nX, int nY, int nLoop)
 	{
 		char nTemp[256];
 		ZeroMemory(nTemp,sizeof(nTemp));
-		//t_sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[eStatus].SndFileName);
+		//sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[eStatus].SndFileName);
 #ifdef WIN32
-		t_sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[eStatus].SndFileName);
+		sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[eStatus].SndFileName);
 #else
-		t_sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),G2U(m_MissleRes[eStatus].SndFileName).c_str());
+		sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),G2U(m_MissleRes[eStatus].SndFileName).c_str());
 #endif
 		bool _loop =false;
 		if (nLoop>=1)
@@ -302,15 +302,15 @@ int KMissleRes::GetSndVolume(int nVol)
 }
 /*!*****************************************************************************
 // Function		: KMissleRes::StopSound
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
 void KMissleRes::StopSound()
 {
 	if (m_MissleRes[m_nLastSndIndex].SndFileName[0] == 0)		return;
-	
+
 	/*KWavSound * pSound = NULL;
 	m_pSndNode	= (KCacheNode*) g_SoundCache.GetNode(m_MissleRes[m_nLastSndIndex].SndFileName, (KCacheNode * ) m_pSndNode);
 	pSound		= (KWavSound*) m_pSndNode->m_lpData;
@@ -323,11 +323,11 @@ void KMissleRes::StopSound()
 	{
 		char nTemp[256];
 		ZeroMemory(nTemp,sizeof(nTemp));
-		t_sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[m_nLastSndIndex].SndFileName);
-		uint32_t nRet = _ccHash(nTemp);
+		sprintf(nTemp,"%s%s",m_SDcardDirPath.c_str(),m_MissleRes[m_nLastSndIndex].SndFileName);
+		unsigned int nRet = _ccHash(nTemp);
 		//__pSound->stopBackgroundMusic(true);
 		__pSound->stop(nRet);
 		__pSound->uncache(nTemp);
-		//ccMessageBox(nTemp,"1111");
+		//messageBox(nTemp,"1111");
 	}
 }

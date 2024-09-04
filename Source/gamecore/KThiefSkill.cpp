@@ -26,7 +26,7 @@ KThiefSkill::~KThiefSkill()
 int		KThiefSkill::GetSkillId()
 {
 	return 400;
-	
+
 }
 
 const char *KThiefSkill::GetSkillName()
@@ -41,9 +41,9 @@ int		KThiefSkill::GetSkillStyle()
 
 
 
-void	KThiefSkill::LoadSkillLevelData(uint32_t  ulLevel, int nParam)
+void	KThiefSkill::LoadSkillLevelData(unsigned int  ulLevel, int nParam)
 {
-	
+
 	return;
 }
 
@@ -68,7 +68,7 @@ int		KThiefSkill::DoSkill(KNpc * pNpc, int nX, int nY)
 		KMissle::CreateMissleForShow(m_szTargetMovie, m_szTargetMovieParam, m_szSkillSound, &Show);
 	pNpc->m_Doing = do_special2;  //͵�Լ���
 	pNpc->m_ProcessAI = 0;
-	pNpc->m_Frames.nCurrentFrame = 0;	
+	pNpc->m_Frames.nCurrentFrame = 0;
 	return 1;
 }
 //��ȡ�Է���Ϣ����
@@ -80,55 +80,55 @@ int KThiefSkill::Cast(KPlayer * pLaucherPlayer, KPlayer * pTargetPlayer)
 int KThiefSkill::OnSkill(KNpc * pNpc)
 {
 	//_ASSERT(pNpc);
-	
+
 	if (!pNpc)
 		return 0;
 	KPlayer * pLauncherPlayer	= NULL;
 	KPlayer * pTargetPlayer		= NULL;
-	
+
 	//pNpc->m_DataRes.SetBlur(FALSE);
 
-	if (pNpc->m_DesX == -1) 
+	if (pNpc->m_DesX == -1)
 	{
-		if (pNpc->m_DesY <= 0) 
+		if (pNpc->m_DesY <= 0)
 			goto Label_ProcessAI1;
-		
+
 		//��ʱ�ý�ɫ�Ѿ���Чʱ
-		if (Npc[pNpc->m_DesY].m_RegionIndex < 0) 
+		if (Npc[pNpc->m_DesY].m_RegionIndex < 0)
 			goto Label_ProcessAI1;
 	}
-	
+
 	if (pNpc->m_nPlayerIdx < 0 || pNpc->m_DesY < 0 || pNpc->m_DesY >= MAX_NPC)
 		goto Label_ProcessAI1;
-	
+
 	pLauncherPlayer = &Player[pNpc->m_nPlayerIdx];
 	pTargetPlayer = &Player[Npc[pNpc->m_DesY].m_nPlayerIdx];
-	
+
 	Cast(pLauncherPlayer, pTargetPlayer); //��ʾ�Է�����Ϣ ��Ǯ ���� ������
 
 	pNpc->m_SkillList.SetNextCastTimeByIndex(pNpc->m_ActiveSkListIndex, SubWorld[pNpc->m_SubWorldIndex].m_dwCurrentTime + GetDelayPerCast());
-	
+
 Label_ProcessAI1:
 	if (pNpc->m_Frames.nTotalFrame == 0)
 	{
 		pNpc->m_ProcessAI = 1;
 	}
-	
+
 	return 1;
-	
+
 }
 
-BOOL	KThiefSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2)  const 
+BOOL	KThiefSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2)  const
 {
 	if (nParam1 != -1)
 		return FALSE;
-	
+
 	if ( nParam2 <= 0 || nParam2 >= MAX_NPC) return FALSE;
 	NPC_RELATION  Relation = NpcSet.GetRelation(nLauncher, nParam2);
 
-	if (Npc[nParam2].m_Index <= 0 || Npc[nLauncher].m_Index <= 0) 
+	if (Npc[nParam2].m_Index <= 0 || Npc[nLauncher].m_Index <= 0)
 		return FALSE;
-	
+
 	if (Npc[nParam2].m_Camp == camp_begin || Npc[nParam2].m_Camp == camp_event)
 		return FALSE;
 		int distance = NpcSet.GetDistance(nLauncher, nParam2);
@@ -141,14 +141,14 @@ int	KThiefSkill::NewCanCastSkill(int nLauncher, int nParam1, int nParam2)
 {
 	if (nParam1 != -1)
 		return FALSE;
-	
+
 	if ( nParam2 <= 0 || nParam2 >= MAX_NPC)
 		return FALSE;
-	
+
 	return TRUE;
 }
 
-void	KThiefSkill::GetDesc(uint32_t ulSkillId, uint32_t ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc)
+void	KThiefSkill::GetDesc(unsigned int ulSkillId, unsigned int ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc)
 {
 	strcpy(pszMsg, m_szSkillDesc);
 }
@@ -225,7 +225,7 @@ int		KThiefSkill::GetSkillCost(void * pParam) const
 				}
 				break;
 			case attrib_stamina:
-			case attrib_maxstamina:				
+			case attrib_maxstamina:
 				{
 					nValue = pNpc->m_CurrentStaminaMax;
 				}
@@ -238,9 +238,9 @@ int		KThiefSkill::GetSkillCost(void * pParam) const
 			default:
 				nValue = 1;
 			}
-			
+
 			nValue = m_nCost * nValue / 100;
-			
+
 		}
 		else
 		{
@@ -249,15 +249,15 @@ int		KThiefSkill::GetSkillCost(void * pParam) const
 	}
 	else
 		return m_nCost;
-	
+
 	return 100;
 }
 
 //��ͼ��
-void	KThiefSkill::DrawSkillIcon(int x, int y, int Width, int Height,int nParam)  
+void	KThiefSkill::DrawSkillIcon(int x, int y, int Width, int Height,int nParam)
 {
 	if (!m_szSkillIcon[0]) return ;
-	
+
 	m_RUIconImage.nType = ISI_T_SPR;
 	m_RUIconImage.Color.Color_b.a = 255;
 	m_RUIconImage.bRenderStyle = IMAGE_RENDER_STYLE_ALPHA;

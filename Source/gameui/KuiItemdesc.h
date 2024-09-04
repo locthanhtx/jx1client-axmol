@@ -10,9 +10,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 using namespace ui;
 #define	BUY_SELL_SCALE_DE	1
 class KuiItemdesc:public Layer{

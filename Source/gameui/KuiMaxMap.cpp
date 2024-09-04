@@ -124,16 +124,16 @@ void KuiMaxMap::addDialogData()
 	int  NewscrX= nRoleMpsX,NewscrY= nRoleMpsY;
 	SubWorld[0].GetLocalPositionByMps(NewscrX,NewscrY,0);      //像素坐标－－－＞屏幕坐标
 	sprintf(msg,"x:%d,y:%d",NewscrX,NewscrY);
-	ccMessageBox(msg,"DSTEN");*/
+	messageBox(msg,"DSTEN");*/
 
 
 	Texture2D* nPicTexture=NULL;
 	char nSprFileKey[64]={0};
 	char mjpgPath[256];
-	t_sprintf(mjpgPath,maxMapPicPath.c_str());
+	sprintf(mjpgPath, "%s", maxMapPicPath.c_str());
 	DWORD nFielpahtdwid = g_FileName2Id(mjpgPath);
-	t_sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
-	//t_sprintf(nDebugmsg,"Toa do 6: nXpos:%d-nYpos:%d",xPos,yPos);
+	sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
+	//sprintf(nDebugmsg,"Toa do 6: nXpos:%d-nYpos:%d",xPos,yPos);
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSprFileKey);
 	nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
 	if  (!nPicTexture) return;
@@ -229,7 +229,7 @@ void KuiMaxMap::addDialogData()
 	//ax::Color3B nlineColor={0,0,255};//蓝色 //255,255,0 黄
 	//pPointLabel->enableStroke(nlineColor,1);//开始描边
 	//char nPoinInfo[32];
-	//t_sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
+	//sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
 	//pPointLabel->setString(nPoinInfo);
 	//pPointLabel->setColor(ax::Color3B::YELLOW);
 	pPointLabel->setPosition(ax::Vec2(0,0));
@@ -239,7 +239,7 @@ void KuiMaxMap::addDialogData()
 	//小旗子 \Spr\Ui3\小地图\地图小旗帜.spr
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\小地图\\地图小旗帜.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\小地图\\地图小旗帜.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -348,16 +348,16 @@ void KuiMaxMap::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchEve
 						}
 						std::string _xPos = nPoint.substr(0, pos);
 						std::string _yPos = nPoint.substr(pos+1, nPoint.length());
-						//ccMessageBox(_xPos.c_str(),_yPos.c_str());
+						//messageBox(_xPos.c_str(),_yPos.c_str());
 						char nTempPoint[64];
 						ZeroMemory(nTempPoint,sizeof(nTempPoint));
-						t_sprintf(nTempPoint,_xPos.c_str());
+						sprintf(nTempPoint, "%s", _xPos.c_str());
 						int nXpos = g_Atoui(nTempPoint);
-						t_sprintf(nTempPoint,_yPos.c_str());
+						sprintf(nTempPoint, "%s", _yPos.c_str());
 						int nYpos = g_Atoui(nTempPoint);
 						//Debug
 						char nDebugmsg[200];
-						t_sprintf(nDebugmsg,"Toa do 1: nXpos:%d-nYpos:%d",nXpos,nYpos);
+						sprintf(nDebugmsg,"Toa do 1: nXpos:%d-nYpos:%d",nXpos,nYpos);
 						Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);
 						//Debug
 						//开始转换成象素坐标
@@ -366,7 +366,7 @@ void KuiMaxMap::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchEve
 						int _nRoleDisY = nYpos*8*64-maxMapRc.top*1024;     //人物距离原点的距离 offy  高度
 						//Debug
 						char nDebugmsg1[200];
-						t_sprintf(nDebugmsg1,"Toa do 2: nXpos:%d-nYpos:%d",_nRoleDisX,_nRoleDisY);
+						sprintf(nDebugmsg1,"Toa do 2: nXpos:%d-nYpos:%d",_nRoleDisX,_nRoleDisY);
 						Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg1);
 						//Debug
 						//if (clipper && content)
@@ -389,11 +389,11 @@ void KuiMaxMap::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchEve
 							destpoint.x = -_nRoleDisX/16+clipper->getContentSize().width/2;
 							destpoint.y = -(nTextureSize.height-_nRoleDisY/32)+clipper->getContentSize().height/2;
 							char nPoinInfo[32];
-							t_sprintf(nPoinInfo,"%d/%d",destpoint.x,destpoint.y);
+							sprintf(nPoinInfo,"%d/%d",destpoint.x,destpoint.y);
 							// if (g_pCoreShell){
 							// 	g_pCoreShell->GotoWhere(destpoint.x, destpoint.y, 0);
 							// }
-							t_sprintf(nDebugmsg1,"Toa do 3: nXpos:%d-nYpos:%d",destpoint.x,destpoint.y);
+							sprintf(nDebugmsg1,"Toa do 3: nXpos:%d-nYpos:%d",destpoint.x,destpoint.y);
 							Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg1);
 							pPointLabel->setString(nPoinInfo);
 							Point diff = destpoint - content_Map->getPosition();
@@ -506,14 +506,14 @@ void KuiMaxMap::ccTouchEnded(Touch *pTouch, Event *pEvent)
 		memset(szWorY, 0, sizeof(szWorY));
 		memset(szPos, 0, sizeof(szPos));
 
-		t_sprintf(szKeyName,"%d_WorX", nMapidx);
-		t_sprintf(szWorY,"%d_WorY", nMapidx);
+		sprintf(szKeyName,"%d_WorX", nMapidx);
+		sprintf(szWorY,"%d_WorY", nMapidx);
 
 		IniFile.GetInteger2("List",szKeyName, &x1, &x2);
 		IniFile.GetInteger2("List",szWorY, &y1, &y2);
 
 
-		t_sprintf(debug,"X1:%d, Y1:%d, MapID:%d",x1,y1,nMapidx);
+		sprintf(debug,"X1:%d, Y1:%d, MapID:%d",x1,y1,nMapidx);
 		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(debug);
 
 	}
@@ -558,9 +558,9 @@ void KuiMaxMap::ccTouchEnded(Touch *pTouch, Event *pEvent)
 			int cury = (ny + noy/10)*16;
 
 			char nTempPoit[128],nPoinInfo[32];
-			// t_sprintf(nTempPoit,"%s:nx:%d/%d,nox: %d/%d, nChieuRong: %d/%d,mapwith: %d/%d","MapInfo:",nx,ny,curx,cury,x1,y1,picwith,picheight);
+			// sprintf(nTempPoit,"%s:nx:%d/%d,nox: %d/%d, nChieuRong: %d/%d,mapwith: %d/%d","MapInfo:",nx,ny,curx,cury,x1,y1,picwith,picheight);
 			// Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nTempPoit);
-			t_sprintf(nPoinInfo,"%d/%d",curx/8,(cury/16));
+			sprintf(nPoinInfo,"%d/%d",curx/8,(cury/16));
 			pPointLabel->setVisible(true);
 			pPointLabel->setPosition(ax::Vec2(point.x,point.y));
 			pPointLabel->setString(nPoinInfo);
@@ -610,7 +610,7 @@ void KuiMaxMap::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, Event *pE
 					if (g_pCoreShell){
 
 						int nIndex = Player[CLIENT_PLAYER_INDEX].m_nIndex;
-						t_sprintf(nDebugmsg,"Toa do 5: nXpos:%d-nYpos:%d-nIndex:%d",nX,nY,nIndex);
+						sprintf(nDebugmsg,"Toa do 5: nXpos:%d-nYpos:%d-nIndex:%d",nX,nY,nIndex);
 						Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);
 						Npc[nIndex].SendSerCommand(do_run, nX, nY);
 						// Send to Server
@@ -618,8 +618,8 @@ void KuiMaxMap::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, Event *pE
 						//g_pCoreShell->GotoWhere(nX1, nY1, 0);
 					}
 
-					t_sprintf(nPoinInfo,"%d/%d",nX,nY);
-					//t_sprintf(nDebugmsg,"nXpos:%d-nYpos:%d",nXpos,nYpos);
+					sprintf(nPoinInfo,"%d/%d",nX,nY);
+					//sprintf(nDebugmsg,"nXpos:%d-nYpos:%d",nXpos,nYpos);
 					//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);
 				}
 			}
@@ -651,7 +651,7 @@ void KuiMaxMap::ccTouchesEnded(const std::vector<ax::Touch*>&pTouches, Event *pE
 }
 void KuiMaxMap::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (g_GameWorld && isOpen && g_pCoreShell)
 	{
 		if  (!m_bScrolling)

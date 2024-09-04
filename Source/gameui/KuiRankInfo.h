@@ -10,10 +10,10 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include "Engine/LinkStruct.h"
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 using namespace ui;
 
 #define MAX_TASK_MESSAGE_LENGTH 128

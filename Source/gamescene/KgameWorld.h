@@ -27,11 +27,11 @@ using namespace ui;
 
 struct mapRegData
 {
-	KLinkArray		m_FreeIdxNode;				//	���ñ�
-	KLinkArray		m_UseIdxNode;				//	���ñ�
+	KLinkArray		m_FreeIdxNode;				//	可用表
+	KLinkArray		m_UseIdxNode;				//	已用表
 
-	KLinkArray		m_FreeIdxPartNode;			//	���ñ�
-	KLinkArray		m_UseIdxPartNode;			//	���ñ�
+	KLinkArray		m_FreeIdxPartNode;			//	可用表
+	KLinkArray		m_UseIdxPartNode;			//	已用表
 
 	int             nDrawKind;
 	int             nSprCount;
@@ -39,10 +39,10 @@ struct mapRegData
 
 struct msgListData
 {
-	int             nindex;      //��ǰ������
-	int             nkind;       //��Ϣ������
-	float           offsetY;     //��ǰ�߶ȵ�ƫ��
-	char            m_msgContent[256];//����
+	int             nindex;      //当前的索引
+	int             nkind;       //信息的类型
+	float           offsetY;     //当前高度的偏移
+	char            m_msgContent[256];//内容
 };
 
 struct skillstickData
@@ -59,7 +59,7 @@ struct auxiliarySkillData
 	float OffsetX,OffsetY;
 	int m_skillidx;
 };
-//�����Ʒ���
+//快捷物品描绘
 class KImmediaItem
 {
 public:
@@ -84,7 +84,7 @@ public:
     virtual void onEnterTransitionDidFinish();
    */
 	virtual void update(float delta);
-//    virtual void onDraw(const ax::Mat4& transform, uint32_t flags) override;
+    virtual void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 	CREATE_FUNC(KgameWorld);
@@ -145,14 +145,14 @@ public:
 	*/
 	void  setattackSprInfo(int nSkillIdx,int uGenre,char * icoPath);
 	void  setaauxiliaryskillInfo(int nSkillIdx,int uGenre,char * icoPath);
-	//����ϵͳ
+	//聊天系统
 	 void ChannelMessageArrival(UINT nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength, bool bSucc,UINT nItemDwidx=0,int nPackage=-1);
-	 //˽����ʾ(��ʾ�Է�����Ϣ)���ܣ�
+	 //私聊显示(显示对方的信息)（密）
 	 void MSNMessageArrival(char* szSourceName, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,UINT nItemDwidx=0,bool isClent=false);
 	 void NotifyChannelID(char* ChannelName, UINT channelid, BYTE cost);
 	 bool AMessageArrival(KSystemMessage* pMsg, void* pParam);
 
-	 //����
+	 //聊天
 	 void QueryAllChannel();
 	 //---------------------------------
 	 void CreatNpcDialog(KUiQuestionAndAnswer* pContent, KUiNpcSpr* pImage=NULL,int nIsTimeClose=0);
@@ -162,8 +162,8 @@ public:
 	 bool GetuiItemExIfVisible(){return m_itemExPadIsOpen;};
 	 bool GetuistoreIfVisible(){return m_storeboxPadIsOpen;};
 
-	 void UpdateItem(KUiObjAtRegion* pItem, int bAdd);//��Ʒ�仯����
-	 void UpdateItemEx(KUiObjAtRegion* pItem, int bAdd);//��Ʒ�仯����
+	 void UpdateItem(KUiObjAtRegion* pItem, int bAdd);//物品变化更新
+	 void UpdateItemEx(KUiObjAtRegion* pItem, int bAdd);//物品变化更新
 	 void UpdateStoreBox(KUiObjAtRegion* pItem, int bAdd);
 	 void UpdateExBox(KUiObjAtRegion* pItem, int bAdd,int exBoxIndex);
 	 void openstringBox(const char* pszTitle,int nMinLen, int nMaxLen,const char* pszCallback,const char* pszError,int bNum);
@@ -182,7 +182,7 @@ public:
 	 void OnSelfChangedItem(KUiObjAtRegion* pObj, int bAdd);
 	 void OnTarChangedItem(KUiObjAtRegion* pObj, int bAdd);
 	 void UpdateTradeOperData();
-	 void UpdateTradeEnd();	//���׽���
+	 void UpdateTradeEnd();	//交易结束
 
 	 void UpPlayerShopData();
 	 void ClosePlayerShop();
@@ -192,7 +192,7 @@ public:
 	 void removespriteByIdx(int nNpcIndex,int nStateIdx,bool isAll=false);
 	 void removeMenuByIdx(int nNpcIndex,int nStateIdx);
 	 bool CheckImmediacyBox(int nGenre, int DetailType);
-	 void UpdateImmediaItem(int nIndex, unsigned int uGenre, unsigned int uId);	//�����Ʒ�ڻ�
+	 void UpdateImmediaItem(int nIndex, unsigned int uGenre, unsigned int uId);	//变更物品摆换
 	 void UpdateGiveItem(KUiObjAtRegion* pItem, int bAdd);
 
 	 void UpdateDataTeam(KUiPlayerTeam* pInfo);
@@ -216,13 +216,13 @@ private:
 	Node   *ParentNode_rolestate;
 	Node   *ParentNode_chat;
 	Node   *ParentNode_npc;
-	Node   *ParentNode_npc_state;//״̬
+	Node   *ParentNode_npc_state;//状态
 	Node   *ParentNode_npcother;
 	Node   *ParentNode_npcblood;
 	Node   *ParentNode_player;
 	Node   *ParentNode_miss;
 	Node   *ParentNode_miss_Special;
-	Node   *ParentNode_item;    //9�������
+	Node   *ParentNode_item;    //9个快捷栏
 	Node   *ParentNode_obj;
 	Node   *ParentNode_ShortSkill;
 	//Node   *ParentNode_RightSkill;
@@ -262,7 +262,7 @@ private:
 	void caveCallback(Ref* pSender);
 
 	int  getIndexBySkillID(int nSkillIdx);
-	//����
+	//交易
 	void mianExcCallback(Ref* pSender);
 	void auxiliaryskillCallback(Ref* pSender);
 	void onsendCallback(Ref* pSender);
@@ -346,9 +346,9 @@ private:
 	int    getImmediacyBoxindex(int nidx);
 	void   selchatlistItemEvent(Ref* pSender,ui::ListView::EventType type);
 
-	int    m_NpcIndex;                    //�ͻ������ǵ�NPC����
+	int    m_NpcIndex;                    //客户端主角的NPC索引
 	//char   nBugInfo[256];
-	//KCriticalSection    m_GameProcessLock;//������
+	//KCriticalSection    m_GameProcessLock;//互斥锁
 	unsigned int nLoopCount;
 	//int   nRegSprCount[MAX_NUM_REGIONS];
 	//int   nOtherSprCount[MAX_NUM_REGIONS];
@@ -359,14 +359,14 @@ private:
 	//int	  FindHouseFree();
 	//void  AddTreeIndex(int i);
 	//void  AddHouseIndex(int i);
-	/*KLinkArray		m_FreeIdxTreeNode;			//	���ñ�
-	KLinkArray		m_UseIdxTreeNode;			//	���ñ�
+	/*KLinkArray		m_FreeIdxTreeNode;			//	可用表
+	KLinkArray		m_UseIdxTreeNode;			//	已用表
 
-	KLinkArray		m_FreeIdxHouseNode;			//	���ñ�
-	KLinkArray		m_UseIdxHouseNode;			//	���ñ�
+	KLinkArray		m_FreeIdxHouseNode;			//	可用表
+	KLinkArray		m_UseIdxHouseNode;			//	已用表
 	*/
-	//KLinkArray		m_FreeIdxAboveNode;			//	���ñ�
-	//KLinkArray		m_UseIdxAboveNode;			//	���ñ�
+	//KLinkArray		m_FreeIdxAboveNode;			//	可用表
+	//KLinkArray		m_UseIdxAboveNode;			//	已用表
 
 	POINT	m_MapPos;
     SIZE	m_MapSize;
@@ -407,8 +407,8 @@ private:
 	bool m_tongPadIsOpen;
 	bool m_escPadIsOpen;
 	bool m_tongCreatPadIsOpen;
-	//RenderTexture *nRegCanvas; //����һ�����򻭰�
-	//�����ܰ�ť
+	//RenderTexture *nRegCanvas; //创建一个区域画板
+	//主技能按钮
 	MenuItemImage *pMainSkillItem;
 	MenuItemImage *psortSkillItem_l;
 	Menu* sortskillMenu;
@@ -420,7 +420,7 @@ private:
 	KuiMyMenu* KskillMenu;
 	Sprite *attackSpr_dir;
 	auxiliarySkillData auxiliaryskill[MAX_FUZHUSKILL_COUNT];
-	//������Ϣ��������������ݻ��棬������ɾ��
+	//接受信息的最大数量的数据缓存，超过将删除
 	msgListData       m_msgChannelData[MAX_MSGREV_COUNT];
 	Point           screenPoint;
 	int               mainattackSkill;
@@ -450,7 +450,7 @@ private:
 	char m_RecentPlayerName[MAX_RECENTPLAYER_COUNT][32];
 	int m_nRecentPlayerName;
 
-	char m_szSelfName[64];	//�Լ�������
+	char m_szSelfName[64];	//自己的名字
 	int  AddRecentPlayer(const char* szName);
 	void ReplaceSpecialName(char* szDest, uint32_t nDestSize, char* szSrc);
 	int  GetChannelIndex(const char* pTitle);
@@ -468,8 +468,8 @@ private:
 		return false;
 	}
 #define SECOND_AUTODELMSG 20000
-	unsigned int	m_uAutoDelMsgInterval;	//�Զ�ɾ����Ϣ�ļ��ʱ�䣬��λ����
-	unsigned int	m_uLastDelMsgTime;		//�ϴ�ɾ����Ϣʱ��ʱ��
+	unsigned int	m_uAutoDelMsgInterval;	//自动删除消息的间隔时间，单位毫秒
+	unsigned int	m_uLastDelMsgTime;		//上次删除消息时的时间
 	unsigned int    __pingTime;
 	unsigned int    m_uLastSwitchTime;
 	unsigned int    m_recontnetTime;

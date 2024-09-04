@@ -72,8 +72,8 @@ Kuiduan * Kuiduan::create(char * strTitel,char *pContent,int nNum,char* pszCallb
 {
 	Kuiduan * popLayer = Kuiduan::create();
 	popLayer->m_nNeed = nNum;  //��ִ�нű����� kind  ���ǲ�ִ�нű�
-	t_sprintf(popLayer->m_Callback,"%s",pszCallback);
-	t_sprintf(popLayer->m_Error,"%s",pszError);
+	sprintf(popLayer->m_Callback,"%s",pszCallback);
+	sprintf(popLayer->m_Error,"%s",pszError);
 	popLayer->addDialogData(strTitel,pContent);
 	//���ð�ť
 	popLayer->setcoloseButton(callbackListener,callfun);
@@ -103,7 +103,7 @@ bool Kuiduan::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\�������\\����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\�������\\����.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -151,26 +151,26 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 	ParentNode_Item =Node::create();
 	ParentNode_ItemEx->addChild(ParentNode_Item);
 	ParentNode_ItemEx->addChild(ParentNode_Give);
-	/*t_sprintf(nTempStr,strTitel);
+	/*sprintf(nTempStr,strTitel);
 	Label *ptextLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,TextHAlignment::CENTER);//Arial
 	ptextLabel->setColor(ax::Color3B::YELLOW);
 	ptextLabel->setPosition(ax::Vec2(m_size.width/2,20));
 	ParentNode_ItemEx->addChild(ptextLabel);*/
-	t_sprintf(nTempStr,pContent);
+	sprintf(nTempStr, "%s", pContent);
 	Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,12,nSize,ax::TextHAlignment::LEFT);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
 	pstrLabel->setPosition(ax::Vec2(128/2+40,m_size.height-143));
 	ParentNode_ItemEx->addChild(pstrLabel);
 
 	char ntitleStr[64];
-	t_sprintf(ntitleStr,strTitel);
+	sprintf(ntitleStr, "%s", strTitel);
 	Label *ptitLabel = Label::createWithTTF(UTEXT(ntitleStr,1).c_str(),UI_GAME_FONT_DEFAULT,12);//Arial
 	ptitLabel->setPosition(ax::Vec2(m_size.width/2,m_size.height-80));
 	ParentNode_ItemEx->addChild(ptitLabel);
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\�������3.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\�������3.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -197,7 +197,7 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\�������\\����.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\�������\\����.spr");
 	g_StrLower(nSprName);
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -246,13 +246,13 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -262,7 +262,7 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 					if (bgCur==NULL)
 						return;
 					char nItemKey[32];
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -276,7 +276,7 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -297,7 +297,7 @@ void Kuiduan::addDialogData(char * strTitel,char *pContent)
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150); //112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey = nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -367,7 +367,7 @@ void Kuiduan::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -388,7 +388,7 @@ void Kuiduan::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 	okConfirm->setPosition(ax::Vec2(-38,0));
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -413,7 +413,7 @@ void Kuiduan::setcoloseButton(Ref * callbackListener,const std::function<void(ax
 	quxiaConfirm->setPosition(ax::Vec2(m_size.width/2+38+sprite_quxia_normal->getContentSize().width,-30));
 	//Point bgSpritePoint = ParentNode_ItemEx->getPosition();
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\zenglibtn.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\zenglibtn.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -443,18 +443,18 @@ void Kuiduan::zhengCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ!","��ʾ:");
+		messageBox("��ѡ��һ����Ʒ!","��ʾ:");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("����Ʒ��������","��ʾ:");
+		messageBox("����Ʒ��������","��ʾ:");
 #else
-		ccMessageBox(UTEXT("����Ʒ��������",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("����Ʒ��������",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -471,9 +471,9 @@ void Kuiduan::zhengCallBackFunc(Ref * pSender)
 	{//�������
 		//nBakChickTime = nCurChicktime;
 #ifdef WIN32
-		ccMessageBox("�����̫Ƶ����","��ʾ:");
+		messageBox("�����̫Ƶ����","��ʾ:");
 #else
-		ccMessageBox(UTEXT("�����̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("�����̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -515,7 +515,7 @@ void Kuiduan::okCallBackFunc(Ref * pSender)
 		}
 		/*for (int i = 0;i <MAX_GIVE_COUNT;i++)
 		{
-			t_sprintf(ngiveKey,"key_%d",i+1);
+			sprintf(ngiveKey,"key_%d",i+1);
 			std::string _giveKey =ngiveKey;
 			if (i < m_giveNum && m_giveItemData[_giveKey].uId>0 && m_giveItemData[_giveKey].uId<MAX_ITEM)
 			{
@@ -570,18 +570,18 @@ void Kuiduan::btnCallBackFunc_fangzhi(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ!","��ʾ");
+		messageBox("��ѡ��һ����Ʒ!","��ʾ");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("����Ʒ���ܷ���","��ʾ");
+		messageBox("����Ʒ���ܷ���","��ʾ");
 #else
-		ccMessageBox(UTEXT("����Ʒ���ܷ���",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("����Ʒ���ܷ���",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		return;
 	}
@@ -595,9 +595,9 @@ void Kuiduan::btnCallBackFunc_fangzhi(Ref * pSender)
 	if (nBakChickTime>0 && nCurChicktime-nBakChickTime<=2)
 	{//�������
 #ifdef WIN32
-		ccMessageBox("���õ�̫Ƶ����","��ʾ:");
+		messageBox("���õ�̫Ƶ����","��ʾ:");
 #else
-		ccMessageBox(UTEXT("���õ�̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("���õ�̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -625,18 +625,18 @@ void Kuiduan::btnCallBackFunc_quxia(Ref * pSender)
 	if  (inCurGiveItemKey=="" || m_giveItemData.count(inCurGiveItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ!","��ʾ:");
+		messageBox("��ѡ��һ����Ʒ!","��ʾ:");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_giveItemData[inCurGiveItemKey].uId<=0 || m_giveItemData[inCurGiveItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("����Ʒ����ȡ��","��ʾ:");
+		messageBox("����Ʒ����ȡ��","��ʾ:");
 #else
-		ccMessageBox(UTEXT("����Ʒ����ȡ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("����Ʒ����ȡ��",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -653,9 +653,9 @@ void Kuiduan::btnCallBackFunc_quxia(Ref * pSender)
 	{//�������
 		//nBakChickTime = nCurChicktime;
 #ifdef WIN32
-		ccMessageBox("������̫Ƶ����","��ʾ:");
+		messageBox("������̫Ƶ����","��ʾ:");
 #else
-		ccMessageBox(UTEXT("������̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("������̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -672,8 +672,8 @@ void Kuiduan::btnCallBackFunc_quxia(Ref * pSender)
 	Obj.eContainer    = UOC_ITEM_GIVE;
 
 	/*char msg[64];
-	t_sprintf(msg,"ȡ��:x=%d,y=%d",Obj.Region.h,Obj.Region.v);
-	ccMessageBox(msg,"ȡ��");*/
+	sprintf(msg,"ȡ��:x=%d,y=%d",Obj.Region.h,Obj.Region.v);
+	messageBox(msg,"ȡ��");*/
 	if (g_pCoreShell)
 		g_pCoreShell->OperationRequest(GOI_ADDITEM_CLIENT,(uintptr_t)(&Obj),room_equipment);
 }
@@ -703,7 +703,7 @@ void Kuiduan::buttonCallBackFunc(Ref * pSender)
 		ZeroMemory(&ngiveKey,sizeof(ngiveKey));
 		for (int i = 0;i < MAX_GIVE_COUNT;i++)
 		{
-			t_sprintf(ngiveKey,"key_%d",i+1);
+			sprintf(ngiveKey,"key_%d",i+1);
 			std::string _giveKey =ngiveKey;
 			if (i < m_giveNum && m_giveItemData[_giveKey].uId>0 && m_giveItemData[_giveKey].uId<MAX_ITEM)
 			{
@@ -718,8 +718,8 @@ void Kuiduan::buttonCallBackFunc(Ref * pSender)
 			}
 		}*/
 
-		t_sprintf(pUI.m_Callback,"%s",m_Callback);  //�ص�����
-		t_sprintf(pUI.m_Error,"%s",m_Error);        //������Ϣ
+		sprintf(pUI.m_Callback,"%s",m_Callback);  //�ص�����
+		sprintf(pUI.m_Error,"%s",m_Error);        //������Ϣ
 
 		if  (g_pCoreShell)
 			g_pCoreShell->OperationRequest(GOI_GIVE_ITEM_FAIL,(uintptr_t)(&pUI),m_giveNum);
@@ -802,10 +802,10 @@ bool Kuiduan::ccTouchBegan(Touch *pTouch, Event *pEvent)
 		if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 		{////����ĳ���ܵļӳ�
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if  (nCurColorlayer)
@@ -850,18 +850,18 @@ bool Kuiduan::ccTouchBegan(Touch *pTouch, Event *pEvent)
 		if (its->second.uId>0 && its->second.uId<MAX_ITEM)
 		{////����ĳ���ܵļӳ�
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[its->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[its->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Give->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[its->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[its->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Give->getChildByName(nItemKey);
 			if  (nCurColorlayer)
 			{
-				//ccMessageBox("��ʼ���","��ʼ���");
+				//messageBox("��ʼ���","��ʼ���");
 				if (getGiveItem(nCurColorlayer,0).containsPoint(location))
 				{//������
-					//ccMessageBox("������","������");
+					//messageBox("������","������");
 					if (SkillNode)
 					{
 						//SkillNode->runAction(red);
@@ -869,15 +869,15 @@ bool Kuiduan::ccTouchBegan(Touch *pTouch, Event *pEvent)
 						its->second.nRect  = getGiveItem(nCurColorlayer,0);
 						/*char ngiveKey[32];
 						ZeroMemory(&ngiveKey,sizeof(ngiveKey));
-						t_sprintf(ngiveKey,"key_%d",its->second.nindex);
+						sprintf(ngiveKey,"key_%d",its->second.nindex);
 						std::string _giveKey =ngiveKey;*/
 						inCurGiveItemKey     =nItemKey;
 
 						Layer * sDescLayer = KuiItemdesc::create(its->second,this,CC_CALLBACK_1(Kuiduan::closeItemPadCallback, this),1);
 						m_descPadIsOpen = true;
 						/*char msg[64];
-						t_sprintf(msg,"λ��:x=%d,y=%d",its->second.DataX,its->second.DataY);
-						ccMessageBox(msg,"test");*/
+						sprintf(msg,"λ��:x=%d,y=%d",its->second.DataX,its->second.DataY);
+						messageBox(msg,"test");*/
 						//m_CurSelItemIndex = -1;//m_ItemData[i].uId;
 						//nstrCurSelItemKey =nItemKey;
 
@@ -914,7 +914,7 @@ void Kuiduan::UpdateGiveItem(KUiObjAtRegion* pItem, int bAdd)
 
 		if  (Obj.uId<=0 || Obj.uId>=MAX_ITEM)
 		{
-			ccMessageBox("itemdata is error","itemgive");
+			messageBox("itemdata is error","itemgive");
 			return;
 		}
 
@@ -929,17 +929,17 @@ void Kuiduan::UpdateGiveItem(KUiObjAtRegion* pItem, int bAdd)
 		}
 		else      //����
 		{
-			//ccMessageBox("itemdata is del","itemgive_u");
+			//messageBox("itemdata is del","itemgive_u");
 			if (pItem->Obj.uId)
 				m_giveNum--;
 			if  (m_giveNum<0)
 				m_giveNum=0;
 
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			ParentNode_Give->removeChildByName(nItemKey,true);
-			t_sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
 			nItemKey = nKey;
 			ParentNode_Give->removeChildByName(nItemKey,true);
 			m_giveItemData.erase(nItemKey);
@@ -956,7 +956,7 @@ void Kuiduan::UpdateGiveItem(KUiObjAtRegion* pItem, int bAdd)
 		}
 	}
 	else
-      ccMessageBox("itemdata is error","itemgive_u");
+      messageBox("itemdata is error","itemgive_u");
 	//	UpdateGiveItemData();
 }
 
@@ -971,11 +971,11 @@ void Kuiduan::UpdateGiveItemData()
 		if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 		{
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			ParentNode_Give->removeChildByName(nItemKey,true);
 			//nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			//SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			ParentNode_Give->removeChildByName(nItemKey,true);
@@ -1008,13 +1008,13 @@ void Kuiduan::UpdateGiveItemData()
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1025,7 +1025,7 @@ void Kuiduan::UpdateGiveItemData()
 						return;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Give->getChildByName(nKey);
 					if (!nItemSpr)
@@ -1039,7 +1039,7 @@ void Kuiduan::UpdateGiveItemData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1052,7 +1052,7 @@ void Kuiduan::UpdateGiveItemData()
 					//��ʼ������
 					/*char ngiveKey[32];
 					ZeroMemory(&ngiveKey,sizeof(ngiveKey));
-					t_sprintf(ngiveKey,"key_%d",i+1);
+					sprintf(ngiveKey,"key_%d",i+1);
 					std::string _giveKey =ngiveKey;*/
 					m_giveItemData[nKey].uGenre = pObjs[i].Obj.uGenre;
 					m_giveItemData[nKey].uId    = pObjs[i].Obj.uId;
@@ -1064,7 +1064,7 @@ void Kuiduan::UpdateGiveItemData()
 					m_giveItemData[nKey].nGenkind = UOC_ITEM_GIVE;
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Give->getChildByName(nKey);
@@ -1130,7 +1130,7 @@ void Kuiduan::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 
 		if  (Obj.uId<=0 || Obj.uId>=MAX_ITEM)
 		{
-			//ccMessageBox("��������","��Ʒ");
+			//messageBox("��������","��Ʒ");
 			return;
 		}
 
@@ -1152,10 +1152,10 @@ void Kuiduan::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 				m_itemNum=0;
 
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
-			t_sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
 			nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
 			m_ItemData.erase(nItemKey);
@@ -1179,11 +1179,11 @@ void Kuiduan::UpdateItemData()
 	   if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 	   {////����ĳ���ܵļӳ�
 		   char nKey[32];
-		   t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 		   std::string nItemKey = nKey;
 		   ParentNode_Item->removeChildByName(nItemKey,true);
 		   //nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-		   t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 		   nItemKey = nKey;
 		   //SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 		   ParentNode_Item->removeChildByName(nItemKey,true);
@@ -1216,13 +1216,13 @@ void Kuiduan::UpdateItemData()
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1233,7 +1233,7 @@ void Kuiduan::UpdateItemData()
 						return;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -1247,7 +1247,7 @@ void Kuiduan::UpdateItemData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1268,7 +1268,7 @@ void Kuiduan::UpdateItemData()
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -1322,7 +1322,7 @@ void Kuiduan::UpdateItemData()
 
 void Kuiduan::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 		char nPointCount[32];
@@ -1330,12 +1330,12 @@ void Kuiduan::update(float delta)
 		m_nXu    = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_XU, 0, 0);
 		if (pMoneyLabel)
 		{
-			t_sprintf(nPointCount,"%d",m_nMoney);
+			sprintf(nPointCount,"%d",m_nMoney);
 			pMoneyLabel->setString(nPointCount);
 		}
 		if  (pXuLabel)
 		{
-			t_sprintf(nPointCount,"%d",m_nXu);
+			sprintf(nPointCount,"%d",m_nXu);
 			pXuLabel->setString(nPointCount);
 		}
 		//��չ�俪�ؼ��
@@ -1355,7 +1355,7 @@ void Kuiduan::update(float delta)
 					   continue;
 
 				   char nItemKey[32];
-				   t_sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
+				   sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
 				   std::string nKey =nItemKey;
 				   Sprite *nTempSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 				   if  (nTempSpr)
@@ -1364,7 +1364,7 @@ void Kuiduan::update(float delta)
 					   if  (stuckCountlabel)
 					   {
 						   char nCount[32];
-						   t_sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
+						   sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
 						   stuckCountlabel->setString(nCount);
 					   }
 				   }
@@ -1390,13 +1390,13 @@ int Kuiduan::AddGiveObject(KUiDraggedObject* pObject, int nindex)
 			char nItemSprPath[256];
 			ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 			if  (Item[pObject->uId].GetImagePath())
-				t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+				sprintf(nItemSprPath, "%s", Item[pObject->uId].GetImagePath());
 			else
-				t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+				sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 			if  (nItemSprPath[0])
 			{
-				//t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+				//sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
 				g_StrLower(nItemSprPath);
 				int m_nWidth,m_nHeight,nFrams;
 				Texture2D *bgCur = NULL;
@@ -1407,7 +1407,7 @@ int Kuiduan::AddGiveObject(KUiDraggedObject* pObject, int nindex)
 					return false;
 				char nItemKey[32];
 				ZeroMemory(&nItemKey,sizeof(nItemKey));
-				t_sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
+				sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
 				std::string nKey =nItemKey;
 				Sprite *nItemSpr = (Sprite *)ParentNode_Give->getChildByName(nKey);
 				if (!nItemSpr)
@@ -1421,7 +1421,7 @@ int Kuiduan::AddGiveObject(KUiDraggedObject* pObject, int nindex)
 					if  (Item[pObject->uId].GetGenre()!=item_equip && Item[pObject->uId].IsStack())
 					{//����װ�� �ɵ�����Ʒ
 						char stack[32];
-						t_sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
+						sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
 						Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 						stuckCountlabel->setColor(ax::Color3B::YELLOW);
 						stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1434,7 +1434,7 @@ int Kuiduan::AddGiveObject(KUiDraggedObject* pObject, int nindex)
 				//��ʼ������
 				/*char ngiveKey[32];
 				ZeroMemory(&ngiveKey,sizeof(ngiveKey));
-				t_sprintf(ngiveKey,"key_%d",nindex);
+				sprintf(ngiveKey,"key_%d",nindex);
 				std::string _giveKey =ngiveKey;*/
 				m_giveItemData[nKey].uGenre = pObject->uGenre;
 				m_giveItemData[nKey].uId    = pObject->uId;
@@ -1446,7 +1446,7 @@ int Kuiduan::AddGiveObject(KUiDraggedObject* pObject, int nindex)
 				m_giveItemData[nKey].nGenkind = UOC_ITEM_GIVE;  //����Я��
 
 				Color4B color(112, 128, 144, 150);//112, 128, 144
-				//t_sprintf(nItemKey,"color_%d",i+1);
+				//sprintf(nItemKey,"color_%d",i+1);
 				strcat(nItemKey,"_color");
 				nKey =nItemKey;
 				LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Give->getChildByName(nKey);
@@ -1514,13 +1514,13 @@ int Kuiduan::AddObject(KUiDraggedObject* pObject, int nCount)
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObject->uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObject->uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1531,7 +1531,7 @@ int Kuiduan::AddObject(KUiDraggedObject* pObject, int nCount)
 						return false;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -1545,7 +1545,7 @@ int Kuiduan::AddObject(KUiDraggedObject* pObject, int nCount)
 						if  (Item[pObject->uId].GetGenre()!=item_equip && Item[pObject->uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1566,7 +1566,7 @@ int Kuiduan::AddObject(KUiDraggedObject* pObject, int nCount)
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);

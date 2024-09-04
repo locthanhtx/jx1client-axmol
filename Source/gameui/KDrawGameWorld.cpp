@@ -54,11 +54,11 @@ void KDrawGameWorld::StartUp()
 //�滭�߳�
 void KDrawGameWorld::Run()
 {
-	//ccMessageBox("�滭�߳�����","�滭�߳�����");
-	/*unsigned long g_nServiceLoop=0;
+	//messageBox("�滭�߳�����","�滭�߳�����");
+	/*unsigned int g_nServiceLoop=0;
 	while(true)
 	{
-		if(g_GameWorld && m_bIsPlayerInGame) 
+		if(g_GameWorld && m_bIsPlayerInGame)
 		{//��� ���ӽڵ�
 		  if (ParentNode_npc && ParentNode_npc->getChildrenCount())
 		  {
@@ -70,8 +70,8 @@ void KDrawGameWorld::Run()
 				{
 					int nNpcIndex = ((Node*)temp)->getTag();
 					//char msg[64]={0};
-					//t_sprintf(msg,"NPC:%d",nNpcIndex);
-					//ccMessageBox(msg,"KDrawGameWorld");
+					//sprintf(msg,"NPC:%d",nNpcIndex);
+					//messageBox(msg,"KDrawGameWorld");
 					//if  (nNpcIndex>0)
 						//Npc[nNpcIndex].Paint();
 				}
@@ -129,8 +129,8 @@ void  KDrawGameWorld::SetGameWorlNode(Node * ngameNode,int nKind)
 void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitives, unsigned int uGenre, int bpartNo,int nOrDer)
 {//ֻ������Ļ滭
 	/*char msg[256]={0};//�߳��ڲ������������ʾ
-	t_sprintf(msg,"index:%d,nPos:%d,uGenre:%d,partNo:%d\n Path:%s",nNpcIndex,nPos,uGenre,bpartNo,pPrimitives[nPos].szImage);
-	//ccMessageBox(msg,"DrawPrimitives");
+	sprintf(msg,"index:%d,nPos:%d,uGenre:%d,partNo:%d\n Path:%s",nNpcIndex,nPos,uGenre,bpartNo,pPrimitives[nPos].szImage);
+	//messageBox(msg,"DrawPrimitives");
 	DrawInfoLabel->setString(msg);*/
 	//return;
 
@@ -138,10 +138,10 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 		return;
 
 	if  (pPrimitives[nPos].szImage[0] && nNpcIndex>0 && Npc[nNpcIndex].m_Kind==kind_player)
-	{   
+	{
 		char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,pPrimitives[nPos].szImage);
+		sprintf(nSprName, "%s", pPrimitives[nPos].szImage);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -149,7 +149,7 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 		char nSprFilePath[64]={0};
 		ZeroMemory(nSprFilePath,sizeof(nSprFilePath));
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,pPrimitives[nPos].nFrame);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,pPrimitives[nPos].nFrame);
 
 		switch(uGenre)
 		{
@@ -188,7 +188,7 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 					{//����
 						if ((bgCur = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))==NULL)
 						     bgCur = _getinidata.getinidata_one(nSprName,pPrimitives[nPos].nFrame,&m_nWidth,&m_nHeight,&nFrams);
-						
+
 						if (bgCur)
 						{//�޸ľ��������
 							Sprite * nQutiSpr = (Sprite *)(ParentNode_npc->getChildByTag(nNpcIndex)->getChildByTag(UI_EQ_PART_BOBY));
@@ -204,7 +204,7 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 					break;
 				case 6:
 					{//����
-						//ccMessageBox(nSprName,"DrawPrimitives5");
+						//messageBox(nSprName,"DrawPrimitives5");
 						if ((bgCur = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))==NULL)
 							bgCur = _getinidata.getinidata_one(nSprName,pPrimitives[nPos].nFrame,&m_nWidth,&m_nHeight,&nFrams);
 						if (bgCur)
@@ -218,12 +218,12 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 							//nPartSpr->setPosition(ax::Vec2(1,33));
 						}
 
-						
+
 					}
 					break;
 				case 7:
 					{//����
-						//ccMessageBox(nSprName,"DrawPrimitives6");
+						//messageBox(nSprName,"DrawPrimitives6");
 						if ((bgCur = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))==NULL)
 							bgCur = _getinidata.getinidata_one(nSprName,pPrimitives[nPos].nFrame,&m_nWidth,&m_nHeight,&nFrams);
 						if (bgCur)
@@ -343,11 +343,11 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 								nPartSpr->setVisible(true); //���ÿɼ�
 
 							nPartSpr->setTexture(bgCur);
-							
+
 							CCRectZero.size = bgCur->getContentSize();
 							nPartSpr->setTextureRect(CCRectZero,false,CCRectZero.size);
 							nPartSpr->setLocalZOrder(nOrDer);
-							
+
 						}
 					}
 					break;

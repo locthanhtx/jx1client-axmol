@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTrade.cpp
 // Date:	2003.02.17
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Trade Class
 //---------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ void	KTrade::SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int n
 		if (m_nTradeLock == 0)
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SELF_LOCK].c_str());
+			sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TRADE_SELF_LOCK].c_str());
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -90,7 +90,7 @@ void	KTrade::SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int n
 		if (m_nTradeLock != 0)
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SELF_UNLOCK].c_str());
+			sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TRADE_SELF_UNLOCK].c_str());
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -105,7 +105,7 @@ void	KTrade::SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int n
 		if (m_nTradeDestLock == 0)
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_LOCK].c_str(), m_szDestName);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_LOCK].c_str(), m_szDestName);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -119,7 +119,7 @@ void	KTrade::SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int n
 		if (m_nTradeDestLock != 0)
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_UNLOCK].c_str(), m_szDestName);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_UNLOCK].c_str(), m_szDestName);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -134,7 +134,7 @@ void	KTrade::SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int n
 	this->m_nTradeState = (nSelfStateOk != 0);
 	this->m_nTradeDestState = (nDestStateOk != 0);
 
-	// Í¨Öª½çÃæ°´Å¥×´Ì¬¸Ä±ä
+	// Í¨Öªï¿½ï¿½ï¿½æ°´Å¥×´Ì¬ï¿½Ä±ï¿½
 	CoreDataChanged(GDCNI_TRADE_OPER_DATA, 0, 0);
 }
 

@@ -10,9 +10,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 
 //#define FIGHT_SKILL_COUNT_PER_PAGE	25
 //#define ITEM_CELL_SIZE	28   //ÿ�����ӵĸ߶ȺͿ��
@@ -75,7 +75,7 @@ private:
 	//int  m_AnswerCount;
 	POINT m_StartPos; //���ӿ�ʼ��ƫ�� ���ƫ�� ���Ͻ�(0,0)
 	Sprite *proSpr;
-	unsigned long starttime;
+	unsigned int starttime;
 	char ntitle[32];
 
 };

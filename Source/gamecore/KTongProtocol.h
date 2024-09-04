@@ -2,7 +2,7 @@
 //	�ļ���		��	KTongProtocol.h
 //	������		��	лï�� (Hsie)
 //	����ʱ��	��	2003-08-13 15:12:19
-//	��������	��	
+//	��������	��
 //
 // -------------------------------------------------------------------------
 #ifndef __KTONGPROTOCOL_H__
@@ -15,7 +15,7 @@
 
 //---------------------------- tong protocol ----------------------------
 // relay server �յ��� game server ��Э��
-enum 
+enum
 {
 	enumC2S_TONG_CREATE = 0,			// �������
 	enumC2S_TONG_ADD_MEMBER,			// ��ӳ�Ա
@@ -39,7 +39,7 @@ enum
 	enumC2S_TONG_NUM,					// ����
 };
 //���ð����Ϣ����Э��
-enum 
+enum
 {
 	    enumC2S_TONG_SET_LEVEL = 0,			//���õȼ�
 		enumC2S_TONG_SET_MAP,
@@ -89,7 +89,7 @@ enum
 //-------------------------- tong protocol end --------------------------
 
 //friend protocol
-enum 
+enum
 {
 	friend_c2c_askaddfriend,	//�����Ϊ����
 	friend_c2c_repaddfriend,	//ͬ��/�ܾ���Ϊ����
@@ -218,7 +218,7 @@ struct FRIEND_SYNCASSOCIATE : EXTEND_HEADER
 struct EXTEND_PASSTOSOMEONE : EXTEND_HEADER
 {
 	UINT			nameid;
-	uint32_t	lnID;
+	unsigned int	lnID;
 	WORD			datasize;
 };
 

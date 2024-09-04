@@ -84,7 +84,7 @@ bool Kuilaotou::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\������ϵͳ\\������\\�������.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\������ϵͳ\\������\\�������.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -129,7 +129,7 @@ void Kuilaotou::addDialogData()
 		strInfo.GetString("StringQuest", "GetGift","", nTempStr, sizeof(nTempStr));
 		strInfo.Clear();
 	}
-	//t_sprintf(nTempStr,pContent);
+	//sprintf(nTempStr,pContent);
 	Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,TextHAlignment::CENTER);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
 	pstrLabel->setPosition(ax::Vec2(nSize.width/2+30,m_size.height-100));
@@ -163,7 +163,7 @@ void Kuilaotou::setcoloseButton(Ref * callbackListener,const std::function<void(
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Quest\\ExpBtn.spr");
+	sprintf(nSprName,"\\spr\\Quest\\ExpBtn.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -182,7 +182,7 @@ void Kuilaotou::setcoloseButton(Ref * callbackListener,const std::function<void(
 	ExpBtnConfirm->setTag(1);
 	//���
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Quest\\Random.spr");
+	sprintf(nSprName,"\\spr\\Quest\\Random.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -193,7 +193,7 @@ void Kuilaotou::setcoloseButton(Ref * callbackListener,const std::function<void(
 	RandomConfirm->setTag(2);
 	//����
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Quest\\Money.spr");
+	sprintf(nSprName,"\\spr\\Quest\\Money.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -284,7 +284,7 @@ bool Kuilaotou::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void Kuilaotou::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}

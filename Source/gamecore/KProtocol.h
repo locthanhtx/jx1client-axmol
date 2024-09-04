@@ -17,7 +17,7 @@ USING_NS_AX;
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
 typedef struct _GUID {
-	uint32_t  Data1;
+	unsigned int  Data1;
 	unsigned short Data2;
 	unsigned short Data3;
 	unsigned char  Data4[8];
@@ -511,7 +511,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	uint32_t  nNpcDwid;
+	unsigned int  nNpcDwid;
 } PLAYER_REQ_COMMAND;
 
 typedef struct
@@ -862,7 +862,7 @@ typedef struct
 	BYTE	m_btPlace;			// ҩƷλ��
 	BYTE	m_btX;				// ҩƷλ��
 	BYTE	m_btY;				// ҩƷλ��
-	uint32_t m_nItemID;		// ��Ʒid
+	unsigned int m_nItemID;		// ��Ʒid
 	int     m_destRoom;         // Ŀ������
 	int     m_ItemWidth;
 	int     m_ItemHigth;
@@ -1198,7 +1198,7 @@ typedef struct
 {
 	BYTE			ProtocolType;		// Э������
 	BOOL            m_IsLogin;
-	uint32_t    m_clientKey;
+	unsigned int    m_clientKey;
 }CLIENT_SYNC_END;
 
 typedef struct
@@ -1658,8 +1658,8 @@ struct tagEnterGame2 : public EXTEND_HEADER
 	char szAccountName[_NAME_LEN];
 	char szCharacterName[_NAME_LEN];
 	UINT	dwNameID;
-	uint32_t	lnID;
-	uint32_t    nSelSerVer;
+	unsigned int	lnID;
+	unsigned int    nSelSerVer;
 };
 
 /*
@@ -1746,8 +1746,8 @@ typedef struct
 struct TProcessData
 {
 	unsigned char	nProtoId;
-	uint32_t	nDataLen;//TRoleNetMsgʱ��ʾ��Block��ʵ�����ݳ���,TProcessDataʱ��ʾStream��ʵ�����ݳ��� size_t
-	uint32_t	ulIdentity;//long
+	unsigned int	nDataLen;//TRoleNetMsgʱ��ʾ��Block��ʵ�����ݳ���,TProcessDataʱ��ʾStream��ʵ�����ݳ��� size_t
+	unsigned int	ulIdentity;//long
 	bool			bLeave;
 	UINT            uSelServer;     //��ǰ����½�ķ�����
 	char			pDataBuffer[1]; //ʵ�ʵ�����
@@ -1758,7 +1758,7 @@ struct TCheckNameData
 {
 	unsigned char	nProtoId;
 	UINT			nDataLen;//TRoleNetMsgʱ��ʾ��Block��ʵ�����ݳ���,TProcessDataʱ��ʾStream��ʵ�����ݳ���
-	uint32_t	ulIdentity;
+	unsigned int	ulIdentity;
 	char            nAccName[32];   //�˺���
 	char            nRoleName[32];
 };
@@ -2391,7 +2391,7 @@ typedef struct
 	BYTE	ProtocolType;
 	WORD	wSize;
 	UINT	nameid;
-	uint32_t lnID;
+	unsigned int lnID;
 	WORD	wChatLength;
 } CHAT_SPECMAN;
 
@@ -3413,7 +3413,7 @@ void SendClientCmdLianCount(UINT dwId);
 void SendClientCmdShopName(UINT dwID);
 void SendClientCmdSysShop(int nKind,int inParma=0,int inParmb=0,int inParmc=0,int inParmd=0);
 void SendClientCmdLiXian();
-void SendClientCmdGive(uint32_t uId, int nItemNum, int nKind, char* sCallback,char* sError,int nPrice=0);
+void SendClientCmdGive(unsigned int uId, int nItemNum, int nKind, char* sCallback,char* sError,int nPrice=0);
 void SendClientPKValue(int nstt);
 
 void SendClientGuZi(int nMapID,int dianshu,int nNetIndexid,int ZuoWeiHao);
@@ -3423,7 +3423,7 @@ void SendClientAutoPlay(int nstt,int cishu,int nIsOpen);
 void SendClientLianJie(char*nPLname,int nItemDWid);
 void SendClientCmdJinMai(int nType,int nLevel);
 void SendClientCmdGua(int nGuaType);
-void SendClientCmdRong(uint32_t uId, int nItemNum, int nKind);
+void SendClientCmdRong(unsigned int uId, int nItemNum, int nKind);
 void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal=0);
 
 void SendClientAddItem(void* pInfo); //KUiObjAtContRegion *pInfo   //û���õ�

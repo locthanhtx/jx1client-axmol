@@ -10,7 +10,7 @@ public:
 	virtual int				GetSkillId() = 0;
 	virtual const char *	GetSkillName() = 0;
 	virtual int				GetSkillStyle() =0;
-	virtual void			LoadSkillLevelData(uint32_t  ulLevel, int nParam) = 0;
+	virtual void			LoadSkillLevelData(unsigned int  ulLevel, int nParam) = 0;
 	virtual BOOL			CanCastSkill  (int nLauncher, int &nParam1, int &nParam2) const= 0;//
 	virtual int 			NewCanCastSkill  (int nLauncher, int nParam1, int nParam2) = 0;//
 	virtual NPCATTRIB		GetSkillCostType() const= 0;
@@ -30,7 +30,7 @@ public:
 	virtual int			    GetDelayPerCast() const{return 180;};    //���ܽⶳ����ӿ�
 	virtual int			    GetHorsePerCast() const{return 180;};    //��������ⶳ����ӿ�
 	virtual BOOL			IsPhysical()const{return FALSE;};
-	virtual uint32_t	GetSkillLevelUpScriptId()const{return 0;};
+	virtual unsigned int	GetSkillLevelUpScriptId()const{return 0;};
 	virtual void			DrawSkillIcon(int x, int y, int Width, int Height,int nParam=-1) = 0;
 	virtual std::string		getIconPath() = 0;
 };

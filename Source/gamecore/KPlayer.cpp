@@ -127,15 +127,15 @@ void	KPlayer::Release()
 	m_nTempLucky_p=0;
 	m_btChatSpecialChannel = 0;
 	m_nUpExp = 0;
-	
+
 	m_nExp = 0;
 	m_nNextLevelExp = PLAYER_LEVEL_1_EXP;
 	m_bExchangeServer = FALSE;
 	m_CUnlocked = 0;  //Ĭ�Ͻ���
-	
+
 	m_dwLeadExp = 0;
 	m_dwLeadLevel = 1;
-	
+
 	m_nPeapleIdx = 0;
 	m_nObjectIdx = 0;
 //	m_bWaitingPlayerFeedBack = false;
@@ -180,7 +180,7 @@ void	KPlayer::Active()
 		{
 			if ( m_cTeam.m_dwApplyTimer == 0 )
 			{
-				m_cTeam.m_nApplyCaptainID = 0;	
+				m_cTeam.m_nApplyCaptainID = 0;
 			}
 			else
 			{
@@ -220,14 +220,14 @@ void	KPlayer::Active()
 			}
 		}
 	}
-	
+
 
 	++m_nSendMoveFrames;
 	// ��ɱ����ʱ
 	this->m_cPK.Active();
 
 	//this->m_cTong.Active();            //����ѭ����ս
-	
+
 
 }
 
@@ -246,7 +246,7 @@ void	KPlayer::ProcessMsg(KWorldMsgNode *lpMsg)
 		break;
 	default:
 		break;
-	}	
+	}
 }
 */
 
@@ -265,20 +265,20 @@ void KPlayer::ProcessInputMsg(UINT uMsg, WPARAM wParam, LPARAM lParam)
 		else
 			OnMouseMove(LOWORD(lParam), HIWORD(lParam));
 		break;
-		
+
 	case WM_LBUTTONUP:   //�����
 		OnButtonUp(LOWORD(lParam), HIWORD(lParam), button_left);
 		break;
-		
+
 	case WM_LBUTTONDOWN: //�������
-		OnButtonDown(LOWORD(lParam), HIWORD(lParam), 
+		OnButtonDown(LOWORD(lParam), HIWORD(lParam),
 			(wParam & ~(MK_LBUTTON | MK_MBUTTON | MK_RBUTTON)), button_left);
 		break;
-		
+
 	case WM_RBUTTONUP:   //�Ҽ���
 		OnButtonUp(LOWORD(lParam), HIWORD(lParam), button_right);
-		break;	
-		
+		break;
+
 	case WM_RBUTTONDOWN: //�Ҽ�����
 		OnButtonDown(LOWORD(lParam), HIWORD(lParam),
 			(wParam & ~(MK_LBUTTON | MK_MBUTTON | MK_RBUTTON)), button_right);
@@ -290,7 +290,7 @@ void KPlayer::OnButtonDown(int x,int y, int Key, MOUSE_BUTTON nButton)
 {
 	m_MouseDown[(int)nButton] = TRUE;
 
-	FindSelectNpc(x, y, relation_all);	 //��ֵ���� NPC 
+	FindSelectNpc(x, y, relation_all);	 //��ֵ���� NPC
 	FindSelectObject(x, y);	             //��ֵ���� ��Ʒ
 	//	Npc[m_nIndex].m_nPeopleIdx = m_nPeapleIdx;
 	ProcessMouse(x, y, Key, nButton);
@@ -321,14 +321,14 @@ void KPlayer::OnMouseMove(int x,int y)
 		if (Npc[m_nPeapleIdx].m_Kind == kind_dialoger)
 		{
 			//char nMsg[64];
-			//t_sprintf(nMsg,"��ʾ: %s �����..", Npc[m_nPeapleIdx].Name);
+			//sprintf(nMsg,"��ʾ: %s �����..", Npc[m_nPeapleIdx].Name);
 			//m_ItemList.ClientShowMsg(nMsg);
 			CoreDataChanged(GDCNI_SWITCH_CURSOR, NULL, MOUSE_CURSOR_DIALOG);
 		}
 		else if (Npc[m_nPeapleIdx].m_Kind == kind_player && Npc[m_nPeapleIdx].m_BaiTan)
 		{
 			//char nMsg[64];
-			//t_sprintf(nMsg,"��ʾ: %s ��̯��..", Npc[m_nPeapleIdx].Name);
+			//sprintf(nMsg,"��ʾ: %s ��̯��..", Npc[m_nPeapleIdx].Name);
 			//m_ItemList.ClientShowMsg(nMsg);
 			CoreDataChanged(GDCNI_SWITCH_CURSOR, NULL, MOUSE_CURSOR_DIALOG);  //�������ָ��ͼ��
 		}
@@ -339,11 +339,11 @@ void KPlayer::OnMouseMove(int x,int y)
 	}
 	else if (m_nObjectIdx)
 	{
-		if (Object[m_nObjectIdx].m_nKind == Obj_Kind_MapObj)
+		if (KObject[m_nObjectIdx].m_nKind == Obj_Kind_MapObj)
 			CoreDataChanged(GDCNI_SWITCH_CURSOR, NULL, MOUSE_CURSOR_DIALOG);
-		else if (Object[m_nObjectIdx].m_nKind == Obj_Kind_Item || Object[m_nObjectIdx].m_nKind == Obj_Kind_Money)
+		else if (KObject[m_nObjectIdx].m_nKind == Obj_Kind_Item || KObject[m_nObjectIdx].m_nKind == Obj_Kind_Money)
 			CoreDataChanged(GDCNI_SWITCH_CURSOR, NULL, MOUSE_CURSOR_PICK);
-		else if (Object[m_nObjectIdx].m_nKind == Obj_Kind_Prop)
+		else if (KObject[m_nObjectIdx].m_nKind == Obj_Kind_Prop)
 			CoreDataChanged(GDCNI_SWITCH_CURSOR, NULL, MOUSE_CURSOR_USE);
 	}
 	else
@@ -369,19 +369,19 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 	int nY = y;
 	int nZ = 0;
 	//g_ScenePlace.ViewPortCoordToSpaceCoord(nX, nY, nZ);
-	
+
 	/*	if (Key & MK_SHIFT)
 	{
 	Npc[m_nIndex].SendCommand(do_jump, nX, nY);
 	SendClientCmdJump(nX, nY);
 	return;
 }*/
-	
+
 	if (Npc[m_nIndex].IsCanInput())
 	{
 
 		int nIdx = 0;
-		
+
 		if (nButton == button_right)
 		{
 			nIdx = Npc[m_nIndex].m_SkillList.FindSame(m_nRightSkillID);
@@ -400,24 +400,24 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		return;
 	}
-	
+
 	//if ((Key & MK_SHIFT) || (nButton == button_right))  //ǿ�ƹ���
 	{
 		if (Npc[m_nIndex].m_ActiveSkillID > 0)
 		{
 			ISkill * pISkill = (KSkill *) g_SkillManager.GetSkill(Npc[m_nIndex].m_ActiveSkillID, 1);
-			if (!pISkill) 
+			if (!pISkill)
                 return;
-			
+
 			if (pISkill->IsAura())
 				return;
 			int nAttackRange = pISkill->GetAttackRadius();
-			
+
 			int nTargetIdx = 0;
 			//m_nPeapleIdx = 0;
-			//����Object / Enemy / Ally �����ȼ��ҵ���Ҫ��Ķ���id
-			
-			
+			//����KObject / Enemy / Ally �����ȼ��ҵ���Ҫ��Ķ���id
+
+
 			if (pISkill->IsTargetAlly())
 			{
 				FindSelectNpc(x, y, relation_ally);
@@ -426,7 +426,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 					nTargetIdx = m_nPeapleIdx;
 				}
 			}
-			
+
 			if (pISkill->IsTargetEnemy())
 			{
 				FindSelectNpc(x, y, relation_enemy);
@@ -436,7 +436,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 					nTargetIdx = m_nPeapleIdx;
 				}
 			}
-			
+
 			if (pISkill->IsTargetObj())
 			{
 				FindSelectObject(x, y);
@@ -452,7 +452,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 				m_nPeapleIdx = 0;
 				return;
 			}
-			
+
 			if (m_nIndex == nTargetIdx)
 			{
 				Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -464,13 +464,13 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 			{//��û�ⶳ
 				return;
 			}
-			
+
 			if (Npc[m_nIndex].m_HorseType)
 			{//����ʱ������
 				if (Npc[m_nIndex].m_SkillList.GetHorseNextCastTime(Npc[m_nIndex].m_ActiveSkillID)>0 && (Npc[m_nIndex].m_SkillList.GetHorseNextCastTime(Npc[m_nIndex].m_ActiveSkillID)>SubWorld[Npc[m_nIndex].m_SubWorldIndex].m_dwCurrentTime))
 				return;
 			} */
-		
+
 			if ((!Npc[m_nIndex].m_SkillList.CanCast(Npc[m_nIndex].m_ActiveSkillID, SubWorld[Npc[m_nIndex].m_SubWorldIndex].m_dwCurrentTime))
 				||(!Npc[m_nIndex].Cost(pISkill->GetSkillCostType() , pISkill->GetSkillCost(&Npc[m_nIndex]), TRUE)))
 			{
@@ -478,11 +478,11 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 				m_nPeapleIdx = 0;
 				return ;
 			}
-			
+
 			//�޶���ֱ�ӷ�����
 			if (!nTargetIdx)
 			{
-				Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, nX, nY);		
+				Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, nX, nY);
 				SendClientCmdSkill(Npc[m_nIndex].m_ActiveSkillID, nX, nY);
                 return ;   //�޶���ֱ���˳� ��������
 			}
@@ -497,11 +497,11 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 						return ;
 					}
 				}
-				// 
-				if (m_nIndex == nTargetIdx && pISkill->GetSkillStyle() == SKILL_SS_Missles) 
+				//
+				if (m_nIndex == nTargetIdx && pISkill->GetSkillStyle() == SKILL_SS_Missles)
 					return ;
 				Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, -1, nTargetIdx);
-				// Send to Server		
+				// Send to Server
 				SendClientCmdSkill(Npc[m_nIndex].m_ActiveSkillID, -1, Npc[nTargetIdx].m_dwID);
 			}
 		}
@@ -509,7 +509,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		return;
 	}
-	
+
 	if (Key == 0 )
 	{//û�м��̼�ʱ
 		int nRelation = NpcSet.GetRelation(m_nIndex, m_nPeapleIdx);
@@ -517,7 +517,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 		{
 			Npc[m_nIndex].m_nPeopleIdx = m_nPeapleIdx;
 		}
-		
+
 		if (m_nSendMoveFrames >= defMAX_PLAYER_SEND_MOVE_FRAME)
 		{
 			m_nPickObjectIdx = m_nObjectIdx;
@@ -539,7 +539,7 @@ void KPlayer::ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton)
 		}
 		return;
 	}
-	
+
 	/*	if (Key & MK_ALT)
 	{
 	Npc[m_nIndex].SendCommand(do_jump, nX, nY);
@@ -556,11 +556,11 @@ void KPlayer::Walk(int nDir, int nSpeed)
 	int	nSubWorld = Npc[m_nIndex].m_SubWorldIndex;
 	int	nRegion = Npc[m_nIndex].m_RegionIndex;
 	int	nX, nY;
-	
+
 	SubWorld[nSubWorld].NewMap2Mps(nRegion, nMapX, nMapY, nOffX, nOffY, &nX, &nY);
 
 	SubWorld[nSubWorld].GetMps(&nX, &nY, nSpeed * 2, nDir);
-	
+
 	if (m_RunStatus)
 	{
 		Npc[m_nIndex].SendSerCommand(do_run, nX, nY);
@@ -583,7 +583,7 @@ void KPlayer::TurnLeft()
 	if (Npc[m_nIndex].m_Doing != do_stand &&
 		Npc[m_nIndex].m_Doing != do_sit)
 		return;
-	
+
 	if (Npc[m_nIndex].m_Dir > 8)
 		Npc[m_nIndex].m_Dir -= 8;
 	else
@@ -595,7 +595,7 @@ void KPlayer::TurnRight()
 	if (Npc[m_nIndex].m_Doing != do_stand &&
 		Npc[m_nIndex].m_Doing != do_sit)
 		return;
-	
+
 	if (Npc[m_nIndex].m_Dir < MAX_NPC_DIR - 9)
 		Npc[m_nIndex].m_Dir += 8;
 	else
@@ -607,7 +607,7 @@ void KPlayer::TurnBack()
 	if (Npc[m_nIndex].m_Doing != do_stand &&
 		Npc[m_nIndex].m_Doing != do_sit)
 		return;
-	
+
 	if (Npc[m_nIndex].m_Dir < MAX_NPC_DIR / 2)
 		Npc[m_nIndex].m_Dir += MAX_NPC_DIR / 2;
 	else
@@ -617,7 +617,7 @@ void KPlayer::TurnBack()
 void KPlayer::FindSelectNpc(int x, int y, int nRelation)
 {
 	int	nNpcIdx = 0;
-	
+
 	    nNpcIdx = NpcSet.SearchNpcAt(x, y, nRelation, 16);
 
 	if  (nNpcIdx>0)
@@ -628,7 +628,7 @@ void KPlayer::FindSelectNpc(int x, int y, int nRelation)
 		{
 			m_nPeapleIdx  = nNpcIdx;
 			m_nImageNpcID = nNpcIdx;
-		} 
+		}
 	}
 	else
 		m_nPeapleIdx = 0;
@@ -637,7 +637,7 @@ void KPlayer::FindSelectNpc(int x, int y, int nRelation)
 void KPlayer::FindSelectObject(int x, int y)
 {
 	int	nObjIdx = 0;
-	
+
 	nObjIdx = ObjSet.SearchObjAt(x, y, 40);
 	if (nObjIdx)
 		m_nObjectIdx = nObjIdx;
@@ -658,7 +658,7 @@ int nIdx = NpcSet.SearchID(dwNpcID);
 		strcpy(Npc[nIdx].m_szChatBuffer, (char *)(pProtocol+6));
 		Npc[nIdx].m_nCurChatTime = NPC_SHOW_CHAT_TIME_LENGTH;
 		}
-		
+
 		  return (7 + nSize);	// need test
 	*/
 	return 0;
@@ -680,24 +680,24 @@ BOOL	KPlayer::NewPlayerGetBaseAttribute(int Series)
 {
 	if (Series < series_metal || Series > series_earth)
 		return FALSE;
-	
+
 	Npc[m_nIndex].SetSeries(Series);
-	
+
 	m_nStrength = PlayerSet.m_cNewPlayerAttribute.m_nStrength[Series];
 	m_nDexterity = PlayerSet.m_cNewPlayerAttribute.m_nDexterity[Series];
 	m_nVitality = PlayerSet.m_cNewPlayerAttribute.m_nVitality[Series];
 	m_nEngergy = PlayerSet.m_cNewPlayerAttribute.m_nEngergy[Series];
 	m_nLucky = PlayerSet.m_cNewPlayerAttribute.m_nLucky[Series]; //����ֵ
 	m_nUpExp = 0;  //ɱ�����˻�þ�������
-	
+
 	m_nCurStrength = m_nStrength;
 	m_nCurDexterity = m_nDexterity;
 	m_nCurVitality = m_nVitality;
 	m_nCurEngergy = m_nEngergy;
 	CalcCurLucky();
-	
+
 	m_cFaction.SetSeries(Series);
-	
+
 	return TRUE;
 }
 
@@ -762,15 +762,15 @@ void	KPlayer::ChangeCurDexterity(int nData)
 return;
 	*/
 	m_nCurDexterity += nData;
-	
+
 	int nRating = nData * 4;
 	Npc[m_nIndex].m_CurrentAttackRating += nRating;
-	
+
 	int nDefence = nData / 4;
 	Npc[m_nIndex].m_CurrentDefend += nDefence;
-	
+
 	SetNpcPhysicsDamage();
-	
+
 }
 
 
@@ -783,10 +783,10 @@ void	KPlayer::ChangeCurVitality(int nData)	    //״̬
 return;
 	*/
 	m_nCurVitality += nData;  //�⹦���Ӷ��ٵ�
-	
+
 	Npc[m_nIndex].AddCurLifeMax(PlayerSet.m_cLevelAdd.GetLifePerVitality(Npc[m_nIndex].m_Series) * nData);
 	Npc[m_nIndex].AddCurStaminaMax(PlayerSet.m_cLevelAdd.GetStaminaPerVitality(Npc[m_nIndex].m_Series) * nData);	//����
-	
+
 }
 
 //-------------------------------------------------------------------------
@@ -798,7 +798,7 @@ void	KPlayer::ChangeCurEngergy(int nData)
 return;
 	*/
 	m_nCurEngergy += nData;
-	
+
 	Npc[m_nIndex].AddCurManaMax(PlayerSet.m_cLevelAdd.GetManaPerEnergy(Npc[m_nIndex].m_Series) * nData);
 
 	SetNpcPhysicsDamage();
@@ -826,10 +826,10 @@ void	KPlayer::SetNpcPhysicsDamage()
 
 		KSkill * pOrdinSkill = (KSkill *) g_SkillManager.GetSkill(mLeftskillidex,1);
 
-		if (!pOrdinSkill) 
+		if (!pOrdinSkill)
             return;
 
-	if (m_ItemList.GetWeaponType() == equip_meleeweapon)	
+	if (m_ItemList.GetWeaponType() == equip_meleeweapon)
 	{// (��ǰװ���ǽ�������)��������
 	  /*nMinDamage = nMinDamage * (m_nCurStrength + STRENGTH_SET_DAMAGE_VALUE) / STRENGTH_SET_DAMAGE_VALUE;
 	    nMaxDamage = nMaxDamage * (m_nCurStrength + STRENGTH_SET_DAMAGE_VALUE) / STRENGTH_SET_DAMAGE_VALUE;
@@ -839,11 +839,11 @@ void	KPlayer::SetNpcPhysicsDamage()
 		   nMinDamage += m_nCurStrength/STRENGTH_SET_DAMAGE_VALUE;
 		   nMaxDamage += m_nCurStrength/STRENGTH_SET_DAMAGE_VALUE;
 		}
-		else if (Npc[m_nIndex].m_Series==1) 
+		else if (Npc[m_nIndex].m_Series==1)
 		{//ľϵ
 			if (m_ItemList.GetWeaponParticular()==1 && !pOrdinSkill->IsMagic())
 			{//��������ǵ����Ļ� ���Ǽ�����
-			   
+
 			   nMinDamage += m_nCurStrength/STRENGTH_SET_DAMAGE_VALUE;
 		       nMaxDamage += m_nCurStrength/STRENGTH_SET_DAMAGE_VALUE;
 			}
@@ -895,7 +895,7 @@ void	KPlayer::SetNpcPhysicsDamage()
 
 		Npc[m_nIndex].SetPhysicsDamage(nMinDamage,nMaxDamage);
 	}
-	else if (m_ItemList.GetWeaponType() == equip_rangeweapon)	
+	else if (m_ItemList.GetWeaponType() == equip_rangeweapon)
 	{// (��ǰװ����Զ������)����(��)
 	     /*nMinDamage = nMinDamage * (m_nCurDexterity + DEXTERITY_SET_DAMAGE_VALUE) / DEXTERITY_SET_DAMAGE_VALUE;
 	       nMaxDamage = nMaxDamage * (m_nCurDexterity + DEXTERITY_SET_DAMAGE_VALUE) / DEXTERITY_SET_DAMAGE_VALUE;
@@ -912,10 +912,10 @@ void	KPlayer::SetNpcPhysicsDamage()
 		}
 
 		Npc[m_nIndex].SetPhysicsDamage(nMinDamage,nMaxDamage);
-	
+
 	}
 	else
-	{//���� 
+	{//����
 		Npc[m_nIndex].SetPhysicsDamage(nMinDamage,nMaxDamage);
 	}
 }
@@ -926,7 +926,7 @@ void	KPlayer::SetNpcPhysicsDamage()
 void	KPlayer::SetNpcAttackRating()
 {
 	int		nRating;
-	
+
 	nRating = m_nDexterity * 4 - 28;
 	Npc[m_nIndex].SetBaseAttackRating(nRating);
 }
@@ -937,7 +937,7 @@ void	KPlayer::SetNpcAttackRating()
 void	KPlayer::SetNpcDefence()
 {
 	int		nDefence;
-	
+
 	nDefence = m_nDexterity / 4;
 	Npc[m_nIndex].SetBaseDefence(nDefence);
 }
@@ -978,7 +978,7 @@ void	KPlayer::DirectAddExp(int nExp)
 
 	if (nExp == 0 || Npc[m_nIndex].m_Level >= MAX_LEVEL)
 		return;
-	
+
     int nMaxLevel=1000;
        g_GameSetTing.GetInteger("ServerConfig","PlayerMaxLevel",1000,&nMaxLevel);
 
@@ -986,7 +986,7 @@ void	KPlayer::DirectAddExp(int nExp)
 		 return;
 
 	m_nExp += nExp;
- 
+
 }
 
 //-------------------------------------------------------------------------
@@ -1002,19 +1002,19 @@ void	KPlayer::LevelUp()
 	Npc[m_nIndex].m_Level++;
 
 	m_nNextLevelExp = PlayerSet.m_cLevelAdd.GetLevelExp(Npc[m_nIndex].m_Level);
-	
+
 	// -------------------------- �ȼ�����ʱ������������ ----------------------
 	// ����δ�������Ե�
 	m_nAttributePoint += PLAYER_LEVEL_ADD_ATTRIBUTE;   //һ������5������
 	// ����δ���似�ܵ�
 	m_nSkillPoint     += PLAYER_LEVEL_ADD_SKILL;       //һ������1�㼼�ܵ�
-	
+
 	// ��������������������ֵ��Ӱ������������������������ֵ�����أ��ȼ������Ե㣬Ӱ�쵱ǰ�������ֵ�����أ�װ�������ܡ�ҩ���ʱ����
 	LevelAddBaseLifeMax();
 	LevelAddBaseStaminaMax();
 	LevelAddBaseManaMax();
 	// Npc[m_nIndex].ResetLifeReplenish();
-	
+
 	// ������ֿ��Եı仯 �𡢱��������硢����  ԭʼ
 	Npc[m_nIndex].m_FireResist				= PlayerSet.m_cLevelAdd.GetFireResist(Npc[m_nIndex].m_Series, Npc[m_nIndex].m_Level);
 	Npc[m_nIndex].m_CurrentFireResist		= Npc[m_nIndex].m_FireResist;
@@ -1044,7 +1044,7 @@ void	KPlayer::LevelUp()
 	this->UpdataCurData();
 	SetNpcPhysicsDamage();
 	Npc[m_nIndex].m_CurrentCamp = nOldCurCamp;
-	
+
 	// ����������������ֵ����
 	Npc[m_nIndex].m_CurrentLife = Npc[m_nIndex].m_CurrentLifeMax;
 	Npc[m_nIndex].m_CurrentStamina = Npc[m_nIndex].m_CurrentStaminaMax;
@@ -1075,7 +1075,7 @@ void	KPlayer::UpdataCurData(int nIsLoign,int nUnEquip) //��������
 	ZeroMemory(&Npc[m_nIndex].m_CurrentPhysicsMagicDamageV, sizeof(KMagicAttrib));
 
 	int nCurbei=0; //,nFomoidx=Npc[m_nIndex].GetCurFuMoIdx()
-	
+
 	/*if 	(nFomoidx>-1)
 	{
 		if (Npc[m_nIndex].GetCurFoMoSkllLevel(nFomoidx)>=5) //��ȡ�񽫵�ǰ�ĵȼ�
@@ -1094,7 +1094,7 @@ void	KPlayer::UpdataCurData(int nIsLoign,int nUnEquip) //��������
 	Npc[m_nIndex].m_CurrentAttackRating	= Npc[m_nIndex].m_AttackRating;
 	Npc[m_nIndex].m_CurrentAttackSpeed	= Npc[m_nIndex].m_AttackSpeed;
 	Npc[m_nIndex].m_CurrentCastSpeed	= Npc[m_nIndex].m_CastSpeed;
-    Npc[m_nIndex].m_CurrentRunSpeed	    = Npc[m_nIndex].m_RunSpeed; 
+    Npc[m_nIndex].m_CurrentRunSpeed	    = Npc[m_nIndex].m_RunSpeed;
 	Npc[m_nIndex].m_CurrentJumpSpeed	= Npc[m_nIndex].m_JumpSpeed;
 	Npc[m_nIndex].m_CurrentVisionRadius	= Npc[m_nIndex].m_VisionRadius;
 	Npc[m_nIndex].m_CurrentWalkSpeed	= Npc[m_nIndex].m_WalkSpeed;
@@ -1148,7 +1148,7 @@ void	KPlayer::UpdataCurData(int nIsLoign,int nUnEquip) //��������
 	ZeroMemory(&Npc[m_nIndex].m_CurrentMagicFireDamage, sizeof(KMagicAttrib));
 //	ZeroMemory(&Npc[m_nIndex].m_CurrentFireDamage, sizeof(KMagicAttrib));
 	Npc[m_nIndex].m_CurrentFireEnhance	= 0;
-	
+
 	Npc[m_nIndex].m_CurrentHandEnhance	= 0;
 	Npc[m_nIndex].m_CurrentKnockBack	= 0;
 	Npc[m_nIndex].m_CurrentLifeStolen	= 0;
@@ -1200,7 +1200,7 @@ void	KPlayer::UpdataCurData(int nIsLoign,int nUnEquip) //��������
 	 Npc[m_nIndex].m_Currentlightingres	= 0;                   //=���ԶԷ��׷�:#d1-%
 	 Npc[m_nIndex].m_Currentphysicsres	= 0;                   //=���ԶԷ��շ�:#d1-%
 	 Npc[m_nIndex].m_Currentcoldres	= 0;                       //=���ԶԷ�����:#d1-%
-	 Npc[m_nIndex].m_Currentallres	= 0; 
+	 Npc[m_nIndex].m_Currentallres	= 0;
 	 Npc[m_nIndex].m_Currentnopkvalue	= 0;                   //=������PKֵ����:#d1+%
 	 Npc[m_nIndex].m_Currentbossdamage	= 0;                   //=�Իƽ�boss�����˺�<color=orange>#d1+%<color>
 	 Npc[m_nIndex].m_Currentelementsenhance	= 0;               //=����ǿ��ֵ��#d1-�㡣ǿ����������еĿ���Ч��
@@ -1220,13 +1220,13 @@ void	KPlayer::UpdataCurData(int nIsLoign,int nUnEquip) //��������
 	 Npc[m_nIndex].m_CurrentautoReviverate=0;                  //�������
 	 Npc[m_nIndex].m_CurrentAddPhysicsDamageP= 0;     // ��ǰ�������հٷֱ�
 	 Npc[m_nIndex].m_CurrentAddFireDamagev= 0;        // ��ǰ��������
-	 Npc[m_nIndex].m_CurrentAddColdDamagev= 0;        // ��ǰ��������� 
+	 Npc[m_nIndex].m_CurrentAddColdDamagev= 0;        // ��ǰ���������
 	 Npc[m_nIndex].m_CurrentAddLighDamagev= 0;        // ��ǰ�������׵�
 	 Npc[m_nIndex].m_CurrentAddPoisonDamagev= 0;      // ��ǰ�����ⶾ��
 	 Npc[m_nIndex].m_CurrentAddmagicphysicsDamage= 0; // ��ǰ�������յ�
 	 Npc[m_nIndex].m_CurrentAddmagicphysicsDamageP= 0;// ��ǰ�������հٷֱ�
 	 Npc[m_nIndex].m_CurrentAddmagicColdDamagicv= 0;  // ��ǰ�����ڱ���
-	 Npc[m_nIndex].m_CurrentAddmagicFireDamagicv= 0;  // ��ǰ�����ڻ��  
+	 Npc[m_nIndex].m_CurrentAddmagicFireDamagicv= 0;  // ��ǰ�����ڻ��
 	 Npc[m_nIndex].m_CurrentAddmagicLightDamagicv= 0; // ��ǰ�������׵�
      Npc[m_nIndex].m_CurrentAddmagicPoisonDamagicv= 0;// ��ǰ�����ڶ���
 	 Npc[m_nIndex].m_CurrentPoisondamagereturnV=0;
@@ -1262,7 +1262,7 @@ void KPlayer::ReCalcEquip()
 	//CCAssert(m_nIndex > 0 && m_nIndex < MAX_NPC,"");
 	if (m_nIndex <=0 || m_nIndex >= MAX_NPC)
 		return;
-	
+
 	for (int i = 0; i < itempart_num; ++i)
 	{
 		int nIdx = m_ItemList.m_EquipItem[i];
@@ -1282,36 +1282,36 @@ void KPlayer::ReCalcEquip()
 		if (i != itempart_horse || Npc[m_nIndex].m_bRideHorse)  //������Ĳ�λ �� ������
 		{
 			int nActiveInfo[2];
-			
+
 			ZeroMemory(nActiveInfo,sizeof(nActiveInfo));
-			
+
 			if (Item[nIdx].IsBlue())
 			{//�������װ
 				nActiveInfo[0] = 1;
 				nActiveInfo[1] = Item[nIdx].GetIsWhere();
-				
-			} 
+
+			}
 			else if  (Item[nIdx].IsPurple())
 			{//�������װ
 				nActiveInfo[0] = 2;
 				nActiveInfo[1] = Item[nIdx].GetIsWhere();
-			} 
+			}
 			else if  (Item[nIdx].IsGold())
 			{//����ǻ�װ
 				nActiveInfo[0] = 3;
 				nActiveInfo[1] = Item[nIdx].GetLevel();//�ȼ�
-			} 
+			}
 			else
 			{
 				nActiveInfo[0] = 0;
 				nActiveInfo[1] = 0;
 			}
-			
+
 			if (Item[nIdx].GetIsCanUse()==1)   //�ǿ���ʹ�õ�
-			{     
+			{
 			   Item[nIdx].ApplyMagicAttribToNPC(&Npc[m_nIndex], nActive,nActiveInfo);
 			}
-			else if (Item[nIdx].GetIsCanUse()==0 && Item[nIdx].GetGenre()==item_equip && Item[nIdx].GetDetailType()==equip_mask) 
+			else if (Item[nIdx].GetIsCanUse()==0 && Item[nIdx].GetGenre()==item_equip && Item[nIdx].GetDetailType()==equip_mask)
 			{//���
                Item[nIdx].ApplyMagicAttribToNPC(&Npc[m_nIndex], nActive,nActiveInfo);
 			}
@@ -1324,14 +1324,14 @@ void KPlayer::ReCalcState(int nIsLoign)
 {
 	if (m_nIndex <=0 || m_nIndex >= MAX_NPC)
 		return;
-	
+
 	Npc[m_nIndex].ReCalcStateEffect();        //����״̬Ч��
 
 	Npc[m_nIndex].m_SkillList.ReEnChance();   //���üӳ�
-	
+
 	if (!nIsLoign)
-	   Npc[m_nIndex].NpcNewInitJinMaiVal();   //���þ���״̬  
-	       
+	   Npc[m_nIndex].NpcNewInitJinMaiVal();   //���þ���״̬
+
 	Npc[m_nIndex].ReSkillEnhance(m_nLeftSkillID,1); //���öԹ������ܵļӳ�!
 }
 
@@ -1350,7 +1350,7 @@ void	KPlayer::AddLeadExp(int nExp)
 		// ����
 		m_dwLeadLevel = PlayerSet.m_cLeadExp.GetLevel(m_dwLeadExp, m_dwLeadLevel);
 		m_dwNextLevelLeadExp = PlayerSet.m_cLeadExp.GetLevelExp(m_dwLeadLevel);
-	}	
+	}
 }
 
 //-------------------------------------------------------------------------
@@ -1449,13 +1449,13 @@ BOOL	KPlayer::ApplyTeamOpenClose(BOOL bFlag)
 		return FALSE;
 	if (this->CheckTrading())	// ���ڽ���״̬
 		return FALSE;
-	
+
 	if (bFlag)
 	{
 		if (PlayerSet.m_cLeadExp.GetMemNumFromLevel(m_dwLeadLevel) <= g_Team[0].m_nMemNum)	// ͳ˧������
 			return FALSE;
 	}
-	
+
 	PLAYER_TEAM_OPEN_CLOSE	sTeamState;
 	sTeamState.ProtocolType = c2s_teamapplyopenclose;
 	sTeamState.m_btOpenClose = bFlag;
@@ -1475,20 +1475,20 @@ void	KPlayer::ApplyAddTeam(int nNpcIndex)
 
 	if (m_cTeam.m_nFlag)					// �Ѿ���ӣ�������������Ķ���
 		return;
-	
+
 	// ��ͬ��Ӫ���ڿ�����ӣ����ֲ��ܼ������˶��飬���˿��Լ������ֶ���
 	if (Npc[nNpcIndex].m_Camp == camp_begin && Npc[m_nIndex].m_Camp != camp_begin)
 		return;
 	//	if (Npc[nNpcIndex].m_Camp != Npc[m_nIndex].m_Camp)	// ��Ӫ��ͬ
 	//		return;
-	
+
 	// �ж�Ŀ�����ӳ��ǲ��Ǵ��ڶ��鿪��״̬
 	if (Npc[nNpcIndex].GetMenuState() != PLAYER_MENU_STATE_TEAMOPEN)
 	{
 		m_ItemList.ClientShowMsg("�Է����鴦�ڹر�״̬!");
 		return;
 	}
-	
+
 	m_cTeam.m_nApplyCaptainID = Npc[nNpcIndex].m_dwID;
 	m_cTeam.m_dwApplyTimer = MAX_APPLY_TEAM_TIME;
 	PLAYER_APPLY_ADD_TEAM	sAddTeam;
@@ -1496,9 +1496,9 @@ void	KPlayer::ApplyAddTeam(int nNpcIndex)
 	sAddTeam.m_dwTarNpcID = Npc[nNpcIndex].m_dwID;
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sAddTeam, sizeof(PLAYER_APPLY_ADD_TEAM));
-	
+
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage,strCoreInfo[MSG_TEAM_APPLY_ADD_SELF_MSG].c_str(), Npc[nNpcIndex].Name);
+	sprintf(sMsg.szMessage,strCoreInfo[MSG_TEAM_APPLY_ADD_SELF_MSG].c_str(), Npc[nNpcIndex].Name);
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 0;
@@ -1515,16 +1515,16 @@ void	KPlayer::AcceptTeamMember(DWORD dwNpcID)
 	// �ж�״̬ ��ȱ�ٶ�npc���鿪��״̬�ļ�� not end��
 	if ( !m_cTeam.m_nFlag || m_cTeam.m_nFigure != TEAM_CAPTAIN)
 	{
-		//ccMessageBox("���Ƕӳ�","error");
+		//messageBox("���Ƕӳ�","error");
 		ApplySelfTeamInfo();
 		return;
 	}
 	if (dwNpcID == 0)
 	{
-		// ccMessageBox("dwNpcID = 0","ͬ�����");
+		// messageBox("dwNpcID = 0","ͬ�����");
 		return;
 	}
-	
+
 	// ���������б�
 	int		i;
 	for (i = 0; i < MAX_TEAM_APPLY_LIST; ++i)
@@ -1542,7 +1542,7 @@ void	KPlayer::AcceptTeamMember(DWORD dwNpcID)
 	//char msg[64];
 	/*int  nindex = NpcSet.SearchID(dwNpcID);
 	if  (nindex>0)
-	   ccMessageBox(Npc[nindex].Name,"ͬ�����");*/
+	   messageBox(Npc[nindex].Name,"ͬ�����");*/
 	// �������������
 	PLAYER_ACCEPT_TEAM_MEMBER	sAcceptTeam;
 	sAcceptTeam.ProtocolType = c2s_teamacceptmember;
@@ -1591,7 +1591,7 @@ void	KPlayer::TeamKickMember(DWORD dwNpcID)
 {
 	if ( !m_cTeam.m_nFlag || m_cTeam.m_nFigure != TEAM_CAPTAIN)
 		return;
-	
+
 	PLAYER_TEAM_KICK_MEMBER	sKickOne;
 	sKickOne.ProtocolType = c2s_teamapplykickmember;
 	sKickOne.m_dwNpcID = dwNpcID;
@@ -1606,7 +1606,7 @@ void	KPlayer::ApplyTeamChangeCaptain(DWORD dwNpcID)
 {
 	if ( !m_cTeam.m_nFlag || m_cTeam.m_nFigure != TEAM_CAPTAIN)
 		return;
-	
+
 	PLAYER_APPLY_TEAM_CHANGE_CAPTAIN	sTeamChange;
 	sTeamChange.ProtocolType = c2s_teamapplychangecaptain;
 	sTeamChange.m_dwNpcID = dwNpcID;
@@ -1621,7 +1621,7 @@ void	KPlayer::ApplyTeamDismiss()
 {
 	if ( !m_cTeam.m_nFlag || m_cTeam.m_nFigure != TEAM_CAPTAIN)
 		return;
-	
+
 	PLAYER_APPLY_TEAM_DISMISS	sTeamDismiss;
 	sTeamDismiss.ProtocolType = c2s_teamapplydismiss;
 	if (g_pClient)
@@ -1661,7 +1661,7 @@ void	KPlayer::SendChat(KUiMsgParam *pMsg, char *lpszSentence)
 	int nLength = pMsg->nMsgLength;
 	if (nLength >= MAX_SENTENCE_LENGTH)
 		nLength = MAX_SENTENCE_LENGTH - 1;
-	
+
 	if (pMsg->eGenre == MSG_G_CHAT)
 	{
 		Npc[m_nIndex].SetChatInfo(pMsg->szName, lpszSentence, nLength);  //�����Լ��������� ��ֵ�� m_szChatBuffer
@@ -1701,15 +1701,15 @@ BOOL	KPlayer::ApplyAddSkillLevel(int nSkillID, int nAddPoint)
 		return FALSE;
 	if (m_nSkillPoint < nAddPoint || nAddPoint + Npc[m_nIndex].m_SkillList.GetLevel(nSkillID) >=MAX_SKILLLEVEL)
 		return FALSE;
-	
+
 	PLAYER_ADD_SKILL_POINT_COMMAND	sSkill;
 	sSkill.ProtocolType = c2s_playerapplyaddskillpoint;
 	sSkill.m_nSkillID = nSkillID;
 	sSkill.m_nAddPoint= nAddPoint; //���ӵļ��ܵ�
-	
+
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sSkill, sizeof(PLAYER_ADD_SKILL_POINT_COMMAND));
-	
+
 	return TRUE;
 }
 //�Զ����潻������,��������
@@ -1728,7 +1728,7 @@ BOOL	KPlayer::ApplyUseItem(int nItemID, ItemPos SrcPos)
 	int nRet = m_ItemList.UseItem(nItemID,SrcPos.nX,SrcPos.nY);  //ͬ��ʹ����Ʒ
 	if (nRet == 0)
 		return FALSE;
-	
+
 	if (nRet == REQUEST_EQUIP_ITEM)         //��Ʒװ��---�Ҽ���װ-����
 	{//����װ��
 	}
@@ -1740,11 +1740,11 @@ BOOL	KPlayer::ApplyUseItem(int nItemID, ItemPos SrcPos)
 		sEat.m_btPlace    = SrcPos.nPlace;
 		sEat.m_btX        = SrcPos.nX;
 		sEat.m_btY        = SrcPos.nY;
-		//ccMessageBox("ʹ����Ʒ","��ʾ:");
+		//messageBox("ʹ����Ʒ","��ʾ:");
 		if (g_pClient)
 			g_pClient->SendPackToServer(&sEat, sizeof(PLAYER_EAT_ITEM_COMMAND));
 	}
-	
+
 	return TRUE;
 }
 //�ͻ���Ҫ���ƶ���Ʒ
@@ -1779,25 +1779,25 @@ void	KPlayer::PickUpObj(int nObjIndex)
 		return;
 	if (nObjIndex <= 0)
 		return;
-	if (Object[nObjIndex].m_nKind != Obj_Kind_Item && Object[nObjIndex].m_nKind != Obj_Kind_Money)
+	if (KObject[nObjIndex].m_nKind != Obj_Kind_Item && KObject[nObjIndex].m_nKind != Obj_Kind_Money)
 		return;
-	
+
 	PLAYER_PICKUP_ITEM_COMMAND	sPickUp;
-	if (Object[nObjIndex].m_nKind == Obj_Kind_Money)
+	if (KObject[nObjIndex].m_nKind == Obj_Kind_Money)
 	{//Ǯ
 		sPickUp.ProtocolType = c2s_playerpickupitem;
-		sPickUp.m_nObjID = Object[nObjIndex].m_nID;
+		sPickUp.m_nObjID = KObject[nObjIndex].m_nID;
 		sPickUp.m_btPosType = 0;
 		sPickUp.m_btPosX = 0;
 		sPickUp.m_btPosY = 0;
 
 		 if (Npc[m_nIndex].m_AutoplayId==1)
-		 {//�һ�״̬			
+		 {//�һ�״̬
 			if (m_Autoplay.nShiQuNum>m_Autoplay.nVal && m_Autoplay.nShiQuNum%m_Autoplay.nVal==0)
 			{
-                Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-                Object[nObjIndex].m_IsHaveAttack=1;
-			    Object[nObjIndex].m_AttackerTime=18*60*10;
+                KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+                KObject[nObjIndex].m_IsHaveAttack=1;
+			    KObject[nObjIndex].m_AttackerTime=18*60*10;
 				m_Autoplay.nShiQuNum=0;
 				m_ItemList.ClientShowMsg("����:��ȡ��Ʒ��ʱ,ִ��ȡ����ȡ!");
 				return;
@@ -1812,49 +1812,49 @@ void	KPlayer::PickUpObj(int nObjIndex)
 	else
 	{//��������Ʒ
 		ItemPos	sItemPos;
-		if (FALSE == m_ItemList.SearchPosition(Object[nObjIndex].m_nItemWidth, Object[nObjIndex].m_nItemHeight, &sItemPos))
+		if (FALSE == m_ItemList.SearchPosition(KObject[nObjIndex].m_nItemWidth, KObject[nObjIndex].m_nItemHeight, &sItemPos))
 		{
-			if (FALSE == m_ItemList.SearchItemPosition(Object[nObjIndex].m_nItemWidth, Object[nObjIndex].m_nItemHeight, &sItemPos,room_equipmentex))
+			if (FALSE == m_ItemList.SearchItemPosition(KObject[nObjIndex].m_nItemWidth, KObject[nObjIndex].m_nItemHeight, &sItemPos,room_equipmentex))
 			{
 				if (Npc[m_nIndex].m_AutoplayId==1)
 				{ //�һ�״̬
-					Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-					Object[nObjIndex].m_IsHaveAttack=1;
-					Object[nObjIndex].m_AttackerTime=18*60*10;
+					KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+					KObject[nObjIndex].m_IsHaveAttack=1;
+					KObject[nObjIndex].m_AttackerTime=18*60*10;
 					//��ʼ����������߷���������������
 					ApplyRoomInfo(1);
 				}
-				
+
 				m_ItemList.ClientShowMsg("��ʾ:ת����ĸ��ʧ��,�ռ䲻�㣡");
 				return;
 			}
-			
+
 			int nItemEX = Npc[m_nIndex].m_ExItemId; //��ĸ���Ƿ���
-			
+
 			if (nItemEX==0)
 			{
 				if (Npc[m_nIndex].m_AutoplayId==1)
 				{ //�һ�״̬
-					Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-					Object[nObjIndex].m_IsHaveAttack=1;
-					Object[nObjIndex].m_AttackerTime=18*60*10;
+					KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+					KObject[nObjIndex].m_IsHaveAttack=1;
+					KObject[nObjIndex].m_AttackerTime=18*60*10;
 					//��ʼ����������߷���������������
 					ApplyRoomInfo(1);
 				}
-				
+
 				m_ItemList.ClientShowMsg("��ʾ:ת����ĸ��ʧ��,��ĸ����δ������");
 				return;
-			}	
+			}
 
 		}
-	
+
 		 if (Npc[m_nIndex].m_AutoplayId==1)
-		 {//�һ�״̬			
+		 {//�һ�״̬
 			if (m_Autoplay.nShiQuNum>m_Autoplay.nVal && m_Autoplay.nShiQuNum%m_Autoplay.nVal==0)
 			{
-                Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-                Object[nObjIndex].m_IsHaveAttack=1;
-			    Object[nObjIndex].m_AttackerTime=18*60*10;
+                KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+                KObject[nObjIndex].m_IsHaveAttack=1;
+			    KObject[nObjIndex].m_AttackerTime=18*60*10;
 				m_Autoplay.nShiQuNum=0;
 				m_ItemList.ClientShowMsg("����:��ȡ��Ʒ��ʱ,ִ��ȡ����ȡ!");
 				return;
@@ -1867,16 +1867,16 @@ void	KPlayer::PickUpObj(int nObjIndex)
 		 }
 
 /*		  char msg[64];
-          t_sprintf(msg,"����:��ֹ��:%d,dwidx:%d",Object[nObjIndex].m_IsHaveAttack,Object[nObjIndex].m_AttackerDwid);
+          sprintf(msg,"����:��ֹ��:%d,dwidx:%d",KObject[nObjIndex].m_IsHaveAttack,KObject[nObjIndex].m_AttackerDwid);
           m_ItemList.ClientShowMsg(msg);
 */
 		sPickUp.ProtocolType = c2s_playerpickupitem;
-		sPickUp.m_nObjID = Object[nObjIndex].m_nID;
+		sPickUp.m_nObjID = KObject[nObjIndex].m_nID;
 		sPickUp.m_btPosType = sItemPos.nPlace;
 		sPickUp.m_btPosX = sItemPos.nX;  //����������λ��
 		sPickUp.m_btPosY = sItemPos.nY;  //����������λ��
 	}
-	
+
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sPickUp, sizeof(PLAYER_PICKUP_ITEM_COMMAND));
 }
@@ -1890,24 +1890,24 @@ void	KPlayer::PickUpMoney(int nObjIndex,int rid)
 		return;
 	if (nObjIndex <= 0)
 		return;
-	if (Object[nObjIndex].m_nKind != Obj_Kind_Money)
+	if (KObject[nObjIndex].m_nKind != Obj_Kind_Money)
 	{
       Npc[rid].m_nObjectIdx=0;
 	  return;
 	}
 	//m_ItemList.ClientShowMsg("���Թ����Ǯ����");
 	PLAYER_PICKUP_ITEM_COMMAND	sPickUp; //����
-	if (Object[nObjIndex].m_nKind == Obj_Kind_Money) //���ڵ��ϵĶ�������Ϊ==Ǯ
+	if (KObject[nObjIndex].m_nKind == Obj_Kind_Money) //���ڵ��ϵĶ�������Ϊ==Ǯ
 	{
 		sPickUp.ProtocolType = c2s_playerpickupitem; //����Э���ʶ
-		sPickUp.m_nObjID = Object[nObjIndex].m_nID;
+		sPickUp.m_nObjID = KObject[nObjIndex].m_nID;
 		sPickUp.m_btPosType = 0;
 		sPickUp.m_btPosX = 0;
 		sPickUp.m_btPosY = 0;
 
 		m_Autoplay.nShiQuNum=0;
 	}
-	
+
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sPickUp, sizeof(PLAYER_PICKUP_ITEM_COMMAND));
 }
@@ -1921,25 +1921,25 @@ void	KPlayer::PickUpItem(int nObjIndex,int rid)
 		return;
 	if (nObjIndex <= 0)
 		return;
-	if (Object[nObjIndex].m_nKind != Obj_Kind_Item)
+	if (KObject[nObjIndex].m_nKind != Obj_Kind_Item)
 	{
 		Npc[rid].m_nObjectIdx=0;
 		return;
 	}
 	PLAYER_PICKUP_ITEM_COMMAND	sPickUp; //����
-	if (Object[nObjIndex].m_nKind == Obj_Kind_Item) //���ڵ��ϵĶ�������Ϊ==װ��
+	if (KObject[nObjIndex].m_nKind == Obj_Kind_Item) //���ڵ��ϵĶ�������Ϊ==װ��
 	{
 		ItemPos	sItemPos;
 
-		if (FALSE == m_ItemList.SearchPosition(Object[nObjIndex].m_nItemWidth, Object[nObjIndex].m_nItemHeight, &sItemPos) )
+		if (FALSE == m_ItemList.SearchPosition(KObject[nObjIndex].m_nItemWidth, KObject[nObjIndex].m_nItemHeight, &sItemPos) )
 		{//������
-			if (FALSE == m_ItemList.SearchItemPosition(Object[nObjIndex].m_nItemWidth, Object[nObjIndex].m_nItemHeight, &sItemPos,room_equipmentex))
+			if (FALSE == m_ItemList.SearchItemPosition(KObject[nObjIndex].m_nItemWidth, KObject[nObjIndex].m_nItemHeight, &sItemPos,room_equipmentex))
 			{
 				if (Npc[m_nIndex].m_AutoplayId==1)
 				{ //�һ�״̬
-					Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-					Object[nObjIndex].m_IsHaveAttack=1;
-					Object[nObjIndex].m_AttackerTime=18*60*10;
+					KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+					KObject[nObjIndex].m_IsHaveAttack=1;
+					KObject[nObjIndex].m_AttackerTime=18*60*10;
 					//��ʼ����������߷���������������
 					ApplyRoomInfo(1);
 				}
@@ -1954,25 +1954,25 @@ void	KPlayer::PickUpItem(int nObjIndex,int rid)
 			{
 				if (Npc[m_nIndex].m_AutoplayId==1)
 				{ //�һ�״̬
-					Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-					Object[nObjIndex].m_IsHaveAttack=1;
-					Object[nObjIndex].m_AttackerTime=18*60*10;
+					KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+					KObject[nObjIndex].m_IsHaveAttack=1;
+					KObject[nObjIndex].m_AttackerTime=18*60*10;
 					//��ʼ����������߷���������������
 					ApplyRoomInfo(1);
 				}
 
 				m_ItemList.ClientShowMsg("��ʾ:ת����ĸ��ʧ��,��ĸ����δ������");
 				return;
-			}	
+			}
 		}
 
          if (Npc[m_nIndex].m_AutoplayId==1)
-		 {//�һ�״̬			
+		 {//�һ�״̬
 			if (m_Autoplay.nShiQuNum>m_Autoplay.nVal && m_Autoplay.nShiQuNum%m_Autoplay.nVal==0)
 			{
-                Object[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
-                Object[nObjIndex].m_IsHaveAttack=1;
-			    Object[nObjIndex].m_AttackerTime=18*60*10;
+                KObject[nObjIndex].m_AttackerDwid=Npc[m_nIndex].m_dwID;
+                KObject[nObjIndex].m_IsHaveAttack=1;
+			    KObject[nObjIndex].m_AttackerTime=18*60*10;
 				m_Autoplay.nShiQuNum=0;
 				m_ItemList.ClientShowMsg("����:��ȡ��Ʒ��ʱ,ִ��ȡ����ȡ!");
 				return;
@@ -1985,12 +1985,12 @@ void	KPlayer::PickUpItem(int nObjIndex,int rid)
 		 }
 
 		sPickUp.ProtocolType = c2s_playerpickupitem;
-		sPickUp.m_nObjID = Object[nObjIndex].m_nID;
+		sPickUp.m_nObjID = KObject[nObjIndex].m_nID;
 		sPickUp.m_btPosType = sItemPos.nPlace;  //Ŀ������
 		sPickUp.m_btPosX = sItemPos.nX;         //Ŀ��λ��
 		sPickUp.m_btPosY = sItemPos.nY;
 	}
-	
+
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sPickUp, sizeof(PLAYER_PICKUP_ITEM_COMMAND));
 }
@@ -2004,25 +2004,25 @@ void	KPlayer::ObjMouseClick(int nObjIndex)
 		return;
 	if (nObjIndex <= 0)
 		return;
-	if (Object[nObjIndex].m_nKind != Obj_Kind_Box && Object[nObjIndex].m_nKind != Obj_Kind_Prop)
+	if (KObject[nObjIndex].m_nKind != Obj_Kind_Box && KObject[nObjIndex].m_nKind != Obj_Kind_Prop)
 		return;
-	if (Object[nObjIndex].m_nRegionIdx<0)
+	if (KObject[nObjIndex].m_nRegionIdx<0)
 		return;
 
-	SendObjMouseClick(Object[nObjIndex].m_nID, SubWorld[0].m_Region[Object[nObjIndex].m_nRegionIdx].m_RegionID);
+	SendObjMouseClick(KObject[nObjIndex].m_nID, SubWorld[0].m_Region[KObject[nObjIndex].m_nRegionIdx].m_RegionID);
 }
 
 // DownPos Vi tri can chuyen den��UpPos vi tri goc
 BOOL	KPlayer::MoveItem(ItemPos DownPos, ItemPos UpPos,int nIsComp)
 {
-	
+
 	//Check vi tri can chuyen toi co item ko (DownPos)
 	if (!Player[CLIENT_PLAYER_INDEX].m_ItemList.SearchItemPositionKienTM(1,1,DownPos.nX,DownPos.nY,room_equipment)){
 		//Neu vi tri can chuyen toi (DownPos) da co item thi chuyen lai item ve vi tri cu (UpPos)
 		//Player[CLIENT_PLAYER_INDEX].m_ItemList.AutoMoveItem(DownPos,UpPos,nIsComp);
 		return FALSE;
 	}
-	
+
 	SendClientCmdMoveItem(&UpPos,&DownPos,nIsComp); //DownPos Ŀ������
 	return TRUE;
 }
@@ -2042,14 +2042,14 @@ void	KPlayer::MoveSkill(ItemPos DownPos, ItemPos UpPos)
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
 				sMsg.byParamSize = 0;
-				t_sprintf(sMsg.szMessage, "M?o: Thanh ph��m t?t ?? c�� k? n?ng t??ng t?��");
+				sprintf(sMsg.szMessage, "M?o: Thanh ph��m t?t ?? c�� k? n?ng t??ng t?��");
 				sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				return;
 			}
 		}
 	}
-	
+
 //	SendClientCmdMoveItem(&DownPos, &UpPos);
 }
 
@@ -2071,7 +2071,7 @@ int	KPlayer::ThrowAwayItem()
 /*	else
 	{
 	   char msg[64];
-	   t_sprintf(msg,"��Ʒ����:%d..",m_ItemList.Hand());
+	   sprintf(msg,"��Ʒ����:%d..",m_ItemList.Hand());
 	   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 	}*/
 	int	nIdx =m_ItemList.Hand();
@@ -2082,9 +2082,9 @@ int	KPlayer::ThrowAwayItem()
 	       g_GameSetTing.GetInteger("SYSTEM","ThrowAwayItem",1,&nReg);	//�����Ƿ����ö�������
 
      if (!nReg)
-	 { 
+	 {
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage,"����:(��ʱ/��)װ�����ܶ���!");
+		sprintf(sMsg.szMessage,"����:(��ʱ/��)װ�����ܶ���!");
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -2092,11 +2092,11 @@ int	KPlayer::ThrowAwayItem()
 		sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 	    return 0;
-	 } 
+	 }
 	}
 
 	PLAYER_THROW_AWAY_ITEM_COMMAND	sThrow;
-	
+
   sThrow.ProtocolType = c2s_playerthrowawayitem;
   sThrow.m_Kind=0;
   sThrow.m_isAttack =0;
@@ -2112,7 +2112,7 @@ int	KPlayer::ThrowAwayItem()
   }
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sThrow, sizeof(PLAYER_THROW_AWAY_ITEM_COMMAND));
-	
+
 	return 1;
 }
 
@@ -2121,7 +2121,7 @@ int	KPlayer::AutoAwayItem(DWORD nItmeDwIdx,bool isAttack)
 {
 
     PLAYER_THROW_AWAY_ITEM_COMMAND	sThrow;
-	
+
 	sThrow.ProtocolType = c2s_playerthrowawayitem;
 	sThrow.m_Kind=1;
     sThrow.m_ItemDwidx=nItmeDwIdx;
@@ -2129,7 +2129,7 @@ int	KPlayer::AutoAwayItem(DWORD nItmeDwIdx,bool isAttack)
 	sThrow.m_isAttack =isAttack;
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sThrow, sizeof(PLAYER_THROW_AWAY_ITEM_COMMAND));
-	
+
 	return 1;
 }
 
@@ -2192,9 +2192,9 @@ void	KPlayer::TradeApplyStart(int nNpcIdx)
 	sStart.m_dwID       = Npc[nNpcIdx].m_dwID;
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sStart, sizeof(TRADE_APPLY_START_COMMAND));
-	
+
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SEND_APPLY].c_str(), Npc[nNpcIdx].Name);
+	sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SEND_APPLY].c_str(), Npc[nNpcIdx].Name);
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 0;
@@ -2212,14 +2212,14 @@ BOOL	KPlayer::TradeMoveMoney(int nMoney)
 	// Ǯ��������
 	if (nMoney < 0 || nMoney > m_ItemList.GetEquipmentMoney())
 		return FALSE;
-	
+
 	TRADE_MOVE_MONEY_COMMAND	sMoney;
-	
+
 	sMoney.ProtocolType = c2s_trademovemoney;
 	sMoney.m_nMoney = nMoney;
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sMoney, sizeof(TRADE_MOVE_MONEY_COMMAND));
-	
+
 	return TRUE;
 }
 
@@ -2281,13 +2281,13 @@ void	KPlayer::s2cApplyAddTeam(BYTE* pProtocol)
 		ApplySelfTeamInfo();
 		return;
 	}
-	
+
 	// Ѱ�� npc
 	PLAYER_APPLY_ADD_TEAM	*pAddTeam = (PLAYER_APPLY_ADD_TEAM*)pProtocol;
 	int nNpcNo = NpcSet.SearchID(pAddTeam->m_dwTarNpcID);
 	if (nNpcNo == 0)
 		return;
-	
+
 	int i, nFreeListNo;
 	// ����Ѿ����ڣ�����
 	for (i = 0; i < MAX_TEAM_APPLY_LIST; ++i)
@@ -2313,12 +2313,12 @@ void	KPlayer::s2cApplyAddTeam(BYTE* pProtocol)
 	}
 	if (i >= MAX_TEAM_APPLY_LIST)	// û�ҵ������˿�λ
 		return;
-	
+
 	m_cTeam.m_sApplyList[nFreeListNo].m_dwNpcID = pAddTeam->m_dwTarNpcID;
 	m_cTeam.m_sApplyList[nFreeListNo].m_nLevel = Npc[nNpcNo].m_Level;
 	m_cTeam.m_sApplyList[nFreeListNo].m_dwTimer = MAX_APPLY_TEAM_TIME;
 	strcpy(m_cTeam.m_sApplyList[nFreeListNo].m_szName, Npc[nNpcNo].Name);
-	
+
 	m_cTeam.UpdateInterface();
 	m_cTeam.UpdateamUI(); //��ʾ�����������Ϣ
 //-------------------------------------------------//�Զ�Ӧ��
@@ -2332,29 +2332,29 @@ void	KPlayer::s2cApplyAddTeam(BYTE* pProtocol)
 //-------------------------------------------------
 
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_APPLY_ADD].c_str(), Npc[nNpcNo].Name);
+	sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_APPLY_ADD].c_str(), Npc[nNpcNo].Name);
 	sMsg.eType = SMT_TEAM;
 	sMsg.byConfirmType = SMCT_UI_TEAM_APPLY;
-	sMsg.byPriority = 3;   
+	sMsg.byPriority = 3;
 	sMsg.byParamSize = sizeof(KUiPlayerItem);
     sMsg.nMsgLen=TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 	KUiPlayerItem	player;
 	strcpy(player.Name, Npc[nNpcNo].Name);
 	player.nIndex = 0;
 	player.uId = pAddTeam->m_dwTarNpcID;
-	
+
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, (intptr_t)&player);
-	
+
 	return;
 }
 
 //���ÿ�ݼ��� --Ĭ��
-void	KPlayer::SetDefaultImmedSkill()  
+void	KPlayer::SetDefaultImmedSkill()
 {
 	//��ȡ������Ҽ�����ΪĬ��������
 	int nDetailType = Player[CLIENT_PLAYER_INDEX].m_ItemList.GetWeaponType();
 	int nParticularType = Player[CLIENT_PLAYER_INDEX].m_ItemList.GetWeaponParticular();
-	
+
 	//��������
 	if (nDetailType == 0)
 	{
@@ -2377,7 +2377,7 @@ void	KPlayer::SetDefaultImmedSkill()
 void	KPlayer::SetShiquSkill(int nSkillID)
 {
 
-	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) <= 0) 
+	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) <= 0)
 		return;
 
 	KUiGameObject Info;
@@ -2389,7 +2389,7 @@ void	KPlayer::SetShiquSkill(int nSkillID)
 
 void KPlayer::SetLeftSkill(int nSkillID,BOOL nIsNoLogin)
 {
-	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) < 0) 
+	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) < 0)
 		return;
 
     Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].ReSkillEnhance(m_nLeftSkillID,0); //�ȼ�ȥ��һ��������ܼӳ�
@@ -2399,12 +2399,12 @@ void KPlayer::SetLeftSkill(int nSkillID,BOOL nIsNoLogin)
 	{
 		 Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("����:ִ�б����Զ��һ����ܳɹ�!");
 		 KIniFile nAutoConfig;
-		 char nConfig[128]={0};	   
-		 t_sprintf(nConfig,"jx50ai/autoset/%u_set.ini",g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
-					   
+		 char nConfig[128]={0};
+		 sprintf(nConfig,"jx50ai/autoset/%u_set.ini",g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
+
 		 if  (nAutoConfig.Load(nConfig))
-		 { 
-			 nAutoConfig.WriteInteger("AAAA","LeftSkill_0",nSkillID); 
+		 {
+			 nAutoConfig.WriteInteger("AAAA","LeftSkill_0",nSkillID);
 		 }
 		 else
 		 {
@@ -2415,7 +2415,7 @@ void KPlayer::SetLeftSkill(int nSkillID,BOOL nIsNoLogin)
 		 nAutoConfig.Clear();
 	}
 
-	m_nLeftSkillID = nSkillID;	
+	m_nLeftSkillID = nSkillID;
 	m_nLeftListidx = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.FindSame(m_nLeftSkillID);
 
 	SKILL_LEFT_SYNC	sLeftSkill;
@@ -2424,10 +2424,10 @@ void KPlayer::SetLeftSkill(int nSkillID,BOOL nIsNoLogin)
     sLeftSkill.m_Type=0;
 
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].ReSkillEnhance(nSkillID,1);
-	
+
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sLeftSkill, sizeof(SKILL_LEFT_SYNC));
-    
+
 	//���洦��
 	//KUiGameObject Info;
 	//Info.uGenre = CGOG_SKILL_SHORTCUT;
@@ -2438,7 +2438,7 @@ void KPlayer::SetLeftSkill(int nSkillID,BOOL nIsNoLogin)
 
 void	KPlayer::SetRightSkill(int nSkillID)
 {
-	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) < 0) 
+	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetCurrentLevel(nSkillID) < 0)
 		return;
 
 	m_nRightSkillID = nSkillID;
@@ -2446,9 +2446,9 @@ void	KPlayer::SetRightSkill(int nSkillID)
 	// ����Ƿ��ǹ⻷����
 	ISkill * pOrdinSkill = g_SkillManager.GetSkill(nSkillID, 1);
 
-	if (!pOrdinSkill) 
+	if (!pOrdinSkill)
         return;
-	
+
 	if (pOrdinSkill->IsAura())
 	{//����ǹ⻷���� ������ʹ��
 		Npc[m_nIndex].SetAuraSkill(nSkillID);
@@ -2470,21 +2470,21 @@ void KPlayer::UpdateWeaponSkill()
 	if (m_nLeftSkillID > 0)
 	{
 		ISkill * pISkill = g_SkillManager.GetSkill(m_nLeftSkillID, 1);
-		if (!pISkill) 
+		if (!pISkill)
             return;
-		
+
 		if (m_nLeftSkillID==1 || m_nLeftSkillID==2 || m_nLeftSkillID==53)
 		{//����������� id
 			SetLeftSkill(Npc[m_nIndex].GetCurActiveWeaponSkill());
 		}
-		
+
 	}
 	if (m_nRightSkillID > 0)
 	{//�����Ҽ����� id
 		ISkill * pISkill = (KSkill *) g_SkillManager.GetSkill(m_nRightSkillID, 1);
-		if (!pISkill) 
+		if (!pISkill)
             return;
-		
+
 		//if (pISkill->IsPhysical()) //�⹦ϵ����
 		if (m_nRightSkillID==1 || m_nRightSkillID==2 || m_nRightSkillID==53)
 		{
@@ -2515,9 +2515,9 @@ void	KPlayer::TeamInviteAdd(DWORD dwNpcID)
 
 BOOL KPlayer::CheckThisItem(int nSetings,char *nKey)
 {
-     
+
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=FALSE;
-	
+
 	for (int i=2;i<nRow;++i)
 	{
 		int nSkilid =0;
@@ -2528,19 +2528,19 @@ BOOL KPlayer::CheckThisItem(int nSetings,char *nKey)
 			break;
 		}
 	}
-	return nReg;   
+	return nReg;
 }
 
 BOOL	KPlayer::ExecuteScriptA(char * ScriptFileName, char * szFunName, int nParam,char * szCanshu,BOOL nIsGive)
 {
 	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nCurFileName[128]={0};
-	t_sprintf(nCurFileName,ScriptFileName);
+	sprintf(nCurFileName, "%s", ScriptFileName);
 	//g_StrLower(ScriptFileName);
 	g_StrLower(nCurFileName);
 
 	KLuaScript * pScript = (KLuaScript* )g_GetScript(g_CheckFileExist(nCurFileName));
-	
+
 	if (pScript==NULL)
 	{
 		printf("-------�ű�������,ִ��[%s][%s]ʧ��!-------- \n",ScriptFileName,szFunName);
@@ -2550,7 +2550,7 @@ BOOL	KPlayer::ExecuteScriptA(char * ScriptFileName, char * szFunName, int nParam
 	pScript=NULL;
 
 
-	return ExecuteScriptB(g_CheckFileExist(nCurFileName), szFunName, nParam,szCanshu,nIsGive);	
+	return ExecuteScriptB(g_CheckFileExist(nCurFileName), szFunName, nParam,szCanshu,nIsGive);
 }
 //�ͻ�����ִ�нű�����
 #define MAX_TRYEXECUTESCRIPT_COUNT 5
@@ -2576,10 +2576,10 @@ BOOL	KPlayer::ExecuteScriptB(DWORD dwScriptId, char * szFunName, int nParam,char
 
 			Lua_PushNumber(pScript->m_LuaState, m_nPlayerIndex);  //��������
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_dwID);
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Npc[m_nIndex].m_SubWorldIndex);
 			pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);
 
@@ -2587,12 +2587,12 @@ BOOL	KPlayer::ExecuteScriptB(DWORD dwScriptId, char * szFunName, int nParam,char
 
 			if (!szCanshu ||!szCanshu[0])
 			{
-				if (pScript->CallFunction(szFunName,0,"")) 
+				if (pScript->CallFunction(szFunName,0,""))
 				{
 					bExecuteScriptMistake = false;
 				}
 			}
-			else if (pScript->CallFunction(szFunName,0,"ds",nParam,szCanshu)) 
+			else if (pScript->CallFunction(szFunName,0,"ds",nParam,szCanshu))
 			{
 				bExecuteScriptMistake = false;
 			}
@@ -2600,7 +2600,7 @@ BOOL	KPlayer::ExecuteScriptB(DWORD dwScriptId, char * szFunName, int nParam,char
 			pScript->SafeCallEnd(nTopIndex);
 			//lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		}
-		
+
 		if (bExecuteScriptMistake)
 		{
 //			m_bWaitingPlayerFeedBack = false;
@@ -2608,17 +2608,17 @@ BOOL	KPlayer::ExecuteScriptB(DWORD dwScriptId, char * szFunName, int nParam,char
 			Npc[m_nIndex].m_ActionScriptID = 0;
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
 	catch(...)
 	{
 		if (pScript)
 		{
-			nTopIndex=pScript->SafeCallBegin();	
+			nTopIndex=pScript->SafeCallBegin();
 			pScript->SafeCallEnd(nTopIndex);
 		}
-		
+
 		printf("ִ�нű���������B,Script[%s]!\n",szFunName);
 	//	printf("Exception Have Caught When Execute Script[%d],[%s]!!!!!", dwScriptId,szFunName);
 //		m_bWaitingPlayerFeedBack = false;
@@ -2653,16 +2653,16 @@ BOOL KPlayer::ExecuteScriptD(DWORD dwScriptId, char * szFunName, char *  szParam
 
 			Lua_PushNumber(pScript->m_LuaState, m_nPlayerIndex);
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_dwID);
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Npc[m_nIndex].m_SubWorldIndex);
 			pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);
-			
+
 			nTopIndex=pScript->SafeCallBegin();
-			
-			if (!szParams || !szParams[0]) 
+
+			if (!szParams || !szParams[0])
 			{
 				if (pScript->CallFunction(szFunName,0,"%d",0))  //һ������
 				{
@@ -2673,11 +2673,11 @@ BOOL KPlayer::ExecuteScriptD(DWORD dwScriptId, char * szFunName, char *  szParam
 			{
 					bExecuteScriptMistake = false;
 			}
-		  nTopIndex=pScript->SafeCallBegin();	
-		  pScript->SafeCallEnd(nTopIndex); 
+		  nTopIndex=pScript->SafeCallBegin();
+		  pScript->SafeCallEnd(nTopIndex);
 		  //lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		}
-		
+
 		if (bExecuteScriptMistake)
 		{
 //			m_bWaitingPlayerFeedBack = false;
@@ -2692,7 +2692,7 @@ BOOL KPlayer::ExecuteScriptD(DWORD dwScriptId, char * szFunName, char *  szParam
 
 		if (pScript)
 		{
-			nTopIndex=pScript->SafeCallBegin();	
+			nTopIndex=pScript->SafeCallBegin();
 		    pScript->SafeCallEnd(nTopIndex);
 			printf("ִ�нű���������C,Script[%s],[%s]!\n", pScript->m_szScriptName,szFunName);
 
@@ -2710,9 +2710,9 @@ BOOL KPlayer::ExecuteScriptD(DWORD dwScriptId, char * szFunName, char *  szParam
 
 BOOL KPlayer::ExeNoBackScript(char * ScriptFileName, char * szFunName,int nKind,int nParama,int nParamb,int nParamc)
 {
-	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;  
+	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nCurFileName[128]={0};
-	t_sprintf(nCurFileName,ScriptFileName);
+	sprintf(nCurFileName, "%s", ScriptFileName);
 	g_StrLower(nCurFileName);
 	DWORD dwScriptId = g_CheckFileExist(nCurFileName);
 
@@ -2746,7 +2746,7 @@ BOOL KPlayer::ExeNoBackScript(char * ScriptFileName, char * szFunName,int nKind,
 
 			if (bExecuteScriptMistake == false)
 			{
-				char *bResultchar=NULL; 
+				char *bResultchar=NULL;
 				if (Lua_IsNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)
 				{//Lua_PushNumber
 					bResult = (int)Lua_ValueToNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
@@ -2758,7 +2758,7 @@ BOOL KPlayer::ExeNoBackScript(char * ScriptFileName, char * szFunName,int nKind,
 				}
 			}
 			nSafeIndex=pScript->SafeCallBegin();
-			pScript->SafeCallEnd(nSafeIndex); 
+			pScript->SafeCallEnd(nSafeIndex);
 			return bResult;
 		}
 
@@ -2772,7 +2772,7 @@ BOOL KPlayer::ExeNoBackScript(char * ScriptFileName, char * szFunName,int nKind,
 	{
 		if (pScript)
 		{
-			nSafeIndex=pScript->SafeCallBegin();	
+			nSafeIndex=pScript->SafeCallBegin();
 			pScript->SafeCallEnd(nSafeIndex);
 		}
 		printf("script error,Script[%s]!\n",ScriptFileName);
@@ -2785,9 +2785,9 @@ BOOL KPlayer::ExecuteScriptC(char * ScriptFileName, char * szFunName, char *  sz
 
 	//if  (Npc[m_nIndex].m_nPeopleIdx >0)
 	//	return FALSE;
-	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;  
+	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nCurFileName[128]={0};
-	t_sprintf(nCurFileName,ScriptFileName);
+	sprintf(nCurFileName, "%s", ScriptFileName);
 	g_StrLower(nCurFileName);
 	//g_StrLower(ScriptFileName);
 	DWORD dwScriptId = g_CheckFileExist(nCurFileName);
@@ -2808,7 +2808,7 @@ BOOL	KPlayer::ExeItemScriptA(char * ScriptFileName, char * szFunName, char *  sz
 {
 	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nCurFileName[128]={0};
-	t_sprintf(nCurFileName,ScriptFileName);
+	sprintf(nCurFileName, "%s", ScriptFileName);
 	//g_StrLower(ScriptFileName);
 	g_StrLower(nCurFileName);
 	DWORD dwScriptId = g_CheckFileExist(nCurFileName);
@@ -2822,7 +2822,7 @@ BOOL KPlayer::ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams
 		KLuaScript * pScript=NULL;
 			       pScript = (KLuaScript* )g_GetScript(dwScriptId);
 		int nSafeIndex = 0;
-		int bResult=1; 
+		int bResult=1;
 
 		if (pScript==NULL)
 		{
@@ -2836,7 +2836,7 @@ BOOL KPlayer::ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams
 			{
 			  printf("-------��Ʒ�ű�������!-------- \n");
 			  return TRUE;
-			} 
+			}
 		}
 
   try
@@ -2848,21 +2848,21 @@ BOOL KPlayer::ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams
 			Npc[m_nIndex].m_ActionScriptID = dwScriptId;
 			Lua_PushNumber(pScript->m_LuaState, m_nPlayerIndex);
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_dwID);
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Npc[m_nIndex].m_SubWorldIndex);
 			pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);
-			
+
 			//myPrintLuaStackA(pScript->m_LuaState);
 
 			nSafeIndex=pScript->SafeCallBegin();
-			
+
 			//printf("-------ʹ����Ʒǰ:ջ��ԭ��Ԫ����:%d ��--------\n",nSafeIndex);
 
 
-			if ( (!szParams) || !szParams[0]) 
+			if ( (!szParams) || !szParams[0])
 			{
 				if (pScript->CallFunction(szFunName,1,""))  //�ղ���
 				{
@@ -2884,7 +2884,7 @@ BOOL KPlayer::ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams
 		  ///////////////////�ű�����ֵ////////////////////////
           if (bExecuteScriptMistake == false)
 		  {
-			char *bResultchar=NULL; 
+			char *bResultchar=NULL;
 			//const char * szType = lua_typename(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
 			if (Lua_IsNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)
 			{//Lua_PushNumber
@@ -2900,7 +2900,7 @@ BOOL KPlayer::ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams
          /////////////////////////////////////////////////
 		  nSafeIndex=pScript->SafeCallBegin();
 		  //printf("-------ʹ����Ʒ��:ջ��ԭ��Ԫ����:%d ��--------\n",nSafeIndex);
-		  pScript->SafeCallEnd(nSafeIndex); 
+		  pScript->SafeCallEnd(nSafeIndex);
 		  //lua_pop(pScript->m_LuaState, -1); //��ջ������1��Ԫ�� -1���ջ
 		  return bResult;
 
@@ -2919,7 +2919,7 @@ catch(...)
 {
 	if (pScript)
 	{
-		nSafeIndex=pScript->SafeCallBegin();	
+		nSafeIndex=pScript->SafeCallBegin();
 		pScript->SafeCallEnd(nSafeIndex);
 	}
 	printf("ִ���Ҽ���Ʒ�ű�ʧ��,Script[%s]!\n",szFunName);
@@ -2933,29 +2933,29 @@ catch(...)
 }
 //�ͻ���ִ�нű�
 int  KPlayer::ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,int ninVal,char *nstrVala)
-{  
+{
 
 	    if (!nScriptPath)
 			return 0;
 //	    m_btTryExecuteScriptTimes = 0;
 		char nScriptNewPath[128]={0};
-		t_sprintf(nScriptNewPath,"%s",nScriptPath);
+		sprintf(nScriptNewPath,"%s",nScriptPath);
 		//_strupr(nScriptNewPath); //ת�ɴ�д _strupr
 		//m_ItemList.ClientShowMsg(nScriptNewPath);
 		bool bExecuteScriptMistake = true;
 		KLuaScript * pScript=NULL;
 		//char nStrInfo[128]={0};
-		//t_sprintf(nStrInfo,nScriptPath);
+		//sprintf(nStrInfo,nScriptPath);
 		g_StrLower(nScriptNewPath);   //��дתСд  g_StrLower
-        
+
 		 //m_ItemList.ClientShowMsg(nScriptNewPath);
 		 //return 0;
 
 		DWORD dwScriptId   = g_CheckFileExist(nScriptNewPath);
 			       pScript = (KLuaScript* )g_GetScript(dwScriptId);
 		int nSafeIndex = 0;
-		int bResult=1; 
- 
+		int bResult=1;
+
 		if (pScript==NULL)
 		{
 			DWORD dwScriptIdx = g_CheckFileExist("script\\item\\noscript.lua");
@@ -2967,10 +2967,10 @@ int  KPlayer::ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,i
 			else
 			{
 				char nMsg[128]={0};
-				t_sprintf(nMsg,"---�ű�������:%s--",nScriptNewPath);
+				sprintf(nMsg,"---�ű�������:%s--",nScriptNewPath);
 			    m_ItemList.ClientShowMsg(nMsg);
 			    return FALSE;
-			} 
+			}
 		}
 
   try
@@ -2982,17 +2982,17 @@ int  KPlayer::ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,i
 			Npc[m_nIndex].m_ActionScriptID = dwScriptId;
 			Lua_PushNumber(pScript->m_LuaState, m_nPlayerIndex);
 			pScript->SetGlobalName(SCRIPT_PLAYERINDEX);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, m_dwID);
 			pScript->SetGlobalName(SCRIPT_PLAYERID);
-			
+
 			Lua_PushNumber(pScript->m_LuaState, Npc[m_nIndex].m_SubWorldIndex);
 			pScript->SetGlobalName(SCRIPT_SUBWORLDINDEX);
-			
+
 			//myPrintLuaStackA(pScript->m_LuaState);
 
 			nSafeIndex=pScript->SafeCallBegin();
-			
+
 			//printf("-------ʹ����Ʒǰ:ջ��ԭ��Ԫ����:%d ��--------\n",nSafeIndex);
 		 if (pScript->CallFunction(nFunName,1, "dds",nPaparm,ninVal,nstrVala))  //�з���ֵ
   //�в���
@@ -3002,7 +3002,7 @@ int  KPlayer::ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,i
 		  ///////////////////�ű�����ֵ////////////////////////
           if (bExecuteScriptMistake == false)
 		  {
-			char *bResultchar=NULL; 
+			char *bResultchar=NULL;
 			//const char * szType = lua_typename(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState));
 			if (Lua_IsNumber(pScript->m_LuaState, Lua_GetTopIndex(pScript->m_LuaState)) == 1)
 			{//Lua_PushNumber
@@ -3015,7 +3015,7 @@ int  KPlayer::ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,i
 			}
 		  }
 		  nSafeIndex=pScript->SafeCallBegin();
-		  pScript->SafeCallEnd(nSafeIndex); 
+		  pScript->SafeCallEnd(nSafeIndex);
 		  return bResult;
 
 		}
@@ -3033,7 +3033,7 @@ catch(...)
 {
 	if (pScript)
 	{
-		nSafeIndex=pScript->SafeCallBegin();	
+		nSafeIndex=pScript->SafeCallBegin();
 		pScript->SafeCallEnd(nSafeIndex);
 	}
 	m_ItemList.ClientShowMsg("-------�ű�����!-------- ");
@@ -3051,24 +3051,24 @@ catch(...)
 		if (nClentLua.Load(nScriptPath))
 		{
 			//m_ItemList.ClientShowMsg("�ű�ִ�гɹ�C");
-			t_sprintf(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_ScriptPicPath,nScriptPath);
+			sprintf(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_ScriptPicPath,nScriptPath);
 			//Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_ActionScriptID =g_FileName2Id(nScriptPath);
 			int nSafeIndex = 0;
 			nSafeIndex=nClentLua.SafeCallBegin();
-			//ִ������ű��ĺ���				
+			//ִ������ű��ĺ���
 			nClentLua.CallFunction(nFunName,1, "dds",nPaparm,ninVal,nstrVala);  //�з���ֵ
 			const char * szType = lua_typename(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState));
 			if (Lua_IsNumber(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState)) == 1)
 			{//Lua_PushNumber
 				int nResult = (int)Lua_ValueToNumber(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState));
-				t_sprintf(szClienResult, "%d", nResult);  //int����
+				sprintf(szClienResult, "%d", nResult);  //int����
 			}
 			else if (Lua_IsString(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState)) ==1)//�ַ�������
 			{
-				t_sprintf(szClienResult, (char *)Lua_ValueToString(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState)));
+				sprintf(szClienResult, (char *)Lua_ValueToString(nClentLua.m_LuaState, Lua_GetTopIndex(nClentLua.m_LuaState)));
 			}
 			else
-				t_sprintf(szClienResult,"<color=Red>�ű����ݴ���GC,����ϵGM����!<color>");  
+				sprintf(szClienResult,"<color=Red>�ű����ݴ���GC,����ϵGM����!<color>");
 			    //m_ItemList.ClientShowMsg("ִ�нű��ɹ�GC!");
 			    nSafeIndex=nClentLua.SafeCallBegin();
 			    nClentLua.SafeCallEnd(nSafeIndex);
@@ -3081,7 +3081,7 @@ catch(...)
 		}
 		//m_ItemList.ClientShowMsg("�ű�ִ�гɹ�");
 		nClentLua.Exit();
-		return atoi(szClienResult);*/ 
+		return atoi(szClienResult);*/
 }
 
 //��ʾջ��Ϣ�ĺ���
@@ -3093,7 +3093,7 @@ void KPlayer::myPrintLuaStackA(lua_State *L)
     //��ʾջ�е�Ԫ��
     for(index=stackTop;index>0;--index)
 	{  t=lua_type(L,index);
-	    printf("(i:%d) %s(%s)\n",index,lua_typename(L,t),lua_tostring(L,index));	     
+	    printf("(i:%d) %s(%s)\n",index,lua_typename(L,t),lua_tostring(L,index));
 	}
     printf("--ջ��--\n");
 }
@@ -3107,21 +3107,21 @@ BOOL	KPlayer::DoScript(char * ScriptCommand)
 	KLuaScript *Script = new KLuaScript;
 	Script->Init();
 	Script->RegisterFunctions(GameScriptFuns, g_GetGameScriptFunNum());
-	
-	//GM Standand Script Functions 
+
+	//GM Standand Script Functions
 //	Script->Load("\\script\\system\\startserver--.lua.lua");  //GMִ�п�ʼ��Ϸ�ű�
-	
-	
+
+
 	Lua_PushNumber(Script->m_LuaState, m_nPlayerIndex);
 	Script->SetGlobalName(SCRIPT_PLAYERINDEX);
 	Lua_PushNumber(Script->m_LuaState, m_dwID);
-	Script->SetGlobalName(SCRIPT_PLAYERID);	
+	Script->SetGlobalName(SCRIPT_PLAYERID);
 	Lua_PushNumber(Script->m_LuaState, Npc[m_nIndex].m_SubWorldIndex);
 	Script->SetGlobalName(SCRIPT_SUBWORLDINDEX);
-	
-	if (Script->LoadBuffer((PBYTE)ScriptCommand, strlen(ScriptCommand))) 
+
+	if (Script->LoadBuffer((PBYTE)ScriptCommand, strlen(ScriptCommand)))
 	{
-		BOOL bResult = Script->ExecuteCode();	
+		BOOL bResult = Script->ExecuteCode();
 		delete Script; //Question!
          Script=NULL;
 		return bResult;
@@ -3135,22 +3135,22 @@ BOOL	KPlayer::DoScript(char * ScriptCommand)
 void	KPlayer::DoScriptAction(PLAYER_SCRIPTACTION_SYNC * pUIInfo) //Ҫ����ʾĳ��UI����
 {
 	if (!pUIInfo) return;
-	
+
 	//�������˽ű�ʱ
 	if (pUIInfo->m_bParam2 < 1)
 	{//�ͻ��˽ű�Ҫ����ʾ�ű� ֱ������
 		OnScriptAction((PLAYER_SCRIPTACTION_SYNC *)pUIInfo);
 	}
-	
+
 }
 
 //�������˻�֪��ҽ���UIѡ����ĳ��󣬴���ִ�нű�����~~
-void KPlayer::ProcessPlayerSelectFromUI(BYTE* pProtocol)			// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���	
+void KPlayer::ProcessPlayerSelectFromUI(BYTE* pProtocol)			// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���
 {
 	PLAYER_SELECTUI_COMMAND * pSelUI = (PLAYER_SELECTUI_COMMAND*) pProtocol;
 //	m_bWaitingPlayerFeedBack = false;
 	//������ظ�������ʾ�˳��ýű�ִ�л���
-	if (pSelUI->nSelectIndex < 0) 
+	if (pSelUI->nSelectIndex < 0)
 		m_nAvailableAnswerNum = 0;
 
 	if (m_nAvailableAnswerNum > pSelUI->nSelectIndex)
@@ -3176,10 +3176,10 @@ void KPlayer::ProcessPlayerSelectFromUI(BYTE* pProtocol)			// ������
 //�ͻ���
 
 //����ڽ��潻����ѡ����ĳ�����������˷���
-void	KPlayer::OnSelectFromUI(PLAYER_SELECTUI_COMMAND * pSelectUI, UIInfo eUIInfo)	//����Ҵ�ѡ�����ѡ��ĳ��󣬽������������			
+void	KPlayer::OnSelectFromUI(PLAYER_SELECTUI_COMMAND * pSelectUI, UIInfo eUIInfo)	//����Ҵ�ѡ�����ѡ��ĳ��󣬽������������
 {
 	if (!pSelectUI) return;
-	
+
 	switch(eUIInfo)
 	{
 	case UI_SELECTDIALOG:
@@ -3192,7 +3192,7 @@ void	KPlayer::OnSelectFromUI(PLAYER_SELECTUI_COMMAND * pSelectUI, UIInfo eUIInfo
 			}
 			else
 			{//�ͻ���ִ��
-				ProcessPlayerSelectFromUI((BYTE *)pSelectUI);// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���	
+				ProcessPlayerSelectFromUI((BYTE *)pSelectUI);// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���
 			}
 		}
 		break;
@@ -3206,9 +3206,9 @@ void	KPlayer::OnSelectFromUI(PLAYER_SELECTUI_COMMAND * pSelectUI, UIInfo eUIInfo
 			}
 			else
 			{//�ͻ���ִ��
-				ProcessPlayerSelectFromUI((BYTE *)pSelectUI);			// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���	
+				ProcessPlayerSelectFromUI((BYTE *)pSelectUI);			// ������Ҵ�ѡ��˵�ѡ��ĳ��ʱ�Ĳ���
 			}
-			
+
 		}break;
 	}
 }
@@ -3240,9 +3240,9 @@ void	KPlayer::ChatFriendOnLine(DWORD dwID, int nFriendIdx)
 				sPlayer.nData = CHAT_S_ONLINE;
 
 				CoreDataChanged(GDCNI_CHAT_FRIEND_STATUS, (uintptr_t)&sPlayer, i);
-				
+
 				KSystemMessage	sMsg;
-				t_sprintf(sMsg.szMessage, MSG_CHAT_FRIEND_ONLINE, pFriend->m_szName);
+				sprintf(sMsg.szMessage, MSG_CHAT_FRIEND_ONLINE, pFriend->m_szName);
 				sMsg.eType = SMT_NORMAL;
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
@@ -3272,7 +3272,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 
 	char szString[1024]={0};
 	ZeroMemory(szString,sizeof(szString));
-	//ccMessageBox("�򿪶Ի���","�򿪶Ի���...");
+	//messageBox("�򿪶Ի���","�򿪶Ի���...");
 	switch(pScriptAction->m_nOperateType)
 	{
 	case SCRIPTACTION_UISHOW:
@@ -3284,12 +3284,12 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					KUiQuestionAndAnswer	*pQuest = NULL;
 					KUiNpcSpr               *pImage = NULL;
 					if (pScriptAction->m_nBufferLen <= 0 || pScriptAction->m_nBufferLen>=1024) break;
-					
+
 					if (pScriptAction->m_bOptionNum <= 0)
 						pQuest = (KUiQuestionAndAnswer *)malloc(sizeof(KUiQuestionAndAnswer));
 					else
 						pQuest = (KUiQuestionAndAnswer *)malloc(sizeof(KUiQuestionAndAnswer) + sizeof(KUiAnswer) * (pScriptAction->m_bOptionNum - 1));
-					
+
 					if (pQuest==NULL)
 						break;
 					pImage = (KUiNpcSpr *)malloc(sizeof(KUiNpcSpr));
@@ -3301,7 +3301,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					char *strContent=NULL;
 					      strContent=(char *)malloc(1024);
 				    if (strContent==NULL)
-					    break;	 
+					    break;
 					ZeroMemory(strContent,sizeof(strContent));
 					char * pAnswer = NULL;
 					pQuest->AnswerCount = 0;
@@ -3328,7 +3328,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						pQuest->Question[pQuest->QuestionLen]='\0';
 					}
 					//����ϢΪ���ֱ�ʶ
-					else 
+					else
 					{
 						g_StrCpyLen(pQuest->Question, g_GetStringRes(*(int *)pScriptAction->m_pContent, szString, sizeof(szString)), sizeof(pQuest->Question));
 						pQuest->QuestionLen = TEncodeText_(pQuest->Question, strlen(pQuest->Question));
@@ -3352,7 +3352,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 #ifdef WIN32
 							strcpy(pQuest->Answer[i].AnswerText,pAnswer);
 							pQuest->Answer[i].AnswerLen = -1;
-                            pQuest->AnswerCount = i + 1;	
+                            pQuest->AnswerCount = i + 1;
 #else
 							strcpy(pQuest->Answer[i].AnswerText,pAnswer);
 							pQuest->Answer[i].AnswerLen = -1;
@@ -3367,8 +3367,8 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 
 					//g_bUISelIntelActiveWithServer = pScriptAction->m_bParam2;
 					g_bUISelLastSelCount = pQuest->AnswerCount;
-                    /*******************************************Code by thienthanden2*******************************************************/ 
-                    char szBuffer[256]={0}; 
+                    /*******************************************Code by thienthanden2*******************************************************/
+                    char szBuffer[256]={0};
 					if  (pScriptAction->m_szSprPath[0] && strstr(pScriptAction->m_szSprPath,".spr"))
 					{
 						strcpy(pImage->ImageFile, pScriptAction->m_szSprPath);
@@ -3376,48 +3376,48 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						goto Next;
 					}
 					else if (!pScriptAction->m_szSprPath[0] && m_nImageNpcID)  //spr ���� NPC����
-                    { 
+                    {
 
-                      /*for (int i = 0; i < 16; ++i) 
-					  { 
-						Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetFileName(i, 3, 0, "", szBuffer, sizeof(szBuffer)); 
-                        if (szBuffer[0]) 
-                            { 
-                            strcpy(pImage->ImageFile, szBuffer); 
-                            pImage->MaxFrame = (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalFrames(i, 3, 0, 16))/ 
-                            (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalDirs(i, 3, 0, 16)); goto Next; 
-                            } 
-					  } 
-                      for (int j = 0; j < 16; ++j) 
-					  {  
-                         Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetFileName(j, 0, 0, "", szBuffer, sizeof(szBuffer)); 
-                        if (szBuffer[0]) 
-                            { 
-                              strcpy(pImage->ImageFile, szBuffer); 
-                              pImage->MaxFrame = (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalFrames(j, 0, 0, 16))/ 
-                              (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalDirs(j, 0, 0, 16)); goto Next; 
-                            } 
+                      /*for (int i = 0; i < 16; ++i)
+					  {
+						Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetFileName(i, 3, 0, "", szBuffer, sizeof(szBuffer));
+                        if (szBuffer[0])
+                            {
+                            strcpy(pImage->ImageFile, szBuffer);
+                            pImage->MaxFrame = (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalFrames(i, 3, 0, 16))/
+                            (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalDirs(i, 3, 0, 16)); goto Next;
+                            }
+					  }
+                      for (int j = 0; j < 16; ++j)
+					  {
+                         Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetFileName(j, 0, 0, "", szBuffer, sizeof(szBuffer));
+                        if (szBuffer[0])
+                            {
+                              strcpy(pImage->ImageFile, szBuffer);
+                              pImage->MaxFrame = (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalFrames(j, 0, 0, 16))/
+                              (Npc[m_nImageNpcID].GetNpcRes()->m_pcResNode->GetTotalDirs(j, 0, 0, 16)); goto Next;
+                            }
 					  } */
-                     
-                    } 
-                    Next: 
-                    if (pScriptAction->m_Select == 1 /*&& m_nImageNpcID*/) 
+
+                    }
+                    Next:
+                    if (pScriptAction->m_Select == 1 /*&& m_nImageNpcID*/)
                           CoreDataChanged(GDCNI_QUESTION_CHOOSE, (uintptr_t)pQuest,(intptr_t)pImage,pScriptAction->m_bParam2);
                     else
-						  CoreDataChanged(GDCNI_QUESTION_CHOOSE, (uintptr_t)pQuest, 0); 
+						  CoreDataChanged(GDCNI_QUESTION_CHOOSE, (uintptr_t)pQuest, 0);
 
-                    free(pImage); 
-                    pImage = NULL; 
-					
-                    free(pQuest); 
+                    free(pImage);
+                    pImage = NULL;
+
+                    free(pQuest);
                     pQuest = NULL;
-					
-					free(strContent); 
+
+					free(strContent);
                     strContent = NULL;
-                } 
-                break;  
-				
-			case UI_TALKDIALOG: 
+                }
+                break;
+
+			case UI_TALKDIALOG:
 				{//talk
 					if  (pScriptAction->m_nBufferLen>=512 || pScriptAction->m_nBufferLen<=0)
 						return;
@@ -3427,7 +3427,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					if (nSentenceCount <= 0) return ;
 					KUiInformationParam *pSpeakList  = new KUiInformationParam[nSentenceCount];
 					memset(pSpeakList, 0, sizeof(KUiInformationParam) * nSentenceCount);
-					
+
 					char * pAnswer = new char [512];//pScriptAction->m_nBufferLen + 1
 					//char *pAnswer=NULL
 					 //   pAnswer=(char *)malloc(pScriptAction->m_nBufferLen + 1);
@@ -3442,7 +3442,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					for (int i = 0; i < pScriptAction->m_bOptionNum; ++i)
 					{
 						char * pNewAnswer = strstr(pAnswer, "|");
-						
+
 						if (pNewAnswer)
 						{
 							*pNewAnswer = 0;
@@ -3453,14 +3453,14 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 
 							if (i < pScriptAction->m_bOptionNum - 1)
 								strcpy(pSpeakList[i].sConfirmText, "Kplayer so 1");
-							else 
+							else
 							{
 								strcpy(pSpeakList[i].sConfirmText, "Kplayer so 2");
-								if (pScriptAction->m_nParam == 1)						
+								if (pScriptAction->m_nParam == 1)
 									pSpeakList[i].bNeedConfirmNotify = TRUE;
 							}
 //#ifndef WIN32
-//							t_sprintf (pSpeakList[i].sInformation,UTEXT(pSpeakList[i].sInformation,1).c_str());
+//							sprintf (pSpeakList[i].sInformation,UTEXT(pSpeakList[i].sInformation,1).c_str());
 //#endif
 							pSpeakList[i].nInforLen = TEncodeText_(pSpeakList[i].sInformation, strlen(pSpeakList[i].sInformation));
 							pAnswer = pNewAnswer + 1;
@@ -3471,13 +3471,13 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 								strcpy(pSpeakList[i].sInformation, pAnswer);
 							else
 								strcpy(pSpeakList[i].sInformation,g_GetStringRes(atoi(pAnswer), szString ,sizeof(szString)));
-							
+
 							strcpy(pSpeakList[i].sConfirmText, "Kplayer so 3");
-							
-							if (pScriptAction->m_nParam == 1)						
+
+							if (pScriptAction->m_nParam == 1)
 								pSpeakList[i].bNeedConfirmNotify = TRUE;
 //#ifndef WIN32
-//							t_sprintf (pSpeakList[i].sInformation,UTEXT(pSpeakList[i].sInformation,1).c_str());
+//							sprintf (pSpeakList[i].sInformation,UTEXT(pSpeakList[i].sInformation,1).c_str());
 //#endif
 							pSpeakList[i].nInforLen = TEncodeText_(pSpeakList[i].sInformation, strlen(pSpeakList[i].sInformation));
 							nCount++;
@@ -3492,23 +3492,23 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					//g_bUISpeakActiveWithServer = pScriptAction->m_bParam2;
 					//�ͻ��˵�������
 					CoreDataChanged(GDCNI_SPEAK_WORDS, (uintptr_t)pSpeakList, nCount);
-					
+
 					if (pBackupAnswer)
 					{
 						delete [] pBackupAnswer;
 						pBackupAnswer = NULL;
 					}
-					
+
 					if (pSpeakList)
 					{
-						delete pSpeakList;	
+						delete pSpeakList;
 						pSpeakList = NULL;
 					}
 				}
 				break;
 			case UI_MSGINFO:
 				{
-					if (pScriptAction->m_nBufferLen <= 0) 
+					if (pScriptAction->m_nBufferLen <= 0)
 						break;
 
 					char strContent[1024];
@@ -3535,7 +3535,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 				}break;
 			case UI_NEWSINFO:  //����������Ϣ
 				{
-					if (pScriptAction->m_nBufferLen <= 0) 
+					if (pScriptAction->m_nBufferLen <= 0)
 						break;
 					switch(pScriptAction->m_bOptionNum) //OPtionNum��������һ��News����
 					{
@@ -3543,7 +3543,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						{
 							KNewsMessage News;
 							News.nType = NEWSMESSAGE_NORMAL;
-							
+
 							char strContent[1024];
 							//����ϢΪ�ַ���
 							if (pScriptAction->m_bParam1 == 0)
@@ -3554,7 +3554,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 							{
 								g_GetStringRes(*(int *)pScriptAction->m_pContent, strContent ,sizeof(strContent));
 							}
-							
+
 							g_StrCpyLen(News.sMsg,  strContent, sizeof(News.sMsg));
 
 							News.nMsgLen = TEncodeText_(News.sMsg, strlen(News.sMsg));
@@ -3562,10 +3562,10 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						}
 						break;
 					case NEWSMESSAGE_SHUIJI:  //ϵͳ��� ��ʾ������
-						{							
+						{
 							KNewsMessage News;
 							News.nType = NEWSMESSAGE_SHUIJI;
-							
+
 							char strContent[512];
 							//����ϢΪ�ַ���
 							if (pScriptAction->m_bParam1 == 0)
@@ -3576,7 +3576,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 							{//�ַ���
 								g_GetStringRes(*(int *)pScriptAction->m_pContent, strContent ,sizeof(strContent));
 							}
-							
+
 							g_StrCpyLen(News.sMsg,strContent, sizeof(News.sMsg));
 							News.nMsgLen = TEncodeText_(News.sMsg, strlen(News.sMsg));
 							CoreDataChanged(GDCNI_SHUIJI_MESSAGE, (uintptr_t)&News, 0);
@@ -3587,7 +3587,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						{
 							KNewsMessage News;
 							News.nType = pScriptAction->m_bOptionNum;
-							
+
 							char strContent[1024];
 							int nTime = 0;
 							//����ϢΪ�ַ���
@@ -3599,10 +3599,10 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 							{
 								g_GetStringRes(*(int *)pScriptAction->m_pContent, strContent ,sizeof(strContent));
 							}
-							
+
 							g_StrCpyLen(News.sMsg,  strContent, sizeof(News.sMsg));
 							News.nMsgLen = TEncodeText_(News.sMsg, strlen(News.sMsg));
-							
+
 							/*SYSTEMTIME systime;
 							memset(&systime, 0, sizeof(SYSTEMTIME));
 							systime.wSecond = *(int *)((pScriptAction->m_pContent + pScriptAction->m_nBufferLen - sizeof(int)));
@@ -3614,7 +3614,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 						{
 							KNewsMessage News;
 							News.nType = pScriptAction->m_bOptionNum;
-							
+
 							char strContent[1024];
 							int nTime = 0;
 							//����ϢΪ�ַ���
@@ -3626,7 +3626,7 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 							{
 								g_GetStringRes(*(int *)pScriptAction->m_pContent, strContent ,sizeof(strContent));
 							}
-							
+
 							g_StrCpyLen(News.sMsg,  strContent, sizeof(News.sMsg));
 							News.nMsgLen = TEncodeText_(News.sMsg, strlen(News.sMsg));
 
@@ -3635,9 +3635,9 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 							CoreDataChanged(GDCNI_NEWS_MESSAGE, (uintptr_t)&News, (uintptr_t)&systime);
 							*/
 						}break;
-					
+
 					}
-					
+
 				}break;
 			case UI_PLAYMUSIC:
 				{
@@ -3646,8 +3646,8 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 					szMusicFile[pScriptAction->m_nBufferLen] = 0;
 //					g_SubWorldSet.m_cMusic.ScriptPlay(szMusicFile);
 				}break;
-			
-			case UI_OPENTONGUI:		  //�򿪽���UI		
+
+			case UI_OPENTONGUI:		  //�򿪽���UI
 				{
 					Player[CLIENT_PLAYER_INDEX].m_cTong.OpenCreateInterface();
 					break;
@@ -3660,24 +3660,24 @@ void	KPlayer::OnScriptAction(PLAYER_SCRIPTACTION_SYNC * pMsg)
 			char szScriptInfo[1000];
 			g_StrCpyLen(szScriptInfo, pScriptAction->m_pContent,pScriptAction->m_nBufferLen + 1);
 			char * pDivPos = strstr(szScriptInfo, "/");  // б�ܺ�������� ���ǽű�������
-			if (pDivPos)	
-				*pDivPos++ = 0; 
+			if (pDivPos)
+				*pDivPos++ = 0;
 			if (pDivPos)
 				ExecuteScriptC(szScriptInfo, "OnCall", pDivPos,"");
 			else
 				ExecuteScriptC(szScriptInfo, "OnCall", "","");
 		}
 		break;
-	}	
+	}
 }
 
 
 void  KPlayer::ReSkillEnhance()
 {
 	int nActiveSkillID;
-	
-	nActiveSkillID=Player[CLIENT_PLAYER_INDEX].GetLeftSkill();	
-	
+
+	nActiveSkillID=Player[CLIENT_PLAYER_INDEX].GetLeftSkill();
+
 	if (Npc[m_nIndex].m_Currentskillenhance!= 0)
 	{
 		int nlistIndex = Npc[m_nIndex].m_SkillList.FindSame(nActiveSkillID);
@@ -3686,18 +3686,18 @@ void  KPlayer::ReSkillEnhance()
 			if (Npc[m_nIndex].m_SkillList.GetCurrentLevelByIdx(nlistIndex) > 0)  //�ȼ�����0�Ĳ� ����
 			{
 				Npc[m_nIndex].m_SkillList.AddEnChance(nlistIndex,Npc[m_nIndex].m_Currentskillenhance);
-			}			
+			}
 		}
 	}
-	
+
 //#ifdef _SERVER
 	//char msg[64];
-	//t_sprintf(msg,"PS�����ӳ�:%d",Npc[m_nIndex].m_Currentskillenhance);
+	//sprintf(msg,"PS�����ӳ�:%d",Npc[m_nIndex].m_Currentskillenhance);
 	//m_ItemList.msgshow(msg);
 //#else
 	//char msg[64];
-	//t_sprintf(msg,"PC�����ӳ�:%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Currentskillenhance);
-	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);	
+	//sprintf(msg,"PC�����ӳ�:%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_Currentskillenhance);
+	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 //#endif
 
 }
@@ -3706,7 +3706,7 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 {
 
 	TRADE_CHANGE_STATE_SYNC	*pTrade = (TRADE_CHANGE_STATE_SYNC*)pMsg;
-	
+
 	switch (m_cMenuState.m_nState)
 	{
 	case PLAYER_MENU_STATE_NORMAL:		// ��ǰ�ͻ��� NORMAL
@@ -3726,11 +3726,11 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			m_cMenuState.SetState(PLAYER_MENU_STATE_TRADING);
 			m_cTrade.StartTrade(pTrade->m_dwNpcID);
 			m_ItemList.StartTrade();
-			
+
 			// ֪ͨ������뽻�׽���
 			KUiPlayerItem	sTradePlayer;
 			int	nIdx;
-			
+
 			nIdx = NpcSet.SearchID(pTrade->m_dwNpcID);
 			if (nIdx > 0)
 				strcpy(sTradePlayer.Name, Npc[nIdx].Name);
@@ -3740,7 +3740,7 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			sTradePlayer.uId = 0;
 			sTradePlayer.nData = 0;
 			CoreDataChanged(GDCNI_TRADE_START, (uintptr_t)(&sTradePlayer), 0);
-			
+
 			if (Npc[m_nIndex].m_Doing == do_sit)
 			{
 				Npc[m_nIndex].SendSerCommand(do_stand);
@@ -3764,11 +3764,11 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			m_cMenuState.SetState(PLAYER_MENU_STATE_TRADING);
 			m_cTrade.StartTrade(pTrade->m_dwNpcID);
 			m_ItemList.StartTrade();
-			
+
 			// ֪ͨ������뽻�׽���
 			KUiPlayerItem	sTradePlayer;
 			int	nIdx;
-			
+
 			nIdx = NpcSet.SearchID(pTrade->m_dwNpcID);
 			if (nIdx > 0)
 				strcpy(sTradePlayer.Name, Npc[nIdx].Name);
@@ -3779,7 +3779,7 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			sTradePlayer.uId = 0;
 			sTradePlayer.nData = 0;
 			CoreDataChanged(GDCNI_TRADE_START, (uintptr_t)(&sTradePlayer), 0);
-			
+
 			if (Npc[m_nIndex].m_Doing == do_sit)
 			{
 				Npc[m_nIndex].SendSerCommand(do_stand);
@@ -3808,11 +3808,11 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			this->m_ItemList.BackupTrade();
 			this->m_ItemList.ClearRoom(room_trade);
 			this->m_ItemList.ClearRoom(room_trade1);
-			
+
 			// ֪ͨ������뽻�׽���
 			KUiPlayerItem	sTradePlayer;
 			int	nIdx;
-			
+
 			nIdx = NpcSet.SearchID(pTrade->m_dwNpcID);
 			if (nIdx > 0)
 				strcpy(sTradePlayer.Name, Npc[nIdx].Name);
@@ -3823,7 +3823,7 @@ void	KPlayer::s2cTradeChangeState(BYTE* pMsg)
 			sTradePlayer.uId = 0;
 			sTradePlayer.nData = 0;
 			CoreDataChanged(GDCNI_TRADE_START, (uintptr_t)(&sTradePlayer), 0);
-			
+
 			if (Npc[m_nIndex].m_Doing == do_sit)
 			{
 				Npc[m_nIndex].SendSerCommand(do_stand);
@@ -3841,7 +3841,7 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 	if (Npc[m_nIndex].m_Level < pLevel->m_btLevel && m_nExp < PlayerSet.m_cLevelAdd.GetLevelExp(Npc[m_nIndex].m_Level))
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_GET_EXP].c_str(), PlayerSet.m_cLevelAdd.GetLevelExp(Npc[m_nIndex].m_Level) - m_nExp);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_GET_EXP].c_str(), PlayerSet.m_cLevelAdd.GetLevelExp(Npc[m_nIndex].m_Level) - m_nExp);
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -3849,17 +3849,17 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 	}
-	
+
 	m_nExp = 0;
 	Npc[m_nIndex].m_Level = (WORD)pLevel->m_btLevel;
 	m_nNextLevelExp = PlayerSet.m_cLevelAdd.GetLevelExp(Npc[m_nIndex].m_Level);
-	
+
 	// -------------------------- �ȼ�����ʱ��������ͬ�� ----------------------
 	// ͬ��δ�������Ե�
 	if (pLevel->m_nAttributePoint > m_nAttributePoint)
 	{
 		/*KSystemMessage Msg;
-		t_sprintf(Msg.szMessage, strCoreInfo[MSG_GET_ATTRIBUTE_POINT].c_str(), pLevel->m_nAttributePoint - m_nAttributePoint);
+		sprintf(Msg.szMessage, strCoreInfo[MSG_GET_ATTRIBUTE_POINT].c_str(), pLevel->m_nAttributePoint - m_nAttributePoint);
 		Msg.eType = SMT_PLAYER;
 		Msg.byConfirmType = SMCT_UI_ATTRIBUTE;
 		Msg.byPriority = 3;
@@ -3868,12 +3868,12 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&Msg, NULL);*/
 	}
 	m_nAttributePoint = pLevel->m_nAttributePoint;
-	
+
 	// ͬ��δ���似�ܵ�
 	if (m_nSkillPoint < pLevel->m_nSkillPoint)
 	{
 		/*KSystemMessage Msg;
-		t_sprintf(Msg.szMessage, strCoreInfo[MSG_GET_SKILL_POINT].c_str(), pLevel->m_nSkillPoint - m_nSkillPoint);
+		sprintf(Msg.szMessage, strCoreInfo[MSG_GET_SKILL_POINT].c_str(), pLevel->m_nSkillPoint - m_nSkillPoint);
 		Msg.eType = SMT_PLAYER;
 		Msg.byConfirmType = SMCT_UI_SKILLS;
 		Msg.byPriority = 3;
@@ -3882,7 +3882,7 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&Msg, NULL);*/
 	}
 	m_nSkillPoint = pLevel->m_nSkillPoint;
-	
+
 	// ��������������������ֵ��Ӱ������������������������ֵ�����أ��ȼ������Ե㣬Ӱ�쵱ǰ�������ֵ�����أ�װ�������ܡ�ҩ���ʱ����
 	Npc[m_nIndex].m_LifeMax           = pLevel->m_nBaseLifeMax;
 	Npc[m_nIndex].m_StaminaMax        = pLevel->m_nBaseStaminaMax;
@@ -3892,7 +3892,7 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 	Npc[m_nIndex].m_CurrentStaminaMax = Npc[m_nIndex].m_StaminaMax;
 	Npc[m_nIndex].m_CurrentManaMax    = Npc[m_nIndex].m_ManaMax;
 	Npc[m_nIndex].m_CurrentNuQiMax    = Npc[m_nIndex].m_NuqiMax;  //ŭ��
-	
+
 	// ������ֿ��Եı仯 �𡢱��������硢����
 	Npc[m_nIndex].m_FireResist				= PlayerSet.m_cLevelAdd.GetFireResist(Npc[m_nIndex].m_Series, Npc[m_nIndex].m_Level);
 	Npc[m_nIndex].m_CurrentFireResist		= Npc[m_nIndex].m_FireResist;
@@ -3915,18 +3915,18 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 	Npc[m_nIndex].m_CurrentPoisonResistMax	= Npc[m_nIndex].m_PoisonResistMax;
 	Npc[m_nIndex].m_CurrentLightResistMax	= Npc[m_nIndex].m_LightResistMax;
 	Npc[m_nIndex].m_CurrentPhysicsResistMax	= Npc[m_nIndex].m_PhysicsResistMax;
-*/	
+*/
 	int nOldCurCamp = Npc[m_nIndex].m_CurrentCamp;
 	// ����װ����������Ϣ���µ�ǰ����
 	this->UpdataCurData();
 	SetNpcPhysicsDamage();
 	Npc[m_nIndex].m_CurrentCamp    = nOldCurCamp;
-	
+
 	// ����������������ֵ����
 	Npc[m_nIndex].m_CurrentLife    = Npc[m_nIndex].m_CurrentLifeMax;
 	Npc[m_nIndex].m_CurrentStamina = Npc[m_nIndex].m_CurrentStaminaMax;
 	Npc[m_nIndex].m_CurrentMana    = Npc[m_nIndex].m_CurrentManaMax;
-	
+
 	// �ͻ��˶������Լ��ĵȼ���һ
 	if (this->m_cTeam.m_nFlag)
 	{
@@ -3946,16 +3946,16 @@ void	KPlayer::s2cLevelUp(BYTE* pMsg)
 			}
 		}
 	}
-	
-	/*KSystemMessage Msg;	
+
+	/*KSystemMessage Msg;
 	Msg.byConfirmType = SMCT_CLICK;
 	Msg.byParamSize = 0;
 	Msg.byPriority = 1;
 	Msg.eType = SMT_PLAYER;
-	t_sprintf(Msg.szMessage, strCoreInfo[MSG_LEVEL_UP].c_str(), Npc[m_nIndex].m_Level);
+	sprintf(Msg.szMessage, strCoreInfo[MSG_LEVEL_UP].c_str(), Npc[m_nIndex].m_Level);
 	Msg.nMsgLen = TEncodeText(Msg.szMessage, strlen(Msg.szMessage));
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&Msg, NULL);*/
-	
+
 	Npc[this->m_nIndex].SetInstantSpr(enumINSTANT_STATE_LEVELUP);  //�ͷ�����˲����Ч
 }
 
@@ -4005,19 +4005,19 @@ void	KPlayer::s2cSetExp(int nExp)
 	if (nExp > m_nExp)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage,"�����%d�㾭��ֵ��"/*strCoreInfo[MSG_GET_EXP].c_str()*/, nExp - m_nExp);
+		sprintf(sMsg.szMessage,"�����%d�㾭��ֵ��"/*strCoreInfo[MSG_GET_EXP].c_str()*/, nExp - m_nExp);
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
 #ifdef WIN32
 		sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
-		//ccMessageBox(sMsg.szMessage,"���Ӿ���");
+		//messageBox(sMsg.szMessage,"���Ӿ���");
 #else
 		char msg[256];
-		t_sprintf(sMsg.szMessage,UTEXT(sMsg.szMessage,1).c_str());
+		sprintf(sMsg.szMessage, "%s", UTEXT(sMsg.szMessage,1).c_str());
 		sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
-		//ccMessageBox(msg,"���Ӿ���");
+		//messageBox(msg,"���Ӿ���");
 #endif
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
@@ -4025,23 +4025,23 @@ void	KPlayer::s2cSetExp(int nExp)
 	else if (nExp < m_nExp)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_DEC_EXP].c_str(), m_nExp - nExp);//"��ʾ:����ʧ��(%d)�㾭��ֵ��"
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_DEC_EXP].c_str(), m_nExp - nExp);//"��ʾ:����ʧ��(%d)�㾭��ֵ��"
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-		//ccMessageBox("���پ���","���پ���");
+		//messageBox("���پ���","���پ���");
 	}
-	
+
 	this->m_nExp = nExp; //���鸳ֵ
 }
 
 void	KPlayer::s2cSyncMoney(BYTE* pMsg)
 {
 	PLAYER_FS_MONEY_SYNC	*pMoney = (PLAYER_FS_MONEY_SYNC*)pMsg;
-	
+
 	if ( CheckTrading() )
 	{
 		if (pMoney->m_nMoney1 >= pMoney->m_nMoney3)
@@ -4068,7 +4068,7 @@ void	KPlayer::s2cSyncMoney(BYTE* pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_EARN_MONEY].c_str(), pMoney->m_nMoney1 - nMoney1);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_EARN_MONEY].c_str(), pMoney->m_nMoney1 - nMoney1);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4087,7 +4087,7 @@ void	KPlayer::s2cSyncXu(BYTE* pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_EARN_XU].c_str(), pXu->m_nXu - nXu);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_EARN_XU].c_str(), pXu->m_nXu - nXu);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4106,18 +4106,18 @@ void	KPlayer::s2cTradeApplyStart(BYTE* pMsg)
 	nNpcIdx = NpcSet.SearchID(pApply->m_dwNpcId);
 	if (nNpcIdx == 0)
 		return;
-	
+
 	KSystemMessage	sMsg;
 	KUiPlayerItem	sPlayer;
 	char nTempName[32];
 	ZeroMemory(nTempName,sizeof(nTempName));
-	t_sprintf(nTempName,Npc[nNpcIdx].Name);
+	sprintf(nTempName, "%s", Npc[nNpcIdx].Name);
 	strcpy(sPlayer.Name, nTempName);
 	sPlayer.nIndex = pApply->m_nDestIdx;
 	sPlayer.uId    = pApply->m_dwNpcId;
 	sPlayer.nData  = 0;
-	
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_GET_APPLY].c_str(), nTempName);
+
+	sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_GET_APPLY].c_str(), nTempName);
 	sMsg.eType = SMT_SYSTEM;
 	sMsg.byConfirmType = SMCT_UI_TRADE;
 	sMsg.byPriority = 3;
@@ -4129,9 +4129,9 @@ void	KPlayer::s2cTradeApplyStart(BYTE* pMsg)
 void	KPlayer::s2cTradeMoneySync(BYTE* pMsg)
 {
 	TRADE_MONEY_SYNC	*pMoney = (TRADE_MONEY_SYNC*)pMsg;
-	
+
 	m_ItemList.SetRoomMoney(room_trade1, pMoney->m_nMoney);
-	
+
 	// ֪ͨ����
 	KUiObjAtRegion	sMoney;
 	sMoney.Obj.uGenre = CGOG_MONEY;
@@ -4148,14 +4148,14 @@ void	KPlayer::s2cTradeDecision(BYTE* pMsg)
 	if (pSync->m_btDecision == 1)	// ��ɽ���
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SUCCESS].c_str(), m_cTrade.m_szDestName);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SUCCESS].c_str(), m_cTrade.m_szDestName);
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-		
+
 		// ����ItemList.Remove����� modify by spe 03/06/14
 		//m_ItemList.ClearRoom(room_trade);
 		m_ItemList.RemoveAllInOneRoom(room_trade1);
@@ -4163,26 +4163,26 @@ void	KPlayer::s2cTradeDecision(BYTE* pMsg)
 		m_ItemList.ClearRoom(room_tradeback);
 		this->m_cTrade.Release();
 		m_cMenuState.SetState(PLAYER_MENU_STATE_NORMAL);
-		
+
 		// ֪ͨ���潻�׽���
 		CoreDataChanged(GDCNI_TRADE_END, 0, 0);
-		
+
 		//m_ItemList.MenuSetMouseItem();
 	}
 	else if (pSync->m_btDecision == 0)	// ȡ������
 	{
 		if (!CheckTrading())
 			return;
-		
+
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_FAIL].c_str(), m_cTrade.m_szDestName);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_FAIL].c_str(), m_cTrade.m_szDestName);
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
 		sMsg.byParamSize = 0;
 		sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-		
+
 		// ȡ�����׵����ݻָ�
 		m_ItemList.RecoverTrade();
 		m_ItemList.SetClient(m_cTrade.m_nBackEquipMoney, m_cTrade.m_nBackRepositoryMoney, 0);
@@ -4192,12 +4192,12 @@ void	KPlayer::s2cTradeDecision(BYTE* pMsg)
 		m_ItemList.ClearRoom(room_tradeback);
 		m_cTrade.Release();
 		m_cMenuState.SetState(PLAYER_MENU_STATE_NORMAL);
-		
+
 		// ֪ͨ���潻�׽���
 		CoreDataChanged(GDCNI_TRADE_END, 0, 0);
 		// ������Ʒ���
 		// CoreDataChanged(GDCNI_CONTAINER_OBJECT_CHANGED,UOC_ITEM_TAKE_WITH, 0);
-		
+
 		//m_ItemList.MenuSetMouseItem();
 	}
 }
@@ -4205,15 +4205,15 @@ void	KPlayer::s2cTradeDecision(BYTE* pMsg)
 void	KPlayer::SyncCurPlayer(BYTE* pMsg)
 {//����
 	m_ItemList.RemoveAll();  //ԭ���е�
-	//ccMessageBox("����ͬ������","SyncCurPlayer");
+	//messageBox("����ͬ������","SyncCurPlayer");
 	CURPLAYER_SYNC* PlaySync = (CURPLAYER_SYNC *)pMsg;
 
 	this->m_nIndex = NpcSet.SearchID(PlaySync->m_dwID); //NPC������
 	//char mgs[128]={0};
 	if (this->m_nIndex<=0)
 	{
-		//t_sprintf(mgs,"���ݴ���.����:%d,dwid:%u,�ȼ�:%d",this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
-		//ccMessageBox(mgs,"SyncCurPlayer");
+		//sprintf(mgs,"���ݴ���.����:%d,dwid:%u,�ȼ�:%d",this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
+		//messageBox(mgs,"SyncCurPlayer");
 		return;
 	}
 
@@ -4223,7 +4223,7 @@ void	KPlayer::SyncCurPlayer(BYTE* pMsg)
 	Npc[m_nIndex].m_nSex  = PlaySync->m_btSex;
 	Npc[m_nIndex].m_Series= PlaySync->m_btSeries;
 	Npc[m_nIndex].SetPlayerIdx(CLIENT_PLAYER_INDEX); //=1
-	
+
 	m_nAttributePoint = PlaySync->m_wAttributePoint;
 	m_nSkillPoint     = PlaySync->m_wSkillPoint;
 	m_nStrength       = PlaySync->m_wStrength;
@@ -4247,16 +4247,16 @@ void	KPlayer::SyncCurPlayer(BYTE* pMsg)
 
 	m_dwLeadLevel        =PlayerSet.m_cLeadExp.GetLevel(m_dwLeadExp);
 	m_dwNextLevelLeadExp =PlayerSet.m_cLeadExp.GetLevelExp(m_dwLeadLevel);
-	
+
 	m_cFaction.m_nCurFaction = (char)PlaySync->m_btCurFaction;
 	m_cFaction.m_nFirstAddFaction = (char)PlaySync->m_btFirstFaction;
 	m_cFaction.m_nAddTimes = PlaySync->m_nFactionAddTimes;
-	
+
 	m_nWorldStat = (int)PlaySync->m_wWorldStat;//��������
 	m_nSectStat = (int)PlaySync->m_wSectStat; //�����е�����
 	//char mgs[128]={0};
-	//t_sprintf(mgs,"A����:%s ����:%d,dwid:%u,�ȼ�:%d",Npc[m_nIndex].Name,this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
-	//ccMessageBox(mgs,"SyncCurPlayer");
+	//sprintf(mgs,"A����:%s ����:%d,dwid:%u,�ȼ�:%d",Npc[m_nIndex].Name,this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
+	//messageBox(mgs,"SyncCurPlayer");
 	m_ItemList.Init(CLIENT_PLAYER_INDEX);
 	m_ItemList.SetClient(PlaySync->m_nMoney1, PlaySync->m_nMoney2, 0);
 	m_ItemList.SetServer(PlaySync->m_nXu);
@@ -4282,7 +4282,7 @@ void	KPlayer::SyncCurPlayer(BYTE* pMsg)
 	Npc[m_nIndex].m_Experience = 0;
 	memset(Npc[m_nIndex].m_szChatBuffer, 0, sizeof(Npc[m_nIndex].m_szChatBuffer));
 	Npc[m_nIndex].m_nCurChatTime = 0;
-	
+
 	m_RunStatus = 1;
 	m_nLeftSkillID = 0;
 	m_nLeftSkillLevel = 0;
@@ -4300,8 +4300,8 @@ void	KPlayer::SyncCurPlayer(BYTE* pMsg)
 	Npc[m_nIndex].m_Kind = kind_player;
 	Npc[m_nIndex].m_Level = (WORD)PlaySync->m_btLevel;*/
 	//char mgs[128]={0};
-//	t_sprintf(mgs,"����:%s ����:%d,dwid:%u,�ȼ�:%d",Npc[m_nIndex].Name,this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
-	//ccMessageBox(mgs,"SyncCurPlayer");
+//	sprintf(mgs,"����:%s ����:%d,dwid:%u,�ȼ�:%d",Npc[m_nIndex].Name,this->m_nIndex,PlaySync->m_dwID,PlaySync->m_btLevel);
+	//messageBox(mgs,"SyncCurPlayer");
 }
 
 
@@ -4315,7 +4315,7 @@ void	KPlayer::SetFirstDamage()
 	int nDamageBase;
 
 	nDamageBase = m_nCurStrength / STRENGTH_SET_DAMAGE_VALUE + 1;   //�������� 6 �� �����˺�
-	
+
 	Npc[m_nIndex].m_PhysicsDamage.nValue[0] = nDamageBase;
 	Npc[m_nIndex].m_PhysicsDamage.nValue[2] = nDamageBase;
 	Npc[m_nIndex].m_PhysicsDamage.nValue[1] = 0;
@@ -4327,23 +4327,23 @@ void	KPlayer::SetFirstDamage()
 	Npc[m_nIndex].m_CurrentPhysicsMagicDamageP.nValue[0] = 0;
 	Npc[m_nIndex].m_CurrentPhysicsMagicDamageP.nValue[2] = 0;
 	Npc[m_nIndex].m_CurrentPhysicsMagicDamageP.nValue[1] = 0;
-	
+
 	Npc[m_nIndex].m_CurrentMagicFireDamage.nValue[0] = 0;
 	Npc[m_nIndex].m_CurrentMagicFireDamage.nValue[1] = 0;
 	Npc[m_nIndex].m_CurrentMagicFireDamage.nValue[2] = 0;
-	
+
 	Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[0] = 0;
 	Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[1] = 0;
 	Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[2] = 0;
-	
+
 	Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[0] = 0;
 	Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[1] = 0;
 	Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[2] = 0;
-	
+
 	Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[0] = 0;
 	Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[1] = 0;
 	Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[2] = 0;
-	
+
 }
 
 void	KPlayer::SetBaseAttackRating()
@@ -4395,10 +4395,10 @@ void KPlayer::DialogNpc(int nIndex,BOOL nIsServer)
 		{
 			PLAYER_DIALOG_NPC_COMMAND DialogNpcCmd;
 			DialogNpcCmd.nNpcId = Npc[nIndex].m_dwID;
-			DialogNpcCmd.ProtocolType = c2s_dialognpc;		
+			DialogNpcCmd.ProtocolType = c2s_dialognpc;
 		if (g_pClient)
 			g_pClient->SendPackToServer(&DialogNpcCmd, sizeof(PLAYER_DIALOG_NPC_COMMAND));
-			
+
 		}
 	}
 }
@@ -4425,8 +4425,8 @@ Obj_Kind_Trap,				// ����
 Obj_Kind_Prop,				// С���ߣ������� ������
 Obj_Kind_Num,				// �����������
 };*/
-	
-	switch(Object[nIdx].m_nKind)
+
+	switch(KObject[nIdx].m_nKind)
 	{
 //////ԭ��û�е�/////////////
 	case Obj_Kind_Item:
@@ -4439,7 +4439,7 @@ Obj_Kind_Num,				// �����������
 		break;
 	case Obj_Kind_Box:
 	case Obj_Kind_Door:
-	case Obj_Kind_Trap:  //������ 
+	case Obj_Kind_Trap:  //������
 	case Obj_Kind_Prop:	 //�������
 		this->ObjMouseClick(nIdx);
 		Npc[m_nIndex].m_nIsOver=TRUE;
@@ -4490,8 +4490,8 @@ void KPlayer::DrawSelectInfo()   //ѡ��������� ����ʾ
 	if (m_nObjectIdx)
 	{//��Ʒ
 		if (!ObjSet.CheckShowName())
-			Object[m_nObjectIdx].DrawInfo();
-		//	Object[m_nObjectIdx].DrawBorder();
+			KObject[m_nObjectIdx].DrawInfo();
+		//	KObject[m_nObjectIdx].DrawBorder();
 		return;
 	}
 }
@@ -4503,7 +4503,7 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	int nSkillId;
 	*nMin = 0;
 	*nMax = 0;
-	
+
 	if (m_nIndex <= 0 || m_nIndex >= MAX_NPC || nType < 0 || nType > 1 || NULL == nMin || NULL == nMax)
 		return;
 	//���Ҽ���ѡ��
@@ -4515,14 +4515,14 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 
 	if (nSkillId <= 0 ||nLevel <= 0 || nLevel >= MAX_SKILLLEVEL)
 		return;
-	
+
 	KMagicAttrib*	pMagicData = NULL;
-	
+
 	KSkill * pOrdinSkill = (KSkill *) g_SkillManager.GetSkill(nSkillId, nLevel);
-	if (!pOrdinSkill) 
+	if (!pOrdinSkill)
         return ;
 
-	//ccMessageBox(pOrdinSkill->GetSkillName(),"setleftskill");
+	//messageBox(pOrdinSkill->GetSkillName(),"setleftskill");
 	switch(pOrdinSkill->GetSkillStyle())
 	{
 	case SKILL_SS_Missles:		        	//	�ӵ���		���������ڷ����ӵ���
@@ -4536,12 +4536,12 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	default:
 		return;
 	}
-	
+
 	BOOL	bIsPhysical = pOrdinSkill->IsPhysical();          //������
 	BOOL	bIsMagic    = pOrdinSkill->IsMagic();             //1�⹦ϵ ��0�ڹ�ϵ
 
 	        pMagicData = pOrdinSkill->GetDamageAttribs();     //������������
-	
+
 	if (!pMagicData)
 		return;
 	//�����˺�+���������˺�+���յ�=�������˺�
@@ -4556,17 +4556,17 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 		   nMaxNpcDamage +=nTempVal;
 */
 	   if (equip_meleeweapon == m_ItemList.GetWeaponType())
-	   { 
+	   {
 		nEnhancew = Npc[m_nIndex].m_CurrentMeleeEnhance[m_ItemList.GetWeaponParticular()];
-	   } 
+	   }
 	   else if (equip_rangeweapon == m_ItemList.GetWeaponType())
-	   {  
+	   {
 		nEnhancew = Npc[m_nIndex].m_CurrentRangeEnhance;
-	   } 
-	   else 
-	   { 
+	   }
+	   else
+	   {
 		nEnhancew = Npc[m_nIndex].m_CurrentHandEnhance;
-	   } 
+	   }
 	}
 //�����˺�
 	*nMin += nMinNpcDamage +(nMinNpcDamage*nEnhancew)/100;
@@ -4598,7 +4598,7 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
             Vmax = (*nMax)*pMagicData->nValue[0]/100;
 
 		*nMin += Vmin;
-		*nMax += Vmax;	
+		*nMax += Vmax;
 
 	//*nMin += nMinNpcDamage * nEnhancew / 100;
 	//*nMax += nMaxNpcDamage * nEnhancew / 100;
@@ -4612,13 +4612,13 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	{//�ű���������+����״̬(װ��+���ܵ�״̬)
 		*nMin = (*nMin+Npc[m_nIndex].m_CurrentAddPhysicsDamage)*(100+Npc[m_nIndex].m_CurrentAddPhysicsDamageP)/100;
 		*nMax = (*nMax+Npc[m_nIndex].m_CurrentAddPhysicsDamage)*(100+Npc[m_nIndex].m_CurrentAddPhysicsDamageP)/100;
-	} 
+	}
 	}
 	pMagicData++; // 3 ���˺�
 	if (magic_colddamage_v == pMagicData->nAttribType)
 	{
 		*nMin += pMagicData->nValue[0];
-		*nMax += pMagicData->nValue[2];//*(100+ Npc[m_nIndex].m_CurrentColdEnhance)/100;	
+		*nMax += pMagicData->nValue[2];//*(100+ Npc[m_nIndex].m_CurrentColdEnhance)/100;
 
 	if (bIsMagic)  //�ڱ�
 	{
@@ -4626,10 +4626,10 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 		*nMax += Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[2]+Npc[m_nIndex].m_CurrentAddmagicColdDamagicv;
 	}
 	else
-	{ 
+	{
 		*nMin += Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddColdDamagev;
 		*nMax += Npc[m_nIndex].m_CurrentMagicColdDamage.nValue[2]+Npc[m_nIndex].m_CurrentAddColdDamagev;
-	} 
+	}
 	}
 	pMagicData++; //4  ���˺�
 	if (magic_firedamage_v == pMagicData->nAttribType)
@@ -4645,13 +4645,13 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	{//�⹦
 		*nMin += Npc[m_nIndex].m_CurrentMagicFireDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddFireDamagev;
 		*nMax += Npc[m_nIndex].m_CurrentMagicFireDamage.nValue[2]+Npc[m_nIndex].m_CurrentAddFireDamagev;
-	} 
+	}
 	}
 	pMagicData++;// 5 ���˺�
 	if (magic_lightingdamage_v == pMagicData->nAttribType)
 	{
 		*nMin += pMagicData->nValue[0];
-		*nMax += pMagicData->nValue[2]; 
+		*nMax += pMagicData->nValue[2];
 
 	if (bIsMagic)
 	{
@@ -4659,7 +4659,7 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 		*nMax += Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[2]+Npc[m_nIndex].m_CurrentAddmagicLightDamagicv;
 	}
 	else
-	{ 
+	{
 		*nMin += Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddLighDamagev;
 		*nMax += Npc[m_nIndex].m_CurrentMagicLightDamage.nValue[2]+Npc[m_nIndex].m_CurrentAddLighDamagev;
 	}
@@ -4668,24 +4668,24 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	if (magic_poisondamage_v == pMagicData->nAttribType)
 	{
 			*nMin += pMagicData->nValue[0];//* (100 +Npc[m_nIndex].m_CurrentPoisonEnhance) / 100;//���ܻ�������
-			*nMax += pMagicData->nValue[0]; 
+			*nMax += pMagicData->nValue[0];
 
 	  if (bIsMagic)
-	  {//�ڶ�  
+	  {//�ڶ�
 		*nMin += Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddmagicPoisonDamagicv;
 		*nMax += Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddmagicPoisonDamagicv;
-	  }  
+	  }
 	  else
-	  {//�ⶾ  
+	  {//�ⶾ
 		int nPoisonDamage = Npc[m_nIndex].m_CurrentMagicPoisonDamage.nValue[0]+Npc[m_nIndex].m_CurrentAddPoisonDamagev;
 		*nMin += nPoisonDamage;
 		*nMax += nPoisonDamage;
-	  }  
+	  }
 	}
 	pMagicData++;// 7 �����˺������ӷ�����
 
 	if (magic_magicdamage_v == pMagicData->nAttribType)
-	{ 
+	{
 		*nMin += pMagicData->nValue[0];
 		*nMax += pMagicData->nValue[2];
 	}
@@ -4710,14 +4710,14 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	  {//�ű���������+����״̬(װ��+���ܵ�״̬)
 		*nMin += (pMagicData->nValue[0]+Npc[m_nIndex].m_CurrentAddPhysicsDamage)*(100+Npc[m_nIndex].m_CurrentAddPhysicsDamageP)/100;
 		*nMax += (pMagicData->nValue[2]+Npc[m_nIndex].m_CurrentAddPhysicsDamage)*(100+Npc[m_nIndex].m_CurrentAddPhysicsDamageP)/100;
-	  } 
+	  }
     }
 	pMagicData++;//16
 	pMagicData++;//17
 	pMagicData++;//18
-	
+
 	int nCurbei=0;//nFomoidx=Npc[m_nIndex].GetCurFuMoIdx(),;
-	
+
 	/*if 	(nFomoidx>-1)
 	{
 		if (Npc[m_nIndex].GetCurFoMoSkllLevel(nFomoidx)>=5) //��ȡ�񽫵�ǰ�ĵȼ�
@@ -4729,13 +4729,13 @@ void KPlayer::GetEchoDamage(int* nMin, int* nMax, int nType)
 	}*/
   /*
 	*nMin += Npc[m_nIndex].TakeTrader(*nMin * nEnChance,100);//*nMin * nEnChance/100;
-	*nMax += Npc[m_nIndex].TakeTrader(*nMax * nEnChance,100);//*nMax * nEnChance/100; 
+	*nMax += Npc[m_nIndex].TakeTrader(*nMax * nEnChance,100);//*nMax * nEnChance/100;
 
 	*nMin = Npc[m_nIndex].TakeTrader(*nMin * (nCurbei*5+100),100);//*nMin * (nCurbei*5+100)/100;
 	*nMax = Npc[m_nIndex].TakeTrader(*nMax * (nCurbei*5+100),100);//*nMax * (nCurbei*5+100)/100;
    */
 	*nMin += *nMin * nEnChance/100;//Npc[m_nIndex].TakeTrader((*nMin)*nEnChance,100);//*nMin * nEnChance/100;
-	*nMax += *nMax * nEnChance/100;//Npc[m_nIndex].TakeTrader((*nMax)*nEnChance,100);//*nMax * nEnChance/100; 
+	*nMax += *nMax * nEnChance/100;//Npc[m_nIndex].TakeTrader((*nMax)*nEnChance,100);//*nMax * nEnChance/100;
 
 	*nMin = *nMin * (nCurbei*5+100)/100;//Npc[m_nIndex].TakeTrader((*nMin)*(nCurbei*5+100),100);//*nMin * (nCurbei*5+100)/100;
 	*nMax = *nMax * (nCurbei*5+100)/100;//Npc[m_nIndex].TakeTrader((*nMax)*(nCurbei*5+100),100);//*nMax * (nCurbei*5+100)/100;

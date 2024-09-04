@@ -4,8 +4,8 @@
 // FileName			:	KSkillSpecial.h
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-9-23 20:49:13
-// FileDescription	:	
-// Revision Count	:	
+// FileDescription	:
+// Revision Count	:
 *******************************************************************************/
 #include "KMissleRes.h"
 
@@ -14,7 +14,7 @@ class KSkillSpecial
 	//Class Member
 public:
 	int         m_nMissleId;
-	int			m_nRegionId;		
+	int			m_nRegionId;
 	int			m_nCurrentMapX;			//	��ǰ��X����
 	int			m_nCurrentMapY;			//	��ǰ��Y����
 	int			m_nCurrentMapZ;			//	��ǰ��Z����
@@ -31,7 +31,7 @@ public:
 	DWORD		m_nEndTime;
 	//BOOL		m_bFollowMissle;
 	int		   m_eStatus;
-#ifdef TOOLVERSION	
+#ifdef TOOLVERSION
 	KCacheNode	* m_pSprNode ;
 #endif
 	KCacheNode  * m_pSndNode ;
@@ -43,12 +43,12 @@ public:
 	void		Remove();
 	void		DrawC(DWORD nCurLifeFrame);
 	void		Draw(int nX, int nY , int nZ, int nDir, int nAllFrame,  int nCurLifeFrame);
-	void		SetAnimation(char * szFile, uint32_t uImage);
+	void		SetAnimation(char * szFile, unsigned int uImage);
 private:
-	
+
 };
 
-class KSkillSpecialNode : public KNode 
+class KSkillSpecialNode : public KNode
 {
 public:
 	KSkillSpecial * m_pSkillSpecial;

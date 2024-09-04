@@ -8,13 +8,13 @@
 //			sourcesafe�߻���\Setting\GAMESETTING\����ϵͳ�趨.doc
 //---------------------------------------------------------------------------
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include "AudioEngine.h"
 #include "GameDataDef.h"
-#include "editor-support/cocostudio/SimpleAudioEngine.h"
+#include "cocostudio/ComAudio.h"
 #pragma once
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 //using namespace CocosDenshion;
 
 #define		defONE_MAP_MAX_MUSIC			4				// ÿ�ŵ�ͼ������������
@@ -99,7 +99,7 @@ public:
 private:
 	void			Release();			// ���
 	int             CreateFolder(char * nPath);
-    CocosDenshion::SimpleAudioEngine *__pMusic;
+    cocostudio::ComAudio *__pMusic;
 	std::string     nSdcardPath;
 	bool            nIsDown;
 };

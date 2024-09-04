@@ -55,7 +55,7 @@ KNpcRes::KNpcRes()
 //---------------------------------------------------------------------------
 //	���ܣ�	��ʼ��
 //---------------------------------------------------------------------------
-BOOL	KNpcRes::Init(char *lpszNpcName, KNpcResList *pNpcResList,uint32_t nNpcDwIdx)
+BOOL	KNpcRes::Init(char *lpszNpcName, KNpcResList *pNpcResList,unsigned int nNpcDwIdx)
 {
 	// ��ʼ�� NpcResNode
 	//pNpcResList->ClearAllNpcRes();  ClearOneNpcRes(char *lpszNpcName);
@@ -116,7 +116,7 @@ BOOL	KNpcRes::Init(char *lpszNpcName, KNpcResList *pNpcResList,uint32_t nNpcDwId
 	{
 		this->m_cNpcShadow.Release();
 	}
-	
+
 	for (i = 0; i <36;++i)  //MAX_PART
 	{
 		m_cStateSpr[i].Release();
@@ -144,7 +144,7 @@ BOOL	KNpcRes::Init(char *lpszNpcName, KNpcResList *pNpcResList,uint32_t nNpcDwId
 		m_cDrawFile[i].bRenderStyle = IMAGE_RENDER_STYLE_ALPHA;
 		m_cDrawFile[i].uImage = 0;
 		m_cDrawFile[i].nISPosition = IMAGE_IS_POSITION_INIT;
-		m_cDrawFile[i].bRenderFlag = RUIMAGE_RENDER_FLAG_REF_SPOT;	
+		m_cDrawFile[i].bRenderFlag = RUIMAGE_RENDER_FLAG_REF_SPOT;
 	}
 
 
@@ -183,7 +183,7 @@ void	KNpcRes::SetPos(int nNpcIdx, int x, int y, int z, BOOL bFocus, BOOL bMenu)
 
 	/*if (!bMenu)
     {
-		m_SceneID_NPCIdx = nNpcIdx; 
+		m_SceneID_NPCIdx = nNpcIdx;
         g_ScenePlace.MoveObject(CGOG_NPC, nNpcIdx, x, y, z, m_SceneID, IPOT_RL_OBJECT | IPOT_RL_INFRONTOF_ALL | IPOT_RL_LIGHT_PROP);
 
     }*/
@@ -231,7 +231,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		nGetFrame = this->m_cNpcShadow.m_nTotalFrame;
 		nCurFrameNo = nCurDirNo * (nGetFrame / nGetDir) + (nGetFrame / nGetDir) * nCurFrame / nAllFrame;
 		this->m_cNpcShadow.SetCurFrame(nCurFrameNo);
-		
+
 		// ��������
 		nFirst = 0;
 		// �ҵ������ĵ�ǰ��
@@ -239,9 +239,9 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		/*if (m_cNpcImage[20].CheckExist())
 		{//���
 		   if (m_cNpcImage[20].SetCurDir64(nDir))
-		   { 
+		   {
 			  m_cNpcImage[20].GetNextFrame(); //������һ֡
-		   } 
+		   }
 		}*/
 
 		for (i = 0; i < MAX_PART;++i)
@@ -249,7 +249,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 			if (m_cNpcImage[i].CheckExist())
 			{
 				if (nFirst == 0)   //ÿһ�δ�ѭ��
-				{//ĳ������Ŀ�ʼ֡��					
+				{//ĳ������Ŀ�ʼ֡��
 					nGetDir = m_cNpcImage[i].m_nTotalDir;	//�ܷ���
 
 					if (nGetDir <= 0)
@@ -281,7 +281,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 					{//���ظ�����λ�Ļ�������,ǰ���Ѿ����ù�
 						m_cNpcImage[i].m_nTotalDir   = sImage.nNumFramesGroup;
 						m_cNpcImage[i].m_nTotalFrame = sImage.nNumFrames;//������֡��
-						
+
 					}*/
 					if (i==20)
 					{
@@ -309,8 +309,8 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 			{
 				m_cNpcImage[i].GetNextFrame();
 				nCurDirNo   = m_cNpcImage[i].m_nCurDir;
-				nCurFrameNo = m_cNpcImage[i].m_nCurFrame; 
-			}	
+				nCurFrameNo = m_cNpcImage[i].m_nCurFrame;
+			}
 		}
 	}//end if
 	// ״̬��Ч��֡(ͬʱ��ʾ���)
@@ -378,14 +378,14 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		}
 	}
 	g_GameWorld->DrawPrimitives_State(nNpcIdx,nPos,m_cDrawFile,STATE_PART_HEAD,STATE_PART_HEAD,0,bInMenu);
-	
-	nPos = 0;	
+
+	nPos = 0;
 	//����״̬��Ч(npc����)
 	for (i = 12; i < 24; ++i)
 	{
 		if (m_cStateSpr[i].m_nID)
 		{
-			if (m_cStateSpr[i].m_nBackStart <= m_cStateSpr[i].m_SprContrul.m_nCurFrame && 
+			if (m_cStateSpr[i].m_nBackStart <= m_cStateSpr[i].m_SprContrul.m_nCurFrame &&
 				m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackEnd)
 			{
 				strcpy(m_cDrawFile[nPos].szImage, m_cStateSpr[i].m_SprContrul.m_szName);
@@ -402,7 +402,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		}
 	}
     g_GameWorld->DrawPrimitives_State(nNpcIdx,nPos, m_cDrawFile,STATE_PART_BODY_H,STATE_PART_BODY_H,0,bInMenu);
-	
+
 	nPos = 0;
 	//�ŵ�״̬��Ч
 	for ( i = 24; i < 36; ++i)
@@ -425,7 +425,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 	{
 		if (m_cStateSpr[i].m_nID)
 		{
-			if (m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackStart || 
+			if (m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackStart ||
 				m_cStateSpr[i].m_SprContrul.m_nCurFrame >= m_cStateSpr[i].m_nBackEnd)
 			{
 				strcpy(m_cDrawFile[nPos].szImage, m_cStateSpr[i].m_SprContrul.m_szName);
@@ -490,14 +490,14 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 				nHeightOff += 38;
 			m_cDrawFile[nPos].oPosition.nZ = nScreenZ + nHeightOff;
 
-			if (m_cStateSpr[i].m_nBackStart <= m_cStateSpr[i].m_SprContrul.m_nCurFrame && 
+			if (m_cStateSpr[i].m_nBackStart <= m_cStateSpr[i].m_SprContrul.m_nCurFrame &&
 				m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackEnd)
 			{
 				g_GameWorld->DrawPrimitives_State(nNpcIdx,m_cStateSpr[i].m_nID,nPos,m_cDrawFile,STATE_PART_BODY_H,STATE_PART_BODY_H,0,bInMenu);
 				nPos++;
 			}
 			else
-			//if (m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackStart || 
+			//if (m_cStateSpr[i].m_SprContrul.m_nCurFrame < m_cStateSpr[i].m_nBackStart ||
 			//	m_cStateSpr[i].m_SprContrul.m_nCurFrame >= m_cStateSpr[i].m_nBackEnd)
 			{
 				g_GameWorld->DrawPrimitives_State(nNpcIdx,m_cStateSpr[i].m_nID,nPos,m_cDrawFile,STATE_PART_BODY_Q,STATE_PART_BODY_Q,0,bInMenu);
@@ -528,7 +528,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 
 	nPos++;
 	//npc����--------------------------------------------------------
-	for (i = 0; i <MAX_PART ; ++i) 
+	for (i = 0; i <MAX_PART ; ++i)
 	{////MAX_PART  0-24��λ��   20Ϊ ���   16Ϊ����
 		    if (m_nSortTable[i] >= 0 && m_nSortTable[i] < MAX_PART)
 			{ //���������
@@ -579,7 +579,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 				//    g_GameWorld->_setBuWeiHide(nNpcIdx,false,i);
 			}*/
 	}
-	
+
 	nPos = 0;
 	for (i = 24; i < 36; ++i)
 	{
@@ -596,7 +596,7 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		}
 	}
 	// -------------------------------- ��������б� end -----------------------------
-	
+
 	// ----------------------------------- �����Ӱ ----------------------------------
 
 	/*if  (g_pRepresent->GetRepMoDel()==3)   //3Dģʽ���滭��Ӱ
@@ -619,13 +619,13 @@ void	KNpcRes::Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bIn
 		m_cNpcBlur.SetMapPos(m_nXpos, m_nYpos, m_nZpos, nNpcIdx);
 
 		m_cNpcBlur.SetNextNo();
-	} 
+	}
 	*/
 //	m_cNpcBlur.Draw();
 // --------------------------------- �����Ӱ end --------------------------------
 	// ����
 
-//	g_pRepresent->DrawPrimitives(MAX_NPC_IMAGE_NUM, m_cDrawFile, RU_T_IMAGE, bInMenu);	
+//	g_pRepresent->DrawPrimitives(MAX_NPC_IMAGE_NUM, m_cDrawFile, RU_T_IMAGE, bInMenu);
 
 }
 
@@ -667,7 +667,7 @@ BOOL KNpcRes::SetPifeng(int nPifengType)
 		{
 			m_pcResNode->GetFileName(i, m_nAction, nPifengType, "", szBuffer, sizeof(szBuffer)); //��λ����Ϊ������SPR����
 			m_cNpcImage[i].SetSprFile(szBuffer, m_pcResNode->GetTotalFrames(i, m_nAction, nPifengType, 16), m_pcResNode->GetTotalDirs(i, m_nAction, nPifengType, 16), m_pcResNode->GetInterval(i, m_nAction, nPifengType, 0));
-			
+
 		}
 		// ����˲��������ڣ���Ӧ���ļ��������
 		else
@@ -716,7 +716,7 @@ BOOL KNpcRes::SetChiBang(int nChiBangType)
 BOOL	KNpcRes::SetHelm(int nHelmType)
 {
 	int		i;
-	
+
 
 	if (nHelmType < 0)
 		return FALSE;
@@ -773,7 +773,7 @@ BOOL	KNpcRes::SetArmor(int nArmorType)
 	{//���+����+����+���� 4 5 6 7
 		if (m_pcResNode->CheckPartExist(i))
 		{
-			//ccMessageBox("�ҵ�ͷ��spr","SetArmor");
+			//messageBox("�ҵ�ͷ��spr","SetArmor");
 			char nInfo[64]={0};
 			m_pcResNode->GetFileName(i,m_nAction,nArmorType,"",szBuffer,sizeof(szBuffer));
 			m_cNpcImage[i].SetSprFile(szBuffer, m_pcResNode->GetTotalFrames(i,m_nAction,nArmorType,16),m_pcResNode->GetTotalDirs(i,m_nAction,nArmorType,16),m_pcResNode->GetInterval(i,m_nAction,nArmorType,0));
@@ -785,14 +785,14 @@ BOOL	KNpcRes::SetArmor(int nArmorType)
 			/*else
 			{
 				sprintf(nInfo,"���岿λ·��Ϊ��:%d",i);
-				ccMessageBox(nInfo,"SetArmor");
+				messageBox(nInfo,"SetArmor");
 			}*/
 		}
 		// ����˲��������ڣ���Ӧ���ļ��������
 		else
 		{
 			m_cNpcImage[i].Release();
-			//ccMessageBox("��λ������ͷ��spr","SetArmor");
+			//messageBox("��λ������ͷ��spr","SetArmor");
 		}
 	}
 	return TRUE;
@@ -880,7 +880,7 @@ BOOL	KNpcRes::SetWeapon(int nWeaponType)
 			m_cNpcImage[i].Release();
 		}
 	}
-	
+
 	for (i = MAX_BODY_PART_SECT * 3; i < MAX_BODY_PART_SECT * 3 + MAX_BODY_PART_SECT; ++i)  //12--16  //  ��
 	{//��ǰ �� �� 12 13 14
 		if ( m_pcResNode->CheckPartExist(i) )
@@ -1138,7 +1138,7 @@ BOOL KNpcRes::SetRideHorse(BOOL bRideHorse)
 	{
 		m_cNpcShadow.Release();
 	}
-	
+
 
 	for (i = MAX_BODY_PART_SECT * 0; i < MAX_BODY_PART_SECT * 0 + MAX_BODY_PART_SECT; ++i)
 	{
@@ -1255,9 +1255,9 @@ void	KNpcRes::SetSprState(int nSprIdx,KNpcResList *pNpcResList)
 	    if  (nSprIdx<=0)
 		{
 		   for (int i=0;i<STATE_MAGIC_TYPE_NUM;++i)
-		   {   
-			 m_cSprStateSpr[i].Release(); 
-		   } 
+		   {
+			 m_cSprStateSpr[i].Release();
+		   }
 			return;
 		}
 
@@ -1269,25 +1269,25 @@ void	KNpcRes::SetSprState(int nSprIdx,KNpcResList *pNpcResList)
 		if (nStateID<=0)
 		{
 			for (int i=0;i<STATE_MAGIC_TYPE_NUM;++i)
-			{   
-				m_cSprStateSpr[i].Release(); 
-			} 
+			{
+				m_cSprStateSpr[i].Release();
+			}
 			return;
 		}
 
 	 	int	nType, nPlayType, nBackStart, nBackEnd, nTotalFrame, nTotalDir, nInterVal,nMapXpos,nMapYpos;
-		
+
 		char szBuffer[128]={0};
 			//��ȡ���SPRID������
 			g_NpcResList.m_cStateTable.GetInfo(nStateID, szBuffer, &nType, &nPlayType, &nBackStart, &nBackEnd, &nTotalFrame, &nTotalDir, &nInterVal,&nMapXpos,&nMapYpos);
-	
+
 		if (!szBuffer[0])
 		    return;
 
 		if (nType >= 0 || nType < STATE_MAGIC_TYPE_NUM)  //��λ ͷ�� �ŵ� ���� //nType=STATE_MAGIC_HEAD;
 		{
 		   for (int i=0;i<STATE_MAGIC_TYPE_NUM;++i)
-		   {   
+		   {
 			   if (i==nType)
 			   {
 				  if (m_cSprStateSpr[nType].m_nID!=nStateID)
@@ -1304,8 +1304,8 @@ void	KNpcRes::SetSprState(int nSprIdx,KNpcResList *pNpcResList)
 			   else
 			   {
 				    m_cSprStateSpr[i].Release();
-			   }   
-		   }  
+			   }
+		   }
 		}*/
 }
 //---------------------------------------------------------------------------
@@ -1345,7 +1345,7 @@ void	KNpcRes::SetState(KList *pNpcStateList, KNpcResList *pNpcResList)
 		{
 			if (g_GameWorld)
 				g_GameWorld->removespriteByIdx(m_SceneID_NPCIdx,m_cStateSpr[i].m_nID);
-			
+
 			m_cStateSpr[i].Release();
 		}
 	}
@@ -1359,14 +1359,14 @@ void	KNpcRes::SetState(KList *pNpcStateList, KNpcResList *pNpcResList)
 		{
 		  nFind = 0;
 		  for (i = 0; i < 36; ++i)
-		  { 
+		  {
 			if (pNode->m_StateGraphics == m_cStateSpr[i].m_nID)   //ԭ���е�
 			{//���ԭ�����ڵ� �ͽ�����һ���Ա�
 				nFind = 1;
 				break;
 			}
-		  } 
-		
+		  }
+
 		}
 
 		if (nFind > 0)  //���ԭ���ģ��ͽ��в�����һ����
@@ -1375,14 +1375,14 @@ void	KNpcRes::SetState(KList *pNpcStateList, KNpcResList *pNpcResList)
 	      szBuffer[0] = 0;
 		  //��ȡ���SPRID������
 		  pNpcResList->m_cStateTable.GetInfo(pNode->m_StateGraphics, szBuffer, &nType, &nPlayType, &nBackStart, &nBackEnd, &nTotalFrame, &nTotalDir, &nInterVal,&nMapXpos,&nMapYpos);
-		} 
+		}
 		if (!szBuffer[0])
 			goto WHILE_END;
 		if (nType < 0 || nType >= STATE_MAGIC_TYPE_NUM)  //��λ ͷ�� �ŵ� ����
 			goto WHILE_END;                              //nType=STATE_MAGIC_HEAD;
 		 {
 		  for (i = nType * 12; i < nType * 12+12; ++i)   //0 1 2
-		  { 
+		  {
 			if (m_cStateSpr[i].m_nID == 0)
 			{
 				// ����µ�
@@ -1395,7 +1395,7 @@ void	KNpcRes::SetState(KList *pNpcStateList, KNpcResList *pNpcResList)
 				m_cStateSpr[i].m_SprContrul.SetSprFile(szBuffer, nTotalFrame, nTotalDir, nInterVal);
 				break;
 			}
-		  } 
+		  }
 		}
 WHILE_END:
 		pNode = (KStateNode*)pNode->GetNext();
@@ -1408,17 +1408,17 @@ void	KNpcRes::SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList)
 {
 	if ( !pNpcStateList || !pNpcResList)
 		return;
-	
+
 	int		i, nFind, nFindFlag[36];
 	KStateNode	*pNode;
 	int		nType, nPlayType, nBackStart, nBackEnd, nTotalFrame, nTotalDir, nInterVal,nMapXpos,nMapYpos;
 	char	szBuffer[128];
-	
+
 	// ������е��Ƿ�Ҫֹͣ
 	memset(nFindFlag, 0, sizeof(nFindFlag));
-	
+
 	pNode = (KStateNode*)pNpcStateList->GetHead();
-	
+
 	while (pNode)
 	{
 		if (pNode->m_StateGraphics > 0)
@@ -1431,13 +1431,13 @@ void	KNpcRes::SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList)
 		}
 		pNode = (KStateNode*)pNode->GetNext();
 	}
-	
+
 	for (i = 0; i < 20; ++i)
 	{//ɾ���� ״̬ID����ͬ�� ��Ϣ
-		if (!nFindFlag[i] && m_ClientStateSpr[i].m_nID)  
+		if (!nFindFlag[i] && m_ClientStateSpr[i].m_nID)
 			m_ClientStateSpr[i].Release();
 	}
-	
+
 	pNode = (KStateNode*)pNpcStateList->GetHead();
 	while (pNode)
 	{
@@ -1447,13 +1447,13 @@ void	KNpcRes::SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList)
 		{
 			nFind = 0;
 			for (i = 0; i < 20; ++i)
-			{ 
+			{
 				if (pNode->m_StateGraphics == m_ClientStateSpr[i].m_nID)   //ԭ���е�
 				{//���ԭ�����ڵ� �ͽ�����һ���Ա�
 					nFind = 1;
 					break;
 				}
-			} 
+			}
 		}
 		if (nFind > 0)  //���ԭ���ģ��ͽ��в�����һ����
 			goto WHILE_END;
@@ -1461,14 +1461,14 @@ void	KNpcRes::SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList)
 			szBuffer[0] = 0;
 			//��ȡ���SPRID������
 			pNpcResList->m_cStateTable.GetInfo(pNode->m_StateGraphics, szBuffer, &nType, &nPlayType, &nBackStart, &nBackEnd, &nTotalFrame, &nTotalDir, &nInterVal,&nMapXpos,&nMapYpos);
-		} 
+		}
 		if (!szBuffer[0])
 			goto WHILE_END;
 		if (nType < 0 || nType >= STATE_MAGIC_TYPE_NUM)  //��λ ͷ�� �ŵ� ����
 			goto WHILE_END;                              //nType=STATE_MAGIC_HEAD;
 		{
 			for (i = nType * 6; i < nType * 6+6; ++i)   //0 1 2
-			{ 
+			{
 				if (m_cStateSpr[i].m_nID == 0)
 				{
 					// ����µ�
@@ -1481,7 +1481,7 @@ void	KNpcRes::SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList)
 					m_ClientStateSpr[i].m_SprContrul.SetSprFile(szBuffer, nTotalFrame, nTotalDir, nInterVal);
 					break;
 				}
-			} 
+			}
 		}
 WHILE_END:
 		pNode = (KStateNode*)pNode->GetNext();
@@ -1650,7 +1650,7 @@ void	KNpcRes::StopSound()
 void	KNpcRes::SetMenuState(int nState, char *lpszSentence, int nSentenceLength)
 {
 	if (nState < PLAYER_MENU_STATE_NORMAL || nState >= PLAYER_MENU_STATE_NUM)
-	{ 
+	{
 		return;
 	}
 
@@ -1683,7 +1683,7 @@ void	KNpcRes::SetMenuState(int nState, char *lpszSentence, int nSentenceLength)
 int		KNpcRes::GetMenuState()
 {
 	if (m_nSleepState)
-		return m_nSleepState; 
+		return m_nSleepState;
 	return this->m_nMenuState;
 }
 
@@ -1770,7 +1770,7 @@ int	KNpcRes::DrawMenuState(int nHeightOffset,int nNpcIndex)
 		if (m_cStateSpr[i].m_nID)
 		{
 			return nHeightOffset;	//��ͷ����Чʱ�����ƽ��׵�״̬
-		}	
+		}
 	}*/
 
 	int nPos = 0;
@@ -1785,13 +1785,13 @@ int	KNpcRes::DrawMenuState(int nHeightOffset,int nNpcIndex)
 		m_cDrawFile[nPos].oPosition.nY = nScreenY;
 		m_cDrawFile[nPos].oPosition.nZ = nScreenZ + nHeightOffset;
 		nPos++;
-		//ccMessageBox(m_cMenuStateSpr.m_szName,"TEST");
+		//messageBox(m_cMenuStateSpr.m_szName,"TEST");
 		if (g_GameWorld)
 			g_GameWorld->DrawPrimitives_MenuState(nNpcIndex,0,0,m_cDrawFile,RU_T_IMAGE,0,0,false);
 	}
-	
+
 //	g_pRepresent->DrawPrimitives(nPos, m_cDrawFile, RU_T_IMAGE, false);
-	
+
 	return nHeightOffset;
 }
 

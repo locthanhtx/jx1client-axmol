@@ -169,7 +169,7 @@ KProtocolProcess::KProtocolProcess()
 	ProcessFunc[s2c_syncitemposition] =&KProtocolProcess::s2csyncitemposition;
 	ProcessFunc[s2c_openduanzhao] =&KProtocolProcess::s2copenduanzhao;	//������װ
 	ProcessFunc[s2c_syncurupdata] =&KProtocolProcess::s2csyncurupdata;	//ͬ����ǰ����
-	ProcessFunc[s2c_JinMaicallback] =&KProtocolProcess::s2cJinMaicallback;	//ͬ����ǰ����	
+	ProcessFunc[s2c_JinMaicallback] =&KProtocolProcess::s2cJinMaicallback;	//ͬ����ǰ����
     ProcessFunc[s2c_openvipdazao] =&KProtocolProcess::s2copenvipdazao;
 	ProcessFunc[s2c_synnpcinfocallback] =&KProtocolProcess::s2csynnpcinfocallback;
 	ProcessFunc[s2c_pautoMovecallback] =&KProtocolProcess::s2cpautoMovecallback;
@@ -186,7 +186,7 @@ KProtocolProcess::KProtocolProcess()
 	ProcessFunc[s2c_kickoutgame] = &KProtocolProcess::s2ckickoutgame;
 	ProcessFunc[s2c_objadd_vn] = &KProtocolProcess::s2cobjadd_vn;
 	ProcessFunc[s2c_rolesyncvipvalue] = &KProtocolProcess::s2crolesyncvipvalue;
-	
+
 	//ProcessFunc[s2c_rolecheckname_result] =NULL;
 	ProcessFunc[s2c_extend] =&KProtocolProcess::s2cExtend;
 	ProcessFunc[s2c_extendchat]   =&KProtocolProcess::s2cExtendChat;
@@ -214,7 +214,7 @@ void	KProtocolProcess::SyncSecMov(BYTE* pMsg)
 	NPC_JUMP_SYNC* pNetCommandJump = (NPC_JUMP_SYNC *)pMsg;
 	DWORD dwNpcId = pNetCommandJump->ID;
 	int nIdx = NpcSet.SearchID(dwNpcId);
-	
+
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
 	{//�ͻ���ʹ�õ�
 		Npc[nIdx].SendSerCommand(do_special4, pNetCommandJump->nMpsX, pNetCommandJump->nMpsY);
@@ -235,24 +235,24 @@ void	KProtocolProcess::SyncGive(BYTE* pMsg)
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.ClearRoom(room_give);
 
     PLAYER_GIVEUI pGiveUI;
-    t_sprintf(pGiveUI.m_szName,"%s",pGive->m_szName);
-    t_sprintf(pGiveUI.m_Callback,"%s",pGive->m_Callback);
-    t_sprintf(pGiveUI.m_Error,"%s",pGive->m_Error);
-	t_sprintf(pGiveUI.m_szTitle,"%s",pGive->m_szTitle);
+    sprintf(pGiveUI.m_szName,"%s",pGive->m_szName);
+    sprintf(pGiveUI.m_Callback,"%s",pGive->m_Callback);
+    sprintf(pGiveUI.m_Error,"%s",pGive->m_Error);
+	sprintf(pGiveUI.m_szTitle,"%s",pGive->m_szTitle);
 	CoreDataChanged(GDCNI_GIVE, (uintptr_t)&pGiveUI,pGive->m_nNum);  //֪ͨ��UI
 
 }
 //֪ͨ���ַ���UI
 void KProtocolProcess::OpenStringUI(BYTE* pMsg) //stringbox
-{	
+{
 	if  (NULL==pMsg||NULL==this) return;
     PLAYER_STRING *pSring = (PLAYER_STRING *)pMsg;
 
 	PLAYER_STRINGUI pStringUI;
 
-    t_sprintf(pStringUI.m_szTitle,"%s",pSring->m_szTitle);
-    t_sprintf(pStringUI.m_SCallback,"%s",pSring->m_SCallback);
-    t_sprintf(pStringUI.m_SError,"%s",pSring->m_SError);
+    sprintf(pStringUI.m_szTitle,"%s",pSring->m_szTitle);
+    sprintf(pStringUI.m_SCallback,"%s",pSring->m_SCallback);
+    sprintf(pStringUI.m_SError,"%s",pSring->m_SError);
     pStringUI.m_nNum=pSring->m_nNum;
 	CoreDataChanged(GDCNI_OPEN_STRING_BOX, (uintptr_t)&pStringUI, pSring->m_MaxLen);
 }
@@ -278,7 +278,7 @@ void	KProtocolProcess::s2cLianUpdateItem(BYTE* pMsg)
 
 */
 void	KProtocolProcess::s2cViewEquip(BYTE* pMsg)
-{ 
+{
 	if  (NULL==pMsg||NULL==this) return;
 //	    Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("�鿴װ��:��������,����ϵGM����!");
 	    g_cViewItem.GetData(pMsg);
@@ -293,13 +293,13 @@ void	KProtocolProcess::s2cgettongback(BYTE* pMsg)
 			 KClientZhaoMuInfo nTongInfo;
 			 memset(&nTongInfo, 0, sizeof(nTongInfo));
 
-             t_sprintf(nTongInfo.szQingXiang,nTongBack->szQingXiang);
-			 t_sprintf(nTongInfo.szHuoDong1,nTongBack->szHuoDong1);
-			 t_sprintf(nTongInfo.szHuoDong2,nTongBack->szHuoDong2);
-			 t_sprintf(nTongInfo.szHuoDong3,nTongBack->szHuoDong3);
-			 t_sprintf(nTongInfo.szHuoDong4,nTongBack->szHuoDong4);
-			 t_sprintf(nTongInfo.szJiYu,nTongBack->szJiYu);
-			 t_sprintf(nTongInfo.szGongGao,nTongBack->szGongGao);
+             sprintf(nTongInfo.szQingXiang, "%s", nTongBack->szQingXiang);
+			 sprintf(nTongInfo.szHuoDong1, "%s", nTongBack->szHuoDong1);
+			 sprintf(nTongInfo.szHuoDong2, "%s", nTongBack->szHuoDong2);
+			 sprintf(nTongInfo.szHuoDong3, "%s", nTongBack->szHuoDong3);
+			 sprintf(nTongInfo.szHuoDong4, "%s", nTongBack->szHuoDong4);
+			 sprintf(nTongInfo.szJiYu, "%s", nTongBack->szJiYu);
+			 sprintf(nTongInfo.szGongGao, "%s", nTongBack->szGongGao);
 			 nTongInfo.inType=nTongBack->inType;
              nTongInfo.inAcceptLevel=nTongBack->inAcceptLevel;
 			 nTongInfo.inRefuseLevel=nTongBack->inRefuseLevel;
@@ -313,7 +313,7 @@ void	KProtocolProcess::s2cgettongback(BYTE* pMsg)
                memset(&mTongApplyList, 0, sizeof(mTongApplyList));
 			   for (int i=0;i<nTongBack->inAcceptLevel;i++)
 			   {
-                 t_sprintf(mTongApplyList.nInfo[i].szName,nTongBack->m_sMember[i].m_szName);
+                 sprintf(mTongApplyList.nInfo[i].szName, "%s", nTongBack->m_sMember[i].m_szName);
 			     mTongApplyList.nInfo[i].inLevel = nTongBack->m_sMember[i].m_inLevel;
 				 mTongApplyList.inType           = nTongBack->inType;
 				 mTongApplyList.nCurNum          = nTongBack->inAcceptLevel;     //��ǰ������
@@ -462,14 +462,14 @@ void	KProtocolProcess::s2cChatScreenSingleError(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	CHAT_SCREENSINGLE_ERROR_SYNC	*pError = (CHAT_SCREENSINGLE_ERROR_SYNC*)pMsg;
-	
+
 	// ֪ͨ������Ļ���Ĳ��ɹ�
 	/*char	szName[32];
 	memset(szName, 0, sizeof(szName));
 	memcpy(szName, pError->m_szName, pError->m_wLength + 1 + sizeof(pError->m_szName) - sizeof(CHAT_SCREENSINGLE_ERROR_SYNC));
 
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_CHAT_TAR_REFUSE_SINGLE_TALK].c_str(), szName);
+	sprintf(sMsg.szMessage, strCoreInfo[MSG_CHAT_TAR_REFUSE_SINGLE_TALK].c_str(), szName);
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 0;
@@ -532,9 +532,9 @@ void KProtocolProcess::NetCommandChat(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_CHAT_SYNC *pSync = (NPC_CHAT_SYNC*)pMsg;
-	
+
 	int nIdx = NpcSet.SearchID(pSync->ID);
-	
+
 	if (nIdx > 0)
 	{
 		//pSync->nMsgLen = TEncodeText(pSync->szMsg, strlen(pSync->szMsg));
@@ -549,7 +549,7 @@ void KProtocolProcess::NetCommandJump(BYTE* pMsg)
 	NPC_JUMP_SYNC* pNetCommandJump = (NPC_JUMP_SYNC *)pMsg;
 	DWORD dwNpcId = pNetCommandJump->ID;
 	int nIdx = NpcSet.SearchID(dwNpcId);
-	
+
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
 	{
 		Npc[nIdx].SendSerCommand(do_jump, pNetCommandJump->nMpsX, pNetCommandJump->nMpsY);
@@ -561,7 +561,7 @@ void KProtocolProcess::NetCommandHurt(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_HURT_SYNC*	pSync = (NPC_HURT_SYNC *)pMsg;
-	
+
 	int nIdx = NpcSet.SearchID(pSync->ID);
 	if (nIdx > 0)
 	{
@@ -688,7 +688,7 @@ void KProtocolProcess::OpenResetPass(BYTE* pMsg)
 }
 
 void KProtocolProcess::GiftDT(BYTE* pMsg)
-{	
+{
 	if  (NULL==pMsg||NULL==this) return;
 	CoreDataChanged(GDCNI_OPEN_DATAU_BOX, NULL, NULL);
 }
@@ -702,22 +702,22 @@ void KProtocolProcess::PlayerRevive(BYTE* pMsg)
 	if (nIdx > 0 && nIdx<MAX_NPC)
 	{
 		if (!Npc[nIdx].IsPlayer() && (pSync->mType == 0 || pSync->mType == 1))
-		{//������� �� ͬ�� ɾ���ͻ���NPC 
-			//SubWorld[0].m_WorldMessage.NewSend(GWM_NPC_DEL, nIdx);	
+		{//������� �� ͬ�� ɾ���ͻ���NPC
+			//SubWorld[0].m_WorldMessage.NewSend(GWM_NPC_DEL, nIdx);
 			if (Npc[nIdx].m_RegionIndex >= 0)
-			{				
+			{
 				int nSubWorld = Npc[nIdx].m_SubWorldIndex;
 				int nRegion = Npc[nIdx].m_RegionIndex;
-				
+
 				if (nSubWorld>=0 && nRegion>=0)
 				{
 					SubWorld[nSubWorld].m_Region[nRegion].RemoveNpc(nIdx);
 					SubWorld[nSubWorld].m_Region[nRegion].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
 				}
-				
+
 			}
 		    NpcSet.Remove(nIdx);
-			//ccMessageBox("ɾ����npc","PlayerRevive");
+			//messageBox("ɾ����npc","PlayerRevive");
 			return;
 		}
 		else
@@ -733,7 +733,7 @@ void KProtocolProcess::RequestNpcFail(BYTE* pMsg)
 	NPC_REQUEST_FAIL* pNpcSync = (NPC_REQUEST_FAIL *)pMsg;
 
 	if (NpcSet.IsNpcRequestExist(pNpcSync->ID))
-		NpcSet.RemoveNpcRequest(pNpcSync->ID);	
+		NpcSet.RemoveNpcRequest(pNpcSync->ID);
 }
 //�ͻ���  ����ͬ��
 void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
@@ -742,7 +742,7 @@ void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
 	/*DWORD	dwNpcID;
 	int		nSkillID, nSkillLevel, nSkillEnChance;
 	int		MapX, MapY;
-	
+
 	dwNpcID = *(DWORD *)&pMsg[1];
 	nSkillID = *(int *)&pMsg[5];
 	nSkillLevel = *(int *)&pMsg[9];
@@ -773,7 +773,7 @@ void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
 	{
 		if (MapX != -1)
 			return;
-	
+
 		MapY = NpcSet.SearchID(MapY);
 		if (MapY == 0)
 			return;
@@ -782,18 +782,18 @@ void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
 			return;
 
 	}
-	
+
 	int nIdx = NpcSet.SearchID(dwNpcID);
-	
-	if (nIdx <= 0) 
+
+	if (nIdx <= 0)
 	{
-		//ccMessageBox("nIdx <= 0","NetCommandSkill");
+		//messageBox("nIdx <= 0","NetCommandSkill");
 		return;
 	}
 	//char msg[128]={0};
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
 	{//���ǿͻ��˱���ʹ�ü���
-	
+
 		Npc[nIdx].m_SkillList.SetSkillLevel(nSkillID, nSkillLevel);
 		Npc[nIdx].m_SkillList.SetSkillEnChance(nSkillID, nSkillEnChance);   //���ÿͻ��˵ļ��ܼӳ�
 		Npc[nIdx].SendSerCommand(do_skill, nSkillID, MapX, MapY);           //��ʼ����ʹ�ü���
@@ -837,7 +837,7 @@ void KProtocolProcess::s2cApplyCreateTeamFalse(BYTE* pMsg)
 
 	// ��ǰ���ڲ������״̬
 	case Team_Create_Error_CannotCreate:
-		/*t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CANNOT_CREATE].c_str());
+		/*sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CANNOT_CREATE].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -848,7 +848,7 @@ void KProtocolProcess::s2cApplyCreateTeamFalse(BYTE* pMsg)
 
 
 	default:
-		/*t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CREATE_FAIL].c_str());
+		/*sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CREATE_FAIL].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -886,7 +886,7 @@ void KProtocolProcess::s2cChatAddFriend(BYTE* pMsg)
 	sPlayer.uId = pFriend->m_dwID;
 	sPlayer.nIndex = pFriend->m_nIdx;
 
-	t_sprintf(sMsg.szMessage, MSG_CHAT_ADD_FRIEND_SUCCESS, pFriend->m_szName);
+	sprintf(sMsg.szMessage, MSG_CHAT_ADD_FRIEND_SUCCESS, pFriend->m_szName);
 	sMsg.eType = SMT_FRIEND;
 	sMsg.byConfirmType = SMCT_UI_INTERVIEW;
 	sMsg.byPriority = 2;
@@ -914,7 +914,7 @@ void KProtocolProcess::s2cChatAddFriendFail(BYTE* pMsg)
 
 			// ֪ͨ�������ĳ��Ϊ���Ѳ���ʧ��
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, MSG_CHAT_ADD_FRIEND_FAIL, szName);
+			sprintf(sMsg.szMessage, MSG_CHAT_ADD_FRIEND_FAIL, szName);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -964,7 +964,7 @@ void KProtocolProcess::s2cChatBeRefusedAddFriend(BYTE* pMsg)
 	// ֪ͨ����pRefuse->m_szName�ܾ������Ľ�������
 	KSystemMessage	sMsg;
 
-	t_sprintf(sMsg.szMessage, MSG_CHAT_REFUSE_FRIEND, szName);
+	sprintf(sMsg.szMessage, MSG_CHAT_REFUSE_FRIEND, szName);
 	sMsg.eType = SMT_FRIEND;
 	sMsg.byConfirmType = SMCT_CLICK;
 	sMsg.byPriority = 1;
@@ -1015,7 +1015,7 @@ void KProtocolProcess::s2cChatGetApplyAddFriend(BYTE* pMsg)
 	sPlayer.uId = 0;
 	sPlayer.nData = 0;
 
-	t_sprintf(sMsg.szMessage, MSG_CHAT_GET_FRIEND_APPLY, pNode->m_szName);
+	sprintf(sMsg.szMessage, MSG_CHAT_GET_FRIEND_APPLY, pNode->m_szName);
 	sMsg.eType = SMT_FRIEND;
 	sMsg.byConfirmType = SMCT_UI_FRIEND_INVITE;
 	sMsg.byPriority = 3;
@@ -1104,7 +1104,7 @@ void KProtocolProcess::s2cCreateTeam(BYTE* pMsg)
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].RestoreCurrentCamp();
 
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CREATE].c_str());
+	sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_TEAM_CREATE].c_str());
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 0;
@@ -1112,7 +1112,7 @@ void KProtocolProcess::s2cCreateTeam(BYTE* pMsg)
 	sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
-	t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CREATE].c_str());
+	sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TEAM_CREATE].c_str());
 	sMsg.eType = SMT_TEAM;
 	sMsg.byConfirmType = SMCT_CLICK;
 	sMsg.byPriority = 1;
@@ -1185,7 +1185,7 @@ void KProtocolProcess::s2cGetLeadExp(BYTE* pMsg)
 	if (dwLevel < Player[CLIENT_PLAYER_INDEX].m_dwLeadLevel)
 	{
 		/*KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_LEADER_LEVEL_UP].c_str(), Player[CLIENT_PLAYER_INDEX].m_dwLeadLevel);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_LEADER_LEVEL_UP].c_str(), Player[CLIENT_PLAYER_INDEX].m_dwLeadLevel);
 		sMsg.eType = SMT_PLAYER;
 		sMsg.byConfirmType = SMCT_CLICK;
 		sMsg.byPriority = 1;
@@ -1201,25 +1201,25 @@ void KProtocolProcess::s2cGetLeadExp(BYTE* pMsg)
 void KProtocolProcess::s2cGetSkillLevel(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	//ccMessageBox("���¼��ܡ�������","���¼���");
+	//messageBox("���¼��ܡ�������","���¼���");
 	int	nSkillIndex=0;
 	PLAYER_SKILL_LEVEL_SYNC	*pSkill = (PLAYER_SKILL_LEVEL_SYNC*)pMsg;
 	if (pSkill->m_nSkillLevel >=MAX_SKILLLEVEL)
 		return;
 	nSkillIndex = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.FindSame(pSkill->m_nSkillID);
 	Player[CLIENT_PLAYER_INDEX].m_nSkillPoint = pSkill->m_nLeavePoint;
-	//ccMessageBox("���¼���","���¼���");
+	//messageBox("���¼���","���¼���");
 	if (nSkillIndex<=0)
 	{//������¼���
 		//����ü��ܵĵȼ�Ϊ�㣬��ʾ��ѧ��ֱ����ͻ������
 		if (pSkill->m_nSkillLevel <= 0)
 		{
-			//ccMessageBox("�����Ӽ���","�����Ӽ���");
+			//messageBox("�����Ӽ���","�����Ӽ���");
 			if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.Add(pSkill->m_nSkillID, 0) == 0 )
 				return;
 		}
 		else
-		{  
+		{
 			if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.Add(pSkill->m_nSkillID, pSkill->m_nSkillLevel) == 0 )
 				return;
 		}
@@ -1231,16 +1231,16 @@ void KProtocolProcess::s2cGetSkillLevel(BYTE* pMsg)
 
 	//���ö���ļ��ܵ�
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.SetAddPoint(nSkillIndex, pSkill->m_nAddPoint);
-	
+
 	// ֪ͨ������¼�������
 	//CoreDataChanged(GDCNI_FIGHT_SKILL_POINT, 0, Player[CLIENT_PLAYER_INDEX].m_nSkillPoint);
-	
+
 	KUiSkillData SkillData;
 	SkillData.uGenre = CGOG_SKILL_FIGHT;
 	SkillData.uId    = pSkill->m_nSkillID;
 	SkillData.nLevel = pSkill->m_nSkillLevel;
 	int nSkillPosition = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_SkillList.GetSkillPosition(pSkill->m_nSkillID);
-	if(nSkillPosition < 0) 
+	if(nSkillPosition < 0)
 	   return;
 
 	CoreDataChanged(GDCNI_SKILL_CHANGE, (uintptr_t)&SkillData,nSkillPosition-4); //��ȥǰ��3�� Ĭ�ϼ���λ��
@@ -1363,7 +1363,7 @@ void KProtocolProcess::s2cMoveItem(BYTE* pMsg)
 
 
     // char msg[128];
-	// t_sprintf(msg,"mb:%d,Cli:cpy:%d,cxy:%d,cyy:%d||cpd:%d,cxd:%d,cyd:%d",nIsMianBan,DownPos.nPlace,DownPos.nX,DownPos.nY,UpPos.nPlace,UpPos.nX,UpPos.nY);  
+	// sprintf(msg,"mb:%d,Cli:cpy:%d,cxy:%d,cyy:%d||cpd:%d,cxd:%d,cyd:%d",nIsMianBan,DownPos.nPlace,DownPos.nX,DownPos.nY,UpPos.nPlace,UpPos.nX,UpPos.nY);
 	// Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.AutoMoveItem(sDest, sSrc,nIsMianBan);
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ExchangeItem(&UpPos, &DownPos,nIsMianBan);
@@ -1386,7 +1386,7 @@ void KProtocolProcess::s2cRemoveItem(BYTE* pMsg)
 		{
             Player[CLIENT_PLAYER_INDEX].m_ItemList.Remove(nIdx,pRemove->m_dx,pRemove->m_dy);
 		}
-		
+
 		Player[CLIENT_PLAYER_INDEX].m_ItemList.UnlockOperation();
 	}
 }
@@ -1434,7 +1434,7 @@ void KProtocolProcess::s2cSetTeamState(BYTE* pMsg)
 		g_Team[0].SetTeamOpen();
 
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_OPEN].c_str());
+		sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TEAM_OPEN].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -1447,7 +1447,7 @@ void KProtocolProcess::s2cSetTeamState(BYTE* pMsg)
 		g_Team[0].SetTeamClose();
 
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CLOSE].c_str());
+		sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TEAM_CLOSE].c_str());
 		sMsg.eType = SMT_NORMAL;
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 0;
@@ -1487,15 +1487,15 @@ void KProtocolProcess::s2copenjindutiao(BYTE* pMsg)
     PLAYER_OPEN_JINDUTIAO *pJindu = (PLAYER_OPEN_JINDUTIAO*)pMsg;
 /*
 	char mag[64];
-	t_sprintf(mag,"���Դ򿪽������ɹ�");
+	sprintf(mag,"���Դ򿪽������ɹ�");
     Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(mag);
 */
 	KUiJinDuTiaoInfo JinDuData;
-	t_sprintf(JinDuData.nTitle,pJindu->m_szTitle);
-	t_sprintf(JinDuData.nCallFuc,pJindu->m_Callback);
-	t_sprintf(JinDuData.szParma,pJindu->m_szParma);
-	t_sprintf(JinDuData.szParmb,pJindu->m_szParmb);
-	t_sprintf(JinDuData.szParmc,pJindu->m_szParmc);
+	sprintf(JinDuData.nTitle, "%s", pJindu->m_szTitle);
+	sprintf(JinDuData.nCallFuc, "%s", pJindu->m_Callback);
+	sprintf(JinDuData.szParma, "%s", pJindu->m_szParma);
+	sprintf(JinDuData.szParmb, "%s", pJindu->m_szParmb);
+	sprintf(JinDuData.szParmc, "%s", pJindu->m_szParmc);
 	JinDuData.nMsgIndex    = pJindu->m_MsgIndex;
 	JinDuData.nTimes       = pJindu->m_inTime;
 
@@ -1522,30 +1522,30 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
     int nIdx = Player[CLIENT_PLAYER_INDEX].m_ItemList.SearchID(pItemSync->m_ID);
 	int i;
     if (nIdx>0)
-	{  
+	{
 	     for (i = 0; i < 6; i++)
-		 {    
+		 {
 		   Item[nIdx].GetItemParam()->nRGeneratorLevel[i] = pItemSync->m_RongMagicLev[i];
 //           Item[nIdx].GetItemParam()->nBGeneratorLevel[i] = pItemSync->m_BaoMagicLev[i];
-		   
-		 } 
-	   
+
+		 }
+
 		  if (pItemSync->m_Luck > 10)  //����ֵ
-		  { 
+		  {
 			pItemSync->m_Luck = 10;
-		  } 
+		  }
 
 		  if (pItemSync->m_Luck < 0)
-		  {  
+		  {
 			pItemSync->m_Luck = 0;
-		  }  
+		  }
 
 		   ///����Ϊ�����Ƹ�����
 		   KItemNormalAttrib	sMAR[6];// ħ��
 		   ZeroMemory(sMAR,sizeof(sMAR)); //�����ڴ�
 		   KTabFile MagicTabR;
 		   MagicTabR.Load(TABFILE_MAGICAGOLD_PATH);  //������װ��ħ�������ļ�
-		    
+
 		   int nTypeR,nMaxR,nMinR;
 
 		   g_RandomSeed(pItemSync->m_RandomSeed);
@@ -1553,7 +1553,7 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 		   for (i = 0;i < 6;i++)
 		   {//�������� �� ��ʶ����
 			   if (Item[nIdx].GetItemParam()->nRGeneratorLevel[i] > 0 && i < pItemSync->m_Rongpiont)
-			   { 
+			   {
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nRGeneratorLevel[i],5,0,&nTypeR);
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nRGeneratorLevel[i],6,0,&nMaxR);
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nRGeneratorLevel[i],7,0,&nMinR);
@@ -1576,14 +1576,14 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 			   sMAR[i].nValue[0] = 0;
 			   sMAR[i].nValue[1] = 0;
 			   sMAR[i].nValue[2] = 0;
-		   } 		    
-		   Item[nIdx].SetAttrib_RON(sMAR);   //��������ħ����             
+		   }
+		   Item[nIdx].SetAttrib_RON(sMAR);   //��������ħ����
 		   ZeroMemory(sMAR,sizeof(sMAR));    //����
 
           /* for (i = 0;i < 6;i++)
-		   {//��ʯ���� 
+		   {//��ʯ����
 			   if (Item[nIdx].GetItemParam()->nBGeneratorLevel[i] > 0)
-			   { 
+			   {
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nBGeneratorLevel[i],5,0,&nTypeR);
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nBGeneratorLevel[i],6,0,&nMaxR);
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nBGeneratorLevel[i],7,0,&nMinR);
@@ -1595,20 +1595,20 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nBGeneratorLevel[i],10,0,&nMaxR);
 				   MagicTabR.GetInteger(Item[nIdx].GetItemParam()->nBGeneratorLevel[i],11,0,&nMinR);
 				   sMAR[i].nValue[2] = nMaxR + ((nMinR - nMaxR) * pItemSync->m_Luck / 10);
-				   
+
 				   continue;
 			   }
 			   sMAR[i].nAttribType = 0;
 			   sMAR[i].nValue[0] = 0;
 			   sMAR[i].nValue[1] = 0;
 			   sMAR[i].nValue[2] = 0;
-		   } 
+		   }
 		   Item[nIdx].SetAttrib_Bao(sMAR);   //��������ħ����
 		   */
 		   Item[nIdx].SetPoint(pItemSync->m_Point);
 
            if (Item[nIdx].IsBlue() && (pItemSync->m_IsWhere>0 || pItemSync->m_Rongpiont>0))   //�Ѿ���ʶ����װ �����Ѿ��Ƹֵ���װ
-		   {  
+		   {
                 Item[nIdx].EnChanceRong(pItemSync->m_EnChance);  //��װǿ��
 		   }
 		   else if (Item[nIdx].IsBlue())   //ȫ������װ
@@ -1619,9 +1619,9 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 				   {
 					   Item[nIdx].GetItemParam()->nGeneratorLevel[i] = pItemSync->m_MagicLevel[i];
 				   }
-				   
+
 				   int nLucky=pItemSync->m_Luck;
-				   
+
 				   KItemNormalAttrib sMz[6];
 				   KTabFile tabMagicAttribe;
 				   tabMagicAttribe.Load(TABFILE_MAGICATTRIB_PATH);
@@ -1637,24 +1637,24 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 						   sMz[i].nAttribType = nType;
 						   //sMz[i].nValue[0] = nMax + ((nMin - nMax) * nLucky / 10);
 						   sMz[i].nValue[0] = GetRandomNumber(nMax,nMin);
-						   t_sprintf(nInfo,"���� %d ��һ��ֵ:%d",i,sMz[i].nValue[0]);
+						   sprintf(nInfo,"���� %d ��һ��ֵ:%d",i,sMz[i].nValue[0]);
 						   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nInfo);
 						   tabMagicAttribe.GetInteger(Item[nIdx].GetItemParam()->nGeneratorLevel[i],8,0,&nMax);
 						   tabMagicAttribe.GetInteger(Item[nIdx].GetItemParam()->nGeneratorLevel[i],9,0,&nMin);
 						   //sMz[i].nValue[1] = nMax + ((nMin - nMax) * nLucky / 10);
 						   sMz[i].nValue[1] = GetRandomNumber(nMax,nMin);
-						   t_sprintf(nInfo,"���� %d �ڶ���ֵ:%d",i,sMz[i].nValue[1]);
+						   sprintf(nInfo,"���� %d �ڶ���ֵ:%d",i,sMz[i].nValue[1]);
 						   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nInfo);
 						   tabMagicAttribe.GetInteger(Item[nIdx].GetItemParam()->nGeneratorLevel[i],10,0,&nMax);
 						   tabMagicAttribe.GetInteger(Item[nIdx].GetItemParam()->nGeneratorLevel[i],11,0,&nMin);
 						   //sMz[i].nValue[2] = nMax + ((nMin - nMax) * nLucky / 10);
 						   sMz[i].nValue[2] = GetRandomNumber(nMax,nMin);
-						   t_sprintf(nInfo,"���� %d ������ֵ:%d",i,sMz[i].nValue[2]);
+						   sprintf(nInfo,"���� %d ������ֵ:%d",i,sMz[i].nValue[2]);
 						   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nInfo);
 						   continue;
 					   }
 
-					   
+
 					   sMz[i].nAttribType = 0;
 					   sMz[i].nValue[0] = 0;
 					   sMz[i].nValue[1] = 0;
@@ -1690,16 +1690,16 @@ void KProtocolProcess::s2csyncequipitem(BYTE* pMsg)
 		   Item[nIdx].SetUseMapIdx(pItemSync->m_UseMap);
 		   Item[nIdx].SetUseKind(pItemSync->m_UseKind);
 		   Item[nIdx].SetItemResIdx(pItemSync->m_Res);
-           
+
 		   Item[nIdx].SetID(pItemSync->m_ID);             //����DwID
 		   if (pItemSync->m_ItmeInfo[0])
 		      Item[nIdx].SetItmeInfo(pItemSync->m_ItmeInfo);
-   }		   
+   }
 	//�����ͻ���
             //char msg[64];
-			//t_sprintf(msg,Item[nIdx].GetName());
-            //ccMessageBox(msg,"ͬ����Ʒ�ɹ�");
-   Player[CLIENT_PLAYER_INDEX].m_ItemList.UnlockOperation();	
+			//sprintf(msg,Item[nIdx].GetName());
+            //messageBox(msg,"ͬ����Ʒ�ɹ�");
+   Player[CLIENT_PLAYER_INDEX].m_ItemList.UnlockOperation();
 }
 
 //ͬ��װ������ �ͻ��˲���װ��  --ˢװ��
@@ -1717,7 +1717,7 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
 //      pnBMagicParam[i] = pItemSync->m_BaoMagicLev[i];
 
       if (pItemSync->m_Point==8)
-	  {//����ƽ� 
+	  {//����ƽ�
 
 	  }
 	}
@@ -1753,7 +1753,7 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
 			NULL,\
 			NULL,pItemSync->m_IsWhere);
 	else if (pItemSync->m_GoldId>0)
-	{  
+	{
 	  if (pItemSync->m_Point==8)
 	   nIndex = ItemSet.AddRondomGold(
 	     pItemSync->m_GoldId,\
@@ -1818,8 +1818,8 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
 		   Item[nIndex].SetItmeInfo(pItemSync->m_ItmeInfo);
 		//}
 
-        //t_sprintf(pItemSync->m_WonName,"%s",Item[nIndex].GetWonName());  //������
-		Item[nIndex].SetWonName("ϵͳ");//pItemSync->m_WonName
+        //sprintf(pItemSync->m_WonName,"%s",Item[nIndex].GetWonName());  //������
+		Item[nIndex].SetWonName("系统");//pItemSync->m_WonName
 		Item[nIndex].SetID(pItemSync->m_ID);  //����DwID
 		Item[nIndex].SetDurability(pItemSync->m_Durability);  // ͬ���־ö�
 		//�ͻ�������װ��
@@ -1835,10 +1835,10 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
         if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_AutoplayId==1 && nSetNun>0 && nSetNun<7)
         {//����ǹһ�
 		   char szTempDesc[128]={0},nTempStrVer[128];
-		   if (Item[nIndex].GetGenre()==item_equip) 
+		   if (Item[nIndex].GetGenre()==item_equip)
 		   {//��װװ������
 
-		      int nSxNum=Item[nIndex].GetMagicCount();  
+		      int nSxNum=Item[nIndex].GetMagicCount();
 
 			  if  (nSxNum<nSetNun)
 			  {//���ʵ����������С�� ���õ����� �Ͷ���
@@ -1847,14 +1847,14 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
 				   return;
 			  }
 
-		      int nIsHave=0; 
+		      int nIsHave=0;
 		      if ((Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoEques==1 || Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoneyAndEques==1))
 			  {
 	             for(i=0;i<16;i++)
-	             {     	
+	             {
 					 //ZeroMemory(nTempVer,sizeof(nTempVer));
-					 //t_sprintf(nsetionKey,"item_%d",i);
-		             Player[CLIENT_PLAYER_INDEX].nEquipItem.GetString(i+1,1,"������",nItemName,sizeof(nItemName));  //���Թؼ���
+					 //sprintf(nsetionKey,"item_%d",i);
+		             Player[CLIENT_PLAYER_INDEX].nEquipItem.GetString(i+1,1,"无数据",nItemName,sizeof(nItemName));  //���Թؼ���
 					 Player[CLIENT_PLAYER_INDEX].nEquipItem.GetInteger(i+1,2,0,&nYval);  //���Թؼ���
 					 //nYval = g_Atoui(nTempVer);
 					 //Player[CLIENT_PLAYER_INDEX].nEquipItem.GetInteger(i+1,3,3,&nYval);
@@ -1865,18 +1865,18 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
 						   nDvalb =  Item[nIndex].GetAttribTypeValb(k);
 						   nDvalc =  Item[nIndex].GetAttribTypeValc(k);
 
-			                Player[CLIENT_PLAYER_INDEX].m_FileDesc.GetString("Descript",pszKeyName, "������", szTempDesc, sizeof(szTempDesc));
-							t_sprintf(nTempStrVer,UTEXT(szTempDesc,1).c_str());
+			                Player[CLIENT_PLAYER_INDEX].m_FileDesc.GetString("Descript",pszKeyName, "无数据", szTempDesc, sizeof(szTempDesc));
+							sprintf(nTempStrVer, "%s", UTEXT(szTempDesc,1).c_str());
 							if (nYval>0 && nDvala>=nYval && strstr(nTempStrVer,nItemName)/* || nDvalb>=nYval || nDvalc>=nYval*/)
-							{//���������ؼ��ֵ�����  
+							{//���������ؼ��ֵ�����
 							    nIsHave++;
 							}
 							else if (nYval<=0 && strstr(nTempStrVer,nItemName))
 							{
 							    nIsHave++;
 							}
-	                     }  
-                 }    
+	                     }
+                 }
 			}
             if (nIsHave==0)
 			{//������������װ���� �Ͷ���
@@ -1901,15 +1901,15 @@ void KProtocolProcess::s2cSyncItem(BYTE* pMsg)
            nzise=Item[nIndex].IsPurple();
            ngold=Item[nIndex].GetGoldId();
 		   if (ngold>0)
-			   t_sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
+			   sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
            else if (nblue==1)
-			   t_sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
+			   sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
 		   else if (nzise>0)
-			   t_sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
+			   sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
 		   else*/
-		   t_sprintf(sMsg, "��ʾ:���(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
+		   sprintf(sMsg, "提示:获得(%sx%d)!", Item[nIndex].GetName(),Item[nIndex].GetStackNum());
 		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(sMsg);
-//------------------------------------------------------------------------		   
+//------------------------------------------------------------------------
 	}
 	//�����ͻ���
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.UnlockOperation();
@@ -1963,7 +1963,7 @@ void KProtocolProcess::s2cTeamAddMember(BYTE* pMsg)
 	//Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateamUI(); //��ʾ�����������Ϣ
 
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage,  strCoreInfo[MSG_TEAM_ADD_MEMBER].c_str(), pAddMem->m_szName);
+	sprintf(sMsg.szMessage,  strCoreInfo[MSG_TEAM_ADD_MEMBER].c_str(), pAddMem->m_szName);
 	sMsg.eType = SMT_NORMAL;
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority    = 0;
@@ -2000,7 +2000,7 @@ void KProtocolProcess::s2cTeamChangeCaptain(BYTE* pMsg)
 	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID == pChange->m_dwCaptainID)
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_SELF].c_str(), g_Team[0].m_szMemName[0]);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_SELF].c_str(), g_Team[0].m_szMemName[0]);
 		sMsg.eType = SMT_TEAM;
 		sMsg.byConfirmType = SMCT_UI_TEAM;
 		sMsg.byPriority = 3;
@@ -2011,7 +2011,7 @@ void KProtocolProcess::s2cTeamChangeCaptain(BYTE* pMsg)
 	else	// ���˱�����Ϊ�ӳ�
 	{
 		KSystemMessage	sMsg;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN].c_str(), g_Team[0].m_szMemName[nMemNo + 1]);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN].c_str(), g_Team[0].m_szMemName[nMemNo + 1]);
 		sMsg.eType = SMT_TEAM;
 		sMsg.byConfirmType = SMCT_UI_TEAM;
 		sMsg.byPriority = 3;
@@ -2190,7 +2190,7 @@ void KProtocolProcess::SyncCurNormalData(BYTE* pMsg)
 void KProtocolProcess::SyncCurPlayer(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	//ccMessageBox("�յ�SyncCurPlayer����ͬ����","SyncCurPlayer");
+	//messageBox("�յ�SyncCurPlayer����ͬ����","SyncCurPlayer");
 	Player[CLIENT_PLAYER_INDEX].SyncCurPlayer(pMsg);
 }
 //����ͬ�����ݿ�����=--�ͻ���
@@ -2217,16 +2217,16 @@ void KProtocolProcess::SyncNpc(BYTE* pMsg)
 	if (!nIdx)
 	{//2��ͬ����  ���û�� ��������
 		nIdx = NpcSet.AddServerNpcA(NpcSync->NpcSettingIdx, 0, NpcSync->MapX, NpcSync->MapY,-1,0,0,0,0,0,NpcSync->m_btKind,NpcSync->ID);
-		
+
 		Npc[nIdx].m_dwID = NpcSync->ID;
 		Npc[nIdx].m_Kind = NpcSync->m_btKind;
 
 		Npc[nIdx].m_Height = 0;
-		
+
 		if (NpcSet.IsNpcRequestExist(NpcSync->ID))
 			NpcSet.RemoveNpcRequest(NpcSync->ID);
 	}
-	else 
+	else
 	{
 		if (Npc[nIdx].m_RegionIndex >= 0)
 			SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
@@ -2286,7 +2286,7 @@ void KProtocolProcess::SyncNpc(BYTE* pMsg)
 	Npc[nIdx].m_SyncSignal = SubWorld[0].m_dwCurrentTime;
 	//Npc[nIdx].SetMenuState(NpcSync->m_btMenuState);
 	memset(Npc[nIdx].Name,0,sizeof(Npc[nIdx].Name));
-	t_sprintf(Npc[nIdx].Name,NpcSync->m_szName);
+	sprintf(Npc[nIdx].Name, "%s", NpcSync->m_szName);
 }
 
 
@@ -2295,9 +2295,9 @@ void KProtocolProcess::s2cplayermissiondata(BYTE* pMsg)
 	if  (NULL==pMsg||NULL==this) return;
 
 	PLAYER_MISSION_DATA	*pData = (PLAYER_MISSION_DATA*)pMsg;
-	
+
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nMissionGroup = pData->m_nMissionGroup;
-	
+
 	CoreDataChanged(GDCNI_PLAYER_BASE_INFO, 0, 0); //����ɾ��Ƶ��
 
 }
@@ -2307,17 +2307,17 @@ void KProtocolProcess::s2csyncrankdata(BYTE* pMsg)
 	return;
 	if  (NULL==pMsg||NULL==this) return;
 	PLAYER_MISSION_RANKDATA* pInfo = (PLAYER_MISSION_RANKDATA *)pMsg;
-	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("�յ���Ϣ");	
+	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("�յ���Ϣ");
 	memcpy(&Player[CLIENT_PLAYER_INDEX].m_MissionData, &pInfo->SelfData, sizeof(pInfo->SelfData));
 	for(int i = 0; i < MISSION_STATNUM;i++)	       //ʮ������
-		memcpy(&Player[CLIENT_PLAYER_INDEX].m_MissionRank[i], &pInfo->MissionRank[i], sizeof(pInfo->MissionRank[i])); 
+		memcpy(&Player[CLIENT_PLAYER_INDEX].m_MissionRank[i], &pInfo->MissionRank[i], sizeof(pInfo->MissionRank[i]));
 }
 
 void KProtocolProcess::s2cnpcsetpos(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_PLAYER_TYPE_NORMAL_SYNC *pSync = (NPC_PLAYER_TYPE_NORMAL_SYNC*)pMsg;
-	
+
 	int nIdx = NpcSet.SearchID(pSync->m_dwNpcID);
 
 	if(nIdx > 0)
@@ -2330,7 +2330,7 @@ void KProtocolProcess::s2cnpcsetpos(BYTE* pMsg)
 
 		if (Npc[nIdx].m_RegionIndex>=0)
 		   SubWorld[m_gubWorldIndex].m_Region[Npc[nIdx].m_RegionIndex].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
-		
+
 		int nRegionX = pSync->m_dwMapX / (SubWorld[m_gubWorldIndex].m_nCellWidth * SubWorld[m_gubWorldIndex].m_nRegionWidth);
 		int nRegionY = pSync->m_dwMapY / (SubWorld[m_gubWorldIndex].m_nCellHeight * SubWorld[m_gubWorldIndex].m_nRegionHeight);
 		int nRegion  = -1;
@@ -2355,7 +2355,7 @@ void KProtocolProcess::s2cnpcsetpos(BYTE* pMsg)
 		Npc[nIdx].m_MapY = nMapY;
 		Npc[nIdx].m_OffX = nOffX;
 		Npc[nIdx].m_OffY = nOffY;
-		
+
 		//SubWorld[m_gubWorldIndex].m_Region[Npc[nIdx].m_RegionIndex].AddRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY, obj_npc);
 		SubWorld[m_gubWorldIndex].m_Region[Npc[nIdx].m_RegionIndex].AddNpcRef(Npc[nIdx].m_MapX,Npc[nIdx].m_MapY);
 		Npc[nIdx].SendSerCommand(do_stand);
@@ -2370,9 +2370,9 @@ void KProtocolProcess::s2csyncnodataeffect(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	STATE_NODATA_EFFECT_SYNC* pNoState = (STATE_NODATA_EFFECT_SYNC *)pMsg;
-	
+
 	Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].SetToolNoStateEffect(Player[CLIENT_PLAYER_INDEX].m_nIndex, pNoState->m_dwSkillID, pNoState->m_nLevel, pNoState->m_nTime);
-	
+
 	return;
 }
 
@@ -2380,9 +2380,9 @@ void KProtocolProcess::s2csynconeclearstate(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	PLAYER_ONESTATE_SYNC* pPlayState = (PLAYER_ONESTATE_SYNC *)pMsg;
-	
+
 	int nIdx = NpcSet.SearchID(pPlayState->ID);
-	
+
 	if (nIdx==Player[CLIENT_PLAYER_INDEX].m_nIndex)
 	{
 		//Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].ClearOneSkillState(pPlayState->m_Skillid);
@@ -2403,7 +2403,7 @@ void	KProtocolProcess::s2csyncplayermap(BYTE* pMsg)
 	  {
 		Player[CLIENT_PLAYER_INDEX].m_nChestPW	= pPlaySyncMap->m_IsInCity;
 	  }
-	
+
 }
 
 //��Ϸ ���� ��ʵʱͬ������--�ͻ��� ����ѭ��
@@ -2424,7 +2424,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 		// �����������ͬ�����NPC��ȫ������
 		if (!NpcSet.IsNpcRequestExist(NpcSync->ID))
 		{
-			SendClientCmdRequestNpc(NpcSync->ID); 
+			SendClientCmdRequestNpc(NpcSync->ID);
 			NpcSet.InsertNpcRequest(NpcSync->ID);
 		}
 	}
@@ -2438,9 +2438,9 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 		SubWorld[0].Mps2Map(NpcSync->MapX, NpcSync->MapY,&nRegion,&nMapX, &nMapY, &nOffX, &nOffY);
 
 		if (Npc[nIdx].m_RegionIndex == -1 && nIdx != Player[CLIENT_PLAYER_INDEX].m_nIndex)	 //�����
-		{//�ǵ�ͼ�� 
+		{//�ǵ�ͼ��
 			if (nRegion == -1)
-			{		
+			{
 				return;
 			}
 			else
@@ -2454,7 +2454,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 				SubWorld[0].m_Region[nRegion].AddNpc(nIdx);
 				SubWorld[0].m_Region[nRegion].AddNpcRef(Npc[nIdx].m_MapX,Npc[nIdx].m_MapY);
 			}
-			
+
 			if (NpcSync->Doing == do_stand)
 				Npc[nIdx].ProcNetCommand(do_stand);
 		}
@@ -2464,7 +2464,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 			{//��ͬ��ͼ����Ĺ���
 				SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].RemoveNpc(nIdx);
 				SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
-				
+
 				Npc[nIdx].m_MapX = nMapX;
 				Npc[nIdx].m_MapY = nMapY;
 				Npc[nIdx].m_OffX = nOffX;
@@ -2484,7 +2484,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 		if (nIdx != Player[CLIENT_PLAYER_INDEX].m_nIndex)	// ����ұ���
 		{
 			Npc[nIdx].m_CurrentLifeMax = NpcSync->nCurrentLifeMax;
-			
+
 			LONG	nOldLife = Npc[nIdx].m_CurrentLife;         //��һ�ε�Ѫ��
 
 			//Npc[nIdx].m_CurrentLife = (Npc[nIdx].m_CurrentLifeMax * NpcSync->LifePerCent) >> 7;
@@ -2492,7 +2492,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 			if (NpcSync->nLifeYu >=0 && Npc[nIdx].m_CurrentLifeMax > 0)
 			{
 				Npc[nIdx].m_CurrentLife=Npc[nIdx].m_CurrentLifeMax-NpcSync->nLifeYu;//TakeRemainder(m_CurrentLifeMax,m_CurrentLife);
-				
+
 				if (Npc[nIdx].m_CurrentLife<0)
 					Npc[nIdx].m_CurrentLife=0;
 			}
@@ -2506,17 +2506,17 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 			if (Npc[nIdx].m_Kind == kind_normal || Npc[nIdx].m_Kind == kind_partner)  //����  ͬ��Ѫ��  ����ðѪ
 			{
 			     if (nOldLife - Npc[nIdx].m_CurrentLife>0)
-				     Npc[nIdx].SetBlood(nOldLife - Npc[nIdx].m_CurrentLife);// nOldLife - Npc[nIdx].m_CurrentLife);NpcSync->nLifeDamagePerCent  //��ʾ���ٵ��������� 
+				     Npc[nIdx].SetBlood(nOldLife - Npc[nIdx].m_CurrentLife);// nOldLife - Npc[nIdx].m_CurrentLife);NpcSync->nLifeDamagePerCent  //��ʾ���ٵ���������
 			}
 
 			Npc[nIdx].m_CurrentCamp = NpcSync->Camp;
-	
+
 			if  (Npc[nIdx].m_IsSynDir>=1)
 			     Npc[nIdx].m_Dir=NpcSync->nDir;
 
 		}
-		
-		Npc[nIdx].m_FreezeState.nTime  = NpcSync->nState & STATE_FREEZE; 
+
+		Npc[nIdx].m_FreezeState.nTime  = NpcSync->nState & STATE_FREEZE;
 		//��λ������� �Ƚ�������������Ӧ�Ķ�����λ��������������λ��Ϊ1ʱ����λ�Ľ��ȡ1������ȡ0��
 		//Npc[nIdx].m_PoisonState.nTime  = NpcSync->State & STATE_POISON;
 		Npc[nIdx].m_PoisonState.nTime  = NpcSync->nState & STATE_POISON;
@@ -2527,7 +2527,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 
 		Npc[nIdx].m_randmove.nTime     = NpcSync->nIsMove;
 
-		Npc[nIdx].m_ZhuaVal            = NpcSync->nZhuaVal; 
+		Npc[nIdx].m_ZhuaVal            = NpcSync->nZhuaVal;
         Npc[nIdx].m_TongBanNum         = NpcSync->nTongBanNum;
 		Npc[nIdx].m_GameliveTime       = NpcSync->mliveTime;
 
@@ -2565,10 +2565,10 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
          Npc[nIdx].m_SyncSignal = SubWorld[0].m_dwCurrentTime;
 
 		// Npc[nIdx].SetstrInfo(STR_GUISHU_NAME,NpcSync->GuishuName);
-		 t_sprintf(Npc[nIdx].Name,"%s",NpcSync->nName);             //����
-         t_sprintf(Npc[nIdx]._clientName,"%s",NpcSync->_clientName);
+		 sprintf(Npc[nIdx].Name,"%s",NpcSync->nName);             //����
+         sprintf(Npc[nIdx]._clientName,"%s",NpcSync->_clientName);
          Npc[nIdx].m_GuiShuDwid=NpcSync->nGuiShuDwid;
-		 Npc[nIdx].m_MaskType=NpcSync->nMaskType; 
+		 Npc[nIdx].m_MaskType=NpcSync->nMaskType;
 	}
 }
 
@@ -2576,7 +2576,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 //	���ܣ��յ���������Ϣͬ�������npc���� ����ѭ���������
 //-------------------------------------------------------------------------
 void KProtocolProcess::SyncNpcMinPlayer(BYTE* pMsg)
-{	
+{
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_PLAYER_TYPE_NORMAL_SYNC	*pSync = (NPC_PLAYER_TYPE_NORMAL_SYNC*)pMsg;
 
@@ -2628,9 +2628,9 @@ void KProtocolProcess::SyncNpcMinPlayer(BYTE* pMsg)
 		SubWorld[0].m_Region[Npc[nNpcIdx].m_RegionIndex].DecNpcRef(Npc[nNpcIdx].m_MapX, Npc[nNpcIdx].m_MapY);
 		int nRegionX = pSync->m_dwMapX/(SubWorld[0].m_nCellWidth * SubWorld[0].m_nRegionWidth);
 		int nRegionY = pSync->m_dwMapY/(SubWorld[0].m_nCellHeight * SubWorld[0].m_nRegionHeight);
-		
+
 		DWORD dwRegionID = MAKELONG(nRegionX, nRegionY);
-		//ccMessageBox("Player start add map:LoadMapC","SyncNpcMinPlayer");
+		//messageBox("Player start add map:LoadMapC","SyncNpcMinPlayer");
 		SubWorld[0].LoadMapC(SubWorld[0].m_SubWorldID, dwRegionID);
 		nRegion = SubWorld[0].FindRegion(dwRegionID);
 		if (nRegion<0)
@@ -2686,7 +2686,7 @@ void KProtocolProcess::SyncObjectAdd(BYTE* pMsg)
     if (sInfo.m_cHaveAttack)
 	{
        m_cAttackerDwid=Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID;
-	}	  
+	}
 	else
        m_cAttackerDwid=0;
 
@@ -2700,8 +2700,8 @@ void KProtocolProcess::SyncObjectAdd(BYTE* pMsg)
 
 	memset(sInfo.m_szName, 0, sizeof(sInfo.m_szName));
 	memset(sInfo.m_gsName, 0, sizeof(sInfo.m_gsName));
-	//t_sprintf(sInfo.m_gsName,"%s",pObjSyncAdd->_clientOgjName);
-	//t_sprintf(sInfo.m_szName,"%s",pObjSyncAdd->m_szName);
+	//sprintf(sInfo.m_gsName,"%s",pObjSyncAdd->_clientOgjName);
+	//sprintf(sInfo.m_szName,"%s",pObjSyncAdd->m_szName);
 	int nTempLen=pObjSyncAdd->m_wLength + 1 + sizeof(pObjSyncAdd->m_szName) - sizeof(OBJ_ADD_SYNC);//+sizeof(pObjSyncAdd->_clientOgjName)-strlen(pObjSyncAdd->_clientOgjName)
 	memcpy(sInfo.m_szName,pObjSyncAdd->m_szName,nTempLen);
 //�ͻ��˲�����Ʒ
@@ -2725,7 +2725,7 @@ void KProtocolProcess::s2cobjadd_vn(BYTE* pMsg)
 	if (nObjIndex>0)
 	{//��ʼ���÷��������memcpy
 		//int nTempLen=pObjSyncAdd->m_wLength + 1 + sizeof(pObjSyncAdd->_clientOgjName) - sizeof(OBJ_ADD_SYNC_VN);//+sizeof(pObjSyncAdd->_clientOgjName)-strlen(pObjSyncAdd->_clientOgjName)
-		t_sprintf(Object[nObjIndex]._clientObjName,pObjSyncAdd->_clientOgjName);
+		sprintf(KObject[nObjIndex]._clientObjName,  "%s", pObjSyncAdd->_clientOgjName);
 	}
 }
 //-------------------------------------------------------------------------
@@ -2748,7 +2748,7 @@ void KProtocolProcess::SyncObjectDir(BYTE* pMsg)
 	}
 	else
 	{	// ͬ������
-		Object[nObjIndex].SetDir(pObjSyncDir->m_btDir);
+		KObject[nObjIndex].SetDir(pObjSyncDir->m_btDir);
 	}
 }
 
@@ -2763,7 +2763,7 @@ void KProtocolProcess::SyncObjectRemove(BYTE* pMsg)
 	nObjIndex = ObjSet.FindID(pObjSyncRemove->m_nID);
 	if (nObjIndex > 0)
 	{	// ɾ��
-		Object[nObjIndex].Remove(pObjSyncRemove->m_btSoundFlag);
+		KObject[nObjIndex].Remove(pObjSyncRemove->m_btSoundFlag);
 	}
 }
 
@@ -2787,19 +2787,19 @@ void KProtocolProcess::SyncObjectState(BYTE* pMsg)
 	}
 	else
 	{	// ͬ��״̬
-		if (Object[nObjIndex].m_nRegionIdx == -1)
+		if (KObject[nObjIndex].m_nRegionIdx == -1)
 		{//����ǲ��������ڵĻ�,������һ��
 			int	nRegion;
-			nRegion = SubWorld[0].FindRegion(Object[nObjIndex].m_nBelongRegion);
+			nRegion = SubWorld[0].FindRegion(KObject[nObjIndex].m_nBelongRegion);
 
 			if (nRegion >= 0)
 			{
-				Object[nObjIndex].m_nRegionIdx = nRegion;
+				KObject[nObjIndex].m_nRegionIdx = nRegion;
 				SubWorld[0].m_Region[nRegion].AddObj(nObjIndex);
 			}
 		}
 
-		Object[nObjIndex].SetState(pObjSyncState->m_btState);
+		KObject[nObjIndex].SetState(pObjSyncState->m_btState);
 	}
 }
 
@@ -2823,17 +2823,17 @@ void KProtocolProcess::SyncObjectTrap(BYTE* pMsg)
 	}
 	else
 	{
-		Object[nObjIndex].m_nState = OBJ_TRAP_STATE_ACTING;
-		Object[nObjIndex].m_cImage.SetDirStart();
-		Object[nObjIndex].m_cSkill.m_nTarX = pObjTrapSync->m_nTarX;
-		Object[nObjIndex].m_cSkill.m_nTarY = pObjTrapSync->m_nTarY;
+		KObject[nObjIndex].m_nState = OBJ_TRAP_STATE_ACTING;
+		KObject[nObjIndex].m_cImage.SetDirStart();
+		KObject[nObjIndex].m_cSkill.m_nTarX = pObjTrapSync->m_nTarX;
+		KObject[nObjIndex].m_cSkill.m_nTarY = pObjTrapSync->m_nTarY;
 	}
 }
 //����ͬ�����--������Ϣ- ���ݿ�-�ͻ���
 void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	//ccMessageBox("online sync server","SyncPlayer");
+	//messageBox("online sync server","SyncPlayer");
 	PLAYER_SYNC*	pPlaySync = (PLAYER_SYNC *)pMsg;
 
 	int nIdx = NpcSet.SearchID(pPlaySync->ID);
@@ -2846,7 +2846,7 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 	Npc[nIdx].m_HorseType			= pPlaySync->HorseType;
 	Npc[nIdx].m_CurrentRunSpeed		= pPlaySync->RunSpeed;
 	Npc[nIdx].m_CurrentWalkSpeed	= pPlaySync->WalkSpeed;
-	Npc[nIdx].m_WeaponType			= pPlaySync->WeaponType;	
+	Npc[nIdx].m_WeaponType			= pPlaySync->WeaponType;
 	Npc[nIdx].m_Kind				= kind_player;
 	Npc[nIdx].m_btRankId			= pPlaySync->RankID;
 	Npc[nIdx].m_btRankFFId			= pPlaySync->RankFFID;
@@ -2865,7 +2865,7 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 	//if (Npc[nIdx].m_nFigure != -1)
 	{
 		//strcpy(Npc[nIdx].TongName,pPlaySync->TongName);   //�����
-		t_sprintf(Npc[nIdx].TongName,pPlaySync->TongName);
+		sprintf(Npc[nIdx].TongName, "%s", pPlaySync->TongName);
 	}
 	if (Npc[nIdx].m_BaiTan != pPlaySync->m_bBaiTan && pPlaySync->m_bBaiTan)
 	{//�������Ҫ����°�̯����
@@ -2892,7 +2892,7 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 		Npc[nIdx].m_nPKFlag			= 0;
 	else if (pPlaySync->m_btSomeFlag & 0x10)
 		Npc[nIdx].m_nPKFlag			= 1;
-	else 
+	else
 		Npc[nIdx].m_nPKFlag			= 2;
 
 	if (pPlaySync->m_btSomeFlag & 0x02)
@@ -2915,30 +2915,30 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 			{
 
 				ZeroMemory(nActiveInfo,sizeof(nActiveInfo));
-				
+
 				if (Item[nIdx].IsBlue())
 				{//�������װ
 					nActiveInfo[0] = 1;
 					nActiveInfo[1] = Item[nActiveId].GetIsWhere();
-					
-				} 
+
+				}
 				else if  (Item[nIdx].IsPurple())
 				{//�������װ
 					nActiveInfo[0] = 2;
 					nActiveInfo[1] = Item[nActiveId].GetIsWhere();
-				} 
+				}
 				else if  (Item[nIdx].IsGold())
 				{//����ǻ�װ
 					nActiveInfo[0] = 3;
 					nActiveInfo[1] = Item[nActiveId].GetLevel();//�ȼ�
 
-				} 
+				}
 				else
 				{
 					nActiveInfo[0] = 0;
 					nActiveInfo[1] = 0;
-				} 
-               
+				}
+
 				Item[nActiveId].ApplyMagicAttribToNPC(&Npc[nIdx],0,nActiveInfo);  // ����ͼ�����
 			}
 			else if (!Npc[nIdx].m_bRideHorse)
@@ -2947,8 +2947,8 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 				{//����ǻ�װ
 					nActiveInfo[0] = 3;
 					nActiveInfo[1] = Item[nActiveId].GetLevel();//�ȼ�
-					
-				} 
+
+				}
 				else
 				{
 					nActiveInfo[0] = 0;
@@ -2956,7 +2956,7 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 				}
 
 				Item[nActiveId].RemoveMagicAttribFromNPC(&Npc[nIdx],0,nActiveInfo); //�����ȥ������
-			}	
+			}
 	}
 }
 //ʵʱͬ�����--������ʱ����-�ͻ���
@@ -2969,11 +2969,11 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 	//char mgs[64]={0};
 	if (nIdx<=0)
 	{
-		//t_sprintf(mgs,"���ݴ���:%d....",pPlaySync->ID);
-		//ccMessageBox(mgs,"SyncPlayerMin");
+		//sprintf(mgs,"���ݴ���:%d....",pPlaySync->ID);
+		//messageBox(mgs,"SyncPlayerMin");
 		return;
 	}
-	Npc[nIdx].m_bLockNpcDwID	    = pPlaySync->m_LockNpcDwID; 
+	Npc[nIdx].m_bLockNpcDwID	    = pPlaySync->m_LockNpcDwID;
 	Npc[nIdx].m_CurrentRunSpeed		= pPlaySync->RunSpeed;
 	Npc[nIdx].m_CurrentWalkSpeed	= pPlaySync->WalkSpeed;
 	Npc[nIdx].m_HelmType			= pPlaySync->HelmType;
@@ -2984,7 +2984,7 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 	Npc[nIdx].m_btRankId			= pPlaySync->RankID;
 	Npc[nIdx].m_btRankFFId			= pPlaySync->RankFFID;
 	Npc[nIdx].m_AutoplayId			= pPlaySync->AutoplayId;
-	Npc[nIdx].m_IsWarCity			= pPlaySync->mIsWarCity;   // ʵʱͬ����ҳ��й��� 
+	Npc[nIdx].m_IsWarCity			= pPlaySync->mIsWarCity;   // ʵʱͬ����ҳ��й���
     Npc[nIdx].m_nsPlayerIdx         = pPlaySync->msPlayerIdx;
     Npc[nIdx].m_CJtaskID            = pPlaySync->mCJtaskID;    //ת��
 	Npc[nIdx].m_IsSerLock           = pPlaySync->nIsSerLock;
@@ -3001,7 +3001,7 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
         Player[CLIENT_PLAYER_INDEX].m_nVipType=pPlaySync->nVipType;
 		Npc[nIdx].m_MapUseModel.nTime=pPlaySync->nIsOpenMapType;
 		//Player[CLIENT_PLAYER_INDEX].m_cTong.m_AttackState=pPlaySync->mAttackState;
-		Player[CLIENT_PLAYER_INDEX].m_IsTranse = pPlaySync->nIsTranse;//�Ƿ�����   
+		Player[CLIENT_PLAYER_INDEX].m_IsTranse = pPlaySync->nIsTranse;//�Ƿ�����
 		Player[CLIENT_PLAYER_INDEX].m_CurGsSerIdx = pPlaySync->nCurGsSerIdx;
 	}
 	//Npc[nIdx].m_MaskType			= pPlaySync->MaskType;
@@ -3044,7 +3044,7 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 		Npc[nIdx].m_nPKFlag			= 0;
 	else if (pPlaySync->m_btSomeFlag & 0x10)
 		Npc[nIdx].m_nPKFlag			= 1;
-	else 
+	else
 		Npc[nIdx].m_nPKFlag			= 2;
 
 	if (pPlaySync->m_btSomeFlag & 0x02)
@@ -3070,32 +3070,32 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 		if (nActiveId)
 
 			if (Npc[nIdx].m_bRideHorse)
-			{  
-  
+			{
+
 				ZeroMemory(nActiveInfo,sizeof(nActiveInfo));
-				
+
 				if (Item[nIdx].IsBlue())
 				{//�������װ
 					nActiveInfo[0] = 1;
 					nActiveInfo[1] = Item[nActiveId].GetIsWhere();
-					
-				} 
+
+				}
 				else if  (Item[nIdx].IsPurple())
 				{//�������װ
 					nActiveInfo[0] = 2;
 					nActiveInfo[1] = Item[nActiveId].GetIsWhere();
-				} 
+				}
 				else if  (Item[nIdx].IsGold())
 				{//����ǻ�װ
 					nActiveInfo[0] = 3;
 					nActiveInfo[1] = Item[nActiveId].GetLevel();//�ȼ�
-				} 
+				}
 				else
 				{
 					nActiveInfo[0] = 0;
 					nActiveInfo[1] = 0;
-				} 
-                
+				}
+
 				Item[nActiveId].ApplyMagicAttribToNPC(&Npc[nIdx],0,nActiveInfo);  //Ӧ��ħ�����Ե� NPC����
 			}
 			else if (!Npc[nIdx].m_bRideHorse)
@@ -3105,14 +3105,14 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 				{//����ǻ�װ
 					nActiveInfo[0] = 3;
 					nActiveInfo[1] = Item[nActiveId].GetLevel();//�ȼ�
-				} 
+				}
 				else
 				{
 					nActiveInfo[0] = 0;
 					nActiveInfo[1] = 0;
-				} 
+				}
 				Item[nActiveId].RemoveMagicAttribFromNPC(&Npc[nIdx],0,nActiveInfo); // �Ƴ�ħ������
-			}		
+			}
 	}
 
 	if  (Npc[nIdx].m_Kind ==kind_player)
@@ -3139,19 +3139,19 @@ void KProtocolProcess::SyncWorld(BYTE* pMsg)
 
 	  if (SubWorld[0].m_SubWorldID != WorldSync->SubWorld)
 	  {//��ͬ��ͼ,�����������ͼ
-		//ccMessageBox("add map LoadMapC","SyncWorld");
+		//messageBox("add map LoadMapC","SyncWorld");
 		SubWorld[0].LoadMapC(WorldSync->SubWorld, WorldSync->SRegion);
 	  }
 	  SubWorld[0].m_dwCurrentTime = WorldSync->Frame;
 	  SubWorld[0].m_IsShowLoop    = WorldSync->m_IsShowLoop;
 	  char nMapType[32]={0},mMapType[32]={0};
 
-      t_sprintf(nMapType,"%d_MapType",WorldSync->SubWorld);
+      sprintf(nMapType,"%d_MapType",WorldSync->SubWorld);
       g_NpcMapDropRate.GetString("List",nMapType,"��",mMapType,sizeof(mMapType));
 	  SubWorld[0].nWorldMapInfo[STR_MAP_MASTER]=WorldSync->WarMaster;
 
-	  if (strstr(mMapType,"City"))	
-	  { 
+	  if (strstr(mMapType,"City"))
+	  {
         SubWorld[0].m_WarIsWho     =WorldSync->WarIsWho;
         SubWorld[0].m_IswarCity    =WorldSync->IsWarCity;      // �Ƿ�ռ��
 	    SubWorld[0].m_ShuiShouType =WorldSync->mShuiType;
@@ -3164,7 +3164,7 @@ void KProtocolProcess::SyncWorld(BYTE* pMsg)
 	// ͬ������
 	  SubWorld[0].m_nWeather = WorldSync->Weather;
 //	  g_ScenePlace.ChangeWeather(WorldSync->Weather);
-	  //ccMessageBox("add finish...","SyncWorld");
+	  //messageBox("add finish...","SyncWorld");
 }
 
 //-------------------------------------------------------------------------
@@ -3191,7 +3191,7 @@ void	KProtocolProcess::s2cChatDeleteFriend(BYTE* pMsg)
 				CoreDataChanged(GDCNI_CHAT_FRIEND, 0, i);
 
 				KSystemMessage	sMsg;
-				t_sprintf(sMsg.szMessage, MSG_CHAT_DELETED_FRIEND, pFriend->m_szName);
+				sprintf(sMsg.szMessage, MSG_CHAT_DELETED_FRIEND, pFriend->m_szName);
 				sMsg.eType = SMT_NORMAL;
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
@@ -3237,9 +3237,9 @@ void	KProtocolProcess::s2cSyncAllSkill(BYTE * pMsg)
 	{
 		if (pSync->m_sAllSkill[i].SkillId)
 		{
-			
+
 //			pOrdinSkill = (KSkill *) g_SkillManager.GetSkill(pSync->m_sAllSkill[i].SkillId, pSync->m_sAllSkill[i].SkillLevel);
-//			if (!pOrdinSkill) 
+//			if (!pOrdinSkill)
 //              continue;
 			Npc[nNpcIndex].m_SkillList.Add(\
 				pSync->m_sAllSkill[i].SkillId,\
@@ -3260,7 +3260,7 @@ void KProtocolProcess::SyncClientEnd(BYTE* pMsg)
 
 	if (!nNpcSync->m_IsLogin)
 	{
-		ccMessageBox("Login gameworld Error","Login gameworld");
+		messageBox("Login gameworld Error","Login gameworld");
 		return;
 	}
 	if  (curMobileKey!=nNpcSync->m_clientKey){
@@ -3285,14 +3285,14 @@ void KProtocolProcess::SyncClientEnd(BYTE* pMsg)
 	m_bIsPlayerInGame = true;
 
 	//����Ĭ�Ͽ�ݼ���
-	Player[CLIENT_PLAYER_INDEX].SetDefaultImmedSkill();  
+	Player[CLIENT_PLAYER_INDEX].SetDefaultImmedSkill();
 	//ͬ�����ֻ��ͻ��˵�½
 	PLAYER_REQUEST_CP_LOCK LockCmd;
 	LockCmd.ProtocolType = (BYTE)c2s_cplock;
 	LockCmd._isMobile =1; //�Ƿ��ֻ���
 	LockCmd._clientVer=_clientlanguage;//�ͻ��˰汾 1 �й� 2Խ�� ���� Ӣ��
 	if (g_pClient)
-		g_pClient->SendPackToServer(&LockCmd, sizeof(PLAYER_REQUEST_CP_LOCK));	
+		g_pClient->SendPackToServer(&LockCmd, sizeof(PLAYER_REQUEST_CP_LOCK));
 //	g_bPingReply = TRUE;
 	// �趨���충��Ƶ��
 //	Player[CLIENT_PLAYER_INDEX].m_cChat.LoadTeamName(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name);
@@ -3325,7 +3325,7 @@ void	KProtocolProcess::s2cNpcSetMenuState(BYTE* pMsg)
 		if (pState->m_btState == PLAYER_MENU_STATE_TRADEOPEN)
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_STATE_OPEN].c_str());
+			sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_TRADE_STATE_OPEN].c_str());
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -3335,11 +3335,11 @@ void	KProtocolProcess::s2cNpcSetMenuState(BYTE* pMsg)
 		}
 		else if (pState->m_btState == PLAYER_MENU_STATE_NORMAL)
 		{
-			//ccMessageBox("�ر�","tset");
+			//messageBox("�ر�","tset");
 			if (Npc[nNpc].GetMenuState() == PLAYER_MENU_STATE_TRADEOPEN)
 			{
 				KSystemMessage	sMsg;
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_STATE_CLOSE].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TRADE_STATE_CLOSE].c_str());
 				sMsg.eType = SMT_NORMAL;
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
@@ -3381,7 +3381,7 @@ void	KProtocolProcess::s2cUpdateNpcState(BYTE * pMsg)
 	NPC_SYNC_STATEINFO * pInfo = (NPC_SYNC_STATEINFO*) pMsg;
 
 	int nIndex = NpcSet.SearchID(pInfo->m_ID);	//״̬������
-	
+
 	if (nIndex > 0 && !Npc[nIndex].IsPlayer() && Npc[nIndex].m_RegionIndex >= 0)
 	{// ���ǿͻ��˱��� �ͻ�������״̬����  //andriod����
 		Npc[nIndex].SetNpcState(pInfo->m_btStateInfo);  //����NPC��״̬
@@ -3453,7 +3453,7 @@ void	KProtocolProcess::s2cDirectlyCastSkill(BYTE * pMsg)
 		nY = Npc[nIndex].m_MapY;
 		SubWorld[0].NewMap2Mps(Npc[nIndex].m_RegionIndex, nX, nY, 0, 0, (int *)&MapX, (int *)&MapY); //��������
 	}
-	
+
 	    int nIdx = NpcSet.SearchID(dwNpcID);
 
 		if (nIdx<=0)
@@ -3464,21 +3464,21 @@ void	KProtocolProcess::s2cDirectlyCastSkill(BYTE * pMsg)
 
         //if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))//���Ǳ���
 		//   return;
-	
+
 		if (nSkillID <= 0 || nSkillLevel <=0)
 			return;
 
 		KSkill * pOrdinSkill = (KSkill *) g_SkillManager.GetSkill(nSkillID,nSkillLevel);
 
-		if (!pOrdinSkill) 
+		if (!pOrdinSkill)
             return ;
 
-		pOrdinSkill->m_nEnChance= nSkillEnChance; 
+		pOrdinSkill->m_nEnChance= nSkillEnChance;
 		//pOrdinSkill->Cast(nIdx,MapX,MapY,nWaitTimer,SKILL_SLT_Npc,mMaxBeiLv);  //������
 		pOrdinSkill->Cast(nIdx, MapX, MapY);
 		//char msg[64];
-		//t_sprintf(msg,"%s %s",Npc[nIdx].Name,pOrdinSkill->GetSkillName());
-		//ccMessageBox(msg,"ͬ��������");
+		//sprintf(msg,"%s %s",Npc[nIdx].Name,pOrdinSkill->GetSkillName());
+		//messageBox(msg,"ͬ��������");
   }
 
 void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
@@ -3500,14 +3500,14 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			memcpy(szName, pMsg + sizeof(SHOW_MSG_SYNC) - sizeof(LPVOID), pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
 			if (strcmp(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name, szName) == 0)
 			{
-				t_sprintf(sMsg.szMessage,strCoreInfo[MSG_TEAM_BE_KICKEN].c_str());
+				sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TEAM_BE_KICKEN].c_str());
 				sMsg.eType = SMT_TEAM;
 				sMsg.byConfirmType = SMCT_CLICK;
 				sMsg.byPriority = 1;
 			}
 			else
 			{
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_KICK_ONE].c_str(), szName);
+				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_KICK_ONE].c_str(), szName);
 				sMsg.eType = SMT_NORMAL;
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
@@ -3524,11 +3524,11 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			KSystemMessage	sMsg;
 			if (Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFigure == TEAM_CAPTAIN)
 			{
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_DISMISS_CAPTAIN].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TEAM_DISMISS_CAPTAIN].c_str());
 			}
 			else
 			{
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_DISMISS_MEMBER].c_str(), g_Team[0].m_szMemName[0]);
+				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_DISMISS_MEMBER].c_str(), g_Team[0].m_szMemName[0]);
 			}
 			sMsg.eType = SMT_TEAM;
 			sMsg.byConfirmType = SMCT_CLICK;
@@ -3546,16 +3546,16 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
 			if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID == dwID)
 			{
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE_SELF_MSG].c_str(), g_Team[0].m_szMemName[0]);
+				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE_SELF_MSG].c_str(), g_Team[0].m_szMemName[0]);
 			}
 			else
 			{
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), "����");
+				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), "����");
 				for (int i = 0; i < MAX_TEAM_MEMBER; i++)
 				{
 					if ((DWORD)g_Team[0].m_nMember[i] == dwID)
 					{
-						t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), g_Team[0].m_szMemName[i + 1]);
+						sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), g_Team[0].m_szMemName[i + 1]);
 						break;
 					}
 				}
@@ -3575,7 +3575,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			memcpy(szName, &pShowMsg->m_lpBuf, pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
 
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, MSG_TEAM_REFUSE_INVITE, szName);
+			sprintf(sMsg.szMessage, MSG_TEAM_REFUSE_INVITE, szName);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -3587,7 +3587,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TEAM_SELF_ADD:
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_SELF_ADD].c_str(), g_Team[0].m_szMemName[0]);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_SELF_ADD].c_str(), g_Team[0].m_szMemName[0]);
 			sMsg.eType = SMT_TEAM;
 			sMsg.byConfirmType = SMCT_UI_TEAM;
 			sMsg.byPriority = 3;
@@ -3609,10 +3609,10 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
 
-			t_sprintf(sMsg.szMessage,  strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL1].c_str());
+			sprintf(sMsg.szMessage,   "%s", strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL1].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL2].c_str(), g_Team[0].m_szMemName[nMember + 1]);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL2].c_str(), g_Team[0].m_szMemName[nMember + 1]);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3630,10 +3630,10 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
 
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL1].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL1].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL3].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TEAM_CHANGE_CAPTAIN_FAIL3].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3669,7 +3669,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_DEC_MONEY].c_str(), (int)pShowMsg->m_lpBuf);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_DEC_MONEY].c_str(), (int)pShowMsg->m_lpBuf);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3677,7 +3677,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TRADE_SELF_ROOM_FULL:
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_SELF_ROOM_FULL].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TRADE_SELF_ROOM_FULL].c_str());
 			sMsg.eType = SMT_SYSTEM;
 			sMsg.byConfirmType = SMCT_CLICK;
 			sMsg.byPriority = 1;
@@ -3689,7 +3689,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TRADE_DEST_ROOM_FULL:
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_ROOM_FULL].c_str(), Player[CLIENT_PLAYER_INDEX].m_cTrade.m_szDestName);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_DEST_ROOM_FULL].c_str(), Player[CLIENT_PLAYER_INDEX].m_cTrade.m_szDestName);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -3704,7 +3704,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			if (nIdx <= 0)
 				return;
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_REFUSE_APPLY].c_str(), Npc[nIdx].Name);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_REFUSE_APPLY].c_str(), Npc[nIdx].Name);
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -3716,7 +3716,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TRADE_TASK_ITEM:
 		{
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TRADE_TASK_ITEM].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TRADE_TASK_ITEM].c_str());
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
@@ -3737,7 +3737,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 1;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_ITEM_DAMAGED].c_str(), Item[nIdx].GetName());
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_ITEM_DAMAGED].c_str(), Item[nIdx].GetName());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3745,7 +3745,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_GET_ITEM:
 		{
 			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
-			
+
 			int nItemIdx = ItemSet.SearchID(dwID);
 			if (nItemIdx <= 0 || nItemIdx >= MAX_ITEM)
 				break;
@@ -3757,12 +3757,12 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 
 			if (strlen(szName) >= sizeof(sMsg.szMessage) - strlen(MSG_ADD_ITEM))
 				break;
-			
+
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_ADD_ITEM].c_str(), szName);  //�����Ʒ��ʾ
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_ADD_ITEM].c_str(), szName);  //�����Ʒ��ʾ
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3787,7 +3787,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_CANNOT_CREATE].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TEAM_CANNOT_CREATE].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3799,7 +3799,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_TARGET_CANNOT_ADD_TEAM].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TEAM_TARGET_CANNOT_ADD_TEAM].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3811,7 +3811,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_1].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_1].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3823,7 +3823,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage,strCoreInfo[MSG_PK_ERROR_2].c_str());
+			sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_PK_ERROR_2].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3835,7 +3835,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_3].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_3].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3847,7 +3847,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_4].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_4].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3859,7 +3859,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_5].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_5].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3871,7 +3871,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_6].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_6].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3883,7 +3883,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_PK_ERROR_7].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_PK_ERROR_7].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3899,7 +3899,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_DEATH_LOSE_ITEM].c_str(), szName);
+			sprintf(sMsg.szMessage, strCoreInfo[MSG_DEATH_LOSE_ITEM].c_str(), szName);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3915,7 +3915,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage,strCoreInfo[MSG_TONG_REFUSE_ADD].c_str() , pShowMsg->m_Mmsgs);
+			sprintf(sMsg.szMessage,strCoreInfo[MSG_TONG_REFUSE_ADD].c_str() , pShowMsg->m_Mmsgs);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3927,7 +3927,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_BE_KICKED].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_BE_KICKED].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
@@ -3948,7 +3948,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_LEAVE_SUCCESS].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_LEAVE_SUCCESS].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3960,7 +3960,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_LEAVE_FAIL].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_LEAVE_FAIL].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -3972,7 +3972,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CHANGE_AS_MASTER].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CHANGE_AS_MASTER].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
@@ -3992,7 +3992,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CHANGE_AS_MEMBER].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CHANGE_AS_MEMBER].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
@@ -4012,7 +4012,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_NPC_CANNOT_RIDE].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_NPC_CANNOT_RIDE].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4024,7 +4024,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_COMP_FAILED].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_COMP_FAILED].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4036,7 +4036,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_COMP_SUCCESS].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_COMP_SUCCESS].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4048,7 +4048,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_COMP_ERITEM].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_COMP_ERITEM].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4060,7 +4060,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_COMP_MONEY].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_COMP_MONEY].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4072,11 +4072,11 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_ID_COMP_NO].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_ID_COMP_NO].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
-		break;	
+		break;
 	case enumMSG_ID_SUNYI_SUCCESS:
 		{
 			KSystemMessage	sMsg;
@@ -4084,11 +4084,11 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_SUNYI_SUCCESS].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_SUNYI_SUCCESS].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
-		break;	
+		break;
 	case enumMSG_ID_LIANJIE_FAILED: //����ʧЧ
 		{
 			KSystemMessage	sMsg;
@@ -4096,11 +4096,11 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, strCoreInfo[MSG_ID_LIANJIE_FAILED].c_str());
+			sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_ID_LIANJIE_FAILED].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
-		break;		
+		break;
 	case enumMSG_ID_FUHUO_FAILED: //ԭ�ظ���
 		{
 			KSystemMessage	sMsg;
@@ -4108,7 +4108,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage,strCoreInfo[MSG_ID_FUHUO_YUANDIAN].c_str());
+			sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_ID_FUHUO_YUANDIAN].c_str());
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
@@ -4120,48 +4120,48 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage,strCoreInfo[L_NPC_15].c_str(),"��");
+			sprintf(sMsg.szMessage,strCoreInfo[L_NPC_15].c_str(),"��");
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		}
 		break;
 	case enumMSG_ID_SHUA_SHUA: //ˢװ����ʾ
-		{ 
+		{
         	KSystemMessage	sMsg;
 	        sMsg.eType = SMT_NORMAL;
 	        sMsg.byConfirmType = SMCT_NONE;
 	        sMsg.byPriority = 0;
 	        sMsg.byParamSize = 0;
-	        t_sprintf(sMsg.szMessage,strCoreInfo[MSG_ID_SHUA_SHUA].c_str());
+	        sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_ID_SHUA_SHUA].c_str());
 	        sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 	        CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
-		} 
+		}
 		break;
    	case enumMSG_ID_RENOVE_TIME_ITEM: //ɾ��������Ʒ
-		{ 
+		{
 			KSystemMessage	sMsg;
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, pShowMsg->m_Mmsgs);	
+			sprintf(sMsg.szMessage,  "%s", pShowMsg->m_Mmsgs);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 		//	ZeroMemory()
-		} 
+		}
 		break;
 	default:
-		{ 
+		{
 			KSystemMessage	sMsg;
 			sMsg.eType = SMT_NORMAL;
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage, pShowMsg->m_Mmsgs);	
+			sprintf(sMsg.szMessage,  "%s", pShowMsg->m_Mmsgs);
 			sMsg.nMsgLen = TEncodeText_(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 			//	ZeroMemory()
-		} 
+		}
 		break;
 	}
 }
@@ -4195,7 +4195,7 @@ void	KProtocolProcess::s2cItemAutoMove(BYTE* pMsg)
 	sDest.nX         = pSync->m_btDestX;
 	sDest.nY         = pSync->m_btDestY;
 	sDest.nDIsRongqi = pSync->m_DisRongqi;
-	
+
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.AutoMoveItem(sSrc, sDest,pSync->m_ItenDwid);
 }
 //�����Ʒ���� �ͽ���
@@ -4209,7 +4209,7 @@ extern IClientCallback* l_pDataChangedNotifyFunc;
 
 void KProtocolProcess::s2cExtend(BYTE* pMsg)
 {
-	//ccMessageBox("Ƶ��������Ϣ�������","Ƶ��������Ϣ�����");
+	//messageBox("Ƶ��������Ϣ�������","Ƶ��������Ϣ�����");
 	if  (NULL==pMsg||NULL==this) return;
 	EXTEND_HEADER* pHeader = (EXTEND_HEADER*)(pMsg + sizeof(tagExtendProtoHeader));
 
@@ -4240,7 +4240,7 @@ void KProtocolProcess::s2cExtendChat(BYTE* pMsg)
 
 		//Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid=pCscSync->nItemDwid;
 		//char nMsg[64]={0};
-		//t_sprintf(nMsg,"˽��Ƶ��:%s,��ƷID:%d",pCscSync->someone,pCscSync->nItemDwid);
+		//sprintf(nMsg,"˽��Ƶ��:%s,��ƷID:%d",pCscSync->someone,pCscSync->nItemDwid);
 		//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMsg);
 
 	}
@@ -4251,11 +4251,11 @@ void KProtocolProcess::s2cExtendChat(BYTE* pMsg)
         //    pSentlenA =pCccSync->sentlen;// TEncodeText((char*)(pCccSync + 1), (int)pCccSync->sentlen);//���Ʊ�ǽ���ת��
 	    if (g_GameWorld)
 		   g_GameWorld->ChannelMessageArrival(pCccSync->channelid, pCccSync->someone,(char*)(pCccSync + 1),pCccSync->sentlen,true,pCccSync->nItemDwid,pCccSync->packageID);
-         
+
 		//Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid=pCccSync->nItemDwid;
 
 		//char nMsg[64]={0};
-		//t_sprintf(nMsg,"Ƶ��:%d,��ƷID:%d",pCccSync->channelid,pCccSync->nItemDwid);
+		//sprintf(nMsg,"Ƶ��:%d,��ƷID:%d",pCccSync->channelid,pCccSync->nItemDwid);
 		//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMsg);
 	}
 	else if (protocol == chat_feedback)
@@ -4392,7 +4392,7 @@ on_over:
 
 			std::string theUnit, theGroup;
 			sParseUGName(group, &theUnit, &theGroup);
-			
+
 			//CCAssert(theGroup.empty(),"");
 
 	//		for (char* szRole = szGroup + group.size() + 1; *szRole; szRole += strlen(szRole) + 1)
@@ -4432,7 +4432,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			sMsg.byPriority = 0;
 			sMsg.byParamSize = 0;
 
-			t_sprintf(sMsg.szMessage, "��ᴴ��ʧ��");
+			sprintf(sMsg.szMessage, "��ᴴ��ʧ��");
 			sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 
@@ -4443,47 +4443,47 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			case enumTONG_CREATE_ERROR_ID2:		// ���׹�����
 				break;
 			case enumTONG_CREATE_ERROR_ID3:		// ���������
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR01].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR01].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID4:		// �����Ӫ����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR04].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR04].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID5:		// �Ѿ��ǰ���Ա
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR05].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR05].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID6:		// �Լ�����Ӫ����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR04].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR04].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID7:		// �ȼ�����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR07].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR07].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID8:		// Ǯ����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR08].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR08].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID9:		// ��Ӳ��ܽ����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR09].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR09].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID10:	// ���ģ�����
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR10].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR10].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID11:	// �����ַ�������
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR11].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR11].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID12:	// �����ַ�������
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR12].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR12].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID13:	// ���ͬ������
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TONG_CREATE_ERROR13].c_str());
+				sprintf(sMsg.szMessage,  "%s", strCoreInfo[MSG_TONG_CREATE_ERROR13].c_str());
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				break;
 			case enumTONG_CREATE_ERROR_ID14:	// ������ʧ��
@@ -4502,19 +4502,19 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			memcpy(szName, pApply->m_szName, pApply->m_wLength + 1 + sizeof(pApply->m_szName) - sizeof(TONG_APPLY_ADD_SYNC));
 			dwNameID   = g_FileName2Id(szName);
 			nPlayerIdx = pApply->m_nPlayerIdx;
-            
+
             /*if (pApply->m_IsAuToAdd==2)    //�Ƿ��Զ�ͬ��������
 			{
 		     	Player[CLIENT_PLAYER_INDEX].m_cTong.AcceptMember(pApply->m_nPlayerIdx,dwNameID,1);
 				char msg[64];
-				t_sprintf(msg,"��ϲ:(%s)������ļҪ��,�Զ��������!",szName);
+				sprintf(msg,"��ϲ:(%s)������ļҪ��,�Զ��������!",szName);
 				Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 				break;
 			}*/
 
 			//�����淢��Ϣ���յ����룬�Ƿ�ͬ��
 			KSystemMessage	sMsg;
-			t_sprintf(sMsg.szMessage,"�յ�(%s)���������!", szName);
+			sprintf(sMsg.szMessage,"�յ�(%s)���������!", szName);
 			sMsg.eType = SMT_CLIQUE;
 			sMsg.byConfirmType = SMCT_UI_TONG_JOIN_APPLY;
 			sMsg.byPriority = 3;
@@ -4522,7 +4522,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 			KUiPlayerItem	player;
 			//strcpy(player.Name, szName);
-			t_sprintf(player.Name,szName);
+			sprintf(player.Name, "%s", szName);
 			player.nIndex = pApply->m_nPlayerIdx;
 			player.uId = 0;
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, (intptr_t)&player);
@@ -4538,7 +4538,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			memcpy(szMaster, pAdd->m_szMaster, sizeof(szMaster));
 
 			Player[CLIENT_PLAYER_INDEX].m_cTong.AddTong(pAdd->m_btCamp, szName, szTitle, szMaster);
-			
+
 			// ֪ͨ�����������
 			/*KUiGameObjectWithName	sUi;
 			memset(&sUi, 0, sizeof(sUi));
@@ -4576,21 +4576,21 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			sInfo.nMemberCount   = (int)pInfo->m_dwMemberNum;         //������
 			sInfo.nManagerCount  = (int)pInfo->m_btManagerNum;        //�ӳ���
 			sInfo.nDirectorCount = (int)pInfo->m_btDirectorNum;       //������
-			sInfo.nZhaoMuCount   = pInfo->m_btZhaoMuNum; 
+			sInfo.nZhaoMuCount   = pInfo->m_btZhaoMuNum;
             sInfo.nApplyCount    = pInfo->m_btApplyNum;
 			sInfo.nMoney         = pInfo->m_dwMoney;  //Ǯ
 			sInfo.nLevel         = pInfo->m_btLevel;  //�ȼ�
 
 			//if (nIdx == Player[CLIENT_PLAYER_INDEX].m_nIndex && sUi.nRelation==1)
 				//Player[CLIENT_PLAYER_INDEX].m_cTong.m_CurRenShu=(int)pInfo->m_dwMemberNum+(int)pInfo->m_btManagerNum+(int)pInfo->m_btDirectorNum;
-			
+
 			//strcpy(sInfo.szMasterName, pInfo->m_sMember[0].m_szName);  //������  �д���  ����pInfo->m_sMember[0].m_szName
 			//strcpy(sInfo.szName, pInfo->m_szTongName);                 //�����
-            
+
 //			char msg[64];
-			t_sprintf(sInfo.szMasterName,"%s",pInfo->m_sMember[0].m_szName);
-            t_sprintf(sInfo.szName,"%s",pInfo->m_szTongName);
-            //t_sprintf(msg,"���:%s ����:%s",pInfo->m_szTongName,pInfo->m_sMember[0].m_szName);
+			sprintf(sInfo.szMasterName,"%s",pInfo->m_sMember[0].m_szName);
+            sprintf(sInfo.szName,"%s",pInfo->m_szTongName);
+            //sprintf(msg,"���:%s ����:%s",pInfo->m_szTongName,pInfo->m_sMember[0].m_szName);
 			sInfo.szName[8]='\0';
             //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 			CoreDataChanged(GDCNI_TONG_INFO, (uintptr_t)&sUi, (uintptr_t)&sInfo);
@@ -4645,7 +4645,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 
 			CoreDataChanged(GDCNI_TONG_MEMBER_LIST, (uintptr_t)&sObj, (intptr_t)sItem);
 		}
-		break;	 
+		break;
 	case enumTONG_SYNC_ID_LIST_INFO:
 		{//ͬ������б���Ϣ
 			TONG_LIST_INFO_SYNC	*pLInfo = (TONG_LIST_INFO_SYNC*)pMsg;
@@ -4656,9 +4656,9 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 			sLObj.nParam = pLInfo->m_btStateNo;  //��ʼ���
 			sLObj.uParam = pLInfo->m_btCurNum;   //��ǰ������
 			sLObj.szString[0] = 0;
-			
+
 			KTongMemberItem	sLItem[defTONG_ONE_PAGE_MAX_NUM];
-			
+
 			memset(sLItem, 0, sizeof(sLItem));
 			for (int i = 0; i < pLInfo->m_btCurNum; i++)
 			{
@@ -4666,7 +4666,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 				strcpy(sLItem[i].Name, pLInfo->m_sTongList[i].m_szName); //�����
 				strcpy(sLItem[i].szAgname,"ȫ��");         //ְλ
 			}
-			
+
 			CoreDataChanged(GDCNI_TONG_LIST, (uintptr_t)&sLObj, (intptr_t)sLItem);
 		}
 		break;
@@ -4734,7 +4734,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 					sMsg.byConfirmType = SMCT_NONE;
 					sMsg.byPriority = 0;
 					sMsg.byParamSize = 0;
-					t_sprintf(sMsg.szMessage, "��ʾ:�Է�������!");
+					sprintf(sMsg.szMessage, "��ʾ:�Է�������!");
 					sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 					CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				}
@@ -4746,7 +4746,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 					sMsg.byConfirmType = SMCT_NONE;
 					sMsg.byPriority = 0;
 					sMsg.byParamSize = 0;
-					t_sprintf(sMsg.szMessage, "�Է���������!!");
+					sprintf(sMsg.szMessage, "�Է���������!!");
 					sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 					CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				}
@@ -4758,7 +4758,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 					sMsg.byConfirmType = SMCT_NONE;
 					sMsg.byPriority = 0;
 					sMsg.byParamSize = 0;
-					t_sprintf(sMsg.szMessage, "�Է����ֲ���!!");
+					sprintf(sMsg.szMessage, "�Է����ֲ���!!");
 					sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 					CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				}
@@ -4795,7 +4795,7 @@ void	KProtocolProcess::s2cPKSyncEnmityState(BYTE* pMsg)
 
 	memset(szName, 0, sizeof(szName));
 	//memcpy(szName, pState->m_szName, pState->m_wLength + 1 + sizeof(pState->m_szName) - sizeof(PK_ENMITY_STATE_SYNC));
-	t_sprintf(szName,pState->m_szName);
+	sprintf(szName, "%s", pState->m_szName);
 	Player[CLIENT_PLAYER_INDEX].m_cPK.SetEnmityPKState(pState->m_btState, pState->m_dwNpcID, szName);
 }
 
@@ -4806,7 +4806,7 @@ void	KProtocolProcess::s2cPKSyncExerciseState(BYTE* pMsg)
 	char	szName[32];
 	memset(szName, 0, sizeof(szName));
 	//memcpy(szName, pState->m_szName, pState->m_wLength + 1 + sizeof(pState->m_szName) - sizeof(PK_EXERCISE_STATE_SYNC));
-	t_sprintf(szName,pState->m_szName);
+	sprintf(szName, "%s", pState->m_szName);
 	Player[CLIENT_PLAYER_INDEX].m_cPK.SetExercisePKState(pState->m_btState, pState->m_dwNpcID, szName);
 }
 
@@ -4881,7 +4881,7 @@ void	KProtocolProcess::ItemChangeDurability(BYTE* pMsg)
 	ITEM_DURABILITY_CHANGE	*pIDC = (ITEM_DURABILITY_CHANGE *)pMsg;
 
 	int nIdx = ItemSet.SearchID(pIDC->dwItemID);
-	
+
 	if (nIdx)
 	{
 		Item[nIdx].SetDurability(Item[nIdx].GetDurability() + pIDC->nChange); //���õ�ǰ�־�
@@ -4896,13 +4896,13 @@ void	KProtocolProcess::ItemChangeDurability(BYTE* pMsg)
 			//sMsg.byConfirmType = SMCT_NONE;
 			//sMsg.byPriority    = 0;
 			//sMsg.byParamSize   = 0;
-            
+
 			sMsg.byConfirmType = SMCT_CLICK;
 			sMsg.byParamSize = 0;
 			sMsg.byPriority = 1;
 	        sMsg.eType = SMT_PLAYER;
 
-			t_sprintf(sMsg.szMessage, MSG_ITEM_NEARLY_DAMAGED, Item[nIdx].GetName());
+			sprintf(sMsg.szMessage, MSG_ITEM_NEARLY_DAMAGED, Item[nIdx].GetName());
 			sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 			CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0); */
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(MSG_ITEM_NEARLY_DAMAGED);
@@ -4974,7 +4974,7 @@ void KProtocolProcess::s2cpautoMovecallback(BYTE* pMsg)
 	}
 	int nSplace=Player[CLIENT_PLAYER_INDEX].m_ItemList.GetEquPlace(Item[nSrcItemIdx].GetDetailType()); //�����װ����λ��
 	int nEuqIdx=Player[CLIENT_PLAYER_INDEX].m_ItemList.GetEquipment(nSplace); //װ�����Ƿ���װ��
-	
+
 	if 	(nEuqIdx && nSplace == itempart_ring1)
 	{//ԭ��λ���ж��� �Ͻ���
 		if (!Player[CLIENT_PLAYER_INDEX].m_ItemList.GetEquipment(itempart_ring2))
@@ -4985,7 +4985,7 @@ void KProtocolProcess::s2cpautoMovecallback(BYTE* pMsg)
 	{//�����ж��װ��
 		nSplace = Player[CLIENT_PLAYER_INDEX].m_ItemList._getEquipPlaceByItemIdx(nSrcItemIdx);
 	}
-	
+
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.AutoEquip(SrcPos,DesPos,pEquip->m_ItemDwId,nSplace,pEquip->m_Kind);
 }
 
@@ -5065,7 +5065,7 @@ void KProtocolProcess::LadderList(BYTE* pMsg)
 
 	LADDER_LIST*	pList = (LADDER_LIST *)pMsg;
 	KRankIndex		*pLadderListIndex = NULL;
-	
+
 	if (pList->nCount > 0 && pList->nCount < enumLadderEnd)
 	{
 		pLadderListIndex = new KRankIndex[pList->nCount];
@@ -5100,7 +5100,7 @@ void KProtocolProcess::LadderResult(BYTE* pMsg)
 			pLadderMessage[i].nValueAppend = pLadderData->StatData[i].nValue;
 			pLadderMessage[i].cSortFlag = (char)pLadderData->StatData[i].bySort;
 		}
-		uint32_t uParam = 10 | (((WORD)pLadderData->dwLadderID) << 16);
+		unsigned int uParam = 10 | (((WORD)pLadderData->dwLadderID) << 16);
 		CoreDataChanged(GDCNII_RANK_INFORMATION_ARRIVE, uParam, (intptr_t)pLadderMessage);
 		delete [] pLadderMessage;
 		pLadderMessage = NULL;

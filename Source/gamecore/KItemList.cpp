@@ -28,7 +28,7 @@ extern KTabFile g_FusionTab;
 
 #endif
 //激活的装备清单
-int KItemList::ms_ActiveEquip[itempart_num][MAX_ITEM_ACTIVE] = 
+int KItemList::ms_ActiveEquip[itempart_num][MAX_ITEM_ACTIVE] =
 {
     { itempart_foot, itempart_ring1,itempart_weapon},	  //itempart_head,    头盔 激活 靴子,上戒,武器
 	{ itempart_weapon, itempart_head,itempart_yinjian},	  //itempart_body,    衣服 激活 武器,头盔,印鉴
@@ -41,7 +41,7 @@ int KItemList::ms_ActiveEquip[itempart_num][MAX_ITEM_ACTIVE] =
 	{ itempart_amulet, itempart_body,itempart_belt},      //itempart_ring2,   下戒 激活 项链,衣服,腰带
 	{ itempart_ring2,itempart_belt,itempart_pifeng},	  //itempart_pendant, 玉佩 激活 下戒,腰带,披风
 	{ itempart_pifeng, itempart_shiping ,itempart_foot}, //itempart_horse,    马匹 激活 披风,饰品,靴子
-	{ itempart_horse, itempart_pifeng ,itempart_pendant}, //itempart_mask	  面具 激活 马匹,披风,玉佩 
+	{ itempart_horse, itempart_pifeng ,itempart_pendant}, //itempart_mask	  面具 激活 马匹,披风,玉佩
 	{ itempart_shiping, itempart_yinjian,itempart_mask},  //                  披风 激活 饰品,印鉴,面具
 	{ itempart_mask, itempart_horse,itempart_shiping},	  //	              印鉴 激活 面具,马匹,饰品
 	{ itempart_yinjian, itempart_mask,itempart_horse},	  //	              饰品 激活 印鉴,面具,马匹
@@ -51,7 +51,7 @@ int KItemList::ms_ActiveEquip[itempart_num][MAX_ITEM_ACTIVE] =
 int KItemList::ms_ActivedEquip[itempart_num][MAX_ITEM_ACTIVE] =
 {
 	{ itempart_body, itempart_amulet,itempart_cuff},   //	itempart_head,  头盔 需要 衣服,项链,护腕  激活
-	{ itempart_ring2, itempart_belt,itempart_foot},	   //	itempart_body,  衣服 需要 下戒,腰带,靴子  激活	    
+	{ itempart_ring2, itempart_belt,itempart_foot},	   //	itempart_body,  衣服 需要 下戒,腰带,靴子  激活
 	{ itempart_pendant, itempart_cuff,itempart_ring2}, //	itempart_belt,  腰带 需要 玉佩,护腕,下戒  激活
 	{ itempart_amulet, itempart_body,itempart_head},   //	itempart_weapon,武器 需要 项链,衣服,头盔  激活
 	{ itempart_weapon, itempart_head,itempart_horse},//	itempart_foot,      靴子 需要 武器,头盔,马匹  激活
@@ -83,7 +83,7 @@ KItemList::~KItemList()
 /*!*****************************************************************************
 // Function		: KItemList::GetWeaponType
 // Purpose		: 取得玩家装备的武器类型
-// Return		: int 
+// Return		: int
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
@@ -145,7 +145,7 @@ void KItemList::GetWeaponDamage(int* nMin, int* nMax)  //武器伤害
 /*!*****************************************************************************
 // Function		: KItemList::Add
 // Purpose		: 玩家得到一个装备
-// Return		: int 
+// Return		: int
 // Argumant		: int nIdx		Item数组的idx
 // Argumant		: int nPlace
 // Argumant		: int nX
@@ -196,13 +196,13 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		m_Items[i].nX = nX;       //设置装备的 部位
 		m_Items[i].nY = 0;
 		break;
-	case pos_equiproom:  //包袱 装备空间  
+	case pos_equiproom:  //包袱 装备空间
 		if (!m_Room[room_equipment].PlaceItem(nX,nY,nIdx,Item[nIdx].GetWidth(),Item[nIdx].GetHeight()))
 		{
 //客户端
         Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("提示:包袱空间不足C!");
 	   	return 0;
-		} 
+		}
 		m_Items[i].nPlace = pos_equiproom;  //设置容器物品信息
 		m_Items[i].nX = nX;
 		m_Items[i].nY = nY;
@@ -220,10 +220,10 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		if (!m_Room[room_repository].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
 		{
 			return 0;
-		} 
+		}
 		m_Items[i].nPlace = pos_repositoryroom;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_exbox1room: // 扩展箱 1
 		if (!m_Room[room_exbox1].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
@@ -232,7 +232,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_exbox1room;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_exbox2room: // 扩展箱 2
 		if (!m_Room[room_exbox2].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
@@ -241,7 +241,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_exbox2room;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_exbox3room: // 扩展箱 3
 		if (!m_Room[room_exbox3].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
@@ -250,7 +250,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_exbox3room;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_equiproomex:  // 字母袋
 		if (!m_Room[room_equipmentex].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
@@ -270,8 +270,8 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_immediacy;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
-		break;		
+		m_Items[i].nY = nY;
+		break;
 	case pos_give:        //给予界面
 		if (!m_Room[room_give].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
 		{
@@ -279,13 +279,13 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_give;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_dazao:        //打造界面
 		m_ItemBox[nX]=nIdx;
 		m_Items[i].nPlace = pos_dazao;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	case pos_cailiao:        //打造界面
 		if (!m_Room[room_cailiao].PlaceItem(nX, nY, nIdx, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
@@ -294,7 +294,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		}
 		m_Items[i].nPlace = pos_cailiao;
 		m_Items[i].nX = nX;
-		m_Items[i].nY = nY;		
+		m_Items[i].nY = nY;
 		break;
 	default:
 		return 0;
@@ -320,8 +320,9 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		   TonEquip(m_Items[i].nIdx,nX,nIsLoign);
 	}
 
-	KUiObjAtContRegion	pInfo;
-	int PartConvert[itempart_num] = 
+	KUiObjAtContRegion pInfo;
+    memset(&pInfo, 0, sizeof(KUiObjAtContRegion));
+	int PartConvert[itempart_num] =
 	{
 		UIEP_HEAD,
 		UIEP_BODY,
@@ -409,8 +410,9 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 		pInfo.eContainer = UOC_ITEM_GIVE;
 		break;
 	}
+    unsigned int temp = (uintptr_t)&pInfo;
 	if (nPlace != pos_trade1) //通知客户端物品增加
-		CoreDataChanged(GDCNI_OBJECT_CHANGED, reinterpret_cast<uintptr_t>(&pInfo), 1);
+		CoreDataChanged(GDCNI_OBJECT_CHANGED, (uintptr_t)&pInfo, 1);
 	else
 	{// 交易对方增加
 		CoreDataChanged(GDCNI_TRADE_DESIRE_ITEM, (uintptr_t)&pInfo, 1);
@@ -421,7 +423,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 /*!*****************************************************************************
 // Function		: KItemList::Remove
 // Purpose		: 玩家失去一个装备
-// Return		: int 
+// Return		: int
 // Argumant		: int nGameIdx为游戏世界中道具数组的编号
 // Comments		: 删除容器中的物品。。。。
 // Author		: Spe
@@ -526,7 +528,7 @@ BOOL KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,BOOL nIsSave)
 			Item[m_Items[nFIdx].nIdx].GetHeight());*/
 		   if  (m_Items[nFIdx].nX>=53 && m_Items[nFIdx].nX<=77)
 			   UnTonEquip(m_Items[nFIdx].nIdx);
-			   
+
 			RemoveItemBox(m_Items[nFIdx].nIdx);
 			//m_ItemBox[ndX]=0;
 		break;
@@ -560,7 +562,7 @@ BOOL KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,BOOL nIsSave)
 	KUiObjAtContRegion pInfo;
       memset(&pInfo, 0, sizeof(KUiObjAtContRegion));
 
-	int PartConvert[itempart_num] = 
+	int PartConvert[itempart_num] =
 	{
 		UIEP_HEAD,
 		UIEP_BODY,
@@ -595,15 +597,15 @@ BOOL KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,BOOL nIsSave)
 	case pos_equiproom:
 		{
           if (nModel==1)
-		  {   
+		  {
 		    pInfo.Region.h =ndX;
 		    pInfo.Region.v =ndY;
-		  }   
+		  }
 		  else
-		  { 
+		  {
 			pInfo.Region.h = m_Items[nFIdx].nX;
 	 	    pInfo.Region.v = m_Items[nFIdx].nY;
-		  } 
+		  }
 		  pInfo.eContainer = UOC_ITEM_TAKE_WITH;
 		}
 		break;
@@ -678,13 +680,13 @@ BOOL KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,BOOL nIsSave)
 	  sMsg.byParamSize = 0;
 
       if (Item[m_Items[nFIdx].nIdx].GetTime()->bYear>0)
-		    t_sprintf(sMsg.szMessage, "限时:使用时间到,回收(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
+		    sprintf(sMsg.szMessage, "限时:使用时间到,回收(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
 	  else
 	  {
 		if (Npc[Player[m_PlayerIdx].m_nIndex].m_BaiTan)
-		    t_sprintf(sMsg.szMessage, "摆摊:卖掉(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
+		    sprintf(sMsg.szMessage, "摆摊:卖掉(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
 		else
-			t_sprintf(sMsg.szMessage, "物品:消耗(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
+			sprintf(sMsg.szMessage, "物品:消耗(%s)OK.", Item[m_Items[nFIdx].nIdx].GetName());
 	  }
 	  sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 	  CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
@@ -782,7 +784,7 @@ int KItemList::Init(int nPlayerIdx)
 	{
 		m_FreeIdxItemList.Insert(i);
 	}
-	//ccMessageBox("增加包袱空间成功","增加包袱空间成功");
+	//messageBox("增加包袱空间成功","增加包袱空间成功");
 	return TRUE;
 }
 
@@ -1031,7 +1033,7 @@ BOOL KItemList::EnoughAttrib(void* pAttrib,int nPlace,DWORD nDwIdx)
 		if (!nNpcIdx || nPlace!=pData->nValue[0]) //部位不形同
 		{//需求同伴 并是 部位合适的
 
-		///t_sprintf(mag,"不可以装备:P:%d;D:%d",nPlace,pData->nValue[0]);
+		///sprintf(mag,"不可以装备:P:%d;D:%d",nPlace,pData->nValue[0]);
 	 		return FALSE;
 		}
 		break;
@@ -1261,7 +1263,7 @@ BOOL KItemList::Equip(int nIdx, int nPlace,int nIsLoign)
 
             /*#ifdef _SERVER
 			char nMsg[64]={0};
-			t_sprintf(nMsg,"--是否白金A: %d,武器类型: %d,ID:%d ",Item[nIdx].GetIsPlatima(),nType,Item[nIdx].GetGoldId());
+			sprintf(nMsg,"--是否白金A: %d,武器类型: %d,ID:%d ",Item[nIdx].GetIsPlatima(),nType,Item[nIdx].GetGoldId());
 			msgshow(nMsg);
             #endif
 			*/
@@ -1273,7 +1275,7 @@ BOOL KItemList::Equip(int nIdx, int nPlace,int nIsLoign)
 
             /*#ifdef _SERVER
 			char nMsg[64]={0};
-			   t_sprintf(nMsg,"--是否白金B: %d,武器类型: %d ",Item[nIdx].GetIsPlatima(),Npc[nNpcIdx].m_WeaponType);
+			   sprintf(nMsg,"--是否白金B: %d,武器类型: %d ",Item[nIdx].GetIsPlatima(),Npc[nNpcIdx].m_WeaponType);
                msgshow(nMsg);
             #endif*/
 		}
@@ -2213,9 +2215,9 @@ BOOL KItemList::EatMecidineS(int nIdx,int nx,int nY)
 		if (!Npc[Player[m_PlayerIdx].m_nIndex].m_FightMode)
 		{// || Npc[Player[m_PlayerIdx].m_nIndex].m_AutoplayId>0
 #ifdef WIN32
-			ccMessageBox("挂机/非战斗模式,不能回城!","提示:");
+			messageBox("挂机/非战斗模式,不能回城!","提示:");
 #else
-			ccMessageBox(UTEXT("挂机/非战斗模式,不能回城!",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("挂机/非战斗模式,不能回城!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 			return FALSE;
 		}
@@ -2233,9 +2235,9 @@ BOOL KItemList::EatMecidineS(int nIdx,int nx,int nY)
        if (Item[nIdx].GetStackNum() > 1 && mprg==0)  //是否可以叠加使用
 	   {
 #ifdef WIN32
-		   ccMessageBox("提示:物品叠加,不能使用!","提示:");
+		   messageBox("提示:物品叠加,不能使用!","提示:");
 #else
-		   ccMessageBox(UTEXT("提示:物品叠加,不能使用!",1).c_str(),UTEXT("提示:",1).c_str());
+		   messageBox(UTEXT("提示:物品叠加,不能使用!",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		   return FALSE;
 	   }
@@ -2268,14 +2270,14 @@ int KItemList::AutoChangeItem(int nIdx)
 	if (!CheckCanPlaceInEquipment(nItemWith,nItemHigth, &x, &y))
 	{
 #ifdef WIN32
-		ccMessageBox("包袱空间不足","提示");
+		messageBox("包袱空间不足","提示");
 #else
-		ccMessageBox(UTEXT("包袱空间不足",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("包袱空间不足",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return false;
 	}
 	//-----------------------
-	uint32_t nItemDwId=0;
+	unsigned int nItemDwId=0;
 	nItemDwId=Item[nIdx].GetID();
 	PLAYER_AUTO_EQUIP eItem;
 	eItem.ProtocolType = (BYTE)c2s_playerautoequip;
@@ -2364,9 +2366,9 @@ int KItemList::UseItem(int nIdx,int cnx,int cny)
 			else
 			{//不能装备该装备
 #ifdef WIN32
-				ccMessageBox("该装备不满足换装条件","提示:");
+				messageBox("该装备不满足换装条件","提示:");
 #else
-				ccMessageBox(UTEXT("该装备不满足换装条件",1).c_str(),UTEXT("提示",1).c_str());
+				messageBox(UTEXT("该装备不满足换装条件",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 			}
 
@@ -2580,7 +2582,7 @@ void KItemList::AutoEquip(ItemPos SrcPos,ItemPos DesPos,DWORD nSrcItemDwIdx,int 
 			pInfo2.Region.v = DesPos.nY;
 			pInfo2.eContainer = UOC_ITEM_TAKE_WITH;
 			pInfo2.Region.IsRongqi = 1;
-			//t_sprintf(msg,"[KR_equiproom] X:%d-Y:%d",DesPos.nX,DesPos.nY);
+			//sprintf(msg,"[KR_equiproom] X:%d-Y:%d",DesPos.nX,DesPos.nY);
 			//ClientShowMsg(msg);
 			break;
 		case pos_equip:
@@ -3057,7 +3059,7 @@ int KItemList::LingHe(int nLindexID,int nBaoshiID)
 //			    nBItemLevel[k] = Item[nLindexID].m_GeneratorParam.nBGeneratorLevel[k];
 		}
 		//char msg[64];
-		//t_sprintf(msg,"灵合:(%d)(%d)(%d)(%d)(%d)(%d)",nBItemLevel[0],nBItemLevel[1],nBItemLevel[2],nBItemLevel[3],nBItemLevel[4],nBItemLevel[5]);
+		//sprintf(msg,"灵合:(%d)(%d)(%d)(%d)(%d)(%d)",nBItemLevel[0],nBItemLevel[1],nBItemLevel[2],nBItemLevel[3],nBItemLevel[4],nBItemLevel[5]);
 		//msgshow(msg);
 		            int nStackNum = 1;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3225,7 +3227,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
 				sMsg.byParamSize = 0;
-				t_sprintf(sMsg.szMessage, strCoreInfo[MSG_ITEM_SAME_DETAIL_IN_IMMEDIATE].c_str());
+				sprintf(sMsg.szMessage, "%s",  strCoreInfo[MSG_ITEM_SAME_DETAIL_IN_IMMEDIATE].c_str());
 				sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 				return;
@@ -3538,7 +3540,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 		}
 		nEquipIdx1 = m_Items[nItemIdx].nIdx;//m_Room[nSrcRoom].FindItem(SrcPos.nX, SrcPos.nY); //V? trí ban ??u có th? này kh?ng
 		char msg[64];
-		t_sprintf(msg,"[SR_equiproom] X:%d-Y:%d-nEquipIdx1:%d",SrcPos->nX,SrcPos->nY,nEquipIdx1);
+		sprintf(msg,"[SR_equiproom] X:%d-Y:%d-nEquipIdx1:%d",SrcPos->nX,SrcPos->nY,nEquipIdx1);
 		ClientShowMsg(msg);
 		if (nEquipIdx1 < 0) //tr? l?i n?u kh?ng có gì
 		{
@@ -3738,7 +3740,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 				sMsg.byConfirmType = SMCT_NONE;
 				sMsg.byPriority = 0;
 				sMsg.byParamSize = 0;
-				t_sprintf(sMsg.szMessage,"%s", "提示:打造栏已经有同类型的物品了！");
+				sprintf(sMsg.szMessage,"%s", "提示:打造栏已经有同类型的物品了！");
 				sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 				CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 #endif
@@ -3956,7 +3958,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 			pInfo2.eContainer = UOC_ITEM_TAKE_WITH;
 			pInfo1.Region.IsRongqi = SrcPos->nSIsRongqi;
 			pInfo2.Region.IsRongqi = DesPos->nDIsRongqi;
-			//t_sprintf(msg,"[KR_equiproom] X:%d-Y:%d",DesPos->nX,DesPos->nY);
+			//sprintf(msg,"[KR_equiproom] X:%d-Y:%d",DesPos->nX,DesPos->nY);
 			//ClientShowMsg(msg);
 			break;
 		case pos_equip:
@@ -4048,7 +4050,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 			pInfo2.eContainer = UOC_ITEM_DAZAO;
 			pInfo1.Region.IsRongqi = 0;//SrcPos->nSIsRongqi;
 			pInfo2.Region.IsRongqi = 0;//DesPos->nDIsRongqi;
-			//t_sprintf(msg,"[KR_dazao] X:%d-Y:%d",DesPos->nX,DesPos->nY);
+			//sprintf(msg,"[KR_dazao] X:%d-Y:%d",DesPos->nX,DesPos->nY);
 			//ClientShowMsg(msg);
 			break;
 		case pos_cailiao:
@@ -4076,7 +4078,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 	}
 }
 
-//多容器材料检测 
+//多容器材料检测
 BOOL KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
 {
 	  int nPartTyep[3],nReg=FALSE;
@@ -4087,46 +4089,46 @@ BOOL KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
 		  if (IsMianBan==1)
 		  {//提炼
 				  break;
-		  } 
+		  }
 		  else if (IsMianBan==2)
 		  {//提取
 			  g_CompEquip.GetInt3s(i,"Distill",nPartTyep); //玄晶矿石
 			  if (ItemClass==nPartTyep[0] && Detail==nPartTyep[1] && nPart==nPartTyep[2])
-			  { 
+			  {
 				  nReg=TRUE;
 				  break;
-			  } 
-		  } 
+			  }
+		  }
 		  else if (IsMianBan==3)
 		  {//打造
-				  break;	  
-		  } 
+				  break;
+		  }
 		  else if (IsMianBan==4)
 		  {//镶套
 			  g_CompEquip.GetInt3s(i,"Enchase",nPartTyep); //玄晶矿石
 			  if (ItemClass==nPartTyep[0] && Detail==nPartTyep[1] && nPart==nPartTyep[2])
-			  { 
+			  {
 				  nReg=TRUE;
 				  break;
-			  } 
-		  } 
+			  }
+		  }
 		  else if (IsMianBan==5)
 		  {//图谱
              g_CompEquip.GetInt3s(i,"Atlas",nPartTyep); //玄晶矿石
 		     if (ItemClass==nPartTyep[0] && Detail==nPartTyep[1] && nPart==nPartTyep[2])
-			 { 
+			 {
 			   nReg=TRUE;
 			   break;
-			 } 
-		  } 
+			 }
+		  }
 		  else if (IsMianBan==8)
 		  {//融合材料
              g_CompEquip.GetInt3s(i,"RongHe",nPartTyep);
 		     if (ItemClass==nPartTyep[0] && Detail==nPartTyep[1] && nPart==nPartTyep[2])
-			 { 
+			 {
 			   nReg=TRUE;
 			   break;
-			 } 
+			 }
 		  }
 		  else
 			  break;
@@ -4138,7 +4140,7 @@ BOOL KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
 //---------------------------------------------------------------------
 //	功能：物品从一个地方直接移动到另一个地方，不经过鼠标这个中间过程
 //---------------------------------------------------------------------
-BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
+BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID)
 {
 	//if (Player[this->m_PlayerIdx].CheckTrading())	// 如果正在交易
 	//	return FALSE;
@@ -4300,7 +4302,7 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 					m_Items[nListIdx].nPlace = DesPos.nPlace;
 					m_Items[nListIdx].nX = DesPos.nX;
 					m_Items[nListIdx].nY = DesPos.nY;
-					
+
 					bMove = TRUE;
 				}
 				break;
@@ -4335,7 +4337,7 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 		}
 		break;
 	case pos_dazao:  //源单对象容器
-		{ 
+		{
 			switch (DesPos.nPlace)  //目标容器
 			{
 			   case pos_equiproom:
@@ -4347,7 +4349,7 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 			/*		if (!m_Room[room_dazao].PickUpItem(nIdx, SrcPos.nX, SrcPos.nY, Item[nIdx].GetWidth(), Item[nIdx].GetHeight()))
 						return FALSE;
 					//设置目标容器位置为Idx
-				*/	
+				*/
 				       m_ItemBox[SrcPos.nX]=0;
 
 					if (!m_Room[room_equipment].PlaceItem(DesPos.nX,DesPos.nY,nIdx,Item[nIdx].GetWidth(),Item[nIdx].GetHeight()))
@@ -4362,13 +4364,13 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 					m_Items[nListIdx].nX = DesPos.nX;
 					m_Items[nListIdx].nY = DesPos.nY;
 					bMove = TRUE;
-				} 
+				}
 				break;
-			}	
-		} 
+			}
+		}
 		break;
 	case pos_cailiao: //源多对象容器
-		{ 
+		{
 			switch (DesPos.nPlace)  //目标容器
 			{
 			 case pos_equiproom:
@@ -4394,10 +4396,10 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 					 m_Items[nListIdx].nX = DesPos.nX;
 					 m_Items[nListIdx].nY = DesPos.nY;
 					 bMove = TRUE;
-				 } 
+				 }
 				 break;
-			} 
-		} 
+			}
+		}
 		break;
 	}
 
@@ -4490,7 +4492,7 @@ BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,uint32_t nItemdwID)
 //客户端显示公告消息
 void	KItemList::ClientShowMsg(const char *Msg)
 {
-	// ccMessageBox(Msg,"ClientShowMsg");
+	// messageBox(Msg,"ClientShowMsg");
 	KSystemMessage	sMsg;
 	ZeroMemory(&sMsg,sizeof(sMsg));
 	sMsg.byConfirmType = SMCT_NONE;
@@ -4499,9 +4501,9 @@ void	KItemList::ClientShowMsg(const char *Msg)
 	sMsg.byPriority    = 0;
 
 	if (sizeof(Msg)<125)
-	  t_sprintf(sMsg.szMessage,Msg);
+	  sprintf(sMsg.szMessage, "%s", Msg);
 	else
-	  t_sprintf(sMsg.szMessage,"警告:信息过长,取消发送");
+	  sprintf(sMsg.szMessage,"警告:信息过长,取消发送");
 
 	sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg,0);
@@ -4525,7 +4527,7 @@ void	KItemList::MenuSetMouseItem()
 		sInfo.Region.Height = Item[m_Hand].GetHeight();
 		sInfo.Region.h      = 0;
 		sInfo.Region.v      = 0;
-		sInfo.eContainer    = UOC_IN_HAND;		
+		sInfo.eContainer    = UOC_IN_HAND;
 		CoreDataChanged(GDCNI_HOLD_OBJECT, (uintptr_t)&sInfo, 0);
 	}
 }
@@ -4598,7 +4600,7 @@ void	KItemList::StartTrade()
 // Author		: Spe
 *****************************************************************************/
 void KItemList::RemoveAll()
-{	
+{
    //删除物品前生成一个数据包,用于存档
 /*#ifdef _SERVER
 	Player[m_PlayerIdx].Save(TRUE);
@@ -4680,7 +4682,7 @@ BOOL	KItemList::CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int 
 			nNext = 0;
 			for (a = 0; a < nHeight; a++) //物品占用几个格子
 			{
-				for (b = 0; b < nWidth; b++) 
+				for (b = 0; b < nWidth; b++)
 				{
 					if (pnTempRoom[(i + a) * m_Room[nRoomType].m_nWidth + j + b])  //如果有东西  EQUIPMENT_ROOM_WIDTH
 					{
@@ -4818,7 +4820,7 @@ BOOL KItemList::GetIfActive()
 	int nSet[9][2],bIfGet,nNum = 0;
 	ZeroMemory(nSet,sizeof(nSet));
 	int i;
-	for (i = 0;i < itempart_num;++i)  
+	for (i = 0;i < itempart_num;++i)
 	{
 		bIfGet = 0;
 		if  (m_EquipItem[i]<= 0 || m_EquipItem[i]>=MAX_ITEM) continue;
@@ -4830,7 +4832,7 @@ BOOL KItemList::GetIfActive()
 				if (nSet[j][0] == Item[m_EquipItem[i]].GetSet())  //所在套装
 				{
 					nSet[j][1]++;  //套装数量增加
-					bIfGet = 1;   
+					bIfGet = 1;
 					if (nSet[j][1] >= Item[m_EquipItem[i]].GetSetNum()) //套装数量
 					{
 						m_bActiveSet = TRUE;
@@ -4838,19 +4840,19 @@ BOOL KItemList::GetIfActive()
 					}
 				}
 			}
-			
+
 			if (!bIfGet)  // 不是套装的白金  套装数为0或1的 全部激活
 			{
 				nSet[nNum][0] = Item[m_EquipItem[i]].GetSet(); // 所在套装
 				nSet[nNum][1] = 1;
-				
+
 				if (nSet[nNum][1] >= Item[m_EquipItem[i]].GetSetNum()) //套装数量
 				{
 					m_bActiveSet = TRUE;  //全身激活
 					return TRUE;
 				}
 				nNum++;
-			} 
+			}
 		}
 		else if (Item[m_EquipItem[i]].GetGoldId() && Npc[Player[m_PlayerIdx].m_nIndex].m_CurrentAllJiHuo<=0)  //如果有部位是黄金
 		{
@@ -4859,7 +4861,7 @@ BOOL KItemList::GetIfActive()
 				if (nSet[j][0] == Item[m_EquipItem[i]].GetSet())  //所在套装
 				{
 					nSet[j][1]++;  //套装数量增加
-					bIfGet = 1;   
+					bIfGet = 1;
 					if (nSet[j][1] >= Item[m_EquipItem[i]].GetSetNum()) //套装数量
 					{
 						m_bActiveSet = TRUE;
@@ -4872,14 +4874,14 @@ BOOL KItemList::GetIfActive()
 			{
 				nSet[nNum][0] = Item[m_EquipItem[i]].GetSet(); // 所在套装
 				nSet[nNum][1] = 1;
-				
+
 				if (nSet[nNum][1] >= Item[m_EquipItem[i]].GetSetNum()) //套装数量
 				{
 					m_bActiveSet = TRUE;  //全身激活
 					return TRUE;
 				}
 				nNum++;
-			} 
+			}
 		}
         else if (Item[m_EquipItem[i]].IsBlue() && /*(Item[m_EquipItem[i]].GetPoint()==7 || */Npc[Player[m_PlayerIdx].m_nIndex].m_CurrentAllJiHuo>0)
 		{//是蓝装印鉴 或 其他部位的
@@ -4892,17 +4894,17 @@ BOOL KItemList::GetIfActive()
 				 return TRUE;
 			 }
 			 else if (nIdx==-1)
-			 {//其他部位的激活 
+			 {//其他部位的激活
 			     m_bActiveSet = TRUE;  //全身激活
 				 return TRUE;
 			 }
-			              
+
 		}
 		else if (Item[m_EquipItem[i]].GetGoldId() && Npc[Player[m_PlayerIdx].m_nIndex].m_CurrentAllJiHuo>0)
 		{//黄金饰品
 			int nIdx=itempart_shiping;
 			g_GameSetTing.GetInteger("SYSTEM","GoldAllActive",itempart_shiping,&nIdx);
-			
+
 			if (i==nIdx)
 			{
 				m_bActiveSet = TRUE;  //全身激活
@@ -4986,12 +4988,12 @@ for (int i = 0;i < MAX_PLAYER_ITEM;++i)
 		{
 			if (Item[m_Items[i].nIdx].GetIsCanUse()==1)
 			{
-				Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用 	
+				Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用
 				//SynPlayerItem(m_Items[i].nIdx);
 				if (m_Items[i].nPlace == pos_equip)
 				{//卸载这个装备
 					TimeUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-				} 
+				}
 			}
 		}
 		else if (Item[m_Items[i].nIdx].GetTime()->bYear - 1900 == timeinfo->tm_year)
@@ -4999,12 +5001,12 @@ for (int i = 0;i < MAX_PLAYER_ITEM;++i)
 			{
 				if (Item[m_Items[i].nIdx].GetIsCanUse()==1)
 				{
-					Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用 
+					Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用
 					//SynPlayerItem(m_Items[i].nIdx);
 					if (m_Items[i].nPlace == pos_equip)
 					{//卸载这个装备
 						TimeUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-					} 
+					}
 				}
 			}
 			else if (Item[m_Items[i].nIdx].GetTime()->bMonth == timeinfo->tm_mon + 1)
@@ -5017,7 +5019,7 @@ for (int i = 0;i < MAX_PLAYER_ITEM;++i)
 						if (m_Items[i].nPlace == pos_equip)
 						{//卸载这个装备
 							TimeUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-						} 
+						}
 					}
 				}
 				else if (Item[m_Items[i].nIdx].GetTime()->bDay == timeinfo->tm_mday)
@@ -5030,35 +5032,35 @@ for (int i = 0;i < MAX_PLAYER_ITEM;++i)
 							if (m_Items[i].nPlace == pos_equip)
 							{//卸载这个装备
 								TimeUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-							} 
+							}
 						}
 					}
-					else if (Item[m_Items[i].nIdx].GetTime()->bHour == timeinfo->tm_hour) 
+					else if (Item[m_Items[i].nIdx].GetTime()->bHour == timeinfo->tm_hour)
 						if (Item[m_Items[i].nIdx].GetTime()->bMin <= timeinfo->tm_min)
 						{
 							if (Item[m_Items[i].nIdx].GetIsCanUse()==1)
 							{
-								Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用	
+								Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用
 								//SynPlayerItem(m_Items[i].nIdx);
 								if (m_Items[i].nPlace == pos_equip)
 								{//卸载这个装备
 									TimeUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-								} 
+								}
 							}
-						}							
+						}
 						//-------------------------------------同步到客户端
-	} 
+	}
 //-------------------------------------所有装备持久为零的
-   if (Item[m_Items[i].nIdx].GetIsCanUse()==1 && Item[m_Items[i].nIdx].GetDurability()>0 && Item[m_Items[i].nIdx].GetDurability()<=3)  
+   if (Item[m_Items[i].nIdx].GetIsCanUse()==1 && Item[m_Items[i].nIdx].GetDurability()>0 && Item[m_Items[i].nIdx].GetDurability()<=3)
    {//
-		   Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用 	
+		   Item[m_Items[i].nIdx].SetIsCanUse(0);    //设置不能使用
 		   //SynPlayerItem(m_Items[i].nIdx);
 		   if (m_Items[i].nPlace == pos_equip)
 		   {//卸载这个装备
 			  // tempUnEquip(m_Items[i].nIdx,m_Items[i].nX);
-		   } 	   
+		   }
    }
-//-------------------------------------- 
+//--------------------------------------
 }
 }
 
@@ -5096,9 +5098,9 @@ int	KItemList::GetItemNum(int nGenre, int nDetailType, int nParticular, int nLev
 	int	nNo = 0,nIdx = 0;
 	while ((nIdx = m_UseIdxItemList.GetNext(nIdx)))
 	{
-		{	
-				if (m_Items[nIdx].nPlace == nRongType && nGenre == Item[m_Items[nIdx].nIdx].GetGenre() && 
-					nDetailType == Item[m_Items[nIdx].nIdx].GetDetailType() && 
+		{
+				if (m_Items[nIdx].nPlace == nRongType && nGenre == Item[m_Items[nIdx].nIdx].GetGenre() &&
+					nDetailType == Item[m_Items[nIdx].nIdx].GetDetailType() &&
 					nParticular == Item[m_Items[nIdx].nIdx].GetParticular() &&
 					nLevel      == Item[m_Items[nIdx].nIdx].GetLevel())
 						++nNo;

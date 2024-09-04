@@ -36,7 +36,7 @@ int LuaGetTempTaskValue(Lua_State * L);
 int LuaSetTempTaskValue(Lua_State * L);
 
 
-TLua_Funcs LuaFuns[] = 
+TLua_Funcs LuaFuns[] =
 {
 	{"Wait", LuaWait},
 	{"EndWait", LuaEndWait},
@@ -54,7 +54,7 @@ TLua_Funcs LuaFuns[] =
 	{"Resume", LuaResume},
 };
 
-TLua_Funcs SysFuns[] = 
+TLua_Funcs SysFuns[] =
 {
 {"Wait", LuaWait},
 {"EndWait", LuaEndWait},
@@ -95,24 +95,24 @@ int LuaGotoLabel(Lua_State * L)
 KStepLuaScript * LuaGetScript(Lua_State * L)
 {
 	KStepLuaScript * pOrScript = (KStepLuaScript *)g_StoryScriptList.GetScript(L);
-	uint32_t Addr = (uint32_t )lua_tonumber(pOrScript->m_LuaState, 1);
+	unsigned int Addr = (unsigned int )lua_tonumber(pOrScript->m_LuaState, 1);
 	Lua_State * pResultState = (Lua_State * )Addr;
 	return  (KStepLuaScript *) g_StoryScriptList.GetScript(pResultState);
 }
 
 int LuaNewScript(Lua_State * L)
 {
-	
+
 	KStepLuaScript * pOrScript = (KStepLuaScript *)g_StoryScriptList.GetScript(L);
 	KStepLuaScript * pScript = new KStepLuaScript(0);
 	KScriptNode * pNode = new KScriptNode;
-	
+
 	const char * szScriptFIle = NULL;
 	szScriptFIle = lua_tostring(pOrScript->m_LuaState, 1);
-	
+
 	if (strlen(szScriptFIle)<=0)
 		return -1;
-	
+
 	if (!pScript->Init())
 	{
 		Lua_PushNil(L);
@@ -169,7 +169,7 @@ int LuaGetScriptState(Lua_State * L)
 	KStepLuaScript * pScript;
 
 	pScript = LuaGetScript(L);
-	
+
 	//������
 	if(pScript == NULL)
 	{
@@ -187,19 +187,19 @@ int LuaSendScriptMessage(Lua_State * L)
 {
 
 	KStepLuaScript * pScript = (KStepLuaScript *)g_StoryScriptList.GetScript(L);
-	uint32_t stateid;
-	
-	stateid =(uint32_t ) lua_tonumber(L, 1);
+	unsigned int stateid;
+
+	stateid =(unsigned int ) lua_tonumber(L, 1);
 	const char * szMessage = lua_tostring(L, 2);
 	const char * szData	 = lua_tostring(L, 3);
 	KStepLuaScript * pSendedScript = LuaGetScript((Lua_State * )stateid);
-	
+
 	if (pSendedScript == NULL)
 	{
 //		g_DebugLog("�޷��ҵ�ָ���Ľű�����");
 		return 0;
 	}
-	
+
 	pScript->SendMessage(pSendedScript, (char *)szMessage, (char *)szData);
 	return 0;
 }
@@ -212,8 +212,8 @@ int LuaSendMessage(Lua_State * L)
 
 /*!*****************************************************************************
 // Function		: LuaWaitForEvent
-// Purpose		: 
-// Return		: int 
+// Purpose		:
+// Return		: int
 // Argumant		: Lua_State * L
 // Comments		:
 // Author		: RomanDou
@@ -230,10 +230,10 @@ int LuaGetValue(Lua_State * L)
 {
 	int nArg = lua_gettop(L);
 	if (nArg == 0) return 0;
-	
+
 	char * pValueName = NULL;
 	pValueName = (char *)lua_tostring(L, 1);
-	
+
 	if (nArg == 1)
 	{
 		int nValue = 0;
@@ -244,7 +244,7 @@ int LuaGetValue(Lua_State * L)
 			{
 				lua_pushnumber(L, 0);
 			}
-			else 
+			else
 			{
 				lua_pushstring(L, strValue);
 			}
@@ -254,7 +254,7 @@ int LuaGetValue(Lua_State * L)
 			lua_pushnumber(L,nValue);
 		}
 	}
-	
+
 	if (nArg == 2)
 	{
 		int nType = (int)Lua_ValueToNumber(L, 2);
@@ -285,12 +285,12 @@ int LuaSetValue(Lua_State * L)
 	char *szValueName = NULL;
 	szValueName = (char *)lua_tostring(L,1) ;
 	if (!strcmp(szValueName,"")) return 0;
-	
+
 	if (lua_isnumber(L, 2))
 	{
 		int nValue = (int)Lua_ValueToNumber(L,2);
 		g_ScriptValueSet.SetValue(szValueName, nValue);
-		
+
 	}
 	else
 	{

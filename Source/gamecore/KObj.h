@@ -93,7 +93,7 @@ public:
 	int			m_nID;					// ���������ΨһID���ͻ������������һһ��Ӧ�����ֵΪ 0 ����Ϊ�ͻ��� obj ����������û�ж�Ӧ�� obj
 	int			m_nDataID;				// �������������ݱ��е�λ��(������ģ���еı��)
 	int			m_nKind;				// ����	��Ӧ Obj_Kind_XXXX
-	int			m_nIndex;				// �� Object �����е�λ��
+	int			m_nIndex;				// �� KObject �����е�λ��
 	int			m_nBelongRegion;		// �����������ĸ�region���������꣬������Ա䶯������������ʱ�Ǹ�region���ͻ��˴洢���� region id
 
 	int			m_nSubWorldID;			// ������ID
@@ -134,7 +134,7 @@ public:
 	int			m_nDropState;			// �����item���ͣ���ǰ�ǵ�������״̬(1)���Ƿ����ڵذ���״̬(0)
 
 	KRUImage	m_Image;
-	uint32_t	m_SceneID;
+	unsigned int	m_SceneID;
 
 	int			m_nLayer;				// ���λ�ڵڼ���
 	int			m_nHeight;				// ������߼��߶�
@@ -200,7 +200,7 @@ private:
 	void		PlaySound();
 };
 
-extern	KObj	*Object;//Object[MAX_OBJECT];
+extern	KObj	*KObject;//KObject[MAX_OBJECT];
 //---------------------------------------------------------------------------
 #endif
 

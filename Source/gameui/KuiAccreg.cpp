@@ -96,7 +96,7 @@ bool KuiAccreg::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\�ʺ�ע��.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\�ʺ�ע��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -133,7 +133,7 @@ void KuiAccreg::addDialogData()
 	m_StartPos.x =10;//+ITEM_CELL_SIZE/2;
 	m_StartPos.y =140-24;//+ITEM_CELL_SIZE/2;
 	//char nTempStr[128];
-	//t_sprintf(nTempStr,pContent);
+	//sprintf(nTempStr,pContent);
 	/*Label *pstrLabel = Label::createWithTTF(UTEXT(nTempStr,1).c_str(),UI_GAME_FONT_DEFAULT,14,nSize,TextHAlignment::CENTER);//Arial
 	pstrLabel->setColor(ax::Color3B::YELLOW);
 	pstrLabel->setPosition(ax::Vec2(128/2+30,m_size.height-50));
@@ -208,7 +208,7 @@ void KuiAccreg::addDialogData()
 	//
 	char nSprName[128]={0};
 	int nFrams=0,m_nWidth,m_nHeight;
-	t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_ok.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_ok.spr");
 	g_StrLower(nSprName);
 	MenuItemImage *pCancelItem=NULL;
 	MenuItemImage *pLoginItem=NULL;
@@ -217,11 +217,11 @@ void KuiAccreg::addDialogData()
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pLoginItem = MenuItemImage::create();
@@ -235,18 +235,18 @@ void KuiAccreg::addDialogData()
 	}
 
 	nFrams=0;
-	t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_cancel.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\loginui\\okbtn\\loginui_6_cancel.spr");
 	g_StrLower(nSprName);
 	Texture2D *Cancel = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pCancelItem = MenuItemImage::create();
@@ -316,9 +316,9 @@ void KuiAccreg::mianLoginCallback(Ref* pSender)
 		if (strAcc.length()>16 || strAcc.length()<= 0 || strPas.length()>16 || strPas.length()<=0 || strePas.length()>16 || strePas.length()<=0)
 		{
 #ifdef WIN32
-			ccMessageBox("�ʺŻ�����,����Ϊ�ղ����Ȳ��ܴ���16","����");
+			messageBox("�ʺŻ�����,����Ϊ�ղ����Ȳ��ܴ���16","����");
 #else
-			ccMessageBox(G2U("�ʺŻ�����,����Ϊ�ղ����Ȳ��ܴ���16").c_str(),G2U("����").c_str());
+			messageBox(G2U("�ʺŻ�����,����Ϊ�ղ����Ȳ��ܴ���16").c_str(),G2U("����").c_str());
 #endif
 			return;
 		}
@@ -326,9 +326,9 @@ void KuiAccreg::mianLoginCallback(Ref* pSender)
 	else
 	{
 #ifdef WIN32
-		ccMessageBox("�������󣮣�","����");
+		messageBox("�������󣮣�","����");
 #else
-		ccMessageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�������󣮣�").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -366,9 +366,9 @@ if (_clientlanguage==1)
 	{ 	//system("pause");
 		//AfxMessageBox("���зǷ��ַ����������������룬���ܺ������ģ��ո񣬴�д��ĸ��������ţ�");
 #ifdef WIN32
-		ccMessageBox("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!","����");
+		messageBox("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!","����");
 #else
-		ccMessageBox(G2U("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!").c_str(),G2U("����").c_str());
+		messageBox(G2U("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -379,9 +379,9 @@ else
 	{ 	//system("pause");
 		//AfxMessageBox("���зǷ��ַ����������������룬���ܺ������ģ��ո񣬴�д��ĸ��������ţ�");
 #ifdef WIN32
-		ccMessageBox("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!","����");
+		messageBox("���зǷ��ַ�,��������,����\n���ܺ�������,�ո�,��д��ĸ���������!","����");
 #else
-		ccMessageBox("Invalid character,please check your name or password��\n Cannot contain special symbols such as Chinese, spaces, etc.!","Warning");
+		messageBox("Invalid character,please check your name or password��\n Cannot contain special symbols such as Chinese, spaces, etc.!","Warning");
 #endif
 		return;
 	}
@@ -389,16 +389,16 @@ else
 	//��ʼ���ӷ�����
 	//��ʼ����һ�����ӽ�
 	//char msg[64];
-	//t_sprintf(msg,"%d",nport);
-	//ccMessageBox(naccIp.c_str(),msg);
+	//sprintf(msg,"%d",nport);
+	//messageBox(naccIp.c_str(),msg);
 	s = socket(AF_INET, SOCK_STREAM,IPPROTO_IP);
 
 	if  (s==INVALID_SOCKET)
 	{
 #ifdef WIN32
-		ccMessageBox("���ӷ�����ʧ��","����");
+		messageBox("���ӷ�����ʧ��","����");
 #else
-		ccMessageBox(G2U("���ӷ�����ʧ��").c_str(),G2U("����").c_str());
+		messageBox(G2U("���ӷ�����ʧ��").c_str(),G2U("����").c_str());
 #endif
 		ax::Director::getInstance()->replaceScene(Klogin_f::scene());
 		return;
@@ -419,9 +419,9 @@ else
 	if (ret == SOCKET_ERROR)
 	{
 #ifdef WIN32
-		ccMessageBox("���ӷ�����ʧ��A","����");
+		messageBox("���ӷ�����ʧ��A","����");
 #else
-		ccMessageBox(G2U("���ӷ�����ʧ��A").c_str(),G2U("����").c_str());
+		messageBox(G2U("���ӷ�����ʧ��A").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -451,9 +451,9 @@ else
 	{
 		colseSockets();
 #ifdef WIN32
-		ccMessageBox("�ύע�����볬ʱ","����");
+		messageBox("�ύע�����볬ʱ","����");
 #else
-		ccMessageBox(G2U("�ύע�����볬ʱ").c_str(),G2U("����").c_str());
+		messageBox(G2U("�ύע�����볬ʱ").c_str(),G2U("����").c_str());
 #endif
 		return;
 	}
@@ -462,9 +462,9 @@ else
 	if((nBytesSent = ::send(s,strMsg.c_str(),nLen,0)) == SOCKET_ERROR)
 	{
 #ifdef WIN32
-		ccMessageBox("�ύע������ʧ��","����");
+		messageBox("�ύע������ʧ��","����");
 #else
-		ccMessageBox(G2U("�ύע������ʧ��").c_str(),G2U("����").c_str());
+		messageBox(G2U("�ύע������ʧ��").c_str(),G2U("����").c_str());
 #endif
 		colseSockets();
 		return;
@@ -472,9 +472,9 @@ else
 	if (nBytesSent == nLen)          // ���ͳɹ�
 	{
 #ifdef WIN32
-		ccMessageBox("�ύע������ɹ�","����");
+		messageBox("�ύע������ɹ�","����");
 #else
-		ccMessageBox(G2U("�ύע������ɹ�").c_str(),G2U("����").c_str());
+		messageBox(G2U("�ύע������ɹ�").c_str(),G2U("����").c_str());
 #endif
 		char m_pReadBuf[256]={0};
 		//ѭ���ȴ�����������Ӧ��Ϣ
@@ -484,9 +484,9 @@ else
 			if(select(s+1,&fd,NULL,NULL,&tv) == 0)
 			{
 #ifdef WIN32
-				ccMessageBox("ע��ʧ��A","����");
+				messageBox("ע��ʧ��A","����");
 #else
-				ccMessageBox(G2U("ע��ʧ��A").c_str(),G2U("����").c_str());
+				messageBox(G2U("ע��ʧ��A").c_str(),G2U("����").c_str());
 #endif
 				colseSockets();
 				return;
@@ -496,9 +496,9 @@ else
 			if((nBytesReceived =recv(s,m_pReadBuf,sizeof(m_pReadBuf),0)) == SOCKET_ERROR)
 			{
 #ifdef WIN32
-				ccMessageBox("ע��ʧ��B","����");
+				messageBox("ע��ʧ��B","����");
 #else
-				ccMessageBox(G2U("ע��ʧ��B").c_str(),G2U("����").c_str());
+				messageBox(G2U("ע��ʧ��B").c_str(),G2U("����").c_str());
 #endif
 				colseSockets();
 				return;
@@ -513,31 +513,31 @@ else
 		if (strcmp(strCommand,"ACK MSG") == 0)   //ֻ����������˶�ԭ��Ϣ��Ӧ������  �Ƚϴ�С����
 		{
 #ifdef WIN32
-			ccMessageBox("ע��ɹ�","����");
+			messageBox("ע��ɹ�","����");
 #else
-			ccMessageBox(G2U("ע��ɹ�").c_str(),G2U("����").c_str());
+			messageBox(G2U("ע��ɹ�").c_str(),G2U("����").c_str());
 #endif
 			ax::Director::getInstance()->replaceScene(Klogin_f::scene());
 		}
 		else if (strcmp(strCommand,"YCK MSG")== 0)
 		{
 #ifdef WIN32
-			ccMessageBox("���û����Ѿ�ע�ᣡ","����");
+			messageBox("���û����Ѿ�ע�ᣡ","����");
 #else
-			ccMessageBox(G2U("���û����Ѿ�ע�ᣡ").c_str(),G2U("����").c_str());
+			messageBox(G2U("���û����Ѿ�ע�ᣡ").c_str(),G2U("����").c_str());
 #endif
 		}
 		else if (strcmp(strCommand,"IGNORED")== 0)
 		{
 #ifdef WIN32
-			ccMessageBox("ע��ʧ�ܣ�����ϵGM����","����");
+			messageBox("ע��ʧ�ܣ�����ϵGM����","����");
 #else
-			ccMessageBox(G2U("ע��ʧ�ܣ�����ϵGM����").c_str(),G2U("����").c_str());
+			messageBox(G2U("ע��ʧ�ܣ�����ϵGM����").c_str(),G2U("����").c_str());
 #endif
 		}
 	}
 	colseSockets();
-	//ccMessageBox(naccIp.c_str(),"���ӷ������ɹ�");
+	//messageBox(naccIp.c_str(),"���ӷ������ɹ�");
 }
 
 
@@ -624,7 +624,7 @@ bool KuiAccreg::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiAccreg::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -647,7 +647,7 @@ int KuiAccreg::FilterTextColor(char* pMsgBuff, unsigned short nMsgLength)
 
 void KuiAccreg::editBoxEditingDidBegin(EditBox *editBox)//��ʼʱ�ĺ���
 {
-	ccMessageBox("�����ʼ","�����ʼ");
+	messageBox("�����ʼ","�����ʼ");
 }
 void KuiAccreg::editBoxEditingDidEnd(EditBox *editBox) //����ʱ�ĺ���
 {

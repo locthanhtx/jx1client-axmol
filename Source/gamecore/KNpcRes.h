@@ -40,8 +40,8 @@ public:
 	int				m_nMapXpos[MAX_BLUR_FRAME];			// ��Ӧ�ĵ�ͼ���� x
 	int				m_nMapYpos[MAX_BLUR_FRAME];			// ��Ӧ�ĵ�ͼ���� y
 	int				m_nMapZpos[MAX_BLUR_FRAME];			// ��Ӧ�ĵ�ͼ���� z
-	uint32_t	m_SceneIDNpcIdx[MAX_BLUR_FRAME];
-	uint32_t	m_SceneID[MAX_BLUR_FRAME];			//
+	unsigned int	m_SceneIDNpcIdx[MAX_BLUR_FRAME];
+	unsigned int	m_SceneID[MAX_BLUR_FRAME];			//
 	KRUImage		m_Blur[MAX_BLUR_FRAME][MAX_PART];	// ��Ӱ�����б�
 public:
 	KNpcBlur();
@@ -76,8 +76,8 @@ private:
 	int				m_nXpos;							// ���� x
 	int				m_nYpos;							// ���� y
 	int				m_nZpos;							// ���� z
-	uint32_t 	m_SceneID_NPCIdx;                   // �ڳ����е�ID ��Ӧ��NPCidx
-	uint32_t	m_SceneID;							// �ڳ����е�ID
+	unsigned int 	m_SceneID_NPCIdx;                   // �ڳ����е�ID ��Ӧ��NPCidx
+	unsigned int	m_SceneID;							// �ڳ����е�ID
 	int				m_nHelmType;						// ��ǰͷ������
 	int				m_nArmorType;						// ��ǰ��������
 	int				m_nWeaponType;						// ��ǰ��������
@@ -110,7 +110,7 @@ public:
 	//KRUImage		m_ClientDrawFile[20];               //�ͻ���״̬�ṹ
 	//KSprControl	m_cSpecialSpr;						// �����ֻ����һ�������spr�ļ�
 	//KSprControl	m_cFrameSpr;
-	uint32_t	m_ulAdjustColorId;   //״̬��ɫƫ�Ʊ�ID
+	unsigned int	m_ulAdjustColorId;   //״̬��ɫƫ�Ʊ�ID
 	KSprControl  	m_cMenuStateSpr;
 	int				m_nMenuState;
 	int				m_nBackMenuState;
@@ -123,7 +123,7 @@ public:
 	//KNpcBlur		m_cNpcBlur;							// npc ��Ӱ
 	KNpcResNode		*m_pcResNode;      // npc ��Դ
 	//KRUImage	    m_cDrawSprFile[3];
-	KStateSpr		m_cSprStateSpr[3]; 
+	KStateSpr		m_cSprStateSpr[3];
 	//ClientSprInfo    uSprInfo[20];
 
 private:
@@ -134,7 +134,7 @@ private:
 public:
 	KNpcRes();
 	~KNpcRes();
-	BOOL			Init(char *lpszNpcName, KNpcResList *pNpcResList,uint32_t nNpcDwIdx);	// ��ʼ��
+	BOOL			Init(char *lpszNpcName, KNpcResList *pNpcResList,unsigned int nNpcDwIdx);	// ��ʼ��
 	void			Remove(int nNpcIdx);								// ���
 	void			Draw(int nNpcIdx, int nDir, int nAllFrame, int nCurFrame, BOOL bInMenu = FALSE);		// ����
 	void			DrawBorder();
@@ -142,11 +142,11 @@ public:
 	BOOL			SetHelm(int nHelmType);								// �趨ͷ������
 	BOOL			SetArmor(int nArmorType);							// �趨��������
 	BOOL			SetWeapon(int nWeaponType);							// �趨��������
-	BOOL			SetPifeng(int nPifengType);	
+	BOOL			SetPifeng(int nPifengType);
 	BOOL            SetChiBang(int nChiBangType);                       //�������
 	BOOL			SetHorse(int nHorseType);							// �趨��ƥ����
 	BOOL			SetAction(int nDoing);								// �趨��������
-    int	            GetChiBang(){return m_nChiBangType;}; 
+    int	            GetChiBang(){return m_nChiBangType;};
 	int	            GetPifeng(){return m_nPifengType;};                 //��ȡ��������
 	int				GetHelm(){return m_nHelmType;};
 	int				GetArmor(){return m_nArmorType;	};
@@ -154,7 +154,7 @@ public:
 	BOOL			SetRideHorse(BOOL bRideHorse);						// �趨�Ƿ�����
 
 	void			SetPos(int nNpcIdx, int x, int y, int z = 0, BOOL bFocus = FALSE, BOOL bMenu = FALSE);// �趨 npc λ��
-	
+
 	void			SetSprState(int nSprIdx,KNpcResList *pNpcResList);
 	void			SetState(KList *pNpcStateList, KNpcResList *pNpcResList);	// �趨״̬��Ч
 //	void	        SetClientState(KList *pNpcStateList, KNpcResList *pNpcResList);
@@ -162,7 +162,7 @@ public:
 	void			SetSpecialSpr(char *lpszSprName);					// �趨�����ֻ����һ�������spr�ļ�
 	void			SetFrameSpr(char *lpszSprName, int nX, int nY, int nHeight,int mInterval=100); //���ö�̬ѭ��SPR
 	void			SetBlur(BOOL bBlur);								// ��Ӱ�򿪹ر�
-	void			SetAdjustColorId(uint32_t ulColorId){m_ulAdjustColorId = ulColorId;};			// ����ƫɫ��������Ϊ0��ʾ��ƫɫ.
+	void			SetAdjustColorId(unsigned int ulColorId){m_ulAdjustColorId = ulColorId;};			// ����ƫɫ��������Ϊ0��ʾ��ƫɫ.
 	int				GetAction(){return m_nAction;};
 	void			SetMenuState(int nState, char *lpszSentence = NULL, int nSentenceLength = 0);	// �趨ͷ��״̬
 	int				GetMenuState();						// ���ͷ��״̬

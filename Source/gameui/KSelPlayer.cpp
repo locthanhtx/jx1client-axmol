@@ -78,8 +78,14 @@ bool KSelPlayer::init()
 	Animate* Roleanimateb    =NULL;
 	Animate* Roleanimatec    =NULL;
 	SelbgSprite =NULL;
-    auto listener = ax::EventListenerTouchOneByOne::create();
-    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+//    auto listener = ax::EventListenerTouchOneByOne::create();
+//    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+    auto touchListener = EventListenerTouchAllAtOnce::create();
+    touchListener->onTouchesBegan = AX_CALLBACK_2(KSelPlayer::ccTouchesBegan, this);
+    touchListener->onTouchesMoved = AX_CALLBACK_2(KSelPlayer::ccTouchesMoved, this);
+    touchListener->onTouchesEnded = AX_CALLBACK_2(KSelPlayer::ccTouchesEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
 	m_Status = LL_S_ROLE_LIST_READY; //等待角色进入游戏服务器
 	m_Result = LL_R_NOTHING;
@@ -272,11 +278,13 @@ bool KSelPlayer::init()
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				//messageBox(nSprFilePath,"animation");
                 auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                Rect rect = Rect::ZERO;
-                rect.size = texture->getContentSize();
-                animation->addSpriteFrameWithTexture(texture, rect);
+                if (texture) {
+                    Rect rect = Rect::ZERO;
+                    rect.size = texture->getContentSize();
+                    animation->addSpriteFrameWithTexture(texture, rect);
+                }
 //				animation->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 			}
 			//设置动画帧的时间间隔
@@ -390,11 +398,13 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animation->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animation->addSpriteFrameWithTexture(texture, rect);
+                        }
 //						animation->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -418,11 +428,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationb->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationb->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationb->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -445,11 +458,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationc->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationc->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationc->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -508,11 +524,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animation->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animation->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animation->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -535,11 +554,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationb->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationb->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationb->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -562,11 +584,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationc->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationc->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationc->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -620,11 +645,13 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animation->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animation->addSpriteFrameWithTexture(texture, rect);
+                        }
 //						animation->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -647,11 +674,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationb->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationb->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationb->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -674,11 +704,14 @@ bool KSelPlayer::init()
 					for (j=0;j<nFrams;j++)
 					{
 						sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,j);
-						//ccMessageBox(nSprFilePath,"animation");
+						//messageBox(nSprFilePath,"animation");
                         auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
-                        Rect rect = Rect::ZERO;
-                        rect.size = texture->getContentSize();
-                        animationc->addSpriteFrameWithTexture(texture, rect);
+                        if (texture) {
+                            Rect rect = Rect::ZERO;
+                            rect.size = texture->getContentSize();
+                            animationc->addSpriteFrameWithTexture(texture, rect);
+                        }
+
 //						animationc->addSpriteFrameWithFile(nySprFilePath);//往这个动画增加纹理帧
 					}
 					//设置动画帧的时间间隔
@@ -759,7 +792,7 @@ void KSelPlayer::mainEnterCallback(Ref* pSender)
 //循环更新虚函数 默认自动调用
 void KSelPlayer::update(float delta)
 {
-	uint32_t nSize = 0;
+	unsigned int nSize = 0;
 	const char* pBuffer = NULL;
 	if (m_bIsClientConnecting)
 	{ //账号服务器
@@ -844,9 +877,8 @@ Rect KSelPlayer::getRect(Node* pNode)
 	//return ax::Rect(-s.width / 2, -s.height / 2, s.width, s.height);
 	return rc;
 }
-void KSelPlayer::onDraw(const ax::Mat4 &transform, uint32_t flags)
+void KSelPlayer::draw(Renderer* renderer, const Mat4& transform, unsigned int flags)
 {
-//    Layer::draw(transform, flags);
 	if (m_Result != LL_R_NOTHING)
 	{
 		if (nAcclient)
@@ -867,9 +899,9 @@ void KSelPlayer::onDraw(const ax::Mat4 &transform, uint32_t flags)
 		if  (m_Result==LL_R_INVALID_PROTOCOLVERSION)
 		{//版本不队
 #ifdef WIN32
-			ccMessageBox("版本不对","提示:");
+			messageBox("版本不对","提示:");
 #else
-			ccMessageBox(UTEXT("版本不对",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("版本不对",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		}
 		ax::Director::getInstance()->replaceScene(Klogin_f::scene());
@@ -904,7 +936,7 @@ bool KSelPlayer::isFileExist(const char* pFileName)
 void KSelPlayer::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::in);
@@ -968,7 +1000,7 @@ void KSelPlayer::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, Event *p
 	if (clicked)
 	{
 		clicked = false;
-		ccMessageBox("双击","警告");
+		messageBox("双击","警告");
 	}
 	else
 	{
@@ -990,7 +1022,7 @@ void KSelPlayer::CheckClick(float tt)
 	if (clicked)
 	{//单击
 	   clicked = false;
-	   ccMessageBox("单击","警告");
+	   messageBox("单击","警告");
 	}
 }
 
@@ -1180,7 +1212,7 @@ void KSelPlayer::AcceptNetMsg(void* pMsgData) //循环接受处理消息
 {
 	if (pMsgData == NULL)  //数据包为空 则返回
 		return;
-	//ccMessageBox("回调成功","GetPackFromServer");
+	//messageBox("回调成功","GetPackFromServer");
 	switch(m_Status)       //发送数据包标识变量
 	{
 	case LL_S_ACCOUNT_CONFIRMING:  //账号验证
@@ -1210,7 +1242,7 @@ void KSelPlayer::AcceptNetMsg(void* pMsgData) //循环接受处理消息
 //--------------------------------------------------------------------------
 void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 {
-	//ccMessageBox("收包成功","提示");
+	//messageBox("收包成功","提示");
 	if (pResponse->cProtocol == s2c_notifypl_ayerlogin_hfkqotivbhd)  ///bishop 传过来的协议头
 	{
 		char pzAc[32]={0};
@@ -1223,9 +1255,9 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 		{
 			m_Result = LL_R_OPNE_ACCOUNT; //卡号 正在尝试打开账号
 #ifdef WIN32
-			ccMessageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
+			messageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
 #else
-			ccMessageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 			return;
 		}
@@ -1234,16 +1266,16 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 		{
 			//ReturnToIdle();
 			m_Result = LL_R_OPNE_ACCOUNT; //卡号 正在尝试打开账号
-			ccMessageBox("正在尝试打开账号","提示:");
+			messageBox("正在尝试打开账号","提示:");
 			return;
 		}
 		//开始检查预备建立角色
 		/*if (pInfo->ProtocolVersion==0)
 			{
 #ifdef WIN32
-				ccMessageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
+				messageBox("当前服务器处理预建立角色状态,不能登陆","提示:");
 #else
-				ccMessageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
+				messageBox(UTEXT("当前服务器处理预建立角色状态,不能登陆",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 				return;
 			}*/
@@ -1253,10 +1285,10 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 			    // g_NetConnectAgent.UpdateClientRequestTime(true); //时间归零
 			if (NULL==g_pClient)
 			{
-				const uint32_t bufferSize           = 1024;   //Scoket决定发包的大小 分配的内存(m_bufferSize > 0) ? m_bufferSize : (1024*64);
-				const uint32_t bufferSize_Cache     = 1024*512; //分配的内存 读包 接包的缓存大小
-				const uint32_t maxFreeBuffers	      = 2;        //Scoket保留的数量
-				const uint32_t maxFreeBuffers_Cache = 2;        //读包 接包的缓存 保留的数量
+				const unsigned int bufferSize           = 1024;   //Scoket决定发包的大小 分配的内存(m_bufferSize > 0) ? m_bufferSize : (1024*64);
+				const unsigned int bufferSize_Cache     = 1024*512; //分配的内存 读包 接包的缓存大小
+				const unsigned int maxFreeBuffers	      = 2;        //Scoket保留的数量
+				const unsigned int maxFreeBuffers_Cache = 2;        //读包 接包的缓存 保留的数量
 				g_pClient     = new CGameClient(maxFreeBuffers,maxFreeBuffers_Cache,bufferSize_Cache,bufferSize,1); //2,2   8
 			}
 			if (g_pClient)
@@ -1264,10 +1296,10 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 				const unsigned char* pIpAddress = (const unsigned char*)&pResponse->nIPAddr;
 				char Address[128]={0}; //IP地址
 				sprintf(Address, "%d.%d.%d.%d", pIpAddress[0], pIpAddress[1],pIpAddress[2], pIpAddress[3]);
-			    //  ccMessageBox(Address,"开始连接服务器..!");
+			    //  messageBox(Address,"开始连接服务器..!");
 				if (g_pClient->FsGameServerConnectTo(Address,pResponse->nPort))
 				{
-				//	ccMessageBox(Address,"连接服务器成功!");
+				//	messageBox(Address,"连接服务器成功!");
 					g_pClient->Startup();
 					m_bIsGameSevConnecting = true;	             //服务器已经链接
 					g_pClient->setSocketStates(true);            //设置已经连接
@@ -1281,7 +1313,7 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 					{
 						m_Result = LL_R_CONNECT_SERV_BUSY; //卡号 正在尝试打开账号
 						g_pClient->Cleanup();
-						ccMessageBox("连接服务器失败","提示:");
+						messageBox("连接服务器失败","提示:");
 						return;
 					}
 					//开始断开网关的连接
@@ -1297,7 +1329,7 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 				else
 				{//连接失败
 					m_Result = LL_R_CONNECT_FAILED;
-					ccMessageBox("连接服务器失败","提示:");
+					messageBox("连接服务器失败","提示:");
 				}
 			}
 			// 断开与网关的连接
@@ -1307,7 +1339,7 @@ void KSelPlayer::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pResponse)
 		{
 			//ReturnToIdle();
 			m_Result = LL_R_SERVER_SHUTDOWN; //提示服务器满员或离线中
-			ccMessageBox("连接服务器失败","提示:");
+			messageBox("连接服务器失败","提示:");
 		}
 	}
 }
@@ -1323,7 +1355,7 @@ void KSelPlayer::EnterGame()
 	{//帐号服务器如果是可以用的
 		if (m_Status == LL_S_ROLE_LIST_READY && m_CurSelIndex >= 0 && m_CurSelIndex < m_nNumRole)
 		{
-			//ccMessageBox("EnterGame","2222");
+			//messageBox("EnterGame","2222");
 			tagDBSelPlayer	NetCommand;
 			NetCommand.cProtocol = c2s_dbplayerselect;
 			strcpy(NetCommand.szRoleName, nCurRoleList[m_CurSelIndex].Name);

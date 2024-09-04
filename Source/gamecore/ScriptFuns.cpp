@@ -2,15 +2,15 @@
 // FileName			:	ScriptFuns.cpp
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-11-19 15:58:20
-// FileDescription	:	½Å±¾Ö¸Áî¼¯
-// Revision Count	:	
+// FileDescription	:	ï¿½Å±ï¿½Ö¸ï¿½î¼¯
+// Revision Count	:
 *******************************************************************************/
 /*#ifndef WIN32
 #include <string>
 #endif*/
 #include "engine/KEngine.h"
 #include "engine/KTabFileCtrl.h"
-#include "engine/KStepLuaScript.h"	      
+#include "engine/KStepLuaScript.h"
 #include "engine/lualib/LuaLib.h"
 #include "engine/KScriptList.h"
 #include "engine/Text.h"
@@ -33,7 +33,7 @@
 #include "KTaskFuns.h"
 #include "KPlayerDef.h"
 //#include "KForBitGua.h"
-////Ô­À´Ã»ÓÐµÄ//////////////////////
+////Ô­ï¿½ï¿½Ã»ï¿½Ðµï¿½//////////////////////
 #include "KProtocolDef.h"
 //#include "KProtocol.h"
 #include "KRelayProtocol.h"
@@ -41,7 +41,7 @@
 #include "KInventory.h"
 #include "coreshell.h"
 #include <vector>
-#include <cassert> 
+#include <cassert>
 #include "KNpcTemplate.h"
 #include <time.h>
 /////////////////////////////////////
@@ -104,39 +104,39 @@ static void KSceGetFliePathc(char* nName,char * nPath,int nMaxRows)
 	KFile  nFile;
 	KTabFileCtrl nScirptFile;
 	char nTongApplyPath[125]={0},szCol[128]={0};
-	t_sprintf(nTongApplyPath,"%s","\\clientscript.log");
-	if (!g_FileExists(nTongApplyPath))	//ÊÇ·ñ´æÔÚ
+	sprintf(nTongApplyPath,"%s","\\clientscript.log");
+	if (!g_FileExists(nTongApplyPath))	//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	{
 		nFile.Create(nTongApplyPath);
-		t_sprintf(szCol,"½Å±¾log\15\n");
+		sprintf(szCol,"ï¿½Å±ï¿½log\15\n");
 		nFile.Write(szCol, sizeof(szCol));
 		//nFile.Save(nTongApplyPath);
 		nFile.Close();
 	}
-	
+
 	if (nScirptFile.Load(nTongApplyPath))
 	{
 		int nRows=nScirptFile.GetHeight();
 		if  (nRows==0)
 			nRows=1;
-		
+
 		if (nRows>=nMaxRows)
 		{
 			while(nScirptFile.GetHeight()>0)
-			{ 
+			{
 				nScirptFile.Remove(nScirptFile.GetHeight());
 				nScirptFile.Save(nTongApplyPath);
 			}
 		//nScirptFile.Clear();
 		//retrn;
 		}
-		
-		t_sprintf(szCol,"--%s:(%s)--",nName,nPath);
+
+		sprintf(szCol,"--%s:(%s)--",nName,nPath);
 		nScirptFile.InsertAfter(nRows);
-		nScirptFile.WriteString(nRows,1, szCol);                                    //ÐÐºÅ
-		//nTong.WriteString(nRows,2,Npc[Player[m_nPlayerIndex].m_nIndex].Name);     //Ãû×Ö
-		//nTong.WriteInteger(nRows,3,Npc[Player[m_nPlayerIndex].m_nIndex].m_Level); //µÈ¼¶
-		nScirptFile.Save(nTongApplyPath);	
+		nScirptFile.WriteString(nRows,1, szCol);                                    //ï¿½Ðºï¿½
+		//nTong.WriteString(nRows,2,Npc[Player[m_nPlayerIndex].m_nIndex].Name);     //ï¿½ï¿½ï¿½ï¿½
+		//nTong.WriteInteger(nRows,3,Npc[Player[m_nPlayerIndex].m_nIndex].m_Level); //ï¿½È¼ï¿½
+		nScirptFile.Save(nTongApplyPath);
 		//nFile.Write(szCol, sizeof(szCol));
 	}
 	nScirptFile.Clear();
@@ -148,10 +148,10 @@ int GetPlayerIndex(Lua_State * L)
 	if (lua_isnil(L,Lua_GetTopIndex(L)))
 		return -1;
 	int nIndex = (int)Lua_ValueToNumber(L, Lua_GetTopIndex(L));
-	if (nIndex >= MAX_PLAYER || nIndex <= 0) 
+	if (nIndex >= MAX_PLAYER || nIndex <= 0)
 	{
 		return -1;
-	}	
+	}
 	if (Player[nIndex].m_nIndex >= MAX_NPC || Player[nIndex].m_nIndex < 0)
 	{
 		//_ASSERT(0);
@@ -166,12 +166,12 @@ int GetObjIndex(Lua_State * L)
 	if (lua_isnil(L,Lua_GetTopIndex(L)))
 		return -1;
 	int nIndex = (int)Lua_ValueToNumber(L, Lua_GetTopIndex(L));
-	if (nIndex >= MAX_OBJECT || nIndex <= 0) 
+	if (nIndex >= MAX_OBJECT || nIndex <= 0)
 	{
 		//	_ASSERT(0);
 		return -1;
 	}
-	if (Object[nIndex].m_nIndex != nIndex)
+	if (KObject[nIndex].m_nIndex != nIndex)
 	{
 		//	_ASSERT(0);
 		return -1;
@@ -184,8 +184,8 @@ int LuaGetBit(Lua_State * L)
 	int nBitValue = 0;
 	int nIntValue = (int)Lua_ValueToNumber(L, 1);
 	int nBitNumber = (int)Lua_ValueToNumber(L, 2);
-	
-	if (nBitNumber >= 32 || nBitNumber <= 0) 
+
+	if (nBitNumber >= 32 || nBitNumber <= 0)
 		goto lab_getbit;
 	nBitValue = (nIntValue & (1 << (nBitNumber - 1))) != 0;
 lab_getbit:
@@ -197,14 +197,14 @@ lab_getbit:
 int LuaSetBit(Lua_State * L)
 {
 	int nIntValue = (int)Lua_ValueToNumber(L, 1);   //Öµ
-	int nBitNumber = (int)Lua_ValueToNumber(L, 2);  //Î»ÖÃ
-	int nBitValue = (int)Lua_ValueToNumber(L,3);    
+	int nBitNumber = (int)Lua_ValueToNumber(L, 2);  //Î»ï¿½ï¿½
+	int nBitValue = (int)Lua_ValueToNumber(L,3);
 
 	nBitValue = (nBitValue == 1);
-	
+
 	if (nBitNumber > 32 || nBitNumber <= 0) //32Î»
 		goto lab_setbit;
-	
+
 	nIntValue = (nIntValue | (1 << (nBitNumber - 1)));
 lab_setbit:
 	Lua_PushNumber(L, nIntValue);
@@ -218,11 +218,11 @@ int LuaSetByte(Lua_State * L)
 	int nByteNumber = (int)Lua_ValueToNumber(L, 2);
 	int nByteValue = (int)Lua_ValueToNumber(L,3);
 
-	nByteValue = (nByteValue & 0xff);	//0xff»»³ÉÊ®½øÖÆÎª255
-	
+	nByteValue = (nByteValue & 0xff);	//0xffï¿½ï¿½ï¿½ï¿½Ê®ï¿½ï¿½ï¿½ï¿½Îª255
+
 	if (nByteNumber > 4 || nByteNumber <= 0) ///4
 		goto lab_setByte;
-	
+
 	pByte =(BYTE*)&nIntValue;	 //
 	*(pByte + (nByteNumber -1)) = (BYTE)nByteValue;//
 	//nIntValue = (nIntValue | (0xff << ((nByteNumber - 1) * 8) )) ;
@@ -235,14 +235,14 @@ lab_setByte:
 int LuaGetByte(Lua_State * L)
 {
 	int nByteValue = 0;
-	int nIntValue = (int)Lua_ValueToNumber(L, 1);     //ÐèÒª×ª»»µÄÖµ
-	int nByteNumber = (int)Lua_ValueToNumber(L, 2);   //×î´ó´æ 4¸öÆ«ÒÆ
-	
-	if (nByteNumber > 4 || nByteNumber <= 0) 
+	int nIntValue = (int)Lua_ValueToNumber(L, 1);     //ï¿½ï¿½Òª×ªï¿½ï¿½ï¿½ï¿½Öµ
+	int nByteNumber = (int)Lua_ValueToNumber(L, 2);   //ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½Æ«ï¿½ï¿½
+
+	if (nByteNumber > 4 || nByteNumber <= 0)
 		goto lab_getByte;
 
 	nByteValue = (nIntValue & (0xff << ((nByteNumber - 1) * 8) )) >> ((nByteNumber - 1) * 8);
-	
+
 lab_getByte:
 	Lua_PushNumber(L, nByteValue);
 	return 1;
@@ -254,7 +254,7 @@ int GetSubWorldIndex(Lua_State * L)
 	if (lua_isnil(L,Lua_GetTopIndex(L)))
         return -1;
 	int nIndex = (int)Lua_ValueToNumber(L, Lua_GetTopIndex(L));
-    if (nIndex >= MAX_SUBWORLD || nIndex <0) 
+    if (nIndex >= MAX_SUBWORLD || nIndex <0)
 	{
 		//_ASSERT(0);
 		return -1;
@@ -274,10 +274,10 @@ int LuaSubWorldIDToIndex(Lua_State * L)
 	int nSubWorldID = 0;
 	if (Lua_GetTopIndex(L) < 1)
 		goto lab_subworldid2idx;
-	
+
 	nSubWorldID = (int)Lua_ValueToNumber(L, 1);
-	nTargetSubWorld = g_SubWorldSet.SearchWorld(nSubWorldID); // µ±Ç°µÄµØÍ¼ÊôÓÚ·þÎñÆ÷µØÍ¼ÁÐ±íµÄµÚ¼¸ÐÐ(Ë÷Òý)
-	
+	nTargetSubWorld = g_SubWorldSet.SearchWorld(nSubWorldID); // ï¿½ï¿½Ç°ï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ð±ï¿½ÄµÚ¼ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+
 lab_subworldid2idx:
 	Lua_PushNumber(L, nTargetSubWorld);
 	return 1;
@@ -289,10 +289,10 @@ int LuaIndexToSubWorldID(Lua_State * L)
 	int nSubWorldindex = 0;
 	if (Lua_GetTopIndex(L) < 1)
 		goto lab_subworldid2idx;
-	
+
 	nSubWorldindex = (int)Lua_ValueToNumber(L, 1);
 	nTargetSubWorld = g_SubWorldSet.SearchWorldRows(nSubWorldindex);
-	
+
 lab_subworldid2idx:
 	Lua_PushNumber(L, nTargetSubWorld);
 	return 1;
@@ -324,7 +324,7 @@ int LuaSetOrAddTrap(Lua_State * L)
 			  Lua_PushNumber(L,nReg);
 			  return 1;
 		  }
-		  
+
 	      //return m_Region[nRegion].SetTrap(nMapX, nMapY,nCellNum,uTrapScriptId);
           //nReg = SubWorld[nMapIdx].SetTrap(nXpos,nYpos,nCellNum,nScriptidx);
 		  nReg = SubWorld[nMapIdx].m_Region[nRegion].SetTrap(nMapX,nMapY,nCellNum,nScriptidx);
@@ -334,9 +334,9 @@ int LuaSetOrAddTrap(Lua_State * L)
           if (nPlayerIndex>0)
 		  {
 
-#ifdef _SERVER			 
+#ifdef _SERVER
 			  char msg[64];
-			  t_sprintf(msg,"<color=yellow>µ±Ç°×ø±ê:R:%d,X:%d,Y:%d,Tr:%d",nRegion,nMapX,nMapY,nScriptidx);
+			  sprintf(msg,"<color=yellow>ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½:R:%d,X:%d,Y:%d,Tr:%d",nRegion,nMapX,nMapY,nScriptidx);
               //Player[nPlayerIndex].m_ItemList.msgshow(msg);
 			  //char nMsg[250];
 			  //g_StrCpyLen(nMsg,  Lua_ValueToString(L,1), sizeof(nMsg));
@@ -344,7 +344,7 @@ int LuaSetOrAddTrap(Lua_State * L)
 			  const char * szMsg = msg;
 			  if (szMsg)
 			  {
-				  KPlayerChat::SendSystemInfo(0, 0, "²âÊÔ:", (char *)szMsg, nleg);  //strlen(szMsg) 
+				  KPlayerChat::SendSystemInfo(0, 0, "ï¿½ï¿½ï¿½ï¿½:", (char *)szMsg, nleg);  //strlen(szMsg)
 			  }
 
 #endif
@@ -358,63 +358,63 @@ int LuaSubWorldName(Lua_State * L)
 {
 	int nMapId;
 	nMapId = (int)Lua_ValueToNumber(L,1);
-    Lua_PushString(L,SubWorld[nMapId].nWorldMapInfo[STR_MAP_NAME].c_str()); 
+    Lua_PushString(L,SubWorld[nMapId].nWorldMapInfo[STR_MAP_NAME].c_str());
 	return 1;
 }
 
 
 /*
-Say(sMainInfo, nSelCount, sSel1, sSel2, sSel3, .....,sSeln) 
-Say(nMainInfo, nSelCount, sSel1, sSel2, sSel3, .....,sSeln) 
+Say(sMainInfo, nSelCount, sSel1, sSel2, sSel3, .....,sSeln)
+Say(nMainInfo, nSelCount, sSel1, sSel2, sSel3, .....,sSeln)
 Say(nMainInfo, nSelCount, SelTab)
-Èç¹ûÊÇ¿Í»§¶ËµÄÔò²»»áÏò·þÎñÆ÷¶Ë·¢ËÍÈÎºÎ²Ù×÷
+ï¿½ï¿½ï¿½ï¿½Ç¿Í»ï¿½ï¿½Ëµï¿½ï¿½ò²»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ÎºÎ²ï¿½ï¿½ï¿½
 
   Say(100, 3, 10, 23,43)
-  Say("Ñ¡ÔñÊ²Ã´£¿", 2, "ÊÇ/yes", "·ñ/no");
+  Say("Ñ¡ï¿½ï¿½Ê²Ã´ï¿½ï¿½", 2, "ï¿½ï¿½/yes", "ï¿½ï¿½/no");
   Say("Ñ¡Ê²Ã´Ñ½", 2, SelTab);
 */
 //**************************************************************************************************************************************************************
-//												½çÃæ½Å±¾
+//												ï¿½ï¿½ï¿½ï¿½Å±ï¿½
 //**************************************************************************************************************************************************************
 
 int ExtractChars(const char *inStr,char scrchar,char destchar,char *outStr=NULL,char *outStra=NULL,int nMoedel=0)
 {
-	char *tmp=NULL,*tmpa=NULL;         //¶¨ÒåÒ»¸öÁÙÊ±Êý×é¿Õ¼ä£¬´æ·Å×Ö·û£»
-	tmp=outStr,tmpa=outStra; 
+	char *tmp=NULL,*tmpa=NULL;         //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Õ¼ä£¬ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	tmp=outStr,tmpa=outStra;
 	int nLen=0;
 	while(*inStr!='\0')
-	{//Ò»Ö±Ç°ÐÐ,Ö±µ½ÓÐ½áÊø·ûºÅ½«Í£Ö¹¡£
-		if(*inStr==scrchar && nMoedel==0) //Êý×éÖÐµÄµÚÒ»¸öÔªËØÓë¿ªÊ¼×Ö·ûÏàÍ¬
+	{//Ò»Ö±Ç°ï¿½ï¿½,Ö±ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å½ï¿½Í£Ö¹ï¿½ï¿½
+		if(*inStr==scrchar && nMoedel==0) //ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄµï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½ï¿½ë¿ªÊ¼ï¿½Ö·ï¿½ï¿½ï¿½Í¬
 		{
-			//*inStr='|';                 //Ìæ»»µô¿ªÊ¼×Ö·û
-			inStr++;                      //¹ýÂËµô¿ªÊ¼×Ö·û£¬Ö¸ÏòÏÂ¸öÊý½øÐÐ±È½Ï¡£     
+			//*inStr='|';                 //ï¿½æ»»ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ö·ï¿½
+			inStr++;                      //ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ê¼ï¿½Ö·ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±È½Ï¡ï¿½
            	while(*inStr!='\0')
-			{//½Ó×ÅÇ°ÐÐ   
-                  if (*inStr==destchar)   //Êý×éÖÐµÄµÚ¶þ¸öÔªËØÓë½áÊø×Ö·ûÏàÍ¬
-				  {		            
-					  //*inStr='|';       //Ìæ»»µô½áÊø×Ö·û
-                      inStr++;            //¹ýÂËµô½áÊø·û£¬Ö¸ÏòÏÂ¸öÊý¡£
-					  break;              //ÕÒµ½½áÊø·ûºÅ ¹ýÂËµô Ìø³öÑ­»·¡£
+			{//ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+                  if (*inStr==destchar)   //ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄµÚ¶ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Í¬
+				  {
+					  //*inStr='|';       //ï¿½æ»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
+                      inStr++;            //ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½
+					  break;              //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 				  }
-				  *tmpa=*inStr;           //ÌáÈ¡×Ö·û·Å½øtempaÖÐ
-				  tmpa++;	              //ÏÂÒ»¸öÔªËØ			  
-	              inStr++;                //ÏÂÒ»¸öÔªËØ
+				  *tmpa=*inStr;           //ï¿½ï¿½È¡ï¿½Ö·ï¿½ï¿½Å½ï¿½tempaï¿½ï¿½
+				  tmpa++;	              //ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
+	              inStr++;                //ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
 			}
-			//inStr++;                   //È¥µô½áÊø·ûºÅ
-			*tmpa='\0';                  //ÌáÈ¡Íêºó£¬¼Ó¸ö½áÊø·ûºÅ
+			//inStr++;                   //È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			*tmpa='\0';                  //ï¿½ï¿½È¡ï¿½ï¿½ó£¬¼Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
-		else if (*inStr==scrchar && nMoedel==1)  //¹ýÂËÄ³¸ö×Ö·ûºóÃæËùÓÐ×Ö·û´®
+		else if (*inStr==scrchar && nMoedel==1)  //ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		{
               break;
 		}
-		if (*inStr=='\0')                //Èç¹ûÃ»ÓÐÕÒµ½½áÊø·û£¬²¢ÇÒÒÑ¾­µ½ÁË½áÎ²£¬¾ÍÌø³öÁË£¡£¡
+		if (*inStr=='\0')                //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½
 			break;
-		*tmp=*inStr;                     //ÔªÊý²»ÏàÍ¬£¬Ôò´æ·Åµ½tmpÖÐ¡£
-		tmp++;                           //½øÐÐÏÂÒ»¸öÔªÊýµÄ±È½Ï
-		inStr++;                    
+		*tmp=*inStr;                     //Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½tmpï¿½Ð¡ï¿½
+		tmp++;                           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ä±È½ï¿½
+		inStr++;
 		nLen++;
 	}
-	*tmp='\0';                           //Ô´×Ö·û´® ÌáÈ¡Íêºó ¼Ó¸ö½áÊø·û ·ÀÖ¹ÂÒÂë
+	*tmp='\0';                           //Ô´ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½È¡ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½
     return nLen;
 }
 
@@ -425,116 +425,116 @@ int LuaSayUI(Lua_State * L)
 	int nDataType = 0;
 	int nOptionNum = 0;
 	char * pContent = NULL;
-	
+
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	if (nPlayerIndex < 0) return 0;
 
 //	Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
-	
+
 	int nParamNum = Lua_GetTopIndex(L);
 	if (nParamNum < 2) return 0;
-	
+
 	if (Lua_IsNumber(L,2))
 	{
 		nOptionNum = (int)Lua_ValueToNumber(L,2);
 	}
-	else 
+	else
 	{
 	//	_ASSERT(0);
 		return 0;
 	}
-	
+
 	if  (Lua_IsNumber(L,1))
 	{
 		nMainInfo = (int)Lua_ValueToNumber(L,1);
 		nDataType = 1 ;
 	}
-	else if (Lua_IsString(L, 1)) 	//¼ì²éÖ÷ÐÅÏ¢ÊÇ×Ö·û´®»¹ÊÇ×Ö·û´®±êÊ¶ºÅ
+	else if (Lua_IsString(L, 1)) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½
 	{
 		strMain = (char *)Lua_ValueToString(L, 1);
 		nDataType = 0 ;
 	}
 	else
 		return 0;
-	
-	BOOL bStringTab = FALSE;//±êÊ¶´«½øÀ´µÄÑ¡ÏîÊý¾Ý´æ·ÅÔÚÒ»¸öÊý×éÖÐ£¬»¹ÊÇÐí¶à×Ö·û´®Àï
-	
+
+	BOOL bStringTab = FALSE;//ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
+
 	if (Lua_IsString(L,3))
 		bStringTab = FALSE;
-	else if (Lua_IsTable(L, 3))   // ÊÇÒ»¸ö±í¸ú
+	else if (Lua_IsTable(L, 3))   // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		bStringTab = TRUE;
 	}
-	else 
+	else
 	{if (nOptionNum > 0)  return 0;
 	}
-	
+
 	if (bStringTab == FALSE)
 	{
-		//»ñµÃÊµ¼Ê´«ÈëµÄÑ¡ÏîµÄ¸öÊý
+		//ï¿½ï¿½ï¿½Êµï¿½Ê´ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 		if (nOptionNum > nParamNum - 2) nOptionNum = nParamNum - 2;
 	}
-	
+
 	if (nOptionNum > MAX_ANSWERNUM) nOptionNum = MAX_ANSWERNUM;
-	
+
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId        = UI_SELECTDIALOG;
-	UiInfo.m_bParam1      = nDataType;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	UiInfo.m_bParam1      = nDataType;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	UiInfo.m_bOptionNum   = nOptionNum;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	UiInfo.m_Select       = 0;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
-	
-	//Ö÷ÐÅÏ¢Îª×Ö·û´®
+
+	//ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
 	if (nDataType == 0)
 	{
 		if (strMain)
-			t_sprintf(UiInfo.m_pContent, "%s", strMain);
+			sprintf(UiInfo.m_pContent, "%s", strMain);
 		pContent = UiInfo.m_pContent;
 	}
-	else if (nDataType == 1) //Ö÷ÐÅÏ¢ÎªÊý×Ö±êÊ¶
+	else if (nDataType == 1) //ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½ï¿½ï¿½Ö±ï¿½Ê¶
 	{
 		*(int *)UiInfo.m_pContent = nMainInfo;
 		pContent = UiInfo.m_pContent + sizeof(int);
 		*pContent = 0;
 	}
-	
+
 	if (nOptionNum > MAX_ANSWERNUM)
 		nOptionNum = MAX_ANSWERNUM;
-	
-	Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;		
-	
+
+	Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;
+
 	for (int i  = 0; i < nOptionNum; i ++)
-	{	
+	{
 		char  pAnswer[64];
 		ZeroMemory(pAnswer,sizeof(pAnswer));
 
-		if (bStringTab)   //Èç¹ûÊä½øÀ´µÄÊÇTable
+		if (bStringTab)   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Table
 		{
 			Lua_PushNumber(L, i + 1);
-			Lua_RawGet(L, 3);	 //³öÕ»µÚÈý¸ö²ÎÊý
+			Lua_RawGet(L, 3);	 //ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			char * pszString = (char *)Lua_ValueToString(L, Lua_GetTopIndex(L));
 			if (pszString)
 			{
 				g_StrCpyLen(pAnswer, pszString, 64);
 			}
 		}
-		else 
+		else
 		{
 			char * pszString = (char *)Lua_ValueToString(L, i + 3);
 			if (pszString)
 				g_StrCpyLen(pAnswer, pszString, 64);
 		}
-		
-		char * pFunName = strstr(pAnswer, "/"); //ÅÐ¶Ï ×Ö·û´Ü Ê×´Î³öÏÖ¡°/¡± µÄÎ»ÖÃ!
-		
+
+		char * pFunName = strstr(pAnswer, "/"); //ï¿½Ð¶ï¿½ ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½×´Î³ï¿½ï¿½Ö¡ï¿½/ï¿½ï¿½ ï¿½ï¿½Î»ï¿½ï¿½!
+
 		/*if (pFunName)
 		{
-			char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö
-			if (mpFunName) 			
-			{ //Ö»ÊÇ²éÕÒ´æÔÚÓë·ñ²»ÐèÒªµÃµ½×Ö·û´®£¬ÓÃstrposÐ§ÂÊ×î¸ß¡£
+			char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½ï¿½
+			if (mpFunName)
+			{ //Ö»ï¿½Ç²ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ãµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½strposÐ§ï¿½ï¿½ï¿½ï¿½ß¡ï¿½
 				char nmpFunName[32];
 				char nmCanshu[32];
 				//strpos();
@@ -542,7 +542,7 @@ int LuaSayUI(Lua_State * L)
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i], nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i], nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 				ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-				t_sprintf(pContent, "%s|%s", pContent, nmpFunName);
+				sprintf(pContent, "%s|%s", pContent, nmpFunName);
 				ZeroMemory(nmpFunName,sizeof(nmpFunName));
 			    ZeroMemory(nmCanshu,sizeof(nmCanshu));
 			}
@@ -550,26 +550,26 @@ int LuaSayUI(Lua_State * L)
 			{
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-				*pFunName = 0;   //ÓÃÍêÇå¿Õ
-				t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+				*pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				sprintf(pContent, "%s|%s", pContent, pAnswer);
 			}
 		}*/
 		if (pFunName)
 		{
-			char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö£¨°üÀ¨·ûºÅ£©
-			if (mpFunName) 
-			{ //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ×Ö·û´®·Ö¸î
+			char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+			if (mpFunName)
+			{ //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 				char nmpFunName[32];
 				char nmCanshu[32];
-				//nmpFunName=strtok(mpFunName,"-");  //×Ö·û´®·Ö¸î   º¯Êý
-				//nmCanshu=strtok(NULL,"-");        //²ÎÊý
+				//nmpFunName=strtok(mpFunName,"-");  //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½   ï¿½ï¿½ï¿½ï¿½
+				//nmCanshu=strtok(NULL,"-");        //ï¿½ï¿½ï¿½ï¿½
 				ExtractChars(mpFunName,'(',')',nmpFunName,nmCanshu);
-				//					 //Íæ¼ÒÐ¯´øµÄ º¯ÊýÃû³Æ ºÍ ²ÎÊý
+				//					 //ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i],nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i],nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
-				//nmpFunName=strtok(pAnswer, "/"); //È¥µô Ð±¸Ü  //È¡Ç°ÃæµÄ²¿·Ö
+				//nmpFunName=strtok(pAnswer, "/"); //È¥ï¿½ï¿½ Ð±ï¿½ï¿½  //È¡Ç°ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 				ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-				t_sprintf(pContent, "%s|%s", pContent,nmpFunName);
+				sprintf(pContent, "%s|%s", pContent,nmpFunName);
 				ZeroMemory(nmpFunName,sizeof(nmpFunName));
 				ZeroMemory(nmCanshu,sizeof(nmCanshu));
 			}
@@ -577,24 +577,24 @@ int LuaSayUI(Lua_State * L)
 			{
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 				g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-				*pFunName = 0;   //ÓÃÍêÇå¿Õ
-				t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+				*pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				sprintf(pContent, "%s|%s", pContent, pAnswer);
 			}
 		}
-		else 
+		else
 		{
 			strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i], "main");
-			t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+			sprintf(pContent, "%s|%s", pContent, pAnswer);
 		}
 	}
-	
+
 	if (nDataType == 0)
 		UiInfo.m_nBufferLen  = strlen(pContent);
-	else 
+	else
 		UiInfo.m_nBufferLen = strlen(pContent) + sizeof(int);
-	
+
 	UiInfo.m_bParam2 = 0;
-	
+
 /*	if (nOptionNum == 0)
 	{
 		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
@@ -603,13 +603,13 @@ int LuaSayUI(Lua_State * L)
 	{
 		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 	} */
-	
+
 	Player[nPlayerIndex].DoScriptAction(&UiInfo);
 	return 0;
 }
 
 
-//´´½¨´ø±í¸ñ ÌØ¶¨ÏÔÊ¾SPRµÄ¶Ô»°¿ò
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¶ï¿½ï¿½ï¿½Ê¾SPRï¿½Ä¶Ô»ï¿½ï¿½ï¿½
 int LuaCreateSprSay(Lua_State * L)
 {
 	char * strMain  = NULL;
@@ -620,16 +620,16 @@ int LuaCreateSprSay(Lua_State * L)
 	int nIsTimeClose=0;
 	char * pContent = NULL;
 	char * pOptionStr=NULL;
-	
+
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	   if (nPlayerIndex < 0) return 0;
 
 //	   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
-	   
+
 	   int nParamNum = Lua_GetTopIndex(L);
-	   
-	   if (nParamNum < 1) 
+
+	   if (nParamNum < 1)
 		   return 0;
 
 
@@ -637,69 +637,69 @@ int LuaCreateSprSay(Lua_State * L)
 	   ZeroStruct(UiInfo);
 
 	   UiInfo.m_bUIId        = UI_SELECTDIALOG;
-	   UiInfo.m_bParam1      = nDataType ;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	   UiInfo.m_bParam1      = nDataType ;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	   // UiInfo.m_bOptionNum   = nOptionNum;
 	   UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	   UiInfo.m_Select       = 1;
 
 
-	   if (Lua_IsTable(L, 1))  //±í¸ñÊý×é
+	   if (Lua_IsTable(L, 1))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   {
-		       nOptionNum = Lua_GetN(L,1);       //±íÖÐÓÐ¶àÉÙ¸ö¼ü
+		       nOptionNum = Lua_GetN(L,1);       //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½
 
 	         if (nOptionNum > MAX_ANSWERNUM+2)
 		         nOptionNum = MAX_ANSWERNUM+2;
 
-			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum-2;  //Ñ¡ÏîÊý	 ¼õÈ¥µÚÒ»¸ö ÄÚÈÝËµÃ÷
+			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum-2;  //Ñ¡ï¿½ï¿½ï¿½ï¿½	 ï¿½ï¿½È¥ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 
 			   UiInfo.m_bOptionNum   = nOptionNum-2;
 
-			   for (int i=0;i<nOptionNum+2;i++)  //Èç¹ûÊÇtable
+			   for (int i=0;i<nOptionNum+2;i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½table
 			   {
 				   char pAnswer[64];
 				   ZeroMemory(pAnswer,sizeof(pAnswer));
 
-				   Lua_PushNumber(L,i + 1); //Ñ¹ÈëÒ»¸öKey
-				   //lua_settable(L, -3);   //ÉèÖÃKEYÖµ,È»ºó³öÕ»
-				   Lua_RawGet(L, 1);        //È¡µÃÕû¸ö½Å±¾´«½øÀ´µÄµÚÒ»¸ö²ÎÊýµÄÕâ¸ö¶ÔÓ¦TABLEµÄKEYÖµ È»ºó³öÕ» 
+				   Lua_PushNumber(L,i + 1); //Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½Key
+				   //lua_settable(L, -3);   //ï¿½ï¿½ï¿½ï¿½KEYÖµ,È»ï¿½ï¿½ï¿½Õ»
+				   Lua_RawGet(L, 1);        //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦TABLEï¿½ï¿½KEYÖµ È»ï¿½ï¿½ï¿½Õ»
 				   char * pszString = (char *)Lua_ValueToString(L, Lua_GetTopIndex(L));
 				   //nCurNum=4;
 				   if (pszString)
 				   {
 					   if (i==0)
-					   {//NPC spr Â·¾¶
-						   t_sprintf(UiInfo.m_szSprPath, "%s", pszString);
+					   {//NPC spr Â·ï¿½ï¿½
+						   sprintf(UiInfo.m_szSprPath, "%s", pszString);
 						   continue;
 					   }
 					   else if (i==1)
-					   {//Ö÷ÒªÄÚÈÝ
-						   t_sprintf(UiInfo.m_pContent, "%s", pszString);
+					   {//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+						   sprintf(UiInfo.m_pContent, "%s", pszString);
 						   pContent = UiInfo.m_pContent;
 						   continue;
 					   }
 					   else
 					     g_StrCpyLen(pAnswer, pszString, 64);
 
-					   //i=i-1; //»Ö¸´±êºÅ
+					   //i=i-1; //ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
 
-					   char * pFunName = strstr(pAnswer, "/");  // ²éÕÒÊ×´Î³öÏÖ Ð±¸Ü³öÏÖµÄÎ»ÖÃ º¯Êý  ¶Ô´óÐ¡Ð´Ãô¸Ð
-					   
+					   char * pFunName = strstr(pAnswer, "/");  // ï¿½ï¿½ï¿½ï¿½ï¿½×´Î³ï¿½ï¿½ï¿½ Ð±ï¿½Ü³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½
+
 					   if (pFunName)
 					   {
-						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö£¨°üÀ¨·ûºÅ£©
-						   if (mpFunName) 
-						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ×Ö·û´®·Ö¸î
+						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+						   if (mpFunName)
+						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 							   char nmpFunName[32]={0};
 							   char nmCanshu[32]={0};
-							   //nmpFunName=strtok(mpFunName,"-");  //×Ö·û´®·Ö¸î   º¯Êý
-							   //nmCanshu=strtok(NULL,"-");        //²ÎÊý
+							   //nmpFunName=strtok(mpFunName,"-");  //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½   ï¿½ï¿½ï¿½ï¿½
+							   //nmCanshu=strtok(NULL,"-");        //ï¿½ï¿½ï¿½ï¿½
 							   ExtractChars(mpFunName,'(',')',nmpFunName,nmCanshu);
-							   //					 //Íæ¼ÒÐ¯´øµÄ º¯ÊýÃû³Æ ºÍ ²ÎÊý
+							   //					 //ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-2],nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-2],nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
-							   //nmpFunName=strtok(pAnswer, "/"); //È¥µô Ð±¸Ü  //È¡Ç°ÃæµÄ²¿·Ö
+							   //nmpFunName=strtok(pAnswer, "/"); //È¥ï¿½ï¿½ Ð±ï¿½ï¿½  //È¡Ç°ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 							   ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-							   t_sprintf(pContent, "%s|%s", pContent,nmpFunName);
+							   sprintf(pContent, "%s|%s", pContent,nmpFunName);
 							   ZeroMemory(nmpFunName,sizeof(nmpFunName));
 							   ZeroMemory(nmCanshu,sizeof(nmCanshu));
 						   }
@@ -707,28 +707,28 @@ int LuaCreateSprSay(Lua_State * L)
 						   {
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-2],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-2], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-							   *pFunName = 0;   //ÓÃÍêÇå¿Õ
-							   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+							   *pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							   sprintf(pContent, "%s|%s", pContent, pAnswer);
 						   }
 					   }
-					   else 
+					   else
 					   {
-						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-2], "main");  //Ö´ÐÐMainº¯Êý
-						   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
-					   } 
+						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-2], "main");  //Ö´ï¿½ï¿½Mainï¿½ï¿½ï¿½ï¿½
+						   sprintf(pContent, "%s|%s", pContent, pAnswer);
+					   }
 				   }
 
 			   }
-			   
 
 
-			   if (nDataType == 0)//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+
+			   if (nDataType == 0)//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 				   UiInfo.m_nBufferLen  = strlen(pContent);
-			   else 
+			   else
 				   UiInfo.m_nBufferLen = strlen(pContent) + sizeof(int);
 
-			   UiInfo.m_bParam2 = 0;  //¿Í»§¶Ë
-			   
+			   UiInfo.m_bParam2 = 0;  //ï¿½Í»ï¿½ï¿½ï¿½
+
 /*			   if (nOptionNum == 0)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
@@ -737,8 +737,8 @@ int LuaCreateSprSay(Lua_State * L)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 			   } */
-			   
-			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//ÒªÇóÏÔÊ¾Ä³¸öUI½çÃæ
+
+			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//Òªï¿½ï¿½ï¿½ï¿½Ê¾Ä³ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
 
 	   }
 
@@ -748,7 +748,7 @@ int LuaCreateSprSay(Lua_State * L)
 
 
 
-//ÐÂ¶Ô»°¿ò
+//ï¿½Â¶Ô»ï¿½ï¿½ï¿½
 int LuaCreateTaskSay(Lua_State * L)
 {
 	char * strMain  = NULL;
@@ -759,83 +759,83 @@ int LuaCreateTaskSay(Lua_State * L)
 	int nIsTimeClose=0;
 	char * pContent = NULL;
 	char * pOptionStr=NULL;
-	
+
 	int nPlayerIndex ;
 
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
-	  
+
 	   if (nPlayerIndex < 0) return 0;
 
 //	   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
-	   
+
 	   int nParamNum = Lua_GetTopIndex(L);
-	   
-	   if (nParamNum < 1) 
+
+	   if (nParamNum < 1)
 		   return 0;
 
 
 	   PLAYER_SCRIPTACTION_SYNC UiInfo;
 	   ZeroStruct(UiInfo);
 	   UiInfo.m_bUIId        = UI_SELECTDIALOG;
-	   UiInfo.m_bParam1      = nDataType ;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	   UiInfo.m_bParam1      = nDataType ;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	   // UiInfo.m_bOptionNum   = nOptionNum;
 	   UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	   UiInfo.m_Select       = 1;
 
 
-	   if (Lua_IsTable(L, 1))  //±í¸ñÊý×é
+	   if (Lua_IsTable(L, 1))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   {
-		       nOptionNum = Lua_GetN(L,1);       //±íÖÐÓÐ¶àÉÙ¸ö¼ü
+		       nOptionNum = Lua_GetN(L,1);       //ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½
 
 	         if (nOptionNum > MAX_ANSWERNUM+1)
 		         nOptionNum = MAX_ANSWERNUM+1;
 
 
-			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum-1;  //Ñ¡ÏîÊý	 ¼õÈ¥µÚÒ»¸ö ÄÚÈÝËµÃ÷
+			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum-1;  //Ñ¡ï¿½ï¿½ï¿½ï¿½	 ï¿½ï¿½È¥ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 
 			   UiInfo.m_bOptionNum   = nOptionNum-1;
 
-			   for (int i=0;i<nOptionNum+1;i++)  //Èç¹ûÊÇtable
+			   for (int i=0;i<nOptionNum+1;i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½table
 			   {
 				   char pAnswer[64];
 				   ZeroMemory(pAnswer,sizeof(pAnswer));
 
-				   Lua_PushNumber(L,i + 1); //Ñ¹ÈëÒ»¸öKey
-				   //lua_settable(L, -3);   //ÉèÖÃKEYÖµ,È»ºó³öÕ»
-				   Lua_RawGet(L, 1);        //È¡µÃÕû¸ö½Å±¾´«½øÀ´µÄµÚÒ»¸ö²ÎÊýµÄÕâ¸ö¶ÔÓ¦TABLEµÄKEYÖµ È»ºó³öÕ» 
+				   Lua_PushNumber(L,i + 1); //Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½Key
+				   //lua_settable(L, -3);   //ï¿½ï¿½ï¿½ï¿½KEYÖµ,È»ï¿½ï¿½ï¿½Õ»
+				   Lua_RawGet(L, 1);        //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦TABLEï¿½ï¿½KEYÖµ È»ï¿½ï¿½ï¿½Õ»
 				   char * pszString = (char *)Lua_ValueToString(L, Lua_GetTopIndex(L));
 				   //nCurNum=4;
 				   if (pszString)
 				   {
 					   if (i==0)
-					   {//±êÌâ
-						   t_sprintf(UiInfo.m_pContent, "%s", pszString);
+					   {//ï¿½ï¿½ï¿½ï¿½
+						   sprintf(UiInfo.m_pContent, "%s", pszString);
 						   pContent = UiInfo.m_pContent;
 						   continue;
 					   }
 					   else
 					     g_StrCpyLen(pAnswer, pszString, 64);
 
-					   //i=i-1; //»Ö¸´±êºÅ
+					   //i=i-1; //ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
 
-					   char * pFunName = strstr(pAnswer, "/");  // ²éÕÒÊ×´Î³öÏÖ Ð±¸Ü³öÏÖµÄÎ»ÖÃ º¯Êý  ¶Ô´óÐ¡Ð´Ãô¸Ð
-					   
+					   char * pFunName = strstr(pAnswer, "/");  // ï¿½ï¿½ï¿½ï¿½ï¿½×´Î³ï¿½ï¿½ï¿½ Ð±ï¿½Ü³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½
+
 					   if (pFunName)
 					   {
-						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö£¨°üÀ¨·ûºÅ£©
-						   if (mpFunName) 
-						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ×Ö·û´®·Ö¸î
+						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+						   if (mpFunName)
+						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 							   char nmpFunName[32]={0};
 							   char nmCanshu[32]={0};
-							   //nmpFunName=strtok(mpFunName,"-");  //×Ö·û´®·Ö¸î   º¯Êý
-							   //nmCanshu=strtok(NULL,"-");        //²ÎÊý
+							   //nmpFunName=strtok(mpFunName,"-");  //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½   ï¿½ï¿½ï¿½ï¿½
+							   //nmCanshu=strtok(NULL,"-");        //ï¿½ï¿½ï¿½ï¿½
 							   ExtractChars(mpFunName,'(',')',nmpFunName,nmCanshu);
-							   //					 //Íæ¼ÒÐ¯´øµÄ º¯ÊýÃû³Æ ºÍ ²ÎÊý
+							   //					 //ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-1],nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-1],nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
-							   //nmpFunName=strtok(pAnswer, "/"); //È¥µô Ð±¸Ü  //È¡Ç°ÃæµÄ²¿·Ö
+							   //nmpFunName=strtok(pAnswer, "/"); //È¥ï¿½ï¿½ Ð±ï¿½ï¿½  //È¡Ç°ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 							   ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-							   t_sprintf(pContent, "%s|%s", pContent,nmpFunName);
+							   sprintf(pContent, "%s|%s", pContent,nmpFunName);
 							   ZeroMemory(nmpFunName,sizeof(nmpFunName));
 							   ZeroMemory(nmCanshu,sizeof(nmCanshu));
 						   }
@@ -843,27 +843,27 @@ int LuaCreateTaskSay(Lua_State * L)
 						   {
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-1],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-							   *pFunName = 0;   //ÓÃÍêÇå¿Õ
-							   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+							   *pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							   sprintf(pContent, "%s|%s", pContent, pAnswer);
 						   }
 					   }
-					   else 
+					   else
 					   {
-						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], "main");  //Ö´ÐÐMainº¯Êý
-						   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
-					   } 
+						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], "main");  //Ö´ï¿½ï¿½Mainï¿½ï¿½ï¿½ï¿½
+						   sprintf(pContent, "%s|%s", pContent, pAnswer);
+					   }
 				   }
 
 			   }
-			   
 
 
-			   if (nDataType == 0)//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+
+			   if (nDataType == 0)//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 				   UiInfo.m_nBufferLen  = strlen(pContent);
-			   else 
+			   else
 				   UiInfo.m_nBufferLen = strlen(pContent) + sizeof(int);
-			   UiInfo.m_bParam2 = 0;  //¿Í»§¶Ë
-			   
+			   UiInfo.m_bParam2 = 0;  //ï¿½Í»ï¿½ï¿½ï¿½
+
 /*			   if (nOptionNum == 0)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
@@ -872,8 +872,8 @@ int LuaCreateTaskSay(Lua_State * L)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 			   }*/
-			   
-			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//ÒªÇóÏÔÊ¾Ä³¸öUI½çÃæ
+
+			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//Òªï¿½ï¿½ï¿½ï¿½Ê¾Ä³ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
 
 	   }
 
@@ -892,24 +892,24 @@ int LuaCreateNewSayEx(Lua_State * L)
 	int nIsTimeClose=0;
 	char * pContent = NULL;
 	char * pOptionStr=NULL;
-	
+
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	   if (nPlayerIndex < 0) return 0;
 
 //	   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
-	   
+
 	   int nParamNum = Lua_GetTopIndex(L);
-	   
-	   if (nParamNum < 2) 
+
+	   if (nParamNum < 2)
 		   return 0;
 
-	   if  (Lua_IsNumber(L,1))                       //Êý×Ö
+	   if  (Lua_IsNumber(L,1))                       //ï¿½ï¿½ï¿½ï¿½
 	   {
-		   nMainInfo = (int)Lua_ValueToNumber(L,1);  //Ö÷ÒªÐÅÏ¢
+		   nMainInfo = (int)Lua_ValueToNumber(L,1);  //ï¿½ï¿½Òªï¿½ï¿½Ï¢
 		   nDataType = 1 ;
 	   }
-	   else if (Lua_IsString(L, 1)) 	//¼ì²éÖ÷ÐÅÏ¢ÊÇ×Ö·û´®»¹ÊÇ×Ö·û´®±êÊ¶ºÅ  ×Ö·û´®
+	   else if (Lua_IsString(L, 1)) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½  ï¿½Ö·ï¿½ï¿½ï¿½
 	   {
 		   strMain = (char *)Lua_ValueToString(L, 1);
 		   nDataType = 0 ;
@@ -921,73 +921,73 @@ int LuaCreateNewSayEx(Lua_State * L)
 	   PLAYER_SCRIPTACTION_SYNC UiInfo;
 	   ZeroStruct(UiInfo);
 	   UiInfo.m_bUIId        = UI_SELECTDIALOG;
-	   UiInfo.m_bParam1      = nDataType ;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	   UiInfo.m_bParam1      = nDataType ;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	   // UiInfo.m_bOptionNum   = nOptionNum;
 	   UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	   UiInfo.m_Select       = 1;
 
-	  	//Ö÷ÐÅÏ¢Îª×Ö·û´®
+	  	//ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
 	  if (nDataType == 0)
-	  {  
+	  {
 		if (strMain)
-			t_sprintf(UiInfo.m_pContent, "%s", strMain);
+			sprintf(UiInfo.m_pContent, "%s", strMain);
 		pContent = UiInfo.m_pContent;
-	  }  
-	  else if (nDataType == 1) //Ö÷ÐÅÏ¢ÎªÊý×Ö±êÊ¶
-	  {  
+	  }
+	  else if (nDataType == 1) //ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½ï¿½ï¿½Ö±ï¿½Ê¶
+	  {
 		*(int *)UiInfo.m_pContent = nMainInfo;
 		pContent = UiInfo.m_pContent + sizeof(int);
 		*pContent = 0;
-	  }  
+	  }
 
 
-	   if (Lua_IsTable(L, 2))  //±í¸ñÊý×é
+	   if (Lua_IsTable(L, 2))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   {
-		       nOptionNum = Lua_GetN(L,2);       //ÓÐ¶àÉÙ¸öÑ¡Ïî
+		       nOptionNum = Lua_GetN(L,2);       //ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½Ñ¡ï¿½ï¿½
 
 	         if (nOptionNum > MAX_ANSWERNUM)
 		         nOptionNum = MAX_ANSWERNUM;
 
 
-			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;  //Ñ¡ÏîÊý	 ¼õÈ¥µÚÒ»¸ö ÄÚÈÝËµÃ÷
+			   Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;  //Ñ¡ï¿½ï¿½ï¿½ï¿½	 ï¿½ï¿½È¥ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 
 			   UiInfo.m_bOptionNum   = nOptionNum;
 
-			   for (int i=0;i<nOptionNum;i++)  //Èç¹ûÊÇtable
+			   for (int i=0;i<nOptionNum;i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½table
 			   {
 				   char pAnswer[64];
 				   ZeroMemory(pAnswer,sizeof(pAnswer));
 
-				   Lua_PushNumber(L,i + 1); //Ñ¹ÈëÒ»¸öKey
-				   //lua_settable(L, -3);   //ÉèÖÃKEYÖµ,È»ºó³öÕ»
-				   Lua_RawGet(L, 2);        //È¡µÃÕû¸ö½Å±¾´«½øÀ´µÄµÚÒ»¸ö²ÎÊýµÄÕâ¸ö¶ÔÓ¦TABLEµÄKEYÖµ È»ºó³öÕ» 
+				   Lua_PushNumber(L,i + 1); //Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½Key
+				   //lua_settable(L, -3);   //ï¿½ï¿½ï¿½ï¿½KEYÖµ,È»ï¿½ï¿½ï¿½Õ»
+				   Lua_RawGet(L, 2);        //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦TABLEï¿½ï¿½KEYÖµ È»ï¿½ï¿½ï¿½Õ»
 				   char * pszString = (char *)Lua_ValueToString(L, Lua_GetTopIndex(L));
 				   //nCurNum=4;
 				   if (pszString)
 				   {
-					  
+
 					   g_StrCpyLen(pAnswer, pszString, 64);
 
-					   //i=i-1; //»Ö¸´±êºÅ
+					   //i=i-1; //ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
 
-					   char * pFunName = strstr(pAnswer, "/");  // ²éÕÒÊ×´Î³öÏÖ Ð±¸Ü³öÏÖµÄÎ»ÖÃ º¯Êý  ¶Ô´óÐ¡Ð´Ãô¸Ð
-					   
+					   char * pFunName = strstr(pAnswer, "/");  // ï¿½ï¿½ï¿½ï¿½ï¿½×´Î³ï¿½ï¿½ï¿½ Ð±ï¿½Ü³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½
+
 					   if (pFunName)
 					   {
-						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö£¨°üÀ¨·ûºÅ£©
-						   if (mpFunName) 
-						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ×Ö·û´®·Ö¸î
+						   char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+						   if (mpFunName)
+						   { //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 							   char nmpFunName[32]={0};
 							   char nmCanshu[32]={0};
-							   //nmpFunName=strtok(mpFunName,"-");  //×Ö·û´®·Ö¸î   º¯Êý
-							   //nmCanshu=strtok(NULL,"-");        //²ÎÊý
+							   //nmpFunName=strtok(mpFunName,"-");  //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½   ï¿½ï¿½ï¿½ï¿½
+							   //nmCanshu=strtok(NULL,"-");        //ï¿½ï¿½ï¿½ï¿½
 							   ExtractChars(mpFunName,'(',')',nmpFunName,nmCanshu);
-							   //					 //Íæ¼ÒÐ¯´øµÄ º¯ÊýÃû³Æ ºÍ ²ÎÊý
+							   //					 //ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-1],nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-1],nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
-							   //nmpFunName=strtok(pAnswer, "/"); //È¥µô Ð±¸Ü  //È¡Ç°ÃæµÄ²¿·Ö
+							   //nmpFunName=strtok(pAnswer, "/"); //È¥ï¿½ï¿½ Ð±ï¿½ï¿½  //È¡Ç°ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 							   ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-							   t_sprintf(pContent, "%s|%s", pContent,nmpFunName);
+							   sprintf(pContent, "%s|%s", pContent,nmpFunName);
 							   ZeroMemory(nmpFunName,sizeof(nmpFunName));
 							   ZeroMemory(nmCanshu,sizeof(nmCanshu));
 						   }
@@ -995,25 +995,25 @@ int LuaCreateNewSayEx(Lua_State * L)
 						   {
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i-1],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 							   g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-							   *pFunName = 0;   //ÓÃÍêÇå¿Õ
-							   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+							   *pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							   sprintf(pContent, "%s|%s", pContent, pAnswer);
 						   }
 					   }
-					   else 
+					   else
 					   {
-						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], "main");  //Ö´ÐÐMainº¯Êý
-						   t_sprintf(pContent, "%s|%s", pContent, pAnswer);
-					   } 
+						   strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i-1], "main");  //Ö´ï¿½ï¿½Mainï¿½ï¿½ï¿½ï¿½
+						   sprintf(pContent, "%s|%s", pContent, pAnswer);
+					   }
 				   }
 
 			   }
-			   
-			   if (nDataType == 0)//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+
+			   if (nDataType == 0)//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 				   UiInfo.m_nBufferLen  = strlen(pContent);
-			   else 
+			   else
 				   UiInfo.m_nBufferLen = strlen(pContent) + sizeof(int);
-			   UiInfo.m_bParam2 = 0;  //¿Í»§¶Ë
-			   
+			   UiInfo.m_bParam2 = 0;  //ï¿½Í»ï¿½ï¿½ï¿½
+
 /*			   if (nOptionNum == 0)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
@@ -1022,8 +1022,8 @@ int LuaCreateNewSayEx(Lua_State * L)
 			   {
 				   Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 			   }*/
-			   
-			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//ÒªÇóÏÔÊ¾Ä³¸öUI½çÃæ
+
+			   Player[nPlayerIndex].DoScriptAction(&UiInfo);//Òªï¿½ï¿½ï¿½ï¿½Ê¾Ä³ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
 
 	   }
 
@@ -1042,25 +1042,25 @@ int LuaSayNew(Lua_State * L)
 	int nIsTimeClose=0;
 	char * pContent = NULL;
 	char * pOptionStr=NULL;
-	
+
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	if (nPlayerIndex < 0) return 0;
 //	Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
-	
+
 	int nParamNum = Lua_GetTopIndex(L);
 
-	if (nParamNum < 2) 
+	if (nParamNum < 2)
 		return 0;
-	
-	if (Lua_IsNumber(L,2))  //µÚ¶þ¸ö²ÎÊýÎª Êý×Ö
+
+	if (Lua_IsNumber(L,2))  //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª ï¿½ï¿½ï¿½ï¿½
 	{
-		nOptionNum = (int)Lua_ValueToNumber(L,2);  //ÓÐ¼¸¸öÁ´½ÓÐÅÏ¢
+		nOptionNum = (int)Lua_ValueToNumber(L,2);  //ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //		Player[nPlayerIndex].m_nCheckWaiGua=0;
 	}
-	else 
-	{//·ñÔòÎª×Ö·û´Ü
-	//	
+	else
+	{//ï¿½ï¿½ï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½
+	//
 		 pOptionStr=(char *)Lua_ValueToString(L,2);
 		 if (strstr(pOptionStr,"|"))
 		 {
@@ -1075,85 +1075,85 @@ int LuaSayNew(Lua_State * L)
 		  }
 
 	}
-	
-	if  (Lua_IsNumber(L,1))  //Êý×Ö
+
+	if  (Lua_IsNumber(L,1))  //ï¿½ï¿½ï¿½ï¿½
 	{
-		nMainInfo = (int)Lua_ValueToNumber(L,1);  //Ö÷ÒªÐÅÏ¢
+		nMainInfo = (int)Lua_ValueToNumber(L,1);  //ï¿½ï¿½Òªï¿½ï¿½Ï¢
 		nDataType = 1 ;
 	}
-	else if (Lua_IsString(L, 1)) 	//¼ì²éÖ÷ÐÅÏ¢ÊÇ×Ö·û´®»¹ÊÇ×Ö·û´®±êÊ¶ºÅ  ×Ö·û´®
+	else if (Lua_IsString(L, 1)) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½  ï¿½Ö·ï¿½ï¿½ï¿½
 	{
 		strMain = (char *)Lua_ValueToString(L, 1);
 		nDataType = 0 ;
 	}
 	else
 		return 0;
-	
-	BOOL bStringTab = FALSE;//±êÊ¶´«½øÀ´µÄÑ¡ÏîÊý¾Ý´æ·ÅÔÚÒ»¸öÊý×éÖÐ£¬»¹ÊÇÐí¶à×Ö·û´®Àï
-	
-	if (Lua_IsString(L,3)) //µÚÈý¸ö²ÎÊý×Ö·û´® ·µ»Ø¼Ù
+
+	BOOL bStringTab = FALSE;//ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	if (Lua_IsString(L,3)) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
 		bStringTab = FALSE;
-	else if (Lua_IsTable(L, 3))  //±í¸ñÊý×é
+	else if (Lua_IsTable(L, 3))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		bStringTab = TRUE;
 	}
-	else 
+	else
 	{
 		if (nOptionNum > 0)  return 0;
 	}
-	
-	if (bStringTab == FALSE) //·Çtable
+
+	if (bStringTab == FALSE) //ï¿½ï¿½table
 	{
-		//»ñµÃÊµ¼Ê´«ÈëµÄÑ¡ÏîµÄ¸öÊý
-		if (nOptionNum > nParamNum - 2)   //¼õÈ¥Ç°ÃæÁ½¸ö²ÎÊý
+		//ï¿½ï¿½ï¿½Êµï¿½Ê´ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+		if (nOptionNum > nParamNum - 2)   //ï¿½ï¿½È¥Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			nOptionNum = nParamNum - 2;
 	}
-	
-	if (nOptionNum > MAX_ANSWERNUM) 
-		nOptionNum = MAX_ANSWERNUM; //Ñ¡ÏîÏÔÊ¾ÏÞÖÆ
-	
+
+	if (nOptionNum > MAX_ANSWERNUM)
+		nOptionNum = MAX_ANSWERNUM; //Ñ¡ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId        = UI_SELECTDIALOG;
-	UiInfo.m_bParam1      = nDataType;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	UiInfo.m_bParam1      = nDataType;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	UiInfo.m_bOptionNum   = nOptionNum;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	UiInfo.m_Select       = 1;
-	
-	//Ö÷ÐÅÏ¢Îª×Ö·û´®
+
+	//ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
 	if (nDataType == 0)
 	{
 		if (strMain)
-			t_sprintf(UiInfo.m_pContent, "%s", strMain);
+			sprintf(UiInfo.m_pContent, "%s", strMain);
 		pContent = UiInfo.m_pContent;
 
 		//TEncodeText(UiInfo.m_pContent, strlen(UiInfo.m_pContent));
 
 	}
-	else if (nDataType == 1) //Ö÷ÐÅÏ¢ÎªÊý×Ö±êÊ¶
+	else if (nDataType == 1) //ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½ï¿½ï¿½Ö±ï¿½Ê¶
 	{
 		*(int *)UiInfo.m_pContent = nMainInfo;
 		pContent = UiInfo.m_pContent + sizeof(int);
 		*pContent = 0;
 	}
-	
+
 	if (nOptionNum > MAX_ANSWERNUM)
 		nOptionNum = MAX_ANSWERNUM;
-	
-	Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;  //Ñ¡ÏîÊý
-	
+
+	Player[nPlayerIndex].m_nAvailableAnswerNum = nOptionNum;  //Ñ¡ï¿½ï¿½ï¿½ï¿½
+
 	//int nCurNum=4;
 
 	for (int i  = 0; i < nOptionNum; i ++)
-	{	
+	{
 		char  pAnswer[64];
 		ZeroMemory(pAnswer,sizeof(pAnswer));
 		//pAnswer[0]=0;
-		
-		if (bStringTab)  //Èç¹ûÊÇtable
+
+		if (bStringTab)  //ï¿½ï¿½ï¿½ï¿½ï¿½table
 		{
-			Lua_PushNumber(L,i + 1); //Ñ¹ÈëÒ»¸öKey
-			Lua_RawGet(L, 3);        //È¡µÃÕû¸ö½Å±¾´«½øÀ´µÄµÚÈý¸ö²ÎÊýµÄÕâ¸ö¶ÔÓ¦TABLEµÄKEYÖµ È»ºó³öÕ»  
+			Lua_PushNumber(L,i + 1); //Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½Key
+			Lua_RawGet(L, 3);        //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦TABLEï¿½ï¿½KEYÖµ È»ï¿½ï¿½ï¿½Õ»
 			char * pszString = (char *)Lua_ValueToString(L, Lua_GetTopIndex(L));
 			    // nCurNum=4;
 			if (pszString)
@@ -1161,32 +1161,32 @@ int LuaSayNew(Lua_State * L)
 				g_StrCpyLen(pAnswer, pszString, 64);
 			}
 		}
-		else  //·ñÔò¾ÍÊÇµ¥´¿µÄ×Ö·û´®
+		else  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		{
-			char * pszString = (char *)Lua_ValueToString(L, i + 3);	//´ÓµÚÈý¸ö²ÎÊý¿ªÊ¼
+			char * pszString = (char *)Lua_ValueToString(L, i + 3);	//ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼
 			       //nCurNum=i + 4;
 			if (pszString)
 				g_StrCpyLen(pAnswer, pszString, 64);
 		}
-		
-		char * pFunName = strstr(pAnswer, "/");  // ²éÕÒÊ×´Î³öÏÖ Ð±¸Ü³öÏÖµÄÎ»ÖÃ º¯Êý  ¶Ô´óÐ¡Ð´Ãô¸Ð
-		
+
+		char * pFunName = strstr(pAnswer, "/");  // ï¿½ï¿½ï¿½ï¿½ï¿½×´Î³ï¿½ï¿½ï¿½ Ð±ï¿½Ü³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½
+
 		if (pFunName)
 		{
-			char *mpFunName=strstr(pFunName, "#");  //  stristr() ¶Ô´óÐ¡Ð´²»Ãô¸Ð  È¡ºóÃæ²¿·Ö£¨°üÀ¨·ûºÅ£©
-			if (mpFunName) 
-			{ //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ×Ö·û´®·Ö¸î
+			char *mpFunName=strstr(pFunName, "#");  //  stristr() ï¿½Ô´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  È¡ï¿½ï¿½ï¿½æ²¿ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+			if (mpFunName)
+			{ //sscanf(nItemID, "%s(%s", &nTextA, &nTextB); ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 				char nmpFunName[32]={0};
 				char nmCanshu[32]={0};
-                     //nmpFunName=strtok(mpFunName,"-");  //×Ö·û´®·Ö¸î   º¯Êý
-                     //nmCanshu=strtok(NULL,"-");        //²ÎÊý
+                     //nmpFunName=strtok(mpFunName,"-");  //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½   ï¿½ï¿½ï¿½ï¿½
+                     //nmCanshu=strtok(NULL,"-");        //ï¿½ï¿½ï¿½ï¿½
 				     ExtractChars(mpFunName,'(',')',nmpFunName,nmCanshu);
-//					 //Íæ¼ÒÐ¯´øµÄ º¯ÊýÃû³Æ ºÍ ²ÎÊý
+//					 //ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					 g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i],nmpFunName+1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 					 g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i],nmCanshu, sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
-                     //nmpFunName=strtok(pAnswer, "/"); //È¥µô Ð±¸Ü  //È¡Ç°ÃæµÄ²¿·Ö
+                     //nmpFunName=strtok(pAnswer, "/"); //È¥ï¿½ï¿½ Ð±ï¿½ï¿½  //È¡Ç°ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 					 ExtractChars(pAnswer,'/',')',nmpFunName,nmCanshu,1);
-			         t_sprintf(pContent, "%s|%s", pContent,nmpFunName);
+			         sprintf(pContent, "%s|%s", pContent,nmpFunName);
 					 ZeroMemory(nmpFunName,sizeof(nmpFunName));
 					 ZeroMemory(nmCanshu,sizeof(nmCanshu));
 			}
@@ -1194,25 +1194,25 @@ int LuaSayNew(Lua_State * L)
 			{
 		    	g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerCanshu[i],"", sizeof(Player[nPlayerIndex].m_szTaskAnswerCanshu[0]));
 			    g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[i], pFunName + 1, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
-			    *pFunName = 0;   //ÓÃÍêÇå¿Õ
-			    t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+			    *pFunName = 0;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			    sprintf(pContent, "%s|%s", pContent, pAnswer);
 				//printf("--%s--\n",pContent);
 			}
 		}
-		else 
+		else
 		{
-			strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i], "main");  //Ö´ÐÐMainº¯Êý
-			t_sprintf(pContent, "%s|%s", pContent, pAnswer);
+			strcpy(Player[nPlayerIndex].m_szTaskAnswerFun[i], "main");  //Ö´ï¿½ï¿½Mainï¿½ï¿½ï¿½ï¿½
+			sprintf(pContent, "%s|%s", pContent, pAnswer);
 		}
 	}
 
-	   if (nDataType == 0)//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	   if (nDataType == 0)//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 		UiInfo.m_nBufferLen  = strlen(pContent);
-	   else 
+	   else
 		UiInfo.m_nBufferLen = strlen(pContent) + sizeof(int);
-		
-	UiInfo.m_bParam2 = 0;  //¿Í»§¶Ë
-	
+
+	UiInfo.m_bParam2 = 0;  //ï¿½Í»ï¿½ï¿½ï¿½
+
 /*	if (nOptionNum == 0)
 	{
 		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
@@ -1221,8 +1221,8 @@ int LuaSayNew(Lua_State * L)
 	{
 		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 	}*/
-	
-	Player[nPlayerIndex].DoScriptAction(&UiInfo);//ÒªÇóÏÔÊ¾Ä³¸öUI½çÃæ
+
+	Player[nPlayerIndex].DoScriptAction(&UiInfo);//Òªï¿½ï¿½ï¿½ï¿½Ê¾Ä³ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
 
 	return 0;
 }
@@ -1231,22 +1231,22 @@ int LuaSayNew(Lua_State * L)
 
 int LuaSendMessageInfo(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 1) 
+	if (Lua_GetTopIndex(L) < 1)
 		return 0;
-	
+
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	if (nPlayerIndex < 0) return 0;
-	
+
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_MSGINFO;
 	UiInfo.m_bOptionNum = 1;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
-	
+
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1254,9 +1254,9 @@ int LuaSendMessageInfo(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int);
 	}
-	else 
+	else
 	{
-		
+
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 256);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
 		UiInfo.m_bParam1 = 0;
@@ -1270,9 +1270,9 @@ int LuaSendMessageInfo(Lua_State * L)
 //AddGlobalNews(Newsstr)
 int LuaAddGlobalNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 1) 
+	if (Lua_GetTopIndex(L) < 1)
 		return 0;
-	
+
 	int nPlayerIndex;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
@@ -1281,9 +1281,9 @@ int LuaAddGlobalNews(Lua_State * L)
 	UiInfo.m_bOptionNum = NEWSMESSAGE_NORMAL;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
-	
+
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1291,13 +1291,13 @@ int LuaAddGlobalNews(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int);
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 128);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
 		UiInfo.m_bParam1 = 0;
 	}
-	
+
 	//int nPlayerIndex = GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
 
@@ -1309,18 +1309,18 @@ int LuaAddGlobalNews(Lua_State * L)
 //AddLocalNews(Newsstr)
 int LuaAddLocalNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 1) 
-		return 0;	
+	if (Lua_GetTopIndex(L) < 1)
+		return 0;
 	int nPlayerIndex=0;
 		nPlayerIndex = CLIENT_PLAYER_INDEX;
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NEWSINFO;
-	UiInfo.m_bOptionNum = NEWSMESSAGE_NORMAL;  //ÆÕÍ¨ÏûÏ¢ ÏÔÊ¾¾ÍÏûÍö
-	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;  //ÏÔÊ¾UI½çÃæ
+	UiInfo.m_bOptionNum = NEWSMESSAGE_NORMAL;  //ï¿½ï¿½Í¨ï¿½ï¿½Ï¢ ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;  //ï¿½ï¿½Ê¾UIï¿½ï¿½ï¿½ï¿½
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1328,13 +1328,13 @@ int LuaAddLocalNews(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int);
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 128);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
 		UiInfo.m_bParam1 = 0;
 	}
-	
+
 	//int nPlayerIndex = GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
 
@@ -1342,23 +1342,23 @@ int LuaAddLocalNews(Lua_State * L)
 	Player[nPlayerIndex].DoScriptAction(&UiInfo);
 	return 0;
 }
-//AddLocalNews(Newsstr)  ,ÏÔÊ¾Ò»´Î¾ÍÏûÍö
+//AddLocalNews(Newsstr)  ,ï¿½ï¿½Ê¾Ò»ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½
 int LuaAddSysNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 1) 
+	if (Lua_GetTopIndex(L) < 1)
 		return 0;
 	int nPlayerIndex=0;
-	
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NEWSINFO;
-	UiInfo.m_bOptionNum = NEWSMESSAGE_SHUIJI;  //ÆÕÍ¨ÏûÏ¢ ÏÔÊ¾¾ÍÏûÍö
-	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;  //ÏÔÊ¾UI½çÃæ
+	UiInfo.m_bOptionNum = NEWSMESSAGE_SHUIJI;  //ï¿½ï¿½Í¨ï¿½ï¿½Ï¢ ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;  //ï¿½ï¿½Ê¾UIï¿½ï¿½ï¿½ï¿½
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
-	
+
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1366,18 +1366,18 @@ int LuaAddSysNews(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int);
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), MAX_SCIRPTACTION_BUFFERNUM);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
 		UiInfo.m_bParam1 = 0;
 	}
-	
+
 	//int nPlayerIndex = CLIENT_PLAYER_INDEX;//GetPlayerIndex(L);
-	if (nPlayerIndex < 0) 
+	if (nPlayerIndex < 0)
 		return 0;
 	UiInfo.m_bParam2 = 0;
-	Player[nPlayerIndex].DoScriptAction(&UiInfo); //¿Í»§¶ËÖ±½ÓÏÔÊ¾
+	Player[nPlayerIndex].DoScriptAction(&UiInfo); //ï¿½Í»ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½Ê¾
 	return 0;
 }
 
@@ -1385,26 +1385,26 @@ int LuaAddSysNews(Lua_State * L)
 //AddGlobalCountNews(strNew/newid, time)
 int LuaAddGlobalCountNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 2) 
+	if (Lua_GetTopIndex(L) < 2)
 		return 0;
 	int nPlayerIndex=0;
-		
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NEWSINFO;
-	UiInfo.m_bOptionNum = NEWSMESSAGE_COUNTING;  //µ¹¼ÆÊ±ÏûÏ¢
+	UiInfo.m_bOptionNum = NEWSMESSAGE_COUNTING;  //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ï¢
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 
 	int nMsgId = 0;
-	
+
 	int nTime = (int)Lua_ValueToNumber(L,2);
-	
+
 	if (nTime <= 0)
 		nTime = 1;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1413,7 +1413,7 @@ int LuaAddGlobalCountNews(Lua_State * L)
 		*(int *)((char *)UiInfo.m_pContent + sizeof(int)) = nTime;
 		UiInfo.m_nBufferLen = sizeof(int) * 2;
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 256);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
@@ -1421,7 +1421,7 @@ int LuaAddGlobalCountNews(Lua_State * L)
 		UiInfo.m_nBufferLen += sizeof(int);
 		UiInfo.m_bParam1 = 0;
 	}
-//¿Í»§¶Ë	
+//ï¿½Í»ï¿½ï¿½ï¿½
 	//int nPlayerIndex = CLIENT_PLAYER_INDEX;//GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
 
@@ -1433,27 +1433,27 @@ int LuaAddGlobalCountNews(Lua_State * L)
 //AddLocalCountNews(strNew/newid, time)
 int LuaAddLocalCountNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 2) 
+	if (Lua_GetTopIndex(L) < 2)
 		return 0;
-	
+
 
 	int nPlayerIndex=0;
-	
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NEWSINFO;
-	UiInfo.m_bOptionNum = NEWSMESSAGE_COUNTING;  //µ¹¼ÆÊ±ÏûÏ¢
+	UiInfo.m_bOptionNum = NEWSMESSAGE_COUNTING;  //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ï¢
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	int nMsgId = 0;
-	
+
 	int nTime = (int)Lua_ValueToNumber(L,2);
-	
+
 	if (nTime <= 0)
 		nTime = 1;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1462,7 +1462,7 @@ int LuaAddLocalCountNews(Lua_State * L)
 		*(int *)((char *)UiInfo.m_pContent + sizeof(int)) = nTime;
 		UiInfo.m_nBufferLen = sizeof(int) * 2;
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 256);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
@@ -1470,7 +1470,7 @@ int LuaAddLocalCountNews(Lua_State * L)
 		UiInfo.m_nBufferLen += sizeof(int);
 		UiInfo.m_bParam1 = 0;
 	}
-//¿Í»§¶Ë	
+//ï¿½Í»ï¿½ï¿½ï¿½
 	//int nPlayerIndex = CLIENT_PLAYER_INDEX;//GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
 
@@ -1483,21 +1483,21 @@ int LuaAddLocalCountNews(Lua_State * L)
 //AddGlobalTimeNews(strNew/newid, year,month,day,hour,mins)
 int LuaAddGlobalTimeNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 6) 
+	if (Lua_GetTopIndex(L) < 6)
 		return 0;
-	
+
 	int nPlayerIndex=0;
-		
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NEWSINFO;
-	UiInfo.m_bOptionNum = NEWSMESSAGE_TIMEEND;  //¶¨Ê±ÏûÏ¢
+	UiInfo.m_bOptionNum = NEWSMESSAGE_TIMEEND;  //ï¿½ï¿½Ê±ï¿½ï¿½Ï¢
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1505,19 +1505,19 @@ int LuaAddGlobalTimeNews(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int) + sizeof(SYSTEMTIME);
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 64);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent)) + sizeof(SYSTEMTIME);
 		UiInfo.m_bParam1 = 0;
 	}
-	
+
 	SYSTEMTIME *pSystemTime = (SYSTEMTIME *)((char *)UiInfo.m_pContent + UiInfo.m_nBufferLen - sizeof(SYSTEMTIME));
 	memset(pSystemTime, 0, sizeof(SYSTEMTIME));
-	
+
 	SYSTEMTIME LocalTime ;
 	memset(&LocalTime, 0, sizeof(SYSTEMTIME));
-	
+
 	LocalTime.wYear = (WORD)Lua_ValueToNumber(L,2);
 	LocalTime.wMonth =(WORD)Lua_ValueToNumber(L,3);
 	LocalTime.wDay = (WORD)Lua_ValueToNumber(L, 4);
@@ -1532,7 +1532,7 @@ int LuaAddGlobalTimeNews(Lua_State * L)
 #else
 	memcpy(pSystemTime, &LocalTime, sizeof(LocalTime));
 #endif
-	
+
 	//int nPlayerIndex = CLIENT_PLAYER_INDEX;//GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
 
@@ -1544,11 +1544,11 @@ int LuaAddGlobalTimeNews(Lua_State * L)
 //AddLocalTimeNews(strNew/newid, year,month,day,hour,mins)
 int LuaAddLocalTimeNews(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) < 6) 
+	if (Lua_GetTopIndex(L) < 6)
 		return 0;
-	
+
 	int nPlayerIndex=0;
-		
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	UiInfo.m_bUIId = UI_NEWSINFO;
@@ -1556,7 +1556,7 @@ int LuaAddLocalTimeNews(Lua_State * L)
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	int nMsgId = 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nMsgId = (int)Lua_ValueToNumber(L,1);
@@ -1564,19 +1564,19 @@ int LuaAddLocalTimeNews(Lua_State * L)
 		UiInfo.m_bParam1 = 1;
 		UiInfo.m_nBufferLen = sizeof(int) + sizeof(SYSTEMTIME);
 	}
-	else 
+	else
 	{
 		g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), 64);
 		UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent)) + sizeof(SYSTEMTIME);
 		UiInfo.m_bParam1 = 0;
 	}
-	
+
 	SYSTEMTIME *pSystemTime = 	(SYSTEMTIME *)((char *)UiInfo.m_pContent + UiInfo.m_nBufferLen - sizeof(SYSTEMTIME));
 	memset(pSystemTime, 0, sizeof(SYSTEMTIME));
-	
+
 	SYSTEMTIME LocalTime ;
 	memset(&LocalTime, 0, sizeof(SYSTEMTIME));
-	
+
 	LocalTime.wYear = (WORD)Lua_ValueToNumber(L,2);
 	LocalTime.wMonth =(WORD)Lua_ValueToNumber(L,3);
 	LocalTime.wDay = (WORD)Lua_ValueToNumber(L, 4);
@@ -1591,7 +1591,7 @@ int LuaAddLocalTimeNews(Lua_State * L)
 #else
 	memcpy(pSystemTime, &LocalTime, sizeof(LocalTime));
 #endif
-	
+
 	//int nPlayerIndex = CLIENT_PLAYER_INDEX;
 	if (nPlayerIndex < 0) return 0;
 
@@ -1606,74 +1606,74 @@ int LuaAddNote(Lua_State * L)
 	char * strMain  = NULL;
 	int nMainInfo = 0;
 	int nDataType = 0;
-	
+
 	int nPlayerIndex = GetPlayerIndex(L);
 	nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	if (nPlayerIndex < 0)
 		return 0;
-	
+
 	int nParamNum = Lua_GetTopIndex(L);
-	if (nParamNum < 1) 
+	if (nParamNum < 1)
 		return 0;
-	
+
 	int nParam2 = 0;
-	
-	
+
+
 	if  (Lua_IsNumber(L,1))
 	{
 		nMainInfo = (int)Lua_ValueToNumber(L,1);
 		nDataType = 1 ;
 	}
-	else if (Lua_IsString(L, 1)) 	//¼ì²éÖ÷ÐÅÏ¢ÊÇ×Ö·û´®»¹ÊÇ×Ö·û´®±êÊ¶ºÅ
+	else if (Lua_IsString(L, 1)) 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½
 	{
 		strMain = (char *)Lua_ValueToString(L, 1);
 		nDataType = 0 ;
 	}
 	else
 		return 0;
-	
+
 	if (nParamNum > 1)
 	{
 		nParam2 = (int)Lua_ValueToNumber(L, 2);
 	}
-	
+
 
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_NOTEINFO;
-	UiInfo.m_bParam1 = nDataType;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	UiInfo.m_bParam1 = nDataType;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	UiInfo.m_bParam2 = 0;
-	
+
 	UiInfo.m_bOptionNum = 0;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
-	
-	//Ö÷ÐÅÏ¢Îª×Ö·û´®
+
+	//ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
 	if (nDataType == 0)
 	{
 		if (strMain)
-			t_sprintf(UiInfo.m_pContent, "%s", strMain);
+			sprintf(UiInfo.m_pContent, "%s", strMain);
 		int nLen = strlen(strMain);
 		*(int*)(UiInfo.m_pContent + nLen) = nParam2;
 		UiInfo.m_nBufferLen = nLen + sizeof(int);
 	}
-	else if (nDataType == 1) //Ö÷ÐÅÏ¢ÎªÊý×Ö±êÊ¶
+	else if (nDataType == 1) //ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½ï¿½ï¿½Ö±ï¿½Ê¶
 	{
 		*(int *)UiInfo.m_pContent = nMainInfo;
 		*(int *)(UiInfo.m_pContent + sizeof(int)) = nParam2;
 		UiInfo.m_nBufferLen = sizeof(int) + sizeof(int);
 	}
-	
+
 	Player[nPlayerIndex].DoScriptAction(&UiInfo);
 	return 0;
 }
 
 /*
 **
-**¸ñÊ½1:Talk(SentenceNum, CallBack-Fun(½áÊøºóµÄ»Øµ÷º¯Êý), sTalk1, sTalk2, sTalk3, sTalk4,...sTalkN);  
-Talk(SentenceNum, CallBack-Fun(½áÊøºóµÄ»Øµ÷º¯Êý), nTalk1, nTalk2,nTalk3,nTalk4,...nTalkN);  
-**¸ñÊ½2:Talk(SentenceNum, CallBack-Fun, SentenceTab);
-**Àý×Ó:Talk(3,"EndTalk", "Íæ¼Ò£ºÇëÎÊÏÖÔÚ¼¸µãÖÓÁË£¿", "¹ÍÔ±£ºÏÖÔÚ5µãÖÓÁË","Ì«Ð»Ð»ÄãÁË£¡");
+**ï¿½ï¿½Ê½1:Talk(SentenceNum, CallBack-Fun(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½), sTalk1, sTalk2, sTalk3, sTalk4,...sTalkN);
+Talk(SentenceNum, CallBack-Fun(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½), nTalk1, nTalk2,nTalk3,nTalk4,...nTalkN);
+**ï¿½ï¿½Ê½2:Talk(SentenceNum, CallBack-Fun, SentenceTab);
+**ï¿½ï¿½ï¿½ï¿½:Talk(3,"EndTalk", "ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½", "ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","Ì«Ð»Ð»ï¿½ï¿½ï¿½Ë£ï¿½");
 **
 */
 
@@ -1681,52 +1681,52 @@ int LuaTalkUI(Lua_State * L)
 {
 	int nPlayerIndex ;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
-	if (nPlayerIndex <= 0) 
+	if (nPlayerIndex <= 0)
 		return 0;
 //	Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
 	int nMainInfo = 0;
 	int nDataType = 0;
 	int nOptionNum = 0;
 	char * pContent = NULL;
-	
+
 	int nParamNum = Lua_GetTopIndex(L);
-	if (nParamNum < 3) 
+	if (nParamNum < 3)
 		return 0;
-	
+
 	if (Lua_IsNumber(L,1))
 	{
 		nOptionNum = (int)Lua_ValueToNumber(L,1);
 	}
-	else 
+	else
 	{
-	
+
 		return 0;
 	}
-	
+
 	const char * pCallBackFun = Lua_ValueToString(L,2);
-	
-	//¼ì²éÖ÷ÐÅÏ¢ÊÇ×Ö·û´®»¹ÊÇ×Ö·û´®±êÊ¶ºÅ
-	
+
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½
+
 	if  (Lua_IsNumber(L,3))
 	{
 		nDataType = 1 ;
 	}
-	else if (Lua_IsString(L, 3)) 
+	else if (Lua_IsString(L, 3))
 	{
 		nDataType = 0 ;
 	}
 	else
 		return 0;
-	
-	
-	//»ñµÃÊµ¼Ê´«ÈëµÄÑ¡ÏîµÄ¸öÊý
-	if (nOptionNum > nParamNum - 2) 
+
+
+	//ï¿½ï¿½ï¿½Êµï¿½Ê´ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+	if (nOptionNum > nParamNum - 2)
 		nOptionNum = nParamNum - 2;
-	
+
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_TALKDIALOG;
-	UiInfo.m_bParam1 = nDataType;//Ö÷ÐÅÏ¢µÄÀàÐÍ£¬×Ö·û´®(0)»òÊý×Ö(1)
+	UiInfo.m_bParam1 = nDataType;//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1)
 	UiInfo.m_bOptionNum = nOptionNum;
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 	pContent = UiInfo.m_pContent;
@@ -1734,11 +1734,11 @@ int LuaTalkUI(Lua_State * L)
 	pContent[0] = 0;
 	size_t nContentLen = 0;
 	for (int i  = 0; i < nOptionNum; i ++)
-	{	
+	{
 		const char * pString = NULL;
 		if (!nDataType)//StringInfo
 		{
-			pString = Lua_ValueToString(L, i + 3); //µÚÈý¸öÆðÎª×Ö·û´ÜÀà
+			pString = Lua_ValueToString(L, i + 3); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (nContentLen  + strlen(pString) >= MAX_SCIRPTACTION_BUFFERNUM)
 			{
 				nOptionNum = i;
@@ -1746,47 +1746,47 @@ int LuaTalkUI(Lua_State * L)
 				break;
 			}
 			nContentLen += strlen(pString);
-			t_sprintf(pContent, "%s%s|", pContent, pString);
+			sprintf(pContent, "%s%s|", pContent, pString);
 		}
 		else
 		{
 			int j = (int)Lua_ValueToNumber(L, i + 3);
-			t_sprintf(pContent, "%s%d|", pContent, j);
+			sprintf(pContent, "%s%d|", pContent, j);
 		}
 	}
 	UiInfo.m_nBufferLen  = strlen(pContent);
-	
+
 	if (!pCallBackFun || strlen(pCallBackFun) <= 0)
 	{
 		UiInfo.m_nParam = 0;
 		Player[nPlayerIndex].m_nAvailableAnswerNum = 0;
 //		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = false;
 	}
-	else   //ÓÐ»Øµ÷º¯Êý
+	else   //ï¿½Ð»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		UiInfo.m_nParam = 1;
 		Player[nPlayerIndex].m_nAvailableAnswerNum = 1;
 		g_StrCpyLen(Player[nPlayerIndex].m_szTaskAnswerFun[0], pCallBackFun, sizeof(Player[nPlayerIndex].m_szTaskAnswerFun[0]));
 //		Player[nPlayerIndex].m_bWaitingPlayerFeedBack = true;
 	}
-	
+
 	UiInfo.m_bParam2 = 0;
-	
+
 	Player[nPlayerIndex].DoScriptAction(&UiInfo);
 
 	return 0;
-	
+
 }
 
 int LuaIncludeLib(Lua_State * L)
 {
 
-	if (Lua_GetTopIndex(L) <= 0) 
+	if (Lua_GetTopIndex(L) <= 0)
 		return 0;
-	
+
 	if (Lua_IsString(L,1))
 	{
-       	const char * pFileDir = lua_tostring(L,1);	
+       	const char * pFileDir = lua_tostring(L,1);
 		//char lszCurrentDirectory[MAX_PATH];
 	}
 	return 0;
@@ -1795,15 +1795,15 @@ int LuaIncludeLib(Lua_State * L)
 
 int LuaIncludeFile(Lua_State * L)
 {
-	if (Lua_GetTopIndex(L) <= 0) 
+	if (Lua_GetTopIndex(L) <= 0)
 		return 0;
-	
+
 	if (Lua_IsString(L,1))
 	{
-		//char * pFileName = lua_tostring(L,1);	
+		//char * pFileName = lua_tostring(L,1);
 		char pFileName[256];
 		ZeroMemory(pFileName,sizeof(pFileName));
-		t_sprintf(pFileName,lua_tostring(L,1));
+		sprintf(pFileName, "%s", lua_tostring(L,1));
 		char lszCurrentDirectory[MAX_PATH];
 		int nLen = 0;
 		if (pFileName[0] != '\\' && pFileName[0] != '/')
@@ -1812,10 +1812,10 @@ int LuaIncludeFile(Lua_State * L)
 			nLen = strlen(lszCurrentDirectory);
 			if (lszCurrentDirectory[nLen - 1] == '\\' || lszCurrentDirectory[nLen - 1] == '/')
 				lszCurrentDirectory[nLen - 1] = 0;
-#ifdef WIN32  //32Î»ÓÃ  "\\"
+#ifdef WIN32  //32Î»ï¿½ï¿½  "\\"
 			g_StrCat(lszCurrentDirectory, "\\");
 			g_StrCat(lszCurrentDirectory, (char*)pFileName);
-#else          
+#else
 			g_StrCat(lszCurrentDirectory, "/");
 			g_StrCat(lszCurrentDirectory, (char*)pFileName);
 			for (int i = 0; lszCurrentDirectory[i]; ++i)
@@ -1827,8 +1827,8 @@ int LuaIncludeFile(Lua_State * L)
 		}
 		else
 		{
-			g_GetRootPath(lszCurrentDirectory); //»ñÈ¡Èí¼þÔËÐÐµÄ ¾ø¶ÔÂ·¾¶
-			
+			g_GetRootPath(lszCurrentDirectory); //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
+
 			nLen = strlen(lszCurrentDirectory);
 			if (lszCurrentDirectory[nLen - 1] == '\\' || lszCurrentDirectory[nLen - 1] == '/')
 				lszCurrentDirectory[nLen - 1] = 0;
@@ -1846,49 +1846,49 @@ int LuaIncludeFile(Lua_State * L)
 #endif
 		}
 
-	    //g_StrLower(lszCurrentDirectory + nLen);  //´óÐ´×ªÐ¡Ð´	 strlwr
+	    //g_StrLower(lszCurrentDirectory + nLen);  //ï¿½ï¿½Ð´×ªÐ¡Ð´	 strlwr
 		g_StrLower(lszCurrentDirectory + nLen);
 
-        //¿Í»§¶ËÖ»ÄÜ°üº¬ °üÎÄ¼þ
+        //ï¿½Í»ï¿½ï¿½ï¿½Ö»ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¼ï¿½
 		if (!pFileName)
 			return 0;
-		/*g_StrLower(pFileName);   //´óÐ´×ªÐ¡Ð´  g_StrLower
+		/*g_StrLower(pFileName);   //ï¿½ï¿½Ð´×ªÐ¡Ð´  g_StrLower
 		DWORD dwScriptId = g_FileName2Id(pFileName);
 			 pScript = (KLuaScript* )g_GetScript(dwScriptId);
 		*/
-		//Lua_CompileFile();       //¼ÓÔØ°üº¬ÎÄ¼þ ¿Í»§¶Ë
+		//Lua_CompileFile();       //ï¿½ï¿½ï¿½Ø°ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ ï¿½Í»ï¿½ï¿½ï¿½
 		 // char nMsg[128]={0};
           KPakFile	File;
           DWORD		Size;
 	      if (!File.Open(pFileName))
-		  {  	  
-		    // t_sprintf(nMsg,"´ò¿ª%sÊ§°Ü",pFileName);
+		  {
+		    // sprintf(nMsg,"ï¿½ï¿½%sÊ§ï¿½ï¿½",pFileName);
 		     //KSceGetFliePathc(nMsg,"--",100);
 		     return 0;
-		  }  	  
+		  }
 		  Size = File.Size();
 		  KMemClass Memory;
 		  if (!Memory.Alloc(Size + 4))
 		  {
 		     File.Close();
-			 //t_sprintf(nMsg,"·ÖÅäÄÚ´æ(%s):%u ´íÎó!!",pFileName,Size);
-			 //KSceGetFliePathc(nMsg,"ÎÞ",100);
+			 //sprintf(nMsg,"ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½(%s):%u ï¿½ï¿½ï¿½ï¿½!!",pFileName,Size);
+			 //KSceGetFliePathc(nMsg,"ï¿½ï¿½",100);
 		     return 0;
-		  }	
+		  }
 		  if (File.Read(Memory.GetMemPtr(),Size) != Size)
 		  {
 		     File.Close();
-			// t_sprintf(nMsg,"¶ÁÈ¡(%s):%u ´íÎó!!",pFileName,Size);
-			 //KSceGetFliePathc(nMsg,"ÎÞ",100);
+			// sprintf(nMsg,"ï¿½ï¿½È¡(%s):%u ï¿½ï¿½ï¿½ï¿½!!",pFileName,Size);
+			 //KSceGetFliePathc(nMsg,"ï¿½ï¿½",100);
 			 Memory.Free();
 		     return 0;
 		  }
 
 		  char * pszMem = (char *)Memory.GetMemPtr();
 		  pszMem[Size + 1] = 0;
-		  
+
 		  File.Close();
-			
+
 		  try
 		  {
 			  if (pszMem)
@@ -1896,17 +1896,17 @@ int LuaIncludeFile(Lua_State * L)
 				  int state;
 				  if (state = Lua_ExecuteBuffer(L,pszMem,Size,NULL)!=0)
 				  {
-					  //t_sprintf(nMsg,"----Ö´ÐÐ°üº¬½Å±¾(%s)´íÎó(%u)----",pFileName,state);
-					  //KSceGetFliePathc(nMsg,"ÎÞ",100);
+					  //sprintf(nMsg,"----Ö´ï¿½Ð°ï¿½ï¿½ï¿½ï¿½Å±ï¿½(%s)ï¿½ï¿½ï¿½ï¿½(%u)----",pFileName,state);
+					  //KSceGetFliePathc(nMsg,"ï¿½ï¿½",100);
 					  Memory.Free();
 					  return 0;
 				  }
-			  }  
+			  }
 		  }
 		  catch(...)
 		  {
-			  //t_sprintf(nMsg,"³ö´í %s ³öÏÖÒì³£,Çë¼ì²é!!",pFileName);
-			  //KSceGetFliePathc(nMsg,"ÎÞ",100);
+			  //sprintf(nMsg,"ï¿½ï¿½ï¿½ï¿½ %s ï¿½ï¿½ï¿½ï¿½ï¿½ì³£,ï¿½ï¿½ï¿½ï¿½!!",pFileName);
+			  //KSceGetFliePathc(nMsg,"ï¿½ï¿½",100);
 		  }
 
 		  //if (pszMem)
@@ -1919,7 +1919,7 @@ int LuaIncludeFile(Lua_State * L)
 }
 
 //**************************************************************************************************************************************************************
-//												ÈÎÎñ½Å±¾
+//												ï¿½ï¿½ï¿½ï¿½Å±ï¿½
 //**************************************************************************************************************************************************************
 
 
@@ -1937,20 +1937,20 @@ int LuaGetTaskValue(Lua_State * L)
        PLAYER_GET_TASKVAL_COMMAND GetTaskval;
 	       GetTaskval.ProtocolType = c2s_gettaskval;
            GetTaskval.m_TaskId=nTaskId;
-           GetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;	
+           GetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;
 	   if (g_pClient)
 		   g_pClient->SendPackToServer((BYTE*)&GetTaskval, sizeof(PLAYER_GET_TASKVAL_COMMAND));
 	      //Player[nPlayerIndex].m_ItemList.LockOperation();
 
     int nValue=0;
 
-	if (nPlayerIndex > 0) 
+	if (nPlayerIndex > 0)
 	{
-		nValue = Player[nPlayerIndex].m_cTask.GetSaveVal(nTaskId);		
+		nValue = Player[nPlayerIndex].m_cTask.GetSaveVal(nTaskId);
 		//Lua_PushNumber(L, nValue);
 	}
-	//else		
-	Lua_PushNumber(L, nValue);	
+	//else
+	Lua_PushNumber(L, nValue);
 	return 1;
 }
 
@@ -1959,16 +1959,16 @@ int LuaSetTaskValue(Lua_State * L)
 	int nPlayerIndex;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	int nValueIndex = (int)Lua_ValueToNumber(L, 1);
-	int nValue = (int)Lua_ValueToNumber(L, 2);	
+	int nValue = (int)Lua_ValueToNumber(L, 2);
 	if (nPlayerIndex <= 0) return 0;
 
-	Player[nPlayerIndex].m_cTask.SetSaveVal(nValueIndex, nValue);  //±àºÅ ºÍ Öµ
+	Player[nPlayerIndex].m_cTask.SetSaveVal(nValueIndex, nValue);  //ï¿½ï¿½ï¿½ ï¿½ï¿½ Öµ
 
 	 PLAYER_SET_TASKVAL_COMMAND SetTaskval;
 	 SetTaskval.ProtocolType = c2s_settaskval;
 	 SetTaskval.m_TaskId  = nValueIndex;
 	 SetTaskval.m_TaskVal = nValue;
-	 SetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;	
+	 SetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;
 	 if (g_pClient)
 	   g_pClient->SendPackToServer((BYTE*)&SetTaskval, sizeof(PLAYER_SET_TASKVAL_COMMAND));
 	//	int nReg=Player[nPlayerIndex].Save();  //
@@ -1980,10 +1980,10 @@ int LuaSetDeathSkill(Lua_State * L)
 	int nPlayerIndex;
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 	   int nValueIndex = (int)Lua_ValueToNumber(L, 1);
-	   int nValue = (int)Lua_ValueToNumber(L, 2);	
+	   int nValue = (int)Lua_ValueToNumber(L, 2);
 	   if (nPlayerIndex <= 0) return 0;
-	   
-	   Player[nPlayerIndex].m_cTask.SetSaveVal(nValueIndex, nValue);  //±àºÅ ºÍ Öµ
+
+	   Player[nPlayerIndex].m_cTask.SetSaveVal(nValueIndex, nValue);  //ï¿½ï¿½ï¿½ ï¿½ï¿½ Öµ
 	   //	int nReg=Player[nPlayerIndex].Save();  //
 	   return 0;
 }
@@ -1991,27 +1991,27 @@ int LuaSetDeathSkill(Lua_State * L)
 int LuaGetDeathSkill(Lua_State * L)
 {
 	int nPlayerIndex=0;
-	
+
 	int nTaskId= (int)Lua_ValueToNumber(L,1);
-	
+
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
-	   
+
        PLAYER_GET_TASKVAL_COMMAND GetTaskval;
 	   GetTaskval.ProtocolType = c2s_gettaskval;
 	   GetTaskval.m_TaskId=nTaskId;
-	   GetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;	
+	   GetTaskval.m_pDwid=Npc[Player[nPlayerIndex].m_nIndex].m_dwID;
 	   if (g_pClient)
 		   g_pClient->SendPackToServer((BYTE*)&GetTaskval, sizeof(PLAYER_GET_TASKVAL_COMMAND));
-	   
+
 	   int nValue=0;
-	   
-	   if (nPlayerIndex > 0) 
+
+	   if (nPlayerIndex > 0)
 	   {
-		   nValue = Player[nPlayerIndex].m_cTask.GetSaveVal(nTaskId);		
+		   nValue = Player[nPlayerIndex].m_cTask.GetSaveVal(nTaskId);
 		   //Lua_PushNumber(L, nValue);
 	   }
-	   //else		
-	   Lua_PushNumber(L, nValue);	
+	   //else
+	   Lua_PushNumber(L, nValue);
 	   return 1;
 }
 
@@ -2023,7 +2023,7 @@ int LuaAddTaskValue(Lua_State * L)
 	int nValue = (int)Lua_ValueToNumber(L, 2);
 
 	int nValueOld = (int)Player[nPlayerIndex].m_cTask.GetSaveVal(nValueIndex);
-	
+
 	if (nPlayerIndex <= 0)
 	    return 0;
 
@@ -2051,7 +2051,7 @@ int LuaGetTempTaskValue(Lua_State * L)
 	nPlayerIndex=CLIENT_PLAYER_INDEX;
 	if (nTempIndex >= 0 && nTempIndex < MAX_TEMPVALUENUM_INCLIENT)
 		Lua_PushNumber(L, g_TempValue[nTempIndex]);
-	else 
+	else
 		Lua_PushNil(L);
 	return 1;
 }
@@ -2066,19 +2066,19 @@ int LuaSetTempTaskValue(Lua_State * L)
 	return 0;
 }
 
-//»ñÈ¡ÁÐ ÊýºÍÐÐÊý
-int LuaGetTabRowAndCol(Lua_State * L) 
+//ï¿½ï¿½È¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int LuaGetTabRowAndCol(Lua_State * L)
 {
 	KTabFile  TableFile;
 	char *FiledName=NULL,*LieName=NULL;
 	int nReg=0,mLie=0,mRow=0;
 	FiledName = (char *)Lua_ValueToString(L, 1);
 	nReg=TableFile.Load(FiledName);
-    //TableFile.TabFileCtrl->WriteString(1,1,"²âÊÔÐ´Èë");
+    //TableFile.TabFileCtrl->WriteString(1,1,"ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½");
 	if (nReg)
 	{
-		mLie= TableFile.GetWidth();        //×ÜÁÐÊý
-		mRow= TableFile.GetHeight()-1;     //×ÜÐÐÊý
+		mLie= TableFile.GetWidth();        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		mRow= TableFile.GetHeight()-1;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	TableFile.Clear();
 	Lua_PushNumber(L,mRow);
@@ -2087,9 +2087,9 @@ int LuaGetTabRowAndCol(Lua_State * L)
 }
 
 
-//»ñÈ¡INIÄ³½Ú Ä³¼üµÄÖµ
+//ï¿½ï¿½È¡INIÄ³ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½Öµ
 int LuaGetIniFileInfo(Lua_State * L)
-{  
+{
 	KIniFile  IniFile;
 	char *FiledName=NULL,*JieName=NULL,*KeyName=NULL;
 	    FiledName =(char *)Lua_ValueToString(L,1);
@@ -2106,20 +2106,20 @@ int LuaGetIniFileInfo(Lua_State * L)
 	 {
 	      IniFile.GetInteger(JieName,KeyName,0,&nInVal);
 		  IniFile.Clear();
-		  Lua_PushNumber(L,nInVal); 
+		  Lua_PushNumber(L,nInVal);
           return 1;
 	 }
 	 else
 	 {
 		 IniFile.GetString(JieName,KeyName,"",nstrVal,sizeof(nstrVal));
 		 IniFile.Clear();
-		 Lua_PushString(L,nstrVal); 
+		 Lua_PushString(L,nstrVal);
          return 1;
 	 }
 
 }
 
-//»ñÈ¡Ä³ÐÐ Ä³ÁÐµÄÖµ
+//ï¿½ï¿½È¡Ä³ï¿½ï¿½ Ä³ï¿½Ðµï¿½Öµ
 int LuaGetTabFileInfo(Lua_State * L)
 {
 	KTabFile  TableFile;
@@ -2131,56 +2131,56 @@ int LuaGetTabFileInfo(Lua_State * L)
 	//int mRowm=(int)Lua_ValueToNumber(L, 2);
 	if(!TableFile.Load(FiledName))
 		return 0;
-	
+
     if (Lua_IsNumber(L,2))
 	{
          int mRowm=(int)Lua_ValueToNumber(L, 2);
 
 		 if (Lua_IsNumber(L,3))
-		 { 
+		 {
 			 mLiem=(int)Lua_ValueToNumber(L, 3);
 			 TableFile.GetString(mRowm,mLiem,"",nVal,sizeof(nVal));
-		 } 
+		 }
 		 else
 		 {
-			 LieName = (char *)Lua_ValueToString(L, 3); 
+			 LieName = (char *)Lua_ValueToString(L, 3);
 			 TableFile.GetString(mRowm,LieName,"",nVal,sizeof(nVal));
-		 } 
+		 }
 
 	}
 	else
 	{
         char *mRowm=(char *)Lua_ValueToString(L, 2);
-		
+
 		if (Lua_IsNumber(L,3))
-		{ 
+		{
 			mLiem=(int)Lua_ValueToNumber(L, 3);
 			TableFile.GetString(mRowm,mLiem,"",nVal,sizeof(nVal));
-		} 
+		}
 		else
 		{
-			LieName = (char *)Lua_ValueToString(L, 3); 
+			LieName = (char *)Lua_ValueToString(L, 3);
 			TableFile.GetString(mRowm,LieName,"",nVal,sizeof(nVal));
-		} 
+		}
 	}
 
 	TableFile.Clear();
 	Lua_PushString(L,nVal);
-	
+
 	return 1;
 }
 
 int LuaGetTaskAwardMatrix(Lua_State * L)
 {
 	KTabFile TableFile;
-	//  KTabFile    TableFile;     // ¶ÁÈ¡TXTÎÄ¼þ ·µ»Ø±í¸ñ
+	//  KTabFile    TableFile;     // ï¿½ï¿½È¡TXTï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½Ø±ï¿½ï¿½
 	char *FiledName=NULL,*nKeyName=NULL,*nTxtName=NULL;
 	int nRows=0,nReg=0,mLie=0,mRow=0;
-	
+
 	FiledName = (char *)Lua_ValueToString(L, 1);
-    nKeyName  = (char *)Lua_ValueToString(L, 2);  //ÁÐµÄ×Ö¶Î
-	nTxtName  = (char *)Lua_ValueToString(L, 3);  //ÐèÒªÑ°ÕÒµÄÃû³Æ
-	
+    nKeyName  = (char *)Lua_ValueToString(L, 2);  //ï¿½Ðµï¿½ï¿½Ö¶ï¿½
+	nTxtName  = (char *)Lua_ValueToString(L, 3);  //ï¿½ï¿½ÒªÑ°ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+
     if (!TableFile.Load(FiledName))
 		return 0;
     int i ,nStartPos=0,nEndPos=0;
@@ -2190,7 +2190,7 @@ int LuaGetTaskAwardMatrix(Lua_State * L)
 
 	for (i=2;i<nRows+1;++i)
 	{
-	
+
 		TableFile.GetString(i,nKeyName,"",nTitle,sizeof(nTitle));
 		if (strstr(nTitle,nTxtName))
 		{
@@ -2198,24 +2198,24 @@ int LuaGetTaskAwardMatrix(Lua_State * L)
 			break;
 		}
 	}
-	
+
 	for (i=nStartPos;i<nRows+1;++i)
 	{
 		TableFile.GetString(i,nKeyName,"",nTitle,sizeof(nTitle));
 		if (strstr(nTitle,nTxtName))
 		{
 			nEndPos = i;
-			nReg++;	   //ÓÐ¶àÉÙÐÐ
+			nReg++;	   //ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 		else
-			break;     //·ñÔòÌø³ö  Ö»ÄÜÊÇ Á¬ÐøµÄÐÐºÅ
+			break;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Ö»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½
 	}
-	
+
 	TableFile.Clear();
-	Lua_PushNumber(L,nReg); 
-	Lua_PushNumber(L,mLie); 
-	Lua_PushNumber(L,nStartPos); 
-	Lua_PushNumber(L,nEndPos);  
+	Lua_PushNumber(L,nReg);
+	Lua_PushNumber(L,mLie);
+	Lua_PushNumber(L,nStartPos);
+	Lua_PushNumber(L,nEndPos);
 	return 4;
 }
 
@@ -2232,7 +2232,7 @@ int nPlayerIndex;
 			   for (y=0;y<10;y++)
 			   {
 		           if (!Player[nPlayerIndex].m_ItemList.m_Room[room_equipment].FindItem(x, y))
-				   {//Ã»ÓÐ¶«Î÷ ¾ÍÔö¼Ó ²»Á¬ÐøµÄ¿Õ¼ä
+				   {//Ã»ï¿½Ð¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Õ¼ï¿½
 					   nCount ++;
 				   }
 			   }
@@ -2255,7 +2255,7 @@ int LuaGetPositionCount(Lua_State * L)
 		ItemPos Pos;
 		ZeroStruct(Pos);
 		if (Player[nPlayerIndex].m_ItemList.SearchPosition(nWpos,nHpos,&Pos))
-		{//²éÕÒÎ»ÖÃ	Á¬Ðø¿Õ¼ä
+		{//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 			nCount=nWpos*nHpos;
 		}
 		ZeroStruct(Pos);
@@ -2264,15 +2264,15 @@ int LuaGetPositionCount(Lua_State * L)
     return 1;
 }
 
-//»ñÈ¡µ±Ç°Ê±¼ä£¨°´ÕÕÄ£Ê½ ¸ñÊ½»¯£©
+//ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ä£¨ï¿½ï¿½ï¿½ï¿½Ä£Ê½ ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
 int LuaGetLocalDate(Lua_State * L)
 {
     char * nTimeStr = (char *)Lua_ValueToString(L,1);
 
-	time_t rawtime;                  //¶¨ÒåÒ»¸ölong ÐÍ´æ·ÅÃëÊý
-	struct tm * timeinfo;	
-	time (&rawtime);                 //¾àÀëÏÖÔÚµÄÊ±¼ä£¨Ãë£©
-	timeinfo = localtime(&rawtime);  //°Ñ´Ó1970-1-1ÁãµãÁã·Öµ½µ±Ç°Ê±¼äÏµÍ³ËùÆ«ÒÆµÄÃëÊýÊ±¼ä×ª»»Îª±¾µØÊ±¼ä
+	time_t rawtime;                  //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½long ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	struct tm * timeinfo;
+	time (&rawtime);                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ä£¨ï¿½ë£©
+	timeinfo = localtime(&rawtime);  //ï¿½Ñ´ï¿½1970-1-1ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ç°Ê±ï¿½ï¿½ÏµÍ³ï¿½ï¿½Æ«ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
 	char strTime[80];
     strftime(strTime,sizeof(strTime),nTimeStr,timeinfo);
@@ -2280,18 +2280,18 @@ int LuaGetLocalDate(Lua_State * L)
     Lua_PushString(L,strTime);
     return 1;
 }
-//´ò¿ª½ø¶ÈÌõ
+//ï¿½ò¿ª½ï¿½ï¿½ï¿½ï¿½ï¿½
 int LuaOpenJinDuTiao(Lua_State * L)
 {
 	//int nPlayerIndex;
 
-    const	char *mTitle=(char *)Lua_ValueToString(L,1);   //±êÌâ
-	int  nMsgIndex=(int )Lua_ValueToNumber(L,2);           //Ä£°åID  ÊÇÄÇ¸ö½ø¶ÈÌõ
-	int  nTimes=(int )Lua_ValueToNumber(L,3);              //³ÖÐø¶àÉÙºóÖ´ÐÐ»Øµ÷º¯Êý
-    const	char *mFun=(char *)Lua_ValueToString(L,4);     //»Øµ÷º¯ÊýÃû³Æ
-    const   char *szParma=(char *)Lua_ValueToString(L,5);  //´«µÝ²ÎÊýÒ»
-    const	char *szParmb=(char *)Lua_ValueToString(L,6);  //´«µÝ²ÎÊý¶þ
-    const	char *szParmc=(char *)Lua_ValueToString(L,7);  //´«µÝ²ÎÊýÈý    
+    const	char *mTitle=(char *)Lua_ValueToString(L,1);   //ï¿½ï¿½ï¿½ï¿½
+	int  nMsgIndex=(int )Lua_ValueToNumber(L,2);           //Ä£ï¿½ï¿½ID  ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int  nTimes=(int )Lua_ValueToNumber(L,3);              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùºï¿½Ö´ï¿½Ð»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+    const	char *mFun=(char *)Lua_ValueToString(L,4);     //ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    const   char *szParma=(char *)Lua_ValueToString(L,5);  //ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½Ò»
+    const	char *szParmb=(char *)Lua_ValueToString(L,6);  //ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½
+    const	char *szParmc=(char *)Lua_ValueToString(L,7);  //ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½
     return 0;
 }
 
@@ -2304,10 +2304,10 @@ int LuaGetRandomNum(Lua_State * L)
 		nMaxNum=0;
 
 	char nsg[64]={0};
-	t_sprintf(nsg,"%d",g_Random(nMaxNum));
-	Lua_PushString(L,nsg); 
+	sprintf(nsg,"%d",g_Random(nMaxNum));
+	Lua_PushString(L,nsg);
 	return 1;
-	
+
 }
 
 
@@ -2323,7 +2323,7 @@ int LuaSetRandomSeed(Lua_State * L)
 	g_RandomSeed(nSeed);
 
 	return 0;
-	
+
 }
 
 int LuaGetRandomSeed(Lua_State * L)
@@ -2342,7 +2342,7 @@ int LuaNewRandom(Lua_State * L)
 	if (nMinNum<0 || nMaxNum<0) return 0;
 
 	if (nMinNum>nMaxNum)
-	{//½»»»
+	{//ï¿½ï¿½ï¿½ï¿½
 	   int inTemp= nMinNum;
 	   nMinNum=nMaxNum;
 	   nMaxNum=inTemp;
@@ -2350,21 +2350,21 @@ int LuaNewRandom(Lua_State * L)
 
 	srand((unsigned)time(0));
 
-    Lua_PushNumber(L,rand()%(nMaxNum-nMinNum)+nMinNum); 
+    Lua_PushNumber(L,rand()%(nMaxNum-nMinNum)+nMinNum);
 
 	return 1;
-	
+
 }
 
 
 int LuaTabFile_UnLoad(Lua_State * L)
 {
-	return 0;	
+	return 0;
 }
 /*
 int LuaTabFile_GetRowCount(Lua_State * L)
 {
-   return 0;	
+   return 0;
 }
 
 int LuaTabFile_GetCell(Lua_State * L)
@@ -2380,25 +2380,25 @@ int LuaTabFile_Load(Lua_State * L)
    int nRows=0,nReg=0,mLie=0,mRow=0;
 
    FiledName = (char *)Lua_ValueToString(L, 1);
-   nKeyName = (char *)Lua_ValueToString(L, 2);  //ÁÐµÄ×Ö¶Î
+   nKeyName = (char *)Lua_ValueToString(L, 2);  //ï¿½Ðµï¿½ï¿½Ö¶ï¿½
    nReg= TableFile.Load(FiledName);
-   
+
   /*
    int mRowm=(int)Lua_ValueToNumber(L, 3);
    if (Lua_IsString(L,4))
-   {  
+   {
 
-        LieName = (char *)Lua_ValueToString(L, 4); 
+        LieName = (char *)Lua_ValueToString(L, 4);
         nReg=1;
-   }  
+   }
    else if (Lua_IsNumber(L,4))
-   { 
+   {
        mLie=(int)Lua_ValueToNumber(L, 4);
        nReg=1;
-   } 
+   }
 */
    TableFile.Clear();
-   Lua_PushNumber(L,nReg); 
+   Lua_PushNumber(L,nReg);
 //Lua_PushUserTag(L,,TableFile);
    return 1;
 
@@ -2419,28 +2419,28 @@ int LuaFileName2Id(Lua_State * L)
 
 
 
-//ÉèÖÃ°ü¸¤Îª¿Õ--ÐÞ¸´º¯Êý
+//ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½Îªï¿½ï¿½--ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½
 int LuaSetRoomNull(Lua_State * L)
 {
    int nPlayerIndex,mreg=0;
 
        nPlayerIndex   = CLIENT_PLAYER_INDEX;
 /*
-  	room_equipment = 0,	//0 ×°±¸À¸-°ü¸¤
-	room_repository,	//1 ÖüÎïÏä
-	room_exbox1,		//2 À©Õ¹Ïä1
-	room_exbox2,		//3 À©Õ¹Ïä2
-	room_exbox3,		//4 À©Õ¹Ïä3
-	room_equipmentex,	//5 Í¬°é°ü¸¤
-	room_trade,			//6 ½»Ò×À¸
-	room_tradeback,		//7 ½»Ò×¹ý³ÌÖÐ×°±¸À¸µÄ±¸·Ý
-	room_trade1,		//8 ½»Ò×¹ý³ÌÖÐ¶Ô·½µÄ½»Ò×À¸
-	room_immediacy,		//9 ¿ì½ÝÎïÆ·
-	room_give,          //10 ¸øÓè¿Õ¼ä
-	room_giveback,      //11 ¸øÓè»Øµ÷¿Õ¼ä 
-	room_dazao,         //12 ´òÔì¿ò
-	room_cailiao,       //13 ²ÄÁÏ¿ò
-	room_num,			// ¿Õ¼äÊýÁ¿
+  	room_equipment = 0,	//0 ×°ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½
+	room_repository,	//1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	room_exbox1,		//2 ï¿½ï¿½Õ¹ï¿½ï¿½1
+	room_exbox2,		//3 ï¿½ï¿½Õ¹ï¿½ï¿½2
+	room_exbox3,		//4 ï¿½ï¿½Õ¹ï¿½ï¿½3
+	room_equipmentex,	//5 Í¬ï¿½ï¿½ï¿½ï¿½ï¿½
+	room_trade,			//6 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	room_tradeback,		//7 ï¿½ï¿½ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
+	room_trade1,		//8 ï¿½ï¿½ï¿½×¹ï¿½ï¿½ï¿½ï¿½Ð¶Ô·ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
+	room_immediacy,		//9 ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	room_give,          //10 ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
+	room_giveback,      //11 ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Õ¼ï¿½
+	room_dazao,         //12 ï¿½ï¿½ï¿½ï¿½ï¿½
+	room_cailiao,       //13 ï¿½ï¿½ï¿½Ï¿ï¿½
+	room_num,			// ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
 
 */
 	   int  nRoomidx=(int )Lua_ValueToNumber(L,1);
@@ -2451,7 +2451,7 @@ int LuaSetRoomNull(Lua_State * L)
 	return 1;
 }
 
-//»ñÈ¡Ä³¸ö¶¯×÷ÏÂµÄNPC SPRÂ·¾¶
+//ï¿½ï¿½È¡Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½NPC SPRÂ·ï¿½ï¿½
 int LuaGetMaskActionSpr(Lua_State * L)
 {
 
@@ -2463,20 +2463,20 @@ int LuaGetMaskActionSpr(Lua_State * L)
 
 	 KTabFile nNpcType;
 
-	 if (nNpcType.Load("\\settings\\npcres\\ÈËÎïÀàÐÍ.txt"))
+	 if (nNpcType.Load("\\settings\\npcres\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt"))
 	 {
 		 nNpcType.GetString(nNpcKind,3,"",nNpcRePath,sizeof(nNpcRePath));
 	 }
 	 nNpcType.Clear();
 
-	 if (nNpcType.Load("\\settings\\npcres\\ÆÕÍ¨npc×ÊÔ´.txt"))
+	 if (nNpcType.Load("\\settings\\npcres\\ï¿½ï¿½Í¨npcï¿½ï¿½Ô´.txt"))
 	 {
 		 nNpcType.GetString(nNpcKind,nAction+1,"",nNpcActSpr,sizeof(nNpcActSpr));
 	 }
 	 nNpcType.Clear();
 
 	 if (nNpcRePath[0] && nNpcActSpr[0])
-		t_sprintf(nNpcSprFullPath,"\\%s\\%s",nNpcRePath,nNpcActSpr);
+		sprintf(nNpcSprFullPath,"\\%s\\%s",nNpcRePath,nNpcActSpr);
 	 else
 		return 0;
 
@@ -2485,20 +2485,20 @@ int LuaGetMaskActionSpr(Lua_State * L)
 }
 
 
-//SetPos(X,Y) //ÅÜÏò
+//SetPos(X,Y) //ï¿½ï¿½ï¿½ï¿½
 int LuaSetPos(Lua_State * L)
 {
 	int nParamCount = Lua_GetTopIndex(L);
 	if (nParamCount != 2) return 0;
 	int nPlayerIndex=0;
-	
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 	if  (nPlayerIndex<=0) return 0;
 
 	int nX = (int) Lua_ValueToNumber(L,1);
 	int nY = (int) Lua_ValueToNumber(L,2);
 	int nResult=0;
-	
+
 	if (nPlayerIndex > 0)
 	{
 		PLAYER_SYN_POS mPos;
@@ -2510,7 +2510,7 @@ int LuaSetPos(Lua_State * L)
 		nResult = 1 ;
 
 	}
-	
+
 	Lua_PushNumber(L, nResult);
 	return 1;
 }
@@ -2518,9 +2518,9 @@ int LuaSetPos(Lua_State * L)
 
 int LuaCalcEquiproomItemCount(Lua_State * L)
 {
-	
+
 int nPlayerIndex=0;
-	
+
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 	if  (nPlayerIndex<=0) return 0;
 	int nCout=0;
@@ -2528,24 +2528,24 @@ int nPlayerIndex=0;
     int nDetail  = (int)Lua_ValueToNumber(L, 2);
 	int nParticular    = (int)Lua_ValueToNumber(L, 3);
 	int nLevel   = (int)Lua_ValueToNumber(L, 4);
-	
-	
+
+
 	nCout = Player[CLIENT_PLAYER_INDEX].m_ItemList.GetItemNum(nItemGen, nDetail, nParticular, nLevel);
-	
-	
+
+
 	Lua_PushNumber(L,nCout);
     return 1;
 }
 
 
-//ÃÅÅÉ
+//ï¿½ï¿½ï¿½ï¿½
 int LuaGetPlayerFaction(Lua_State * L)
 {
 	int nPlayerIndex = GetPlayerIndex(L);
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
-				
-	if (nPlayerIndex > 0)								
-	{	
+
+	if (nPlayerIndex > 0)
+	{
 		char FactionName[64]={0};
 		Player[nPlayerIndex].GetFactionName(FactionName, 64);
 		Lua_PushString(L, FactionName);
@@ -2573,7 +2573,7 @@ int LuaGetLastFactionNumber(Lua_State * L)
 
 int LuaGetLevel(Lua_State * L)
 {
-	
+
 	if (Lua_GetTopIndex(L) >0)
 	{
 		int nNpcIdx = (int)Lua_ValueToNumber(L, 1);
@@ -2582,7 +2582,7 @@ int LuaGetLevel(Lua_State * L)
 	else
 	{
 		int nPlayerIndex =  CLIENT_PLAYER_INDEX;
-		if (nPlayerIndex <= 0)		Lua_PushNumber(L,0);	
+		if (nPlayerIndex <= 0)		Lua_PushNumber(L,0);
 		if (Player[nPlayerIndex].m_nIndex <= 0) Lua_PushNumber(L,0);
 		Lua_PushNumber(L, Npc[Player[nPlayerIndex].m_nIndex].m_Level);
 	}
@@ -2594,21 +2594,21 @@ int LuaGetLevel(Lua_State * L)
 int LuaGetNewWorldPos(Lua_State * L)
 {
 	int nPlayerIndex = CLIENT_PLAYER_INDEX;
-		
+
 	if (nPlayerIndex > 0)
 	{
 		int nPosX = 0,nPosY = 0,nPmap=0;
 		Npc[Player[nPlayerIndex].m_nIndex].GetMpsPos(&nPosX, &nPosY,&nPmap);
-		
+
 		int nSubWorldIndex = Npc[Player[nPlayerIndex].m_nIndex].m_SubWorldIndex;
 		int nSubWorldID = 0;
-		
+
 		if (nSubWorldIndex >= 0 && nSubWorldIndex < MAX_SUBWORLD)
 		{
 			nSubWorldID = SubWorld[nSubWorldIndex].m_SubWorldID;
 		}
-		
-		Lua_PushNumber(L, nSubWorldID); 
+
+		Lua_PushNumber(L, nSubWorldID);
 		Lua_PushNumber(L, ((int)(nPosX / 32)));
 		Lua_PushNumber(L, ((int)(nPosY / 32)));
 	}
@@ -2624,23 +2624,23 @@ int LuaGetNewWorldPos(Lua_State * L)
 
 
 
-//==============ÒÔÉÏÎªÍ¨ÓÃÖ¸Áî===============·þÎñÆ÷¶Ë½Å±¾º¯Êý¿ªÊ¼=======================
+//==============ï¿½ï¿½ï¿½ï¿½ÎªÍ¨ï¿½ï¿½Ö¸ï¿½ï¿½===============ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼=======================
 int LuaPlayMusic(Lua_State * L)//PlayMusic(musicname,loop=1, vol );
 {
-	if (Lua_GetTopIndex(L) < 1) 
+	if (Lua_GetTopIndex(L) < 1)
 		return 0;
-	
+
 	int nPlayerIndex=0;
-	
+
 #ifdef _SERVER
 	nPlayerIndex = GetPlayerIndex(L);
-#else	
+#else
 	nPlayerIndex = CLIENT_PLAYER_INDEX;
 #endif
 
 	//int nPlayerIndex = GetPlayerIndex(L);
 	if (nPlayerIndex < 0) return 0;
-	
+
 	PLAYER_SCRIPTACTION_SYNC UiInfo;
 	ZeroStruct(UiInfo);
 	UiInfo.m_bUIId = UI_PLAYMUSIC;
@@ -2648,17 +2648,17 @@ int LuaPlayMusic(Lua_State * L)//PlayMusic(musicname,loop=1, vol );
 	UiInfo.m_nOperateType = SCRIPTACTION_UISHOW;
 //	Player[nPlayerIndex].m_nCheckWaiGua =0;
 	int nMsgId = 0;
-	
+
 	g_StrCpyLen(UiInfo.m_pContent, Lua_ValueToString(L,1), sizeof(UiInfo.m_pContent));
 	UiInfo.m_nBufferLen = strlen(((char *)UiInfo.m_pContent));
 	UiInfo.m_bParam1 = 0;
-	
+
 #ifndef _SERVER
 	UiInfo.m_bParam2 = 0;
 #else
 	UiInfo.m_bParam2 = 1;
 #endif
-	
+
 	Player[nPlayerIndex].DoScriptAction(&UiInfo);
 	return 0;
 }
@@ -2673,7 +2673,7 @@ int LuaFadeOutMusic(Lua_State * L)
 	return 0;
 }
 
-//===========================¿Í»§¶Ë½Å±¾º¯Êý========================
+//===========================ï¿½Í»ï¿½ï¿½Ë½Å±ï¿½ï¿½ï¿½ï¿½ï¿½========================
 #ifndef _SERVER
 int LuaPlaySound(Lua_State * L)
 {
@@ -2697,7 +2697,7 @@ int LuaNewTask_AddNpcFindPath(Lua_State * L)
 	int nMapXpos = (int)Lua_ValueToNumber(L,4);
 	int nMapYpos = (int)Lua_ValueToNumber(L,5);
 	// Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskGenre=nTaskGenre;
-	//t_sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
+	//sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
 	KTaskPathInfo nInfo;
         nInfo.nTaskType=nTaskGenre;
         nInfo.nMsgIndex=nMsgIndex;
@@ -2714,7 +2714,7 @@ int LuaNewTask_SetFinishedTask(Lua_State * L)
 }
 
 int LuaNewTask_DetailTextOut(Lua_State * L)
-{	
+{
 	int nParamCount = Lua_GetTopIndex(L);
     int nTaskGenre = (int)Lua_ValueToNumber(L,1);
     char *nTaskDesc=(char *)Lua_ValueToString(L,2);
@@ -2722,12 +2722,12 @@ int LuaNewTask_DetailTextOut(Lua_State * L)
 	if  (nParamCount>=3)
 		nIsBtn = (int)Lua_ValueToNumber(L,3);
 	// Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskGenre=nTaskGenre;
-	//t_sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
+	//sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
 	KNewsMessage News;
-	//Ö÷ÐÅÏ¢Îª×Ö·û´® 
+	//ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
 	//g_StrCpyLen(News.sMsg, nTaskDesc, sizeof(News.sMsg));
 	News.nType =	nTaskGenre;
-	t_sprintf(News.sMsg,"%s",nTaskDesc);
+	sprintf(News.sMsg,"%s",nTaskDesc);
 	// News.nMsgLen = TEncodeText(News.sMsg, strlen(News.sMsg));
 	//SYSTEMTIME systime;
 	//memset(&systime, 0, sizeof(SYSTEMTIME));
@@ -2736,7 +2736,7 @@ int LuaNewTask_DetailTextOut(Lua_State * L)
 }
 
 int LuaNewTask_TaskTextOut(Lua_State * L)
-{	
+{
 	int nParamCount = Lua_GetTopIndex(L);
     int nTaskGenre = (int)Lua_ValueToNumber(L,1);
     char *nTaskDesc=(char *)Lua_ValueToString(L,2);
@@ -2745,12 +2745,12 @@ int LuaNewTask_TaskTextOut(Lua_State * L)
 		nIsBtn = (int)Lua_ValueToNumber(L,3);
 
   // Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskGenre=nTaskGenre;
-   //t_sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
+   //sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskDesc,nTaskDesc);
    KNewsMessage News;
-   //Ö÷ÐÅÏ¢Îª×Ö·û´® 
+   //ï¿½ï¿½ï¿½ï¿½Ï¢Îªï¿½Ö·ï¿½ï¿½ï¿½
    //g_StrCpyLen(News.sMsg, nTaskDesc, sizeof(News.sMsg));
    News.nType =	nTaskGenre;
-   t_sprintf(News.sMsg,"%s",nTaskDesc);
+   sprintf(News.sMsg,"%s",nTaskDesc);
   // News.nMsgLen = TEncodeText(News.sMsg, strlen(News.sMsg));
    //SYSTEMTIME systime;
    //memset(&systime, 0, sizeof(SYSTEMTIME));
@@ -2759,7 +2759,7 @@ int LuaNewTask_TaskTextOut(Lua_State * L)
 }
 
 int LuaNewTask_AddIcon(Lua_State * L)
-{ 
+{
 	int nTaskType = (int)Lua_ValueToNumber(L, 1);
     char *nTaskIcocPath = (char *)Lua_ValueToString(L, 2);
 	int nTaskIdx = (int)Lua_ValueToNumber(L, 3);
@@ -2769,67 +2769,67 @@ int LuaNewTask_AddIcon(Lua_State * L)
 
 	Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskType=nTaskType;
     Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskidx=nTaskIdx;
-	t_sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskIconPath,nTaskIcocPath);
-	t_sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskName,nTaskName);
+	sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskIconPath, "%s", nTaskIcocPath);
+	sprintf(Player[CLIENT_PLAYER_INDEX].m_cTask.nTaskInfo[nTaskIdx].nTaskName, "%s", nTaskName);
 
     Lua_PushNumber(L,1);
 	return 1;
 }
-//¿Í»§¶ËÖ´ÐÐ×Ô¶¯·â¹Ò½Å±¾
+//ï¿½Í»ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ò½Å±ï¿½
 int LuaAutoForbitGua(Lua_State * L)
 {
 	//int nPlayerIndex = GetPlayerIndex(L);
 /*	int nFReg=0;
- //////////////////¼ì²âÍâ¹Ò³ÌÐò/////////////////////////
-	int IsForBit[2];  //Ä¬ÈÏ¿ªÆô·â¹Ò
+ //////////////////ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½/////////////////////////
+	int IsForBit[2];  //Ä¬ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_GameSetTing.GetInt2("SYSTEM","IsForBitGua",IsForBit);
-	
+
 	int nMun=0;
 	int wgRows=g_ForbitWaiGua.GetHeight()+1;
 
 	for (int i=2;i<wgRows;++i)
 	{
 		char nKey[16],nReg=0;
-		g_ForbitWaiGua.GetString(i+2,"GuaNameKey","ÎÞ",nKey,sizeof(nKey));
+		g_ForbitWaiGua.GetString(i+2,"GuaNameKey","ï¿½ï¿½",nKey,sizeof(nKey));
 		nReg= g_ForBitGua.GetProcessList(nKey,wgRows,i);//CheckWaiGua(nKey);
 		if (nReg>=1)
-		{//¼ì²âµ½Íâ¹Ò 
+		{//ï¿½ï¿½âµ½ï¿½ï¿½ï¿½
 
 			nFReg=1;
 			break;
 		}
-		else if (nReg<0)  
-		{//ÌáÈ¨Ê§°Ü
+		else if (nReg<0)
+		{//ï¿½ï¿½È¨Ê§ï¿½ï¿½
 			nFReg=-1;
 			break;
 		}
 		else  if (nReg==0)
-		{//Ã»ÓÐÍâ¹Ò
+		{//Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 			nMun++;
 //			break;
 		}
 		g_ForBitGua.Colse();
 	}
-	if (nMun==wgRows) //ÐÐÊýÏàµÈÍ¨¹ýÍâ¹Ò¼ì²â
-	{//Í¬²½Íâ¹Ò²ÎÊý¸ø·þÎñÆ÷¶Ë
+	if (nMun==wgRows) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½
+	{//Í¬ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		SKILL_LEFT_SYNC	sLeftSkill;
 		sLeftSkill.ProtocolType = c2s_skillsync;
 		sLeftSkill.m_nLeftskill =0;
 		sLeftSkill.m_Type=1;
-		
+
 //		if (g_pClient)
 	//	g_pClient->SendPackToServer(&sLeftSkill, sizeof(SKILL_LEFT_SYNC));
 		nFReg=0;
-	} 
+	}
     Lua_PushNumber(L,nFReg);*/
 	return 0;
 }
 
-//Ë²¼ä¼¼ÄÜÌØÐ§£¨ÀàÐÍ0 ×Ô¼ºÊÍ·Å 1ÎªÖ¸¶¨Ë÷ÒýNPCÊÍ·Å£©
+//Ë²ï¿½ä¼¼ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0 ï¿½Ô¼ï¿½ï¿½Í·ï¿½ 1ÎªÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCï¿½Í·Å£ï¿½
 int LuaCastSkill(Lua_State * L)
 {
 	if (Lua_GetTopIndex(L) < 1)
-		return 0;	
+		return 0;
 	int nPlayerIndex = GetPlayerIndex(L);
 	if (nPlayerIndex<0) return 0;
 	int nIndexID=0;
@@ -2838,11 +2838,11 @@ int LuaCastSkill(Lua_State * L)
 	nIndexID = (int)Lua_ValueToNumber(L, 2);
 	nStateID = (int)Lua_ValueToNumber(L, 3);
 	if (nType==0)
-        Npc[Player[nPlayerIndex].m_nIndex].SetInstantSpr(nStateID); 
+        Npc[Player[nPlayerIndex].m_nIndex].SetInstantSpr(nStateID);
     else if (nType==1)
-		Npc[nIndexID].SetInstantSpr(nStateID);     //ÊÍ·ÅÒ»¸öË²¼äÌØÐ§
-	
-	return 0;    
+		Npc[nIndexID].SetInstantSpr(nStateID);     //ï¿½Í·ï¿½Ò»ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ð§
+
+	return 0;
 }
 
 int LuaPlaySprMovie(Lua_State * L)
@@ -2851,13 +2851,13 @@ int LuaPlaySprMovie(Lua_State * L)
 }
 #endif
 //==============================================================
-TLua_Funcs GameScriptFuns[] = 
+TLua_Funcs GameScriptFuns[] =
 {
-	//Í¨ÓÃÖ¸Áî	
+	//Í¨ï¿½ï¿½Ö¸ï¿½ï¿½
 	{"Say", LuaSayUI},
 	{"SayNew",LuaSayNew},
 	{"Describe",LuaSayNew},
-	{"CreateTaskSay",LuaCreateTaskSay},	 //Ö§³Ö±í¸ñ
+	{"CreateTaskSay",LuaCreateTaskSay},	 //Ö§ï¿½Ö±ï¿½ï¿½
 	{"CreateNewSayEx",LuaCreateNewSayEx},
 	{"CreateSprSay",LuaCreateSprSay},
 
@@ -2881,18 +2881,18 @@ TLua_Funcs GameScriptFuns[] =
 	{"AddSysNews"  ,LuaAddSysNews},
 	{"AddLocalTimeNews",LuaAddLocalTimeNews},
 	{"AddLocalCountNews",LuaAddLocalCountNews},
-	{"GetTask",			LuaGetTaskValue},	    //GetTask(ÈÎÎñºÅ):»ñµÃµ±Ç°Íæ¼Ò¸ÃÈÎÎñºÅµÄÖµ
-	{"SetTask",			LuaSetTaskValue},	    //SetTask(ÈÎÎñºÅ,Öµ):ÉèÖÃÈÎÎñÖµ
-	{"SetDeathSkill",			LuaSetDeathSkill},	    //SetTask(ÈÎÎñºÅ,Öµ):ÉèÖÃÈÎÎñÖµ
+	{"GetTask",			LuaGetTaskValue},	    //GetTask(ï¿½ï¿½ï¿½ï¿½ï¿½):ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Öµ
+	{"SetTask",			LuaSetTaskValue},	    //SetTask(ï¿½ï¿½ï¿½ï¿½ï¿½,Öµ):ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	{"SetDeathSkill",			LuaSetDeathSkill},	    //SetTask(ï¿½ï¿½ï¿½ï¿½ï¿½,Öµ):ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	{"GetDeathSkill",			LuaGetDeathSkill},
 	{"AddTask",			LuaAddTaskValue},	    //
-	{"GetTabFileInfo",  LuaGetTabFileInfo},     //»ñÈ¡TXTÎÄ¼þ Ä³ÐÐ Ä³ÁÐ µÄÄÚÈÝ £¬·µ»Ø×Ö·û´®ÀàÐÍ  3¸ö²ÎÊý
-	{"GetIniFileInfo",  LuaGetIniFileInfo},     //»ñÈ¡iniÎÄ¼þ Ä³½Ú Ä³¼ü µÄÄÚÈÝ
-	
-	{"GetTabRowAndCol", LuaGetTabRowAndCol},    //»ñÈ¡ÎÄ¼þµÄ ×ÜÐÐÊýºÍÁÐÊý   1¸ö²ÎÊý
+	{"GetTabFileInfo",  LuaGetTabFileInfo},     //ï¿½ï¿½È¡TXTï¿½Ä¼ï¿½ Ä³ï¿½ï¿½ Ä³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{"GetIniFileInfo",  LuaGetIniFileInfo},     //ï¿½ï¿½È¡iniï¿½Ä¼ï¿½ Ä³ï¿½ï¿½ Ä³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	{"GetTabRowAndCol", LuaGetTabRowAndCol},    //ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	{"IniFile_GetData",  LuaGetIniFileInfo},
-	{"TaskAwardMatrix", LuaGetTaskAwardMatrix}, //»ñÈ¡ÈÎÎñ Í¬Ò»¸öÃû³ÆµÄ ÓÐ¶àÉÙÐÐ
+	{"TaskAwardMatrix", LuaGetTaskAwardMatrix}, //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ Í¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
     {"CalcFreeItemCellCount", LuaCalcFreeItemCellCount},
 	{"GetPositionCount",        LuaGetPositionCount},
 
@@ -2901,7 +2901,7 @@ TLua_Funcs GameScriptFuns[] =
 	{"SetRoomNull",	LuaSetRoomNull},
 	{"FileName2Id",	LuaFileName2Id},
 
-	{"TabFile_Load",             LuaTabFile_Load},         //¼ÓÔØTXTÎÄ¼þ
+	{"TabFile_Load",             LuaTabFile_Load},         //ï¿½ï¿½ï¿½ï¿½TXTï¿½Ä¼ï¿½
 	{"TabFile_GetCell",          LuaGetTabFileInfo},
 	{"TabFile_GetRowCount",      LuaGetTabRowAndCol},
 	{"TabFile_UnLoad",           LuaTabFile_UnLoad},
@@ -2910,27 +2910,27 @@ TLua_Funcs GameScriptFuns[] =
 	{"NewRandom",           LuaNewRandom},
 	{"SetRandomSeed",       LuaSetRandomSeed},
 
-	{"GetWorldPos",		LuaGetNewWorldPos},	//W,X,Y = GetWorldPos()·µ»ØÓÚNewWorldÅäÅãµÄ×ø±ê
+	{"GetWorldPos",		LuaGetNewWorldPos},	//W,X,Y = GetWorldPos()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NewWorldï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{"GetLevel",		LuaGetLevel},			        //GetLevel()GetPlayers Level
 	{"GetLastFactionNumber", LuaGetLastFactionNumber},
-	{"GetFaction",		LuaGetPlayerFaction},    //GetFaction()»ñµÃÍæ¼ÒµÄÃÅÅÉÃû
-	{"GetLastAddFaction",LuaGetPlayerFaction},	
+	{"GetFaction",		LuaGetPlayerFaction},    //GetFaction()ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{"GetLastAddFaction",LuaGetPlayerFaction},
 	{"GetMaskActionSpr", LuaGetMaskActionSpr},
 
 	{"CalcEquiproomItemCount", LuaCalcEquiproomItemCount},
-	{"SetPos",			LuaSetPos},			//SetPos(x,y)½øÈëÄ³µã
-	//¿Í»§¶Ë½Å±¾Ö¸Áî
+	{"SetPos",			LuaSetPos},			//SetPos(x,y)ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½
+	//ï¿½Í»ï¿½ï¿½Ë½Å±ï¿½Ö¸ï¿½ï¿½
 	{"PlaySound",       LuaPlaySound},      //PlaySound(Sound);
 	{"PlaySprMovie",    LuaPlaySprMovie},   //PlaySprMovie(npcindex, Movie, times)
-	{"AutoForbitGua",   LuaAutoForbitGua},  //¿Í»§¶ËÖ´ÐÐ×Ô¶¯·â¹Ò
-	{"CastSkill",       LuaCastSkill},      //Ë²¼äÌØÐ§
+	{"AutoForbitGua",   LuaAutoForbitGua},  //ï¿½Í»ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½
+	{"CastSkill",       LuaCastSkill},      //Ë²ï¿½ï¿½ï¿½ï¿½Ð§
 	{"NewTask_AddIcon", LuaNewTask_AddIcon},
 	{"NewTask_TaskTextOut", LuaNewTask_TaskTextOut},
 	{"NewTask_DetailTextOut", LuaNewTask_DetailTextOut},
 
-	{"NewTask_SetFinishedTask", LuaNewTask_SetFinishedTask},   //ÉèÖÃÍê³ÉÈÎÎñ
-	
-	{"NewTask_AddNpcFindPath",  LuaNewTask_AddNpcFindPath},     //ÉèÖÃÐÅÏ¢¹ØÁªÑ°Â·
+	{"NewTask_SetFinishedTask", LuaNewTask_SetFinishedTask},   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	{"NewTask_AddNpcFindPath",  LuaNewTask_AddNpcFindPath},     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ°Â·
 	//{"dostring", Luadostring},
 	{"PlayMusic",       LuaPlayMusic}, //PlayMusic(Music,Loop)
 	{"FadeInMusic",     LuaFadeInMusic},
@@ -2938,14 +2938,14 @@ TLua_Funcs GameScriptFuns[] =
 };
 
 
-TLua_Funcs WorldScriptFuns[] =// ·ÇÖ¸¶ÔÍæ¼ÒµÄ½Å±¾Ö¸Áî¼¯
+TLua_Funcs WorldScriptFuns[] =// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ÒµÄ½Å±ï¿½Ö¸ï¿½î¼¯
 {
-	//Í¨ÓÃÖ¸Áî
+	//Í¨ï¿½ï¿½Ö¸ï¿½ï¿½
 	{"AddLocalNews",     LuaAddLocalNews},
 	{"AddSysNews",       LuaAddSysNews},
 	{"AddLoaclTimeNews", LuaAddLocalTimeNews},
 	{"AddLocalCountNews",LuaAddLocalCountNews},
-}; 
+};
 
 int g_GetGameScriptFunNum()
 {

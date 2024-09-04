@@ -108,7 +108,7 @@ bool KuiSellItem::init()
 	//\\spr\\Ui3\\������\\���������.spr
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\�������3.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\�������3.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -143,7 +143,7 @@ void KuiSellItem::addDialogData()
 	//Top=72
 	m_StartPos.x =24;//+ITEM_CELL_SIZE/2;
 	m_StartPos.y =72;//+ITEM_CELL_SIZE/2;
-	t_sprintf(m_ShopName,"Ĭ��ϵͳ��̯");
+	sprintf(m_ShopName,"Ĭ��ϵͳ��̯");
    /* pMoneyLabel = Label::createWithTTF("","fonts/gb_song.ttf", 12);//Arial
 	pMoneyLabel->setAnchorPoint(ax::Vec2(0,0));
 	pMoneyLabel->setPosition(ax::Vec2(60,128));
@@ -189,12 +189,12 @@ void KuiSellItem::addDialogData()
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -204,7 +204,7 @@ void KuiSellItem::addDialogData()
 					if (bgCur==NULL)
 						return;
 					char nItemKey[32];
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -218,7 +218,7 @@ void KuiSellItem::addDialogData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -239,7 +239,7 @@ void KuiSellItem::addDialogData()
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150); //112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey = nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -268,8 +268,8 @@ void KuiSellItem::addDialogData()
 					if  (nItemData)
 					{
 						char msg[64];
-						t_sprintf(msg,"����:h:%d,w:%d",nItemData->uGenre,nItemData->uId);
-						ccMessageBox(msg,"����");
+						sprintf(msg,"����:h:%d,w:%d",nItemData->uGenre,nItemData->uId);
+						messageBox(msg,"����");
 					}*/
 					//��ɫ��
 					nCurX = m_StartPos.x+no.DataX*ITEM_CELL_SIZE+1;
@@ -335,7 +335,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 	nStartPos.y = m_size.height/2;
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ��ر�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ��ر�.spr");
 	g_StrLower(nSprName);
 	bgCur =_getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -349,7 +349,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 	closeConfirm->setPosition(ax::Vec2(0,0));
 	//���� \spr\Ui3\������\ͼ��\zenglibtn.spr
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\zenglibtn.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\������\\ͼ��\\zenglibtn.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -363,7 +363,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 	zhengliConfirm->setPosition(ax::Vec2(0,28));
 	//�й�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\�й�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\�й�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -377,7 +377,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 	tuoConfirm->setPosition(ax::Vec2(65,28));
 	//�ٸ�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\���ù��.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\���ù��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -392,7 +392,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	//���
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\���.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\���.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -407,7 +407,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	//��ʼ��̯
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\��̯.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\��̯.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -422,7 +422,7 @@ void KuiSellItem::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	//��Ǯ
 	/*ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ���Ǯ.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ���Ǯ.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -462,7 +462,7 @@ void KuiSellItem::saveCallBackFunc(Ref * pSender)
 void KuiSellItem::closegaoPadCallback(Node *pNode)
 {
 	if (pNode)
-	   t_sprintf(m_ShopName, std::to_string(pNode->getTag()).c_str());
+	   sprintf(m_ShopName,  "%s", std::to_string(pNode->getTag()).c_str());
 
 	m_gaoPadIsOpen = false;
 	/*//���ò��ܴ���
@@ -494,7 +494,7 @@ void KuiSellItem::closesavemonyPadCallback(Node *pNode)
 		else if (m_JinModel.IsButtonChecked())
 			nModel=2;*/
 		char nTempStr[64];
-		t_sprintf(nTempStr,std::to_string(pNode->getTag()).c_str());
+		sprintf(nTempStr, "%s", std::to_string(pNode->getTag()).c_str());
 		int nPrice = g_Atoui(nTempStr);
 		if  (nPrice>0)
 		   m_IsSetPriceCount++;
@@ -505,7 +505,7 @@ void KuiSellItem::closesavemonyPadCallback(Node *pNode)
 				m_IsSetPriceCount=0;
 		}
 		g_pCoreShell->OperationRequest(GDI_SET_TRADE_ITEM,(uintptr_t)(&Obj),nPrice,nModel);
-	   // ccMessageBox(pNode->getTag().c_str(),"test");
+	   // messageBox(pNode->getTag().c_str(),"test");
 	}
 	m_savemoneyPadIsOpen = false;
 	/*//���ò��ܴ���
@@ -582,9 +582,9 @@ void KuiSellItem::tanCallBackFunc(Ref * pSender)
 	if (m_IsSetPrice<=0)
 	{//�Ƿ������˼۸�
 #ifdef WIN32
-		ccMessageBox("�����ð�̯�۸�!","��ʾ");
+		messageBox("�����ð�̯�۸�!","��ʾ");
 #else
-		ccMessageBox(UTEXT("�����ð�̯�۸�!",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("�����ð�̯�۸�!",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		return;
 	}
@@ -635,9 +635,9 @@ void KuiSellItem::biaoCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ","��ʾ:");
+		messageBox("��ѡ��һ����Ʒ","��ʾ:");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -647,9 +647,9 @@ void KuiSellItem::biaoCallBackFunc(Ref * pSender)
 		if (Item[m_ItemData[nstrCurSelItemKey].uId].GetGenre()==0)
 		{
 #ifdef WIN32
-		ccMessageBox("����Ʒ���ܱ�۸�","��ʾ:");
+		messageBox("����Ʒ���ܱ�۸�","��ʾ:");
 #else
-		ccMessageBox(UTEXT("����Ʒ���ܱ�۸�",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("����Ʒ���ܱ�۸�",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		    return;
 		}
@@ -678,7 +678,7 @@ void KuiSellItem::biaoCallBackFunc(Ref * pSender)
 		if (g_pCoreShell->OperationRequest(GOI_NPC_ITEM_BREAK,(uintptr_t)(&Obj), 1))
 		{//��ֳɹ���,������ʾ
 			char nKey[32];
-			t_sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			Sprite *nItemSpr =(Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if (nItemSpr)
@@ -687,7 +687,7 @@ void KuiSellItem::biaoCallBackFunc(Ref * pSender)
 				if (stacklabel)
 				{
 					int nstackCount = Item[Obj.Obj.uId].GetStackNum();
-					t_sprintf(nKey,"%d",nstackCount);
+					sprintf(nKey,"%d",nstackCount);
 					stacklabel->setString(nKey);
 				}
 			}
@@ -712,18 +712,18 @@ void KuiSellItem::zhengCallBackFunc(Ref * pSender)
 	if  (m_ItemData.count(nstrCurSelItemKey)<=0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ!","��ʾ:");
+		messageBox("��ѡ��һ����Ʒ!","��ʾ:");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ!",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
 	if  (m_ItemData[nstrCurSelItemKey].uId<=0 || m_ItemData[nstrCurSelItemKey].uId>=MAX_ITEM)
 	{
 #ifdef WIN32
-		ccMessageBox("����Ʒ��������","��ʾ:");
+		messageBox("����Ʒ��������","��ʾ:");
 #else
-		ccMessageBox(UTEXT("����Ʒ��������",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("����Ʒ��������",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -740,9 +740,9 @@ void KuiSellItem::zhengCallBackFunc(Ref * pSender)
 	{//�������
 		//nBakChickTime = nCurChicktime;
 #ifdef WIN32
-		ccMessageBox("�����̫Ƶ����","��ʾ:");
+		messageBox("�����̫Ƶ����","��ʾ:");
 #else
-		ccMessageBox(UTEXT("�����̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
+		messageBox(UTEXT("�����̫Ƶ����",1).c_str(),UTEXT("��ʾ:",1).c_str());
 #endif
 		return;
 	}
@@ -854,10 +854,10 @@ bool KuiSellItem::ccTouchBegan(Touch *pTouch, Event *pEvent)
 		if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 		{////����ĳ���ܵļӳ�
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 			std::string nItemKey = nKey;
 			nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-			t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+			sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 			nItemKey = nKey;
 			SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 			if  (nCurColorlayer)
@@ -903,7 +903,7 @@ void KuiSellItem::closeItemPadCallback(Node *pNode)
 }
 void KuiSellItem::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	    m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);
@@ -911,13 +911,13 @@ void KuiSellItem::update(float delta)
 		//char nPointCount[32];
 	   /*if (pMoneyLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nMoney);
+		   sprintf(nPointCount,"%d",m_nMoney);
 		  // pSkillPointLabel->setColor(ccWit)
 		   pMoneyLabel->setString(nPointCount);
 	   }
 	   if  (pXuLabel)
 	   {
-		   t_sprintf(nPointCount,"%d",m_nXu);
+		   sprintf(nPointCount,"%d",m_nXu);
 		   // pSkillPointLabel->setColor(ccWit)
 		   pXuLabel->setString(nPointCount);
 	   }
@@ -938,7 +938,7 @@ void KuiSellItem::update(float delta)
 					   continue;
 
 				   char nItemKey[32];
-				   t_sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
+				   sprintf(nItemKey,"item_%u",Item[it->second.uId].GetID());
 				   std::string nKey =nItemKey;
 				   Sprite *nTempSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 				   if  (nTempSpr)
@@ -947,7 +947,7 @@ void KuiSellItem::update(float delta)
 					   if  (stuckCountlabel)
 					   {
 						   char nCount[32];
-						   t_sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
+						   sprintf(nCount,"%d",Item[it->second.uId].GetStackNum());
 						   stuckCountlabel->setString(nCount);
 					   }
 				   }
@@ -970,7 +970,7 @@ void KuiSellItem::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 
 		if  (Obj.uId<=0 || Obj.uId>=MAX_ITEM)
 		{
-			//ccMessageBox("��������","��Ʒ");
+			//messageBox("��������","��Ʒ");
 			return;
 		}
 
@@ -983,10 +983,10 @@ void KuiSellItem::UpdateItem(KUiObjAtRegion* pItem, int bAdd)
 		else      //����
 		{
 			char nKey[32];
-			t_sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u_color",Item[Obj.uId].GetID());
 			std::string nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
-			t_sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
+			sprintf(nKey,"item_%u",Item[Obj.uId].GetID());
 			nItemKey = nKey;
 			ParentNode_Item->removeChildByName(nItemKey,true);
 			m_ItemData.erase(nItemKey);
@@ -1010,11 +1010,11 @@ void KuiSellItem::UpdateData()
 	   if (it->second.uId>0 && it->second.uId<MAX_ITEM)
 	   {////����ĳ���ܵļӳ�
 		   char nKey[32];
-		   t_sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u_color",Item[it->second.uId].GetID());
 		   std::string nItemKey = nKey;
 		   ParentNode_Item->removeChildByName(nItemKey,true);
 		   //nCurColorlayer = (LayerColor *)ParentNode_Item->getChildByName(nItemKey);
-		   t_sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
+		   sprintf(nKey,"item_%u",Item[it->second.uId].GetID());
 		   nItemKey = nKey;
 		   //SkillNode = (Sprite *)ParentNode_Item->getChildByName(nItemKey);
 		   ParentNode_Item->removeChildByName(nItemKey,true);
@@ -1023,10 +1023,10 @@ void KuiSellItem::UpdateData()
    m_ItemData.clear();
   /* for (int i=0;i<m_nNumObjects;++i)
    {
-	t_sprintf(nItemKey,"item_%d",i+1);
+	sprintf(nItemKey,"item_%d",i+1);
 	std::string nKey =nItemKey;
 	ParentNode_Item->removeChildByName(nKey,true);
-	t_sprintf(nItemKey,"color_%d",i+1);
+	sprintf(nItemKey,"color_%d",i+1);
 	nKey =nItemKey;
 	ParentNode_Item->removeChildByName(nKey,true);
 	//LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -1066,12 +1066,12 @@ void KuiSellItem::UpdateData()
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObjs[i].Obj.uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObjs[i].Obj.uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObjs[i].Obj.uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1082,7 +1082,7 @@ void KuiSellItem::UpdateData()
 						return;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObjs[i].Obj.uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -1096,7 +1096,7 @@ void KuiSellItem::UpdateData()
 						if  (Item[pObjs[i].Obj.uId].GetGenre()!=item_equip && Item[pObjs[i].Obj.uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObjs[i].Obj.uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1117,7 +1117,7 @@ void KuiSellItem::UpdateData()
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);
@@ -1197,12 +1197,12 @@ int KuiSellItem::AddObject(KUiDraggedObject* pObject, int nCount)
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[pObject->uId].GetImagePath())
-					t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[pObject->uId].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 				if  (nItemSprPath[0])
 				{
-					//t_sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
+					//sprintf(nItemSprPath,Item[pObject->uId].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -1213,7 +1213,7 @@ int KuiSellItem::AddObject(KUiDraggedObject* pObject, int nCount)
 						return false;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
+					sprintf(nItemKey,"item_%u",Item[pObject->uId].GetID());
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ParentNode_Item->getChildByName(nKey);
 					if (!nItemSpr)
@@ -1227,7 +1227,7 @@ int KuiSellItem::AddObject(KUiDraggedObject* pObject, int nCount)
 						if  (Item[pObject->uId].GetGenre()!=item_equip && Item[pObject->uId].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
+							sprintf(stack,"%d",Item[pObject->uId].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1248,7 +1248,7 @@ int KuiSellItem::AddObject(KUiDraggedObject* pObject, int nCount)
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					//t_sprintf(nItemKey,"color_%d",i+1);
+					//sprintf(nItemKey,"color_%d",i+1);
 					strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ParentNode_Item->getChildByName(nKey);

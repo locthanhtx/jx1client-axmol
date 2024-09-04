@@ -33,7 +33,7 @@ inline int g_DirSin(int nDir, int nMaxDir)
 
 	if (nDir < 0)
 		nDir = MaxMissleDir + nDir;
-	
+
 	if (nDir >= MaxMissleDir)
 	{
 		   nDir = nDir%MaxMissleDir;
@@ -48,7 +48,7 @@ inline int g_DirCos(int nDir, int nMaxDir)
 	{
 		nDir = MaxMissleDir + nDir;
 	}
-	
+
 	if (nDir >= MaxMissleDir)
 	{
 		nDir = nDir%MaxMissleDir;
@@ -92,7 +92,7 @@ inline int g_IsConquer(int nSrcSeries, int nDesSeries) //���
 	   return TRUE;
 
     return FALSE;//(*(g_InternalIsAccrueConquerFunction *)(&(g_InternalIsAccrueConquerCode[0])))(g_nConquerSeries, nSrcSeries, nDesSeries);
-} 
+}
 
 
 //extern INT g_InternalIsAccrueConquer(INT pAccrueConquerTable[], INT nSrcSeries, INT nDesSeries);
@@ -116,9 +116,9 @@ inline BOOL g_IsConquer(INT nSrcSeries, INT nDesSeries)
     float   f;          // as float
     struct              // as bit fields
     {
-        uint32_t    sign:1;
-        uint32_t    biasedexponent:8;
-        uint32_t    significand;
+        unsigned int    sign:1;
+        unsigned int    biasedexponent:8;
+        unsigned int    significand;
     }bits;
 }INTORFLOAT;
 
@@ -129,7 +129,7 @@ is equivalent to 1.5 x 2^23. */
 const  INTORFLOAT  bias = {((23 + 127) << 23) + (1 << 22)};
 
 #define SQRTTABLESIZE       256
-const uint32_t sqrttable[SQRTTABLESIZE] =
+const unsigned int sqrttable[SQRTTABLESIZE] =
 {
 	    531980127, 532026288, 532072271, 532118079, 532163712, 532209174, 532254465, 532299589,
 		532344546, 532389339, 532433970, 532478440, 532522750, 532566903, 532610900, 532654744,
@@ -168,17 +168,17 @@ const uint32_t sqrttable[SQRTTABLESIZE] =
 inline float qsqrt( float f )
 {
     INTORFLOAT      fi;
-    uint32_t    e, n;
+    unsigned int    e, n;
 
     fi.f = f;
     n = fi.i;
-	
+
     e = (n >> 1) & 0x3f800000;
 
     n = (n >> 16) & 0xff;
-	
+
     fi.i = e + sqrttable[n];
-	
+
     return fi.f;
 }
 */
@@ -192,7 +192,7 @@ inline int	g_GetNewDistance(int nX1, int nY1, int nX2, int nY2)
 	tmp.i -= bias.i;
 	return tmp.i;*/
 	return (int)sqrt(double((nX1 - nX2)) * (nX1 - nX2) + (nY1 - nY2) * (nY1 - nY2));
-} 
+}
 
 //---------------------------------------------------------------------------
 inline int	g_GetDistance(int nX1, int nY1, int nX2, int nY2)
@@ -220,16 +220,16 @@ inline INT	g_GetDisSquare(INT nX1, INT nY1, INT nX2, INT nY2)
 inline INT	g_GetNewDirIndex(INT nDx, INT nDy)
 {
 	INT nRet = -1;
-	
+
 	if (!nDx && !nDy)
 		return -1;
-	
+
 	INT nDistance = g_GetLength(nDx, nDy);
-	
+
 	if (nDistance == 0 ) return -1;
-	
+
 	INT		nSin = (nDy << 10) / nDistance;	// �Ŵ�1024��
-	
+
 	//find more than me as my dir
 	for (INT i = 0; i < 32; i++)		// ˳ʱ�뷽�� ��270�ȵ�90�ȣ�sinֵ�ݼ�
 	{
@@ -237,7 +237,7 @@ inline INT	g_GetNewDirIndex(INT nDx, INT nDy)
 			break;
 		nRet = i;
 	}
-	
+
 	INT nD1, nD2 ;
 	if (g_nSin[nRet] != nSin)
 	{
@@ -246,7 +246,7 @@ inline INT	g_GetNewDirIndex(INT nDx, INT nDy)
 		if (nD1 > nD2)
 			nRet ++;
 	}
-	
+
 	if (nDx >= 0 && nRet != 0)
 	{
 		nRet = 64 - nRet;
@@ -263,10 +263,10 @@ inline int	g_GetOldDirIndex(int nX1, int nY1, int nX2, int nY2)
 
 //	int		nDistance = g_GetDistance(nX1, nY1 * 2, nX2, nY2 * 2);
 	int		nDistance = g_GetDistance(nX1, nY1, nX2, nY2);
-	
+
 	if (nDistance == 0 )
 		return -1;
-	
+
 //	int		nYLength = (nY2 - nY1) * 2;
 	int		nYLength = nY2 - nY1;
 	int     nLeghthVal=nYLength << 10;
@@ -303,36 +303,36 @@ inline int	g_GetOldDirIndex(int nX1, int nY1, int nX2, int nY2)
 /*inline int	g_GetDirIdxForFindPath(int nX1, int nY1, int nX2, int nY2)
 {
 	int		nRet = -1;
-	
+
 	if (nX1 == nX2 && nY1 == nY2)
 		return -1;
-	
+
 	//	int		nDistance = g_GetDistance(nX1, nY1 * 2, nX2, nY2 * 2);
 	int		nDistance = g_GetNewDistance(nX1, nY1, nX2, nY2);
-	
+
 	if (nDistance == 0 ) return -1;
-	
+
 	//	int		nYLength = (nY2 - nY1) * 2;
 	int		nYLength = nY2 - nY1;
 	int		nSin = (nYLength << 10) / nDistance;	// �Ŵ�1024��
-	
+
 	if(nSin > 1024)
 		nSin = 1024;
 	else if(nSin < -1024)
 		nSin = -1024;
-	
+
 	for (int i = 0; i < 32; i++)		// ˳ʱ�뷽�� ��270�ȵ�90�ȣ�sinֵ�ݼ�
 	{
 		if (nSin > g_nSin[i])
 			break;
 		nRet = i;
 	}
-	
+
 	if ((nX2 - nX1) > 0)
 	{
 		nRet = 63 - nRet;
 	}
-	
+
 	return nRet;
 } */
 
@@ -340,7 +340,7 @@ inline int	g_GetOldDirIndex(int nX1, int nY1, int nX2, int nY2)
 //----------------------------------------------------------
 inline INT	g_GetDirIndex(INT nX1, INT nY1, INT nX2, INT nY2)
 {
-	
+
 	 return g_GetNewDirIndex(nX2 - nX1, nY2 - nY1);
 
     //return g_GetDirIdxForFindPath(nX1, nY1, nX2, nY2);

@@ -132,7 +132,7 @@ bool KuiViewRoleState::init()
 	*/
 	/*char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\���2.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\���2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -228,7 +228,7 @@ void KuiViewRoleState::setcoloseButton(Ref * callbackListener,const std::functio
 	//"\\spr\\UI3\\������\\�ر�.spr"
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\activityguide\\closebutton.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -307,9 +307,9 @@ void KuiViewRoleState::UpdateAllEquips()
 void KuiViewRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 {
 	char nKey[32];
-	t_sprintf(nKey,"%s",ViewCtrlItemMap[index].pIniSection);
+	sprintf(nKey,"%s",ViewCtrlItemMap[index].pIniSection);
 	std::string m_ItemBoxKey = nKey;
-	t_sprintf(nKey,"%s_color",ViewCtrlItemMap[index].pIniSection);
+	sprintf(nKey,"%s_color",ViewCtrlItemMap[index].pIniSection);
 	std::string m_colorbgKey = nKey;//��ɫ���key
 	if  (isAdd)
 	{//����
@@ -324,14 +324,14 @@ void KuiViewRoleState::addpicBox(int index,int nItemIndx,bool isAdd)
 			m_itemIndexBox[index]=nItemIndx;
 			if  (Item[nItemIndx].GetImagePath())
 			{
-				t_sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
+				sprintf(nItemSprPath, "%s", Item[nItemIndx].GetImagePath());
 			}
 			else
-				t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+				sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 			if  (nItemSprPath[0])
 			{
-				//t_sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
+				//sprintf(nItemSprPath,Item[nItemIndx].GetImagePath());
 				g_StrLower(nItemSprPath);
 				int m_nWidth,m_nHeight,nFrams;
 				SPRFRAMSINFO nSprInfo;
@@ -426,11 +426,11 @@ void KuiViewRoleState::UpdateEquip(KUiObjAtRegion* pEquip, int bAdd)
 				if (bAdd)//����
 					//m_EquipBox[i].HoldObject(pEquip->Obj.uGenre, pEquip->Obj.uId,
 					//pEquip->Region.Width, pEquip->Region.Height);
-					//ccMessageBox(Item[pEquip->Obj.uId].GetImagePath(),"����");
+					//messageBox(Item[pEquip->Obj.uId].GetImagePath(),"����");
 					addpicBox(i,pEquip->Obj.uId,true);
 				else//�Ƴ�
 					addpicBox(i,pEquip->Obj.uId,false);
-					//ccMessageBox(Item[pEquip->Obj.uId].GetImagePath(),"�Ƴ�");
+					//messageBox(Item[pEquip->Obj.uId].GetImagePath(),"�Ƴ�");
 					//m_EquipBox[i].HoldObject(CGOG_NOTHING, 0, 0, 0);
 
 				break;
@@ -462,13 +462,13 @@ bool KuiViewRoleState::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	for (int i = 0; i < _ITEM_COUNT; ++i)
 	{
 		char nKey[32];
-		t_sprintf(nKey,"%s",ViewCtrlItemMap[i].pIniSection);
+		sprintf(nKey,"%s",ViewCtrlItemMap[i].pIniSection);
 		std::string m_ItemBoxKey = nKey;
-		t_sprintf(nKey,"%s_color",ViewCtrlItemMap[i].pIniSection);
+		sprintf(nKey,"%s_color",ViewCtrlItemMap[i].pIniSection);
 		std::string m_colorbgKey = nKey;//��ɫ���key
 		itemBoxSpr = (Sprite *)ParentNode_Team->getChildByName(m_ItemBoxKey);
 		LayerColor *colorBoxbg = (LayerColor *)ParentNode_Team->getChildByName(m_colorbgKey);
-		//ccMessageBox("�����ʼ","�����ʼ");
+		//messageBox("�����ʼ","�����ʼ");
 		if  (itemBoxSpr && colorBoxbg)
 		{
 			if (getRect(colorBoxbg,i+1).containsPoint(location))
@@ -542,13 +542,13 @@ void KuiViewRoleState::BreatheUpdateInfo()
 
 	char nTempS4tr[64];
 	ZeroMemory(nTempS4tr,sizeof(nTempS4tr));
-	t_sprintf(nTempS4tr,"%d/%d",Info.nLife,Info.nLifeFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nLife,Info.nLifeFull);
 	pLife->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nMana,Info.nManaFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nMana,Info.nManaFull);
 	pMana->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nStamina,Info.nStaminaFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nStamina,Info.nStaminaFull);
 	pTili->setString(nTempS4tr);
-	t_sprintf(nTempS4tr,"%d/%d",Info.nExperience,Info.nExperienceFull);
+	sprintf(nTempS4tr,"%d/%d",Info.nExperience,Info.nExperienceFull);
 	pExp->setString(nTempS4tr);
 	*/
 	//UiNewStatus* pStatus = UiNewStatus::GetIfVisible();
@@ -567,13 +567,13 @@ void  KuiViewRoleState::BreathAttributeUpdate()
 
 	char nTempS4tr[64];
 	ZeroMemory(nTempS4tr,sizeof(nTempS4tr));
-	t_sprintf(nTempS4tr,"%d",Info.nPKValue);
+	sprintf(nTempS4tr,"%d",Info.nPKValue);
 	pPk->setString(nTempS4tr);
 
-	t_sprintf(nTempS4tr,"ת������:%d",Info.nReBorn);
+	sprintf(nTempS4tr,"ת������:%d",Info.nReBorn);
 	pZhuanSheng->setString(UTEXT(nTempS4tr,1).c_str());
 
-	//t_sprintf(nTempS4tr,"ת������:%d",Info.);
+	//sprintf(nTempS4tr,"ת������:%d",Info.);
 	//pZhuanSheng->setString(UTEXT(nTempS4tr,1).c_str());
 
 }

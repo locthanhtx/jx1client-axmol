@@ -4,32 +4,32 @@
 //��½���桡��ʼ����
 */
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 //#include <gameui/Uiglobaldata.h>
 #include<list>
 #include "ImageStore/KImageStore2.h"
 #include "engine/Kgetinidata.h"
-#include "physics-nodes/CCPhysicsSprite.h"
+#include "physics-nodes/PhysicsSprite.h"
 
 #include "engine/KGbktoUtf8.h"
 #include "engine/KTimer.h"
 //#include "gamescene/KSkillRocker.h"
 
 using namespace ax;
-//using namespace ax::extension;
+//
 using namespace std;
 
 class Klogin_f : public ax::Layer//,public EditBoxDelegate
 {
 public:
 	// Here's a difference. Method 'init' in ax-x returns bool, instead of returning 'id' in ax-iphone
-	
-	virtual bool init();  
+
+	virtual bool init();
 	/*virtual void onEnter();
     virtual void onExit();
     virtual void onEnterTransitionDidFinish();
    */
-	virtual void update(float delta); 
+	virtual void update(float delta);
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 	// a selector callback
@@ -41,10 +41,10 @@ public:
 	KImageStore2 m_ImageStore;
 	//Size visibleSize;
 	//Point origin;
-private: 
+private:
 	//Texture2D* m_pTexture;
 	//Label* pMainLabel;
-	
+
 	Sprite *testSprite;
 	int       nTestCount;
 	UINT      nTimeCount;
@@ -54,7 +54,7 @@ private:
 	void  copyData(const char* pFileName);
 	bool  isFileExist(const char* pFileName);
 	void  buttonCallback(Node *pNode);
-	//unsigned long g_FileName2Id_(char * lpFileName);
+	//unsigned int g_FileName2Id_(char * lpFileName);
 	//virtual void ccTouchesEnded(const std::vector<ax::Touch*>&pTouches, Event *pEvent);
 	void mianLoginCallback(Ref* pSender);
 	void mianCancelCallback(Ref* pSender);

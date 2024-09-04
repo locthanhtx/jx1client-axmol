@@ -50,15 +50,15 @@ public:
 	int		    Remove(int nSkillID);
 	void        RemoveAllSkill();  //ɾ��ȫ������
 
-	int GetSkillId(uint32_t ulSkillIdx) const
+	int GetSkillId(unsigned int ulSkillIdx) const
 	{
-		if (ulSkillIdx >= MAX_NPCSKILL || ulSkillIdx == 0) 
+		if (ulSkillIdx >= MAX_NPCSKILL || ulSkillIdx == 0)
 			return 0;
-		else 
+		else
 			return m_Skills[ulSkillIdx].SkillId;
 	};
 
-	BOOL CheckHaveSkill(uint32_t ulSkillId) const
+	BOOL CheckHaveSkill(unsigned int ulSkillId) const
 	{
 		for (int i=1;i<MAX_NPCSKILL;i++)
 		{
@@ -69,9 +69,9 @@ public:
 	};
 
 
-	int	SetSkillLevelDirectlyUsingIndex(uint32_t ulSkillIdx, uint32_t ulLevel);/*�����øú�������ΪĿǰδ���κα������ܽ�������ֵ��Ӱ��*/
-	
-	int	SetSkillLevelDirectlyUsingId(uint32_t ulSkillId, uint32_t ulLevel);/*�����øú�������ΪĿǰδ���κα������ܽ�������ֵ��Ӱ��*/
+	int	SetSkillLevelDirectlyUsingIndex(unsigned int ulSkillIdx, unsigned int ulLevel);/*�����øú�������ΪĿǰδ���κα������ܽ�������ֵ��Ӱ��*/
+
+	int	SetSkillLevelDirectlyUsingId(unsigned int ulSkillId, unsigned int ulLevel);/*�����øú�������ΪĿǰδ���κα������ܽ�������ֵ��Ӱ��*/
 	//void SetSkillLeftTime(int nSkillId,int nTime);
 	void		Clear(){memset(m_Skills, 0, sizeof(m_Skills));};
 
@@ -103,7 +103,7 @@ public:
 	BOOL        SetSLevelByListidx(int nListidx, int nLevel,BOOL nKind=FALSE);
 
 	BOOL		SetSLevel(int nSkillID, int nLevel,BOOL nKind=FALSE);
-	int			GetSkillIdxLevel(int nIdx) 
+	int			GetSkillIdxLevel(int nIdx)
 	{
 		if (nIdx <= 0) return 0;
 		return m_Skills[nIdx].SkillLevel;
@@ -136,23 +136,23 @@ public:
 	{
 		if (nListIndex < MAX_NPCSKILL && nListIndex > 0)
 			return m_Skills[nListIndex].SkillId;
-		else 
+		else
 			return -1;
 	};
 	int			GetSkillStyle(int nListIndex)
 	{
 		if (nListIndex < MAX_NPCSKILL && nListIndex > 0)
 			return m_Skills[nListIndex].nSkillStyle;
-		else 
+		else
 			return -1;
 	};
 
-	
+
 	int			GetAddPoint(int nListIndex) //��ȡĳ��λ�ü��ܵĶ��⼼�ܵ㣨װ���ȣ�
 	{
 		if (nListIndex < MAX_NPCSKILL && nListIndex > 0)
 			return m_Skills[nListIndex].mAddPoint;
-		else 
+		else
 			return 0;
 	};
 
@@ -160,7 +160,7 @@ public:
 	{
 		if (nListIndex < MAX_NPCSKILL && nListIndex > 0)
 			return m_Skills[nListIndex].EnChance;
-		else 
+		else
 			return 0;
 	};
 
@@ -168,13 +168,13 @@ public:
 	{
 		if (nListIndex < MAX_NPCSKILL && nListIndex > 0)
 			return 	m_Skills[nListIndex].nTempEnChance;
-		else 
+		else
 			return 0;
 	};
 
 	void		QeuipAddPoint(int nListIndex,int sPoint)    //���÷���������Ҫ�������ӻ���ٵļ��ܵ�
 	{
-			m_Skills[nListIndex].mAddPoint += sPoint;	   
+			m_Skills[nListIndex].mAddPoint += sPoint;
 	};
 
 	void		SetEnChance(int nListIndex,int sEnChance)   //ֱ�����ü��ܼӳɵ�����
@@ -192,14 +192,14 @@ public:
 	};
 	void		AddEnChance(int nListIndex,int sEnChance)   //�������˵�ǰ�����ܼ��ܼӳɵ�����
 	{
-		    m_Skills[nListIndex].EnChance += sEnChance; 
+		    m_Skills[nListIndex].EnChance += sEnChance;
 
 			if (m_Skills[nListIndex].EnChance<0)
 			{
 				m_Skills[nListIndex].EnChance=0;
 				m_Skills[nListIndex].nTempEnChance =0;
 			}
-			
+
 	};
 };
 #endif

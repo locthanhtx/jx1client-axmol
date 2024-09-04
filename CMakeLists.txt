@@ -188,7 +188,10 @@ if (AX_WITH_YAML_CPP)
     list(APPEND GAME_INC_DIRS "${_AX_ROOT}/3rdparty/yaml-cpp/include")
 endif()
 
-target_include_directories(${APP_NAME} PRIVATE ${GAME_INC_DIRS})
+target_include_directories(
+        ${APP_NAME} PRIVATE ${GAME_INC_DIRS}
+        ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/libiconv/include"
+)
 
 
 # mark app resources, resource will be copy auto after mark

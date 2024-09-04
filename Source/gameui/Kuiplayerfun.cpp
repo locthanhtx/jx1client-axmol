@@ -78,6 +78,7 @@ Kuiplayerfun::Kuiplayerfun()
 	m_pActivateChannel=NULL;
 	m_nActivateChannels = 0;
 	m_nChannelsResource = 0;
+    btnSize = Vec2(0, 0);
 }
 
 Kuiplayerfun::~Kuiplayerfun()
@@ -110,7 +111,7 @@ Kuiplayerfun::~Kuiplayerfun()
 //����ȷ��������
 Kuiplayerfun * Kuiplayerfun::create(Ref * callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
-	Kuiplayerfun * popLayer = Kuiplayerfun::create();
+	auto popLayer = Kuiplayerfun::create();
 	popLayer->addDialogData();
 	//���ð�ť
 	popLayer->setcoloseButton(callbackListener,callfun);
@@ -137,14 +138,15 @@ bool Kuiplayerfun::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\��ҽ���\\��ҽ���2.spr");
+//	sprintf(nSprName,"\\Spr\\Ui3\\锟斤拷医锟斤拷锟絓\\锟斤拷医锟斤拷锟?.spr");
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BaoVat.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
-	if (bgCur==NULL)
+	if (bgCur == NULL)
 		return false;
 	Sprite * spriteBox = Sprite::createWithTexture(bgCur);
 	ParentNode_Team= spriteBox;
@@ -159,8 +161,8 @@ bool Kuiplayerfun::init()
 	//����������Ӧ
 
 	this->scheduleUpdate();                   //���ú���
-	auto listener = ax::EventListenerTouchOneByOne::create();
-ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this); //��ֹ��㴥��
+//	auto listener = ax::EventListenerTouchOneByOne::create();
+//    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this); //��ֹ��㴥��
 	return true;
 }
 
@@ -180,12 +182,12 @@ void Kuiplayerfun::addDialogData()
 	//����Ƶ����Դ
 	int nCh;
 	KIniFile pIni;
-	if  (!pIni.Load("\\Ui\\Ui3\\��Ϣ�������_��.ini"))
+	if  (!pIni.Load("\\Ui\\Ui3\\消息集合面板_左.ini"))
 	{
 #ifdef WIN32
-		ccMessageBox("װ����Ϣʧ��","��ʾ");
+		messageBox("װ����Ϣʧ��","��ʾ");
 #else
-		ccMessageBox(UTEXT("װ����Ϣʧ��",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("装载信息失败",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 	}
 	char ChName[64];
@@ -195,7 +197,7 @@ void Kuiplayerfun::addDialogData()
 		sprintf(ChName, "%s%d", "Channel", nCh);
 		if (pIni.GetString("Channels", ChName, "", m_ChannelsResource[nCh].cTitle, 32))
 		{
-			//ccMessageBox(m_ChannelsResource[nCh].cTitle,"TITLE");
+			//messageBox(m_ChannelsResource[nCh].cTitle,"TITLE");
 			pIni.GetString(m_ChannelsResource[nCh].cTitle, "TextColor", "0,0,0", ChName, sizeof(ChName));
 			m_ChannelsResource[nCh].uTextColor.Color_dw = TGetColor(ChName);
 			m_ChannelsResource[nCh].uTextColor.Color_b.a = KTC_COLOR;
@@ -281,7 +283,7 @@ void Kuiplayerfun::addDialogData()
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
 	//
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\����������\\ͨ�õĶ��ֱ�ǩ.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\����������\\ͨ�õĶ��ֱ�ǩ.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -805,7 +807,7 @@ void Kuiplayerfun::setcoloseButton(Ref * callbackListener, const std::function<v
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\��ҽ���\\��ҽ������ر�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\��ҽ���\\��ҽ������ر�.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -828,7 +830,7 @@ void Kuiplayerfun::setcoloseButton(Ref * callbackListener, const std::function<v
 
 	//ˢ��  \Spr\Ui3\��ҽ���\��ҽ�����ˢ��.spr  \\Spr\\Ui3\\���\\ˢ���б�.spr
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\��ҽ���\\��ҽ�����ˢ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\��ҽ���\\��ҽ�����ˢ��.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -1061,14 +1063,14 @@ void Kuiplayerfun::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::Touch
 			      char nRoleName[64];
 			      ZeroMemory(nRoleName,sizeof(nRoleName));
 			      if (pfindEditBox)
-				     t_sprintf(nRoleName,pfindEditBox->getText());
+				     sprintf(nRoleName, "%s", pfindEditBox->getText());
 
 			      if  (nRoleName[0]==0)
 			      {
 #ifdef WIN32
-				   ccMessageBox("������ƴ���","��ʾ");
+				   messageBox("������ƴ���","��ʾ");
 #else
-				   ccMessageBox(UTEXT("������ƴ���",1).c_str(),UTEXT("��ʾ",1).c_str());
+				   messageBox(UTEXT("������ƴ���",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 				   break;
 			      }
@@ -1107,7 +1109,7 @@ void Kuiplayerfun::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::Touch
 
 				  char nTempName[64];
 				  ZeroMemory(nTempName,sizeof(nTempName));
-				  t_sprintf(nTempName,"%s%s%s","/",nRoleName," ");
+				  sprintf(nTempName,"%s%s%s","/",nRoleName," ");
 				  if (g_GameWorld)
 				     g_GameWorld->setchatInputText(nTempName);
 		          break;
@@ -1212,7 +1214,7 @@ void Kuiplayerfun::selectedBoxStateEvent(Ref* pSender, CheckBox::EventType type)
 		break;
 	case CheckBox::EventType::SELECTED:
 		//m_pDisplayValueLabel->setText(CCString::createWithFormat("Selected")->getCString());
-		//ccMessageBox("ѡ��","ѡ��");
+		//messageBox("ѡ��","ѡ��");
 		if (!g_pCoreShell->TeamOperation(TEAM_OI_CLOSE,0,1))
 		{//��ʧ��
 		   if  (checkBox)
@@ -1242,15 +1244,15 @@ void Kuiplayerfun::selectedPlayersListItemEvent(Ref *pSender, ListView::EventTyp
 					{
 						/*char nTempStr[512];
 						ZeroMemory(nTempStr,sizeof(nTempStr));
-						t_sprintf(nTempStr,button->getTitleText());
-						ccMessageBox(UTEXT(nTempStr,1).c_str(),"test");*/
+						sprintf(nTempStr,button->getTitleText());
+						messageBox(UTEXT(nTempStr,1).c_str(),"test");*/
 						unsigned int nItemDwidx = button->getItemDwidx();
 						if (nItemDwidx>0)
 						{
 							Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid = nItemDwidx;
 							KUiItemLian nLian;
 							memset(&nLian, 0, sizeof(KUiItemLian));
-							t_sprintf(nLian.nPlayerName,button->getName().c_str());
+							sprintf(nLian.nPlayerName, "%s", std::string(button->getName()).c_str());
 							nLian.nItemDWID=nItemDwidx;
 							g_pCoreShell->OperationRequest(GOI_ITEM_LIANJIE,(intptr_t)&nLian,false);
 						}
@@ -1264,12 +1266,12 @@ void Kuiplayerfun::selectedPlayersListItemEvent(Ref *pSender, ListView::EventTyp
 							std::string nSendNameStr = std::to_string(button->getTag());
 							if (nSendNameStr.empty())
 								break;
-                            t_sprintf(nTempStr,"%s",nSendNameStr.c_str());
+                            sprintf(nTempStr,"%s",nSendNameStr.c_str());
 							int nLen =strlen(nTempStr);
 							if (nLen>0)
 							   nTempStr[nLen-1]='\0';
 
-							t_sprintf(nTempName,"%s%s%s","/",UTEXT(nTempStr,1).c_str()," ");
+							sprintf(nTempName,"%s%s%s","/",UTEXT(nTempStr,1).c_str()," ");
 							if (g_GameWorld)
 								g_GameWorld->setchatInputText(nTempName);
 
@@ -1294,8 +1296,8 @@ void Kuiplayerfun::selectedPlayersListItemEvent(Ref *pSender, ListView::EventTyp
 				  {
 					  char nTempStr[512];
 					  ZeroMemory(nTempStr,sizeof(nTempStr));
-					  t_sprintf(nTempStr,nCurText->_getText().c_str());
-					  ccMessageBox(nTempStr,"test");
+					  sprintf(nTempStr,nCurText->_getText().c_str());
+					  messageBox(nTempStr,"test");
 				  }
 			   }
 			}
@@ -1346,7 +1348,7 @@ void Kuiplayerfun::selectedItemEvent(Ref *pSender, ListView::EventType type)
 					Widget *item = listViewEx->getItem(nCurSelindex);
 					Button *button = static_cast<Button*>(item->getChildByName("TextButton"));
 					__nSelIndex = button->getTag();//npcindex;
-					pfindEditBox->setText(button->getTitleText().c_str());
+					pfindEditBox->setText(std::string(button->getTitleText()).c_str());
 				}
 			}
 				//CCLOG("select child start index = %d", listViewEx->getCurSelectedIndex());
@@ -1360,7 +1362,7 @@ void Kuiplayerfun::selectedItemEvent(Ref *pSender, ListView::EventType type)
 		break;
 	}
 
-	//ccMessageBox(msg,"����¼�");
+	//messageBox(msg,"����¼�");
 }
 
 
@@ -1467,7 +1469,7 @@ void Kuiplayerfun::OnRefresh()
 				custom_button->setContentSize(btnSize);
 				custom_button->setTitleFontSize(12);
 				char nTempstr[32];
-				t_sprintf(nTempstr,m_pNearbyPlayersList[i].Name);
+				sprintf(nTempstr, "%s", m_pNearbyPlayersList[i].Name);
 				custom_button->setTitleText(UTEXT(nTempstr,1));
 
 				Layout *custom_item = Layout::create();
@@ -1492,7 +1494,7 @@ void Kuiplayerfun::OnRefresh()
 		custom_button->setContentSize(btnSize);
 		custom_button->setTitleFontSize(12);
 		char nTempstr[32];
-		t_sprintf(nTempstr,"��������ڸ���");
+		sprintf(nTempstr, "%s", "��������ڸ���");
 		custom_button->setTitleText(UTEXT(nTempstr,1));
 		custom_button->setTag(-1);//NpcIndex
         int nikey = std::hash<std::string>{}("");
@@ -1729,7 +1731,7 @@ void Kuiplayerfun::UpdateData(KUiPlayerTeam* pInfo)
 	memset(&LeaderShip, 0, sizeof(KUiPlayerLeaderShip));
 	g_pCoreShell->GetGameData(GDI_PLAYER_LEADERSHIP,(uintptr_t)&LeaderShip, 0);  //����ͳ˧������ص�����
 	//char msg[64];
-	//t_sprintf(msg,"%d",LeaderShip.nLeaderShipLevel);
+	//sprintf(msg,"%d",LeaderShip.nLeaderShipLevel);
 	//pMoneyLabel->setString(msg);//m_LeaderAbility.SetIntText(LeaderShip.nLeaderShipLevel);  //ͳ˧
 
 	if (pInfo)
@@ -1770,7 +1772,7 @@ void Kuiplayerfun::UpdateData(KUiPlayerTeam* pInfo)
 					custom_button->setContentSize(btnSize);
 					custom_button->setTitleFontSize(12);
 					char nTempstr[32];
-					t_sprintf(nTempstr,m_pPlayersList[i].Name);
+					sprintf(nTempstr, "%s", m_pPlayersList[i].Name);
 					custom_button->setTitleText(UTEXT(nTempstr,1));
 
 					Layout *custom_item = Layout::create();
@@ -1994,12 +1996,12 @@ void Kuiplayerfun::SendQueryChannelID(int nChannelResourceIndex) //�����
 		return;
 	if (!ReplaceSpecialField(ChannelName, m_ChannelsResource[nChannelResourceIndex].cFormatName)) //�ܲ�������Ƶ�� Ҫ��������
 	{
-		//ccMessageBox(ChannelName,"EORRPR TEST");
+		//messageBox(ChannelName,"EORRPR TEST");
 		return;
 	}
 	if (ChannelName[0] == 0)   //��˫б�� �ַ�
 		return;
-	//ccMessageBox(ChannelName,"TEST");
+	//messageBox(ChannelName,"TEST");
 	/////�����Ƿ�Э��� S3Relay ����Ƶ��
 	char ProtocolBuffer[sizeof(tagExtendProtoHeader) + sizeof(PLAYERCOMM_QUERYCHANNELID)];
 	int nProtocolOffset = 0;
@@ -2137,24 +2139,24 @@ void Kuiplayerfun::ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned s
 	ZeroMemory(nTempTypeName,sizeof(nTempTypeName));
 	if (isClient)
 	{
-		t_sprintf(nTempSendLinkName,Player[CLIENT_PLAYER_INDEX].m_PlayerName);
-		t_sprintf(nTempTypeName,"[��]");
-		t_sprintf(nTempSendName,"%s:",szName);
+		sprintf(nTempSendLinkName, "%s", Player[CLIENT_PLAYER_INDEX].m_PlayerName);
+		sprintf(nTempTypeName,"[��]");
+		sprintf(nTempSendName,"%s:",szName);
 	}
 	else
 	{
-		t_sprintf(nTempSendLinkName,szName);
-		t_sprintf(nTempTypeName,"[��]");
-	    t_sprintf(nTempSendName,"%s:",szName);
+		sprintf(nTempSendLinkName, "%s", szName);
+		sprintf(nTempTypeName,"[��]");
+	    sprintf(nTempSendName,"%s:",szName);
 	}
 #ifdef WIN32
-	//ccMessageBox(Buffer,"����");//
+	//messageBox(Buffer,"����");//
 	addchatmsg(nTempTypeName,nTempSendName,Buffer,pListView_siliao,isClient,0,nItemDwidx,nTempSendLinkName);
 #else
-	//ccMessageBox(UTEXT(Buffer,1).c_str(),"˽��");//
+	//messageBox(UTEXT(Buffer,1).c_str(),"˽��");//
 	if (!isClient)
-	    t_sprintf(nTempSendName,UTEXT(nTempSendName,1).c_str());
-	//t_sprintf(Buffer,UTEXT(Buffer,1).c_str());
+	    sprintf(nTempSendName, "%s", UTEXT(nTempSendName,1).c_str());
+	//sprintf(Buffer,UTEXT(Buffer,1).c_str());
 	addchatmsg(nTempTypeName,nTempSendName,Buffer,pListView_siliao,isClient,0,nItemDwidx,nTempSendLinkName);
 #endif
 	m_uLastDelMsgTime = IR_GetCurrentTime();
@@ -2181,17 +2183,17 @@ int Kuiplayerfun::NewChannelMessageArrival(DWORD nChannelID, char* szSendName,ch
 		if (strstr(szSendName,"֪ͨ:"))
 		{
 			//nMsgLength = FilterTextColor(pMsgBuff,nMsgLength);
-			t_sprintf(nTempTypeName,"֪ͨ:");
+			sprintf(nTempTypeName,"֪ͨ:");
 			addchatmsg(nTempTypeName,szSendName,pMsgBuff,pListView_all,1,0,0,NULL,nPackage);
 		}
 	    else if (strstr(szSendName,"ս��:"))
 		{
-			t_sprintf(nTempTypeName,"ս��:");
+			sprintf(nTempTypeName,"ս��:");
 		    addchatmsg(nTempTypeName,szSendName,pMsgBuff,pListView_all,2,0,0,NULL,nPackage);
 		}
 		else if (strstr(szSendName,"��ս:"))
 		{
-			t_sprintf(nTempTypeName,"��ս:");
+			sprintf(nTempTypeName,"��ս:");
 			addchatmsg(nTempTypeName,szSendName,pMsgBuff,pListView_all,3,0,0,NULL,nPackage);
 		}
 	    else
@@ -2199,53 +2201,53 @@ int Kuiplayerfun::NewChannelMessageArrival(DWORD nChannelID, char* szSendName,ch
 
 			if (nID == CH_WORLD) //����
 			{
-				t_sprintf(nTempTypeName,"[����]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[����]");
+				sprintf(nTempSendName,"%s:",szSendName);
 			    addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_all,4,0,nItemDwidx,scrSendName,nPackage);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_shijie,-1,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_CITY)//����
 			{
-				t_sprintf(nTempTypeName,"[����]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[����]");
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_all,5,0,nItemDwidx,scrSendName,nPackage);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_chengshi,-1,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_TONG) //����
 			{
-				t_sprintf(nTempTypeName,"[���]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[���]");
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_all,6,0,nItemDwidx,scrSendName,nPackage);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_bangpai,-1,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_TEAM)
 			{
-				t_sprintf(nTempTypeName,"[����]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[����]");
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_all,7,0,nItemDwidx,scrSendName,nPackage);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_duiwu,-1,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_FACTION)
 			{
-				t_sprintf(nTempTypeName,"[����]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[����]");
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(nTempTypeName,szSendName,pMsgBuff,pListView_all,8,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_SYSTEM)
 			{
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(NULL,nTempSendName,pMsgBuff,pListView_all,9,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else if (nID == CH_NEARBY)
 			{//��������
-				t_sprintf(nTempTypeName,"[����]");
-				t_sprintf(nTempSendName,"%s:",szSendName);
+				sprintf(nTempTypeName,"[����]");
+				sprintf(nTempSendName,"%s:",szSendName);
 				addchatmsg(nTempTypeName,nTempSendName,pMsgBuff,pListView_all,10,0,nItemDwidx,scrSendName,nPackage);
 			}
 			else
 			{
 				//nMsgLength = FilterTextColor(pMsgBuff,nMsgLength);
-				t_sprintf(nTempTypeName,"[����]:");
+				sprintf(nTempTypeName,"[����]:");
 				addchatmsg(nTempTypeName,szSendName,pMsgBuff,pListView_all,11,0,nItemDwidx,scrSendName,nPackage);
 			}
 
@@ -2346,28 +2348,28 @@ bool Kuiplayerfun::ReplaceSpecialField(char* szDest, char* szSrc)  //�滻�ļ
 	g_pCoreShell->TeamOperation(TEAM_OI_GD_INFO, (uintptr_t)&Team, 0);
 	if (Team.nTeamServerID >= 0) //����ж�����
 	{
-		t_sprintf(s_keyDests[0], "%d", Team.nTeamServerID);
+		sprintf(s_keyDests[0], "%d", Team.nTeamServerID);
 	}
 	KUiPlayerBaseInfo self;
 	self.nCurFaction = -1;//���õ�ǰû����������
 	g_pCoreShell->GetGameData(GDI_PLAYER_BASE_INFO, (uintptr_t)&self, 0);
 	if (self.nCurFaction >= 0) //�����������   ���ɺ� ���ɲ��ܲ��棡
 	{
-		t_sprintf(s_keyDests[1], "%d", self.nCurFaction);
+		sprintf(s_keyDests[1], "%d", self.nCurFaction);
 	}
 	else if (self.nCurTong!=0) //��������
 	{
-		t_sprintf(s_keyDests[2], "%u", self.nCurTong);// �����
+		sprintf(s_keyDests[2], "%u", self.nCurTong);// �����
 	}
 
 	if (self.nMissionGroup >= 0)
 	{
-		t_sprintf(s_keyDests[4], "%d", self.nMissionGroup);
+		sprintf(s_keyDests[4], "%d", self.nMissionGroup);
 	}
 
 	if (self.nCurPinDao >= 0) //�������ʱƵ��
 	{
-		t_sprintf(s_keyDests[6], "%d", self.nCurPinDao);
+		sprintf(s_keyDests[6], "%d", self.nCurPinDao);
 	}
 
 
@@ -2538,11 +2540,11 @@ void Kuiplayerfun::OpenChannel(char* channelName, DWORD nChannelID, BYTE cost)  
 			if (ChannelName[0] == 0)
 				continue;
 
-			//ccMessageBox(ChannelName,ChannelName);
+			//messageBox(ChannelName,ChannelName);
 
 			if (strcmp(channelName, U2G(ChannelName).c_str()) == 0)
 			{
-				//ccMessageBox(channelName,ChannelName);
+				//messageBox(channelName,ChannelName);
 				nChannelIndex = n;
 				break;
 			}
@@ -2562,7 +2564,7 @@ void Kuiplayerfun::OpenChannel(char* channelName, DWORD nChannelID, BYTE cost)  
 
 void Kuiplayerfun::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}
@@ -2570,5 +2572,5 @@ void Kuiplayerfun::update(float delta)
 
 //void Kuiplayerfun::draw()
 //{
-//	//ccMessageBox("����ѭ��","draw");
+//	//messageBox("����ѭ��","draw");
 //}

@@ -36,7 +36,7 @@ KLuaScript	*	g_pNpcLevelScript = NULL;
 KLuaScript      g_WorldScript;
 
 //�ͻ��˿�ʼԤ��������
-#define CLIENTWEAPONSKILL_TABFILE		"\\settings\\ClientWeaponSkill.txt"	
+#define CLIENTWEAPONSKILL_TABFILE		"\\settings\\ClientWeaponSkill.txt"
 #define ADJUSTCOLOR_TABFILE				"\\settings\\AdjustColor.txt"
 _ItemDataInfo  iItemDataInfo;
 _StrNpcInfo    strNpcInfo;
@@ -45,15 +45,15 @@ _StrCoreInfo   strCoreInfo;
 
 Size visibleSize;  //�ɼ���Ļ���ڵĴ�С
 Point origin;       //��ʼ��λ��?
-Size size;         //
+Size kSize;         //
 std::string m_SDcardDirPath = "";
 std::string maxMapPicPath = "";
 std::string m_MobileKey     ="NYc0bUz0z_JhCNAi0WUK8JK0MOlOQlkP";
 AudioEngine *__pSound = NULL;
 FileUtils *ccFileUtils = NULL;
 bool _openSound =true;
-uint32_t curMobileVer=30;
-uint32_t curMobileKey=14302019;
+unsigned int curMobileVer=30;
+unsigned int curMobileKey=14302019;
 //KSprCodec SprDecode;
 
 KTimer    timerStart;
@@ -66,7 +66,7 @@ KIniFile  g_GameSetTing,g_NpcMapDropRate,g_MagicBaoshiDesc;
 KIniFile  g_MapTraffic;
 KTabFile  g_GetMsg;
 int		  g_nMeleeWeaponSkill[MAX_MELEEWEAPON_PARTICULARTYPE_NUM];
-int		  g_nRangeWeaponSkill[MAX_RANGEWEAPON_PARTICULARTYPE_NUM];	
+int		  g_nRangeWeaponSkill[MAX_RANGEWEAPON_PARTICULARTYPE_NUM];
 int		  g_nHandSkill;
 int       nGameVersion;//ʲô�汾��GS
 int       nExpSkillIdx;
@@ -93,14 +93,14 @@ int m_bIsClientConnecting;  //�ʺŷ������Ƿ��Ѿ�����
 int m_bIsGameSevConnecting; //gs�Ƿ��Ѿ�����
 int m_bIsPlayerInGame    = false;//����Ƿ��Ѿ�������Ϸ��
 int _clientlanguage=2;      //1 Ϊ�й� 2 ΪԽ�� 3 Ӣ��
-bool _clientNoNetWork=false; //�Ƿ񵥻� 
+bool _clientNoNetWork=false; //�Ƿ񵥻�
 void g_InitProtocol();
 bool InitSkillSetting()
 {
 	if (!g_SkillManager.Init())
-       ccMessageBox("load filed.","SkillManager");
+       messageBox("load filed.","SkillManager");
 	if (!g_ClientWeaponSkillTabFile.Load(CLIENTWEAPONSKILL_TABFILE))
-		ccMessageBox("load filed..","ClientWeapon");
+		messageBox("load filed..","ClientWeapon");
 	return true;
 }
 
@@ -125,9 +125,9 @@ bool InitMissleSetting()
 bool InitTaskSetting()
 {
 	if (!g_StringResourseTabFile.Load(STRINGRESOURSE_TABFILE))
-		ccMessageBox("[TASK]CAN NOT LOAD.","TASK");
+		messageBox("[TASK]CAN NOT LOAD.","TASK");
 	if (!g_RankTabSetting.Load(PLAYER_RANK_SETTING_TABFILE))
-		ccMessageBox("[RANK]CAN NOT LOAD.","RANK");
+		messageBox("[RANK]CAN NOT LOAD.","RANK");
 	return true;
 }
 
@@ -139,12 +139,12 @@ bool InitNpcSetting()
 	// �����ļ� ��������.txt
 	//	g_SetFilePath(RES_INI_FILE_PATH);
 	if (!g_NpcKindFile.Load(NPC_RES_KIND_FILE_NAME) )
-		ccMessageBox("[NpcKind]CAN NOT LOAD.","NpcKind");
+		messageBox("[NpcKind]CAN NOT LOAD.","NpcKind");
 	//����Npc�ȼ��趨�Ľű��ļ������ڽ�����Npcʱʹ��
 	g_pNpcLevelScript = new KLuaScript;
 	if (!g_pNpcLevelScript)
 	{
-		ccMessageBox("g_pNpcLevelScript is Error","InitNpcSetting");
+		messageBox("g_pNpcLevelScript is Error","InitNpcSetting");
 	}
 	else
 	{
@@ -153,12 +153,12 @@ bool InitNpcSetting()
 	  {
 		delete g_pNpcLevelScript;
 		g_pNpcLevelScript = NULL;
-		ccMessageBox("[NpcLevel]CAN NOT LOAD.","InitNpcSetting");
+		messageBox("[NpcLevel]CAN NOT LOAD.","InitNpcSetting");
 	  }
 	}
 
 	if (!g_NpcResList.Init())   //�ͻ��˼�������ļ�������
-		ccMessageBox("[NpcResList]CAN NOT LOAD.","NpcResList");
+		messageBox("[NpcResList]CAN NOT LOAD.","NpcResList");
 	return true;
 }
 
@@ -184,7 +184,7 @@ void g_ReleaseCore()
     //g_UnInitMath();
 }
 void g_InitCore()
-{   
+{
 	//�����ʺš��͡��������
 	srand((unsigned)time(NULL));
 	timerStart.Start();                           //������Ϸ�ļ�ʱ��
@@ -208,7 +208,7 @@ void g_InitCore()
 	}
 
 	if (!g_ObjChangeName.Load("\\settings\\vn\\ObjData.txt"))
-		ccMessageBox("load vn-ObjData.txt Error","Warning");
+		messageBox("load vn-ObjData.txt Error","Warning");
 		//printf("--���������ļ�ʧ��:%s\n","\\settings\\vn\\ObjData.txt");
 	KTabFile nNpcInfo;  //���������洦
 	/*if (nNpcInfo.Load("\\settings\\lang\\zh\\replacename_npc.txt"))
@@ -242,9 +242,9 @@ void g_InitCore()
 	ZeroMemory(nTempStr,sizeof(nTempStr));
 
 	if (_clientlanguage!=1)
-		t_sprintf(nTempStr,"\\settings\\lang\\vn\\stringtable_core.txt");
+		sprintf(nTempStr,"\\settings\\lang\\vn\\stringtable_core.txt");
 	else
-	    t_sprintf(nTempStr,"\\settings\\lang\\zh\\stringtable_core.txt");
+	    sprintf(nTempStr,"\\settings\\lang\\zh\\stringtable_core.txt");
 
 	if (nNpcInfo.Load(nTempStr))
 	{
@@ -268,7 +268,7 @@ void g_InitCore()
 	Npc      = new KNpc[MAX_NPC];
 	szRandomMem3 = new char[((rand() % 64) + 6) * 1024];
 	Item     = new KItem[MAX_ITEM];
-	Object   = new KObj[MAX_OBJECT];
+	KObject   = new KObj[MAX_OBJECT];
 	Missle   = new KMissle[MAX_MISSLE];
 
 	if (szRandomMem1)
@@ -288,7 +288,7 @@ void g_InitCore()
 		delete[] szRandomMem3;
 		szRandomMem3 = NULL;
 	}
-	//_ASSERT(SubWorld && Player && Npc && Item && Object && Missle);
+	//_ASSERT(SubWorld && Player && Npc && Item && KObject && Missle);
 	//---------------------------------------------------------------------------
 	g_InitProtocol();
 	g_RandomSeed(42);	                               //����һ���������	clock()
@@ -299,21 +299,21 @@ void g_InitCore()
 	g_InitSeries();
 
 	if (!g_InitMath())
-		ccMessageBox("load InitMath Error","InitMath");
+		messageBox("load InitMath Error","InitMath");
 	//return;
-	ItemSet.Init();	
+	ItemSet.Init();
 	ItemGen.Init();
 	//InitAdjustColorTab();                            //VS 2010 �д���״̬��ɫƫ��  �� ��״̬����ɫ����״̬����ɫ//����ƫɫ��......
 
 	g_MagicDesc.Init();                              //��ʼ���ͻ���ħ����������
 	g_ItemChangeRes.Init();                             //VS 2010 �д��� ��ʼ��װ������ļ�
 	//if(!g_ForbitWaiGua.Load(GAME_FORBITWAIGUA_FILE))  //VS 2010 �д���
-	//	ccMessageBox("load ForbitMap Error","ForbitMap");
+	//	messageBox("load ForbitMap Error","ForbitMap");
 
 	if(!g_ForbitMap.Load(GAME_FORBITMAP_FILE))
-		ccMessageBox("load ForbitMap Error","ForbitMap");
+		messageBox("load ForbitMap Error","ForbitMap");
 	if(!g_FsJinMai.Load(GAME_FSJINMAI_FILE))
-		ccMessageBox("load JinMai Error","JinMai");
+		messageBox("load JinMai Error","JinMai");
 	//return;
 	g_PlayerTitle.Load("\\Settings\\playertitle.txt");
 	g_NpcMapDropRate.Load(MAP_DROPRATE_FILE);
@@ -324,7 +324,7 @@ void g_InitCore()
 
 	g_IniScriptEngine("\\Ui",FALSE);                      //J���ؿͻ��˽ű�
 	if (!g_OrdinSkillsSetting.Load(SKILL_SETTING_FILE))   //��ʼ�����ܻ�������
-		ccMessageBox("load skills error.","skills");
+		messageBox("load skills error.","skills");
 
 	g_MisslesSetting.Load(MISSLES_SETTING_FILE);     //�ӵ���ʼ��  �Ӽ���
 
@@ -337,14 +337,14 @@ void g_InitCore()
 	InitTaskSetting();                               //����
 	// ����漰���뼼����صĶ��������Ա�����ڼ��ܳ�ʼ��֮��
 	if (!PlayerSet.Init())
-	   ccMessageBox("Init PlayerSet Error","PlayerSet");
+	   messageBox("Init PlayerSet Error","PlayerSet");
 
 	g_CompAtlas.Load(GAME_ATLAS_FILE);
 	g_GetMsg.Load(GAME_MSG_FILE);
 	g_CompEquip.Load(GAME_COMP_FILE);
 	g_MapTraffic.Load("\\settings\\MapTraffic.ini");
 	if (!g_ScenePlace.Initialize())//������ʼ��
-		ccMessageBox("Scene Load Error","Initialize");
+		messageBox("Scene Load Error","Initialize");
 
 	g_Faction.Init();
 	memset(g_nMeleeWeaponSkill, 0, sizeof(g_nMeleeWeaponSkill));
@@ -379,14 +379,14 @@ void g_InitCore()
 		}
 	}
 	else
-		ccMessageBox("PhysicsSkillIdFile load Error","PhysicsSkillIdFile");
+		messageBox("PhysicsSkillIdFile load Error","PhysicsSkillIdFile");
 
 	Weapon_PhysicsSkillIdFile.Clear();
 	if (!BuySell.Init())  //�̵��ʼ��
-		ccMessageBox("Init BuySell Error","BuySell");
+		messageBox("Init BuySell Error","BuySell");
 
 	//����һ���̴߳��� ��Ϸ������ѭ��
-	//ccMessageBox("Init Core is ok....","InitCore");
+	//messageBox("Init Core is ok....","InitCore");
 }
 
 /*

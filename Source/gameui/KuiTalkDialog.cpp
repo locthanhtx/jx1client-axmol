@@ -90,7 +90,7 @@ bool KuiTalkDialog::init()
 	//\\spr\\Ui3\\������\\���������.spr
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\NPC�Ի���\\�Ի���2.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\NPC�Ի���\\�Ի���2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -171,14 +171,14 @@ void KuiTalkDialog::addskillspr(KUiInformationParam* pWordDataList, int nCount)
 	red->retain();
 }
 
-void KuiTalkDialog::Show(char* pInformation, int nInforLen, const char* pBtnLabel, unsigned int uParam)
+void KuiTalkDialog::Show(char* pInformation, int nInforLen, const char* pBtnLabel, uintptr_t uParam)
 {//��ʼ��������
 	if (pInformation && pInformationLabel)
 	{
 		int msgLen  = FilterTextColor(pInformation,strlen(pInformation));
 		pInformation[msgLen]='\0';
 		char nNewInformation[256];
-		t_sprintf(nNewInformation,pInformation);
+		sprintf(nNewInformation, "%s", pInformation);
         pInformationLabel->setString(UTEXT(nNewInformation,1).c_str());
 	}
 }
@@ -293,7 +293,7 @@ bool KuiTalkDialog::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	for (int i = 0; i < m_AnswerCount; ++i)
 	{
 		char mKey[32];
-		t_sprintf(mKey,"answer_%d",i);
+		sprintf(mKey,"answer_%d",i);
 		std::string nKeyName = mKey;
 		sprNode = (Sprite *)ParentNode_ItemEx->getChildByName(nKeyName);
 		if  (sprNode)
@@ -323,8 +323,8 @@ bool KuiTalkDialog::ccTouchBegan(Touch *pTouch, Event *pEvent)
 				//colorLayer->setContentSize(sprNode->getContentSize());
 				//colorLayer->setPosition(sprNode->getPosition());
 				//char msg[64];
-				//t_sprintf(msg,"����:%d",i+1);
-				//ccMessageBox(msg,"����");
+				//sprintf(msg,"����:%d",i+1);
+				//messageBox(msg,"����");
 			}
 			else
 			{
@@ -338,7 +338,7 @@ bool KuiTalkDialog::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiTalkDialog::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);

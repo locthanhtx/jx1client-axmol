@@ -106,15 +106,15 @@ bool Kgetinidata::SaveBMPFile(const char *filename,  const stImageInfo& m_info)
 	}
 	//if(!file.Open(filename,CFile::modeCreate|CFile::modeWrite))
 	//	return -1;
-	fwrite(&bfh, 1, sizeof(bfh), file);	
-	fwrite(&bi, 1, sizeof(bi), file);	
+	fwrite(&bfh, 1, sizeof(bfh), file);
+	fwrite(&bi, 1, sizeof(bi), file);
 	fwrite(m_info.buffer,1,m_info.width*m_info.height*3,file);
 	//file.Write(&bfh,sizeof(bfh));
 	//file.Write(&bi,sizeof(bi));
 	//file.Write(m_info.buffer,m_info.width*m_info.height*3);
 	//file.Close();
 	fclose((FILE*)file);
-	
+
 	return true;
 }
 */
@@ -130,13 +130,13 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 			 pSprHeader= SprGetHeader(nFileName, pOffsTable);
 		 nFrameData = NULL;
 		 if (pSprHeader)
-		 {   
+		 {
 			 if (pOffsTable)	//һ�μ���������sprͼ
 			 {
 					 if (nFrameIndex >= 0 && nFrameIndex < pSprHeader->Frames)
 					 {
 						 nFrameData = (SPRFRAME*)((char*)pOffsTable + sizeof(SPROFFS) * pSprHeader->Frames + pOffsTable[nFrameIndex].Offset);
-					 }					
+					 }
 				 //}
 			 }
 			 else
@@ -147,14 +147,14 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 		 }
 		 else
 		 {
-			 ccMessageBox("pSprHeader is NULL","error");
+			 messageBox("pSprHeader is NULL","error");
 			 return false;
 		 }
 
 		 if (nFrameData==NULL)
 		 {
 		    SprReleaseHeader(pSprHeader);
-			ccMessageBox("FrameFiledata is NULL","error");
+			messageBox("FrameFiledata is NULL","error");
 			return false;
 		 }
 
@@ -169,7 +169,7 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 
 		 m_pPal24  = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
 		 m_pOffset = pOffsTable;
-		 //m_pSprite = (LPBYTE)(m_pOffset + sizeof(SPROFFS) * pSprHeader->Frames); 
+		 //m_pSprite = (LPBYTE)(m_pOffset + sizeof(SPROFFS) * pSprHeader->Frames);
 		 for(int32_t i=0;i<m_nColors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
@@ -187,7 +187,7 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 
 	if (!data)
 	{
-		ccMessageBox("ReadFiledata is NULL","error");
+		messageBox("ReadFiledata is NULL","error");
 		return false;
 	}
 
@@ -277,10 +277,10 @@ Texture2D *Kgetinidata::getpicPath(char *picPath)
   ZeroMemory(&m_PackRef,sizeof(XPackElemFileRef));
   Texture2D* nPicTexture =NULL;
   char nSprFileKey[64]={0},m_szEntireMapFile[128];
-  t_sprintf(m_szEntireMapFile,picPath);
+  sprintf(m_szEntireMapFile, "%s", picPath);
   g_StrLower(m_szEntireMapFile);
   DWORD nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
-  t_sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
+  sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
   nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
   int32_t isHave = false;
 
@@ -326,7 +326,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	SPRFRAME* pFrameData = NULL;
 	Texture2D* nTextureOld=NULL;
 	uint32_t nfleddwid = 0;
-	short nImagePosition   = -1; 
+	short nImagePosition   = -1;
 	int32_t bSingleFrameLoad = false; //�Ƿ����֡����
 	uint32_t nSingFrameSize = 0;
 	//int32_t nFarmIndex = 0;           //0Ϊ
@@ -334,13 +334,13 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	pSprHeader = (SPRHEAD*)m_ImageStore.GetImage(nFileName,nfleddwid,nImagePosition,nFrameIndex,ISI_T_SPR,(void*&)pFrameData,(void*&)pOffsTable,bSingleFrameLoad,nSingFrameSize);
 	if (pSprHeader == NULL || pFrameData==NULL)
 	{
-		//ccMessageBox(nFileName,"SprHeader is null");
+		//messageBox(nFileName,"SprHeader is null");
 		return NULL;
 	}
 
 	if  (!bSingleFrameLoad && pOffsTable==NULL)
 	{
-		//ccMessageBox(nFileName,"OffsTable is null");
+		//messageBox(nFileName,"OffsTable is null");
 		return NULL;
 	}
 
@@ -360,7 +360,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	*mFrams             = pSprHeader->Frames;
 	char nSprFilePath[64]={0};
 	DWORD nFielpahtdwid = g_FileName2Id(nFileName);
-	t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,nFrameIndex);
+	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,nFrameIndex);
 	if (nTextureOld = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))
 	{//����д��� ��ֱ�ӷ�����
 		if(mCurwidth)
@@ -381,7 +381,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	if (m_ReadModel)
 	{
 		 m_pPal24      = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
-		 //m_pOffset     = pOffsTable; 
+		 //m_pOffset     = pOffsTable;
 		 for(int32_t i=0;i<pSprHeader->Colors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
@@ -397,7 +397,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 
 	if (!bSingleFrameLoad && !pOffsTable)
 	{
-		//ccMessageBox("m_pOffset is Error","m_pOffset");
+		//messageBox("m_pOffset is Error","m_pOffset");
 		return NULL;
 	}
 
@@ -415,7 +415,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	BYTE *pSrc	      = pFrame->Sprite; //ԭͼѹ������ //m_pOffset[0].Length;
 	int32_t height       = pFrame->Height;
 	int32_t width        = pFrame->Width;
-	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ	
+	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ
 	uint32_t datalength = 0;
 
 	if (bSingleFrameLoad)
@@ -429,7 +429,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	 decdata = (unsigned char*)malloc((size_t)decdatalen);
 	if (!decdata)
 	{
-		//ccMessageBox("men Error","for");
+		//messageBox("men Error","for");
 		return NULL;
 	}
 
@@ -509,7 +509,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
         nTextureOld = ax::Director::getInstance()->getTextureCache()->addImage(image, nSprFilePath);
     }
 
-	
+
 	if(mCurwidth)
 	{
 		*mCurwidth = (int32_t)width;
@@ -524,7 +524,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 		free(decdata);
 		decdata =NULL;
 	}
-	//t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,nFrameIndex);  
+	//sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,nFrameIndex);
 _Return:
 	return nTextureOld;//ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 }
@@ -543,7 +543,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	SPRFRAME* pFrameData = NULL;
 	Texture2D* nTextureOld=NULL;
 	uint32_t nfleddwid = 0;
-	short nImagePosition   = -1; 
+	short nImagePosition   = -1;
 	int32_t bSingleFrameLoad = false; //�Ƿ����֡����
 	uint32_t nSingFrameSize = 0;
 	int32_t nFarmIndex = 0;           //0Ϊ
@@ -551,20 +551,20 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	pSprHeader = (SPRHEAD*)m_ImageStore.GetImage(nFileName,nfleddwid,nImagePosition,nFarmIndex,ISI_T_SPR,(void*&)pFrameData,(void*&)pOffsTable,bSingleFrameLoad,nSingFrameSize);
 	if (pSprHeader == NULL || pFrameData==NULL)
 	{
-		//ccMessageBox(nFileName,"SprHeader is null");
+		//messageBox(nFileName,"SprHeader is null");
 		return NULL;
 	}
 
 	if  (!bSingleFrameLoad && pOffsTable==NULL)
 	{
-		//ccMessageBox(nFileName,"OffsTable is null");
+		//messageBox(nFileName,"OffsTable is null");
 		return NULL;
 	}
-	
+
 	*mFrams = pSprHeader->Frames;
 	char nSprFilePath[64]={0};
 	DWORD nFielpahtdwid = g_FileName2Id(nFileName);
-	t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 	if (nTextureOld = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))
 	{//����д��� ��ֱ�ӷ�����
 		if(mCurwidth)
@@ -584,7 +584,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	if (m_ReadModel)
 	{
 		 m_pPal24      = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
-		 //m_pOffset     = pOffsTable; 
+		 //m_pOffset     = pOffsTable;
 		 for(int32_t i=0;i<pSprHeader->Colors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
@@ -616,7 +616,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
  for (int32_t k=0;k<pSprHeader->Frames+1;k++)
  {//96
 	//nImagePosition = -1;
-   
+
 	if (k>=pSprHeader->Frames && decdata)
 	{
 	    free (decdata);  //ɾ�����һ��
@@ -632,7 +632,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 
 	if (!bSingleFrameLoad && !pOffsTable)
 	{
-		//ccMessageBox("m_pOffset is Error","m_pOffset");
+		//messageBox("m_pOffset is Error","m_pOffset");
 		break;
 	}
 
@@ -647,14 +647,14 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 		continue;
 	}
 
-	t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,k);
+	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,k);
 	if (ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))
 		continue;
 
 	BYTE *pSrc	      = pFrame->Sprite; //ԭͼѹ������ //m_pOffset[0].Length;
 	int32_t height       = pFrame->Height;
 	int32_t width        = pFrame->Width;
-	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ	
+	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ
 	uint32_t datalength = 0;
 
 	if (bSingleFrameLoad)
@@ -668,7 +668,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	 decdata = (unsigned char*)malloc((size_t)decdatalen);
 	if (!decdata)
 	{
-		//ccMessageBox("men Error","for");
+		//messageBox("men Error","for");
 		break;
 	}
 
@@ -775,7 +775,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 			*mCurheight = (int32_t)height;
 		}
 	}*/
-	t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);  
+	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 	return ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 }
 //---------------------------------------------------------------------------
@@ -815,7 +815,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	case CODEC_LZO:
 		*ppCodec = new KCodecLzo;
 		break;
-		
+
 	}
 }
 //---------------------------------------------------------------------------

@@ -275,45 +275,47 @@ void Kuiskill::addDialogData()
 				}
 
 				char nKey[32],nKeyPoint[32];
-				t_sprintf(nKey,"skillname_%d",i+1);
+				sprintf(nKey,"skillname_%d",i+1);
 				std::string m_Key = nKey;
 
 				//Ten skill
                 char skillName[255];
-                t_sprintf(skillName,"Tên kỹ năng %d",i);
+                sprintf(skillName,"Tên kỹ năng %d",i);
 				Label* nSkillName = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 36);
 				nSkillName->setScale(0.5);
 				nSkillName->setColor(Color3B(0, 255, 0));
 				nSkillName->setAnchorPoint(ax::Vec2(0,0));
-				nSkillName->setTag(m_Key);
+                int nikey = std::hash<std::string>{}(m_Key);
+				nSkillName->setTag(nikey);
 				nSkillName->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+33));
 				//Ten skill
 
 				//cap hien tai
-				t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+				sprintf(nKeyPoint,"skillpoint_%d",i+1);
 				std::string m_KeyPoint = nKeyPoint;
                 char skillPoint[255];
-                t_sprintf(skillPoint,"Cấp hiện tại %d",i);
+                sprintf(skillPoint,"Cấp hiện tại %d",i);
                 Label* nSkillPoint = Label::createWithTTF(skillPoint, UI_GAME_FONT_DEFAULT_VN, 32);
 				nSkillPoint->setScale(0.5);
 				nSkillPoint->setColor(Color3B(255, 255, 255));
 				nSkillPoint->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPoint->setTag(m_KeyPoint);
+				nSkillPoint->setTag(std::hash<std::string>{}(m_KeyPoint));
 				nSkillPoint->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
 				//cap hien tai
 				ZeroMemory(nKeyPoint,sizeof(nKeyPoint));
-				t_sprintf(nKeyPoint,"skillpointadd_%d",i+1);
+				sprintf(nKeyPoint,"skillpointadd_%d",i+1);
 				std::string m_KeyPointadd = nKeyPoint;
 
                 char skillPointadd[255];
-                t_sprintf(skillPointadd,"Tăng %d",i);
+                sprintf(skillPointadd,"Tăng %d",i);
                 Label* nSkillPointadd = Label::createWithTTF(skillPoint, UI_GAME_FONT_DEFAULT_VN, 32);
 				nSkillPointadd->setScale(0.5);
 				nSkillPointadd->setColor(Color3B(255, 255, 255));
 				nSkillPointadd->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPointadd->setTag(m_KeyPointadd);
+                nikey = std::hash<std::string>{}(m_KeyPointadd);
+				nSkillPointadd->setTag(nikey);
 				nSkillPointadd->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+120, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
@@ -393,46 +395,47 @@ void Kuiskill::addDialogData()
 				}
 
 				char nKey[32],nKeyPoint[32];
-				t_sprintf(nKey,"skillname_%d",i+1);
+				sprintf(nKey,"skillname_%d",i+1);
 				std::string m_Key = nKey;
 
 				//Ten skill
                 char skillName[255];
-                t_sprintf(skillName,"Tên kỹ năng %d",i);
+                sprintf(skillName,"Tên kỹ năng %d",i);
                 Label* nSkillName = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 36);
 				nSkillName->setScale(0.5);
 				nSkillName->setColor(Color3B(0, 255, 0));
 				nSkillName->setAnchorPoint(ax::Vec2(0,0));
-				nSkillName->setTag(m_Key);
+                int nikey = std::hash<std::string>{}(m_Key);
+				nSkillName->setTag(nikey);
 				nSkillName->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+33));
 				//Ten skill
 
 				//cap hien tai
-				t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+				sprintf(nKeyPoint,"skillpoint_%d",i+1);
 				std::string m_KeyPoint = nKeyPoint;
                 char skillPoint[255];
-                t_sprintf(skillPoint,"Cấp hiện tại %d",i);
+                sprintf(skillPoint,"Cấp hiện tại %d",i);
                 Label* nSkillPoint = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 32);
 
 				nSkillPoint->setScale(0.5);
 				nSkillPoint->setColor(Color3B(255, 255, 255));
 				nSkillPoint->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPoint->setTag(m_KeyPoint);
+				nSkillPoint->setTag(std::hash<std::string>{}(m_KeyPoint));
 				nSkillPoint->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
 				//cap hien tai
 				ZeroMemory(nKeyPoint,sizeof(nKeyPoint));
-				t_sprintf(nKeyPoint,"skillpointadd_%d",i+1);
+				sprintf(nKeyPoint,"skillpointadd_%d",i+1);
 				std::string m_KeyPointadd = nKeyPoint;
 
                 char skillPointadd[255];
-                t_sprintf(skillPointadd,"Tăng %d",i);
+                sprintf(skillPointadd,"Tăng %d",i);
                 Label* nSkillPointadd = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 32);
 				nSkillPointadd->setScale(0.5);
 				nSkillPointadd->setColor(Color3B(255, 255, 255));
 				nSkillPointadd->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPointadd->setTag(m_KeyPointadd);
+				nSkillPointadd->setTag(std::hash<std::string>{}(m_KeyPointadd));
 				nSkillPointadd->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+120, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
@@ -512,46 +515,46 @@ void Kuiskill::addDialogData()
 				}
 
 				char nKey[32],nKeyPoint[32];
-				t_sprintf(nKey,"skillname_%d",i+1);
+				sprintf(nKey,"skillname_%d",i+1);
 				std::string m_Key = nKey;
 
 				//Ten skill
                 char skillName[255];
-                t_sprintf(skillName,"Tên kỹ năng %d",i);
+                sprintf(skillName,"Tên kỹ năng %d",i);
                 Label* nSkillName = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 36);
 				nSkillName->setScale(0.5);
 				nSkillName->setColor(Color3B(0, 255, 0));
 				nSkillName->setAnchorPoint(ax::Vec2(0,0));
-				nSkillName->setTag(m_Key);
+				nSkillName->setTag(std::hash<std::string>{}(m_Key));
 				nSkillName->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+33));
 				//Ten skill
 
 				//cap hien tai
-				t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+				sprintf(nKeyPoint,"skillpoint_%d",i+1);
 				std::string m_KeyPoint = nKeyPoint;
 
                 char skillPoint[255];
-                t_sprintf(skillPoint,"Cấp hiện tại %d",i);
+                sprintf(skillPoint,"Cấp hiện tại %d",i);
                 Label* nSkillPoint = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 32);
 				nSkillPoint->setScale(0.5);
 				nSkillPoint->setColor(Color3B(255, 255, 255));
 				nSkillPoint->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPoint->setTag(m_KeyPoint);
+				nSkillPoint->setTag(std::hash<std::string>{}(m_KeyPoint));
 				nSkillPoint->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+15, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
 				//cap hien tai
 				ZeroMemory(nKeyPoint,sizeof(nKeyPoint));
-				t_sprintf(nKeyPoint,"skillpointadd_%d",i+1);
+				sprintf(nKeyPoint,"skillpointadd_%d",i+1);
 				std::string m_KeyPointadd = nKeyPoint;
 
                 char skillPointadd[255];
-                t_sprintf(skillPointadd,"Tăng %d",i);
+                sprintf(skillPointadd,"Tăng %d",i);
                 Label* nSkillPointadd = Label::createWithTTF(skillName, UI_GAME_FONT_DEFAULT_VN, 32);
 				nSkillPointadd->setScale(0.5);
 				nSkillPointadd->setColor(Color3B(255, 255, 255));
 				nSkillPointadd->setAnchorPoint(ax::Vec2(0,0));
-				nSkillPointadd->setTag(m_KeyPointadd);
+				nSkillPointadd->setTag(std::hash<std::string>{}(m_KeyPointadd));
 				nSkillPointadd->setPosition(ax::Vec2(nSkillSpr->getPosition().x+nSkillSpr->getLayoutSize().width+120, -button->getLayoutSize().height / 2+8));
 				//cap hien tai
 
@@ -585,7 +588,7 @@ void Kuiskill::addDialogData()
 				char nIconFile[128];
 				char nSkillNameData[128];
 				t_printf(nSkillNameData,pSkill->GetSkillName());
-				t_sprintf(nIconFile,pSkill->getIconPath().c_str());
+				sprintf(nIconFile, "%s", pSkill->getIconPath().c_str());
 				Texture2D * bgCur= GetiniData(nIconFile,0,0,0,0,&NewscrX,&NewscrY,0,true);
 				Button* btn = (Button *)layout->getChildByTag(i+1);
 				if (btn){
@@ -593,20 +596,20 @@ void Kuiskill::addDialogData()
 					ImageView* nSkillSpr = (ImageView *)btn->getChildByTag(i+1);
 					if (nSkillSpr){
 						char nKey[32],nKeyPoint[32];
-						t_sprintf(nKey,"skillname_%d",i+1);
+						sprintf(nKey,"skillname_%d",i+1);
 						std::string m_Key = nKey;
 						Label  *nSkillNameLabel =(Label *)btn->getChildByName(m_Key);
 						if (nSkillNameLabel){
 							//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSkillNameData);
 							nSkillNameLabel->setString(pSkill->GetSkillName());
 						}
-						t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+						sprintf(nKeyPoint,"skillpoint_%d",i+1);
 						std::string m_KeyPoint = nKeyPoint;
 						Label  *nSkillLvLabel =(Label *)btn->getChildByName(m_KeyPoint);
 						if (nSkillLvLabel){
 							char nskillinfo[32];
 							ZeroMemory(nskillinfo,sizeof(nskillinfo));
-							t_sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
+							sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
 							nSkillLvLabel->setString(nskillinfo);
 						}
 //						nSkillSpr->loadTextureByData(bgCur);
@@ -620,7 +623,7 @@ void Kuiskill::addDialogData()
 				char nIconFile[128];
 				char nSkillNameData[128];
 				t_printf(nSkillNameData,pSkill->GetSkillName());
-				t_sprintf(nIconFile,pSkill->getIconPath().c_str());
+				sprintf(nIconFile, "%s", pSkill->getIconPath().c_str());
 				Texture2D * bgCur= GetiniData(nIconFile,0,0,0,0,&NewscrX,&NewscrY,0,true);
 				Button* btn = (Button *)layout1->getChildByTag(i+1);
 				if (btn){
@@ -628,20 +631,20 @@ void Kuiskill::addDialogData()
 					ImageView* nSkillSpr = (ImageView *)btn->getChildByTag(i+1);
 					if (nSkillSpr){
 						char nKey[32],nKeyPoint[32];
-						t_sprintf(nKey,"skillname_%d",i+1);
+						sprintf(nKey,"skillname_%d",i+1);
 						std::string m_Key = nKey;
 						Label  *nSkillNameLabel =(Label *)btn->getChildByName(m_Key);
 						if (nSkillNameLabel){
 							//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSkillNameData);
 							nSkillNameLabel->setString(pSkill->GetSkillName());
 						}
-						t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+						sprintf(nKeyPoint,"skillpoint_%d",i+1);
 						std::string m_KeyPoint = nKeyPoint;
 						Label  *nSkillLvLabel =(Label *)btn->getChildByName(m_KeyPoint);
 						if (nSkillLvLabel){
 							char nskillinfo[32];
 							ZeroMemory(nskillinfo,sizeof(nskillinfo));
-							t_sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
+							sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
 							nSkillLvLabel->setString(nskillinfo);
 						}
 //						nSkillSpr->loadTextureByData(bgCur);
@@ -655,7 +658,7 @@ void Kuiskill::addDialogData()
 				char nIconFile[128];
 				char nSkillNameData[128];
 				t_printf(nSkillNameData,pSkill->GetSkillName());
-				t_sprintf(nIconFile,pSkill->getIconPath().c_str());
+				sprintf(nIconFile, "%s", pSkill->getIconPath().c_str());
 				Texture2D * bgCur= GetiniData(nIconFile,0,0,0,0,&NewscrX,&NewscrY,0,true);
 				Button* btn = (Button *)layout2->getChildByTag(i+1);
 				if (btn){
@@ -663,20 +666,20 @@ void Kuiskill::addDialogData()
 					ImageView* nSkillSpr = (ImageView *)btn->getChildByTag(i+1);
 					if (nSkillSpr){
 						char nKey[32],nKeyPoint[32];
-						t_sprintf(nKey,"skillname_%d",i+1);
+						sprintf(nKey,"skillname_%d",i+1);
 						std::string m_Key = nKey;
 						Label  *nSkillNameLabel =(Label *)btn->getChildByName(m_Key);
 						if (nSkillNameLabel){
 							//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSkillNameData);
 							nSkillNameLabel->setString(pSkill->GetSkillName());
 						}
-						t_sprintf(nKeyPoint,"skillpoint_%d",i+1);
+						sprintf(nKeyPoint,"skillpoint_%d",i+1);
 						std::string m_KeyPoint = nKeyPoint;
 						Label  *nSkillLvLabel =(Label *)btn->getChildByName(m_KeyPoint);
 						if (nSkillLvLabel){
 							char nskillinfo[32];
 							ZeroMemory(nskillinfo,sizeof(nskillinfo));
-							t_sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
+							sprintf(nskillinfo,"Cấp %d",Skills[i].nLevel);
 							nSkillLvLabel->setString(nskillinfo);
 						}
 //						nSkillSpr->loadTextureByData(bgCur);
@@ -688,7 +691,7 @@ void Kuiskill::addDialogData()
 			// if (nSkillSpr) //改变纹理
 			// {
 			// 	char nKey[32];
-			// 	t_sprintf(nKey,"point_%d",i+1);
+			// 	sprintf(nKey,"point_%d",i+1);
 			// 	std::string m_Key = nKey;
 			// 	Label  *npontLabel =(Label *)ParentNode_Fight->getChildByName(m_Key);
 			// 	//nSkillPoint->setTag(m_Key);
@@ -700,7 +703,7 @@ void Kuiskill::addDialogData()
 			// 		if (pSkill)
 			// 		{
 			// 			int nAddPoint=g_pCoreShell->GetGameData(GDI_PLAYER_SKILL_ADDPOINT,Skills[i].uId,0);	//额外的技能点
-			// 			t_sprintf(nskillinfo,"%d+%d",Skills[i].nLevel,nAddPoint);
+			// 			sprintf(nskillinfo,"%d+%d",Skills[i].nLevel,nAddPoint);
 			// 		}
 
 			// 		npontLabel->setString(nskillinfo);
@@ -714,7 +717,7 @@ void Kuiskill::addDialogData()
 	if  (nSkillCount<=0)
 	{//还没有学会技能 就直接设置空手技能为左键
 		//Player[CLIENT_PLAYER_INDEX].SetDefaultImmedSkill();
-		//ccMessageBox("技能为空","技能为空");
+		//messageBox("技能为空","技能为空");
 		/*
 		pSkillList->uGenre = CGOG_SKILL_SHORTCUT;
 		pSkillList->uId = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].GetCurActiveWeaponSkill();//武器空手技能ID!
@@ -800,7 +803,7 @@ void Kuiskill::oktouchEvent(Ref *pSender, ax::ui::Widget::TouchEventType type)
 					ZeroMemory(nIconName,sizeof(nIconName));
 					ZeroMemory(nskillinfo,sizeof(nskillinfo));
 					if (pSkill)
-						t_sprintf(nskillinfo,"%s cấp %d ",pSkill->GetSkillName(),Skills[i].nLevel);
+						sprintf(nskillinfo,"%s cấp %d ",pSkill->GetSkillName(),Skills[i].nLevel);
 
 					if (!pSkillInfoLabel)
 					{
@@ -815,7 +818,7 @@ void Kuiskill::oktouchEvent(Ref *pSender, ax::ui::Widget::TouchEventType type)
 					pOrdinSkill = (KSkill *)pSkill;
 					if (pSkill && pOrdinSkill && (pOrdinSkill->GetSkillLRInfo() == BothSkill || pOrdinSkill->GetSkillLRInfo() == leftOnlySkill))
 					{//攻击技能（除断魂和轻功）//Skills[i].uId
-						t_sprintf(nIconName,pSkill->getIconPath().c_str());
+						sprintf(nIconName, "%s", pSkill->getIconPath().c_str());
 						g_GameWorld->setattackSprInfo(pSkill->GetSkillId(),Skills[i].uGenre,nIconName);
 					}
 					KUiItemdObject skillData;
@@ -910,10 +913,10 @@ void Kuiskill::UpdateSkill(KUiSkillData* pSkill, int nIndex)
 			//else
 		if (pSkill->uGenre == CGOG_SKILL_FIGHT)
 		{
-			//ccMessageBox("技能更新","技能更新");
+			//messageBox("技能更新","技能更新");
 			/*char skillinfo[64];
 			sprintf(skillinfo,"%d",nIndex);
-			ccMessageBox(skillinfo,"技能更新");
+			messageBox(skillinfo,"技能更新");
 			*/
 			//int nPage = nIndex/FIGHT_SKILL_COUNT_PER_PAGE; //第几页
 			//    nIndex = nIndex%FIGHT_SKILL_COUNT_PER_PAGE;//索引
@@ -921,7 +924,7 @@ void Kuiskill::UpdateSkill(KUiSkillData* pSkill, int nIndex)
 
 			if (pSkill==NULL || nIndex<0 || nIndex >=FIGHT_SKILL_COUNT)
 				return;
-			//ccMessageBox("技能更新","技能更新");
+			//messageBox("技能更新","技能更新");
 			//Skills[i].uId
 			 Sprite  *nSkillSpr =(Sprite *)ParentNode_Fight->getChildByTag(nIndex+1);
 			 if (nSkillSpr)
@@ -932,7 +935,7 @@ void Kuiskill::UpdateSkill(KUiSkillData* pSkill, int nIndex)
 				 Skills[nIndex].uGenre  = pSkill->uGenre;
 
 				 char nKey[32];
-				 t_sprintf(nKey,"point_%d",nIndex+1);
+				 sprintf(nKey,"point_%d",nIndex+1);
 				 std::string m_Key = nKey;
 				 Label  *npontLabel =(Label *)ParentNode_Fight->getChildByName(m_Key);
 				 if (npontLabel)
@@ -943,7 +946,7 @@ void Kuiskill::UpdateSkill(KUiSkillData* pSkill, int nIndex)
 					 if (pSkill)
 					 {
 						 int nAddPoint=g_pCoreShell->GetGameData(GDI_PLAYER_SKILL_ADDPOINT,Skills[nIndex].uId,0);	//额外的技能点
-						 t_sprintf(nskillinfo,"%d+%d",Skills[nIndex].nLevel,nAddPoint);
+						 sprintf(nskillinfo,"%d+%d",Skills[nIndex].nLevel,nAddPoint);
 					 }
 					 npontLabel->setString(nskillinfo);
 				 }
@@ -953,7 +956,7 @@ void Kuiskill::UpdateSkill(KUiSkillData* pSkill, int nIndex)
 				 ISkill *mSkill = g_SkillManager.GetSkill(Skills[nIndex].uId,1);
 				 if  (!mSkill)
 					  return;
-				 t_sprintf(nIconFile,mSkill->getIconPath().c_str());
+				 sprintf(nIconFile, "%s", mSkill->getIconPath().c_str());
 				 Texture2D * bgCur= GetiniData(nIconFile,0,0,0,0,&NewscrX,&NewscrY,0,true);
 				 if (bgCur)
 				 {
@@ -1086,7 +1089,7 @@ bool Kuiskill::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	// 				ZeroMemory(nIconName,sizeof(nIconName));
 	// 				ZeroMemory(nskillinfo,sizeof(nskillinfo));
 	// 				if (pSkill)
-	// 					t_sprintf(nskillinfo,"%s %d级",pSkill->GetSkillName(),Skills[i].nLevel);
+	// 					sprintf(nskillinfo,"%s %d级",pSkill->GetSkillName(),Skills[i].nLevel);
 
 	// 				if (!pSkillInfoLabel)
 	// 				{
@@ -1102,12 +1105,12 @@ bool Kuiskill::ccTouchBegan(Touch *pTouch, Event *pEvent)
 	// 				//if (pSkill && Skills[i].nLevel>0 && Skills[i].uId !=15 && Skills[i].uId !=210 && Skills[i].uId !=40 && (pSkill->GetSkillStyle() == SKILL_SS_Missles || pSkill->GetSkillStyle() == SKILL_SS_Melee || Skills[i].uId ==53))
 	// 				if (pSkill && pOrdinSkill && (pOrdinSkill->GetSkillLRInfo() == BothSkill || pOrdinSkill->GetSkillLRInfo() == leftOnlySkill))
 	// 				{//攻击技能（除断魂和轻功）//Skills[i].uId
-	// 					t_sprintf(nIconName,pSkill->getIconPath().c_str());
+	// 					sprintf(nIconName,pSkill->getIconPath().c_str());
 	// 					g_GameWorld->setattackSprInfo(pSkill->GetSkillId(),Skills[i].uGenre,nIconName);
 	// 				}
 	// 				/*else if (pSkill && Skills[i].nLevel>0 && (Skills[i].uId ==15 || pSkill->GetSkillStyle() == SKILL_SS_InitiativeNpcState || pSkill->GetSkillStyle() == SKILL_SS_Melee || Skills[i].uId ==210))
 	// 				{//右边技能
-	// 					t_sprintf(nIconName,pSkill->getIconPath().c_str());
+	// 					sprintf(nIconName,pSkill->getIconPath().c_str());
 	// 					g_GameWorld->setaauxiliaryskillInfo(Skills[i].uId,Skills[i].uGenre,nIconName);
 	// 				}*/
 	// 				KUiItemdObject skillData;
@@ -1147,7 +1150,7 @@ void Kuiskill::closeSkilldescPadCallback(Node *pNode)
 
 void Kuiskill::closeDescCallback(Node *pNode)
 {
-	//ccMessageBox("成功","成功");
+	//messageBox("成功","成功");
 }
 
 void Kuiskill::toprePage(Ref* pSender)
@@ -1190,9 +1193,9 @@ void Kuiskill::addskillpoint(Ref* pSender)
 	if (nCurSelindex<=0 || nCurSelindex>=MAX_SKILL)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个技能","提示");
+		messageBox("请选择一个技能","提示");
 #else
-		ccMessageBox(UTEXT("请选择一个技能",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("请选择一个技能",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 	   return;
 	}
@@ -1200,26 +1203,26 @@ void Kuiskill::addskillpoint(Ref* pSender)
 	if (pSkillPointLabel)
 	{
 		char nPointCount[32];
-		t_sprintf(nPointCount,"%d",nRemainSkillPoint);
+		sprintf(nPointCount,"%d",nRemainSkillPoint);
 		pSkillPointLabel->setString(nPointCount);
 	}
 	if (g_pCoreShell)
 	  g_pCoreShell->OperationRequest(GOI_TONE_UP_SKILL,CGOG_SKILL_FIGHT,nCurSelindex);
 	//Layer * sItemsLayer = KuiItem::create("",this,CC_CALLBACK_1(Kuiskill::closeDescCallback));
 	//ParentNode_Fight->addChild(sItemsLayer,2,OBJ_NODE_ITEM);
-	//ccMessageBox("成功","成功");
+	//messageBox("成功","成功");
 }
 
 void Kuiskill::update(float delta)
 {
-	//ccMessageBox("无限循环","update");
+	//messageBox("无限循环","update");
 	if (isOpen && g_pCoreShell)
 	{
 	   nRemainSkillPoint = g_pCoreShell->GetGameData(GDI_FIGHT_SKILL_POINT, 0, 0);
 	   if (pSkillPointLabel)
 	   {
 		   char nPointCount[32];
-		   t_sprintf(nPointCount,"%d",nRemainSkillPoint);
+		   sprintf(nPointCount,"%d",nRemainSkillPoint);
 		  // pSkillPointLabel->setColor(ccWit)
 		   pSkillPointLabel->setString(nPointCount);
 	   }
@@ -1233,7 +1236,7 @@ Texture2D * Kuiskill::GetiniData(char *sprPath,int nFramIndex,int nMpsX,int nMps
 
 	    char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,sprPath);
+		sprintf(nSprName, "%s", sprPath);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;

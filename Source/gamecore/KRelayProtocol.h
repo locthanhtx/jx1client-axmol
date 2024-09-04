@@ -60,7 +60,7 @@ struct RELAY_ASKWAY_DATA : EXTEND_HEADER
 	UINT	nFromIP;								//0.0.0.0ʱ�����ս���Relay��ϵ��Relay����дnFromIP��nFromRelayID
 	UINT	nFromRelayID;
 	UINT	seekRelayCount;							//���Ҿ�����Relay�ĸ�������-1ʱΪ���ɴ�
-	WORD	seekMethod;								//ָ�����ҷ���	
+	WORD	seekMethod;								//ָ�����ҷ���
 	WORD	wMethodDataLength;						//�����������ݳ��ȣ����ݴӽṹ��β����ʼ
 	WORD	routeDateLength;						//Ҫת�����ݳ��ȣ����ݴӷ����������ݽ�β����ʼ
 	//��Ӧ������������
@@ -89,7 +89,7 @@ struct tagExtendProtoHeader
 struct tagPlusSrcInfo
 {
 	UINT nameid;
-	uint32_t lnID;
+	unsigned int lnID;
 };
 
 //playercomm_c2s_querychannelid

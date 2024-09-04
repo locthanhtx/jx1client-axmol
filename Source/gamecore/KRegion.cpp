@@ -46,7 +46,7 @@ KRegion::~KRegion()
 	{
 		delete [] m_pMslRef;
 		m_pMslRef=NULL;
-	} 
+	}
 	if (m_pNpcRef)
 	{
 		delete [] m_pNpcRef;
@@ -57,7 +57,7 @@ KRegion::~KRegion()
 		delete [] m_pObjRef;
 	    m_pObjRef=NULL;
 }*/
- 
+
 }
 
 BOOL KRegion::Init(int nWidth, int nHeight)
@@ -67,7 +67,7 @@ BOOL KRegion::Init(int nWidth, int nHeight)
 
 	m_cNpcRef.Clear();
 	m_cObjRef.Clear();
-	
+
 	return TRUE;
 }
 
@@ -110,13 +110,13 @@ BOOL KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
 	if (!lpszPath || !lpszPath[0] || strlen(lpszPath) >= FILE_NAME_LENGTH)
 		return FALSE;
 
-	t_sprintf(szPath, "\\%s\\v_%03d", lpszPath, nY);
+	sprintf(szPath, "\\%s\\v_%03d", lpszPath, nY);
 //	g_SetFilePath(szPath);
 	// ����npc������λ�ڱ��ص� client npc
 	NpcSet.InsertNpcToRegion(this->m_nIndex);
 
 	KPakFile	cData;
-	t_sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_COMBIN_FILE_NAME_CLIENT);
+	sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_COMBIN_FILE_NAME_CLIENT);
 	if (cData.Open(szFile))
 	{//���Ұ��е� ��ͼ�ļ�
 		DWORD	dwHeadSize;
@@ -144,7 +144,7 @@ BOOL KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
 		// ����obj����
 		cData.Seek(dwHeadSize + sElemFile[REGION_OBJ_FILE_INDEX].uOffset, FILE_BEGIN);
 		LoadClientObj(&cData, sElemFile[REGION_OBJ_FILE_INDEX].uLength);
-		
+
 
 gotoCLOSE:
 		cData.Close();
@@ -161,7 +161,7 @@ gotoCLOSE:
 
 		// �����ͼ�ļ���� client npc
 //		g_SetFilePath(szPath);
-		t_sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_NPC_FILE_CLIENT);
+		sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_NPC_FILE_CLIENT);
 		if (!cNpcData.Open(szFile))
 			return false;//goto NPC_CLOSE;
 		if (cNpcData.Size() < sizeof(KNpcFileHead))
@@ -197,11 +197,11 @@ gotoCLOSE:
 					Npc[nIdx].SendSerCommand(do_stand);
 					Npc[nIdx].m_Dir = Npc[nIdx].GetNormalNpcStandDir(sNpcCell.nCurFrame);
 				}
-			} 
+			}
 		}
 
 NPC_CLOSE:
-		cNpcData.Close(); 
+		cNpcData.Close();
 		*/
 		// ����ClientObject����
 		ObjSet.ClientLoadRegionObj(szPath, nX, nY, nSubWorld, this->m_nIndex);
@@ -284,13 +284,13 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 
 	if (!lpszPath || !lpszPath[0] || strlen(lpszPath) >= FILE_NAME_LENGTH)
 		return ;
-	t_sprintf(szPath, "%s\\v_%03d", lpszPath, nY);
+	sprintf(szPath, "%s\\v_%03d", lpszPath, nY);
 
 	KPakFile	cData;
 	INT		    nTempTable[REGION_GRID_WIDTH][REGION_GRID_HEIGHT];	// ��ͼ�ϰ���Ϣ��
 	ZeroStruct(nTempTable);
 //	g_SetFilePath(szPath);
-	t_sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_COMBIN_FILE_NAME_CLIENT);
+	sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_COMBIN_FILE_NAME_CLIENT);
 //	GetFliePath("����·��:",szFile,1000);
 
 	if (cData.Open(szFile))
@@ -323,36 +323,36 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 				cData.Seek(dwHeadSize + sElemFile[REGION_OBSTACLE_FILE_INDEX].uOffset, FILE_BEGIN);
 				cData.Read((LPVOID)nTempTable, sizeof(nTempTable));
 					for (i = 0; i < REGION_GRID_HEIGHT; ++i)
-					{    
+					{
 		              for (j = 0; j < REGION_GRID_WIDTH; ++j)
-					  {    
-		                 if ((BYTE)nTempTable[j][i]) 
+					  {
+		                 if ((BYTE)nTempTable[j][i])
 		              	   lpbtObstacle[i * REGION_GRID_WIDTH + j] = (BYTE)nTempTable[j][i];
 		                 else
 			               lpbtObstacle[i * REGION_GRID_WIDTH + j] = 0;
 						/*char nMsg[64]={0};
-						t_sprintf(nMsg,"���:%d,ֵ:%d",i * REGION_GRID_WIDTH + j,(BYTE)nTempTable[j][i]);
+						sprintf(nMsg,"���:%d,ֵ:%d",i * REGION_GRID_WIDTH + j,(BYTE)nTempTable[j][i]);
 						GetFliePath(nMsg,"��",2000); */
-					  }   
-					}    
+					  }
+					}
 			}
 			else
 			{//Ϊ ��������Ϊ ���ϰ�  -2��
 				//ZeroMemory(nTempTable, sizeof(nTempTable));
 				for (i = 0; i < REGION_GRID_HEIGHT; ++i)
-				{   
+				{
 		            for (j = 0; j < REGION_GRID_WIDTH; ++j)
-					{   
+					{
 			            lpbtObstacle[i * REGION_GRID_WIDTH + j] = -2;
-					}  
-				}  
+					}
+				}
 			}
 		}
 		cData.Close();
 	}
 	else
 	{//��ͼ��Ե û�������Ϊ -1��
-		/*t_sprintf(szFile, "%03d_%s", nX, REGION_OBSTACLE_FILE);
+		/*sprintf(szFile, "%03d_%s", nX, REGION_OBSTACLE_FILE);
 		if (cData.Open(szFile))
 			cData.Read((LPVOID)nTempTable, sizeof(nTempTable));
 		else
@@ -360,20 +360,20 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 
 		cData.Close(); */
 	  for (i = 0; i < REGION_GRID_HEIGHT; ++i)
-	  {  
+	  {
 		for (j = 0; j < REGION_GRID_WIDTH; ++j)
 		{
 			  lpbtObstacle[i * REGION_GRID_WIDTH + j] = -1;
 		}
-	  }  
-	}	
+	  }
+	}
 }
 
 void KRegion::NewRegActivate()
 {
 	KIndexNode* pNode	 = NULL;
 	KIndexNode* pTmpNode = NULL;
-	uint32_t nCounter = 0;
+	unsigned int nCounter = 0;
 
 	if (IsActiveAll())	// ֻ���ڸ��������ʱ��Npc�Ŵ��ڻ״̬��
 	{
@@ -385,7 +385,7 @@ void KRegion::NewRegActivate()
 			if (nNpcIdx>0 || nNpcIdx<MAX_NPC)
 			{
 			   Npc[nNpcIdx].Activate();
-			   /*if(g_GameWorld) 
+			   /*if(g_GameWorld)
 			   {//��� ���ӽڵ�
 				   Npc[nNpcIdx].Paint();
 			   }*/
@@ -403,11 +403,11 @@ void KRegion::NewRegActivate()
 	for(; it != m_ObjList.end(); ++it)
 	{
 		nObjIdx = *it;
-		Object[nObjIdx].Activate();
+		KObject[nObjIdx].Activate();
 
 #ifdef _SERVER
 		if ((nCounter >> 1) == m_nObjSyncCounter)
-			Object[nObjIdx].SyncState();
+			KObject[nObjIdx].SyncState();
 		nCounter ++;
 #endif // #ifdef _SERVER
 	}
@@ -427,13 +427,13 @@ void KRegion::NewRegActivate()
 		{
 			try
 			{
-				Object[pObjNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
+				KObject[pObjNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
 			}
 			catch (...)
 			{
 				//printf("--��Ʒ��������ɾ��:����:%u --\n",pObjNode->m_nIndex);
-				if (Object[pObjNode->m_nIndex].m_nSubWorldID>=0 && Object[pObjNode->m_nIndex].m_nRegionIdx >= 0)
-					SubWorld[Object[pObjNode->m_nIndex].m_nSubWorldID].m_Region[Object[pObjNode->m_nIndex].m_nRegionIdx].RemoveObj(pObjNode->m_nIndex);
+				if (KObject[pObjNode->m_nIndex].m_nSubWorldID>=0 && KObject[pObjNode->m_nIndex].m_nRegionIdx >= 0)
+					SubWorld[KObject[pObjNode->m_nIndex].m_nSubWorldID].m_Region[KObject[pObjNode->m_nIndex].m_nRegionIdx].RemoveObj(pObjNode->m_nIndex);
 
 				ObjSet.Remove(pObjNode->m_nIndex);
 			}
@@ -453,10 +453,10 @@ void KRegion::NewRegActivate()
 	while(pNode)
 	{
 		pTmpNode = (KIndexNode *)pNode->GetNext();
-		Missle[pNode->m_nIndex].Activate();		
+		Missle[pNode->m_nIndex].Activate();
 		pNode = pTmpNode;
 	}
-	
+
 	if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_RegionIndex == m_nIndex)	// ��Player���ڵ�Region
 		Player[CLIENT_PLAYER_INDEX].Active();
 }
@@ -477,10 +477,10 @@ void KRegion::Activate(int mSubWorldID)
 		pTmpNode = (KIndexNode *)pNode->GetNext();
 		int nNpcIdx = pNode->m_nIndex;
 	    if (nNpcIdx>0)
-		{ 
+		{
 		   if (IsActive() || Npc[nNpcIdx].m_GameliveTime >0)
 			  Npc[nNpcIdx].Activate();                         //NPC״̬�� AI,��۵�--����ʾ���� ����ʾ core mainloop ����
-     
+
 /*#ifndef _SERVER
 		  if (Npc[nNpcIdx].IsPlayer())
 		     Npc[nNpcIdx].ActivateWaiGua();	                //ѭ��������
@@ -506,11 +506,11 @@ void KRegion::Activate(int mSubWorldID)
 #ifdef _SERVER
 		if ((nCounter == m_nObjSyncCounter / 2) && (m_nObjSyncCounter & 1))
 		{
-			Object[pNode->m_nIndex].SyncState();
+			KObject[pNode->m_nIndex].SyncState();
 		}
 		nCounter++;
 #endif
-		Object[pNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
+		KObject[pNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
 		pNode = pTmpNode;
 	}
 	m_nObjSyncCounter++;
@@ -572,7 +572,7 @@ void KRegion::ActivateObj(int mSubWorldID)
 	for(; it != m_ObjList.end(); ++it)
 	{
 		nObjIdx = *it;
-		Object[nObjIdx].Activate();
+		KObject[nObjIdx].Activate();
 	}
 
 	m_nObjSyncCounter++;
@@ -591,14 +591,14 @@ void KRegion::ActivateObj(int mSubWorldID)
 		{
 		  try
 		  {
-			 Object[pObjNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
+			 KObject[pObjNode->m_nIndex].Activate();  //��Ʒ�����ѭ������ ���ϵ�
 		  }
 		  catch (...)
 		  {
 			 //printf("--��Ʒ��������ɾ��:����:%u --\n",pObjNode->m_nIndex);
-			  if (Object[pObjNode->m_nIndex].m_nSubWorldID>=0 && Object[pObjNode->m_nIndex].m_nRegionIdx >= 0)
-				  SubWorld[Object[pObjNode->m_nIndex].m_nSubWorldID].m_Region[Object[pObjNode->m_nIndex].m_nRegionIdx].RemoveObj(pObjNode->m_nIndex);
-			  
+			  if (KObject[pObjNode->m_nIndex].m_nSubWorldID>=0 && KObject[pObjNode->m_nIndex].m_nRegionIdx >= 0)
+				  SubWorld[KObject[pObjNode->m_nIndex].m_nSubWorldID].m_Region[KObject[pObjNode->m_nIndex].m_nRegionIdx].RemoveObj(pObjNode->m_nIndex);
+
 		        ObjSet.Remove(pObjNode->m_nIndex);
 		  }
 		}
@@ -650,9 +650,9 @@ void KRegion::RemoveNpc(int nIdx)
 {
 	if (nIdx <= 0 || nIdx >= MAX_NPC)
 		return;
-	
+
 	//_ASSERT(Npc[nIdx].m_Node.m_Ref > 0);
-	
+
 	if (Npc[nIdx].m_Node.m_Ref > 0)
 	{
 		Npc[nIdx].m_Node.Remove();
@@ -698,31 +698,31 @@ void KRegion::AddObj(int nIdx)
 		return;
 
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = new KIndexNode;
 	pNode->m_nIndex = nIdx;
 
 	m_ObjList.AddTail(pNode);
-	//m_ObjList.push_back(nIdx);	
-	if (Object[nIdx].m_nMapX >= 0 && Object[nIdx].m_nMapY >= 0)
+	//m_ObjList.push_back(nIdx);
+	if (KObject[nIdx].m_nMapX >= 0 && KObject[nIdx].m_nMapY >= 0)
 	{
-	  AddObjRef(Object[nIdx].m_nMapX,Object[nIdx].m_nMapY);
-	} 
-	
+	  AddObjRef(KObject[nIdx].m_nMapX,KObject[nIdx].m_nMapY);
+	}
+
 
 	/*if (nIdx > 0 && nIdx < MAX_OBJECT)
 	{
-		if (Object[nIdx].m_Node.m_Ref <= 0)
+		if (KObject[nIdx].m_Node.m_Ref <= 0)
 		{
-			m_ObjList.AddTail(&Object[nIdx].m_Node);
-			Object[nIdx].m_Node.m_Ref =0;
-			Object[nIdx].m_Node.AddRef();
+			m_ObjList.AddTail(&KObject[nIdx].m_Node);
+			KObject[nIdx].m_Node.m_Ref =0;
+			KObject[nIdx].m_Node.AddRef();
 		}
 
-		if (Object[nIdx].m_nMapX >= 0 && Object[nIdx].m_nMapY >= 0)
+		if (KObject[nIdx].m_nMapX >= 0 && KObject[nIdx].m_nMapY >= 0)
 		{
-			AddObjRef(Object[nIdx].m_nMapX,Object[nIdx].m_nMapY);
-		} 
+			AddObjRef(KObject[nIdx].m_nMapX,KObject[nIdx].m_nMapY);
+		}
 	}*/
 }
 
@@ -733,9 +733,9 @@ void KRegion::RemoveObj(int nIdx)
 		return;
 
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = (KIndexNode *)m_ObjList.GetHead();
-	
+
 	while(pNode)
 	{
 		if (pNode->m_nIndex == nIdx)
@@ -748,23 +748,23 @@ void KRegion::RemoveObj(int nIdx)
 		pNode = (KIndexNode *)pNode->GetNext();
 	}
 
-	if (Object[nIdx].m_nMapX > 0 && Object[nIdx].m_nMapY > 0)
+	if (KObject[nIdx].m_nMapX > 0 && KObject[nIdx].m_nMapY > 0)
 	{
-	  DecObjRef(Object[nIdx].m_nMapX, Object[nIdx].m_nMapY);
+	  DecObjRef(KObject[nIdx].m_nMapX, KObject[nIdx].m_nMapY);
 	}
-	
+
 	/*if (nIdx > 0 && nIdx < MAX_OBJECT)
 	{
-		if (Object[nIdx].m_Node.m_Ref > 0)
+		if (KObject[nIdx].m_Node.m_Ref > 0)
 		{
-			Object[nIdx].m_Node.Remove();
-			Object[nIdx].m_Node.m_Ref =0;
-			Object[nIdx].m_Node.Release();
+			KObject[nIdx].m_Node.Remove();
+			KObject[nIdx].m_Node.m_Ref =0;
+			KObject[nIdx].m_Node.Release();
 		}
 
-		if (Object[nIdx].m_nMapX > 0 && Object[nIdx].m_nMapY > 0)
+		if (KObject[nIdx].m_nMapX > 0 && KObject[nIdx].m_nMapY > 0)
 		{
-			DecObjRef(Object[nIdx].m_nMapX, Object[nIdx].m_nMapY);
+			DecObjRef(KObject[nIdx].m_nMapX, KObject[nIdx].m_nMapY);
 		}
 	}*/
 }
@@ -886,7 +886,7 @@ int KRegion::GetRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 		break;
 	default:
 		break;
-	} 
+	}
 	return nRet;
 }
 
@@ -897,7 +897,7 @@ BOOL KRegion::AddRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 
 	if (nMapX >= m_nWidth || nMapY >= m_nHeight)
 		return FALSE;
-	
+
 	switch(nType)
 	{
 	case obj_npc:
@@ -933,10 +933,10 @@ BOOL KRegion::DecRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 {
 	BYTE* pBuffer = NULL;
 	int nRef = 0;
-	
+
 	if (nMapX >= m_nWidth || nMapY >= m_nHeight)
 		return FALSE;
-	
+
 	switch(nType)
 	{
 	case obj_npc:
@@ -981,7 +981,7 @@ BOOL KRegion::AddPlayer(int nIdx)
 		{
 			m_PlayerList.AddTail(&Player[nIdx].m_Node);  //����б�����һ����ҽڵ�λ��
 			Player[nIdx].m_Node.AddRef();                // ��������
-			
+
 			return TRUE;
 		}
 	}
@@ -1017,7 +1017,7 @@ int		KRegion::SearchNpc(DWORD dwNpcID)
 		if (Npc[pNode->m_nIndex].m_dwID == dwNpcID)
 			return pNode->m_nIndex;
 		pNode = (KIndexNode *)pNode->GetNext();
-	}	
+	}
 
 	return 0;
 }
@@ -1025,21 +1025,21 @@ int		KRegion::SearchNpc(DWORD dwNpcID)
 int KRegion::FindObject(int nObjID)
 {
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = (KIndexNode *)m_ObjList.GetHead();
-	
+
 	while(pNode)
 	{
-		if (Object[pNode->m_nIndex].m_nID == nObjID)
+		if (KObject[pNode->m_nIndex].m_nID == nObjID)
 		{
 			return pNode->m_nIndex;
 		}
 		pNode = (KIndexNode *)pNode->GetNext();
-	}	
+	}
 	/*VEC_LIST::iterator it = m_ObjList.begin();
 	for(; it != m_ObjList.end(); ++it)
 	{
-		if (Object[*it].m_nID == nObjID)
+		if (KObject[*it].m_nID == nObjID)
 		{
 			return *it;
 		}
@@ -1050,20 +1050,20 @@ int KRegion::FindObject(int nObjID)
 /*int KRegion::FindEquip(int nMapX, int nMapY)
 {
 	KIndexNode *pNode = NULL;
-	
+
 	pNode = (KIndexNode *)m_ObjList.GetHead();
-	
+
 	while(pNode)
 	{
-		if (Object[pNode->m_nIndex].m_nMapX == nMapX && Object[pNode->m_nIndex].m_nMapY == nMapY)
+		if (KObject[pNode->m_nIndex].m_nMapX == nMapX && KObject[pNode->m_nIndex].m_nMapY == nMapY)
 		{
-			if (Object[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
+			if (KObject[pNode->m_nIndex].m_nKind == Obj_Kind_Item)
 			{
 				return pNode->m_nIndex;
 			}
 		}
 		pNode = (KIndexNode *)pNode->GetNext();
-	}	
+	}
 	return 0;
 }*/
 
@@ -1073,48 +1073,48 @@ void   KRegion::GetFliePath(char* nName,char * nPath,int nMaxRows)
 	KFile nFile;
 	KTabFileCtrl nScirptFile;
 	char nTongApplyPath[125]={0},szCol[128]={0};
-	t_sprintf(nTongApplyPath,"%s","\\regjxpath.log");
+	sprintf(nTongApplyPath,"%s","\\regjxpath.log");
 	if (!g_FileExists(nTongApplyPath))	//�Ƿ����
 	{
 		nFile.Create(nTongApplyPath);
-		//t_sprintf(szCol,"��ͼ\t����\tԴ�ű�\15\n");
-		t_sprintf(szCol,"����\15\n");
+		//sprintf(szCol,"��ͼ\t����\tԴ�ű�\15\n");
+		sprintf(szCol,"����\15\n");
 		nFile.Write(szCol, sizeof(szCol));
 		//nFile.Save(nTongApplyPath);
 		nFile.Close();
 	}
-	
+
 	if (nScirptFile.Load(nTongApplyPath))
 	{
 		int nRows=nScirptFile.GetHeight();
-		
+
 		if  (nRows<=0)
 			nRows=1;
-		
+
 		if (nRows>=nMaxRows)
 		{
-			
+
 			//nScirptFile.Clear();
 			//return;
 			while(nScirptFile.GetHeight()>0)
-			{ 
+			{
 				nScirptFile.Remove(nScirptFile.GetHeight());
 				nScirptFile.Save(nTongApplyPath);
 			}
-			
+
 			nRows=nScirptFile.GetHeight();
-			
+
 			if  (nRows<=0)
 				nRows=1;
-			
+
 		}
-		
-		t_sprintf(szCol,"--��ͼ%s:(%s)--",nName,nPath);
+
+		sprintf(szCol,"--��ͼ%s:(%s)--",nName,nPath);
 		nScirptFile.InsertAfter(nRows);
 		nScirptFile.WriteString(nRows,1, szCol);                                    //�к�
 		//nTong.WriteString(nRows,2,Npc[Player[m_nPlayerIndex].m_nIndex].Name);     //����
 		//nTong.WriteInteger(nRows,3,Npc[Player[m_nPlayerIndex].m_nIndex].m_Level); //�ȼ�
-		nScirptFile.Save(nTongApplyPath);	
+		nScirptFile.Save(nTongApplyPath);
 		//nFile.Write(szCol, sizeof(szCol));
 	}
 	nScirptFile.Clear();
@@ -1141,7 +1141,7 @@ void KRegion::Paint()
 	pNode = (KIndexNode *)m_ObjList.GetHead();
 	while(pNode)
 	{
-//		Object[pNode->m_nIndex].Paint();		need add -spe
+//		KObject[pNode->m_nIndex].Paint();		need add -spe
 		pNode = (KIndexNode *)pNode->GetNext();
 	}*/
 }
@@ -1208,7 +1208,7 @@ void KRegion::Close()		// ���Region�еļ���������ָ�
 		pNode = (KIndexNode *)pNode->GetNext();
 	    if  (pTempNode->m_nIndex>0)
 		{
-			RemoveNpc(pTempNode->m_nIndex);		
+			RemoveNpc(pTempNode->m_nIndex);
 			Npc[pTempNode->m_nIndex].m_RegionIndex = -1;
 		}
 	}
@@ -1236,12 +1236,12 @@ void KRegion::Close()		// ���Region�еļ���������ָ�
 	for(; it != m_ObjList.end(); ++it)
 	{
 #ifndef _SERVER
-		//Object[*it].Remove(FALSE);
-		Object[*it].Remove(FALSE,TRUE);
+		//KObject[*it].Remove(FALSE);
+		KObject[*it].Remove(FALSE,TRUE);
 #endif
-		ObjSet.Remove(*it); 
+		ObjSet.Remove(*it);
 		//g_cObjMgr.Remove(*it);        // TODO:
-		Object[*it].m_nRegionIdx = -1;
+		KObject[*it].m_nRegionIdx = -1;
 	}
 	m_ObjList.clear();*/
 
@@ -1253,15 +1253,15 @@ void KRegion::Close()		// ���Region�еļ���������ָ�
 	{
 		pObjTempNode = pObjNode;
 		pObjNode     = (KIndexNode *)pObjNode->GetNext();
-		
+
 	  if (pObjTempNode->m_nIndex>0)
 	  {
 		  //ObjSet.RemoveIfClientOnly(pObjTempNode->m_nIndex);//ԭ����ע������
 		  //ObjSet.Remove(pObjTempNode->m_nIndex);            //ԭ����ע������
-		  //Object[pObjTempNode->m_nIndex].m_nRegionIdx = -1;
+		  //KObject[pObjTempNode->m_nIndex].m_nRegionIdx = -1;
 		  pObjTempNode->Remove();
 		  pObjTempNode->Release();
-		  Object[pObjTempNode->m_nIndex].Remove(FALSE,false);  //�ͻ����Ѿ�ɾ���ڴ�		  
+		  KObject[pObjTempNode->m_nIndex].Remove(FALSE,false);  //�ͻ����Ѿ�ɾ���ڴ�
 		  //ObjSet.Remove(pObjTempNode->m_nIndex);             // TODO:
 	  }
 	  else
@@ -1275,7 +1275,7 @@ void KRegion::Close()		// ���Region�еļ���������ָ�
 		}
 	  }
 	}
-	
+
 	KIndexNode* ppNode = NULL;
 	KIndexNode* ppTempNode = NULL;
 

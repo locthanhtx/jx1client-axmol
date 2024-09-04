@@ -95,7 +95,7 @@ public:
 	int				SearchNameID(DWORD dwID);        //������ҵ�
 	BOOL			IsNpcExist(int nIdx, DWORD dwId);
 	int				AddServerNpcB(int nNpcSetingIdxInfo, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX = 0, int nOffY = 0,int nBoss=0);
-	int				AddServerNpcA(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss=0,int nRodom=0,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1,int nNpcKind=-1,uint32_t nNpcDwidx=0);
+	int				AddServerNpcA(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss=0,int nRodom=0,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1,int nNpcKind=-1,unsigned int nNpcDwidx=0);
 	int				AddMapNpc(int nSubWorld, void* pNpcInfo);
     int				Addyabiao(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, int nSeries, IN int nComp,IN int nRindexid,int nBoss=0);
     int	            AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, IN int nSeries, IN int nComp,IN int nRindexid,int nBoss=0);
@@ -122,8 +122,8 @@ public:
 
 	KNpcTemplate*	GetTemplate(INT nNpcTemplateId,INT nLevel);
 
-	int				GetPlayerStandFrame(BOOL bMale) 
-	{ 
+	int				GetPlayerStandFrame(BOOL bMale)
+	{
 		if (bMale)
 			return m_cPlayerBaseValue.nStandFrame[0];
 		else

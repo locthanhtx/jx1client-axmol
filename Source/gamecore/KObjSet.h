@@ -73,7 +73,7 @@ public:
 	KTabFile	m_cTabFile;
 	KTabFile	m_cMoneyFile;
 	int			m_nObjID;
-	//uint32_t	m_dwNameColor[MAX_OBJ_NAME_COLOR];  // ��Ʒ������ɫ����
+	//unsigned int	m_dwNameColor[MAX_OBJ_NAME_COLOR];  // ��Ʒ������ɫ����
 	ax::Color3B	m_dwNameColor[MAX_OBJ_NAME_COLOR];
 	int			m_nShowNameFlag;		// �Ƿ�ȫ����ʾ item �� money ��� object ��������ͷ����
 
@@ -89,9 +89,9 @@ public:
 //	int		AddMoneyObj(KMapPos MapPos, int nMoneyNum);
 
 	int		AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX, int nOffY);
-	int		ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFrame, int nXpos, int nYpos, KCObjItemInfo sInfo,uint32_t nObjDwidx=0);
+	int		ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFrame, int nXpos, int nYpos, KCObjItemInfo sInfo,unsigned int nObjDwidx=0);
 	BOOL	ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY, int nSubWorld, int nRegion);
-	BOOL	ClientAddRegionObj(KPakFile *pFile, uint32_t dwDataSize);
+	BOOL	ClientAddRegionObj(KPakFile *pFile, unsigned int dwDataSize);
 	void	RemoveIfClientOnly(int nIdx);
 	int		SearchObjAt(int nX, int nY, int nRange);
 	ax::Color3B	GetNameColor(int nColorID);
@@ -124,20 +124,20 @@ extern	char	g_szObjKind[Obj_Kind_Num][32];
        �������Ƶĸ�����Ϣ����ͼ������ȣ�����ǰ�ϰ���Ϣ����������д򿪡��ر�״
        ̬�ȣ�
 ��ȷ�����㹻����Ϣ�󣬿��Ե��þ���ķ����ڷ�����������һ���µ���������嵽ʹ��
-�ϣ����ȵ��� AddData() �������ѵ� 1 ���� 2 ����Ϣ���룬����������Զ��� Object
+�ϣ����ȵ��� AddData() �������ѵ� 1 ���� 2 ����Ϣ���룬����������Զ��� KObject
 ������Ѱ��һ�������������Ӧ�Ļ������ݣ�����һ���µ�����������������������
 ��λ��xxx��Ȼ����������һ������ΨһID��֪ͨ�ͻ��˲���һ����Ӧ���������Ȼ���
 ����֪ͨ��ӦSubWorld����ӦRegion��ʼ��������������
     SubWorld[nSubWorld].m_WorldMessage.Send(GWM_OBJ_ADD, nRegion, xxx);
 Ȼ���趨�������һЩ������Ϣ�����趨�� 3 ����Ϣ��������Ҫ���õķ����У�
-    Object[xxx].SetLifeTime()
-    Object[xxx].SetState()
-    Object[xxx].SetDir()
-    Object[xxx].SetItemDataID()
-    Object[xxx].SetScriptFile() �ȣ�
+    KObject[xxx].SetLifeTime()
+    KObject[xxx].SetState()
+    KObject[xxx].SetDir()
+    KObject[xxx].SetItemDataID()
+    KObject[xxx].SetScriptFile() �ȣ�
 ���ˣ�һ���µ�����ڷ��������Ѿ��������ˣ�
 ���ͻ��˵����յ��������˵Ĳ��������������󣬵��� ClientAdd() �����ڿͻ��˲���
-һ����Ӧ��������������������Ϊ�������Զ��� Object ������Ѱ��һ�����������
+һ����Ӧ��������������������Ϊ�������Զ��� KObject ������Ѱ��һ�����������
 ��Ӧ�Ļ������ݣ�����һ���µ����������������������е�λ��xxx���ѽ��յ�������Ψ
 һ ID �������ϣ�Ȼ���趨���ֽ��յ��Ĳ��������֪ͨ��ӦSubWorld����ӦRegion��ʼ
 �����������������ˣ�������Ѿ����������ˣ��������ĸ��������û�������趨��ɣ�

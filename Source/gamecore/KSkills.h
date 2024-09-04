@@ -36,21 +36,21 @@ private:
 	public:
 		KIdxNode() { m_nIndex = 0; };
 	};
-	
+
 	KList	m_listIndex;	// �ӵ����У�����˼����������������ӵ�
 	INT		m_nCount;		// ��ǰ�ӵ�����
 	INT		m_nNpcIndex;	// ������Npc
-	
+
 	public:
 		KNpcMissileList(int nNpcIndex);
 		virtual ~KNpcMissileList();
-		
+
 		// �ӵ���������ʱ�����
 		BOOL OnCreated(int nIndex, int nMaxCount);
-		
+
 		// �ӵ����ŵ�ʱ�����
 		BOOL OnVanish(INT nIndex);
-		
+
 	private:
 		BOOL DelMissile(INT nCount);
 };
@@ -59,9 +59,9 @@ class KSkill :public ISkill
 
 {
 private:
-	
+
 public:
-	uint32_t		m_ulLevel;
+	unsigned int		m_ulLevel;
 	int					m_nEnChance;                //���ܵļӳ�
 	char				m_szSkillIcon[80];          //����ͼ��·��
 	char				m_szPreCastEffectFile[100];
@@ -82,7 +82,7 @@ private:
 	int					m_nInteruptTypeWhenMove;//  �ӵ��ļ����Ƿ��ܷ����ߵ��ƶ�����ֹ
 	BOOL				m_bHeelAtParent;	    //	���ӵ�ʵ�ʼ���ʱ��λ�ø��ݸ���ǰλ�ö�ȷ��,�������ɲ����ǿ�parentλ�þ���
 
-	//���������� 
+	//����������
 	CLIENTACTION		m_nCharActionId;		//	���������ʱ������ʲô����
 	int					m_nWaitTime;			//	�ü����������������������ʱ��
 	BOOL				m_bIsAura;				//	�Ƿ�Ϊ�⻷����
@@ -107,7 +107,7 @@ private:
 	NPCATTRIB			m_nSkillCostType;		//	���ü�������������������ȵ�����
 	int					m_nMinTimePerCast;		//	���ü��ܵ���С���ʱ��
 	int					m_nMinTimePerCastOnHorse; //�������ܵ�ʱ����
-	int					m_nChildSkillNum;		//	ͬʱ�����Ӽ��ܵ�����	
+	int					m_nChildSkillNum;		//	ͬʱ�����Ӽ��ܵ�����
 	eMisslesForm		m_eMisslesForm;			//	�ӵ�����״
 	int					m_nValue1;				//	������������1
 	int					m_nValue2;				//	������������2
@@ -120,8 +120,8 @@ private:
 	int					m_nImmediateAttribsNum;
 	KMagicAttrib		m_StateAttribs[MAXSKILLLEVELSETTINGNUM];     //Ӧ�õ�״̬��ص�����
 	int					m_nStateAttribsNum;		                     //���������10
-	//eMissleFollowKind   m_eMissleFollowKind;	
-	//int					m_nFollowKindIndex;		
+	//eMissleFollowKind   m_eMissleFollowKind;
+	//int					m_nFollowKindIndex;
 	//DWORD				m_dwFollowKindID;
 	int					m_nChildSkillId;		//	�����������Ӽ���Id;	//���ü���Ϊ��������ʱ����������
 	int					m_nChildSkillLevel;
@@ -136,7 +136,7 @@ private:
 	int					m_nVanishedSkillId;		//	���ܷ������ӵ�����ʱ�����ļ���Id;
 	int					m_nCollideSkillId;		//	���ܷ������ӵ���ײ����������ļ���Id;
 	BOOL				m_bMustBeHit;			//	�Ƿ�Ϊ���м��ܣ������䴦��򵥻��Ա㽵�ͷ���������
-	eMisslesGenerateStyle m_eMisslesGenerateStyle;//ͬʱ���ɵĶ���ӵ���DoWait��ʱ��˳��	
+	eMisslesGenerateStyle m_eMisslesGenerateStyle;//ͬʱ���ɵĶ���ӵ���DoWait��ʱ��˳��
 	int					m_nMisslesGenerateData;	//�������
 	int					m_nMaxShadowNum;		//	������Ĳ�Ӱ��
 	BOOL				m_bNeedShadow;
@@ -144,7 +144,7 @@ private:
 	int                 m_nBackAttackRadius;    // ���ݵĹ�������
 	int					m_nStateSpecialId;		//״̬��ħ���⻷id��
 	//int				    m_nMaxTimes;			//ĳЩ������ħ�������ͬʱ���ֶ��ٸ�����
-	
+
 	int					m_nEquiptLimited;		//������ʱ�Ե�ǰװ��������
 	int                 m_nIsExpSkill;          //�Ƿ����������ȵļ���
 	int                 m_nSKillExp;            //��ǰ�ȼ��ĸü��ܵ���������
@@ -162,7 +162,7 @@ public:
 	KSkill();
 	virtual ~KSkill();
 	//���������g_OrdinSkillsSetting���к�
-	//BOOL				
+	//BOOL
 	BOOL				OnMissleEvent(unsigned short usEvent, KMissle * pMissle) const;
 	BOOL				IsTargetOnly()const{return m_bTargetOnly;};
 	BOOL				IsTargetEnemy()const{return m_bTargetEnemy;};
@@ -174,7 +174,7 @@ public:
 	//int					GetMaxTimes()const{return m_nMaxTimes;};
 	static	int			GetSkillIdFromName(char * szSkillName);
 	unsigned short		GetSkillReqLevel()const{return m_usReqLevel;};
-	
+
 	int					GetParam1()const{return m_nValue1;};
 	int					GetParam2()const{return m_nValue2;};
 
@@ -192,7 +192,7 @@ public:
 	//---------------------------
 	int					GetChildSkillNum(int nLevel)const;
 	int					GetAttackRadius() const{return m_nAttackRadius;};
-	int					ChangeAttackRadius(int nDis) 
+	int					ChangeAttackRadius(int nDis)
 	{
 		if  (nDis>=m_nBackAttackRadius)
 		{
@@ -200,14 +200,14 @@ public:
 			return m_nAttackRadius;
 		}
 
-		if (m_nAttackRadius<50) 
+		if (m_nAttackRadius<50)
 			m_nAttackRadius=m_nBackAttackRadius;
 		return m_nAttackRadius;
 	};
 
 	int                 getBackAttackRadius() { return m_nBackAttackRadius;};
 	int					CalculateDamage()const;
-	void				LoadSkillLevelData(uint32_t  ulLevel , int nParam); //�Ӽ��������ļ��л��nLevel�ȼ������Ա䶯��������
+	void				LoadSkillLevelData(unsigned int  ulLevel , int nParam); //�Ӽ��������ļ��л��nLevel�ȼ������Ա䶯��������
 	friend	class		KMissle;
 	int					GetSkillCost(void *)const{return m_nCost;};
 	NPCATTRIB			GetSkillCostType()const{return m_nSkillCostType;};
@@ -215,19 +215,19 @@ public:
 	CLIENTACTION		GetActionType()const{return m_nCharActionId;};
 	int					GetDelayPerCast()const{return m_nMinTimePerCast;};       //���ü��ܵ���С�ⶳʱ��
 	int					GetHorsePerCast()const{return m_nMinTimePerCastOnHorse;};//�����ü��ܵ���С�ⶳʱ��
-	uint32_t		GetMissleGenerateTime(int nNo) const ;
+	unsigned int		GetMissleGenerateTime(int nNo) const ;
 	int					GetChildSkillNum() const {return m_nChildSkillNum;};
 	int					GetChildSkillId() const {return m_nChildSkillId;};
 	int					GetChildSkillLevel() const {return m_nChildSkillLevel;};
-	
+
 	int					GetSkillId() {return m_nId;};
-	void				SetSkillId(int nId) {m_nId = nId;};		
-	void				SetSkillLevel(uint32_t ulLevel){m_ulLevel = ulLevel;};
+	void				SetSkillId(int nId) {m_nId = nId;};
+	void				SetSkillLevel(unsigned int ulLevel){m_ulLevel = ulLevel;};
 
 	BOOL				IsAura() const { return m_bIsAura;};
 	BOOL				IsPhysical() const {return m_bIsPhysical;};
 	int					IsMagic() const {return m_nIsMagic;};
-    int					IsAttrib() const {return m_nAttrib;}; 
+    int					IsAttrib() const {return m_nAttrib;};
 	int                 GetEquiptLimited() const {return m_nEquiptLimited;};  //��ȡ������������
 	int                 GetIsExpSkill() const {return m_nIsExpSkill;};        //��ȡ���ܵ���������
 	int                 GetSkillExp() const {return m_nSKillExp;};            //��ȡ���ܵ���������
@@ -235,9 +235,9 @@ public:
 	int					GetMeleeType() const { return m_eMisslesForm;};
 	int					GetStateSpecailId() const {return m_nStateSpecialId;};  //���ܹ⻷��״̬ID��
 	BOOL 				CanCastSkill  (int nLauncher, int &nParam1, int &nParam2) const;//
-	int                 NewCanCastSkill(int nLauncher, int nParam1, int nParam2); 
+	int                 NewCanCastSkill(int nLauncher, int nParam1, int nParam2);
 	void				PlayPreCastSound  (BOOL bIsFeMale , int nX, int nY) const ;
-	KMagicAttrib*		GetDamageAttribs()  { return m_DamageAttribs;};	
+	KMagicAttrib*		GetDamageAttribs()  { return m_DamageAttribs;};
 	KMagicAttrib*		GetStateAttribs()  { return m_StateAttribs;};
     void         		SetStateTpye(int i,int inValAttribsTpye)  {m_StateAttribs[i].nAttribType=inValAttribsTpye;};
     void         		SetStateVala(int i,int inValA)  {m_StateAttribs[i].nValue[0]=inValA;};
@@ -263,7 +263,7 @@ private:
 	BOOL	__CastCircle(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const;			// ����
 	BOOL	__CastZone(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const;			// ��������
 	BOOL	__CastRound(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const;			// Բ������
-	
+
 	int					CastWall					(TOrdinSkillParam * pSkillParam, int nDir, int nRefPX, int nRefPY,int nMaxShangHai=0) const ;
 	int					CastLine					(TOrdinSkillParam * pSkillParam, int nDir, int nRefPX, int nRefPY,int nMaxShangHai=0) const ;
 	int					CastSpread					(TOrdinSkillParam * pSkillParam, int nDir, int nRefPX, int nRefPY,int nMaxShangHai=0) const ;
@@ -273,23 +273,23 @@ private:
 	int					CastExtractiveLineMissle	(TOrdinSkillParam * pSkillParam, int nDir, int nSrcX,  int nSrcY, int nXOffset, int nYOffset, int nDesX, int nDesY,int nMaxShangHai=0) const ;
 	int					Param2PCoordinate			(int nLauncher, int nParam1, int nParam2 , int *npPX, int *npPY, eSkillLauncherType eLauncherType = SKILL_SLT_Npc) const ; 	//ת������
 //////////////////////////////////////////////
-	
+
 	void				CreateMissle(int nLauncher, int ChildSkillId,  int nMissleIndex) const ;
-	
-	BOOL				ParseString2MagicAttrib(uint32_t ulLevel, char * szMagicAttribName, char * szValue) ;//����ͨ���ű������õļ�������
+
+	BOOL				ParseString2MagicAttrib(unsigned int ulLevel, char * szMagicAttribName, char * szValue) ;//����ͨ���ű������õļ�������
 	inline const char *		MagicAttrib2String(int MagicAttrib) const ;
 public:
 	std::string         getIconPath(){return m_szSkillIcon;};
 	void				DrawSkillIcon(int x, int y, int Width, int Height,int nParam=-1);
 	KRUImage			m_RUIconImage;
 	char				m_szSkillDesc[300];//���ܵ�����
-	static void			GetDesc(uint32_t ulSkillId, uint32_t ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc, int nAddPoint, int nEnChance);
+	static void			GetDesc(unsigned int ulSkillId, unsigned int ulCurLevel, char * pszMsg, int nOwnerIndex,  bool bGetNextLevelDesc, int nAddPoint, int nEnChance);
 	void				GetDescAboutLevel(char * pszMsg);
 	char				m_szDesc[512];     //���ܵ�����
 };
 
 extern int		g_nMeleeWeaponSkill[MAX_MELEEWEAPON_PARTICULARTYPE_NUM];
-extern int		g_nRangeWeaponSkill[MAX_RANGEWEAPON_PARTICULARTYPE_NUM];	
+extern int		g_nRangeWeaponSkill[MAX_RANGEWEAPON_PARTICULARTYPE_NUM];
 extern int		g_nHandSkill;
 
 #endif

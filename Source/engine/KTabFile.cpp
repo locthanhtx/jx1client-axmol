@@ -61,7 +61,7 @@ bool  KTabFile::CreatFile(char * FileName)
 //---------------------------------------------------------------------------
 BOOL KTabFile::Load(char * FileName/*,char * mMemKey*/)
 {
-    
+
 	KPakFile	File;
 	//uint32_t		dwSize;
 	void *		Buffer;
@@ -70,13 +70,13 @@ BOOL KTabFile::Load(char * FileName/*,char * mMemKey*/)
 	if (FileName[0] == 0)
 		return false;
 
-	
+
 	if (!File.Open(FileName))
 	{
 	//	printf("Can't open tab file : %s", FileName);
 		return false;
 	}
-  
+
 	dwSize = File.Size(); //�ļ��Ĵ�С
 
 	/*char nFileName[256]={0};
@@ -136,12 +136,12 @@ void KTabFile::CreateTabOffset()
 	}
 	if (*Buffer == 0x0d && *(Buffer + 1) == 0x0a)
 	{
-		Buffer += 2;	// 0x0a����		
+		Buffer += 2;	// 0x0a����
 		nOffset += 2;	// 0x0a����
 	}
 	else
 	{
-		Buffer += 1;	// 0x0a����		
+		Buffer += 1;	// 0x0a����
 		nOffset += 1;	// 0x0a����
 	}
 	while(nOffset < nSize)
@@ -156,12 +156,12 @@ void KTabFile::CreateTabOffset()
 		nHeight++;
 		if (*Buffer == 0x0d && *(Buffer + 1) == 0x0a)
 		{
-			Buffer += 2;	// 0x0a����		
+			Buffer += 2;	// 0x0a����
 			nOffset += 2;	// 0x0a����
 		}
 		else
 		{
-			Buffer += 1;	// 0x0a����		
+			Buffer += 1;	// 0x0a����
 			nOffset += 1;	// 0x0a����
 		}
 	}
@@ -177,7 +177,7 @@ void KTabFile::CreateTabOffset()
 	{
 		for (int32_t j = 0; j < nWidth; ++j)
 		{
-			TabBuffer->dwOffset = nOffset;	
+			TabBuffer->dwOffset = nOffset;
 			nLength = 0;
 			while(*Buffer != 0x09 && *Buffer != 0x0d && *Buffer != 0x0a && nOffset < nSize)
 			{
@@ -195,7 +195,7 @@ void KTabFile::CreateTabOffset()
 				{
 					TabBuffer->dwOffset = nOffset;
 					TabBuffer->dwLength = 0;
-					TabBuffer++;					
+					TabBuffer++;
 				}
 				break;
 			}
@@ -204,8 +204,8 @@ void KTabFile::CreateTabOffset()
 		//modified for linux [wxb 2003-7-29]
 		if (*(Buffer - 1) == 0x0d && *Buffer == 0x0a)
 		{
-			Buffer++;				// 0x0a����	
-			nOffset++;				// 0x0a����	
+			Buffer++;				// 0x0a����
+			nOffset++;				// 0x0a����
 		}
 	}
 }
@@ -268,7 +268,7 @@ BOOL KTabFile::GetString(int32_t nRow, char * szColumn, char * lpDefault, char *
 BOOL KTabFile::GetString(char * szRow, int32_t szColumn, char * lpDefault, char * lpRString, uint32_t dwSize, BOOL bColumnLab)
 {
 	int32_t nRow, nColumn;
-	
+
 	   nRow = FindRow(szRow);
 
 	if (bColumnLab)
@@ -392,7 +392,7 @@ BOOL KTabFile::GetInteger6(int32_t nRow, char * szColumna,char * szColumnb,char 
      pnValue++;
     if(GetValue(nRow - 1, nColumnb - 1, Buffer, sizeof(Buffer)))
 	{
-        
+
 		*pnValue = atoi(Buffer);
 		//return true;
 	}
@@ -473,7 +473,7 @@ BOOL KTabFile::GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char 
 		nColumnb = Str2Col(szColumnb);
 		nColumnc = Str2Col(szColumnc);
 	}
-	
+
 	if (GetValue(nRow - 1, nColumna - 1, Buffer, sizeof(Buffer)))
 	{
 		*pnValue = atoi(Buffer);
@@ -486,7 +486,7 @@ BOOL KTabFile::GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char 
 	pnValue++;
     if(GetValue(nRow - 1, nColumnb - 1, Buffer, sizeof(Buffer)))
 	{
-        
+
 		*pnValue = atoi(Buffer);
 		//return true;
 	}
@@ -504,8 +504,8 @@ BOOL KTabFile::GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char 
 	{
 		*pnValue = nDefault;
 	}
-	
-	
+
+
 	if (pnValue)
 	{
 	   return true;
@@ -532,7 +532,7 @@ void KTabFile::GetInt2(int32_t nRow, int32_t szColumn, int32_t *pRect)
 void KTabFile::GetInt15(int32_t nRow, int32_t szColumn, int32_t *pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetValue(nRow - 1, szColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d", &pRect[0],&pRect[1],&pRect[2],&pRect[3],&pRect[4],&pRect[5],&pRect[6],&pRect[7],&pRect[8],&pRect[9],&pRect[10],&pRect[11],&pRect[12],&pRect[13],&pRect[14]);
@@ -542,7 +542,7 @@ void KTabFile::GetInt15(int32_t nRow, int32_t szColumn, int32_t *pRect)
 void KTabFile::GetInt15s(int32_t nRow, char * szColumn, int32_t *pRect)
 {
 	char  Buffer[256];
-	
+
 	int32_t	nColumn = FindColumn(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
@@ -553,7 +553,7 @@ void KTabFile::GetInt15s(int32_t nRow, char * szColumn, int32_t *pRect)
 void KTabFile::GetInt3(int32_t nRow, int32_t szColumn, int32_t *pRect)
 {
 	char  Buffer[256];
-	
+
 	if (GetValue(nRow - 1, szColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d|%d|%d", &pRect[0], &pRect[1], &pRect[2]);
@@ -563,7 +563,7 @@ void KTabFile::GetInt3(int32_t nRow, int32_t szColumn, int32_t *pRect)
 void KTabFile::GetInt2s(int32_t nRow, char * szColumn, int32_t *pRect)
 {
 	char  Buffer[256];
- 
+
 	int32_t	nColumn = FindColumn(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
@@ -769,7 +769,7 @@ BOOL KTabFile::GetFloat(char * szRow, char * szColumn, float fDefault, float *pf
 BOOL KTabFile::GetFloat(int32_t nRow, int32_t nColumn, float fDefault, float *pfValue)
 {
 	char	Buffer[64];
-	
+
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		*pfValue = (float)atof(Buffer);
@@ -855,6 +855,9 @@ int32_t KTabFile::FindRow(char * szRow)
 	for (int32_t i = 0; i < m_Height; ++i)	// ��1��ʼ��������һ�е��ֶ���
 	{
 		GetValue(i, 0, szTemp, g_StrLen(szRow));
+        std::string str(szTemp);
+        std::string str1(U2G(szTemp));
+        std::string str2(G2U(szTemp));
 		if (g_StrCmp(szTemp, szRow))
 			return i + 1; //�Ķ��˴�Ϊ��һ by Romandou,��������1Ϊ���ı��
 	}

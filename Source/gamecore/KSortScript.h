@@ -28,7 +28,7 @@ public:
 	void SetScriptID(DWORD dwScriptID){m_dwScriptID = dwScriptID;};
 	const KScript * GetScript()
 	{
-		if (m_dwScriptIndex >= 0 && m_dwScriptIndex <MAX_SCRIPT_IN_SET) 
+		if (m_dwScriptIndex >= 0 && m_dwScriptIndex <MAX_SCRIPT_IN_SET)
 			return &g_ScriptSet[m_dwScriptIndex];
 		else
 			return NULL;
@@ -38,11 +38,11 @@ public:
 typedef	BinSTree<KSortScriptNode> KScriptBinTree;
 extern KScriptBinTree g_ScriptBinTree;
 */
-extern uint32_t g_IniScriptEngine(char * nScriptDir,BOOL nIsSer=TRUE,BOOL nIsClear=TRUE);
-extern const KScript * g_GetScript(DWORD dwScriptId);// 
+extern unsigned int g_IniScriptEngine(char * nScriptDir,BOOL nIsSer=TRUE,BOOL nIsClear=TRUE);
+extern const KScript * g_GetScript(DWORD dwScriptId);//
 extern const KScript * g_GetScript(const char * szRelativeScriptFile);
 extern int ReLoadScript(const char * szRelativePathScript);
-extern uint32_t  ReLoadAllScript();
+extern unsigned int  ReLoadAllScript();
 extern void  ClearAllScript();
 
 #endif

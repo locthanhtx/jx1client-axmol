@@ -93,7 +93,7 @@ bool KuiPlayerShop::init()
 	Size winSize = ax::Director::getInstance()->getWinSize();
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\��̯\\̯�����.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\��̯\\̯�����.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -164,7 +164,7 @@ void KuiPlayerShop::setcoloseButton(Ref * callbackListener,const std::function<v
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���������.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���������.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -200,7 +200,7 @@ void KuiPlayerShop::setcoloseButton(Ref * callbackListener,const std::function<v
 	}*/
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ��ر�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\���ߣ��ر�.spr");
 	g_StrLower(nSprName);
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -215,7 +215,7 @@ void KuiPlayerShop::setcoloseButton(Ref * callbackListener,const std::function<v
 	closeConfirm->setPosition(ax::Vec2(69,1));
 	/*
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\������壭��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\������壭��.spr");
 	g_StrLower(nSprName);
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -234,7 +234,7 @@ void KuiPlayerShop::setcoloseButton(Ref * callbackListener,const std::function<v
 
 
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\������壭��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\������壭��.spr");
 	g_StrLower(nSprName);
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -306,9 +306,9 @@ void KuiPlayerShop::buyCallBackFunc(Ref * pSender)
 	if  (m_selItemIndex<0)
 	{
 #ifdef WIN32
-		ccMessageBox("��ѡ��һ����Ʒ","��ʾ");
+		messageBox("��ѡ��һ����Ʒ","��ʾ");
 #else
-		ccMessageBox(UTEXT("��ѡ��һ����Ʒ",1).c_str(),UTEXT("��ʾ",1).c_str());
+		messageBox(UTEXT("��ѡ��һ����Ʒ",1).c_str(),UTEXT("��ʾ",1).c_str());
 #endif
 		return;
 	}
@@ -409,10 +409,10 @@ bool KuiPlayerShop::ccTouchBegan(Touch *pTouch, Event *pEvent)
 			 int nIndex   = m_pObjsList[m_ItemIndex[i]].Obj.uId ;//BuySell.GetItemIndex(m_CurShopIdx,nidx);
 			 char nItemKey[32];
 			 ZeroMemory(&nItemKey,sizeof(nItemKey));
-			 t_sprintf(nItemKey,"item_%u",nIndex+1);
+			 sprintf(nItemKey,"item_%u",nIndex+1);
 			 std::string nKey =nItemKey;
 			 Sprite *nItemSpr = (Sprite *)ItemNode->getChildByName(nKey);
-			 t_sprintf(nItemKey,"color_%d",nIndex+1);
+			 sprintf(nItemKey,"color_%d",nIndex+1);
 			 nKey =nItemKey;
 			 LayerColor *ncolorlable = (LayerColor *)ItemNode->getChildByName(nKey);
 			 if  (nItemSpr && ncolorlable)
@@ -453,7 +453,7 @@ void KuiPlayerShop::closedescPadCallback(Node *pNode)
 
 void KuiPlayerShop::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 		if (!m_nMark && m_pObjsList)
@@ -510,14 +510,14 @@ int KuiPlayerShop::AddObject(KUiDraggedObject* pObject, int nCount)
 				char nItemSprPath[256];
 				ZeroMemory(nItemSprPath,sizeof(nItemSprPath));
 				if  (Item[nIndex].GetImagePath())
-					t_sprintf(nItemSprPath,Item[nIndex].GetImagePath());
+					sprintf(nItemSprPath, "%s", Item[nIndex].GetImagePath());
 				else
-					t_sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
+					sprintf(nItemSprPath,"\\spr\\others\\�ʺ�.spr");
 
 				if  (nItemSprPath[0])
 				//if  (Item[nIndex].GetImagePath())
 				{
-					//t_sprintf(nItemSprPath,Item[nIndex].GetImagePath());
+					//sprintf(nItemSprPath,Item[nIndex].GetImagePath());
 					g_StrLower(nItemSprPath);
 					int m_nWidth,m_nHeight,nFrams;
 					Texture2D *bgCur = NULL;
@@ -528,7 +528,7 @@ int KuiPlayerShop::AddObject(KUiDraggedObject* pObject, int nCount)
 						return false;
 					char nItemKey[32];
 					ZeroMemory(&nItemKey,sizeof(nItemKey));
-					t_sprintf(nItemKey,"item_%u",nIndex+1);
+					sprintf(nItemKey,"item_%u",nIndex+1);
 					std::string nKey =nItemKey;
 					Sprite *nItemSpr = (Sprite *)ItemNode->getChildByName(nKey);
 					if (!nItemSpr)
@@ -542,7 +542,7 @@ int KuiPlayerShop::AddObject(KUiDraggedObject* pObject, int nCount)
 						if  (Item[nIndex].GetGenre()!=item_equip && Item[nIndex].IsStack())
 						{//����װ�� �ɵ�����Ʒ
 							char stack[32];
-							t_sprintf(stack,"%d",Item[nIndex].GetStackNum());
+							sprintf(stack,"%d",Item[nIndex].GetStackNum());
 							Label *stuckCountlabel = Label::createWithTTF(stack,UI_GAME_FONT_DEFAULT,14);
 							stuckCountlabel->setColor(ax::Color3B::YELLOW);
 							stuckCountlabel->setAnchorPoint(ax::Vec2(0,0));
@@ -563,7 +563,7 @@ stuckCountlabel->setTag(nikey);
 					m_ItemData[nKey].nGenkind = UOC_ITEM_TAKE_WITH;  //����Я��
 					*/
 					Color4B color(112, 128, 144, 150);//112, 128, 144
-					t_sprintf(nItemKey,"color_%d",nIndex+1);
+					sprintf(nItemKey,"color_%d",nIndex+1);
 					//strcat(nItemKey,"_color");
 					nKey =nItemKey;
 					LayerColor *bgcolorLayer = (LayerColor *)ItemNode->getChildByName(nKey);

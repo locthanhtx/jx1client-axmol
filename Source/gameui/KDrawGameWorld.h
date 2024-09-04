@@ -29,7 +29,7 @@ public:
 	Node   *ParentNode_miss;
 	Node   *ParentNode_item;
 private:
-	
+
 public:
 	KDrawGameWorld();
 	~KDrawGameWorld();

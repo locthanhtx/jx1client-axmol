@@ -305,8 +305,12 @@ bool KgameWorld::init()
 
 	当来电打断触摸过程时，虚函数virtual void ccTouchCancelled(Touch *pTouch, Event *pEvent);被调用
 	*/
-    auto listener = ax::EventListenerTouchOneByOne::create();
-    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    auto touchListener = EventListenerTouchAllAtOnce::create();
+    touchListener->onTouchesBegan = AX_CALLBACK_2(KgameWorld::ccTouchesBegan, this);
+    touchListener->onTouchesMoved = AX_CALLBACK_2(KgameWorld::ccTouchesMoved, this);
+    touchListener->onTouchesEnded = AX_CALLBACK_2(KgameWorld::ccTouchesEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	this->scheduleUpdate();  //遥杆更新调用函数
 	 //禁止多点触摸
 	//ClippingNode 裁剪精灵
@@ -475,18 +479,18 @@ bool KgameWorld::init()
 	pPaiItem = MenuItemImage::create( "ui/tools/team.png", "ui/tools/tong_d.png", "ui/tools/tong_d.png",CC_CALLBACK_1(KgameWorld::mPaimaiCallback, this));
 	char nSprName[128]={0};
 	int m_nWidth,m_nHeight,nFrams;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BaoVat.spr");
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BaoVat.spr");
 	g_StrLower(nSprName);
 	Texture2D *pQiz = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pQiz)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pQizItem = MenuItemImage::create();
@@ -655,16 +659,16 @@ bool KgameWorld::init()
 
 	//tháo xuống
 	MenuItemImage *pHorseItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_GiaoDich.spr"); //Button Giao Dich
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_GiaoDich.spr"); //Button Giao Dich
 	g_StrLower(nSprName);
 	Texture2D *pHorse = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pHorse)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pHorseItem = MenuItemImage::create();
@@ -680,16 +684,16 @@ bool KgameWorld::init()
 	}
 
 	MenuItemImage *pSitItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_CuoiNgua.spr"); //Button Đi Bộ
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_CuoiNgua.spr"); //Button Đi Bộ
 	g_StrLower(nSprName);
 	Texture2D *pSit = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pSit)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pSitItem = MenuItemImage::create();
@@ -716,16 +720,16 @@ bool KgameWorld::init()
 		origin.y + pSitItem->getContentSize().height/2+60+BTNOFFSETY));
 
 	MenuItemImage *pRunItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_ChayBo.spr"); //Button Đi Bộ
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_ChayBo.spr"); //Button Đi Bộ
 	g_StrLower(nSprName);
 	Texture2D *pRun = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pRun)
 	{//打坐按钮
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pRunItem = MenuItemImage::create();
@@ -741,16 +745,16 @@ bool KgameWorld::init()
 	}
 
 	MenuItemImage *pPkItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); // Button Bật Pk
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); // Button Bật Pk
 	g_StrLower(nSprName);
 	Texture2D *pPk = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pPk)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pPkItem = MenuItemImage::create();
@@ -765,16 +769,16 @@ bool KgameWorld::init()
 	}
 
 	MenuItemImage *pExchangeItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pExc = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pExc)
 	{//交易按钮
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pExchangeItem = MenuItemImage::create();
@@ -790,16 +794,16 @@ bool KgameWorld::init()
 	}
 	//简化地图
 	MenuItemImage *pDelmapItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName, "%s", "\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pdelm = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pdelm)
 	{//简化地图
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pDelmapItem = MenuItemImage::create();
@@ -816,24 +820,29 @@ bool KgameWorld::init()
 
 
 	//btn trò chuyện
-		MenuItemImage *playerfunItem = MenuItemImage::create("ui/btn_chat.png","ui/btn_chat.png",NULL,CC_CALLBACK_1(KgameWorld::playerfunCallback, this));
-		playerfunItem->setScale(0.6);
-		playerfunItem->setPosition(ax::Vec2(origin.x+visibleSize.width/2.9-3,68));
+//		MenuItemImage *playerfunItem = MenuItemImage::create("ui/btn_chat.png","ui/btn_chat.png",NULL,CC_CALLBACK_1(KgameWorld::playerfunCallback, this));
+    MenuItemImage *playerfunItem = MenuItemImage::create();
+    auto image = ImageView::create("ui/btn_chat.png");
+    playerfunItem->setNormalImage(image);
+    playerfunItem->setSelectedImage(image);
+    playerfunItem->setCallback(CC_CALLBACK_1(KgameWorld::playerfunCallback, this));
+    playerfunItem->setScale(0.6);
+    playerfunItem->setPosition(ax::Vec2(origin.x+visibleSize.width/2.9-3,68));
 	//btn trò chuyện
 
 
 	//设置摆摊
 	MenuItemImage *playersellItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *playersell = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (playersell)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         playersellItem = MenuItemImage::create();
@@ -844,21 +853,22 @@ bool KgameWorld::init()
 
 		//pDelmapItem->setScale(BTNSCAE,BTNSCAE);
 		//origin.x + visibleSize.width - pExchangeItem->getContentSize().width/2-110
+
 		playersellItem->setPosition(ax::Vec2(origin.x +BTNOFFSETX+80 ,
 			origin.y + playerfunItem->getContentSize().height/2+235+BTNOFFSETY));
 	}
 	//装备强化
 	MenuItemImage *qianghItem=NULL;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *qiang = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (qiang)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         qianghItem = MenuItemImage::create();
@@ -876,16 +886,16 @@ bool KgameWorld::init()
 
 	//MenuItemSprite* item1=MenuItemSprite::create(btn_normal_sprite, btn_select_sprite,nullptr,CC_CALLBACK_1(MenuItemSpritTest::select_learn,this));
 	MenuItemImage *pquxiaItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pqux = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pqux)
 	{//取下按钮
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pquxiaItem = MenuItemImage::create();
@@ -897,22 +907,22 @@ bool KgameWorld::init()
 		pquxiaItem->setPosition(ax::Vec2(origin.x + visibleSize.width - pquxiaItem->getContentSize().width/2-nItEmBoxSize_1.width-15,
 			origin.y + pquxiaItem->getContentSize().height/2+180));
 		char mKey[32];
-		t_sprintf(mKey,"quxia");
+		sprintf(mKey,"quxia");
 		int nikey = std::hash<std::string>{}(mKey);
 		pquxiaItem->setTag(nikey);
 	}
 
 	MenuItemImage *pyincItem;
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pyin = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (pyin)
 	{//隐藏按钮
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pyincItem = MenuItemImage::create();
@@ -944,7 +954,7 @@ bool KgameWorld::init()
 
 	for (j=0;j<9;j++)
 	{
-		t_sprintf(nTempPath,"attack/attack_%d.png",j);
+		sprintf(nTempPath,"attack/attack_%d.png",j);
 		animation_attack->addSpriteFrameWithFile(nTempPath);//往这个动画增加纹理帧
 	}
 	//设置动画帧的时间间隔
@@ -970,7 +980,7 @@ bool KgameWorld::init()
 	Texture2D *pSortskill_rn_Texture = ax::Director::getInstance()->getTextureCache()->addImage("ui/sortskill_r_1.png");
 	Texture2D *pSortskill_s_Texture = ax::Director::getInstance()->getTextureCache()->addImage("ui/sortskill_r_2.png");
 
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pSortskill_n_Texture = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
     MenuItemImage *psortSkillItem_r = NULL;
@@ -1007,7 +1017,7 @@ bool KgameWorld::init()
 	//char strtest[32]={0};
 	//FileUtils::getPathForFilename()
 	//std::string nPath = ax::FileUtils::getInstance()->getWritablePath();
-	//ccMessageBox(nPath.c_str(),"getWritablePath");//可读写路径 /data/data/包名/files/
+	//messageBox(nPath.c_str(),"getWritablePath");//可读写路径 /data/data/包名/files/
 	//nPath = ax::FileUtils::getInstance()->fullPathForFilename("package.ini");
 	//nPath = ax::FileUtils::getInstance()->getWritablePath();//getWriteablePath();
 	//nPath += "download";
@@ -1015,7 +1025,7 @@ bool KgameWorld::init()
 	//tolower() //大写转小写
 	//toupper() //小写转大写
     /*char nCurStr[128]={0};
-	t_sprintf(nCurStr,"%d \n time:%u",nCount,timerStart.GetElapse());
+	sprintf(nCurStr,"%d \n time:%u",nCount,timerStart.GetElapse());
 	pMainLabel = Label::createWithTTF(strTiele,"Arial", 24);
 	pMainLabel->setString(nCurStr);//设置显示的问题
 	pMainLabel->setPosition(ax::Vec2(origin.x + visibleSize.width/2,
@@ -1042,8 +1052,8 @@ bool KgameWorld::init()
 			for (int i=1;i<nFrams;i++)
 			{
 				//Texture2D* nCurCount=NULL;
-				//t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				//sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,i);
+				//messageBox(nSprFilePath,"animation");
 				//nCurCount = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);//如果存在的 就
 				//if (nCurCount)
 				//testSprite->setTexture(nCurCount);//如果没有 会自动创建一个
@@ -1171,7 +1181,13 @@ bool KgameWorld::init()
 	Texture2D *bgCur = NULL;
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
-	ChannelSpr=MenuItemImage::create("ui/btn_square1.png","ui/btn_square1.png",NULL,CC_CALLBACK_1(KgameWorld::hidechatCallback, this));
+
+    auto imageChannelSpr = ImageView::create("ui/btn_square1.png");
+//	ChannelSpr = MenuItemImage::create(imageChannelSpr,imageChannelSpr,NULL,CC_CALLBACK_1(KgameWorld::hidechatCallback, this));
+    ChannelSpr = MenuItemImage::create();
+    ChannelSpr->setNormalImage(imageChannelSpr);
+    ChannelSpr->setSelectedImage(imageChannelSpr);
+    ChannelSpr->setCallback(CC_CALLBACK_1(KgameWorld::hidechatCallback, this));
 	ChannelSpr->setPosition(ax::Vec2(-50,0));
 	//nút ẩn khung chat
 	Sprite *inputSpr = Sprite::create("ui/chatbar.png");
@@ -1200,7 +1216,12 @@ bool KgameWorld::init()
 	picSpr->setPosition(ax::Vec2(MainChatSprite->getContentSize().width-picSpr->getContentSize().width+50,55));
 	MainChatSprite->addChild(picSpr,2);
 	//nút biểu tượng cảm xúc
-	MenuItemImage *chatsendSpr=MenuItemImage::create("ui/btn_square1.png","ui/btn_square1.png",NULL,CC_CALLBACK_1(KgameWorld::onsendCallback, this));
+    auto imageChatsendSpr = ImageView::create("ui/btn_square1.png");
+//	auto chatsendSpr = MenuItemImage::create(imageChatsendSpr,imageChatsendSpr,NULL,CC_CALLBACK_1(KgameWorld::onsendCallback, this));
+    auto chatsendSpr = MenuItemImage::create();
+    chatsendSpr->setNormalImage(imageChatsendSpr);
+    chatsendSpr->setSelectedImage(imageChatsendSpr);
+    chatsendSpr->setCallback(CC_CALLBACK_1(KgameWorld::onsendCallback, this));
 	Label * chatSendLabel = Label::createWithTTF("Gửi",UI_GAME_FONT_DEFAULT_VN_BTN, 25);
 	chatSendLabel->setColor(ax::Color3B::WHITE);
 	chatSendLabel->setAnchorPoint(ax::Vec2(0,0));
@@ -1209,6 +1230,7 @@ bool KgameWorld::init()
 	chatsendSpr->addChild(chatSendLabel,1);
 	chatsendSpr->setScale(0.6);
 	chatsendSpr->setPosition(ax::Vec2(picSpr->getPositionX()-picSpr->getContentSize().width/4,8));
+
 	Menu* pchatMenu = Menu::create(ChannelSpr,chatsendSpr,NULL);
 	pchatMenu->setPosition(ax::Vec2(10,10));
 	MainChatSprite->addChild(pchatMenu,2);
@@ -1314,7 +1336,7 @@ bool KgameWorld::init()
 		  pQizItem->setVisible(true);
 
 	  pIni.Clear();
-	//  ccMessageBox("存在","存在");
+	//  messageBox("存在","存在");
 	}
 	Sprite *nMineMapNode = Sprite::create();
 	Size nMapSize ;//= ((float)m_MapSize.cx,(float)m_MapSize.cy);
@@ -1355,7 +1377,7 @@ bool KgameWorld::init()
 //	Texture2D *bgCur = NULL;
 //	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr");
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	Sprite * sprite_max_normal = NULL;
@@ -1376,7 +1398,7 @@ bool KgameWorld::init()
 	maxMapConfirm->setScale(2.0);
 
 	//活动引导按钮
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pHuo_1 = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	Sprite *btn_normal_huo_1;
@@ -1391,7 +1413,7 @@ bool KgameWorld::init()
 	pHuoDongSpr->setPosition(ax::Vec2(250,-30));
 	pHuoDongSpr->_setLocalZOrder(100);
 	//自动挂机
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pAuto_1 = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	Sprite *btn_normal_Auto_1;
@@ -1407,7 +1429,7 @@ bool KgameWorld::init()
 	pAutoSpr->setPosition(ax::Vec2(250,-65));
 	pAutoSpr->_setLocalZOrder(101);
 	//山洞地图
-	t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr"); //\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	Texture2D *pCave_1 = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	Sprite *btn_normal_Cave_1;
@@ -1434,7 +1456,7 @@ bool KgameWorld::init()
 	//ax::Color3B nlineColor={0,0,255};//蓝色 //255,255,0 黄
 	//pPointLabel->enableStroke(nlineColor,1);//开始描边
 	char nPoinInfo[32];
-	t_sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
+	sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
 	pPointLabel->setString(nPoinInfo);
 	pPointLabel->setColor(ax::Color3B::YELLOW);
 	pPointLabel->setPosition(ax::Vec2(visibleSize.width-nMapSize.width/2,visibleSize.height-nMapSize.height+5));
@@ -1480,11 +1502,11 @@ bool KgameWorld::init()
 void KgameWorld::selchatlistItemEvent(Ref* pSender,ui::ListView::EventType type)
 {
 	/*if (type ==ui::ListView::EventType::ON_SELECTED_ITEM_START)
-	   ccMessageBox("开始点击item","点击item");
+	   messageBox("开始点击item","点击item");
 	else if (type ==ui::ListView::EventType::ON_SELECTED_ITEM_END)
-		ccMessageBox("点击item结束","点击item");
+		messageBox("点击item结束","点击item");
 
-	ccMessageBox("点击item结束","点击item");*/
+	messageBox("点击item结束","点击item");*/
 }
 //Kỳ trận các
 void KgameWorld::mQizCallback(Ref* pSender)
@@ -1560,7 +1582,7 @@ void KgameWorld::_quitGame()
 {
 	//mOptionsCallback(NULL);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	{
 		if (nAcclient)
@@ -1861,7 +1883,7 @@ void KgameWorld::mianSkillCallback(Ref* pSender)
 {//可以变更纹理
 	//if (pMainSkillItem)
     //	pMainSkillItem->setVisible(false);//隐藏
-	//ccMessageBox("攻击 开始","攻击");
+	//messageBox("攻击 开始","攻击");
 
 	if (!g_pCoreShell) return;
     if (!g_pCoreShell->GetAutoplayid())
@@ -1965,9 +1987,9 @@ void KgameWorld::OnSendSomeoneMessage(const char* Name, const char* Buffer, int 
 
 		char nTempName[64];
 		ZeroMemory(nTempName,sizeof(nTempName));
-		t_sprintf(nTempName,"%s",Name);
-		//ccMessageBox(U2G(nTempName).c_str(),"私聊");
-		t_sprintf(pCscCmd->someone,"%s",U2G(nTempName).c_str());
+		sprintf(nTempName,"%s",Name);
+		//messageBox(U2G(nTempName).c_str(),"私聊");
+		sprintf(pCscCmd->someone,"%s",U2G(nTempName).c_str());
 		//strcpy(pCscCmd->someone, Name);
 		pCscCmd->sentlen = nLen;
 		memcpy(pCscCmd + 1,Buffer,nLen);
@@ -1975,7 +1997,7 @@ void KgameWorld::OnSendSomeoneMessage(const char* Name, const char* Buffer, int 
 	    //char szWarning[256],szWarninga[256],szWarningb[256],szWarningc[256];
 		//char szName[32]={0};
 		//int  nMsgLength;
-		//t_sprintf(szName,Name);
+		//sprintf(szName,Name);
 		//TEncodeText(Buffer, nMsgLength);
 		/*_snprintf(szWarning,sizeof(szWarning)+1,"向(%s)私聊(<color=yellow>%s<color>)发送成功!",Name,szWarningc);
         nMsgLength = KUiFaceSelector::ConvertFaceText(szWarninga, szWarning,strlen(szWarning));  //转换表情符号
@@ -2013,14 +2035,14 @@ void KgameWorld::OnSendChannelMessage(DWORD nChannelID, const char* Buffer, int 
 		{
 			char szWarning[] ="Thao tác quá nhanh";
 			//KUiMsgCentrePad::SystemMessageArrival(szWarning, sizeof(szWarning));
-			ccMessageBox(szWarning,"Chú ý");
+			messageBox(szWarning,"Chú ý");
 		}
 		else if (nLeft > 0)
 		{
 			char szWarning[64]={0};
-			t_sprintf(szWarning, "Tin nhắn sẽ được gửi sau [%d] giây!", (nLeft + 999 )/1000);
+			sprintf(szWarning, "Tin nhắn sẽ được gửi sau [%d] giây!", (nLeft + 999 )/1000);
 			//KUiMsgCentrePad::SystemMessageArrival(szWarning, strlen(szWarning) + 1);
-			ccMessageBox(szWarning,"Chú ý");
+			messageBox(szWarning,"Chú ý");
 		}
 	}
 	Player[CLIENT_PLAYER_INDEX].m_ItemLinkDwid = 0;
@@ -2129,8 +2151,8 @@ void KgameWorld::onsendCallback(Ref* pSender)
 	//if (sfunLayer)
 	//	nChannelDataCount =((Kuiplayerfun*)sfunLayer)->GetChannelCount();
 	//char pin[64];
-	//t_sprintf(pin,"%d",nChannelDataCount);
-	//ccMessageBox(pin,"频道");
+	//sprintf(pin,"%d",nChannelDataCount);
+	//messageBox(pin,"频道");
 
 	char Buffer[512]={0};
 	ZeroMemory(Buffer,sizeof(Buffer));
@@ -2138,11 +2160,11 @@ void KgameWorld::onsendCallback(Ref* pSender)
 	//ZeroMemory(nTenmpstr,sizeof(nTenmpstr));
 	//int nMsgLength = inputEditBox.getText();  // h获取消息内容
 	if  (!inputEditBox || !inputEditBox->getText()) return;
-	//t_sprintf(nTenmpstr,inputEditBox->getText());
+	//sprintf(nTenmpstr,inputEditBox->getText());
 	std::string nTempBuffer = inputEditBox->getText();
-	t_sprintf(Buffer,inputEditBox->getText());//U2G(nTenmpstr).c_str()
+	sprintf(Buffer, "%s", inputEditBox->getText());//U2G(nTenmpstr).c_str()
 	int	nMsgLength = strlen(Buffer);
-	//ccMessageBox("发送聊天","发送聊天");
+	//messageBox("发送聊天","发送聊天");
 	int bChannel = false;
 	int nDestChannel = -1;
 	char Name[32]={0};
@@ -2193,7 +2215,7 @@ void KgameWorld::onsendCallback(Ref* pSender)
 				//if (KUiMsgCentrePad::IsChannelType(n, KUiMsgCentrePad::ch_Screen)) //全部频道
 				if (sfunLayer && ((Kuiplayerfun*)sfunLayer)->IsChannelType(n,ch_Screen))
 				{
-					//ccMessageBox("查找成功","suue");
+					//messageBox("查找成功","suue");
 					nDestChannel = n;
 					break;
 				}
@@ -2241,8 +2263,8 @@ void KgameWorld::onsendCallback(Ref* pSender)
 				((Kuiplayerfun*)sfunLayer)->CheckChannel(nDestChannel, true);
 
 			//char mgs[64];
-			//t_sprintf(mgs,"%d:%u",nDestChannel,nChannelID);
-			//ccMessageBox(mgs,"SEND");
+			//sprintf(mgs,"%d:%u",nDestChannel,nChannelID);
+			//messageBox(mgs,"SEND");
 			OnSendChannelMessage(nChannelID, Buffer, nMsgLength); //计算发送频道信息 时间间隔
 
 			//m_InputEdit.ClearText();
@@ -2258,11 +2280,11 @@ void KgameWorld::onsendCallback(Ref* pSender)
 		std::string::size_type pos = nTempBuffer.find(" "); //空格后面为内容 前面围
 		std::string _Buffer_ = nTempBuffer.substr(pos, nTempBuffer.length());
 		ZeroMemory(Buffer,sizeof(Buffer));
-		t_sprintf(Buffer,_Buffer_.c_str());
-		t_sprintf(Buffer,U2G(Buffer).c_str());
+		sprintf(Buffer, "%s", _Buffer_.c_str());
+		sprintf(Buffer, "%s", U2G(Buffer).c_str());
 		nMsgLength = strlen(Buffer);
 		nMsgLength = TEncodeText(Buffer, nMsgLength);//控制标记进行转换
-		//ccMessageBox(Buffer,U2G(msg).c_str());
+		//messageBox(Buffer,U2G(msg).c_str());
 		//nMsgLength = TEncodeText(Buffer, nMsgLength);//控制标记进行转换
 		OnSendSomeoneMessage(Name,Buffer,nMsgLength,TRUE);           //发送密聊
 		int nAdd = AddRecentPlayer(Name);
@@ -2270,7 +2292,7 @@ void KgameWorld::onsendCallback(Ref* pSender)
 		{
 			char nTempName[64];
 			ZeroMemory(nTempName,sizeof(nTempName));
-			t_sprintf(nTempName,"%s%s%s","/",Name," ");
+			sprintf(nTempName,"%s%s%s","/",Name," ");
 			inputEditBox->setText(nTempName);
 			//m_InputEdit.ClearText();
 			//if (nIsAutoSay)
@@ -2348,8 +2370,8 @@ void KgameWorld::auxiliaryskillCallback(Ref* pSender)
 		 }
 
 		//char msg[64];
-		//t_sprintf(msg,"skillidx:%d",nSkillID);
-		//ccMessageBox(msg,"按钮执行成功");
+		//sprintf(msg,"skillidx:%d",nSkillID);
+		//messageBox(msg,"按钮执行成功");
 	}
 }
 
@@ -2498,7 +2520,7 @@ void KgameWorld::mianYinCallback(Ref* pSender)
 	if (!pcontrolMenu) return;
 
 	char mKey[32];
-	t_sprintf(mKey,"quxia");
+	sprintf(mKey,"quxia");
 	std::string nikey = mKey;
 	MenuItemImage *pquxiaItem = (MenuItemImage *)pcontrolMenu->getChildByName(nikey);
 	if  (pquxiaItem)
@@ -2680,7 +2702,7 @@ void KgameWorld::mianSortSillCallback(Ref* pSender)
 
 	if  (nKey==1)
 	{//左键
-		//ccMessageBox("左技能","test");
+		//messageBox("左技能","test");
         auto callback = [this](ax::Node *sender) {
             this->closesortskillPad_l(sender);
         };
@@ -2718,9 +2740,9 @@ void KgameWorld::mianQuCallback(Ref* pSender)
 	if  (nidx<0)
 	{
 #ifdef WIN32
-		ccMessageBox("请选择一个物品","提示:");
+		messageBox("请选择一个物品","提示:");
 #else
-		ccMessageBox(UTEXT("请选择一个物品",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请选择一个物品",1).c_str(),UTEXT("提示:",1).c_str());
 #endif
 		return;
 	}
@@ -2765,7 +2787,7 @@ void KgameWorld::setInputMsg(char * strInfo)
 	if  (!strInfo || !inputEditBox) return;
 	char nTempSerInfo[256];
 	ZeroMemory(nTempSerInfo,sizeof(nTempSerInfo));
-	t_sprintf(nTempSerInfo,"%s%s",inputEditBox->getText(),UTEXT(strInfo,1).c_str());
+	sprintf(nTempSerInfo,"%s%s",inputEditBox->getText(),UTEXT(strInfo,1).c_str());
 	inputEditBox->setText(nTempSerInfo);
 }
 
@@ -2863,8 +2885,8 @@ void KgameWorld::setchatCurChannel(char  *name)
 	if (sfunLayer)
 	   nChannelDataCount =((Kuiplayerfun*)sfunLayer)->GetChannelCount();
 	char pin[64];
-	t_sprintf(pin,"%d %d",m_nCurChannel,nChannelDataCount);
-	ccMessageBox(pin,"当前频道");*/
+	sprintf(pin,"%d %d",m_nCurChannel,nChannelDataCount);
+	messageBox(pin,"当前频道");*/
 	if  (ChannelSpr)
 	{//开始变更纹理
 		// Texture2D * bgCur = NULL;
@@ -2876,31 +2898,31 @@ void KgameWorld::setchatCurChannel(char  *name)
 		// ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 		// if (strstr(name,"CH_NEARBY"))
 		// {//附近
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-附近频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-附近频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_TEAM"))
 		// {//队伍
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-队伍频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-队伍频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_WORLD"))
 		// {//世界
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-世界频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-世界频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_CITY"))
 		// {//城市
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-城市频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-城市频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_TONG"))
 		// {//
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\帮会聊天频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\帮会聊天频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_FACTION"))
 		// {//
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-门派频道选择.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\主界面按钮-门派频道选择.spr");
 		// }
 		// else if (strstr(name,"CH_JABBER"))
 		// {
-		// 	t_sprintf(nSprName,"\\Spr\\Ui3\\主界面\\聊天频道选择按键.spr");
+		// 	sprintf(nSprName,"\\Spr\\Ui3\\主界面\\聊天频道选择按键.spr");
 		// }
 		// g_StrLower(nSprName);
 		// bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -3079,7 +3101,7 @@ void KgameWorld::update(float delta)
 			if  (Msg == s2c_logiclogout)
 			{
 				//AcceptNetMsg(pMsg);
-				ccMessageBox("eixtGame:out netWork","eixtGame");
+				messageBox("eixtGame:out netWork","eixtGame");
 				break;
 			}
 		}
@@ -3101,6 +3123,8 @@ void KgameWorld::update(float delta)
 
 			if (!(pBuffer && nSize))
 			   break;
+
+            std::string str(pBuffer);
 
 			PROTOCOL_MSG_TYPE*	pMsg = (PROTOCOL_MSG_TYPE*)pBuffer; //当前包
 
@@ -3165,310 +3189,313 @@ void KgameWorld::update(float delta)
 }
 
 
-//void KgameWorld::onDraw(const ax::Mat4& transform, uint32_t flags)
-//{
-//    Layer::draw(transform, flags);
-//	if (!g_GameWorld || !g_pClient || !m_bIsPlayerInGame)
-//	{
-//		//ccMessageBox("draw error","test draw");
-//		return;
-//	}
-//	/*unsigned long dwTimer;
-//	dwTimer=g_SubWorldSet.getCilentRunTime();
-//	dwTimer -= __pingTime;
-//	dwTimer >>= 1;
-//
-//	if (dwTimer-g_SubWorldSet.GetPing()>=12000) //断线了
-//		g_pClient->setSocketStates(false);
-//	else
-//		g_pClient->setSocketStates(true);
-//	*/
-//	//网络状态的显示
-//	if (!g_ScenePlace.getIsPaint())
-//	{//
-//		pNetStateLabel->setVisible(true);
-//		if (!isHave)
-//		{// 0--500 500-2000 2000>
-//			//isHave = true;
-//			t_sprintf(_strPing,"Ping:%u %d",g_SubWorldSet.GetPing(),g_pClient->getSocketStates());
-//			pNetStateLabel->setString(UTEXT(_strPing,1).c_str());
-//		}
-//	}
-//	else
-//	{
-//		isHave = false;
-//		//if (pNetStateLabel->isVisible())
-//		//	pNetStateLabel->setVisible(false);
-//		t_sprintf(_strPing,"ping:%u %d",g_SubWorldSet.GetPing(),g_pClient->getSocketStates());
-//		pNetStateLabel->setString(_strPing);
-//	}
-//
-//	if (g_GameWorld && m_bIsPlayerInGame)
-//	{
-//		m_NpcIndex = Player[CLIENT_PLAYER_INDEX].m_nIndex;
-//		if (m_NpcIndex>0 && m_NpcIndex<MAX_NPC)
-//		{//设置摇杆的主角索引
-//			if (!g_pClient->getSocketStates())
-//			{//如果是短线的了
-//				if (m_recontnetTime>0)
-//					m_recontnetTime--;
-//
-//				if (m_recontnetTime<=0)
-//				{
-//					m_recontnetTime=RECONTNET_TIME;
-//					//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(UTEXT("掉线了,正在帮你重新连接...",1).c_str());
-//				}
-//			}
-//			else
-//              m_recontnetTime=RECONTNET_TIME;
-//
-//			if  (joystick)
-//				joystick->setRoleIndex(m_NpcIndex);
-//
-//			if  (KskillMenu)
-//				 KskillMenu->setRoleIndex(m_NpcIndex);
-//			//if (!pRoleNameLabel->getString())
-//			char msg[64],tempName[64];
-//			t_sprintf(tempName,Npc[m_NpcIndex].Name);
-//			t_sprintf(m_szSelfName,Npc[m_NpcIndex].Name);
-//
-//			t_sprintf(msg,"%s %d%s","",Npc[m_NpcIndex].m_Level,"");
-//			pRoleNameLabel->setString(msg);
-//			float nTempScalX =0.0;
-//			Sprite *nTempSprite = NULL;
-//			float nCurLife    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLife;
-//			float nCurMaxLife = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLifeMax;
-//			float nCurmana    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentMana;
-//			float nCurMaxmana = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentManaMax;
-//			float nCursaitama    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStamina;
-//			float nCurMaxsaitama = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStaminaMax;
-//			float nCurExp     = Player[CLIENT_PLAYER_INDEX].m_nExp;
-//			float nCurMaxExp  = Player[CLIENT_PLAYER_INDEX].m_nNextLevelExp;
-//			int nRankPlayer = Player[CLIENT_PLAYER_INDEX].m_nWorldStat;
-//			char nkey[32];
-//			if (plifeLabel)
-//			{
-//				t_sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLife,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLifeMax);
-//				plifeLabel->setString(nkey);
-//			}
-//
-//			if (pmanaLabel)
-//			{
-//				t_sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentMana,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentManaMax);
-//				pmanaLabel->setString(nkey);
-//			}
-//			if (pSaitamaLabel)
-//			{
-//				t_sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStamina,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStaminaMax);
-//				pSaitamaLabel->setString(nkey);
-//			}
-//			if (pNetStateLabel){
-//				t_sprintf(nkey,"%d",nRankPlayer);
-//				pNetStateLabel->setString(nkey);
-//			}
-//
-//			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
-//			if (nTempSprite)
-//			{
-//				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_LIFE);
-//				if (nTempSprite_1)
-//				{
-//					nTempScalX =nCurLife/nCurMaxLife;
-//					nTempSprite_1->setScaleX(nTempScalX);
-//				}
-//			}
-//
-//			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
-//			if (nTempSprite)
-//			{
-//				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_LAN);
-//				if (nTempSprite_1)
-//				{
-//					nTempScalX = nCurmana/nCurMaxmana;
-//					nTempSprite_1->setScaleX(nTempScalX);
-//				}
-//			}
-//
-//			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
-//			if (nTempSprite)
-//			{
-//				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_SAITAMA);
-//				if (nTempSprite_1)
-//				{
-//					nTempScalX = nCursaitama/nCurMaxsaitama;
-//					nTempSprite_1->setScaleX(nTempScalX);
-//				}
-//			}
-//
-//			nTempSprite = (Sprite *)ParentNode_chat->getChildByTag(CHAT_NODE_TILI);
-//			if (nTempSprite)
-//			{
-//				bool isFu =false;
-//				if (nCurExp<0)
-//				{
-//					isFu = true;
-//					nCurExp=-nCurExp;
-//				}
-//
-//				nTempScalX = nCurExp/nCurMaxExp;
-//
-//				if  (nTempScalX>1)
-//					nTempScalX = 1;
-//				nTempSprite->setScaleX(nTempScalX);
-//
-//				if (isFu)
-//					nTempSprite->setColor(ax::Color3B::MAGENTA);
-//				else
-//					nTempSprite->setColor(ax::Color3B::WHITE);
-//				/*if (pExpLabel)
-//				{
-//					char nTempStr[64];
-//					t_sprintf(nTempStr,"%d/%d %d%s",(int)nCurExp,(int)nCurMaxExp,100*nTempScalX,"%%");
-//					pExpLabel->setString(nTempStr);
-//				}*/
-//			}
-//			//if (Npc[m_NpcIndex].m_SubWorldIndex>=0 && Npc[m_NpcIndex].m_RegionIndex>=0)
-//			  //  g_ScenePlace.Paint();
-//		}
-//		g_ScenePlace.GetSceneNameAndFocus(nMapName,nMapidx,nPosX,nPosY,nMapKind);
-//		ax::Color3B nlineColor={0,0,0};//蓝色 //255,255,0 黄
-//		pMapNameLabel->setString(UTEXT(nMapName,1).c_str());
-//		char nPoinInfo[32];
-//		t_sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
-//		pPointLabel->setColor(ax::Color3B::YELLOW);
-//		pPointLabel->setString(nPoinInfo);
-//
-//		char ntesInfo[32];
-//		t_sprintf(ntesInfo,"%d",g_ScenePlace.getObjsAboveCount());
-//		ptestLabel->setColor(ax::Color3B::RED);
-//		ptestLabel->setString(ntesInfo);
-//	}
-//
-//	//场景的绘画
-//	g_ScenePlace.Paint();
-//	g_ScenePlace.PaintMap(nMapStartLeft,nMapStartTop);
-//	if (ParentNode_npc && ParentNode_npc->getChildrenCount())
-//	{
-//		Ref *temp=NULL;
-//		CCArray *nodeArray_Npc = ParentNode_npc->getChildren();//获取父节点下的 所有子节点的数组
-//		//CCARRAY_FOREACH(nodeArray_Npc,temp)
-//		CCARRAY_FOREACH_REVERSE(nodeArray_Npc,temp)//逆向
-//		{
-//			if(temp)
-//			{
-//				int nNpcIndex = ((Node*)temp)->getTag();
-//				if  (nNpcIndex>0 && nNpcIndex<MAX_NPC)
-//				{
-//					Npc[nNpcIndex].PaintBlood(0);	  //绘制冒血
-//				    Npc[nNpcIndex].PaintOther();
-//					Npc[nNpcIndex].Paint();
-//				}
-//			}
-//		}
-//	}//end ParentNode_npc
-//
-//	if (ParentNode_miss->getChildrenCount())
-//	{// ParentNode_miss
-//		Ref *temp=NULL;
-//		CCArray *nodeArray_Miss = ParentNode_miss->getChildren();//获取父节点下的 所有子节点的数组
-//		//CCARRAY_FOREACH(nodeArray_Miss,temp)
-//		CCARRAY_FOREACH_REVERSE(nodeArray_Miss,temp)//逆向
-//		{
-//			if(temp)
-//			{
-//				int nMissindex = ((Node*)temp)->getTag();
-//				if  (nMissindex>0 && nMissindex<MAX_MISSLE)
-//				{
-//					Missle[nMissindex].Paint();
-//
-//				}
-//			}
-//		}
-//	}//end ParentNode_miss
-//
-//	if (ParentNode_obj->getChildrenCount())
-//	{//end ParentNode_obj
-//		Ref *temp=NULL;
-//		CCArray *nodeArray_Obj = ParentNode_obj->getChildren();//获取父节点下的 所有子节点的数组
-//		//CCARRAY_FOREACH(nodeArray_Obj,temp)//正向
-//		CCARRAY_FOREACH_REVERSE(nodeArray_Obj,temp)//逆向
-//		{
-//			if(temp)
-//			{
-//				int Objindex = ((Node*)temp)->getTag();
+void KgameWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
+{
+	if (!g_GameWorld || !g_pClient || !m_bIsPlayerInGame)
+	{
+		//messageBox("draw error","test draw");
+		return;
+	}
+	/*unsigned long dwTimer;
+	dwTimer=g_SubWorldSet.getCilentRunTime();
+	dwTimer -= __pingTime;
+	dwTimer >>= 1;
+
+	if (dwTimer-g_SubWorldSet.GetPing()>=12000) //断线了
+		g_pClient->setSocketStates(false);
+	else
+		g_pClient->setSocketStates(true);
+	*/
+	//网络状态的显示
+	if (!g_ScenePlace.getIsPaint())
+	{//
+		pNetStateLabel->setVisible(true);
+		if (!isHave)
+		{// 0--500 500-2000 2000>
+			//isHave = true;
+			sprintf(_strPing,"Ping:%u %d",g_SubWorldSet.GetPing(),g_pClient->getSocketStates());
+			pNetStateLabel->setString(UTEXT(_strPing,1).c_str());
+		}
+	}
+	else
+	{
+		isHave = false;
+		//if (pNetStateLabel->isVisible())
+		//	pNetStateLabel->setVisible(false);
+		sprintf(_strPing,"ping:%u %d",g_SubWorldSet.GetPing(),g_pClient->getSocketStates());
+		pNetStateLabel->setString(_strPing);
+	}
+
+	if (g_GameWorld && m_bIsPlayerInGame)
+	{
+		m_NpcIndex = Player[CLIENT_PLAYER_INDEX].m_nIndex;
+		if (m_NpcIndex>0 && m_NpcIndex<MAX_NPC)
+		{//设置摇杆的主角索引
+			if (!g_pClient->getSocketStates())
+			{//如果是短线的了
+				if (m_recontnetTime>0)
+					m_recontnetTime--;
+
+				if (m_recontnetTime<=0)
+				{
+					m_recontnetTime=RECONTNET_TIME;
+					//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(UTEXT("掉线了,正在帮你重新连接...",1).c_str());
+				}
+			}
+			else
+              m_recontnetTime=RECONTNET_TIME;
+
+			if  (joystick)
+				joystick->setRoleIndex(m_NpcIndex);
+
+			if  (KskillMenu)
+				 KskillMenu->setRoleIndex(m_NpcIndex);
+			//if (!pRoleNameLabel->getString())
+			char msg[64],tempName[64];
+			sprintf(tempName, "%s", Npc[m_NpcIndex].Name);
+			sprintf(m_szSelfName, "%s", Npc[m_NpcIndex].Name);
+
+			sprintf(msg,"%s %d%s","",Npc[m_NpcIndex].m_Level,"");
+			pRoleNameLabel->setString(msg);
+			float nTempScalX =0.0;
+			Sprite *nTempSprite = NULL;
+			float nCurLife    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLife;
+			float nCurMaxLife = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLifeMax;
+			float nCurmana    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentMana;
+			float nCurMaxmana = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentManaMax;
+			float nCursaitama    = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStamina;
+			float nCurMaxsaitama = Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStaminaMax;
+			float nCurExp     = Player[CLIENT_PLAYER_INDEX].m_nExp;
+			float nCurMaxExp  = Player[CLIENT_PLAYER_INDEX].m_nNextLevelExp;
+			int nRankPlayer = Player[CLIENT_PLAYER_INDEX].m_nWorldStat;
+			char nkey[32];
+			if (plifeLabel)
+			{
+				sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLife,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentLifeMax);
+				plifeLabel->setString(nkey);
+			}
+
+			if (pmanaLabel)
+			{
+				sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentMana,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentManaMax);
+				pmanaLabel->setString(nkey);
+			}
+			if (pSaitamaLabel)
+			{
+				sprintf(nkey,"%d/%d",Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStamina,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentStaminaMax);
+				pSaitamaLabel->setString(nkey);
+			}
+			if (pNetStateLabel){
+				sprintf(nkey,"%d",nRankPlayer);
+				pNetStateLabel->setString(nkey);
+			}
+
+			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
+			if (nTempSprite)
+			{
+				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_LIFE);
+				if (nTempSprite_1)
+				{
+					nTempScalX =nCurLife/nCurMaxLife;
+					nTempSprite_1->setScaleX(nTempScalX);
+				}
+			}
+
+			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
+			if (nTempSprite)
+			{
+				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_LAN);
+				if (nTempSprite_1)
+				{
+					nTempScalX = nCurmana/nCurMaxmana;
+					nTempSprite_1->setScaleX(nTempScalX);
+				}
+			}
+
+			nTempSprite = (Sprite *)ParentNode_rolestate->getChildByTag(ROLESTATE_NODE_BGSPR);
+			if (nTempSprite)
+			{
+				Sprite *nTempSprite_1 =(Sprite *)nTempSprite->getChildByTag(ROLESTATE_NODE_SAITAMA);
+				if (nTempSprite_1)
+				{
+					nTempScalX = nCursaitama/nCurMaxsaitama;
+					nTempSprite_1->setScaleX(nTempScalX);
+				}
+			}
+
+			nTempSprite = (Sprite *)ParentNode_chat->getChildByTag(CHAT_NODE_TILI);
+			if (nTempSprite)
+			{
+				bool isFu =false;
+				if (nCurExp<0)
+				{
+					isFu = true;
+					nCurExp=-nCurExp;
+				}
+
+				nTempScalX = nCurExp/nCurMaxExp;
+
+				if  (nTempScalX>1)
+					nTempScalX = 1;
+				nTempSprite->setScaleX(nTempScalX);
+
+				if (isFu)
+					nTempSprite->setColor(ax::Color3B::MAGENTA);
+				else
+					nTempSprite->setColor(ax::Color3B::WHITE);
+				/*if (pExpLabel)
+				{
+					char nTempStr[64];
+					sprintf(nTempStr,"%d/%d %d%s",(int)nCurExp,(int)nCurMaxExp,100*nTempScalX,"%%");
+					pExpLabel->setString(nTempStr);
+				}*/
+			}
+			//if (Npc[m_NpcIndex].m_SubWorldIndex>=0 && Npc[m_NpcIndex].m_RegionIndex>=0)
+			  //  g_ScenePlace.Paint();
+		}
+		g_ScenePlace.GetSceneNameAndFocus(nMapName,nMapidx,nPosX,nPosY,nMapKind);
+		ax::Color3B nlineColor={0,0,0};//蓝色 //255,255,0 黄
+		pMapNameLabel->setString(UTEXT(nMapName,1).c_str());
+		char nPoinInfo[32];
+		sprintf(nPoinInfo,"%d/%d",nPosX/8,nPosY/8);
+		pPointLabel->setColor(ax::Color3B::YELLOW);
+		pPointLabel->setString(nPoinInfo);
+
+		char ntesInfo[32];
+		sprintf(ntesInfo,"%d",g_ScenePlace.getObjsAboveCount());
+		ptestLabel->setColor(ax::Color3B::RED);
+		ptestLabel->setString(ntesInfo);
+	}
+
+	//场景的绘画
+	g_ScenePlace.Paint();
+	g_ScenePlace.PaintMap(nMapStartLeft,nMapStartTop);
+	if (ParentNode_npc && ParentNode_npc->getChildrenCount())
+	{
+		Ref *temp=NULL;
+		auto nodeArray_Npc = ParentNode_npc->getChildren();//获取父节点下的 所有子节点的数组
+		//CCARRAY_FOREACH(nodeArray_Npc,temp)
+        for (auto it = nodeArray_Npc.rbegin(); it != nodeArray_Npc.rend(); ++it) //逆向
+        {
+            temp = *it;
+			if(temp)
+			{
+				int nNpcIndex = ((Node*)temp)->getTag();
+				if  (nNpcIndex>0 && nNpcIndex<MAX_NPC)
+				{
+					Npc[nNpcIndex].PaintBlood(0);	  //绘制冒血
+				    Npc[nNpcIndex].PaintOther();
+					Npc[nNpcIndex].Paint();
+				}
+			}
+		}
+	}//end ParentNode_npc
+
+	if (ParentNode_miss->getChildrenCount())
+	{// ParentNode_miss
+		Ref *temp=NULL;
+		auto nodeArray_Miss = ParentNode_miss->getChildren();//获取父节点下的 所有子节点的数组
+		//CCARRAY_FOREACH(nodeArray_Miss,temp)
+        for (auto it = nodeArray_Miss.rbegin(); it != nodeArray_Miss.rend(); ++it) //逆向
+        {
+            temp = *it;
+			if(temp)
+			{
+				int nMissindex = ((Node*)temp)->getTag();
+				if  (nMissindex>0 && nMissindex<MAX_MISSLE)
+				{
+					Missle[nMissindex].Paint();
+
+				}
+			}
+		}
+	}//end ParentNode_miss
+
+	if (ParentNode_obj->getChildrenCount())
+	{//end ParentNode_obj
+		Ref *temp=NULL;
+        auto nodeArray_Obj = ParentNode_obj->getChildren();//获取父节点下的 所有子节点的数组
+		//CCARRAY_FOREACH(nodeArray_Obj,temp)//正向
+        for (auto it = nodeArray_Obj.rbegin(); it != nodeArray_Obj.rend(); ++it) //逆向
+		{
+            temp = *it;
+			if(temp)
+			{
+				int Objindex = ((Node*)temp)->getTag();
+                //[TODO]
 //				if  (Objindex>0 && Objindex<MAX_OBJECT)
 //					Object[Objindex].Draw();
-//			}
-//		}
-//	}//end ParentNode_obj
-//	//聊天的循环
-//	if (!sfunLayer) return;
-//	int nUseMana = 0;
-//	int nUseMoney = 0;
-//	int nUseLevel = 0;
-//	int nItemDwIdx=0,nMoney=10,nLevel=10,nMana=100,nFullMana=100;
-//	int nForBitChat=0;
-//	//UpdateXXXNumber(nMana, nFullMana);  //血 蓝 坐标等的刷新
-//if (g_pCoreShell)
-//{
-//	KUiPlayerRuntimeInfo	Info;
-//	memset(&Info, 0, sizeof(KUiPlayerRuntimeInfo));
-//	g_pCoreShell->GetGameData(GDI_PLAYER_RT_INFO, (intptr_t)&Info, 0);
-//	nMana     = max(Info.nMana, 0);
-//	nFullMana = max(Info.nManaFull, 0);
-//
-//	//UpdateRuntimeAttribute(nMoney, nLevel,nForBitChat);//钱 等级的 刷新  人物属性
-//	KUiPlayerAttribute	_Info;
-//	memset(&_Info, 0, sizeof(KUiPlayerAttribute));
-//	g_pCoreShell->GetGameData(GDI_PLAYER_RT_ATTRIBUTE, (uintptr_t)&_Info, 0);
-//	nMoney = _Info.nMoney;  //更新钱
-//	nLevel = _Info.nLevel;  //更新等级
-//	nForBitChat = _Info.nForBitChat;
-//}
-//	DWORD dwID;
-//	int nLen;
-//	BYTE cost;
-//	char* Buffer;
-//	while(((Kuiplayerfun*)sfunLayer)->GetChannelData(dwID, cost, Buffer, nLen,nItemDwIdx))  //计算时间
-//	{//获取频道的消息
-//		int nRet = IsHasCost(cost, nMoney, nLevel, nMana, nFullMana,nUseMoney, nUseLevel, nUseMana);
-//		bool bSend =!nRet;
-//		char szSystem[256]={0};
-//		szSystem[0] = 0;
-//		if (!bSend)
-//		{
-//			if (nRet == 2 && nUseLevel > 0)
-//				t_sprintf(szSystem, "您的等级不足%d级,无法使用千里传音发送消息。", nUseLevel);
-//
-//			if (nRet == 1 && nUseMoney > 0)
-//				t_sprintf(szSystem, "您的银两不足%d两,无法使用千里传音发送消息。", nUseMoney);
-//
-//			if (nRet == 3 && nUseMana > 0)
-//				t_sprintf(szSystem, "您的内力不足%d点,无法使用千里传音发送消息。", nUseMana);
-//		}
-//		else
-//		{
-//			if (nUseMoney > 0)
-//				t_sprintf(szSystem, "您使用千里传音,花费银两%d两。", nUseMoney);
-//			if (nUseMana > 0)
-//				t_sprintf(szSystem, "您使用千里传音,消耗内力%d点。", nUseMana);
-//		}
-//		//发送频道消息
-//		if (bSend)
-//			OnDirectSendChannelMessage(dwID, cost, Buffer, nLen,nItemDwIdx);    ///发送频道消息协议到服务器
-//
-//		((Kuiplayerfun*)sfunLayer)->PopChannelData(dwID);                       //出栈数据，不管成功不成功。。。
-//
-//		if (szSystem[0]) //发送系统公告
-//		{
-//			//int nMsgLength;
-//			//nMsgLength = TEncodeText(szSystem, strlen(szSystem));//控制标记进行转换
-//			//KUiMsgCentrePad::SystemMessageArrival(szSystem, nMsgLength);
-//			if  (chatLayer)
-//				chatLayer->addmsg("[提示]:",szSystem);
-//		}
-//	}
-//}
+			}
+		}
+	}//end ParentNode_obj
+	//聊天的循环
+	if (!sfunLayer) return;
+	int nUseMana = 0;
+	int nUseMoney = 0;
+	int nUseLevel = 0;
+	int nItemDwIdx=0,nMoney=10,nLevel=10,nMana=100,nFullMana=100;
+	int nForBitChat=0;
+	//UpdateXXXNumber(nMana, nFullMana);  //血 蓝 坐标等的刷新
+if (g_pCoreShell)
+{
+	KUiPlayerRuntimeInfo	Info;
+	memset(&Info, 0, sizeof(KUiPlayerRuntimeInfo));
+	g_pCoreShell->GetGameData(GDI_PLAYER_RT_INFO, (intptr_t)&Info, 0);
+	nMana     = max(Info.nMana, 0);
+	nFullMana = max(Info.nManaFull, 0);
+
+	//UpdateRuntimeAttribute(nMoney, nLevel,nForBitChat);//钱 等级的 刷新  人物属性
+	KUiPlayerAttribute	_Info;
+	memset(&_Info, 0, sizeof(KUiPlayerAttribute));
+	g_pCoreShell->GetGameData(GDI_PLAYER_RT_ATTRIBUTE, (uintptr_t)&_Info, 0);
+	nMoney = _Info.nMoney;  //更新钱
+	nLevel = _Info.nLevel;  //更新等级
+	nForBitChat = _Info.nForBitChat;
+}
+	DWORD dwID;
+	int nLen;
+	BYTE cost;
+	char* Buffer;
+	while(((Kuiplayerfun*)sfunLayer)->GetChannelData(dwID, cost, Buffer, nLen,nItemDwIdx))  //计算时间
+	{//获取频道的消息
+		int nRet = IsHasCost(cost, nMoney, nLevel, nMana, nFullMana,nUseMoney, nUseLevel, nUseMana);
+		bool bSend =!nRet;
+		char szSystem[256]={0};
+		szSystem[0] = 0;
+		if (!bSend)
+		{
+			if (nRet == 2 && nUseLevel > 0)
+				sprintf(szSystem, "您的等级不足%d级,无法使用千里传音发送消息。", nUseLevel);
+
+			if (nRet == 1 && nUseMoney > 0)
+				sprintf(szSystem, "您的银两不足%d两,无法使用千里传音发送消息。", nUseMoney);
+
+			if (nRet == 3 && nUseMana > 0)
+				sprintf(szSystem, "您的内力不足%d点,无法使用千里传音发送消息。", nUseMana);
+		}
+		else
+		{
+			if (nUseMoney > 0)
+				sprintf(szSystem, "您使用千里传音,花费银两%d两。", nUseMoney);
+			if (nUseMana > 0)
+				sprintf(szSystem, "您使用千里传音,消耗内力%d点。", nUseMana);
+		}
+		//发送频道消息
+		if (bSend)
+			OnDirectSendChannelMessage(dwID, cost, Buffer, nLen,nItemDwIdx);    ///发送频道消息协议到服务器
+
+		((Kuiplayerfun*)sfunLayer)->PopChannelData(dwID);                       //出栈数据，不管成功不成功。。。
+
+		if (szSystem[0]) //发送系统公告
+		{
+			//int nMsgLength;
+			//nMsgLength = TEncodeText(szSystem, strlen(szSystem));//控制标记进行转换
+			//KUiMsgCentrePad::SystemMessageArrival(szSystem, nMsgLength);
+			if  (chatLayer)
+				chatLayer->addmsg("[提示]:",szSystem);
+		}
+	}
+}
 
 //0 成功, 返回消耗的银两和内力
 //1 因为nUseMoney,钱不足
@@ -3553,7 +3580,7 @@ void KgameWorld::DrawSpecial_miss(int nMissIndex,int eStatus,int nNpcIndex,unsig
 		return;
 	Node *nPartCurNode  =NULL;
 	char nTempKey[32];
-	t_sprintf(nTempKey,"special_%d_%d",nMissIndex,nNpcIndex);
+	sprintf(nTempKey,"special_%d_%d",nMissIndex,nNpcIndex);
 	std::string nCurKey = nTempKey;
 	if (isClear)
 	{
@@ -3642,8 +3669,8 @@ void KgameWorld::DrawPrimitives_miss(int nMissIndex,int nPos, KRUImage* pPrimiti
 			if (!nPartSpr)
 			{//f
 				//char msg[64];
-				//t_sprintf(msg,"%d",pPrimitives->nFrame);
-				//ccMessageBox(pPrimitives->szImage,msg);
+				//sprintf(msg,"%d",pPrimitives->nFrame);
+				//messageBox(pPrimitives->szImage,msg);
 				nPartSpr=Sprite::createWithTexture(bgCur);
 				nPartSpr->setAnchorPoint(ax::Vec2(0,0));
 				nPartCurNode->addChild(nPartSpr,2,1);
@@ -3681,9 +3708,9 @@ void KgameWorld::DrawPrimitives_minemap(int nposX,int nposY, RECT pRc,std::strin
 	maxMapPicPath = nJpaPath;
 	maxMapRc      = pRc;
 	char mjpgPath[256];
-	t_sprintf(mjpgPath,nJpaPath.c_str());
+	sprintf(mjpgPath, "%s", nJpaPath.c_str());
 	DWORD nFielpahtdwid = g_FileName2Id(mjpgPath);
-	t_sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
+	sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
 	nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
 
 	if (nPicTexture==NULL)
@@ -3694,7 +3721,7 @@ void KgameWorld::DrawPrimitives_minemap(int nposX,int nposY, RECT pRc,std::strin
 		if (g_pPakList)
 		{
 			char nTemp[128];
-			t_sprintf(nTemp,nJpaPath.c_str());
+			sprintf(nTemp, "%s", nJpaPath.c_str());
 		    m_bHavePicMap  = g_pPakList->pGetFilePath(nTemp,m_PackRef);
 		}
 	    if (m_bHavePicMap)
@@ -3717,7 +3744,7 @@ void KgameWorld::DrawPrimitives_minemap(int nposX,int nposY, RECT pRc,std::strin
 	//nPicTexture = ax::Director::getInstance()->getTextureCache()->addImage(nJpaPath.c_str());
 	if (nPicTexture)
 	{
-		//ccMessageBox(nSprFilePath,"成功");
+		//messageBox(nSprFilePath,"成功");
 		Size n =  nPicTexture->getContentSize();
 		m_CurPicWidth  = n.width; //纹理的宽度
 		m_CurPicHeight = n.height;//纹理的高度
@@ -3739,8 +3766,8 @@ void KgameWorld::DrawPrimitives_minemap(int nposX,int nposY, RECT pRc,std::strin
 	float nRoleDisY = nRoleMpsY-pRc.top*1024;     //人物距离原点的距离 offy  高度
 
 	//char msg[128];
-	//t_sprintf(msg,"cx:%f,cy:%f\nWx:%f,Wy:%f",nXsele,nYsele,nWorldWdth,nWorldHeight);
-	//ccMessageBox(msg,"nWorldHeight");
+	//sprintf(msg,"cx:%f,cy:%f\nWx:%f,Wy:%f",nXsele,nYsele,nWorldWdth,nWorldHeight);
+	//messageBox(msg,"nWorldHeight");
 	//开始截取纹理
 
 	if (nPicTexture)
@@ -3798,7 +3825,7 @@ void KgameWorld::DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimit
 		return;
 
 	char nRegKey[32]={0};
-	t_sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y); //区域父亲结点
+	sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y); //区域父亲结点
 	std::string nCurRegKey = nRegKey;
 	Node *nRegNode = ParentNode_Bigmap->getChildByName(nCurRegKey);//如果区域节点存在
 	if (!nRegNode)
@@ -3810,7 +3837,7 @@ void KgameWorld::DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimit
 		nRegNode->setPosition(ax::Vec2(0,0));
 		nRegNode->setAnchorPoint(ax::Vec2(0,0));
 	}
-	//ccMessageBox("绘画中","绘画中");
+	//messageBox("绘画中","绘画中");
 	Texture2D *bgCur = NULL;
 	int NewscrX =0,NewscrY=0,nCavesWidth=0,nCavesHeight=0;
 	Rect CCRectZero = ax::Rect(0,0,0,0);
@@ -3835,7 +3862,7 @@ void KgameWorld::DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimit
 				for(int i = 0 ;i<nPos;++i,++pTemp)
 				{
 					Sprite *sprNode = NULL;
-					t_sprintf(nKey,"tree-%d",i+1);
+					sprintf(nKey,"tree-%d",i+1);
 					std::string nCurKey = nKey;
 					sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					if (sprNode)
@@ -3909,7 +3936,7 @@ sprNode->setTag(nCurKey_tmp);
 				for(int i = 0 ;i<nPos;++i,++pTemp)
 				{
 					Sprite *sprNode = NULL;
-					t_sprintf(nKey,"house-%d",i+1);
+					sprintf(nKey,"house-%d",i+1);
 					std::string nCurKey = nKey;
 					sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 
@@ -4014,7 +4041,7 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 	if (!g_GameWorld || !ParentNode_objabove || pPrimitives==NULL)
 		return;
 	char nRegKey[32]={0};//整个9大区域的总结点
-	t_sprintf(nRegKey,"above-0");
+	sprintf(nRegKey,"above-0");
 	std::string nCurRegKey = nRegKey;
 	Node *nRegNode = ParentNode_objabove->getChildByName(nCurRegKey);//如果区域节点存在
 
@@ -4048,11 +4075,11 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 				for(int i = 0 ;i<nCount;++i,++pTemp)
 				{
 					Sprite *sprNode = NULL;
-					//t_sprintf(nKey,"part-%d-%d",index+1,i);
+					//sprintf(nKey,"part-%d-%d",index+1,i);
 					//std::string nCurKey = nKey;
 					char nSprFilePath[64]={0};//这个spr的第几帧的精灵如果存在
 					DWORD nFielpahtdwid = g_FileName2Id(pTemp->szImage);
-					t_sprintf(nSprFilePath,"%u-%d_%d",nFielpahtdwid,pTemp->nFrame,BAOVE_NODE_PART);
+					sprintf(nSprFilePath,"%u-%d_%d",nFielpahtdwid,pTemp->nFrame,BAOVE_NODE_PART);
 					std::string nCurKey = nSprFilePath;
 					sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					if (sprNode)
@@ -4245,7 +4272,7 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 		break;
 	case BAOVE_NODE_FULL:
 		{
-		    //ccMessageBox("测试测试","测试测试");
+		    //messageBox("测试测试","测试测试");
 			Node *nPartNode = nRegNode->getChildByTag(BAOVE_NODE_FULL);
 			if (!nPartNode)
 			{
@@ -4263,7 +4290,7 @@ void KgameWorld::DrawAboveHead(int index,POINT nRegionIndex,int nCount,KRUImage*
 					Sprite *sprNode = NULL;
 					char nSprFilePath[64]={0};//这个spr的第几帧的精灵如果存在
 					DWORD nFielpahtdwid = g_FileName2Id(pTemp->szImage);
-					t_sprintf(nSprFilePath,"%u-%d_%d",nFielpahtdwid,pTemp->nFrame,BAOVE_NODE_FULL);
+					sprintf(nSprFilePath,"%u-%d_%d",nFielpahtdwid,pTemp->nFrame,BAOVE_NODE_FULL);
 					std::string nCurKey = nSprFilePath;
 					sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					if (sprNode)
@@ -4317,7 +4344,7 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 		return;
 
 	   char nRegKey[32]={0};
-	   t_sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y);
+	   sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y);
 	   std::string nCurRegKey = nRegKey;
 	   //SpriteBatchNode::create("TextureAtlas/default.png"); //默认的纹理图集
 	   Node *nRegNode = ParentNode_Bigmap->getChildByName(nCurRegKey);//如果区域节点存在
@@ -4331,7 +4358,7 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 		   nRegNode->setPosition(ax::Vec2(0,0));
 		   nRegNode->setAnchorPoint(ax::Vec2(0,0));
 	   }
-	   //ccMessageBox("绘画中","绘画中");
+	   //messageBox("绘画中","绘画中");
 	   Texture2D *bgCur = NULL;
 	   int NewscrX =0,NewscrY=0,nCavesWidth=0,nCavesHeight=0;
 	   Rect CCRectZero = ax::Rect(0,0,0,0);
@@ -4365,14 +4392,14 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 					   //if (nidx>0)
 					   {
 						   //AddTreeIndex(nidx);
-						   t_sprintf(nKey,"tree-%d",i+1);
+						   sprintf(nKey,"tree-%d",i+1);
 						   std::string nCurKey = nKey;
 						   sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					   }
 
 					   if (!sprNode)
 					   {
-						   t_sprintf(nKey,"tree-%d",i+1);
+						   sprintf(nKey,"tree-%d",i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);//图集加入精灵
@@ -4427,14 +4454,14 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 					   //if (nidx>0)
 					   {
 						   //AddHouseIndex(nidx);
-						   t_sprintf(nKey,"house-%d",i+1);
+						   sprintf(nKey,"house-%d",i+1);
 						   std::string nCurKey = nKey;
 						   sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					   }
 
 					   if (!sprNode)
 					   {
-						   t_sprintf(nKey,"house-%d",i+1);
+						   sprintf(nKey,"house-%d",i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
@@ -4510,7 +4537,7 @@ void KgameWorld::_DrawPrimitives_BigMap(int nRegIndex,int nPos, KRUImage* pPrimi
 
 void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitives, unsigned int uGenre, int bpartNo,int nOrDer,int bSinglePlaneCoord,POINT nRegPiont,POINT nRegRbMpsPoint)
 {//绘画地图
-	//ccMessageBox("rawPrimitives_map","DrawPrimitives_map");
+	//messageBox("rawPrimitives_map","DrawPrimitives_map");
 
    if  (!g_GameWorld || !ParentNode_map || pPrimitives==NULL)
 		return;
@@ -4519,10 +4546,10 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 	 //  return;
 
    //char msg[128];
-   //t_sprintf(msg,"index:%d,uGenre:%d,bpartNo:%d,nPos:%d",nRegIndex,uGenre,bpartNo,nPos);
-   //ccMessageBox(msg,"DrawPrimitives_map");
+   //sprintf(msg,"index:%d,uGenre:%d,bpartNo:%d,nPos:%d",nRegIndex,uGenre,bpartNo,nPos);
+   //messageBox(msg,"DrawPrimitives_map");
    char nRegKey[32]={0};
-   t_sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y);
+   sprintf(nRegKey,"%d-%d",nRegPiont.x,nRegPiont.y);
    std::string nCurRegKey = nRegKey;
    Node *nRegNode = ParentNode_map->getChildByName(nCurRegKey);//如果区域节点存在
 
@@ -4566,14 +4593,14 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 					   //if (nidx>0)
 					   {
 						  //AddIndex(nRegIndex-1,nidx);
-						  t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						  sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						  std::string nCurKey = nKey;
 						  sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					   }
 
 					   if (!sprNode)
 					   {
-						   t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						   sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
@@ -4583,8 +4610,8 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
 					   //char msg[128];
-					   //t_sprintf(msg,"%d/%d,%s\n%s",i,nPos,nKey,pPrimitives[i].szImage);
-					   //ccMessageBox(msg,"MAP_NODE_LUMIAN_A");
+					   //sprintf(msg,"%d/%d,%s\n%s",i,nPos,nKey,pPrimitives[i].szImage);
+					   //messageBox(msg,"MAP_NODE_LUMIAN_A");
 					   if (sprNode)
 					   {//如果存在就更新节点spr
 						   //sprNode->setVisible(true);
@@ -4635,15 +4662,15 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 						//if (nidx>0)
 						{
 							//AddPartIndex(nRegIndex-1,nidx);
-							//t_sprintf(nKey,"%d-%d",nRegIndex,i+1);
-							t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+							//sprintf(nKey,"%d-%d",nRegIndex,i+1);
+							sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 							std::string nCurKey = nKey;
 							sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 						}
 					   if (!sprNode)
 					   {
-						  // t_sprintf(nKey,"%d-%d",nRegIndex,i+1);
-						   t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						  // sprintf(nKey,"%d-%d",nRegIndex,i+1);
+						   sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
@@ -4693,7 +4720,7 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 				   {
 					   for(int k = nPos+1 ;k<nSprCount+1;k++)
 					   {//删除多余的spr
-						   t_sprintf(nKey,"%d-%d",nRegIndex,k);
+						   sprintf(nKey,"%d-%d",nRegIndex,k);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 						   if (sprNode)
@@ -4722,8 +4749,8 @@ void KgameWorld::DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitive
 				   for(int i = 0 ;i<nPos;i++)
 				   {
 					   char nKey[32]={0};
-					   //t_sprintf(nKey,"%d-%d-%d",nRegIndex,uGenre,i+1);
-					    t_sprintf(nKey,"%d-%d",nRegIndex,i+1);
+					   //sprintf(nKey,"%d-%d-%d",nRegIndex,uGenre,i+1);
+					    sprintf(nKey,"%d-%d",nRegIndex,i+1);
 					   std::string nCurKey = nKey;
 					   Sprite *sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 
@@ -4776,7 +4803,7 @@ void KgameWorld::DrawPrimitives_BigMap_house(int nRegIndex,int nPos, KRUImage* p
 		return;
 
 	char nRegKey[32]={0};
-	t_sprintf(nRegKey,"%d-%d-house",nRegPiont.x,nRegPiont.y);
+	sprintf(nRegKey,"%d-%d-house",nRegPiont.x,nRegPiont.y);
 	std::string nCurRegKey = nRegKey;
 	int nStartPointX,nStartPointY;
 	nStartPointX = nRegPiont.x*512;  //起点x
@@ -4791,7 +4818,8 @@ void KgameWorld::DrawPrimitives_BigMap_house(int nRegIndex,int nPos, KRUImage* p
 		return;
 	}
 
-	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4444);
+//	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);
+	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);
 	nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
 	ParentNode_Bigmap->addChild(nRegCanvas,-1);
 
@@ -4893,7 +4921,7 @@ void KgameWorld::DrawPrimitives_BigMap_Tree(int nRegIndex,int nPos, KRUImage* pP
 		return;
 
 	char nRegKey[32]={0};
-	t_sprintf(nRegKey,"%d-%d-tree",nRegPiont.x,nRegPiont.y);
+	sprintf(nRegKey,"%d-%d-tree",nRegPiont.x,nRegPiont.y);
 	std::string nCurRegKey = nRegKey;
 	int nStartPointX,nStartPointY;
 	nStartPointX = nRegPiont.x*512;  //起点x
@@ -4908,7 +4936,7 @@ void KgameWorld::DrawPrimitives_BigMap_Tree(int nRegIndex,int nPos, KRUImage* pP
 		return;
 	}
 
-	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4444);
+	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);
 	nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
 	ParentNode_Bigmap->addChild(nRegCanvas,-1);
 
@@ -4993,7 +5021,7 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 	if (nPos<=0 || !ParentNode_map || pPrimitives==NULL || !g_GameWorld)
 		return;
 	char nRegKey[32]={0};
-	t_sprintf(nRegKey,"%d-%d-part",nRegPiont.x,nRegPiont.y);
+	sprintf(nRegKey,"%d-%d-part",nRegPiont.x,nRegPiont.y);
 	std::string nCurRegKey = nRegKey;
 	int nStartPointX,nStartPointY;
 	nStartPointX = nRegPiont.x*512;  //起点x
@@ -5010,7 +5038,7 @@ void KgameWorld::Draw_Part_map(int nRegIndex,int nPos, KRUImage* pPrimitives, un
 		return;
 	}
 	//RenderTexture *nRegCanvas = RenderTexture::create(512,512); //创建一个区域画板
-	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4444);//
+	RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);//
 	nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
 	nRegCanvas->setAutoDraw(true);
 	int nCurRegKey_tmp = std::hash<std::string>{}("canvas_part");
@@ -5147,7 +5175,7 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
    if (nPos<=0 ||!ParentNode_map || pPrimitives==NULL || !g_GameWorld)
 		return;
    char nRegKey[32]={0};
-   t_sprintf(nRegKey,"%d-%d-dimian",nRegPiont.x,nRegPiont.y);
+   sprintf(nRegKey,"%d-%d-dimian",nRegPiont.x,nRegPiont.y);
    std::string nCurRegKey = nRegKey;
    int nStartPointX,nStartPointY;
    nStartPointX = nRegPiont.x*512;  //起点x
@@ -5163,7 +5191,7 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 	   //nRegCanvas->setPosition(ax::Vec2(0+256,256));
 	   return;
    }
-   RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4444);//0x88F0
+   RenderTexture *nRegCanvas = RenderTexture::create(512,512,backend::PixelFormat::RGBA4);//0x88F0
   // nRegCanvas->setClearColor()
    nRegCanvas->setAnchorPoint(ax::Vec2(0,0));
    int nCurRegKey_tmp = std::hash<std::string>{}("canvas_full");
@@ -5295,14 +5323,14 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 					   //if (nidx>0)
 					   {
 						  //AddIndex(nRegIndex-1,nidx);
-						  t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						  sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						  std::string nCurKey = nKey;
 						  sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 					   }
 
 					   if (!sprNode)
 					   {
-						   t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						   sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
@@ -5312,8 +5340,8 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 						   sprNode->setAnchorPoint(ax::Vec2(0,0));
 					   }
 					   //char msg[128];
-					   //t_sprintf(msg,"%d/%d,%s\n%s",i,nPos,nKey,pPrimitives[i].szImage);
-					   //ccMessageBox(msg,"MAP_NODE_LUMIAN_A");
+					   //sprintf(msg,"%d/%d,%s\n%s",i,nPos,nKey,pPrimitives[i].szImage);
+					   //messageBox(msg,"MAP_NODE_LUMIAN_A");
 					   if (sprNode)
 					   {//如果存在就更新节点spr
 						   //sprNode->setVisible(true);
@@ -5360,15 +5388,15 @@ void KgameWorld::_DrawPrimitives_map(int nRegIndex,int nPos, KRUImage* pPrimitiv
 						//if (nidx>0)
 						{
 							//AddPartIndex(nRegIndex-1,nidx);
-							//t_sprintf(nKey,"%d-%d",nRegIndex,i+1);
-							t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+							//sprintf(nKey,"%d-%d",nRegIndex,i+1);
+							sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 							std::string nCurKey = nKey;
 							sprNode = (Sprite *)nPartNode->getChildByName(nCurKey);
 						}
 					   if (!sprNode)
 					   {
-						  // t_sprintf(nKey,"%d-%d",nRegIndex,i+1);
-						   t_sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
+						  // sprintf(nKey,"%d-%d",nRegIndex,i+1);
+						   sprintf(nKey,"%s-%d",nCurRegKey.c_str(),i+1);
 						   std::string nCurKey = nKey;
 						   Sprite *sprNode = Sprite::create();
 						   nPartNode->addChild(sprNode,1);
@@ -5485,7 +5513,7 @@ void KgameWorld::DrawPrimitives_obj(int nObjIndex,int nPos, KRUImage* pPrimitive
 			if (nPartlabel->getStringLength()) //只绘画一次
 				return;
 			char nObjTempNane[128];
-			t_sprintf(nObjTempNane,nObjName);
+			sprintf(nObjTempNane, "%s", nObjName);
 			if  (_clientlanguage!=1 && _clientObjName){
 				strcat(nObjTempNane,"\n");
 				strcat(nObjTempNane,_clientObjName);
@@ -5506,7 +5534,7 @@ Texture2D * KgameWorld::ccgetTxtData_g(char *sprPath,int nFramIndex,int nMpsX,in
 
 	    char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,sprPath);
+		sprintf(nSprName, "%s", sprPath);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -5570,7 +5598,7 @@ Texture2D * KgameWorld::ccgetTxtData(char *sprPath,int nFramIndex,int nMpsX,int 
 
 	    char nSprName[128]={0};
 		ZeroMemory(nSprName,sizeof(nSprName));
-		t_sprintf(nSprName,sprPath);
+		sprintf(nSprName, "%s", sprPath);
 		g_StrLower(nSprName);
 		int m_nWidth,m_nHeight,nFrams;
 		Texture2D *bgCur = NULL;
@@ -5669,7 +5697,7 @@ void KgameWorld::DrawPrimitives_MenuState(int nNpcIndex,int nstateIdx,int nPos, 
 
 	 Node *nPartNpcNode  =NULL;
 	 char nTempKey[64];
-	 t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	 sprintf(nTempKey,"npc_%d",nNpcIndex);
 	 std::string _npcKey = nTempKey;
 	        nPartNpcNode =  ParentNode_npc->getChildByName(_npcKey); //这个NPC的父节点 子节点有很多部位
 	 if (nPartNpcNode==NULL)
@@ -5682,7 +5710,7 @@ void KgameWorld::DrawPrimitives_MenuState(int nNpcIndex,int nstateIdx,int nPos, 
 		 int NewscrX =0,NewscrY=0,nCavesWidth=0,nCavesHeight=0;
 		 Rect CCRectZero = ax::Rect(0,0,0,0);
 		 char nKey[32];
-		 t_sprintf(nKey,"state_%d_menu",nstateIdx);
+		 sprintf(nKey,"state_%d_menu",nstateIdx);
 		 std::string m_stateKey = nKey;
 		 bgCur = ccgetTxtData(pPrimitives[nPos].szImage,pPrimitives[nPos].nFrame,pPrimitives[nPos].oPosition.nX,pPrimitives[nPos].oPosition.nY,pPrimitives[nPos].oPosition.nZ,&NewscrX,&NewscrY,pPrimitives[nPos].bRenderFlag,bSinglePlaneCoord,&nCavesWidth,&nCavesHeight);
 		 if (bgCur)
@@ -5716,7 +5744,7 @@ void KgameWorld::DrawPrimitives_State(int nNpcIndex,int nstateIdx,int nPos, KRUI
 
 	 Node *nPartNpcNode  =NULL;
 	 char nTempKey[64];
-	 t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	 sprintf(nTempKey,"npc_%d",nNpcIndex);
 	 std::string _npcKey = nTempKey;
 	        nPartNpcNode =  ParentNode_npc->getChildByName(_npcKey); //这个NPC的父节点 子节点有很多部位
 	 if (nPartNpcNode==NULL)
@@ -5737,7 +5765,7 @@ void KgameWorld::DrawPrimitives_State(int nNpcIndex,int nstateIdx,int nPos, KRUI
 		 int NewscrX =0,NewscrY=0,nCavesWidth=0,nCavesHeight=0;
 		 Rect CCRectZero = ax::Rect(0,0,0,0);
 		 char nKey[32];
-		 t_sprintf(nKey,"state_%d",nstateIdx);
+		 sprintf(nKey,"state_%d",nstateIdx);
 		 std::string m_stateKey = nKey;
 		 bgCur = ccgetTxtData(pPrimitives[nPos].szImage,pPrimitives[nPos].nFrame,pPrimitives[nPos].oPosition.nX,pPrimitives[nPos].oPosition.nY,pPrimitives[nPos].oPosition.nZ,&NewscrX,&NewscrY,pPrimitives[nPos].bRenderFlag,bSinglePlaneCoord,&nCavesWidth,&nCavesHeight);
 		 if (bgCur)
@@ -5796,11 +5824,11 @@ void KgameWorld::DrawPrimitives_NpcBlood(int nNpcIndex,int bloodindex,char *strB
 	if  (!ParentNode_npcblood ||!g_GameWorld || nNpcIndex<=0 || nNpcIndex>=MAX_NPC)
 		return;
 
-	//ccMessageBox("冒血中","冒血中");
+	//messageBox("冒血中","冒血中");
 
 	Node *NpcBloopParentNode = NULL;
 	char nKey[64];
-	t_sprintf(nKey,"blood_%d",nNpcIndex);
+	sprintf(nKey,"blood_%d",nNpcIndex);
 	std::string nTempKey = nKey;
 
 	if  (bloodindex==-1)
@@ -5831,7 +5859,7 @@ void KgameWorld::DrawPrimitives_NpcBlood(int nNpcIndex,int bloodindex,char *strB
 		NpcBloopParentNode->addChild(pBloodLabel,bloodindex+1,bloodindex+1);
 	}
 	//char nBloodInfo[32];
-	//t_sprintf(nBloodInfo,"%s",strBloodNo);
+	//sprintf(nBloodInfo,"%s",strBloodNo);
 	//pBloodLabel->setColor(ax::Color3B::GREEN);
 	pBloodLabel->setString(strBloodNo);
 	int NewscrX=nNpcMpsX,NewscrY=nNpcMpsY;
@@ -5845,7 +5873,7 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 		return;
 
 	char nKey[64];
-	t_sprintf(nKey,"other_%d",nNpcIndex);
+	sprintf(nKey,"other_%d",nNpcIndex);
 	std::string otherKey = nKey;
 	Node *nNpcOtherNode =NULL;
 	       nNpcOtherNode = (Node *)ParentNode_npcother->getChildByName(otherKey);
@@ -5907,9 +5935,9 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 		char nTempName[128];
 		ZeroMemory(nTempName,sizeof(nTempName));
 		if (Npc[nNpcIndex].m_Kind == kind_player){
-			t_sprintf(nTempName,UTEXT(Npc[nNpcIndex].Name,1).c_str());
+			sprintf(nTempName, "%s", UTEXT(Npc[nNpcIndex].Name,1).c_str());
 		}
-		//t_sprintf(nTempName,UTEXT(Npc[nNpcIndex].Name,1).c_str());
+		//sprintf(nTempName,UTEXT(Npc[nNpcIndex].Name,1).c_str());
 		//int offset=0;
 		if (Npc[nNpcIndex].m_FreezeState.nTime || Npc[nNpcIndex].m_PoisonState.nTime || Npc[nNpcIndex].m_ConfuseState.nTime || Npc[nNpcIndex].m_StunState.nTime ||Npc[nNpcIndex].m_Hide.nTime || Npc[nNpcIndex].m_randmove.nTime)
 		{
@@ -5957,7 +5985,7 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 		//objnamelabel->setScale(0.4);
 		//objnamelabel->enableStroke(ax::Color3B::BLACK,1,true);
 		//objnamelabel->setContentSize(nTempSize);
-		//t_sprintf(nTempName,nTempName);
+		//sprintf(nTempName,nTempName);
 
 		if (_clientlanguage!=1 && Npc[nNpcIndex]._clientName[0])
 		{//名称的翻译
@@ -6037,7 +6065,7 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 				   ZeroMemory(nTempTongName,sizeof(nTempTongName));
 				   if (Npc[nNpcIndex].m_nFigure>=0 && Npc[nNpcIndex].TongName[0])
 				   {//帮派 显示帮派称号
-					   //ccMessageBox("tongmane","test");
+					   //messageBox("tongmane","test");
 					   FontDefinition strokeTextDef;
 					   strokeTextDef._fontSize = 13;
 					   strokeTextDef._fontName = std::string(UI_GAME_FONT_DEFAULT_VN);//UI_GAME_FONT_DEFAULT
@@ -6057,22 +6085,22 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 						   enumTONG_FIGURE_MASTER,				// 帮主
 						   */
 					       case enumTONG_FIGURE_MEMBER://帮众
-							    t_sprintf(nTempTongName,"%s(Bang chúng)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
+							    sprintf(nTempTongName,"%s(Bang chúng)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
 							   break;
 						   case enumTONG_FIGURE_MANAGER:
-							    t_sprintf(nTempTongName,"%s(Đội trưởng)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
+							    sprintf(nTempTongName,"%s(Đội trưởng)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
 							   break;
 						   case enumTONG_FIGURE_DIRECTOR: //长老
-							   t_sprintf(nTempTongName,"%s(Trưởng lão)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
+							   sprintf(nTempTongName,"%s(Trưởng lão)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
 							   break;
 						   case enumTONG_FIGURE_MASTER:
-							   t_sprintf(nTempTongName,"%s(Bang chủ)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
+							   sprintf(nTempTongName,"%s(Bang chủ)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
 							   break;
 						   default:
-							   t_sprintf(nTempTongName,"%s(Dã nhân)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
+							   sprintf(nTempTongName,"%s(Dã nhân)",UTEXT(Npc[nNpcIndex].TongName,1).c_str());
 							   break;
 					   }
-					  // t_sprintf(nTempTongName,Npc[nNpcIndex].TongName);
+					  // sprintf(nTempTongName,Npc[nNpcIndex].TongName);
 
 					   if (!ToneNameLabel)
 					   {
@@ -6350,7 +6378,7 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 			break;
 		case kind_dialoger:
 			{
-				// t_sprintf(nTempName,Npc[nNpcIndex].Name);
+				// sprintf(nTempName,Npc[nNpcIndex].Name);
 				// objnamelabel->setString(nTempName);
 				objnamelabel->setPosition(ax::Vec2(0,nOffHeight/2+32));
 				if (npcSexspr)
@@ -6407,19 +6435,19 @@ void KgameWorld::DrawPrimitives_NpcOther(int nNpcIndex,int m_Kind,bool isClear)
 				switch(Npc[nNpcIndex].m_Series)
 				{
 				case 0:
-					t_sprintf(seriesPath,"\\spr\\ui3\\npc\\series0.spr");
+					sprintf(seriesPath,"\\spr\\ui3\\npc\\series0.spr");
 					break;
 				case 1:
-					t_sprintf(seriesPath,"\\spr\\ui3\\npc\\series1.spr");
+					sprintf(seriesPath,"\\spr\\ui3\\npc\\series1.spr");
 					break;
 				case 2:
-					t_sprintf(seriesPath,"\\spr\\ui3\\npc\\series2.spr");
+					sprintf(seriesPath,"\\spr\\ui3\\npc\\series2.spr");
 					break;
 				case 3:
-					t_sprintf(seriesPath,"\\spr\\ui3\\npc\\series3.spr");
+					sprintf(seriesPath,"\\spr\\ui3\\npc\\series3.spr");
 					break;
 				case 4:
-					t_sprintf(seriesPath,"\\spr\\ui3\\npc\\series4.spr");
+					sprintf(seriesPath,"\\spr\\ui3\\npc\\series4.spr");
 					break;
 				default:
 					break;
@@ -6539,14 +6567,14 @@ Node *KgameWorld::PaintHonor(int nbtRankFFId,Node *nNpcOtherNode,int nMpsX,int n
 	if (nbtRankFFId<=nRows)
 	{
 		nBank.GetString(nbtRankFFId,"HONORLINK","",nLuaField,sizeof(nLuaField));
-		t_sprintf(szImageName,"\\spr\\skill\\others\\%s",nLuaField);
+		sprintf(szImageName,"\\spr\\skill\\others\\%s",nLuaField);
 		nBank.GetInteger(nbtRankFFId,"HONORX",10,&n_X);
 		nBank.GetInteger(nbtRankFFId,"HONORY",10,&n_Y);
 		nBank.GetInteger(nbtRankFFId,"nInterval",100,&mInterval);
 	}
 	else
 	{//宠物
-		t_sprintf(szImageName,"\\spr\\skill\\others\\助攻王.spr");
+		sprintf(szImageName,"\\spr\\skill\\others\\助攻王.spr");
 
 	}
 
@@ -6598,7 +6626,7 @@ void KgameWorld::_setBuWeiHide(int nNpcIndex,bool isHide,int isthis)
 {
 	Node *nPartCurNode  =NULL;
 	char nTempKey[64];
-	t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	sprintf(nTempKey,"npc_%d",nNpcIndex);
 	std::string _npcKey = nTempKey;
 	nPartCurNode =  ParentNode_npc->getChildByName(_npcKey); //这个NPC的父节点 子节点有很多部位
 	if (nPartCurNode==NULL)
@@ -6617,7 +6645,7 @@ void KgameWorld::setBuWeiHide(int nNpcIndex,bool isHide,int isthis)
 
 	Node *nPartCurNode  =NULL;
 	char nTempKey[64];
-	t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	sprintf(nTempKey,"npc_%d",nNpcIndex);
 	std::string _npcKey = nTempKey;
 	nPartCurNode =  ParentNode_npc->getChildByName(_npcKey); //这个NPC的父节点 子节点有很多部位
 	if (nPartCurNode==NULL)
@@ -6681,7 +6709,7 @@ void KgameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitives, u
 
 	Node *nPartCurNode  =NULL;
 	char nTempKey[64];
-	t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	sprintf(nTempKey,"npc_%d",nNpcIndex);
 	std::string _npcKey = nTempKey;
 	nPartCurNode =  ParentNode_npc->getChildByName(_npcKey); //这个NPC的父节点 子节点有很多部位
 	if (nPartCurNode==NULL)
@@ -7392,12 +7420,12 @@ void KgameWorld::SetHorseState(int  nNpcIndex)
 	if (ParentNode_npc && Npc[nNpcIndex].m_HorseType<0)
 	{
 		char nTempKey[64];
-		t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+		sprintf(nTempKey,"npc_%d",nNpcIndex);
 		std::string _npcKey = nTempKey;
 
 		Node *CurTempNode = ParentNode_npc->getChildByName(_npcKey);
 		if  (!CurTempNode) return;
-		//ccMessageBox("马匹","马匹");
+		//messageBox("马匹","马匹");
 		Sprite * nPartSpr = (Sprite *)(CurTempNode->getChildByTag(UI_EQ_PART_HORSE_Q));
 		if (!nPartSpr)
 			return;
@@ -7418,7 +7446,7 @@ void KgameWorld::SetPiFengState(int  nNpcIndex)
 	if (ParentNode_npc && Npc[nNpcIndex].m_PifengType<=0)
 	{
 		char nTempKey[64];
-		t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+		sprintf(nTempKey,"npc_%d",nNpcIndex);
 		std::string _npcKey = nTempKey;
 
 		Sprite * nPartSpr = (Sprite *)(ParentNode_npc->getChildByName(_npcKey)->getChildByTag(UI_EQ_PART_PIFENG));
@@ -7576,7 +7604,7 @@ void KgameWorld::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, Event *p
 			KUiPlayerItem SelectPlayer;
 			int nNPCKind = -1;
 			char nDebugmsg[200];
-			t_sprintf(nDebugmsg,"Toa do 6:%d/%d",screenPoint.x,screenPoint.y);
+			sprintf(nDebugmsg,"Toa do 6:%d/%d",screenPoint.x,screenPoint.y);
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nDebugmsg);
 			if (g_pCoreShell->FindSelectNPC(screenPoint.x, screenPoint.y, relation_all, false, &SelectPlayer, nNPCKind))
 			{//Liệu có NPC ở vị trí chuột hay không
@@ -7768,7 +7796,7 @@ void KgameWorld::MoveObject(int ObjKind,int nIndex,bool nIsClear,int nPosX,int n
 			   //ParentNode_npc 大的类型节点 nCurNode一个NPC的节点（里面还有各个装备的节点）
 			   //if (Node * nCurNode = ParentNode_npc->getChildByTag(nIndex))
 			   char nKey[64];
-			   t_sprintf(nKey,"npc_%d",nIndex);
+			   sprintf(nKey,"npc_%d",nIndex);
 			   std::string npcKey=nKey;
 
 			   if (Node * nCurNode = (Node *)ParentNode_npc->getChildByName(npcKey))
@@ -7777,10 +7805,10 @@ void KgameWorld::MoveObject(int ObjKind,int nIndex,bool nIsClear,int nPosX,int n
 			      {//主角不能删除
 					  //删除名字 称号等层
 					 char nKey[64];
-					 t_sprintf(nKey,"other_%d",nIndex);
+					 sprintf(nKey,"other_%d",nIndex);
 					 std::string otherKey = nKey;
 					 ParentNode_npcother->removeChildByName(otherKey,true);
-					 t_sprintf(nKey,"blood_%d",nIndex);
+					 sprintf(nKey,"blood_%d",nIndex);
 					 otherKey = nKey;
 					 ParentNode_npcblood->removeChildByName(otherKey,true);
 
@@ -7863,7 +7891,7 @@ void KgameWorld::RemoveObject(int ObjKind,int nIndex)
 	case OBJ_NODE_NPC:
 		{
 			char nTempKey[64];
-			t_sprintf(nTempKey,"npc_%d",nIndex);
+			sprintf(nTempKey,"npc_%d",nIndex);
 			std::string _npcKey = nTempKey;
 			if(Node * nCurNode = ParentNode_npc->getChildByName(_npcKey))
 			{
@@ -8221,7 +8249,7 @@ int KgameWorld::getIndexBySkillID(int nSkillIdx)
 		 Player[CLIENT_PLAYER_INDEX].SetLeftSkill(nSkillIdx,true);//设置攻击技能
 
 		 char nCurPath[128];
-		 t_sprintf(nCurPath,icoPath);
+		 sprintf(nCurPath, "%s", icoPath);
 		 g_StrLower(nCurPath);
 		 int m_nWidth,m_nHeight,nFrams;
 		 Texture2D *bgCur = NULL;
@@ -8239,7 +8267,7 @@ int KgameWorld::getIndexBySkillID(int nSkillIdx)
 			 //psortSkillItem_l->setDisabledImage(btn_normal_sprite);
 		 }
 
-		 //ccMessageBox(icoPath,"设置成功");
+		 //messageBox(icoPath,"设置成功");
 		/* if (!attackSpr)
 		 {
 			 attackSpr =Sprite::createWithTexture(bgCur);
@@ -8368,7 +8396,7 @@ void KgameWorld::ChannelMessageArrival(UINT nChannelID, char* szSendName,char* p
 	 nMsgLength = FilterTextColor(nTempstr,nMsgLength);
 	 nTempstr[nMsgLength]='\0';
      char nTempSendname[64];
-	 t_sprintf(nTempSendname,"%s",szSendName);//nChannelID
+	 sprintf(nTempSendname,"%s",szSendName);//nChannelID
 	 if (chatLayer)
 	 {//主屏幕
 	    // chatLayer->addmsg(nTempSendname,nTempstr);
@@ -8414,17 +8442,17 @@ void KgameWorld::MSNMessageArrival(char* szSourceName, char* szSendName, const c
 	   //n/Offset += FilterTextColor(Buffer + nOffset, nMsgLength);
 	   Buffer[nMsgLength] = '\0';
 	   if (isClent)
-		  t_sprintf(nTempSendName,"[%s]:",szSourceName);
+		  sprintf(nTempSendName,"[%s]:",szSourceName);
 	   else
-	      t_sprintf(nTempSendName,"[%s]:",szSourceName);
+	      sprintf(nTempSendName,"[%s]:",szSourceName);
 
 #ifdef WIN32
 	   chatLayer->addmsg(nTempSendName,Buffer,12,isClent);
 #else
 	   if (!isClent) //如果是客户端就不需要转换了
-	      t_sprintf(nTempSendName,UTEXT(nTempSendName,1).c_str());
+	      sprintf(nTempSendName, "%s", UTEXT(nTempSendName,1).c_str());
 
-	   //t_sprintf(Buffer,UTEXT(Buffer,1).c_str());
+	   //sprintf(Buffer,UTEXT(Buffer,1).c_str());
 	   chatLayer->addmsg(nTempSendName,Buffer,12,isClent);
 #endif
 	 }
@@ -8432,7 +8460,7 @@ void KgameWorld::MSNMessageArrival(char* szSourceName, char* szSendName, const c
 
 void KgameWorld::QueryAllChannel()
 {
-	//ccMessageBox("请求增加频道","请求增加频道");
+	//messageBox("请求增加频道","请求增加频道");
 	if (sfunLayer)
 	{
 	   ((Kuiplayerfun *)sfunLayer)->ReleaseActivateChannelAll();
@@ -8442,7 +8470,7 @@ void KgameWorld::QueryAllChannel()
 
 void KgameWorld::NotifyChannelID(char* ChannelName, UINT channelid, BYTE cost)
 {//Thông báo thay đổi kênh
-	// ccMessageBox("通知频道信息到达",ChannelName);
+	// messageBox("通知频道信息到达",ChannelName);
 	if (sfunLayer)
 	   ((Kuiplayerfun *)sfunLayer)->OpenChannel(ChannelName, channelid, cost);  //打开频道
 }
@@ -8492,7 +8520,7 @@ bool KgameWorld::AMessageArrival(KSystemMessage* pMsg, void* pParam)  // 信息�
 				break;
 			case SMCT_UI_TEAM_APPLY:
 				{//答应或拒绝加入队伍的申请,
-					//ccMessageBox("同意入队","test");
+					//messageBox("同意入队","test");
 					if  (m_talkDialogPadIsOpen_1) break;
 					//						this->removeChildByTag(OBJ_NODE_TALKDIALOG_NEW,true);
 					unsigned int nTarNpcDwid = 0;
@@ -8512,7 +8540,7 @@ bool KgameWorld::AMessageArrival(KSystemMessage* pMsg, void* pParam)  // 信息�
 				break;
 			case SMCT_UI_TEAM_INVITE:
 				{//邀请入队的应答
-					//ccMessageBox("邀请入队","test");
+					//messageBox("邀请入队","test");
 					if  (m_talkDialogPadIsOpen_1) break;
 					//						this->removeChildByTag(OBJ_NODE_TALKDIALOG_NEW,true);
 					int nTarPlaerindex = 0;
@@ -8589,7 +8617,7 @@ bool KgameWorld::AMessageArrival(KSystemMessage* pMsg, void* pParam)  // 信息�
 					chatRickText->clearAllElement();
 					chatRickText->setContentSize(CCchatRect.size);
 					float nCurFontSize = 12;
-					//t_sprintf(nTempSendname,"[提示]:");
+					//sprintf(nTempSendname,"[提示]:");
 					ui::RichElementText* senname = ui::RichElementText::create(1,ax::Color3B::RED,255,UTEXT("[提示]:",1).c_str(),UI_GAME_FONT_DEFAULT,nCurFontSize);
 					ui::RichElementText* Msg     = ui::RichElementText::create(2,ax::Color3B::YELLOW,255,UTEXT(pMsg->szMessage,1).c_str(),UI_GAME_FONT_DEFAULT,nCurFontSize);
 					chatRickText->pushBackElement(senname);
@@ -8690,7 +8718,7 @@ void KgameWorld::CreatTalkDialog(KUiInformationParam* pWordDataList, int nCount)
 
 void  KgameWorld::closeTaikDialogPadCallback(Node *pNode)
 {
-	//ccMessageBox("回调成功","closeTaikDialogPadCallback");
+	//messageBox("回调成功","closeTaikDialogPadCallback");
 	m_talkDialogPadIsOpen = false;
 }
 
@@ -8783,7 +8811,7 @@ void  KgameWorld::openstringBox(const char* pszTitle,int nMinLen, int nMaxLen,co
 	if (m_getstringPadIsOpen)
 		this->removeChildByTag(OBJ_NODE_STRINGBOX,true);
 	char strTitle[128];
-	t_sprintf(strTitle,pszTitle);
+	sprintf(strTitle, "%s", pszTitle);
     auto callback = [this](ax::Node* sender) {
         this->getStringPadCallback(sender);
     };
@@ -8889,7 +8917,7 @@ void  KgameWorld::OpenItenLinkDialog(KUiLianItem*  pDest)
 	if (!pDest) return;
 
 	if (m_itemLinkPadIsOpen) this->removeChildByTag(OBJ_NODE_ITEMLINK,true);
-	//ccMessageBox("itemLink open",UTEXT(pDest->Name,1).c_str());
+	//messageBox("itemLink open",UTEXT(pDest->Name,1).c_str());
 	KUiItemdObject nItemData;
 	//nItemData.
 	nItemData.nGenkind = -1;
@@ -9060,9 +9088,9 @@ void  KgameWorld::qiangItemCallback(Ref* pSender)
 	if (g_pCoreShell->GetAutoplayid())
 	{
 #ifdef WIN32
-		ccMessageBox("挂机中,禁止强化!","Chú ý");
+		messageBox("挂机中,禁止强化!","Chú ý");
 #else
-		ccMessageBox(UTEXT("挂机中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("挂机中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return;
 	}
@@ -9070,9 +9098,9 @@ void  KgameWorld::qiangItemCallback(Ref* pSender)
 	if (g_pCoreShell->GetSkillLiveTime(1705)>0)
 	{
 #ifdef WIN32
-		ccMessageBox("Không thể cường hoá khi đang bật tự động chiến đấu","Chú ý");
+		messageBox("Không thể cường hoá khi đang bật tự động chiến đấu","Chú ý");
 #else
-		ccMessageBox(UTEXT("自动经验中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("自动经验中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return;
 	}
@@ -9080,9 +9108,9 @@ void  KgameWorld::qiangItemCallback(Ref* pSender)
 	if(g_pCoreShell->GetSkillLiveTime(1706)>0)
 	{
 #ifdef WIN32
-		ccMessageBox("烤火中,禁止强化!","Chú ý");
+		messageBox("烤火中,禁止强化!","Chú ý");
 #else
-		ccMessageBox(UTEXT("烤火中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
+		messageBox(UTEXT("烤火中,禁止强化!",1).c_str(),UTEXT("提示",1).c_str());
 #endif
 		return;
 	}
@@ -9250,13 +9278,13 @@ void  KgameWorld::removeMenuByIdx(int nNpcIndex,int nStateIdx)
 	if  (!ParentNode_npc || nNpcIndex<=0 || nNpcIndex>=MAX_NPC)
 		return;
 	char nTempKey[64];
-	t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	sprintf(nTempKey,"npc_%d",nNpcIndex);
 	std::string _npcKey = nTempKey;
 	Node *PartNode =(Node *)ParentNode_npc->getChildByName(_npcKey);
 	if (PartNode)
 	{
 		char nKey[32];
-		t_sprintf(nKey,"state_%d_menu",nStateIdx);
+		sprintf(nKey,"state_%d_menu",nStateIdx);
 		std::string nstateKey = nKey;
 		PartNode->removeChildByName(nstateKey,true);
 	}
@@ -9267,7 +9295,7 @@ void  KgameWorld::removespriteByIdx(int nNpcIndex,int nStateIdx,bool isAll)
 	if  (!ParentNode_npc || nNpcIndex<=0 || nNpcIndex>=MAX_NPC)
 		return;
 	char nTempKey[64];
-	t_sprintf(nTempKey,"npc_%d",nNpcIndex);
+	sprintf(nTempKey,"npc_%d",nNpcIndex);
 	std::string _npcKey = nTempKey;
 	Node *PartNode =(Node *)ParentNode_npc->getChildByName(_npcKey);
 	if (PartNode)
@@ -9275,7 +9303,7 @@ void  KgameWorld::removespriteByIdx(int nNpcIndex,int nStateIdx,bool isAll)
 		//Node *nStateSpr = (Node *)PartNode->getChildByTag(UI_EQ_PART_NPC_STATE);
 		//if (!isAll && nStateSpr)
 		char nKey[32];
-		t_sprintf(nKey,"state_%d",nStateIdx);
+		sprintf(nKey,"state_%d",nStateIdx);
 		std::string nstateKey = nKey;
 		PartNode->removeChildByName(nstateKey,true);
 	}
@@ -9303,7 +9331,7 @@ void KgameWorld::UpdateGiveItem(KUiObjAtRegion* pItem, int bAdd)
 //更新快捷栏的物品
 void  KgameWorld::UpdateImmediaItem(int nIndex, unsigned int uGenre, unsigned int uId)
 {
-	//ccMessageBox("快捷兰","快捷兰");
+	//messageBox("快捷兰","快捷兰");
 	if (nIndex >= 0 && nIndex < UPB_IMMEDIA_ITEM_COUNT)
 	{//绘画图标
 
@@ -9326,9 +9354,9 @@ void  KgameWorld::HoldObject(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 	Sprite *tempSpr_3 = (Sprite *)ParentNode_item->getChildByTag(3);
 	if  (!tempSpr_1 || !tempSpr_2 || !tempSpr_3) return;
 	char nKey[32];
-	t_sprintf(nKey,"immed_%d",nBoxIndex+1);
+	sprintf(nKey,"immed_%d",nBoxIndex+1);
 	std::string ntempKey = nKey;
-	t_sprintf(nKey,"color_%d",nBoxIndex+1);
+	sprintf(nKey,"color_%d",nBoxIndex+1);
 	std::string ncolorKey = nKey;
 	if  (!isAdd)
 	{//删除
@@ -9355,10 +9383,10 @@ void  KgameWorld::HoldObject(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
 	if  (Item[nItemidx].GetImagePath())
-		t_sprintf(nSprName,Item[nItemidx].GetImagePath());
+		sprintf(nSprName,Item[nItemidx].GetImagePath());
 	else
-		t_sprintf(nSprName,"\\spr\\others\\问号.spr");
-	//t_sprintf(nSprName,Item[nItemidx].GetImagePath());
+		sprintf(nSprName,"\\spr\\others\\问号.spr");
+	//sprintf(nSprName,Item[nItemidx].GetImagePath());
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -9521,11 +9549,11 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 	if  (!tempSpr_1 || !tempSpr_2 || !tempSpr_3) return;
 
 	char nKey[32];
-	t_sprintf(nKey,"immed_%d",nBoxIndex+1);
+	sprintf(nKey,"immed_%d",nBoxIndex+1);
 	std::string ntempKey = nKey;
-	t_sprintf(nKey,"color_%d",nBoxIndex+1);
+	sprintf(nKey,"color_%d",nBoxIndex+1);
 	std::string ncolorKey = nKey;
-	t_sprintf(nKey,"stack_%d",nBoxIndex+1);
+	sprintf(nKey,"stack_%d",nBoxIndex+1);
 	std::string nstackKey = nKey;
 	if  (!isAdd)
 	{//删除
@@ -9551,9 +9579,9 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
 	if  (Item[nItemidx].GetImagePath())
-		t_sprintf(nSprName,Item[nItemidx].GetImagePath());
+		sprintf(nSprName, "%s", Item[nItemidx].GetImagePath());
 	else
-		t_sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr");
+		sprintf(nSprName,"\\spr\\Ui4\\KgameWorld\\btn_BatPk.spr");
 
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
@@ -9585,7 +9613,7 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 		bgcolorLayer = (LayerColor *)ImmediaMenu_1->getChildByName(ncolorKey);
 		if (g_pCoreShell)
 			nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM,nBoxIndex,nItemidx);
-		t_sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
+		sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
 		if (!nIiemTempSpr)
 		{
 			//nIiemTempSpr = Sprite::createWithTexture(bgCur);
@@ -9658,7 +9686,7 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 
 		if (g_pCoreShell)
 			nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM,nBoxIndex,nItemidx);
-		t_sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
+		sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
 
 		if (!nIiemTempSpr)
 		{
@@ -9731,7 +9759,7 @@ void  KgameWorld::HoldObject_(int nType,int nBoxIndex,int nItemidx,bool isAdd)
 		bgcolorLayer = (LayerColor *)ImmediaMenu_3->getChildByName(ncolorKey);
 		if (g_pCoreShell)
 			nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM,nBoxIndex,nItemidx);
-		t_sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
+		sprintf(strStack,"%d",nAllstackCount+Item[nItemidx].GetStackNum());
 
 		if (!nIiemTempSpr)
 		{
@@ -9813,7 +9841,7 @@ void KgameWorld::ImmediaCallback(Ref* pSender)
 		int idx = nTempSpr->getTag();
 		m_ImmediaItemSelIndex = m_ImmediaItem[idx-1].m_uid; //物品的索引
 		char nKey[32];
-		t_sprintf(nKey,"color_%d",idx);
+		sprintf(nKey,"color_%d",idx);
 		std::string colorKey = nKey;
 		idx--;
 		LayerColor *nTempColor =NULL;
@@ -9821,7 +9849,7 @@ void KgameWorld::ImmediaCallback(Ref* pSender)
 		for (int i=0;i<UPB_IMMEDIA_ITEM_COUNT;i++)
 		{//复原所有颜色
 			char ntKey[32];
-			t_sprintf(ntKey,"color_%d",i+1);
+			sprintf(ntKey,"color_%d",i+1);
 			std::string TcolorKey = ntKey;
 			if  (i>=0 && i<=2)
 				nTempColor = (LayerColor *)ImmediaMenu_1->getChildByName(TcolorKey);
@@ -9854,9 +9882,9 @@ void KgameWorld::ImmediaCallback(Ref* pSender)
 		if  (isClose)
 		{
 /*#ifdef WIN32
-			ccMessageBox("快捷栏被锁住中,请点击隐藏按钮","提示");
+			messageBox("快捷栏被锁住中,请点击隐藏按钮","提示");
 #else
-			ccMessageBox(UTEXT("快捷栏被锁住中,请点击隐藏按钮",1).c_str(),UTEXT("提示",1).c_str());
+			messageBox(UTEXT("快捷栏被锁住中,请点击隐藏按钮",1).c_str(),UTEXT("提示",1).c_str());
 #endif*/
 			return;
 		}
@@ -9871,8 +9899,8 @@ void KgameWorld::ImmediaCallback(Ref* pSender)
        if (g_pCoreShell)
 		  g_pCoreShell->OperationRequest(GOI_USE_ITEM,(intptr_t)&Info, UOC_IMMEDIA_ITEM);
 		//char msg[64];
-		//t_sprintf(msg,"%s",Item[m_ImmediaItemSelIndex].GetName());
-		//ccMessageBox(msg,"测试");
+		//sprintf(msg,"%s",Item[m_ImmediaItemSelIndex].GetName());
+		//messageBox(msg,"测试");
 	   TempUpdataImmediacy();
 	}
 }
@@ -9929,7 +9957,7 @@ void KgameWorld::setIsPaint(bool ver)
 void KgameWorld::KickOutGame()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	{
 		if (nAcclient)

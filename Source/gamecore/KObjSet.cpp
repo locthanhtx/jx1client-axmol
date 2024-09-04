@@ -86,7 +86,7 @@ enum
 
 KObjSet	ObjSet;
 
-char	g_szObjKind[Obj_Kind_Num][32] = 
+char	g_szObjKind[Obj_Kind_Num][32] =
 {
 	"MapObj",
 	"Body",
@@ -101,7 +101,7 @@ char	g_szObjKind[Obj_Kind_Num][32] =
 	"Prop"
 };
 
-DWORD	g_dwObjKindNum[Obj_Kind_Num] = 
+DWORD	g_dwObjKindNum[Obj_Kind_Num] =
 {
 	0x4f70614d,
 	0x79646f42,
@@ -141,7 +141,7 @@ BOOL	KObjSet::Init()
 	for (i = MAX_OBJECT - 1; i > 0; i--)
 	{
 		m_FreeIdxObjSet.Insert(i);
-		//Object[i].m_Node.m_nIndex=i;
+		//KObject[i].m_Node.m_nIndex=i;
 	}
 
 //	g_SetFilePath("");
@@ -169,7 +169,7 @@ BOOL	KObjSet::Init()
 			nColorCount = MAX_OBJ_NAME_COLOR;
 		for (i = 0; i < nColorCount; ++i)
 		{
-			t_sprintf(szTemp, "%d", i);
+			sprintf(szTemp, "%d", i);
 			cColorIni.GetInteger(szTemp, "A", 0, &nA);
 			cColorIni.GetInteger(szTemp, "R", 0, &nR);
 			cColorIni.GetInteger(szTemp, "G", 0, &nG);
@@ -206,78 +206,78 @@ int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFram
 
 	if (nAddIndex < 0)
 		return -1;
-	Object[nAddIndex].SetWorldID(nID);
+	KObject[nAddIndex].SetWorldID(nID);
 	if (nDir >= 0)
 	{
-		Object[nAddIndex].SetDir(nDir);
+		KObject[nAddIndex].SetDir(nDir);
 	}
 	else
 	{
 		if (nCurFrame > 0)
-			Object[nAddIndex].m_cImage.SetCurFrame(nCurFrame);
+			KObject[nAddIndex].m_cImage.SetCurFrame(nCurFrame);
 	}
 	if (nState >= 0)
 	{
-		Object[nAddIndex].SetState(nState, sInfo.m_nSoundFlag);
+		KObject[nAddIndex].SetState(nState, sInfo.m_nSoundFlag);
 	}
-	if (Object[nAddIndex].m_nKind == Obj_Kind_Item && sInfo.m_nMovieFlag)
+	if (KObject[nAddIndex].m_nKind == Obj_Kind_Item && sInfo.m_nMovieFlag)
 	{
-		Object[nAddIndex].m_nDropState = 1;	// ��Ϊ��������
+		KObject[nAddIndex].m_nDropState = 1;	// ��Ϊ��������
 		if (nCurFrame > 0)
 		{
-			Object[nAddIndex].m_cImageDrop.SetCurFrame(nCurFrame);
+			KObject[nAddIndex].m_cImageDrop.SetCurFrame(nCurFrame);
 
 		}
 	}
 	else
 	{
-		Object[nAddIndex].m_nDropState = 0;
+		KObject[nAddIndex].m_nDropState = 0;
 	}
 
-	Object[nAddIndex].m_nMoneyNum   = sInfo.m_nMoneyNum;
-	Object[nAddIndex].m_nItemDataID = sInfo.m_nItemID;
-	Object[nAddIndex].m_nItemWidth  = sInfo.m_nItemWidth;
-	Object[nAddIndex].m_nItemHeight = sInfo.m_nItemHeight;
-	Object[nAddIndex].m_nColorID    = sInfo.m_nColorID;
-	//Object[nAddIndex].m_dwNameColor = 0x00ffffff ;//this->GetNameColor(sInfo.m_nColorID);
-	Object[nAddIndex].m_nameColor   = this->GetNameColor(sInfo.m_nColorID);
-    Object[nAddIndex].m_AttackerDwid= nObjDwidx;
-    Object[nAddIndex].m_IsHaveAttack=sInfo.m_cHaveAttack;
+	KObject[nAddIndex].m_nMoneyNum   = sInfo.m_nMoneyNum;
+	KObject[nAddIndex].m_nItemDataID = sInfo.m_nItemID;
+	KObject[nAddIndex].m_nItemWidth  = sInfo.m_nItemWidth;
+	KObject[nAddIndex].m_nItemHeight = sInfo.m_nItemHeight;
+	KObject[nAddIndex].m_nColorID    = sInfo.m_nColorID;
+	//KObject[nAddIndex].m_dwNameColor = 0x00ffffff ;//this->GetNameColor(sInfo.m_nColorID);
+	KObject[nAddIndex].m_nameColor   = this->GetNameColor(sInfo.m_nColorID);
+    KObject[nAddIndex].m_AttackerDwid= nObjDwidx;
+    KObject[nAddIndex].m_IsHaveAttack=sInfo.m_cHaveAttack;
 
-	if (Object[nAddIndex].m_IsHaveAttack)
-	   Object[nAddIndex].m_AttackerTime=100800;
+	if (KObject[nAddIndex].m_IsHaveAttack)
+	   KObject[nAddIndex].m_AttackerTime=100800;
 	else
-	   Object[nAddIndex].m_AttackerTime=0;
+	   KObject[nAddIndex].m_AttackerTime=0;
 
 	if (_clientlanguage!=1)
 	{//Խ�ϰ汾
-		if (Object[nAddIndex].m_nKind == Obj_Kind_Item)
+		if (KObject[nAddIndex].m_nKind == Obj_Kind_Item)
 		{
 			if (sInfo.m_GoldId>0)
 			{//�ƽ�
-				t_sprintf(Object[nAddIndex]._clientObjName,"����Խ������-�ƽ�");
+				sprintf(KObject[nAddIndex]._clientObjName,"����Խ������-�ƽ�");
 			}
 			else
 			{//������ͨ��Ʒ
 
-				t_sprintf(Object[nAddIndex]._clientObjName,"����Խ������-������Ʒ");
+				sprintf(KObject[nAddIndex]._clientObjName,"����Խ������-������Ʒ");
 			}
 		}
-		else if (Object[nAddIndex].m_nKind == Obj_Kind_Money)
+		else if (KObject[nAddIndex].m_nKind == Obj_Kind_Money)
 		{//Ǯ
-			t_sprintf(Object[nAddIndex]._clientObjName,"����Խ������-Ǯ");
+			sprintf(KObject[nAddIndex]._clientObjName,"����Խ������-Ǯ");
 		}
 		else
 		{//objdata
-			t_sprintf(Object[nAddIndex]._clientObjName,"ϵͳ����");
+			sprintf(KObject[nAddIndex]._clientObjName,"ϵͳ����");
 
 		}
 	}
 	else//���İ汾
-       ZeroMemory(Object[nAddIndex]._clientObjName,sizeof(Object[nAddIndex]._clientObjName));
+       ZeroMemory(KObject[nAddIndex]._clientObjName,sizeof(KObject[nAddIndex]._clientObjName));
 
 	if (sInfo.m_szName[0])
-		strcpy(Object[nAddIndex].m_szName,sInfo.m_szName);
+		strcpy(KObject[nAddIndex].m_szName,sInfo.m_szName);
 
 	SubWorld[0].m_Region[nRegion].AddObj(nAddIndex);   // m_WorldMessage.Send(GWM_OBJ_ADD, nRegion, nAddIndex);
 	return nAddIndex;
@@ -293,13 +293,13 @@ BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY,
 
 	char	szFile[256]={0};
 
-//	t_sprintf(szPath, "%s\\v_%03d", lpszMapPath, nRegionY);
+//	sprintf(szPath, "%s\\v_%03d", lpszMapPath, nRegionY);
 //	g_SetFilePath(szPath);
 
 	KPakFile			cDataFile;
 	KObjFileHead		sHead;
 
-	t_sprintf(szFile, "%s\\v_%03d\\%03d_%s", lpszMapPath, nRegionY, nRegionX, REGION_OBJ_FILE_CLIENT);
+	sprintf(szFile, "%s\\v_%03d\\%03d_%s", lpszMapPath, nRegionY, nRegionX, REGION_OBJ_FILE_CLIENT);
 	if (!cDataFile.Open(szFile))
 		return FALSE;
 	if (cDataFile.Size() < sizeof(KObjFileHead))
@@ -417,8 +417,8 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 	if (nFreeNo <= 0)
 		return -1;
 
-	Object[nFreeNo].Release();
-	Object[nFreeNo].m_nDataID = nDataID;
+	KObject[nFreeNo].Release();
+	KObject[nFreeNo].m_nDataID = nDataID;
 	m_cTabFile.GetString(nDataID + 1, ObjDataField_Kind, g_szObjKind[0], szBuffer, sizeof(szBuffer));
 	for (i = 0; i < Obj_Kind_Num; ++i)
 	{
@@ -427,51 +427,51 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 	}
 	if (i >= Obj_Kind_Num)
 		i = 0;
-	Object[nFreeNo].m_nKind = i;
+	KObject[nFreeNo].m_nKind = i;
 	// �� ObjData �ļ��ж�ȡ����
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Layer, 1, &Object[nFreeNo].m_nLayer);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Height, 0, &Object[nFreeNo].m_nHeight);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LifeTime, 0, &Object[nFreeNo].m_nLifeTime);
-	m_cTabFile.GetString(nDataID + 1, ObjDataField_Name, "", Object[nFreeNo].m_szName, sizeof(Object[nFreeNo].m_szName));
-	g_ObjChangeName.GetString(nDataID + 1,2,"", Object[nFreeNo]._clientObjName,sizeof(Object[nFreeNo]._clientObjName));
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Layer, 1, &KObject[nFreeNo].m_nLayer);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Height, 0, &KObject[nFreeNo].m_nHeight);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LifeTime, 0, &KObject[nFreeNo].m_nLifeTime);
+	m_cTabFile.GetString(nDataID + 1, ObjDataField_Name, "", KObject[nFreeNo].m_szName, sizeof(KObject[nFreeNo].m_szName));
+	g_ObjChangeName.GetString(nDataID + 1,2,"", KObject[nFreeNo]._clientObjName,sizeof(KObject[nFreeNo]._clientObjName));
 	m_cTabFile.GetString(nDataID + 1, ObjDataField_ScriptName, "", szBuffer, sizeof(szBuffer));
-	Object[nFreeNo].SetScriptFile(szBuffer);
-	m_cTabFile.GetString(nDataID + 1, ObjDataField_SoundName, "", Object[nFreeNo].m_szSoundName, sizeof(Object[nFreeNo].m_szSoundName));
+	KObject[nFreeNo].SetScriptFile(szBuffer);
+	m_cTabFile.GetString(nDataID + 1, ObjDataField_SoundName, "", KObject[nFreeNo].m_szSoundName, sizeof(KObject[nFreeNo].m_szSoundName));
 
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightRadius, 0, &Object[nFreeNo].m_sObjLight.m_nRadius);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightRed, 255, &Object[nFreeNo].m_sObjLight.m_nRed);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightGreen, 255, &Object[nFreeNo].m_sObjLight.m_nGreen);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightBlue, 255, &Object[nFreeNo].m_sObjLight.m_nBlue);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightAlpha, 255, &Object[nFreeNo].m_sObjLight.m_nAlpha);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightReflectType, 0, &Object[nFreeNo].m_sObjLight.m_nReflectType);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightRadius, 0, &KObject[nFreeNo].m_sObjLight.m_nRadius);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightRed, 255, &KObject[nFreeNo].m_sObjLight.m_nRed);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightGreen, 255, &KObject[nFreeNo].m_sObjLight.m_nGreen);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightBlue, 255, &KObject[nFreeNo].m_sObjLight.m_nBlue);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightAlpha, 255, &KObject[nFreeNo].m_sObjLight.m_nAlpha);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LightReflectType, 0, &KObject[nFreeNo].m_sObjLight.m_nReflectType);
 
 	int nTotalFrame, nTotalDir, nCurFrame, nCurDir;
-	m_cTabFile.GetString(nDataID + 1, ObjDataField_ImageName, "", Object[nFreeNo].m_szImageName, sizeof(Object[nFreeNo].m_szImageName));
+	m_cTabFile.GetString(nDataID + 1, ObjDataField_ImageName, "", KObject[nFreeNo].m_szImageName, sizeof(KObject[nFreeNo].m_szImageName));
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageTotalFrame, 1, &nTotalFrame);
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageTotalDir, 1, &nTotalDir);
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCurFrame, 0, &nCurFrame);
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCurDir, 0, &nCurDir);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageInterval, 0, (int *)(&Object[nFreeNo].m_cImage.m_dwInterval));
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCgXpos, 0, &Object[nFreeNo].m_cImage.m_nCgXpos);
-	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCgYpos, 0, &Object[nFreeNo].m_cImage.m_nCgYpos);
-	Object[nFreeNo].m_cImage.SetFileName(Object[nFreeNo].m_szImageName);
-	Object[nFreeNo].m_cImage.SetTotalFrame(nTotalFrame);
-	Object[nFreeNo].m_cImage.SetTotalDir(nTotalDir);
-	Object[nFreeNo].m_cImage.SetCurFrame(nCurFrame);
-	Object[nFreeNo].m_cImage.SetCurDir(nCurDir);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageInterval, 0, (int *)(&KObject[nFreeNo].m_cImage.m_dwInterval));
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCgXpos, 0, &KObject[nFreeNo].m_cImage.m_nCgXpos);
+	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_ImageCgYpos, 0, &KObject[nFreeNo].m_cImage.m_nCgYpos);
+	KObject[nFreeNo].m_cImage.SetFileName(KObject[nFreeNo].m_szImageName);
+	KObject[nFreeNo].m_cImage.SetTotalFrame(nTotalFrame);
+	KObject[nFreeNo].m_cImage.SetTotalDir(nTotalDir);
+	KObject[nFreeNo].m_cImage.SetCurFrame(nCurFrame);
+	KObject[nFreeNo].m_cImage.SetCurDir(nCurDir);
 
-	if  (Object[nFreeNo].m_cImage.m_nTotalDir!=0)
-		Object[nFreeNo].SetDir(Object[nFreeNo].m_cImage.m_nCurDir * 64 / Object[nFreeNo].m_cImage.m_nTotalDir);
+	if  (KObject[nFreeNo].m_cImage.m_nTotalDir!=0)
+		KObject[nFreeNo].SetDir(KObject[nFreeNo].m_cImage.m_nCurDir * 64 / KObject[nFreeNo].m_cImage.m_nTotalDir);
 	else
-		Object[nFreeNo].SetDir(0);
+		KObject[nFreeNo].SetDir(0);
 
 	int nDropTotalFrame, nDropTotalDir, nDropCurFrame, nDropCurDir;
 	m_cTabFile.GetString(
 		nDataID + 1,
 		ObjDataField_ImageDropName,
-		Object[nFreeNo].m_szImageName,
-		Object[nFreeNo].m_szImageDropName,
-		sizeof(Object[nFreeNo].m_szImageDropName));
+		KObject[nFreeNo].m_szImageName,
+		KObject[nFreeNo].m_szImageDropName,
+		sizeof(KObject[nFreeNo].m_szImageDropName));
 	m_cTabFile.GetInteger(
 		nDataID + 1,
 		ObjDataField_ImageDropTotalFrame,
@@ -495,43 +495,43 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 	m_cTabFile.GetInteger(
 		nDataID + 1,
 		ObjDataField_ImageDropInterval,
-		Object[nFreeNo].m_cImage.m_dwInterval,
-		(int *)(&Object[nFreeNo].m_cImageDrop.m_dwInterval));
+		KObject[nFreeNo].m_cImage.m_dwInterval,
+		(int *)(&KObject[nFreeNo].m_cImageDrop.m_dwInterval));
 	m_cTabFile.GetInteger(
 		nDataID + 1,
 		ObjDataField_ImageDropCgXpos,
-		Object[nFreeNo].m_cImage.m_nCgXpos,
-		&Object[nFreeNo].m_cImageDrop.m_nCgXpos);
+		KObject[nFreeNo].m_cImage.m_nCgXpos,
+		&KObject[nFreeNo].m_cImageDrop.m_nCgXpos);
 	m_cTabFile.GetInteger(
 		nDataID + 1,
 		ObjDataField_ImageDropCgYpos,
-		Object[nFreeNo].m_cImage.m_nCgYpos,
-		&Object[nFreeNo].m_cImageDrop.m_nCgYpos);
-	Object[nFreeNo].m_cImageDrop.SetFileName(Object[nFreeNo].m_szImageDropName);
-	Object[nFreeNo].m_cImageDrop.SetTotalFrame(nDropTotalFrame);
-	Object[nFreeNo].m_cImageDrop.SetTotalDir(nDropTotalDir);
-	Object[nFreeNo].m_cImageDrop.SetCurFrame(nDropCurFrame);
-	Object[nFreeNo].m_cImageDrop.SetCurDir(nDropCurDir);
+		KObject[nFreeNo].m_cImage.m_nCgYpos,
+		&KObject[nFreeNo].m_cImageDrop.m_nCgYpos);
+	KObject[nFreeNo].m_cImageDrop.SetFileName(KObject[nFreeNo].m_szImageDropName);
+	KObject[nFreeNo].m_cImageDrop.SetTotalFrame(nDropTotalFrame);
+	KObject[nFreeNo].m_cImageDrop.SetTotalDir(nDropTotalDir);
+	KObject[nFreeNo].m_cImageDrop.SetCurFrame(nDropCurFrame);
+	KObject[nFreeNo].m_cImageDrop.SetCurDir(nDropCurDir);
 
 	for (i = 0; i < OBJ_BAR_SIZE; ++i)
 	{
 		m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Bar0 + i, 0, &nTemp);
-		Object[nFreeNo].m_btBar[i] = (BYTE)nTemp;
+		KObject[nFreeNo].m_btBar[i] = (BYTE)nTemp;
 	}
 	int nCurVal = 0;
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_DrawFlag, 0, &nCurVal);
-	Object[nFreeNo].m_bDrawFlag = nCurVal>0?true:false;
-	Object[nFreeNo].m_nIndex = nFreeNo;
-	Object[nFreeNo].m_nSubWorldID = nSubWorld;
-	Object[nFreeNo].m_nRegionIdx  = nRegion;
-	Object[nFreeNo].m_nMapX = nMapX; //��������
-	Object[nFreeNo].m_nMapY = nMapY; //��������
-	Object[nFreeNo].m_nOffX = nOffX;
-	Object[nFreeNo].m_nOffY = nOffY;
+	KObject[nFreeNo].m_bDrawFlag = nCurVal>0?true:false;
+	KObject[nFreeNo].m_nIndex = nFreeNo;
+	KObject[nFreeNo].m_nSubWorldID = nSubWorld;
+	KObject[nFreeNo].m_nRegionIdx  = nRegion;
+	KObject[nFreeNo].m_nMapX = nMapX; //��������
+	KObject[nFreeNo].m_nMapY = nMapY; //��������
+	KObject[nFreeNo].m_nOffX = nOffX;
+	KObject[nFreeNo].m_nOffY = nOffY;
 
 
 
-	Object[nFreeNo].m_nBelongRegion = SubWorld[0].m_Region[nRegion].m_RegionID;
+	KObject[nFreeNo].m_nBelongRegion = SubWorld[0].m_Region[nRegion].m_RegionID;
 
 	// if (��������ϰ���) �趨����ϰ�
 
@@ -583,13 +583,13 @@ int		KObjSet::FindID(int nID)
 	/*
 	for (int i = 1; i < MAX_OBJECT; ++i)
 	{
-		if ( Object[i].m_nIndex > 0 && Object[i].m_nID == nID)
+		if ( KObject[i].m_nIndex > 0 && KObject[i].m_nID == nID)
 			return i;
 	}*/
 	int i = m_UseIdxObjSet.GetNext(0);
 	while (i != 0)
 	{
-		if (Object[i].m_nIndex > 0 && Object[i].m_nID == nID)
+		if (KObject[i].m_nIndex > 0 && KObject[i].m_nID == nID)
 			return i;
 		i = m_UseIdxObjSet.GetNext(i);
 	}
@@ -608,7 +608,7 @@ int		KObjSet::FindName(char *lpszObjName)
 	int i = m_UseIdxObjSet.GetNext(0);
 	while(i != 0)
 	{
-		if (Object[i].m_nIndex > 0 && strcmp(Object[i].m_szName, lpszObjName) == 0)
+		if (KObject[i].m_nIndex > 0 && strcmp(KObject[i].m_szName, lpszObjName) == 0)
 			return i;
 		i = m_UseIdxObjSet.GetNext(i);
 	}
@@ -626,16 +626,16 @@ int		KObjSet::GetID()
 
 void	KObjSet::Remove(int nIdx)
 {
-	Object[nIdx].Release();
+	KObject[nIdx].Release();
 	m_FreeIdxObjSet.Insert(nIdx);
 	m_UseIdxObjSet.Remove(nIdx);
 }
 
 void	KObjSet::RemoveIfClientOnly(int nIdx)
 {
-	if (CheckClientKind(Object[nIdx].GetKind()) != 1)
+	if (CheckClientKind(KObject[nIdx].GetKind()) != 1)
 		return;
-	Object[nIdx].Release();
+	KObject[nIdx].Release();
 	m_FreeIdxObjSet.Insert(nIdx);
 	//m_FreeIdxObjSet.Remove(nIdx);
 	m_UseIdxObjSet.Remove(nIdx);
@@ -686,24 +686,24 @@ int	KObjSet::SearchObjAt(int nX, int nY, int nRange)
 		if (!nIdx)
 			break;
 
-		if (Object[nIdx].m_nRegionIdx < 0)
+		if (KObject[nIdx].m_nRegionIdx < 0)
 			continue;
 
-		if (Obj_Kind_Box != Object[nIdx].m_nKind
-			&& Obj_Kind_Item != Object[nIdx].m_nKind
-			&& Obj_Kind_Money != Object[nIdx].m_nKind
-			&& Obj_Kind_Prop != Object[nIdx].m_nKind
-			&& Obj_Kind_Door != Object[nIdx].m_nKind)
+		if (Obj_Kind_Box != KObject[nIdx].m_nKind
+			&& Obj_Kind_Item != KObject[nIdx].m_nKind
+			&& Obj_Kind_Money != KObject[nIdx].m_nKind
+			&& Obj_Kind_Prop != KObject[nIdx].m_nKind
+			&& Obj_Kind_Door != KObject[nIdx].m_nKind)
 			continue;
-		
+
 		int x, y;
-		SubWorld[0].NewMap2Mps(Object[nIdx].m_nRegionIdx, Object[nIdx].m_nMapX, Object[nIdx].m_nMapY,
-			Object[nIdx].m_nOffX, Object[nIdx].m_nOffY, &x, &y);
+		SubWorld[0].NewMap2Mps(KObject[nIdx].m_nRegionIdx, KObject[nIdx].m_nMapX, KObject[nIdx].m_nMapY,
+			KObject[nIdx].m_nOffX, KObject[nIdx].m_nOffY, &x, &y);
 
 		if (nSrcY[0] > y)
 			continue;
 
-		if (nSrcY[0] < y - 40 - Object[nIdx].m_nHeight)
+		if (nSrcY[0] < y - 40 - KObject[nIdx].m_nHeight)
 			continue;
 
 		nLength = abs(nDx * (nSrcY[0] - y) / nDy + nSrcX[0] - x);

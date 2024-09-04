@@ -10,11 +10,11 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "cocos-ext.h"
+
 #include "ui/UIPageView.h"
 
 USING_NS_AX;
-USING_NS_CC_EXT;
+
 
 #define LIVE_SKILL_COUNT			10
 #define	FIGHT_SKILL_COUNT			50

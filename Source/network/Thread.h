@@ -54,41 +54,30 @@ private:
 
 #else
 //linux
-class CThread
-{
+#include <pthread.h>
+#include <iostream>
+#include <stdexcept>
+
+class CThread {
 public:
+    CThread();
+    ~CThread();
 
-	CThread();
+    pthread_t GetHandle() const;
+    void Wait() const;
+    void Start();
+    void setAutoDelete(bool autoDelete);
+    void Terminate(uint32_t exitCode);
 
-	virtual ~CThread();
-
-	pthread_t GetHandle() const;
-
-	//pthread_t getThreadID();
-
-	void Wait() const;
-
-	void Wait(uint32_t timeoutMillis) const;
-
-	void Start();
-
-	void setAutoDelete(bool autoDelete);
-
-	void Terminate( uint32_t exitCode = 0 );
-
-	virtual void Run() = 0;
+protected:
+    virtual void Run() = 0; // Virtual method to be implemented by derived classes
 
 private:
-	static void * ThreadFunction( void *pV );
-	pthread_t a_thread;
-	pthread_attr_t thread_attr;
-	bool autoDelete_;
-	/*
-	 * No copies do not implement
-	 */
-	CThread(const CThread &rhs);
-	CThread &operator=(const CThread &rhs);
+    static void* ThreadFunction(void* pV);
 
+    pthread_t a_thread;
+    pthread_attr_t thread_attr;
+    bool autoDelete_;
 };
 #endif //end linux
 #endif //__INCLUDE_THREAD_H__

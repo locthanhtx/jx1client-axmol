@@ -9,7 +9,7 @@
 #ifndef KFilePath_H
 #define KFilePath_H
 #include "cocos2d.h"
-//#include "cocos-ext.h"
+//
 #include "KbugInfo.h"
 USING_NS_AX;
 using namespace std;

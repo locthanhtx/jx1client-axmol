@@ -175,7 +175,7 @@ const char* TGetColorStr(uint32_t nColor)
 	static char szColor[12];
 	KERColor c;
 	c.Color_dw = nColor;
-	t_sprintf(szColor, "%d,%d,%d", c.Color_b.r, c.Color_b.g, c.Color_b.b);
+	sprintf(szColor, "%d,%d,%d", c.Color_b.r, c.Color_b.g, c.Color_b.b);
 	szColor[11] = 0;
 
 	return szColor;
@@ -550,7 +550,7 @@ extern "C"
 
 			else if (pBuffer[nReadPos] == '<')  // ��������Ź���
 			{
-				//ccMessageBox("find < suss","find");
+				//messageBox("find < suss","find");
 				TEncodeCtrl(pBuffer, nCount, nReadPos, nShortCount);
 			}
 
@@ -607,7 +607,7 @@ int32_t	TEncodeText_(char* pBuffer, int32_t nCount)
 
 			else if (pBuffer[nReadPos] == '<')  // ��������Ź���
 			{
-				//ccMessageBox("find < suss","find");
+				//messageBox("find < suss","find");
 				TEncodeCtrl(pBuffer, nCount, nReadPos, nShortCount);
 			}
 
@@ -670,7 +670,7 @@ int32_t	TEncodeText(char* pBuffer, int32_t nCount)
 
 			else if (pBuffer[nReadPos] == '<')  // ��������Ź���
 			{
-				//ccMessageBox("find < suss","find");
+				//messageBox("find < suss","find");
 				TEncodeCtrl(pBuffer, nCount, nReadPos, nShortCount);
 			}
 
@@ -730,7 +730,7 @@ int32_t	TEncodeText(char* pBuffer, int32_t nCount)
 			}
 			else if (pBuffer[nReadPos] == '<')  // ��������Ź���
 			{
-				//ccMessageBox("find < suss","find");
+				//messageBox("find < suss","find");
 				TEncodeCtrl(pBuffer, nCount, nReadPos, nShortCount);
 			}
 			else if((cCharacter >= 0x20 && cCharacter < 0x7F) ||
@@ -1535,7 +1535,7 @@ int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cCont
 				}
 				else if (cCharacter == KTC_COLOR || cCharacter == KTC_BORDER_COLOR)
 				{
-					//ccMessageBox("color char","color char");
+					//messageBox("color char","color char");
 					int32_t nTemp = *(int32_t*)(pBuffer + nReadPos);
 					*(int32_t*)(pBuffer + nFinalLen) = nTemp;
 					nFinalLen += 4;

@@ -14,14 +14,15 @@
 #include "engine/KPakList.h"
 #include "engine/KDownLoadFile.h"
 USING_NS_AX;
-#include "cocos-ext.h"
+
 #include "AudioEngine.h"
-USING_NS_CC_EXT;
-#include "platform/CCFileUtils.h"
+
+#include "platform/FileUtils.h"
 //#include "network/ODSocket.h"
 #include "../network/ClientStage.h"
 #include "../network/Thread.h"
 #include "LoginDef.h"
+#include "assets-manager/AssetsManager.h"
 
 ////using namespace CocosDenshion;
 // �ȸ���ʵ��ʾ��
@@ -31,7 +32,7 @@ struct Kpaklistdata
 	int     _pakreload;
 	bool    _isbreak;
 };
-class KUpdateLayer: public Layer, public AssetsManagerDelegateProtocol,protected CThread
+class KUpdateLayer: public Layer, public ax::extension::AssetsManagerDelegateProtocol,protected CThread
 {
 public:
 	KUpdateLayer();

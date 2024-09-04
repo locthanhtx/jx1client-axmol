@@ -75,7 +75,7 @@ bool KuiTongInfo::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\��ļҳ\\���������.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\��ļҳ\\���������.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -121,7 +121,7 @@ void KuiTongInfo::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣҳ\\����ҳ-�����Ϣ.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\�����Ϣҳ\\����ҳ-�����Ϣ.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -156,7 +156,7 @@ void KuiTongInfo::setcoloseButton(Ref * callbackListener,const std::function<voi
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\������\\��ᰴť-�ر�.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\������\\��ᰴť-�ر�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -325,7 +325,7 @@ bool KuiTongInfo::ccTouchBegan(Touch *pTouch, Event *pEvent)
 //--------------------------------------------------------------------------
 void KuiTongInfo::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}

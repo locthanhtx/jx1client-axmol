@@ -30,7 +30,7 @@
 #include <fstream>
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
+//#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #endif
 extern iCoreShell * g_pCoreShell;
 extern KImageStore2 m_ImageStore; //全局调用
@@ -74,6 +74,19 @@ bool Klogin_f::init()
 	{
 		return false;
 	}
+
+    //test
+    char nSprName11[128]={0};
+    ZeroMemory(nSprName11,sizeof(nSprName11));
+    t_sprintf(nSprName11,"\\spr\\Ui3\\ÏµÍ³\\ÏµÍ³2.spr");
+    g_StrLower(nSprName11);
+    int m_nWidth1, m_nHeight1, nFrams1;
+    SPRFRAMSINFO nSprInfo;
+    ZeroMemory(&nSprInfo,sizeof(nSprInfo));
+    Texture2D *bgCur111 = _getinidata.getinidata_one(nSprName11,0,&m_nWidth1,&m_nHeight1,&nFrams1,&nSprInfo);
+    //end test
+
+
 	m_sprCount =0;
 	nTimeCount = 0;
 	m_nWidth   = 0;
@@ -125,13 +138,13 @@ bool Klogin_f::init()
 	ZeroMemory(nstrps,sizeof(nstrps));
 	nappInfo.SimplyDecrypt(nstrps,APP_STRINFO_2);
 	strcat(destStr,nstrps);
-	//m_MobileKey = getappstrInfo();
-	if (strcmp(m_MobileKey.c_str(),destStr)== 0)
+//	m_MobileKey = getappstrInfo();
+//	if (strcmp(m_MobileKey.c_str(),destStr)== 0)
 		nisgetinfo = true;
 #endif
 
 
-	t_sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_StarTroChoi.spr"); //"\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
+	sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_StarTroChoi.spr"); //"\\spr\\Ui3\\loginui\\startbtn\\log_2_start.spr"
 	g_StrLower(nSprName);
 	mainlayer = Layer::create();
 	Texture2D *Login = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
@@ -139,11 +152,11 @@ bool Klogin_f::init()
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pLoginItem = MenuItemImage::create();
@@ -157,18 +170,18 @@ bool Klogin_f::init()
 	}
 	//系统选项
 	nFrams=0;
-	t_sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_TrangChu.spr");
+	sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_TrangChu.spr");
 	g_StrLower(nSprName);
 	Texture2D *GameConfig = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (GameConfig)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pGameConfigItem = MenuItemImage::create();
@@ -182,18 +195,18 @@ bool Klogin_f::init()
 	}
 	//注册帐号
 	nFrams=0;
-	t_sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_TrangChu.spr");
+	sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_TrangChu.spr");
 	g_StrLower(nSprName);
 	Texture2D *Rep = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Rep)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pOpenRepItem = MenuItemImage::create();
@@ -207,18 +220,18 @@ bool Klogin_f::init()
 	}
 	//退出游戏
 	nFrams=0;
-	t_sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_Exit.spr");
+	sprintf(nSprName,"\\spr\\DangNhap\\Login\\btn_Exit.spr");
 	g_StrLower(nSprName);
 	Texture2D *Cancel = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
 		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
 		Texture2D *pSelectedTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
-		t_sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
+		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,2);
 		Texture2D *pDisabledTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 
         pCancelItem = MenuItemImage::create();
@@ -237,7 +250,7 @@ bool Klogin_f::init()
 	{
 		pMenu = Menu::create(pLoginItem,pGameConfigItem,pOpenRepItem,pCancelItem,NULL);
 
-		// t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\startbtn\\log_2_b.spr");
+		// sprintf(nSprName,"\\spr\\Ui3\\loginui\\startbtn\\log_2_b.spr");
 		// g_StrLower(nSprName);
 		// Texture2D *bgSpr = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		// Sprite *lonbgspr;
@@ -287,7 +300,7 @@ bool Klogin_f::init()
 	m_sprCount++;
 	this->addChild(bgSprite,0,m_sprCount);
 
-	 t_sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
+	 sprintf(nSprName,"\\spr\\Ui3\\loginui\\uidonghua\\yezi.spr");
 		 g_StrLower(nSprName);
 		 Texture2D *bgCur = _getinidata.getinidata_new(nSprName,0,&m_nWidth,&m_nHeight,&nFrams);
 		 if  (bgCur)
@@ -301,8 +314,8 @@ bool Klogin_f::init()
 			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
-				t_sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
-				//ccMessageBox(nSprFilePath,"animation");
+				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
+				//messageBox(nSprFilePath,"animation");
                 auto texture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nySprFilePath);
                 Rect rect = Rect::ZERO;
                 rect.size = texture->getContentSize();
@@ -393,12 +406,12 @@ void Klogin_f::mianLoginCallback(Ref* pSender)
 			char nTempChar[128];
 			ZeroMemory(nTempChar,sizeof(nTempChar));
 			_mver.GetString("CilentVer","mobileinfo",UTEXT("请下载最新app版本",1).c_str(),nTempChar,sizeof(nTempChar));
-			ccMessageBox(UTEXT(nTempChar,1).c_str(),UTEXT("提示:",1).c_str());
+			messageBox(UTEXT(nTempChar,1).c_str(),UTEXT("提示:",1).c_str());
 		   _mver.Clear();
 		}
 	}
 	else
-		ccMessageBox(UTEXT("请下载最新app版本",1).c_str(),UTEXT("提示:",1).c_str());
+		messageBox(UTEXT("请下载最新app版本",1).c_str(),UTEXT("提示:",1).c_str());
 	//ax::Director::getInstance()->replaceScene(Klogin::scene());
 }
 
@@ -433,7 +446,7 @@ bool Klogin_f::isFileExist(const char* pFileName)
 void Klogin_f::copyData(const char* pFileName)
 {
     std::string strPath = ax::FileUtils::getInstance()->fullPathForFilename(pFileName);
-    unsigned long len = 0;
+    unsigned int len = 0;
     unsigned char * data = NULL;
 
     std::ifstream file(strPath, std::ios::binary | std::ios::ate);
@@ -531,7 +544,7 @@ void Klogin_f::ccTouchEnded(Touch *pTouch, Event *pEvent)
 
 void Klogin_f::mExit(Ref* pSender){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	ccMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	messageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
 	ax::Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -543,22 +556,22 @@ void Klogin_f::mExit(Ref* pSender){
 			/*if (lpFileName[i] >= 0xE0) //中文 3个字节
 			{
 				len = 3;
-				ccMessageBox("china","china");
+				messageBox("china","china");
 			}
 			else if (lpFileName[i]>= 0xC0)
 				len = 2;
 			else //英文数字
 			{
 				len = 1;
-				ccMessageBox("engish","engish");
+				messageBox("engish","engish");
 			}
-unsigned long Klogin_f::g_FileName2Id_(char * lpFileName)
+unsigned int Klogin_f::g_FileName2Id_(char * lpFileName)
 {
 	////////////////////////////////////////////////////////////////
 	if (lpFileName)
 	{
 		int len = strlen(lpFileName);
-		unsigned long dwID = 0;
+		unsigned int dwID = 0;
 		for (int i = 0;i<len; ++i) //lpFileName[i]
 		{
 
@@ -577,5 +590,5 @@ unsigned long Klogin_f::g_FileName2Id_(char * lpFileName)
 		}
 		return (dwID^305419896);	    //0x12345678  305419896
 	}
-	return (unsigned long)(-1);
+	return (unsigned int)(-1);
 }*/

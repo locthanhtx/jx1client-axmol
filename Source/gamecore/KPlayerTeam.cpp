@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTeam.cpp
 // Date:	2002.01.06
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Team Class
 //---------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ void	KPlayerTeam::Release()
 	m_nApplyCaptainID = -1;
 	m_nApplyCaptainID = 0;
 	m_dwApplyTimer = 0;
-	m_bAutoRefuseInviteFlag = FALSE;	 // TRUE ×Ô¶¯¾Ü¾ø   FALSE ÊÖ¶¯
+	m_bAutoRefuseInviteFlag = FALSE;	 // TRUE ï¿½Ô¶ï¿½ï¿½Ü¾ï¿½   FALSE ï¿½Ö¶ï¿½
 	ReleaseList();
 }
 
@@ -73,7 +73,7 @@ BOOL	KPlayerTeam::ApplyCreate()//char *lpszTeamName)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÑûÇë¼ÓÈë¶ÓÎé
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerTeam::InviteAdd(DWORD dwNpcID)
 {
@@ -87,7 +87,7 @@ void	KPlayerTeam::InviteAdd(DWORD dwNpcID)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÊÕµ½ÑûÇë
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerTeam::ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite)
 {
@@ -101,13 +101,13 @@ void	KPlayerTeam::ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite)
 
 	if (m_bAutoRefuseInviteFlag)
 	{
-		ReplyInvite(nIdx, 0); //¾Ü¾ø
+		ReplyInvite(nIdx, 0); //ï¿½Ü¾ï¿½
 		//if (uParam)
 		//	Player[CLIENT_PLAYER_INDEX].m_cTeam.ReplyInvite(((KUiPlayerItem*)uParam)->nIndex, nParam);
 	}
 	else
 	{
-		// Í¨Öª½çÃæÓÐÈËÑûÇëÍæ¼Ò¼ÓÈëÄ³¸ö¶ÓÎé
+		// Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		KUiPlayerItem	sPlayer;
 		KSystemMessage	sMsg;
 
@@ -115,7 +115,7 @@ void	KPlayerTeam::ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite)
 		sPlayer.nIndex = pInvite->m_nIdx;
 		sPlayer.uId = 0;
 		sPlayer.nData = 0;
-		t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_GET_INVITE].c_str(), szName);
+		sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_GET_INVITE].c_str(), szName);
 		sMsg.eType         = SMT_TEAM;
 		sMsg.byConfirmType = SMCT_UI_TEAM_INVITE;
 		sMsg.byPriority    = 3;
@@ -126,8 +126,8 @@ void	KPlayerTeam::ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»Ø¸´ÑûÇë
-//	²ÎÊý£ºnResult  if == 0 ¾Ü¾ø  if == 1 ½ÓÊÜ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nResult  if == 0 ï¿½Ü¾ï¿½  if == 1 ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerTeam::ReplyInvite(int nIdx, int nResult)
 {
@@ -143,7 +143,7 @@ void	KPlayerTeam::ReplyInvite(int nIdx, int nResult)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñ×Ô¶¯¾Ü¾ø±ðÈËµÄ¼ÓÈë¶ÓÎéµÄÑûÇë
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ËµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerTeam::SetAutoRefuseInvite(BOOL bFlag)
 {
@@ -156,19 +156,19 @@ void	KPlayerTeam::SetAutoRefuseInvite(BOOL bFlag)
 	if (bFlag)
 	{
 		m_bAutoRefuseInviteFlag = TRUE;
-		//t_sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_AUTO_REFUSE_INVITE].c_str());
+		//sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_AUTO_REFUSE_INVITE].c_str());
 	}
 	else
 	{
 		m_bAutoRefuseInviteFlag = FALSE;
-		//t_sprintf(sMsg.szMessage,  strCoreInfo[MSG_TEAM_NOT_AUTO_REFUSE_INVITE].c_str());
+		//sprintf(sMsg.szMessage,  strCoreInfo[MSG_TEAM_NOT_AUTO_REFUSE_INVITE].c_str());
 	}
     //sMsg.nMsgLen = TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 	//CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃÊÇ·ñ×Ô¶¯¾Ü¾ø±ðÈËµÄ¼ÓÈë¶ÓÎéµÄÑûÇë×´Ì¬
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ËµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 //---------------------------------------------------------------------------
 BOOL	KPlayerTeam::GetAutoRefuseState()
 {
@@ -176,13 +176,13 @@ BOOL	KPlayerTeam::GetAutoRefuseState()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃ×ÔÉí¶ÓÎéÐÅÏ¢£¨¸ø½çÃæ£©
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£©
 //---------------------------------------------------------------------------
 int		KPlayerTeam::GetInfo(KUiPlayerTeam *pTeam)
 {
 	if (!pTeam)
 		return 0;
-	pTeam->nCaptainPower = g_Team[0].CalcCaptainPower(); //¶Ó³¤ÄÜ×é¶àÉÙÈË
+	pTeam->nCaptainPower = g_Team[0].CalcCaptainPower(); //ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	if (m_nFlag == 0)
 		return 0;
@@ -208,12 +208,12 @@ int		KPlayerTeam::GetInfo(KUiPlayerTeam *pTeam)
 	pTeam->bOpened = 0;
 	if (g_Team[0].m_nState == Team_S_Open)
 		pTeam->bOpened = 1;
-	
+
 	return 1;
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¸üÐÂ½çÃæÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 //---------------------------------------------------------------------------
 void	KPlayerTeam::UpdateInterface()
 {
@@ -229,14 +229,14 @@ void	KPlayerTeam::UpdateInterface()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÑ­»·¸üÐÂµÄ¶«Î÷ »î¶¯¸üÐÂ¸üÐÂ½çÃæÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¶ï¿½ï¿½ï¿½ ï¿½î¶¯ï¿½ï¿½ï¿½Â¸ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 //---------------------------------------------------------------------------
 void	KPlayerTeam::UpdateamUI()
 {
 	KUiPlayerTeam	sTeam;
 	if (GetInfo(&sTeam) == 0)
 	{
-		//CoreDataChanged(GDCNI_TEAM_UI,NULL,0);  //¸üÐÂ¶ÓÎéUIÐÅÏ¢
+		//CoreDataChanged(GDCNI_TEAM_UI,NULL,0);  //ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½UIï¿½ï¿½Ï¢
 	}
 	else
 	{
@@ -245,7 +245,7 @@ void	KPlayerTeam::UpdateamUI()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º´ÓÉêÇëÈËÁÐ±íÖÐÉ¾³ýÄ³¸öÉêÇëÈË
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerTeam::DeleteOneFromApplyList(DWORD dwNpcID)
 {
@@ -260,7 +260,7 @@ void	KPlayerTeam::DeleteOneFromApplyList(DWORD dwNpcID)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¹¹Ôìº¯Êý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 //---------------------------------------------------------------------------
 KTeam::KTeam()
 {
@@ -268,7 +268,7 @@ KTeam::KTeam()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÇå¿Õ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KTeam::Release()
 {
@@ -289,7 +289,7 @@ void	KTeam::Release()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ Team ÔÚ g_Team ÖÐµÄÎ»ÖÃ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ Team ï¿½ï¿½ g_Team ï¿½Ðµï¿½Î»ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KTeam::SetIndex(int nIndex)
 {
@@ -298,7 +298,7 @@ void	KTeam::SetIndex(int nIndex)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÑ°ÕÒ¶ÓÔ±¿ÕÎ»
+//	ï¿½ï¿½ï¿½Ü£ï¿½Ñ°ï¿½Ò¶ï¿½Ô±ï¿½ï¿½Î»
 //---------------------------------------------------------------------------
 int		KTeam::FindFree()
 {
@@ -311,8 +311,8 @@ int		KTeam::FindFree()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÑ°ÕÒ¾ßÓÐÖ¸¶¨npc idµÄ¶ÓÔ±£¨²»°üÀ¨¶Ó³¤£©
-//	·µ»ØÖµ£º¶ÓÔ±ÔÚ m_nMember Êý×éÖÐµÄÎ»ÖÃ
+//	ï¿½ï¿½ï¿½Ü£ï¿½Ñ°ï¿½Ò¾ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½npc idï¿½Ä¶ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
+//	ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ m_nMember ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
 //---------------------------------------------------------------------------
 int		KTeam::FindMemberID(DWORD dwNpcID)
 {
@@ -324,18 +324,18 @@ int		KTeam::FindMemberID(DWORD dwNpcID)
 	return -1;
 }
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨¶ÓÎé×´Ì¬£º´ò¿ª£¨ÔÊÐí½ÓÊÜÐÂ³ÉÔ±£©
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ò¿ª£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½Ô±ï¿½ï¿½
 //---------------------------------------------------------------------------
 BOOL	KTeam::SetTeamOpen()
 {
 	m_nState = Team_S_Open;
 	Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateInterface();
-	//Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateamUI(); //ÏÔÊ¾Ö÷½çÃæ¶ÓÎéÐÅÏ¢
+	//Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateamUI(); //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	return TRUE;
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨¶ÓÎé×´Ì¬£º¹Ø±Õ£¨²»ÔÊÐí½ÓÊÜÐÂ³ÉÔ±£©
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ø±Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½Ô±ï¿½ï¿½
 //---------------------------------------------------------------------------
 BOOL	KTeam::SetTeamClose()
 {
@@ -345,7 +345,7 @@ BOOL	KTeam::SetTeamClose()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¼ÆËã¶Ó³¤ÄÜÍ³Ë§¶ÓÔ±µÄÈËÊý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½Í³Ë§ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 int	KTeam::CalcCaptainPower()
 {
@@ -353,7 +353,7 @@ int	KTeam::CalcCaptainPower()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿Í»§¶Ë´´½¨Ò»Ö§¶ÓÎé£¨¿Í»§¶ËÖ»¿ÉÄÜ´æÔÚÒ»Ö§µÄ¶ÓÎé£¬ÊôÓÚ±¾µØÍæ¼Ò£©
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Í»ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ò»Ö§ï¿½ï¿½ï¿½é£¨ï¿½Í»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½Ò»Ö§ï¿½Ä¶ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½
 //---------------------------------------------------------------------------
 void	KTeam::CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLevel, DWORD nTeamServerID)
 {
@@ -361,11 +361,11 @@ void	KTeam::CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLev
 	m_nCaptain = nCaptainNpcID;
 	m_nMemLevel[0] = nCaptainLevel;
 	strcpy(m_szMemName[0], lpszCaptainName);
-	m_nTeamServerID = nTeamServerID;		// ¶ÓÎéÔÚ·þÎñÆ÷ÉÏµÄÎ¨Ò»±êÊ¶
+	m_nTeamServerID = nTeamServerID;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Î¨Ò»ï¿½ï¿½Ê¶
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÌí¼ÓÒ»¸ö¶ÓÎé³ÉÔ±
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±
 //---------------------------------------------------------------------------
 BOOL	KTeam::AddMember(DWORD dwNpcID, int nLevel, char *lpszNpcName)
 {
@@ -388,7 +388,7 @@ BOOL	KTeam::AddMember(DWORD dwNpcID, int nLevel, char *lpszNpcName)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿Í»§¶ËÉ¾³ýÒ»¸ö¶ÓÎé³ÉÔ±
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Í»ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±
 //---------------------------------------------------------------------------
 void	KTeam::DeleteMember(DWORD dwNpcID)
 {
@@ -412,7 +412,7 @@ void	KTeam::DeleteMember(DWORD dwNpcID)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÊä³ö¶ÓÔ±ÐÅÏ¢(°´½çÃæµÄÒªÇó£¬¸ø½çÃæ)
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ï¢(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ó£¬¸ï¿½ï¿½ï¿½ï¿½ï¿½)
 //---------------------------------------------------------------------------
 int		KTeam::GetMemberInfo(KUiPlayerItem *pList, int nCount)
 {
@@ -423,8 +423,8 @@ int		KTeam::GetMemberInfo(KUiPlayerItem *pList, int nCount)
 	{
 		return m_nMemNum + 1;
 	}
-	
-	// ¶Ó³¤Ãû×Ö
+
+	// ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½
 	strcpy(pList[nNum].Name, m_szMemName[0]);
 	pList[nNum].uId = this->m_nCaptain;
 	pList[nNum].nIndex = 0;
@@ -447,7 +447,7 @@ int		KTeam::GetMemberInfo(KUiPlayerItem *pList, int nCount)
 /*
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅÐ¶Ï¶ÓÃûÊÇ·ñ¿ÉÓÃ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 BOOL	KTeamSet::CheckName(char *lpszName)
 {

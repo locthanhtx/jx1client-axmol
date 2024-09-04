@@ -63,14 +63,14 @@ class KTeamLeadExp
 public:
 	struct LEADLEVEL
 	{
-		uint32_t	m_dwExp;								// ͳ������������
-		uint32_t	m_dwMemNum;								// ͳ�ʵȼ�������ͳ�ʵĶ�Ա����
+		unsigned int	m_dwExp;								// ͳ������������
+		unsigned int	m_dwMemNum;								// ͳ�ʵȼ�������ͳ�ʵĶ�Ա����
 	}m_sPerLevel[MAX_LEAD_LEVEL];
 public:
 	KTeamLeadExp();
 	BOOL		Init();									// ��ʼ��
-	int			GetLevel(uint32_t dwExp, int nCurLeadLevel = 0);// ���뾭���õȼ��� (������뵱ǰ�ȼ������Լӿ������ٶ�)
-	int			GetMemNumFromExp(uint32_t dwExp);			// ���뾭���ÿɴ���Ա��
+	int			GetLevel(unsigned int dwExp, int nCurLeadLevel = 0);// ���뾭���õȼ��� (������뵱ǰ�ȼ������Լӿ������ٶ�)
+	int			GetMemNumFromExp(unsigned int dwExp);			// ���뾭���ÿɴ���Ա��
 	int			GetMemNumFromLevel(int nLevel);			// ����ȼ���ÿɴ���Ա��
 	int			GetLevelExp(int nLevel);				// ����ȼ�����������辭��ֵ
 };
@@ -104,12 +104,12 @@ public:
 public:
 	KPlayerSet();
 	BOOL	Init();
-	int		FindSame(uint32_t dwID);
+	int		FindSame(unsigned int dwID);
 	int     FindNameID(char *szName);  //����������
 	int     FindByTongName(char * szTongName);  //����������
 	int     CheckLiXian(char * szName);
 	int     FindClient(int nClient);   //�������Ӻ� �������Playerid
-	int		FindPlayerID(uint32_t dwID);
+	int		FindPlayerID(unsigned int dwID);
 	int		GetFirstPlayer();				// ����������ҵ�һ��
 	int		GetNextPlayer();				// �������������һ��(��֧������������һ֧����֮����ܵ���)
 	int		GetOnlinePlayerCount() { return m_UseIdxPlayerSet.GetCount(); }

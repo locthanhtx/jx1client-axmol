@@ -127,7 +127,7 @@ void KuiLockscree::addDialogData()
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȷ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -150,7 +150,7 @@ void KuiLockscree::addDialogData()
 	okConfirm->setPosition(ax::Vec2(-28,11));
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����Ի���\\������������ȡ��.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -165,7 +165,7 @@ void KuiLockscree::addDialogData()
 
 	//�й�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\�й�.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\����\\��̯\\�й�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -288,7 +288,7 @@ bool KuiLockscree::ccTouchBegan(Touch *pTouch, Event *pEvent)
 
 void KuiLockscree::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen)
 	{
 	   // m_nMoney = g_pCoreShell->GetGameData(GDI_PLAYER_HOLD_MONEY, 0, 0);

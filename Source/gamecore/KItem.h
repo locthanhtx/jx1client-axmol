@@ -22,30 +22,30 @@ class KIniFile;
 #define		IN
 #define		OUT
 
-#define		MAX_ITEM	1024    //150000    
+#define		MAX_ITEM	1024    //150000
 
 #define		KItemNormalAttrib KMagicAttrib
 
-#define		DESCMAXLEN	516		// µäÐÍµÄ×Ö·û´®»º³åÇø³¤¶È
+#define		DESCMAXLEN	516		// ï¿½ï¿½ï¿½Íµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define	 TABFILE_MAGICATTRIB_PATH	"\\settings\\item\\004\\magicattrib.txt" //À¶×°Ä§·¨ÊôÐÔ
-#define	 TABFILE_MAGICAGOLD_PATH	"\\settings\\item\\004\\GoldMagic.txt"   //»Æ½ðÄ§·¨ÊôÐÔ
+#define	 TABFILE_MAGICATTRIB_PATH	"\\settings\\item\\004\\magicattrib.txt" //ï¿½ï¿½×°Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	 TABFILE_MAGICAGOLD_PATH	"\\settings\\item\\004\\GoldMagic.txt"   //ï¿½Æ½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define	 TABFILE_MAGICALEVEL_PATH	"\\Settings\\item\\004\\magicattriblevel_index.txt"
-#define	 TABFILE_FUSION_PATH	    "\\Settings\\item\\004\\fusion.txt" 
-#define	 TABFILE_BIANSHI_PATH	    "\\Settings\\item\\004\\bianshi.txt" 
-#define	 JIACHENG_VAL	2	    // Ç¿»¯µÄ×îÐ¡Öµ	18
-#define	 MAX_STACKNUM	200		// µäÐÍµÄ×Ö·û´®»º³åÇø³¤¶È  nStackNum
+#define	 TABFILE_FUSION_PATH	    "\\Settings\\item\\004\\fusion.txt"
+#define	 TABFILE_BIANSHI_PATH	    "\\Settings\\item\\004\\bianshi.txt"
+#define	 JIACHENG_VAL	2	    // Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµ	18
+#define	 MAX_STACKNUM	200		// ï¿½ï¿½ï¿½Íµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  nStackNum
 
 enum ITEMGENRE
 {
-	item_equip = 0,			// ×°±¸
+	item_equip = 0,			// ×°ï¿½ï¿½
 	item_medicine,			// Ò©Æ·
-	item_mine,				// ¿óÊ¯
-	item_materials,			// Ò©²Ä
-	item_task,				// ÈÎÎñ
-	item_townportal,		// ´«ËÍÃÅ
-	item_fusion,            // ÎÆ¸Ù
-	item_number,			// ÀàÐÍÊýÄ¿
+	item_mine,				// ï¿½ï¿½Ê¯
+	item_materials,			// Ò©ï¿½ï¿½
+	item_task,				// ï¿½ï¿½ï¿½ï¿½
+	item_townportal,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	item_fusion,            // ï¿½Æ¸ï¿½
+	item_number,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 };
 
 enum EQUIPDETAILTYPE
@@ -70,98 +70,98 @@ enum EQUIPDETAILTYPE
 
 enum MEDICINEDETAILTYPE
 {
-	medicine_blood = 0,   //³ÔÒ©µÄÀàÐÍ  Ñª
-	medicine_mana,        //ÄÚ
-	medicine_both,        //ÑªºÍÄÚ
-	medicine_stamina,     //ÌåÁ¦
+	medicine_blood = 0,   //ï¿½ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Ñª
+	medicine_mana,        //ï¿½ï¿½
+	medicine_both,        //Ñªï¿½ï¿½ï¿½ï¿½
+	medicine_stamina,     //ï¿½ï¿½ï¿½ï¿½
 	medicine_antipoison,  //
 	medicine_allboth=8,
 	medicine_detailnum,
 };
-//×°±¸µÄ¹²Í¬ÊôÐÔ
+//×°ï¿½ï¿½ï¿½Ä¹ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
 typedef struct
 {
-	int		nItemGenre;				// µÀ¾ßÖÖÀà (ÎäÆ÷? Ò©Æ·? ¿óÊ¯?)
-	int		nDetailType;			// ÔÚ¸ÃÖÖÀàÖÐµÄ¾ßÌåÀà±ð
-	int		nParticularType;		// ÏêÏ¸Àà±ð
-	int		nObjIdx;				// µØÍ¼ÉÏ°Ú·ÅÊ±¶ÔÓ¦µÄÎï¼þÊý¾Ý±àºÅ
-	BOOL	bStack;					// ÊÇ·ñ¿Éµþ·Å
-	int		nWidth;					// µÀ¾ßÀ¸ÖÐËùÕ¼¿í¶È
-	int		nHeight;				// µÀ¾ßÀ¸ÖÐËùÕ¼¸ß¶È
-	int		nPrice;					// ÉÌµê¹ºÂò¼Û¸ñ
-	int		nLevel;					// µÈ¼¶
-	int		nSeries;				// ÎåÐÐÊôÐÔ
-	char	szItemName[80];			// Ãû³Æ
+	int		nItemGenre;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½? Ò©Æ·? ï¿½ï¿½Ê¯?)
+	int		nDetailType;			// ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nParticularType;		// ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½
+	int		nObjIdx;				// ï¿½ï¿½Í¼ï¿½Ï°Ú·ï¿½Ê±ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½
+	BOOL	bStack;					// ï¿½Ç·ï¿½Éµï¿½ï¿½ï¿½
+	int		nWidth;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½
+	int		nHeight;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ß¶ï¿½
+	int		nPrice;					// ï¿½Ìµê¹ºï¿½ï¿½Û¸ï¿½
+	int		nLevel;					// ï¿½È¼ï¿½
+	int		nSeries;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	char	szItemName[80];			// ï¿½ï¿½ï¿½ï¿½
 	//LPCSTR	szItemName;
-	char	szWonName[32];			// ËùÓÐÕßÃû³Æ
+	char	szWonName[32];			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//LPCSTR	szWonName;
-	int 	nColor;                 // ÑÕÉ«
-	int     nLianjieFlg;            // Á´½Ó×´Ì¬
-	int     nCanUse;                // ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
-	BYTE    nSellModel;             // °ÚÌ¯½»Ò×µÄÄ£Ê½
-	//¿Í»§¶Ë
-	//char	szImageName[80];		 // ½çÃæÖÐµÄ¶¯»­ÎÄ¼þÃû
+	int 	nColor;                 // ï¿½ï¿½É«
+	int     nLianjieFlg;            // ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	int     nCanUse;                // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	BYTE    nSellModel;             // ï¿½ï¿½Ì¯ï¿½ï¿½ï¿½×µï¿½Ä£Ê½
+	//ï¿½Í»ï¿½ï¿½ï¿½
+	//char	szImageName[80];		 // ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 	LPCSTR  szImageName;
-	char	szIntro[DESCMAXLEN];	 // ËµÃ÷ÎÄ×Ö  ÎïÆ·µÄËµÃ÷ÎÄ×Ö
+	char	szIntro[DESCMAXLEN];	 // Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½Æ·ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//LPCSTR 	szIntro;
-	int		uPrice;                  // °ÚÌ¯¹ºÂò¼Û¸ñ
-	BYTE    uLianjieFlg;             // ÊÇ·ñÕýÔÚÁ¬½Ó
-//	int     uCanUse;                 // ÊÇ·ñ¿ÉÒÔÊ¹ÓÃ
-    BYTE    ncSellModel;             // °ÚÌ¯½»Ò×µÄÄ£Ê½
+	int		uPrice;                  // ï¿½ï¿½Ì¯ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
+	BYTE    uLianjieFlg;             // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	int     uCanUse;                 // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+    BYTE    ncSellModel;             // ï¿½ï¿½Ì¯ï¿½ï¿½ï¿½×µï¿½Ä£Ê½
 
-	//char    ItmeInfo[DESCMAXLEN];    // ËµÃ÷ÎÄ×Ö
+	//char    ItmeInfo[DESCMAXLEN];    // Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	LPCSTR  ItmeInfo;
-	//char	szScript[256];			 // Ö´ÐÐ½Å±¾
+	//char	szScript[256];			 // Ö´ï¿½Ð½Å±ï¿½
 	LPCSTR  szScript;
-	int		nSet;					 // Ì××°
-	int		nSetId;					 // µ±Ç° ´©´÷Ì××°µÄId
-	int		nSetNum;				 // Ì××°ÊýÁ¿
-	int		nBigSet;				 // Ì××°À©Õ¹
- 	int		nGoldId;				 // »Æ½ðId
-	int		nIsPlatina;				 // ÊÇ·ñ°×½ð×°
-	int		nStackNum;               //µþ·ÅÊýÁ¿
-	int		nEnChance;               //Ç¿»¯
-	int		nPoint;					 //×Ï×°ÓÃ
-	KTime	LimitTime;               //ÏÞÊ±
-	int		nIsSell;                 //ÊÇ·ñ¿ÉÒÔÂòÂô
-	int		nPriceXu;                //½ð±Ò
-	int     nJiFen;                  //»ý·Ö
-	int		nIsTrade;                //ÊÇ·ñ¿ÉÒÔ½»Ò×
-	int		nIsDrop;                 //ÊÇ·ñ¿ÉÒÔ¶ªÆú
-//    int	    nYingNuma;                //Òþ²ØÊôÐÔ1
-//    int	    nYingNumb;                //Òþ²ØÊôÐÔ2
-	int     nRongNum;                 //¿ÉÈÜÊôÐÔÊýÁ¿
-    int     nWengangPin;              //¿ÉÈÜÎÆ¸ÖÆ·ÖÊ
-	int     nBinfujiazhi;             //±ø¸»¼×Öµ
-    int	    nRongpiont;               //ÈÛÁ¶ÓÃ
-	int     nIsBang;                  //ÊÇ·ñ°ó¶¨
-	int     nIsKuaiJie;               //ÊÇ·ñ¿ì½ÝÀ¸
-	int     nSkillType;               //¼¼ÄÜÀàÐÍ
-	int     nISMagic;                 //ÊÇ·ñ´øÊôÐÔ
-	int     nMagicID;                 //ÎÆ¸ÖµÄ¼¼ÄÜID
-	int     nIsUse;                   //ÊÇ·ñ¼ñµ½Á¢¼´Ê¹ÓÃ
-	int     nIsWhere;                 //ÊÇµÚ¼¸ÐÐ
-	int     nChiBangRes;              //³á°òµÄÍâ¹ÛÐòºÅ
-	int     nParticularTypea;         //ÀàÐÍ2
+	int		nSet;					 // ï¿½ï¿½×°
+	int		nSetId;					 // ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Id
+	int		nSetNum;				 // ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
+	int		nBigSet;				 // ï¿½ï¿½×°ï¿½ï¿½Õ¹
+ 	int		nGoldId;				 // ï¿½Æ½ï¿½Id
+	int		nIsPlatina;				 // ï¿½Ç·ï¿½×½ï¿½×°
+	int		nStackNum;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nEnChance;               //Ç¿ï¿½ï¿½
+	int		nPoint;					 //ï¿½ï¿½×°ï¿½ï¿½
+	KTime	LimitTime;               //ï¿½ï¿½Ê±
+	int		nIsSell;                 //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nPriceXu;                //ï¿½ï¿½ï¿½
+	int     nJiFen;                  //ï¿½ï¿½ï¿½ï¿½
+	int		nIsTrade;                //ï¿½Ç·ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½
+	int		nIsDrop;                 //ï¿½Ç·ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½
+//    int	    nYingNuma;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//    int	    nYingNumb;                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	int     nRongNum;                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int     nWengangPin;              //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½Æ·ï¿½ï¿½
+	int     nBinfujiazhi;             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    int	    nRongpiont;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     nIsBang;                  //ï¿½Ç·ï¿½ï¿½
+	int     nIsKuaiJie;               //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     nSkillType;               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     nISMagic;                 //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     nMagicID;                 //ï¿½Æ¸ÖµÄ¼ï¿½ï¿½ï¿½ID
+	int     nIsUse;                   //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	int     nIsWhere;                 //ï¿½ÇµÚ¼ï¿½ï¿½ï¿½
+	int     nChiBangRes;              //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int     nParticularTypea;         //ï¿½ï¿½ï¿½ï¿½2
 	int     nUseMap;
 	int     nSixSkill;
 	int     nTenSkill;
-	int     nRes;                     //¸Ä±äµÄ×°±¸µÄÍâ¹Û
-	int		nUseKind;				  //Ê¹ÓÃµÄÀàÐÍ
+	int     nRes;                     //ï¿½Ä±ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nUseKind;				  //Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
 
 } KItemCommonAttrib;
-//×°±¸Ä§·¨ÊôÐÔÉú³ÉµÄºËÐÄ²ÎÊý
+//×°ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉµÄºï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 typedef struct
 {
-	UINT	uRandomSeed;         // Ëæ»úÖÖ×Ó
-	int		nGeneratorLevel[6];  // Ä§·¨
-	int		nRGeneratorLevel[6]; // ÈÛÁ¶
-	//int	nBGeneratorLevel[6]; // ±¦Ê¯
-	int		nJGeneratorLevel[7]; // »ù´¡ÊôÐÔ
-	int		nVersion;            // °æ±¾
-	int		nLuck;               // ÐÒÔËÖµ
+	UINT	uRandomSeed;         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nGeneratorLevel[6];  // Ä§ï¿½ï¿½
+	int		nRGeneratorLevel[6]; // ï¿½ï¿½ï¿½ï¿½
+	//int	nBGeneratorLevel[6]; // ï¿½ï¿½Ê¯
+	int		nJGeneratorLevel[7]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		nVersion;            // ï¿½æ±¾
+	int		nLuck;               // ï¿½ï¿½ï¿½ï¿½Öµ
 
-//	UINT   uItemRandomSeed[12];  //´¢´æÃ¿¸öÊôÐÔµÄ Ëæ»úÖÖ×Ó 0-5 Îª À¶×°,5-10,ÈÛÁ¶
+//	UINT   uItemRandomSeed[12];  //ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0-5 Îª ï¿½ï¿½×°,5-10,ï¿½ï¿½ï¿½ï¿½
 } KItemGeneratorParam;
 
 class KNpc;
@@ -172,28 +172,28 @@ public:
 	KItem();
 	~KItem();
 
-// ÒÔÏÂÊÇºËÐÄ³ÉÔ±±äÁ¿
+// ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 private:
-	KItemCommonAttrib	m_CommonAttrib;			// ¸÷ÖÖµÀ¾ßµÄ¹²Í¬ÊôÐÔ
-	KItemNormalAttrib	m_aryBaseAttrib[7];		// µÀ¾ßµÄ»ù´¡ÊôÐÔ
-	KItemNormalAttrib	m_aryRequireAttrib[6];	// µÀ¾ßµÄÐèÇóÊôÐÔ
-	KItemNormalAttrib	m_aryMagicAttrib[6];	// µÀ¾ßµÄÄ§·¨ÊôÐÔ  //´æ·Å×ÅÊôÐÔµÄ×Ö·û´®
-    KItemNormalAttrib	m_ronMagicAttrib[6];	// µÀ¾ßµÄÈÛÁ¶ÊôÐÔ
-//	KItemNormalAttrib	m_BaoShiMagicAttrib[6];	// µÀ¾ßµÄ±¦Ê¯ÊôÐÔ
-	KItemNormalAttrib	m_yinMagicAttrib[2];	// µÀ¾ßµÄÒþ²ØÊôÐÔ
-	KItemNormalAttrib	m_TempPlatinaAttrib[6];	// ÁÙÊ±µÄ°×½ðÄ§·¨ÊôÐÔÖµ£¨ÓÃÓÚ¸Ä±äÊôÐÔ£©
-	KItemNormalAttrib	m_TempMagicAttrib[6];	// ÁÙÊ±µÄÄ§·¨ÊôÐÔÖµ£¨ÓÃÓÚÇ¿»¯£©
-	KItemNormalAttrib	m_TempRMagicAttrib[6];  // ÁÙÊ±µÄ±æÊ¶ÎÆ¸ÖÊôÐÔÖµ£¨ÓÃÓÚÇ¿»¯£©
-//	KItemNormalAttrib	m_TempBMagicAttrib[6];  // ÁÙÊ±µÄ±¦Ê¯ÊôÐÔÖµ£¨ÓÃÓÚÇ¿»¯£©
-// ÒÔÏÂÊÇ¸¨ÖúÐÔµÄ³ÉÔ±±äÁ¿
+	KItemCommonAttrib	m_CommonAttrib;			// ï¿½ï¿½ï¿½Öµï¿½ï¿½ßµÄ¹ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_aryBaseAttrib[7];		// ï¿½ï¿½ï¿½ßµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_aryRequireAttrib[6];	// ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_aryMagicAttrib[6];	// ï¿½ï¿½ï¿½ßµï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+    KItemNormalAttrib	m_ronMagicAttrib[6];	// ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	KItemNormalAttrib	m_BaoShiMagicAttrib[6];	// ï¿½ï¿½ï¿½ßµÄ±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_yinMagicAttrib[2];	// ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_TempPlatinaAttrib[6];	// ï¿½ï¿½Ê±ï¿½Ä°×½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Ä±ï¿½ï¿½ï¿½ï¿½Ô£ï¿½
+	KItemNormalAttrib	m_TempMagicAttrib[6];	// ï¿½ï¿½Ê±ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½
+	KItemNormalAttrib	m_TempRMagicAttrib[6];  // ï¿½ï¿½Ê±ï¿½Ä±ï¿½Ê¶ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½
+//	KItemNormalAttrib	m_TempBMagicAttrib[6];  // ï¿½ï¿½Ê±ï¿½Ä±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ÔµÄ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 public:
-	KItemGeneratorParam	m_GeneratorParam;		// µÀ¾ßµÄÉú³É²ÎÊý
+	KItemGeneratorParam	m_GeneratorParam;		// ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½É²ï¿½ï¿½ï¿½
 private:
-	int		m_nIndex;							// ×ÔÉíÔÚµÀ¾ßÊý×éÖÐµÄË÷Òý
-	DWORD	m_dwID;								// ¶ÀÁ¢µÄID£¬ÓÃÓÚ¿Í»§¶ËÓë·þÎñÆ÷¶ËµÄ½»Á÷
-	int		m_nCurrentDur;						// µ±Ç°ÄÍ¾Ã¶È
+	int		m_nIndex;							// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+	DWORD	m_dwID;								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½Ú¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ½ï¿½ï¿½ï¿½
+	int		m_nCurrentDur;						// ï¿½ï¿½Ç°ï¿½Í¾Ã¶ï¿½
 	KRUImage	m_Image;
-// ÒÔÏÂÊÇ¶ÔÍâ½Ó¿Ú
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½Ó¿ï¿½
 public:
 	void	ApplyMagicAttribToNPC(IN KNpc*, IN int = 0 ,IN int *nType=NULL) const;
 	void	RemoveMagicAttribFromNPC(IN KNpc*, IN int = 0,IN int *nType=NULL) const;
@@ -202,8 +202,8 @@ public:
 	KItemGeneratorParam * GetItemParam(){return &m_GeneratorParam;};
 	void	SetID(DWORD dwID) { m_dwID = dwID; };
 	DWORD 	GetID() const { return m_dwID; };// DWORD CHECK O DAY
-	int     GetLianjieFlg() const {return m_CommonAttrib.nLianjieFlg;};  //Á´½Ó±êÊ¾
-	int     GetIsCanUse()const {return m_CommonAttrib.nCanUse;};         //»ñÈ¡ÊÇ·ñÄÜÊ¹ÓÃ
+	int     GetLianjieFlg() const {return m_CommonAttrib.nLianjieFlg;};  //ï¿½ï¿½ï¿½Ó±ï¿½Ê¾
+	int     GetIsCanUse()const {return m_CommonAttrib.nCanUse;};         //ï¿½ï¿½È¡ï¿½Ç·ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 	void	SetIsCanUse(int uCanUse) {m_CommonAttrib.nCanUse = uCanUse;};
 	int     ExtractChars(const char *inStr,int scrLen,char *outStr);
 	int		GetDetailType() const { return m_CommonAttrib.nDetailType;};
@@ -239,95 +239,95 @@ public:
 	char*	GetName() const { return (char *)m_CommonAttrib.szItemName; };
 	char*	GetImagePath() const { return (char *)m_CommonAttrib.szImageName; };
 	char*	GetWonName() const { return (char *)m_CommonAttrib.szWonName; };
-	void    SetWonName(char *strWonName){t_sprintf(m_CommonAttrib.szWonName,strWonName);};  //ÉèÉèÖÃ¹éÊô
+	void    SetWonName(char *strWonName){sprintf(m_CommonAttrib.szWonName, "%s", strWonName);};  //ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
 	int		GetObjIdx() { return m_CommonAttrib.nObjIdx;};
 	void*	GetRequirement(IN int);
 	BOOL    CheckRequirement(IN int nReq);
 	int		GetMaxDurability();
 	int		GetTotalMagicLevel();
-	int		GetRepairPrice();                                           //»ñÈ¡ÐÞÀíµÄ×Ü¼Û¸ñ
+	int		GetRepairPrice();                                           //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼Û¸ï¿½
 	void	Remove();
 	void    SetIndex(int i);
 	int     GetIndex(){ return m_nIndex;};
 	BOOL	SetBaseAttrib(IN const KItemNormalAttrib*);
 	BOOL	SetRequireAttrib(IN const KItemNormalAttrib*);
 	BOOL	SetMagicAttrib(IN const KItemNormalAttrib*);
-	void	SetDurability(IN const int nDur) {m_nCurrentDur = nDur;};   //ÉèÖÃ³Ö¾Ã¶È
-	int		GetDurability() { return m_nCurrentDur;};                   //·µ»Øµ±Ç°³Ö¾Ã¶È
+	void	SetDurability(IN const int nDur) {m_nCurrentDur = nDur;};   //ï¿½ï¿½ï¿½Ã³Ö¾Ã¶ï¿½
+	int		GetDurability() { return m_nCurrentDur;};                   //ï¿½ï¿½ï¿½Øµï¿½Ç°ï¿½Ö¾Ã¶ï¿½
 	//KItemGeneratorParam*	GetGeneratorParam() { return &m_GeneratorParam; }
 	int		Abrade(IN const int nRange);
-	BOOL	CanBeRepaired();                                             //¼ì²éÊÇ·ñÄÜÐÞ¸´³Ö¾Ã¶È
-    int     GetIsBang() const { return m_CommonAttrib.nIsBang; };        //ÊÇ·ñ°ó¶¨
-	void    SetBang(int nVal=0)  { m_CommonAttrib.nIsBang = nVal; };     //ÉèÖÃ°ó¶¨
-	int     GetIsKuaiJie() const { return m_CommonAttrib.nIsKuaiJie;};   //ÊÇ·ñ¿ì½ÝÀ¸
-	void    SetKuaiJie(int nVal=0) { m_CommonAttrib.nIsKuaiJie=nVal;};   //ÉèÖÃ¿ì½ÝÀ¸
-	int     GetIsMagic() const { return m_CommonAttrib.nISMagic; };      //ÊÇ·ñÄ§·¨ÊôÐÔ	
-	void    SetMagic(int nVal=0) { m_CommonAttrib.nISMagic=nVal;};       //() const { return m_CommonAttrib.nISMagic; };      //ÊÇ·ñÄ§·¨ÊôÐÔ	
-	
-	int     GetSkillType() const { return m_CommonAttrib.nSkillType; };  //ÎÆ¸ÖÔÚ¿ÉÎÆ¸ÖÊôÐÔÁÐ±íµÄÐÐºÅm_SkillType
+	BOOL	CanBeRepaired();                                             //ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Ö¾Ã¶ï¿½
+    int     GetIsBang() const { return m_CommonAttrib.nIsBang; };        //ï¿½Ç·ï¿½ï¿½
+	void    SetBang(int nVal=0)  { m_CommonAttrib.nIsBang = nVal; };     //ï¿½ï¿½ï¿½Ã°ï¿½
+	int     GetIsKuaiJie() const { return m_CommonAttrib.nIsKuaiJie;};   //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	void    SetKuaiJie(int nVal=0) { m_CommonAttrib.nIsKuaiJie=nVal;};   //ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½
+	int     GetIsMagic() const { return m_CommonAttrib.nISMagic; };      //ï¿½Ç·ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void    SetMagic(int nVal=0) { m_CommonAttrib.nISMagic=nVal;};       //() const { return m_CommonAttrib.nISMagic; };      //ï¿½Ç·ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	int     GetSkillType() const { return m_CommonAttrib.nSkillType; };  //ï¿½Æ¸ï¿½ï¿½Ú¿ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Ðºï¿½m_SkillType
 	void    SetSkillType(int nVal=0) {m_CommonAttrib.nSkillType=nVal;};
 
-	int     GetMagicID() const { return m_CommonAttrib.nMagicID; };  	 //ÎïÆ·Ëù´øµÄ¼¼ÄÜid
+	int     GetMagicID() const { return m_CommonAttrib.nMagicID; };  	 //ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½id
 	void    SetMagicID(int nVal=0) {m_CommonAttrib.nMagicID=nVal;};
 
-	int		GetSet() const { return m_CommonAttrib.nSet; };              //ÊÇ·ñÌ××°×°±¸
-	int		GetSetId() const { return m_CommonAttrib.nSetId; };          //Ì××°ID
-	int		GetSetNum() const { return m_CommonAttrib.nSetNum; };        //Ì××°ÊýÁ¿
+	int		GetSet() const { return m_CommonAttrib.nSet; };              //ï¿½Ç·ï¿½ï¿½ï¿½×°×°ï¿½ï¿½
+	int		GetSetId() const { return m_CommonAttrib.nSetId; };          //ï¿½ï¿½×°ID
+	int		GetSetNum() const { return m_CommonAttrib.nSetNum; };        //ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
 	int		GetGoldId() const { return m_CommonAttrib.nGoldId; };
 	void	SetGoldId(int nId) {m_CommonAttrib.nGoldId=nId;};
 
 	int		GetIsPlatima() const { return m_CommonAttrib.nIsPlatina; };
 	void	SetPlatima(int nId) {m_CommonAttrib.nIsPlatina=nId; };
 
-	//void    SetSItmeInfo(char *SItemInfo) {ZeroMemory(m_CommonAttrib.ItmeInfo,sizeof(m_CommonAttrib.ItmeInfo));_snprintf(m_CommonAttrib.ItmeInfo,sizeof(m_CommonAttrib.ItmeInfo)-1,"%s",SItemInfo);};  //ÉèÉèÖÃËµÃ÷
+	//void    SetSItmeInfo(char *SItemInfo) {ZeroMemory(m_CommonAttrib.ItmeInfo,sizeof(m_CommonAttrib.ItmeInfo));_snprintf(m_CommonAttrib.ItmeInfo,sizeof(m_CommonAttrib.ItmeInfo)-1,"%s",SItemInfo);};  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 	void    SetSItmeInfo(char *SItemInfo){m_CommonAttrib.ItmeInfo = SItemInfo;};
 	char*	GetSItmeInfo() const {return (char *)m_CommonAttrib.ItmeInfo;};
 	void    SetItemInfo(int nVale);
     int	    GetColor()  const { return m_CommonAttrib.nColor; };
 	int		GetBigSet() const { return m_CommonAttrib.nBigSet; };
-	int		GetRongNum() const { return m_CommonAttrib.nRongNum; };       //¿ÉÈÛÁ¶ÊýÁ¿
-	int		GetWengangPin() const { return m_CommonAttrib.nWengangPin; }; //»ñÈ¡ÎÆ¸ÙµÄÆ·ÖÊ
+	int		GetRongNum() const { return m_CommonAttrib.nRongNum; };       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		GetWengangPin() const { return m_CommonAttrib.nWengangPin; }; //ï¿½ï¿½È¡ï¿½Æ¸Ùµï¿½Æ·ï¿½ï¿½
 	int		GetBinfujiazhi() const { return m_CommonAttrib.nBinfujiazhi;};
 	int     GetUsedRong()
-	{ 
+	{
 		int mRmun=0;
 	    for (int i=0;i<6;i++)
-		{ 
-		    if (m_ronMagicAttrib[i].nAttribType>0) 
-			     mRmun++;  
+		{
+		    if (m_ronMagicAttrib[i].nAttribType>0)
+			     mRmun++;
 		}
 		return mRmun;
 	};
 
 	int     GetMagicCount()
-	{ 
+	{
 		int mRmun=0;
 		for (int i=0;i<sizeof(m_aryMagicAttrib)/sizeof(m_aryMagicAttrib[0]);i++)
-		{ 
-			if (m_aryMagicAttrib[i].nAttribType>0) 
-				mRmun++;  
+		{
+			if (m_aryMagicAttrib[i].nAttribType>0)
+				mRmun++;
 		}
 		return mRmun;
 	};
 
 
 	int     getBaseCount()
-	{ 
+	{
 		int ncount=0;
 		for (int i=0;i<sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]);i++)
-		{ 
-			if (m_aryBaseAttrib[i].nAttribType>0) 
-				ncount++;  
+		{
+			if (m_aryBaseAttrib[i].nAttribType>0)
+				ncount++;
 		}
 		return ncount;
 	};
 	int     getReqCount()
-	{ 
+	{
 		int ncount=0;
 		for (int i=0;i<sizeof(m_aryRequireAttrib)/sizeof(m_aryRequireAttrib[0]);i++)
-		{ 
-			if (m_aryRequireAttrib[i].nAttribType!=0) 
-				ncount++;  
+		{
+			if (m_aryRequireAttrib[i].nAttribType!=0)
+				ncount++;
 		}
 		return ncount;
 	};
@@ -340,36 +340,36 @@ public:
 	int     getItemKind();
 	int     IsGold();
 	int     IsPlatina();
-    int	    IsReceptacle(); // ¼ì²éÊÇ·ñÈÝÆ÷
+    int	    IsReceptacle(); // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
     BOOL    HoldItem(int nIdx, int nWidth, int nHeight);
-    int		Stack( int nIdx);  // µþ¼Ó
+    int		Stack( int nIdx);  // ï¿½ï¿½ï¿½ï¿½
     BOOL    CheckItemInfo(int nGen,int nDetail,int nParticular,char *KeyName);
-	BOOL	CanStack( int nOldIdx); 
-    int     IsStack() const {return m_CommonAttrib.bStack;};//ÊÇ·ñ¿ÉÒÔµþ·Å
+	BOOL	CanStack( int nOldIdx);
+    int     IsStack() const {return m_CommonAttrib.bStack;};//ï¿½Ç·ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½
 	int		GetStackNum() const { return m_CommonAttrib.nStackNum;};
-	void	SetStackNum(int nNum) {m_CommonAttrib.nStackNum = nNum;};  //¿Éµþ¼ÓµÄÊýÁ¿
+	void	SetStackNum(int nNum) {m_CommonAttrib.nStackNum = nNum;};  //ï¿½Éµï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
 	void	SetPerXu(int nPerXu) {m_CommonAttrib.nPriceXu = nPerXu;};
 	void	SetPerPrice(int nmPrice) {m_CommonAttrib.nPrice = nmPrice;};
 
 	int		GetEnChance() const { return m_CommonAttrib.nEnChance;};
 	int		EnChance(int nEnChance = 0);
     int	    EnChanceRong(int nEnChance = 0);
-	int     EnChanceBao(int nEnChance = 0);//±¦Ê¯¼Ó³É
+	int     EnChanceBao(int nEnChance = 0);//ï¿½ï¿½Ê¯ï¿½Ó³ï¿½
 	void    SetBackUpMagicAttrib();
 	void	SetBackUpBmagicAttrib();
 	void    SetBackUpRmagicAttrib();
 	int     CheckEnChance(char *nKey,int nAttribType);
 	KMagicAttrib getaryRequireAttrib(int i){return m_aryRequireAttrib[i];};
-	int		GetItemReqType( int i = 0) const { return m_aryRequireAttrib[i].nAttribType;}; 
-	int		GetItemReqMagic(int i)  const { return m_aryRequireAttrib[i].nValue[0]; }; //»ñÈ¡ÐèÇóÊôÐÔ
+	int		GetItemReqType( int i = 0) const { return m_aryRequireAttrib[i].nAttribType;};
+	int		GetItemReqMagic(int i)  const { return m_aryRequireAttrib[i].nValue[0]; }; //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	KMagicAttrib getaryBaseAttrib(int i){return m_aryBaseAttrib[i];};
-	int		GetItemBaseType( int i = 0) const { return m_aryBaseAttrib[i].nAttribType;}; 
-	int		GetItemBaseMagic(int i)  const { return m_aryBaseAttrib[i].nValue[0]; }; //»ñÈ¡»ù±¾ÊôÐÔ
-	int		GetItemBaseMagicA(int i)  const { return m_aryBaseAttrib[i].nValue[1]; }; //»ñÈ¡»ù±¾ÊôÐÔ
-	int		GetItemBaseMagicB(int i)  const { return m_aryBaseAttrib[i].nValue[2]; }; //»ñÈ¡»ù±¾ÊôÐÔ
-	int		GetBaseMagic()  const { return m_aryBaseAttrib[0].nValue[0]; };  //»ñÈ¡»ù±¾ÊôÐÔ
+	int		GetItemBaseType( int i = 0) const { return m_aryBaseAttrib[i].nAttribType;};
+	int		GetItemBaseMagic(int i)  const { return m_aryBaseAttrib[i].nValue[0]; }; //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		GetItemBaseMagicA(int i)  const { return m_aryBaseAttrib[i].nValue[1]; }; //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		GetItemBaseMagicB(int i)  const { return m_aryBaseAttrib[i].nValue[2]; }; //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		GetBaseMagic()  const { return m_aryBaseAttrib[0].nValue[0]; };  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	char*	GetScript() const { return (char *)m_CommonAttrib.szScript; };  //»ñÈ¡Ö´ÐÐµÄ½Å±¾
+	char*	GetScript() const { return (char *)m_CommonAttrib.szScript; };  //ï¿½ï¿½È¡Ö´ï¿½ÐµÄ½Å±ï¿½
 	void	SetLevel(int i) { m_CommonAttrib.nLevel = i;};
 	KMagicAttrib getaryMagicAttrib(int i){return m_aryMagicAttrib[i];};
 
@@ -377,54 +377,54 @@ public:
 	int     getbaseAttribCount(){return sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]);};
 	int     getrequireAttribCount(){return sizeof(m_aryRequireAttrib)/sizeof(m_aryRequireAttrib[0]);};
 
-	int		GetAttribType( int i = 0) const { return m_aryMagicAttrib[i].nAttribType;};       //»ñÈ¡Ä§·¨ÊôÐÔÖÖÀà
-    int		GetAttribTypeVala( int i = 0) const { return m_aryMagicAttrib[i].nValue[0]; };    //»ñÈ¡Ä§·¨ÊôÐÔÖÖÀà
-    int		GetAttribTypeValb( int i = 0) const { return m_aryMagicAttrib[i].nValue[1]; };    //»ñÈ¡Ä§·¨ÊôÐÔÖÖÀà
-    int	    GetAttribTypeValc( int i = 0) const { return m_aryMagicAttrib[i].nValue[2]; };    //»ñÈ¡Ä§·¨ÊôÐÔÖÖÀà
+	int		GetAttribType( int i = 0) const { return m_aryMagicAttrib[i].nAttribType;};       //ï¿½ï¿½È¡Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int		GetAttribTypeVala( int i = 0) const { return m_aryMagicAttrib[i].nValue[0]; };    //ï¿½ï¿½È¡Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int		GetAttribTypeValb( int i = 0) const { return m_aryMagicAttrib[i].nValue[1]; };    //ï¿½ï¿½È¡Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int	    GetAttribTypeValc( int i = 0) const { return m_aryMagicAttrib[i].nValue[2]; };    //ï¿½ï¿½È¡Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void	SetAttribType( int i ,int nType) { m_aryMagicAttrib[i].nAttribType=nType; };      //»ñÈ¡Ä§·¨ÊôÐÔÖÖÀà
+	void	SetAttribType( int i ,int nType) { m_aryMagicAttrib[i].nAttribType=nType; };      //ï¿½ï¿½È¡Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void	SetAttribTypeAndVal( int i ,int nType,int nVal) { m_aryMagicAttrib[i].nAttribType=nType;m_aryMagicAttrib[i].nValue[0]=nVal;};
-	int		GetRongAttribType( int i = 0) const { return m_ronMagicAttrib[i].nAttribType; };  //ÀàÐÍµÃµ½ÈÛÁ¶ÊôÐÔµÄ
+	int		GetRongAttribType( int i = 0) const { return m_ronMagicAttrib[i].nAttribType; };  //ï¿½ï¿½ï¿½ÍµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½
 	int		GetRongAttribTypeVala( int i = 0) const { return m_ronMagicAttrib[i].nValue[0]; };
 	int		GetRongAttribTypeValb( int i = 0) const { return m_ronMagicAttrib[i].nValue[1]; };
 	int	    GetRongAttribTypeValc( int i = 0) const { return m_ronMagicAttrib[i].nValue[2]; };
 
-	void	SetRongAttribType(int i,int nType){m_ronMagicAttrib[i].nAttribType=nType; };      //ÀàÐÍµÃµ½ÈÛÁ¶ÊôÐÔµÄ
+	void	SetRongAttribType(int i,int nType){m_ronMagicAttrib[i].nAttribType=nType; };      //ï¿½ï¿½ï¿½ÍµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½
 	void	SetRongTypeAndVal(int i,int nType,int nVal){m_ronMagicAttrib[i].nAttribType=nType;m_ronMagicAttrib[i].nValue[0]=nVal;};
-	int		GetRongTypeVal( int i = 0) const { return m_ronMagicAttrib[i].nValue[0]; }; 
-//	int		GetBaoShiAttribType( int i = 0) const { return m_BaoShiMagicAttrib[i].nAttribType; }; //  ÀàÐÍµÃµ½ÈÛÁ¶ÊôÐÔµÄ
+	int		GetRongTypeVal( int i = 0) const { return m_ronMagicAttrib[i].nValue[0]; };
+//	int		GetBaoShiAttribType( int i = 0) const { return m_BaoShiMagicAttrib[i].nAttribType; }; //  ï¿½ï¿½ï¿½ÍµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½
 	void	SetPoint(int i) { m_CommonAttrib.nPoint = i;};
 	void	SetIsWhere(int i) { m_CommonAttrib.nIsWhere = i;};
 	void	SetRPoint(int i) { m_CommonAttrib.nRongpiont = i;};
 	void	SetGoodPrice(int uPrice) {m_CommonAttrib.nPrice = uPrice;};
 	void	SetTime(int bYear=0,int bMonth=0,int bDay=0,int bHour=0,int bMin=0);
-	void    SetItemMagicLevel(int i,int nRow);  //ÉèÖÃµÚÒ»¸öÊôÐÔµÄÖµ Ö÷ÒªÓÃÓÚÁúÂöÈÎÎñ
+	void    SetItemMagicLevel(int i,int nRow);  //ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Öµ ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int     GetItemMagicLevel(int i);
-	KTime*	GetTime() { return & m_CommonAttrib.LimitTime;}; 
+	KTime*	GetTime() { return & m_CommonAttrib.LimitTime;};
 	BOOL	HaveMaigc(int nAttribe,int nValue1Min,int nValue1Max,int nValue2Min,int nValue2Max,int nValue3Min,int nValue3Max);
 	int     CheckWenPin(int pShuXingID=0,int pVal=0);
 	int     CheckBluePin(int pShuXingID=0,int pVal=0);
 	int     GeteventID(int pShuXingID=0);
-	BOOL    SetAttrib_RON(IN const KItemNormalAttrib*);             //ÈÛÁ¶ÊôÐÔ
-	BOOL    SetAttrib_Bao(IN const KItemNormalAttrib*);             //±¦Ê¯ÊôÐÔ
+	BOOL    SetAttrib_RON(IN const KItemNormalAttrib*);             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	BOOL    SetAttrib_Bao(IN const KItemNormalAttrib*);             //ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
 	BOOL    SetAttrib_MA(IN const KItemNormalAttrib*);
 	BOOL    SetAttrib_Yin(IN const KItemNormalAttrib*);
-//¿Í»§¶Ë
-	void	SetPrice(int uPrice) {m_CommonAttrib.uPrice = uPrice;};       //°ÚÌ¯¼Û¸ñ
-	void	SetModel(BYTE uPrice) {m_CommonAttrib.ncSellModel = uPrice;}; //¹ºÂòµÄÀàÐÍ
-	BYTE	GetcModel() {return m_CommonAttrib.ncSellModel;};             //¹ºÂòµÄÀàÐÍ
-    void	SetLianjieFlg(BYTE uLianjieFlg) {m_CommonAttrib.uLianjieFlg = uLianjieFlg;}; //Á´½Ó±êÊ¾
-	//void	SetIsCanUse(int uCanUse) {m_CommonAttrib.nCanUse = uCanUse;};               //ÉèÖÃÏÞÊ±µ½ÊÇ·ñÄÜÊ¹ÓÃ
-	void    SetItmeInfo(char *ItemInfo) {memset(m_CommonAttrib.szIntro,0,sizeof(m_CommonAttrib.szIntro));t_sprintf(m_CommonAttrib.szIntro,"%s",ItemInfo);};  //ÉèÉèÖÃËµÃ÷
+//ï¿½Í»ï¿½ï¿½ï¿½
+	void	SetPrice(int uPrice) {m_CommonAttrib.uPrice = uPrice;};       //ï¿½ï¿½Ì¯ï¿½Û¸ï¿½
+	void	SetModel(BYTE uPrice) {m_CommonAttrib.ncSellModel = uPrice;}; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	BYTE	GetcModel() {return m_CommonAttrib.ncSellModel;};             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void	SetLianjieFlg(BYTE uLianjieFlg) {m_CommonAttrib.uLianjieFlg = uLianjieFlg;}; //ï¿½ï¿½ï¿½Ó±ï¿½Ê¾
+	//void	SetIsCanUse(int uCanUse) {m_CommonAttrib.nCanUse = uCanUse;};               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	void    SetItmeInfo(char *ItemInfo) {memset(m_CommonAttrib.szIntro,0,sizeof(m_CommonAttrib.szIntro));sprintf(m_CommonAttrib.szIntro,"%s",ItemInfo);};  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 //	void    SetItmeInfo(char *ItemInfo) {m_CommonAttrib.szIntro = ItemInfo;};
 	char*	GetItmeInfo() const { return (char *)m_CommonAttrib.szIntro; };
 	int		GetSetPrice() {return m_CommonAttrib.uPrice;};
-	void	Paint(int nX, int nY,BOOL bStack = TRUE,int nzStackNum=0,int nKind=-1);  //Ä¬ÈÏÊÇÃè»æ
-	//»ñÈ¡ÃèÊö
+	void	Paint(int nX, int nY,BOOL bStack = TRUE,int nzStackNum=0,int nKind=-1);  //Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	void	GetDesc(char* pszMsg, bool bShowPrice = false, int nPriceScale = 1, int nActiveAttrib = 0,int nType=0);
 
 
-// ÒÔÏÂÊÇ¸¨Öú½Ó¿Ú
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
 friend class	KItemGenerator;
 friend class	KPlayer;
 friend class	KItemList;
@@ -433,10 +433,10 @@ private:
 	BOOL SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD*);
     BOOL SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD*,BOOL nIsDel=FALSE);
 	BOOL SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA*);
-	
+
 //	BOOL SetAttrib_MA(IN const KItemNormalAttrib*);
-//	BOOL SetAttrib_RON(IN const KItemNormalAttrib*); //ÈÛÁ¶ÊôÐÔ
-//	BOOL SetAttrib_Bao(IN const KItemNormalAttrib*); //±¦Ê¯ÊôÐÔ
+//	BOOL SetAttrib_RON(IN const KItemNormalAttrib*); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	BOOL SetAttrib_Bao(IN const KItemNormalAttrib*); //ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
 	BOOL SetAttrib_MAB(IN const KMACP*);
 	BOOL SetAttrib_MAC(IN const int*);
 	void operator = (const KBASICPROP_EQUIPMENT&); //
@@ -452,7 +452,7 @@ private:
 	void operator = (const KBASICPROP_FUSION&);
 	BOOL Gen_Equipment_Unique(const KBASICPROP_EQUIPMENT*, const KBASICPROP_EQUIPMENT_UNIQUE*);
 
-// ÒÔÏÂÊÇ¸¨Öúº¯Êý
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 private:
 	BOOL SetAttrib_Base(const KEQCP_BASIC*);
 	BOOL SetAttrib_Req(const KEQCP_REQ*,BOOL inDel=FALSE);

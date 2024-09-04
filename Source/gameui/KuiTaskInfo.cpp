@@ -82,7 +82,7 @@ bool KuiTaskInfo::init()
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���Ӱ���2.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���Ӱ���2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -129,7 +129,7 @@ void KuiTaskInfo::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\���\\��ӿ���.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\���\\��ӿ���.spr");
 	g_StrLower(nSprName);
 
 
@@ -210,7 +210,7 @@ void KuiTaskInfo::addDialogData()
 			custom_button->setUserData(SelNode);
 			//pmainListView->insertCustomItem(custom_item,SelNode->nIndex+1);
 			char nTempInfo[128];
-			t_sprintf(nTempInfo,"%s",SelNode->szMsg);
+			sprintf(nTempInfo,"%s",SelNode->szMsg);
 			custom_button->setTitleText(UTEXT(nTempInfo,1));
 			custom_button->setTitleColor(ax::Color3B::YELLOW);
 		}
@@ -233,7 +233,7 @@ void KuiTaskInfo::addmsgInfo(char *nMsgInfo,int nIsBtn,int nMsgIndex)
 {
 	if  (!ptaskMsglistView || !nMsgInfo) return;
 	char nTempInfo[512];
-	t_sprintf(nTempInfo,"%s",nMsgInfo);
+	sprintf(nTempInfo,"%s",nMsgInfo);
 
 
 	/*FontDefinition strokeTextDef;
@@ -331,7 +331,7 @@ void KuiTaskInfo::addmsgBtnInfo(KTaskPathInfo* pMsg)
 		nFindPath[nCurMsgidex].nYpos=pMsg->nMapYpos;
 	}
 	else
-		ccMessageBox("�������������,����ϵGM����!","����");
+		messageBox("�������������,����ϵGM����!","����");
 
 	/*Button* custom_button = Button::create();
 	custom_button->setName("TextButton");
@@ -350,7 +350,7 @@ void KuiTaskInfo::addmsgBtnInfo(KTaskPathInfo* pMsg)
 	//custom_button->setUserData(SelNode);
 	//pmainListView->insertCustomItem(custom_item,SelNode->nIndex+1);
 	char nTempInfo[128];
-	t_sprintf(nTempInfo,"%s",nMsgInfo);
+	sprintf(nTempInfo,"%s",nMsgInfo);
 	custom_button->setTitleText(UTEXT(nTempInfo,1));
 	custom_button->setTitleColor(ax::Color3B::YELLOW);
 	*/
@@ -370,7 +370,7 @@ void KuiTaskInfo::AddTaskIndex()
 	{
 		//memcpy(&Node, pIncome, sizeof(KRankIndex));
 		Node.nIndex=i;
-		t_sprintf(szSec, "%d", i);
+		sprintf(szSec, "%d", i);
 		m_IndexIDIni.GetString(szSec, "Name","", Node.szMsg,MAX_TASK_MESSAGE_LENGTH);
 
 		Node.nMsgLen = strlen(Node.szMsg);
@@ -502,8 +502,8 @@ void KuiTaskInfo::selectedMainListItemEvent(Ref *pSender, ListView::EventType ty
 							if (nCurData->nTaskId==-1)
 							{
 								/*char mTemp[64];
-								t_sprintf(mTemp,"%d",nCurData->nIndex);
-								ccMessageBox(mTemp,"test");*/
+								sprintf(mTemp,"%d",nCurData->nIndex);
+								messageBox(mTemp,"test");*/
 								if (nCurData->nCount>0 && !button->getCustomState())
 								{
 									for (int i=0;i<nCurData->nCount;i++)
@@ -528,7 +528,7 @@ void KuiTaskInfo::selectedMainListItemEvent(Ref *pSender, ListView::EventType ty
 										custom_button->setUserData(SelNode);
 										pmainListView->insertCustomItem(custom_item,__nSelIndex+1+i);
 										char nTempInfo[128];
-										t_sprintf(nTempInfo,"%s",SelNode->szMsg);
+										sprintf(nTempInfo,"%s",SelNode->szMsg);
 										custom_button->setTitleText(UTEXT(nTempInfo,1));
 										custom_button->setTitleColor(ax::Color3B::WHITE);
 									}
@@ -547,8 +547,8 @@ void KuiTaskInfo::selectedMainListItemEvent(Ref *pSender, ListView::EventType ty
 							else
 							{//��������
 								/*char mTemp[64];
-								t_sprintf(mTemp,"%d/%d",nCurData->nIndex,__nSelIndex);
-								ccMessageBox(mTemp,"test");*/
+								sprintf(mTemp,"%d/%d",nCurData->nIndex,__nSelIndex);
+								messageBox(mTemp,"test");*/
 								if (nCurData->nTaskId>0)
 								{
 									KUiScrptinfo nVal;
@@ -562,8 +562,8 @@ void KuiTaskInfo::selectedMainListItemEvent(Ref *pSender, ListView::EventType ty
 						/*if (button->getTag()=="-1")
 						{//������Ǹ���Ŀ
 							char mTemp[64];
-							t_sprintf(mTemp,"%d",button->getTag());
-							ccMessageBox(mTemp,"test");
+							sprintf(mTemp,"%d",button->getTag());
+							messageBox(mTemp,"test");
 						}
 						else
 						{//�����������Ŀ
@@ -584,7 +584,7 @@ void KuiTaskInfo::selectedMainListItemEvent(Ref *pSender, ListView::EventType ty
 				custom_item->addChild(custom_button);
 				pmainListView->insertCustomItem(custom_item,__nSelIndex+1);
 				char nTempInfo[64];
-				t_sprintf(nTempInfo,"���Բ���_%d",__nSelIndex+1);
+				sprintf(nTempInfo,"���Բ���_%d",__nSelIndex+1);
 				custom_button->setTitleText(UTEXT(nTempInfo,1));
 				custom_button->setTitleColor(ax::Color3B::YELLOW);*/
 				//pmainListView->forceDoLayout();
@@ -607,7 +607,7 @@ void KuiTaskInfo::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\������\\����\\����ָ��.spr");
+	sprintf(nSprName,"\\spr\\Ui3\\������\\����\\����ָ��.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -625,7 +625,7 @@ void KuiTaskInfo::setcoloseButton(Ref * callbackListener,const std::function<voi
 
 	//�ر�
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\Spr\\Ui3\\����\\���Ӱ���2-�ر�.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\����\\���Ӱ���2-�ر�.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -794,7 +794,7 @@ bool KuiTaskInfo::ccTouchBegan(Touch *pTouch, Event *pEvent)
 //--------------------------------------------------------------------------
 void KuiTaskInfo::update(float delta)
 {
-	//ccMessageBox("����ѭ��","update");
+	//messageBox("����ѭ��","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}

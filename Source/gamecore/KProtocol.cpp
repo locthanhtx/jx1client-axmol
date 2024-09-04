@@ -11,7 +11,7 @@
 #include "KLadder.h"
 
 //////////////////////
-int	g_nProtocolSize[MAX_PROTOCOL_NUM] = 
+int	g_nProtocolSize[MAX_PROTOCOL_NUM] =
 {
     // 客户端接收到的服务器到客户端的协议长度
 	-1,							// s2c_login,
@@ -138,14 +138,14 @@ int	g_nProtocolSize[MAX_PROTOCOL_NUM] =
 	sizeof(BYTE),							// s2c_openwengang   熔炼纹钢
 	sizeof(BYTE),                           // s2c_openstone     宝石镶嵌
 	sizeof(VIEW_ITEM_SYNC),					// s2c_viewupdateitem
-	sizeof(PLAYER_TONGINFO_CALLBACK),	
+	sizeof(PLAYER_TONGINFO_CALLBACK),
 	sizeof(ITEM_SYNC),	                    //
 	sizeof(PLAYER_GETBACK_TASKVAL),         // s2c_taskcallback
 	sizeof(PLAYER_OPEN_JINDUTIAO),          // s2c_openjindutiao
-	-1,//sizeof(ITEM_SYNC_POSITIONS), 
+	-1,//sizeof(ITEM_SYNC_POSITIONS),
 	sizeof(PLAYER_DUANZHAO),
-	sizeof(BYTE),                           // s2c_syncurupdata 同步当前数据	  
-	sizeof(PLAYER_JINMAI_GETBACK), 
+	sizeof(BYTE),                           // s2c_syncurupdata 同步当前数据
+	sizeof(PLAYER_JINMAI_GETBACK),
 	sizeof(PLAYER_VIPDAZAO),
 	sizeof(NPC_SYN_INFO_GETBACK),
 	sizeof(PLAYER_AUTOCALLBACK_EQUIP),
@@ -175,7 +175,7 @@ void g_InitProtocol()
 void SendClientCmdRun(int nX, int nY,int nMapID)
 {
 	NPC_RUN_COMMAND	NetCommand;
-	
+
 	NetCommand.ProtocolType = (BYTE)c2s_npcrun;
 	NetCommand.nMpsX  = nX;
 	NetCommand.nMpsY  = nY;
@@ -186,9 +186,9 @@ void SendClientCmdRun(int nX, int nY,int nMapID)
 
 void SendClientCmdSunyi(int nMaps,int nX, int nY,int nNpcID,int nModel) //瞬移
 {
-	
+
 	NPC_SUNYI_COMMAND	SunYICommand;
-	
+
 	SunYICommand.ProtocolType = (BYTE)c2s_npcsunyi;
 	SunYICommand.nMapID= nModel;
     SunYICommand.nMap  = nMaps;
@@ -197,13 +197,13 @@ void SendClientCmdSunyi(int nMaps,int nX, int nY,int nNpcID,int nModel) //瞬移
 	SunYICommand.nDwid = nNpcID;
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&SunYICommand, sizeof(SunYICommand));
-		
+
 }
 
 void SendClientCmdWalk(int nX, int nY)
 {
 	NPC_WALK_COMMAND	NetCommand;
-	
+
 	NetCommand.ProtocolType = (BYTE)c2s_npcwalk;
 	NetCommand.nMpsX = nX;
 	NetCommand.nMpsY = nY;
@@ -236,13 +236,13 @@ void SendClientCmdSkill(int nSkillID, int nX, int nY)
 	NetCommand.nMpsX = nX;
 	NetCommand.nMpsY = nY;
 	if (g_pClient)
-		g_pClient->SendPackToServer((BYTE*)&NetCommand, sizeof(NPC_SKILL_COMMAND));	
+		g_pClient->SendPackToServer((BYTE*)&NetCommand, sizeof(NPC_SKILL_COMMAND));
 }
 //客户端要求同步这个NPC的数据
 void SendClientCmdRequestNpc(int nID)
 {
 	NPC_REQUEST_COMMAND NpcRequest;
-	
+
 	NpcRequest.ProtocolType = c2s_requestnpc;
 	NpcRequest.ID = nID;
 	if (g_pClient)
@@ -362,13 +362,13 @@ void SendClientOpenMarket(int nShopid,int iShopType)
 void SendClientCmdJinMai(int nType,int nLevel)
 {
 	CP_JINGMAI JinMaiCmd;
-	
+
 	JinMaiCmd.ProtocolType =(BYTE)c2s_fsjingmai;
 	JinMaiCmd.ntype = nType;
     JinMaiCmd.nlevel =  nLevel;
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&JinMaiCmd, sizeof(CP_JINGMAI));
-		
+
 }
 
 void SendClientAutoPlay(int nstt,int cishu,int nIsOpen) //stringbox
@@ -392,7 +392,7 @@ void SendClientAutoPlay(int nstt,int cishu,int nIsOpen) //stringbox
 
 		if (nstt==1)
 		{//开启挂机
-			
+
 			Player[CLIENT_PLAYER_INDEX].ApplyRoomInfo(0);
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nIsOver=FALSE;
 			Player[CLIENT_PLAYER_INDEX].m_Autoplay.nSkilloop=0;
@@ -425,16 +425,16 @@ void SendClientAutoPlay(int nstt,int cishu,int nIsOpen) //stringbox
 			   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("Cặt đặt nhặt đồ không thành công, vui lòng lưu cấu hình sau khi cài đặt!");
 			   return;
 			}
-			
+
 			char nFiledPath[128]={0};
-			t_sprintf(nFiledPath,"jx50ai/%u_Pos.txt",g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
+			sprintf(nFiledPath,"jx50ai/%u_Pos.txt",g_FileName2Id(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name));
 
 			//KIniFile	m_FileDesc;
 			 if (!Player[CLIENT_PLAYER_INDEX].m_FileDesc.Load("\\settings\\MagicDesc.Ini"))
-			 {  
+			 {
 				 Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("Dữ liệu không chính xác, vui lòng liên hệ GM để xử lý!");
-				 return;												   
-			 } 
+				 return;
+			 }
 
 			 if(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoModel==1 && !Player[CLIENT_PLAYER_INDEX].nPos.Load(nFiledPath))
 			 {
@@ -447,7 +447,7 @@ void SendClientAutoPlay(int nstt,int cishu,int nIsOpen) //stringbox
 			    Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("Cài đặt trang bị không thành công, vui lòng lưu cấu hình sau khi cài đặt!");
 			    return;
 			 }
-				  
+
              if(!nToolItem.Load("jx50ai/itemName.txt"))  //道具
 			 {
 		         Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("Cài đặt vật phẩm đạo cụ không thành công, vui lòng lưu lại cấu hình sau khi cài đặt!");
@@ -470,7 +470,7 @@ void SendClientAutoPlay(int nstt,int cishu,int nIsOpen) //stringbox
 		AutoPlayCmd.ByteVala=ESetByte(AutoPlayCmd.ByteVala,2,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTuPu);//图谱
 		AutoPlayCmd.ByteVala=ESetByte(AutoPlayCmd.ByteVala,3,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTool);//道具
 	}
-	
+
 	AutoPlayCmd.nbutton = nstt;
     AutoPlayCmd.ncishu  = cishu;
 	//AutoPlayCmd.nVal    = nIsOpen;//如果是挂机是否开启了 捡取开关
@@ -482,17 +482,17 @@ void SendClientLianJie(char*nPLname,int nItemDWid) //链接
 {
     VIEW_LIANJIE_COMMAND	sLView;
 	sLView.ProtocolType = c2s_lianjie;
-	t_sprintf(sLView.m_PLname,nPLname);//发送连接的玩家姓名
+	sprintf(sLView.m_PLname, "%s", nPLname);//发送连接的玩家姓名
     sLView.m_ItemDwid=nItemDWid;       //被查看装备的 dwid
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&sLView, sizeof(VIEW_LIANJIE_COMMAND));
-	
+
 }
 
 void SendClientGuZi(int nMapID,int dianshu,int nNetIndexid,int ZuoWeiHao)  //股子
 {
 	CP_GUZI GuZiCmd;
-	
+
 	GuZiCmd.ProtocolType   = c2s_guzi;
 	GuZiCmd.nmapid         = nMapID;
     GuZiCmd.ndianshu       = dianshu;
@@ -505,7 +505,7 @@ void SendClientGuZi(int nMapID,int dianshu,int nNetIndexid,int ZuoWeiHao)  //股
 void SendClientGuZiFarms(int nMapID,int nFarmA,int nFarmB)  //股子
 {
 	CP_GUZI_FARMS GuZiFarmsCmd;
-	
+
 	GuZiFarmsCmd.ProtocolType = c2s_gufarm;
 	GuZiFarmsCmd.nmapid  = nMapID;
     GuZiFarmsCmd.nFarmsA = nFarmA;
@@ -517,7 +517,7 @@ void SendClientGuZiFarms(int nMapID,int nFarmA,int nFarmB)  //股子
 void SendClientAddJinBi(int nJinBi)  //股子
 {
 	CP_ADD_JINBI AddJinBiCmd;
-	
+
 	AddJinBiCmd.ProtocolType = c2s_addjinbi;
 	AddJinBiCmd.nJinBi  = nJinBi;
 //	if (g_pClient)
@@ -549,7 +549,7 @@ void SendClientCmdSit(int nSitFlag)
 void SendClientCmdRide()
 {
 	NPC_RIDE_COMMAND SitCmd;
-	
+
 	SitCmd.ProtocolType = c2s_npcride;
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&SitCmd, sizeof(NPC_RIDE_COMMAND));
@@ -646,7 +646,7 @@ void SendClientCmdMoveItem(void* pDownPos, void* pUpPos,int nIsComp)
 
 	if (g_pClient)
 		g_pClient->SendPackToServer(&sMove, sizeof(PLAYER_MOVE_ITEM_COMMAND));
-	
+
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.LockOperation();
 }
 
@@ -664,7 +664,7 @@ void SendClientCmdQueryLadder(UINT	dwLadderID)
 		if (g_pClient)
 		   g_pClient->SendPackToServer(&LadderQuery, sizeof(LADDER_QUERY));
 	}
-	
+
 }
 
 //获取某类型数据
@@ -673,7 +673,7 @@ void SendClientCmdTpye(int nType)
 	PLAYER_SYN_TYPE mType;
 	mType.ProtocolType = c2s_playerguzgame;
 	mType.nType = nType;
-					
+
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&mType, sizeof(PLAYER_SYN_TYPE));
 }
@@ -708,9 +708,9 @@ void SendClientCmdBreak(UINT dwID, int nNum)
 		g_pClient->SendPackToServer((BYTE*)&ItemBreak, sizeof(ITEM_BREAK));
 }
 // 给予界面回调函数 给予界面回调函数
-void SendClientCmdGive( uint32_t uId, int nItemNum, int nKind, char* sCallback,char* sError,int nPrice)
+void SendClientCmdGive( unsigned int uId, int nItemNum, int nKind, char* sCallback,char* sError,int nPrice)
 {
-	uint32_t* pInfo = (uint32_t*) uId;
+	unsigned int* pInfo = (unsigned int*) uId;
 
 	PLAYER_GIVE_CALLBACK PGC;
 	PGC.ProtocolType = c2s_playergiveback;
@@ -739,8 +739,8 @@ void SendClientCmdGive( uint32_t uId, int nItemNum, int nKind, char* sCallback,c
 	ZeroMemory(PGC.m_Callback,sizeof(PGC.m_Callback));
 	ZeroMemory(PGC.m_Error,sizeof(PGC.m_Error));
 
-    t_sprintf(PGC.m_Callback,"%s",sCallback);
-	t_sprintf(PGC.m_Error,"%s",sError);
+    sprintf(PGC.m_Callback,"%s",sCallback);
+	sprintf(PGC.m_Error,"%s",sError);
 
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&PGC, sizeof(PLAYER_GIVE_CALLBACK));
@@ -749,27 +749,27 @@ void SendClientCmdGive( uint32_t uId, int nItemNum, int nKind, char* sCallback,c
 void SendClientString(char* sSContent,char* sSCallback,char* sSError,int biaozhi)
 {
 	PLAYER_STRING_CALLBACK StringCmd;
-	
+
 	StringCmd.ProtocolType = c2s_string;
 //	StringCmd.nbutton = nstt;
 	ZeroMemory(StringCmd.m_SCallback,sizeof(StringCmd.m_SCallback));
 	ZeroMemory(StringCmd.m_SError,sizeof(StringCmd.m_SError));
     ZeroMemory(StringCmd.m_Content,sizeof(StringCmd.m_Content));
 #ifdef WIN32
-	t_sprintf(StringCmd.m_Content,"%s",U2G(sSContent).c_str());
-	t_sprintf(StringCmd.m_SCallback,"%s",U2G(sSCallback).c_str());
+	sprintf(StringCmd.m_Content,"%s",U2G(sSContent).c_str());
+	sprintf(StringCmd.m_SCallback,"%s",U2G(sSCallback).c_str());
 #else
-	t_sprintf(StringCmd.m_Content,"%s",U2G(sSContent).c_str());
-    t_sprintf(StringCmd.m_SCallback,"%s",U2G(sSCallback).c_str());
+	sprintf(StringCmd.m_Content,"%s",U2G(sSContent).c_str());
+    sprintf(StringCmd.m_SCallback,"%s",U2G(sSCallback).c_str());
 #endif
-	t_sprintf(StringCmd.m_SError,"%s",sSError);
+	sprintf(StringCmd.m_SError,"%s",sSError);
 	StringCmd.m_nNum=biaozhi;
 
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&StringCmd, sizeof(PLAYER_STRING_CALLBACK));
 /*测试
 	KSystemMessage	sMsg;
-	t_sprintf(sMsg.szMessage,"%s*%s*%s*",StringCmd.m_Content,StringCmd.m_SCallback,StringCmd.m_SError);
+	sprintf(sMsg.szMessage,"%s*%s*%s*",StringCmd.m_Content,StringCmd.m_SCallback,StringCmd.m_SError);
 	sMsg.eType = SMT_SYSTEM;
 	sMsg.byConfirmType = SMCT_CLICK;
 	sMsg.byPriority = 1;
@@ -788,9 +788,9 @@ void SendClientPKValue(int nstt) //pkvalue
 		g_pClient->SendPackToServer((BYTE*)&PKValueCmd, sizeof(CP_PKVALUE));
 }
 //熔炼纹钢
-void SendClientCmdRong(uint32_t uId, int nItemNum, int nKind)
+void SendClientCmdRong(unsigned int uId, int nItemNum, int nKind)
 {
-	uint32_t* pInfo = (uint32_t*) uId;
+	unsigned int* pInfo = (unsigned int*) uId;
 	PLAYER_RONGITEM PlayerRong;
 	PlayerRong.ProtocolType = (BYTE)c2s_playerrong;
 	ZeroMemory(PlayerRong.uId,sizeof(PlayerRong.uId));
@@ -802,7 +802,7 @@ void SendClientCmdRong(uint32_t uId, int nItemNum, int nKind)
 	for (int i = 0;i < nItemNum;i++)
 	{
 		int nIdx = *pInfo;
-		
+
 		if (nIdx <= 0 /*&& nIdx >= 512*/)
 		{
 			return;
@@ -813,7 +813,7 @@ void SendClientCmdRong(uint32_t uId, int nItemNum, int nKind)
 	}
 	if(temp[0] == temp[1] || temp[0] == temp[2] || temp[1] == temp[2] )
 		return;
-	PlayerRong.bKind = nKind; 
+	PlayerRong.bKind = nKind;
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&PlayerRong, sizeof(PLAYER_RONGITEM));
 }
@@ -833,7 +833,7 @@ void SendClientAddItem(void* pInfo)
 {
 	if (NULL==pInfo)
 		return;
-	
+
 	ItemXinXi* pos1 = (ItemXinXi *)pInfo;
 
 	PLAYER_ADD_ITEM pItem;
@@ -846,7 +846,7 @@ void SendClientAddItem(void* pInfo)
 		g_pClient->SendPackToServer((BYTE*)&pItem, sizeof(PLAYER_ADD_ITEM));
 /*
 	char nMsg[64]={0};
-	t_sprintf(nMsg,"send suss:(%d,%d) info",pItem.nX,pItem.nY);
+	sprintf(nMsg,"send suss:(%d,%d) info",pItem.nX,pItem.nY);
 	Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMsg);
 
 
@@ -855,7 +855,7 @@ void SendClientAddItem(void* pInfo)
 	sMsg.byConfirmType = SMCT_NONE;
 	sMsg.byPriority = 1;
 	sMsg.byParamSize = 0;
-	t_sprintf(sMsg.szMessage,"警告:数据出错(%d)!",pos1->nIdx);
+	sprintf(sMsg.szMessage,"警告:数据出错(%d)!",pos1->nIdx);
 	sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 	CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);
 */
@@ -895,13 +895,13 @@ void SendClientSetTonggg(KUiTongInfoWithName *nTong)
 	memset(&nTongComp, 0, sizeof(nTongComp));
     nTongComp.ProtocolType = (BYTE)c2s_playertongset;
 	nTongComp.inType=2;
-	t_sprintf(nTongComp.szGongGao,nTong->szGongGao);
+	sprintf(nTongComp.szGongGao, "%s", nTong->szGongGao);
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&nTongComp, sizeof(PLAYER_TONGINFO));
 }
 //通用执行脚本函数
 void SendClientDoScipt(KUiPlyerDoscript *nDoscript)
-{ 
+{
 	PLAYER_DOSCRIPT nScript;
 	memset(&nScript, 0, sizeof(nScript));
     ZeroMemory(&nScript,sizeof(nScript));
@@ -914,7 +914,7 @@ void SendClientDoScipt(KUiPlyerDoscript *nDoscript)
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&nScript, sizeof(PLAYER_DOSCRIPT));
 	//char msg[64];
-	//t_sprintf(msg,"提示:发送%d-%d成功。。。",nDoscript->inKind,nDoscript->inCurTime);
+	//sprintf(msg,"提示:发送%d-%d成功。。。",nDoscript->inKind,nDoscript->inCurTime);
     //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 }
 
@@ -924,7 +924,7 @@ void SendClientSetTaskVal(int nTaskNo)
      PLAYER_GET_TASKVAL_COMMAND GetTaskval;
 	    GetTaskval.ProtocolType = c2s_gettaskval;
         GetTaskval.m_TaskId=nTaskNo;
-        GetTaskval.m_pDwid=Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID;	
+        GetTaskval.m_pDwid=Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID;
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&GetTaskval, sizeof(PLAYER_GET_TASKVAL_COMMAND));
 	      //Player[nPlayerIndex].m_ItemList.LockOperation();
@@ -941,8 +941,8 @@ void SendClientVipDoScipt(KUiPlyerVipDoscript *nVipDoscript)
 	  nVipScript.cnCurExp     = nVipDoscript->inCurExp;
 	  nVipScript.cnCurLucky   = nVipDoscript->inCurLucky;
 	  nVipScript.cnCurWuHang  = nVipDoscript->inCurWuHang;
-	  t_sprintf(nVipScript.snCardAcc,nVipDoscript->snCardAcc);
-	  t_sprintf(nVipScript.snCardPass,nVipDoscript->snCardPass);
+	  sprintf(nVipScript.snCardAcc, "%s", nVipDoscript->snCardAcc);
+	  sprintf(nVipScript.snCardPass, "%s", nVipDoscript->snCardPass);
 
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&nVipScript, sizeof(PLAYER_VIP_DOSCRIPT));
@@ -955,13 +955,13 @@ void SendClientSetTongInfo(KUiTongInfoWithName *nTong)
    PLAYER_TONGINFO nTongComp;
    memset(&nTongComp, 0, sizeof(nTongComp));
    nTongComp.ProtocolType = (BYTE)c2s_playertongset;
-  
-   t_sprintf(nTongComp.szQingXiang,nTong->szQingXiang);
-   t_sprintf(nTongComp.szHuoDong1,nTong->szHuoDong1);
-   t_sprintf(nTongComp.szHuoDong2,nTong->szHuoDong2);
-   t_sprintf(nTongComp.szHuoDong3,nTong->szHuoDong3);
-   t_sprintf(nTongComp.szHuoDong4,nTong->szHuoDong4);
-   t_sprintf(nTongComp.szJiYu,nTong->szJiYu);	
+
+   sprintf(nTongComp.szQingXiang, "%s", nTong->szQingXiang);
+   sprintf(nTongComp.szHuoDong1,"%s", nTong->szHuoDong1);
+   sprintf(nTongComp.szHuoDong2,"%s", nTong->szHuoDong2);
+   sprintf(nTongComp.szHuoDong3,"%s", nTong->szHuoDong3);
+   sprintf(nTongComp.szHuoDong4,"%s", nTong->szHuoDong4);
+   sprintf(nTongComp.szJiYu,"%s", nTong->szJiYu);
    nTongComp.inType=0;
    nTongComp.inAcceptLevel = nTong->inAcceptLevel;
    nTongComp.inRefuseLevel = nTong->inRefuseLevel;
@@ -972,9 +972,9 @@ void SendClientSetTongInfo(KUiTongInfoWithName *nTong)
 ///打造物品
 void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) //命令 Pitem  种类
 {
-//	uint32_t* pInfo = (uint32_t*) uId;
+//	unsigned int* pInfo = (unsigned int*) uId;
  //   ItemCounmd* pInfo = (ItemCounmd*)uId
-	PLAYER_COMPITEM PlayerComp;	
+	PLAYER_COMPITEM PlayerComp;
 
 	PlayerComp.ProtocolType = (BYTE)c2s_playercomp;
 
@@ -988,7 +988,7 @@ void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) 
  int temp[3]={0};
 
  if (nKind <13)
- { 
+ {
 	for (int i = 0;i < nItemNum;i++)
 	{
 	//	int nIdx = *pInfo;  //一个int数组指针:pInfo[i]
@@ -1003,7 +1003,7 @@ void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) 
 			sMsg.byConfirmType = SMCT_NONE;
 			sMsg.byPriority = 1;
 			sMsg.byParamSize = 0;
-			t_sprintf(sMsg.szMessage,"警告:数据出错,请联系GM处理C!");
+			sprintf(sMsg.szMessage,"警告:数据出错,请联系GM处理C!");
 			sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
             CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);*/
 			return;
@@ -1012,7 +1012,7 @@ void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) 
 		{
 		    PlayerComp.uId[i]=0;
 			continue;
-		}		
+		}
       }
 
 		PlayerComp.uId[i] = Item[nIdx].GetID();  //dwid
@@ -1029,12 +1029,12 @@ void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) 
 		sMsg.byConfirmType = SMCT_NONE;
 		sMsg.byPriority = 1;
 		sMsg.byParamSize = 0;
-		t_sprintf(sMsg.szMessage,"警告:数据出错(%d)(%d)(%d)!",temp[0],temp[1],temp[2]);
+		sprintf(sMsg.szMessage,"警告:数据出错(%d)(%d)(%d)!",temp[0],temp[1],temp[2]);
         sMsg.nMsgLen=TEncodeText(sMsg.szMessage, strlen(sMsg.szMessage));
 		CoreDataChanged(GDCNI_SYSTEM_MESSAGE, (uintptr_t)&sMsg, 0);*/
 	    return;
 	}
- } 
+ }
  else if (nKind ==13 || nKind ==15 || nKind ==16)
  {
     int nIdx          = pInfo->Uid[0];
@@ -1042,12 +1042,12 @@ void SendClientCmdComp(ItemCounmd *pInfo, int nItemNum, int nKind,int nFuMoVal) 
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("提示:进阶石发送成功A！！");
  }
  //else if (nKind ==14)
-	PlayerComp.bKind    = nKind; 
+	PlayerComp.bKind    = nKind;
 	PlayerComp.mFuMoVal = nFuMoVal;
- 
+
 	if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&PlayerComp, sizeof(PLAYER_COMPITEM));
-    
+
 }
 
 void SendClientCmdStartTrade(int nStart, char* sName)
@@ -1149,20 +1149,20 @@ void SendClientJdCallBack(nJinDuClient *nJdscript)
        pJd.ProtocolType = c2s_jinducallback;
 	   pJd.nMsgIndex    = nJdscript->nMsgidx;
 #ifdef WIN32
-       t_sprintf(pJd.szCallFuc,nJdscript->szCallFun);
-	   t_sprintf(pJd.szParma,nJdscript->szParma);
-	   t_sprintf(pJd.szParmb,nJdscript->szParmb);
-	   t_sprintf(pJd.szParmc,nJdscript->szParmc);
+       sprintf(pJd.szCallFuc,nJdscript->szCallFun);
+	   sprintf(pJd.szParma,nJdscript->szParma);
+	   sprintf(pJd.szParmb,nJdscript->szParmb);
+	   sprintf(pJd.szParmc,nJdscript->szParmc);
 #else
-	   t_sprintf(pJd.szCallFuc,U2G(nJdscript->szCallFun).c_str());
-	   t_sprintf(pJd.szParma,U2G(nJdscript->szParma).c_str());
-	   t_sprintf(pJd.szParmb,U2G(nJdscript->szParmb).c_str());
-	   t_sprintf(pJd.szParmc,U2G(nJdscript->szParmc).c_str());
+	   sprintf(pJd.szCallFuc,"%s", U2G(nJdscript->szCallFun).c_str());
+	   sprintf(pJd.szParma,"%s", U2G(nJdscript->szParma).c_str());
+	   sprintf(pJd.szParmb,"%s", U2G(nJdscript->szParmb).c_str());
+	   sprintf(pJd.szParmc,"%s", U2G(nJdscript->szParmc).c_str());
 #endif
 
        if (g_pClient)
 		g_pClient->SendPackToServer((BYTE*)&pJd, sizeof(PLAYER_JINDU_CALLBACK));
-		   
+
   //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nJdscript->szCallFun);
 }
 

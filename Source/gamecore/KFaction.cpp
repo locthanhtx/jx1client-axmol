@@ -53,7 +53,7 @@ BOOL	KFaction::Init()
 	// 读入每一个门派数据
 	for (i = 0; i < MAX_FACTION; ++i)
 	{//0-9
-		t_sprintf(szSection, "%d", i);
+		sprintf(szSection, "%d", i);
 		Ini.GetString(szSection, "Series", "Kim", szBuffer, sizeof(szBuffer));
 		// 找到阵营数组中的相应位置
 		for (j = 0; j < series_num; ++j)

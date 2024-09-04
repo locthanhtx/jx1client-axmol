@@ -24,7 +24,7 @@ uint32_t KImageStore2::ImageNameToId(char* pszName)
 			else						//�����ַ��ĺ��ֽ�����ܱ�ת������Ϊ�ؼӴ�������ĸ��ʡ�
 				uId = (uId + i * ((*pszName) + 0x20)) % 0x8000000b * 0xffffffef;
 		}
-        return (uint32_t)(uId^0x12345678);
+        uId ^= 0x12345678;
 
 //        int32_t len = strlen(pszName);
 //        uint32_t dwID = 0;
@@ -55,7 +55,7 @@ uint32_t KImageStore2::CreateImage(const char* pszName, int nWidth, int nHeight,
 			pBitmap = (KSGImageContent *)malloc(KSG_IMAGE_CONTENT_SIZE(nWidth, nHeight));
 		}
 	}
-	
+
 	if (pBitmap)
 	{
 		pBitmap->nWidth = nWidth;
@@ -182,7 +182,7 @@ void* KImageStore2::GetImage(char* pszImage, uint32_t& uImage,
 	}
 
     KAutoCriticalSection AutoLock(m_ImageProcessLock);
-	
+
 	void* pObject = NULL;
 	if ((nImagePosition = FindImage(uImage, nImagePosition)) >= 0)
 	{//�Ƿ���� �������
@@ -217,9 +217,9 @@ void* KImageStore2::GetImage(char* pszImage, uint32_t& uImage,
 		{//������������
 			m_pObjectList[i] = m_pObjectList[i - 1];
 		}
-		
-		_KISImageObj &ImgObj = m_pObjectList[nImagePosition];	
-		
+
+		_KISImageObj &ImgObj = m_pObjectList[nImagePosition];
+
 		ImgObj.bNotCacheable = false;
 		ImgObj.bRef = true;
 		ImgObj.bSingleFrameLoad = false;  //�Ƿ����֡�� ����
@@ -280,7 +280,7 @@ void* KImageStore2::GetSprFrame(char* pszImageFile, _KISImageObj& ImgObject, int
 				{	//ָ����֡���ݻ�������
 					/*char nRoleInfo[128]={0};
 					sprintf(nRoleInfo,"��:%d index:%d",pSprHeader->Frames,nFrame);
-					ccMessageBox(nRoleInfo,"����֡������");*/
+					messageBox(nRoleInfo,"����֡������");*/
 					uint32_t nFrameSize = 0;
 					pFrame->pFrameData = SprGetFrame((SPRHEAD*)ImgObject.pObject,nFrame,nFrameSize);
 					pFrameData         = pFrame->pFrameData;
@@ -296,7 +296,7 @@ void* KImageStore2::GetSprFrame(char* pszImageFile, _KISImageObj& ImgObject, int
 bool KImageStore2::GetImageParam(char* pszImage, int nType, KImageParam* pImageData)
 {
 	uint32_t uImage = ImageNameToId(pszImage);
-	
+
 	if (uImage == 0)
 		return false;
     //KAutoCriticalSection AutoLock(m_ImageProcessLock);
@@ -326,17 +326,17 @@ bool KImageStore2::GetImageParam(char* pszImage, int nType, KImageParam* pImageD
 					pImageData->nNumFrames      = pSprHeader->Frames;
 					pImageData->nNumFramesGroup = pSprHeader->Directions;
 					pImageData->nReferenceSpotX = pSprHeader->CenterX;
-					pImageData->nReferenceSpotY = pSprHeader->CenterY;				
+					pImageData->nReferenceSpotY = pSprHeader->CenterY;
 			}
 			return true;
 		}
 	}
 	return false;
 }
-//ĳ֡ ������ 
+//ĳ֡ ������
 bool KImageStore2::GetImageFrameParam(char* pszImage, int nType,
 		int nFrame, KRPosition2* pOffset, KRPosition2* pSize)
-{	
+{
 	bool bRet = false;
 	short	nPos = -1;
 	uint32_t uImage = 0;
@@ -391,7 +391,7 @@ int KImageStore2::GetImagePixelAlpha(const char* pszImage, int nType, int nFrame
 				dec_line:
 					dec		nY				//����һ��
 					jz		last_line
-					
+
 					mov		edx, nNumPixels
 				skip_line:
 					movzx	eax, byte ptr[esi]
@@ -654,7 +654,7 @@ void* KImageStore2::LoadImage(char* pszImageFile, _KISImageObj& ImgObj, int nFra
 	{
 		SPROFFS*  pOffsTable = NULL;
 		SPRHEAD*  pSprHeader = SprGetHeader(pszImageFile, pOffsTable);
-		
+
 		if (pSprHeader)
 		{
 			if (pOffsTable)	//һ�μ���������sprͼ
@@ -676,7 +676,7 @@ void* KImageStore2::LoadImage(char* pszImageFile, _KISImageObj& ImgObj, int nFra
 						pFrameData     = ((char*)pOffsTable + pFrameObj->sOffTableSize + pOffsTable[nFrame].Offset);
 						nSingFrameSize = pOffsTable[nFrame].Length;
 						pRet = pSprHeader;
-					}					
+					}
 				}
 			}
 			else	//��֡���ص�ͼ
@@ -703,7 +703,7 @@ void* KImageStore2::LoadImage(char* pszImageFile, _KISImageObj& ImgObj, int nFra
 						    pRet = pSprHeader;
 						}
 					}
-					
+
 				}
 			}
 			if (!ImgObj.pObject)

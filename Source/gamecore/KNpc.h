@@ -13,1067 +13,1106 @@ class KSkill;
 #include "KNpcGold.h"
 
 #include <map>
-//#include <hash_map>
-//#include <algorithm>
-//#include "KSubworld.h"
+// #include <hash_map>
+// #include <algorithm>
+// #include "KSubworld.h"
 #include "KNpcRes.h"
 //---------------------------------------------------------------------------
-#define	MAX_NPC			200        // NPc限制  500
-#define VER_INFO "50JX-专用端"
-#define MAX_NPCSTYLE	3000       // npc模板数量 2000
-//#define VER_INFO "剑侠<color=red>★<color>江湖-专用端"
-#define	defMAX_SHOW_BLOOD_NUM		5    //50
-#define	MAX_AI_PARAM				10   //AI模式 类别
-#define	MAX_NPC_USE_SKILL			4    //NPC怪物最大技能数量
+#define MAX_NPC      200  // NPc脧脼脰脝  500
+#define VER_INFO     "50JX-脳篓脫脙露脣"
+#define MAX_NPCSTYLE 3000  // npc脛拢掳氓脢媒脕驴 2000
+// #define VER_INFO "陆拢脧脌<color=red>隆茂<color>陆颅潞镁-脳篓脫脙露脣"
+#define defMAX_SHOW_BLOOD_NUM 5   // 50
+#define MAX_AI_PARAM          10  // AI脛拢脢陆 脌脿卤冒
+#define MAX_NPC_USE_SKILL     4   // NPC鹿脰脦茂脳卯麓贸录录脛脺脢媒脕驴
 
-#define	MAX_FUMO_COUNT              5    //神将的数量
-#define defLOGIC_CELL_WIDTH         32
+#define MAX_FUMO_COUNT        5  // 脡帽陆芦碌脛脢媒脕驴
+#define defLOGIC_CELL_WIDTH   32
 
+// #define	TABFILE_MAGICALEVEL_PATH	"\\Settings\\item\\004\\magicattriblevel_index.txt"
 
-//#define	TABFILE_MAGICALEVEL_PATH	"\\Settings\\item\\004\\magicattriblevel_index.txt"
+// #define	KItemNormalAttrib KMagicAttrib
+//	脜脺露炉脣脵露脠脫毛脨脨脳脽脣脵露脠碌脛卤露脢媒
+// #define	WALK_RUN_TIMES	3
 
-//#define	KItemNormalAttrib KMagicAttrib
-//	跑动速度与行走速度的倍数
-//#define	WALK_RUN_TIMES	3
+#define STATE_FREEZE  0x01  // 2 碌脛 0 麓脦路陆
+#define STATE_POISON  0x02  // 2 碌脛 1 麓脦路陆
+#define STATE_CONFUSE 0x04  // 4 2碌脛 2麓脦路陆
+#define STATE_STUN    0x08  // 8 2碌脛 3 麓脦路陆
+#define STATE_HIDE    0x10  // 16 2碌脛 4 麓脦路陆
+// #define		STATE_MOVE		0x32   //32 2碌脛 5 麓脦路陆
 
-#define		STATE_FREEZE	0x01   //2 的 0 次方
-#define		STATE_POISON	0x02   //2 的 1 次方
-#define		STATE_CONFUSE	0x04   //4 2的 2次方
-#define		STATE_STUN		0x08   //8 2的 3 次方
-#define		STATE_HIDE		0x10   //16 2的 4 次方
-//#define		STATE_MOVE		0x32   //32 2的 5 次方
-
-//#define		STATE_ZHUA		0x09
+// #define		STATE_ZHUA		0x09
 enum NPCATTRIB
 {
-	attrib_mana,
-	attrib_stamina,
-	attrib_life,
-	attrib_maxmana,
-	attrib_maxstamina,
-	attrib_maxlife,
+    attrib_mana,
+    attrib_stamina,
+    attrib_life,
+    attrib_maxmana,
+    attrib_maxstamina,
+    attrib_maxlife,
 };
 
 enum NPCCMD
 {
-	do_none,		// 什么也不干
-	do_stand,		// 站立
-	do_walk,		// 行走
-	do_run,			// 跑动
-	do_jump,		// 跳跃
-	do_skill,		// 发技能的命令
-	do_magic,		// 施法
-	do_attack,		// 攻击
-	do_sit,			// 打坐
-	do_hurt,		// 受伤
-	do_death,		// 死亡
-	do_defense,		// 格挡
-	do_idle,		// 喘气
-	do_specialskill,// 技能控制动作
-	do_special1,	// 特殊1
-	do_special2,	// 偷窃技能
-	do_special3,	// 特殊3
-	do_special4,	// 移动
-	do_runattack,
-	do_manyattack,
-	do_jumpattack,
-	do_revive,      //重生
-	do_stall,
-	do_movepos,		// 瞬间移动
-	do_knockback,	// 震退
-	do_drag,		// 拉扯过来
-	do_rushattack,	// 冲砍
-	do_runattackmany, //冲刺多人
-	do_num,
-/*	do_sunyi,       //瞬间移动
-	do_yidong,      //跨地图移动
+    do_none,          // 脢虏脙麓脪虏虏禄赂脡
+    do_stand,         // 脮戮脕垄
+    do_walk,          // 脨脨脳脽
+    do_run,           // 脜脺露炉
+    do_jump,          // 脤酶脭戮
+    do_skill,         // 路垄录录脛脺碌脛脙眉脕卯
+    do_magic,         // 脢漏路篓
+    do_attack,        // 鹿楼禄梅
+    do_sit,           // 麓貌脳酶
+    do_hurt,          // 脢脺脡脣
+    do_death,         // 脣脌脥枚
+    do_defense,       // 赂帽碌虏
+    do_idle,          // 麓颅脝酶
+    do_specialskill,  // 录录脛脺驴脴脰脝露炉脳梅
+    do_special1,      // 脤脴脢芒1
+    do_special2,      // 脥碌脟脭录录脛脺
+    do_special3,      // 脤脴脢芒3
+    do_special4,      // 脪脝露炉
+    do_runattack,
+    do_manyattack,
+    do_jumpattack,
+    do_revive,  // 脰脴脡煤
+    do_stall,
+    do_movepos,        // 脣虏录盲脪脝露炉
+    do_knockback,      // 脮冒脥脣
+    do_drag,           // 脌颅鲁露鹿媒脌麓
+    do_rushattack,     // 鲁氓驴鲁
+    do_runattackmany,  // 鲁氓麓脤露脿脠脣
+    do_num,
+    /*	do_sunyi,       //脣虏录盲脪脝露炉
+            do_yidong,      //驴莽碌脴脥录脪脝露炉
 
-	do_movepos,		// 瞬间移动
-	do_knockback,	// 震退
-	do_drag,		// 拉扯过来
-	do_rushattack,	// 冲砍
-	do_runattackmany, //冲刺多人 */
+            do_movepos,		// 脣虏录盲脪脝露炉
+            do_knockback,	// 脮冒脥脣
+            do_drag,		// 脌颅鲁露鹿媒脌麓
+            do_rushattack,	// 鲁氓驴鲁
+            do_runattackmany, //鲁氓麓脤露脿脠脣 */
 };
 
 enum CLIENTACTION
 {
-	cdo_fightstand,
-	cdo_stand,
-	cdo_stand1,
-	cdo_fightwalk,
-	cdo_walk,
-	cdo_fightrun,
-	cdo_run,
-	cdo_hurt,
-	cdo_death,
-	cdo_attack,
-	cdo_attack1,
-	cdo_magic,
-	cdo_sit,
-	cdo_jump,
-	cdo_none,   
-	cdo_count,
+    cdo_fightstand,
+    cdo_stand,
+    cdo_stand1,
+    cdo_fightwalk,
+    cdo_walk,
+    cdo_fightrun,
+    cdo_run,
+    cdo_hurt,
+    cdo_death,
+    cdo_attack,
+    cdo_attack1,
+    cdo_magic,
+    cdo_sit,
+    cdo_jump,
+    cdo_none,
+    cdo_count,
 };
- //伤害类型
+// 脡脣潞娄脌脿脨脥
 enum DAMAGE_TYPE
 {
-	damage_physics = 0,		// 物理伤害
-	damage_fire,			// 火焰伤害
-	damage_cold,			// 冰冻伤害
-	damage_light,			// 闪电伤害
-	damage_poison,			// 毒素伤害
-	damage_magic,			// 无属性伤害
-	damage_num,				// 伤害类型数目
+    damage_physics = 0,  // 脦茂脌铆脡脣潞娄
+    damage_fire,         // 禄冒脩忙脡脣潞娄
+    damage_cold,         // 卤霉露鲁脡脣潞娄
+    damage_light,        // 脡脕碌莽脡脣潞娄
+    damage_poison,       // 露戮脣脴脡脣潞娄
+    damage_magic,        // 脦脼脢么脨脭脡脣潞娄
+    damage_num,          // 脡脣潞娄脌脿脨脥脢媒脛驴
 };
 
-// DoDeath 时的参数，对应不同的死亡惩罚
+// DoDeath 脢卤碌脛虏脦脢媒拢卢露脭脫娄虏禄脥卢碌脛脣脌脥枚鲁脥路拢
 enum DEATH_MODE
 {
-	DEATH_MODE_NPC_KILL = 0,		// 被npc杀死0
-	DEATH_MODE_PLAYER_NO_PUNISH,	// 切磋模式被玩家杀死  1  没有惩罚
-	DEATH_MODE_PLAYER_PUNISH,		// 被玩家PK致死，根据PK值进行惩罚2
-	DEATH_MODE_PKBATTLE_PUNISH,		// 类式于国战时的惩罚处理 3
-	DEATH_MODE_EXP_PUNISH,		    // 经验惩罚
-	DEATH_MODE_MONEY_PUNISH,		// 银两惩罚
-	DEATH_MODE_EQUIP_PUNISH,		// 装备惩罚
-	DEATH_MODE_JINBI_PUNISH,        // 金币惩罚
-	DEATH_MODE_NUM,
+    DEATH_MODE_NPC_KILL = 0,      // 卤禄npc脡卤脣脌0
+    DEATH_MODE_PLAYER_NO_PUNISH,  // 脟脨麓猫脛拢脢陆卤禄脥忙录脪脡卤脣脌  1  脙禄脫脨鲁脥路拢
+    DEATH_MODE_PLAYER_PUNISH,     // 卤禄脥忙录脪PK脰脗脣脌拢卢赂霉戮脻PK脰碌陆酶脨脨鲁脥路拢2
+    DEATH_MODE_PKBATTLE_PUNISH,   // 脌脿脢陆脫脷鹿煤脮陆脢卤碌脛鲁脥路拢麓娄脌铆 3
+    DEATH_MODE_EXP_PUNISH,        // 戮颅脩茅鲁脥路拢
+    DEATH_MODE_MONEY_PUNISH,      // 脪酶脕陆鲁脥路拢
+    DEATH_MODE_EQUIP_PUNISH,      // 脳掳卤赂鲁脥路拢
+    DEATH_MODE_JINBI_PUNISH,      // 陆冒卤脪鲁脥路拢
+    DEATH_MODE_NUM,
 };
 
-typedef struct
+typedef struct NPC_COMMAND
 {
-	NPCCMD		CmdKind;		// 命令C
-	int			Param_X;		// 参数X
-	int			Param_Y;		// 参数Y
-	int			Param_Z;		// 参数Y
-} NPC_COMMAND;
+    NPCCMD CmdKind;  // 脙眉脕卯C
+    int Param_X;     // 虏脦脢媒X
+    int Param_Y;     // 虏脦脢媒Y
+    int Param_Z;     // 虏脦脢媒Y
+};
 
-typedef struct
+typedef struct DOING_FRAME
 {
-	int		nTotalFrame;  //全部帧
-	int		nCurrentFrame;//当前帧
-	void SetFrame(int nTotal)
-	{
-		if (nTotal <= 0)	// 一般不需要时间为0的动作
-			nTotalFrame = 1;
-		else
-			nTotalFrame = nTotal;
+    int nTotalFrame;    // 脠芦虏驴脰隆
+    int nCurrentFrame;  // 碌卤脟掳脰隆
+    void SetFrame(int nTotal)
+    {
+        if (nTotal <= 0)  // 脪禄掳茫虏禄脨猫脪陋脢卤录盲脦陋0碌脛露炉脳梅
+            nTotalFrame = 1;
+        else
+            nTotalFrame = nTotal;
 
-		nCurrentFrame = 0;
-	};
-} DOING_FRAME;
+        nCurrentFrame = 0;
+    };
+};
 
 struct KState
 {
-	int	nMagicAttrib;
-	int	nValue[3];
-	int	nTime;
+    int nMagicAttrib;
+    int nValue[3];
+    int nTime;
 };
-//改变NPC的基本数据结构
+// 赂脛卤盲NPC碌脛禄霉卤戮脢媒戮脻陆谩鹿鹿
 struct KChanelBaseInfo
 {
-	int     PhysicsDamage;             // 基本伤害
-	int		m_PhysicsDamage;		   // Npc的当前伤害
-	int		m_FireDamage;	           // Npc的当前火伤害
-	int		m_ColdDamage;	           // Npc的当前冰伤害
-	int		m_LightDamage;	           // Npc的当前电伤害
-	int		m_PoisonDamage;	           // Npc的当前毒伤害
-	
-	int		m_FireResist;	            // Npc的当前火抗性
-	int		m_ColdResist;	            // Npc的当前冰抗性
-	int		m_PoisonResist;	            // Npc的当前毒抗性
-	int		m_LightResist;	            // Npc的当前电抗性
-	int		m_PhysicsResist;	        // Npc的当前物理抗性
+    int PhysicsDamage;    // 禄霉卤戮脡脣潞娄
+    int m_PhysicsDamage;  // Npc碌脛碌卤脟掳脡脣潞娄
+    int m_FireDamage;     // Npc碌脛碌卤脟掳禄冒脡脣潞娄
+    int m_ColdDamage;     // Npc碌脛碌卤脟掳卤霉脡脣潞娄
+    int m_LightDamage;    // Npc碌脛碌卤脟掳碌莽脡脣潞娄
+    int m_PoisonDamage;   // Npc碌脛碌卤脟掳露戮脡脣潞娄
+
+    int m_FireResist;     // Npc碌脛碌卤脟掳禄冒驴鹿脨脭
+    int m_ColdResist;     // Npc碌脛碌卤脟掳卤霉驴鹿脨脭
+    int m_PoisonResist;   // Npc碌脛碌卤脟掳露戮驴鹿脨脭
+    int m_LightResist;    // Npc碌脛碌卤脟掳碌莽驴鹿脨脭
+    int m_PhysicsResist;  // Npc碌脛碌卤脟掳脦茂脌铆驴鹿脨脭
 };
 
 struct skillAuraInfo
 {
-	int skillid;
-	int skilllistIndex;
-	int level;
+    int skillid;
+    int skilllistIndex;
+    int level;
 };
 
 struct sNpcShadowInfo
 {
-	bool bInMenu;
-	unsigned int uImage;
-	short nFrame;
-	int nX;
-	int nY;
-	int nZ;
-	char szImage[256];
+    bool bInMenu;
+    unsigned int uImage;
+    short nFrame;
+    int nX;
+    int nY;
+    int nZ;
+    char szImage[256];
 };
 
-//神将类
+// 脡帽陆芦脌脿
 struct CFuMoInfo
 {
-	int nNpcIdx;  
-	int nNpcSetings;     //NPC settings	存档
-	int	nNpcSkill;       //同伴的技能id 存档
-	int nSkillLevel;	 //技能等级     存档
-	int nNowLevel;       //同伴现在的等级
-	DWORD nCastTime;     //释放时间间隔
-	DWORD nNextCastTime; //下次释放时间
-	int nNowExp;         //现在的经验
+    int nNpcIdx;
+    int nNpcSetings;      // NPC settings	麓忙碌碌
+    int nNpcSkill;        // 脥卢掳茅碌脛录录脛脺id 麓忙碌碌
+    int nSkillLevel;      // 录录脛脺碌脠录露     麓忙碌碌
+    int nNowLevel;        // 脥卢掳茅脧脰脭脷碌脛碌脠录露
+    unsigned long nCastTime;      // 脢脥路脜脢卤录盲录盲赂么
+    unsigned long nNextCastTime;  // 脧脗麓脦脢脥路脜脢卤录盲
+    int nNowExp;          // 脧脰脭脷碌脛戮颅脩茅
 };
 
-//技能加成
+// 录录脛脺录脫鲁脡
 struct CEnhanceInfo
 {
-	int	nSkillIdx;   
-	int nEnhance;
+    int nSkillIdx;
+    int nEnhance;
 };
 /*
 struct CTongBanInfo
 {
-	int nNum1;
-	int nNum2;
-	int nNum3;
-	int nNum4;
-	int nNum5;
+        int nNum1;
+        int nNum2;
+        int nNum3;
+        int nNum4;
+        int nNum5;
 };
 */
-struct	KSyncPos
+struct KSyncPos
 {
-	DWORD	m_dwRegionID;
-	int		m_nMapX;
-	int		m_nMapY;
-	int		m_nOffX;
-	int		m_nOffY;
-	int		m_nDoing;
+    unsigned long m_dwRegionID;
+    int m_nMapX;
+    int m_nMapY;
+    int m_nOffX;
+    int m_nOffY;
+    int m_nDoing;
 };
 
-struct	KNpcAutoChat
+struct KNpcAutoChat
 {
-	int                 m_Model;      //
-	//char                m_NpcTalkMsg[250];
-	int                 m_NpcTalkTime;
-	//char                m_NpcTalkName[64];
+    int m_Model;  //
+    // char                m_NpcTalkMsg[250];
+    int m_NpcTalkTime;
+    // char                m_NpcTalkName[64];
 };
 
 class KStateNode : public KNode
 {
 public:
-
-	int				m_SkillID;					// 技能ID
-	int				m_Level;					// 技能等级
-	int				m_LeftTime;					// 剩余时间
-	KMagicAttrib	m_State[MAX_SKILL_STATE];	// 属性数量状态列表
-	//KMagicAttrib	m_JinMaiState;	            // 经脉状态列表
-	int				m_StateGraphics;			// 状态动画索引
-	int             m_IsClientState;            // 是否对方看本人的状态
+    int m_SkillID;                          // 录录脛脺ID
+    int m_Level;                            // 录录脛脺碌脠录露
+    int m_LeftTime;                         // 脢拢脫脿脢卤录盲
+    KMagicAttrib m_State[MAX_SKILL_STATE];  // 脢么脨脭脢媒脕驴脳麓脤卢脕脨卤铆
+    // KMagicAttrib	m_JinMaiState;	            // 戮颅脗枚脳麓脤卢脕脨卤铆
+    int m_StateGraphics;  // 脳麓脤卢露炉禄颅脣梅脪媒
+    int m_IsClientState;  // 脢脟路帽露脭路陆驴麓卤戮脠脣碌脛脳麓脤卢
 };
 
 class KNpc
 {
-	friend class KNpcSet;
+    friend class KNpcSet;
+
 public:
-	sNpcShadowInfo      _NpcShadow;
-	DWORD				m_dwID;					// Npc的ID  第个NPC 编号 无限增大
-	//BOOL              m_IsSyn;
-	DWORD               m_bLockNpcDwID;			// 锁定NPC的	DWid
-    BYTE                m_IsHaveAttack;         //是否设置为攻击无效了
-	DWORD               m_AttackerDwid;         //上次攻击着的DWID
-	DWORD               m_IsRevive;             //是否重生
-	BYTE                m_IsRe;                 //同步重生帧数
-	//bool                m_isClearSpr;           //是否同步到客户端删除精灵
-	int					m_Index;				// Npc的索引
-	KIndexNode			m_Node;					// Npc's Node
-	int					m_Level;				// Npc的等级
-	BYTE				m_Kind;					// Npc的类型
-	BYTE				m_Series;				// Npc的系
-	int					m_Height;				// Npc的高度(跳跃的时候非零)
-	int 				m_btRankId;             // 称号的id
-	int 				m_NpcTitle;             // NPC新称号（存档）
-	int                 m_CurNpcTitle;          // 当前称号	 （不存档临时称号）
-	BYTE				m_btRankFFId;           //SPR称号的
-	BYTE                m_AutoplayId;           //挂机SPR称号的
-	int 				nRankInWorld;           //世界排名
-	int                 nLevelInWorld;          //世界等级排行
-	int 				nRepute;                //声望
-	int 				nPKValue;
-	int 				nReBorn;                //转生次数
-	int					m_nStature;				//Tall
-	int                 m_CJtaskID;             //172抽奖专用
-	int                 m_KillNumber;           //杀人数量 排名调用
-//	CJinMaiInfo         m_JinMai[10];           //0 0 为筋脉大类
-	//CFuMoInfo         m_nFuMoNum[MAX_FUMO_COUNT];          //附魔列表
-	int                 m_nCurJiHuo;            //当前激活的附魔的NPC
-	int                 m_ZhenYuan;             //真元值
-	int                 m_JinMaiBingJia;        //经脉兵甲值
-	int                 m_GameliveTime;         //NPC 存活时间
-	int                 m_TempliveTime;         //临时保存存活时间
-	int                 m_liveType;             //时间设定的类型
-	//BYTE                m_WhereSer;		        //那个服务器的
+    sNpcShadowInfo _NpcShadow;
+    unsigned long m_dwID;  // Npc碌脛ID  碌脷赂枚NPC 卤脿潞脜 脦脼脧脼脭枚麓贸
+    // BOOL              m_IsSyn;
+    unsigned long m_bLockNpcDwID;  // 脣酶露篓NPC碌脛	DWid
+    BYTE m_IsHaveAttack;   // 脢脟路帽脡猫脰脙脦陋鹿楼禄梅脦脼脨搂脕脣
+    unsigned long m_AttackerDwid;  // 脡脧麓脦鹿楼禄梅脳脜碌脛DWID
+    unsigned long m_IsRevive;      // 脢脟路帽脰脴脡煤
+    BYTE m_IsRe;           // 脥卢虏陆脰脴脡煤脰隆脢媒
+    // bool                m_isClearSpr;           //脢脟路帽脥卢虏陆碌陆驴脥禄搂露脣脡戮鲁媒戮芦脕茅
+    int m_Index;        // Npc碌脛脣梅脪媒
+    KIndexNode m_Node;  // Npc's Node
+    int m_Level;        // Npc碌脛碌脠录露
+    BYTE m_Kind;        // Npc碌脛脌脿脨脥
+    BYTE m_Series;      // Npc碌脛脧碌
+    int m_Height;       // Npc碌脛赂脽露脠(脤酶脭戮碌脛脢卤潞貌路脟脕茫)
+    int m_btRankId;     // 鲁脝潞脜碌脛id
+    int m_NpcTitle;     // NPC脨脗鲁脝潞脜拢篓麓忙碌碌拢漏
+    int m_CurNpcTitle;  // 碌卤脟掳鲁脝潞脜	 拢篓虏禄麓忙碌碌脕脵脢卤鲁脝潞脜拢漏
+    BYTE m_btRankFFId;  // SPR鲁脝潞脜碌脛
+    BYTE m_AutoplayId;  // 鹿脪禄煤SPR鲁脝潞脜碌脛
+    int nRankInWorld;   // 脢脌陆莽脜脜脙没
+    int nLevelInWorld;  // 脢脌陆莽碌脠录露脜脜脨脨
+    int nRepute;        // 脡霉脥没
+    int nPKValue;
+    int nReBorn;       // 脳陋脡煤麓脦脢媒
+    int m_nStature;    // Tall
+    int m_CJtaskID;    // 172鲁茅陆卤脳篓脫脙
+    int m_KillNumber;  // 脡卤脠脣脢媒脕驴 脜脜脙没碌梅脫脙
+    //	CJinMaiInfo         m_JinMai[10];           //0 0 脦陋陆卯脗枚麓贸脌脿
+    // CFuMoInfo         m_nFuMoNum[MAX_FUMO_COUNT];          //赂陆脛搂脕脨卤铆
+    int m_nCurJiHuo;      // 碌卤脟掳录陇禄卯碌脛赂陆脛搂碌脛NPC
+    int m_ZhenYuan;       // 脮忙脭陋脰碌
+    int m_JinMaiBingJia;  // 戮颅脗枚卤酶录脳脰碌
+    int m_GameliveTime;   // NPC 麓忙禄卯脢卤录盲
+    int m_TempliveTime;   // 脕脵脢卤卤拢麓忙麓忙禄卯脢卤录盲
+    int m_liveType;       // 脢卤录盲脡猫露篓碌脛脌脿脨脥
+    // BYTE                m_WhereSer;		        //脛脟赂枚路镁脦帽脝梅碌脛
 
-	///临时参数/////不加入数据库
-	int					m_njb;				    //携带的金币
-    int					m_njxb;				    //携带的剑侠B
-	//char				m_WarTongNamea[32];     //占领帮会
-    //char				m_WarMaster[32];        //城主
-//	int				    m_WarShuishou;          //税收
-//	int                 m_Warzhi;               //物价指数
-	int                 m_WarCityGX;            //个人贡献
-	int                 m_IsWarCity;            //哪个城的成员
-	int                 m_IsInCity;             //是否加入城市
-	int					m_nsPlayerIdx;          // 玩家的服务器同步过来的
-	int	                m_nMissionGroup;
-/*	BYTE                 m_WarFucheng;           //副成
-    BYTE                 m_WarZuoHu;             //左护法
-	BYTE                 m_WarYouHu;             //右护法
-	BYTE                 m_WarTaishi;            //太史
-	BYTE                 m_WarZhongShu;          //中书
-	BYTE                 m_WarShangShu;          //尚书
-    BYTE                 m_WarMiShu;             //秘书
-	BYTE                 m_WarTaiLe;             //太乐	
-	*/
-    BYTE                m_IsDoing;              //是否正在执行脚本
-	int                 m_ReviceNum;            //重生次数
-    BYTE                m_IsSynDir;             //是否可以同步方向
-//	int                 m_WarIsGong;            //属于攻方
-//    int               m_WarIsShou;            //属于守方
-	//char                m_GuishuName[32];       //NPC归属谁的同伴
-	DWORD               m_GuiShuDwid;           //主人的Dwid
-	//char              m_BiaoCheName[32];      //NPC归属谁的镖车
-	BYTE                m_RestNameCount;          //改名的次数
-	//char                m_ChenHaoName[32];      //称号的名称
+    /// 脕脵脢卤虏脦脢媒/////虏禄录脫脠毛脢媒戮脻驴芒
+    int m_njb;   // 脨炉麓酶碌脛陆冒卤脪
+    int m_njxb;  // 脨炉麓酶碌脛陆拢脧脌B
+    // char				m_WarTongNamea[32];     //脮录脕矛掳茂禄谩
+    // char				m_WarMaster[32];        //鲁脟脰梅
+    //	int				    m_WarShuishou;          //脣掳脢脮
+    //	int                 m_Warzhi;               //脦茂录脹脰赂脢媒
+    int m_WarCityGX;    // 赂枚脠脣鹿卤脧脳
+    int m_IsWarCity;    // 脛脛赂枚鲁脟碌脛鲁脡脭卤
+    int m_IsInCity;     // 脢脟路帽录脫脠毛鲁脟脢脨
+    int m_nsPlayerIdx;  // 脥忙录脪碌脛路镁脦帽脝梅脥卢虏陆鹿媒脌麓碌脛
+    int m_nMissionGroup;
+    /*	BYTE                 m_WarFucheng;           //赂卤鲁脡
+        BYTE                 m_WarZuoHu;             //脳贸禄陇路篓
+            BYTE                 m_WarYouHu;             //脫脪禄陇路篓
+            BYTE                 m_WarTaishi;            //脤芦脢路
+            BYTE                 m_WarZhongShu;          //脰脨脢茅
+            BYTE                 m_WarShangShu;          //脡脨脢茅
+        BYTE                 m_WarMiShu;             //脙脴脢茅
+            BYTE                 m_WarTaiLe;             //脤芦脌脰
+            */
+    BYTE m_IsDoing;   // 脢脟路帽脮媒脭脷脰麓脨脨陆脜卤戮
+    int m_ReviceNum;  // 脰脴脡煤麓脦脢媒
+    BYTE m_IsSynDir;  // 脢脟路帽驴脡脪脭脥卢虏陆路陆脧貌
+    //	int                 m_WarIsGong;            //脢么脫脷鹿楼路陆
+    //    int               m_WarIsShou;            //脢么脫脷脢脴路陆
+    // char                m_GuishuName[32];       //NPC鹿茅脢么脣颅碌脛脥卢掳茅
+    unsigned long m_GuiShuDwid;  // 脰梅脠脣碌脛Dwid
+    // char              m_BiaoCheName[32];      //NPC鹿茅脢么脣颅碌脛茂脷鲁碌
+    BYTE m_RestNameCount;  // 赂脛脙没碌脛麓脦脢媒
+    // char                m_ChenHaoName[32];      //鲁脝潞脜碌脛脙没鲁脝
 
- //   BYTE                m_IsWaiGua;              //是否使用外挂
- /*
-	int                 m_GuziYajing;            //押金
-	int                 m_GuziDianshu;           //点数
-	BYTE                m_GuziZhuang;            //是否庄家
-	BYTE                m_IsShuai;               //是否已经甩了
-	BYTE                m_GuziMenber;            //1为主参与者 2为旁观下注者
-	BYTE                m_ZuoWeihao;             //座位号
-*/	
-//	BYTE                IsDeath;                 
-	int                 IsJinYan;                 //活动经验
-	int                 IsLuKey;                  //活动幸运
-	int                 m_GoldLucky;              //全局幸运
-	int                 IsJinQian;                //活动金钱
-//	char                m_ItmeInfo[128];          //物品说明
-//	BYTE                m_IsTuiGuang;             //是否推广员
-	int                 m_IsVip;                  //会员
-	int                 m_IsXingYunXing;
+    //   BYTE                m_IsWaiGua;              //脢脟路帽脢鹿脫脙脥芒鹿脪
+    /*
+           int                 m_GuziYajing;            //脩潞陆冒
+           int                 m_GuziDianshu;           //碌茫脢媒
+           BYTE                m_GuziZhuang;            //脢脟路帽脳炉录脪
+           BYTE                m_IsShuai;               //脢脟路帽脪脩戮颅脣娄脕脣
+           BYTE                m_GuziMenber;            //1脦陋脰梅虏脦脫毛脮脽 2脦陋脜脭鹿脹脧脗脳垄脮脽
+           BYTE                m_ZuoWeihao;             //脳霉脦禄潞脜
+   */
+    //	BYTE                IsDeath;
+    int IsJinYan;     // 禄卯露炉戮颅脩茅
+    int IsLuKey;      // 禄卯露炉脨脪脭脣
+    int m_GoldLucky;  // 脠芦戮脰脨脪脭脣
+    int IsJinQian;    // 禄卯露炉陆冒脟庐
+    //	char                m_ItmeInfo[128];          //脦茂脝路脣碌脙梅
+    //	BYTE                m_IsTuiGuang;             //脢脟路帽脥脝鹿茫脭卤
+    int m_IsVip;  // 禄谩脭卤
+    int m_IsXingYunXing;
 
-	int                 m_mMapX;
-	int                 m_mMapY;
-	int                 m_IsgetSkill;             //是否拾取技能状态
-	BYTE                IsExeGoldScript;          //是否执行全局死亡脚本
-	BYTE                IsCreatBoss;
-	BYTE                IsCreatTongBan;           //是否已经可以召唤同伴
-	int                 m_ZhuaVal;                //当前的被抓捕值
-    DWORD               m_TongBanNum;             //同伴数量
-	BYTE                m_IsSerLock;              //是否锁住某人    
-	BOOL                m_nIsOver;
+    int m_mMapX;
+    int m_mMapY;
+    int m_IsgetSkill;      // 脢脟路帽脢掳脠隆录录脛脺脳麓脤卢
+    BYTE IsExeGoldScript;  // 脢脟路帽脰麓脨脨脠芦戮脰脣脌脥枚陆脜卤戮
+    BYTE IsCreatBoss;
+    BYTE IsCreatTongBan;  // 脢脟路帽脪脩戮颅驴脡脪脭脮脵禄陆脥卢掳茅
+    int m_ZhuaVal;        // 碌卤脟掳碌脛卤禄脳楼虏露脰碌
+    unsigned long m_TongBanNum;   // 脥卢掳茅脢媒脕驴
+    BYTE m_IsSerLock;     // 脢脟路帽脣酶脳隆脛鲁脠脣
+    BOOL m_nIsOver;
 
-    BOOL                m_bIsHideNpc;
-    BOOL                m_bIsHidePlayer;
-    BOOL                m_bIsHideMissle;
-	BOOL                m_bIsHideLife;
-	BOOL                m_bIsHideTong;
-	BOOL                m_bIsHideNuqi;
+    BOOL m_bIsHideNpc;
+    BOOL m_bIsHidePlayer;
+    BOOL m_bIsHideMissle;
+    BOOL m_bIsHideLife;
+    BOOL m_bIsHideTong;
+    BOOL m_bIsHideNuqi;
 
-	//char                m_PicPath[256];  //头像路径
-	//char                m_ScriptPicPath[256];//脚本路径
+    // char                m_PicPath[256];  //脥路脧帽脗路戮露
+    // char                m_ScriptPicPath[256];//陆脜卤戮脗路戮露
 
-	BYTE                m_BtnFlag;                //是否插旗状态
-	BOOL                m_BtnFindPath;            //是否自动寻路状态
-	int 				m_btStateInfo[MAX_NPC_RECORDER_STATE];	// Npc当前最新的几个状态  BYTE
-//	DWORD				m_NpcEnchant;			                // Npc的加强类型（黄金怪物）
-	int					m_nNextStatePos;		                // 下一次状态在m_btState的位置
-	KNpcGold			m_cGold;
+    BYTE m_BtnFlag;                             // 脢脟路帽虏氓脝矛脳麓脤卢
+    BOOL m_BtnFindPath;                         // 脢脟路帽脳脭露炉脩掳脗路脳麓脤卢
+    int m_btStateInfo[MAX_NPC_RECORDER_STATE];  // Npc碌卤脟掳脳卯脨脗碌脛录赂赂枚脳麓脤卢  BYTE
+    //	unsigned long				m_NpcEnchant;			                // Npc碌脛录脫脟驴脌脿脨脥拢篓禄脝陆冒鹿脰脦茂拢漏
+    int m_nNextStatePos;  // 脧脗脪禄麓脦脳麓脤卢脭脷m_btState碌脛脦禄脰脙
+    KNpcGold m_cGold;
 
-	//用于Npc模板库中，当FALSE表示该Npc数据当前是无效的 ，数值未经过脚本计算，需要生成.
-	//TRUE表示有效数据
-	//BOOL				m_bHaveLoadedFromTemplate;// 
-	
-	//KState			m_PowerState;			// 怒火状态
+    // 脫脙脫脷Npc脛拢掳氓驴芒脰脨拢卢碌卤FALSE卤铆脢戮赂脙Npc脢媒戮脻碌卤脟掳脢脟脦脼脨搂碌脛 拢卢脢媒脰碌脦麓戮颅鹿媒陆脜卤戮录脝脣茫拢卢脨猫脪陋脡煤鲁脡.
+    // TRUE卤铆脢戮脫脨脨搂脢媒戮脻
+    // BOOL				m_bHaveLoadedFromTemplate;//
 
-	//typedef std::map<INT, KState> _KStateNote;                 //SkillId,Echance
-	//_KStateNote nKStateNote;
-	KState				m_PoisonState;			// 中毒状态
-	KState				m_FreezeState;			// 冰冻状态
-	KState				m_BurnState;			// 燃烧状态
-	KState				m_ConfuseState;			// 混乱状态
-	KState				m_StunState;			// 眩晕状态
-	KState				m_LifeState;			// 补血状态
-	KState				m_ManaState;			// 补MANA状态
-	KState				m_MenuState;			// 菜单
-	KState				m_DrunkState;			// 醉酒状态
-	KState				m_Hide;                 // 隐藏？
-	KState				m_ZhuaState;            // 被抓捕状态
-	KState				m_LoseMana;             // 吊兰状态
-    KState				m_ExpState;             // 经验状态
-	KState				m_DoScriptState;        // 执行脚本状态
-    KState              m_randmove;             // 群体走动状态
-	KState              m_MapUseModel;          // 地图消耗类型
-	KState				m_PhysicsArmor;
-	KState				m_ColdArmor;
-	KState				m_LightArmor;
-	KState				m_PoisonArmor;
-	KState				m_FireArmor;
-	KState				m_ManaShield;
-	KState              m_Returnskill;          //被敌人攻击是 自动释放某技能几率
-	KState              m_Deathkill;            //被敌人攻击是 自动释放某技能几率
-	KState              m_Rescueskill; 	        //救命自动释放技能
-	KState              m_Replyskill; 	        //自动反击技能
-	//KState            m_Staticmagicshield;    //魔法盾状态
-	
-	int                 m_AdjustColorKind;      //NPC的当前偏色
-	int					m_RideState;            //Npc骑马上下马时间限制
+    // KState			m_PowerState;			// 脜颅禄冒脳麓脤卢
 
-	KList				m_StateSkillList;		// 附加状态技能列表（同技能不叠加）
-	BYTE				m_Camp;					// Npc的阵营
-	BYTE				m_CurrentCamp;			// Npc的当前阵营
-	NPCCMD				m_Doing;				// Npc的行为
-	CLIENTACTION		m_ClientDoing;			// Npc的客户端行为
-	char	            szNpcTypeName[32];
-	DOING_FRAME			m_Frames;				// Npc的行为帧数
-	KSkillList			m_SkillList;			// Npc的技能列表
-	int					m_SubWorldIndex;		// Npc所在的SubWorld ID maps里面 第几个地图
-	int					m_RegionIndex;			// Npc所在的Region ID
-	int					m_ActiveSkillID;		// Npc激活的技能ID
-	int                 m_ActiveSkListIndex;
+    // typedef std::map<INT, KState> _KStateNote;                 //SkillId,Echance
+    //_KStateNote nKStateNote;
+    KState m_PoisonState;    // 脰脨露戮脳麓脤卢
+    KState m_FreezeState;    // 卤霉露鲁脳麓脤卢
+    KState m_BurnState;      // 脠录脡脮脳麓脤卢
+    KState m_ConfuseState;   // 禄矛脗脪脳麓脤卢
+    KState m_StunState;      // 脩拢脭脦脳麓脤卢
+    KState m_LifeState;      // 虏鹿脩陋脳麓脤卢
+    KState m_ManaState;      // 虏鹿MANA脳麓脤卢
+    KState m_MenuState;      // 虏脣碌楼
+    KState m_DrunkState;     // 脳铆戮脝脳麓脤卢
+    KState m_Hide;           // 脪镁虏脴拢驴
+    KState m_ZhuaState;      // 卤禄脳楼虏露脳麓脤卢
+    KState m_LoseMana;       // 碌玫脌录脳麓脤卢
+    KState m_ExpState;       // 戮颅脩茅脳麓脤卢
+    KState m_DoScriptState;  // 脰麓脨脨陆脜卤戮脳麓脤卢
+    KState m_randmove;       // 脠潞脤氓脳脽露炉脳麓脤卢
+    KState m_MapUseModel;    // 碌脴脥录脧没潞脛脌脿脨脥
+    KState m_PhysicsArmor;
+    KState m_ColdArmor;
+    KState m_LightArmor;
+    KState m_PoisonArmor;
+    KState m_FireArmor;
+    KState m_ManaShield;
+    KState m_Returnskill;  // 卤禄碌脨脠脣鹿楼禄梅脢脟 脳脭露炉脢脥路脜脛鲁录录脛脺录赂脗脢
+    KState m_Deathkill;    // 卤禄碌脨脠脣鹿楼禄梅脢脟 脳脭露炉脢脥路脜脛鲁录录脛脺录赂脗脢
+    KState m_Rescueskill;  // 戮脠脙眉脳脭露炉脢脥路脜录录脛脺
+    KState m_Replyskill;   // 脳脭露炉路麓禄梅录录脛脺
+    // KState            m_Staticmagicshield;    //脛搂路篓露脺脳麓脤卢
 
-	int					m_ActiveAuraID;			// Npc激活的光环技能ID
-	int                 m_ActiveAuraIndex;
-	int                 m_ActiveXinYunXingID;
+    int m_AdjustColorKind;  // NPC碌脛碌卤脟掳脝芦脡芦
+    int m_RideState;        // Npc脝茂脗铆脡脧脧脗脗铆脢卤录盲脧脼脰脝
 
-	bool                m_IsMoreAura;
-	skillAuraInfo		m_TmpAuraID[5];         // 峨眉技能多光临时的光环技能ID
-	int					m_ExtSkill[5];          // 称号扩展状态技能
+    KList m_StateSkillList;      // 赂陆录脫脳麓脤卢录录脛脺脕脨卤铆拢篓脥卢录录脛脺虏禄碌镁录脫拢漏
+    BYTE m_Camp;                 // Npc碌脛脮贸脫陋
+    BYTE m_CurrentCamp;          // Npc碌脛碌卤脟掳脮贸脫陋
+    NPCCMD m_Doing;              // Npc碌脛脨脨脦陋
+    CLIENTACTION m_ClientDoing;  // Npc碌脛驴脥禄搂露脣脨脨脦陋
+    char szNpcTypeName[32];
+    DOING_FRAME m_Frames;    // Npc碌脛脨脨脦陋脰隆脢媒
+    KSkillList m_SkillList;  // Npc碌脛录录脛脺脕脨卤铆
+    int m_SubWorldIndex;     // Npc脣霉脭脷碌脛SubWorld ID maps脌茂脙忙 碌脷录赂赂枚碌脴脥录
+    int m_RegionIndex;       // Npc脣霉脭脷碌脛Region ID
+    int m_ActiveSkillID;     // Npc录陇禄卯碌脛录录脛脺ID
+    int m_ActiveSkListIndex;
 
-//Npc的实际数据（已经经过装备及技能的运算了）===================================
-	int					m_CurrentExperience;	// Npc被杀后送出的经验
-	int 				m_CurrentLife;			// Npc的当前生命
-	int 				m_CurrentLifeDamage;    // 主要用于冒血处理
-	int 				m_CurPoisonDamage;      // 主要用于冒血处理
-	int 				m_CurFireDamage;        // 主要用于冒血处理
-	int 				m_CurrentLifeMax;		// Npc的当前生命最大值
-	int					m_CurrentLifeReplenish;	// Npc的当前生命回复速度
-	int					m_CurrentLifeReplenish_p;// Npc的当前生命回复速度 百分比
-    int   				m_CurrentMana;			// Npc的当前内力
-	int				    m_CurrentManaMax;		// Npc的当前最大内力
-	int					m_CurrentManaReplenish;	// Npc的当前内力回复速度
-	int                 m_CurrentManaReplenish_p;//
-	int				    m_CurrentStamina;		// Npc的当前体力
-	int				    m_CurrentStaminaMax;	// Npc的当前最大体力
-	int					m_CurrentStaminaGain;	// Npc的当前体力回复速度
-	int					m_CurrentStaminaLoss;	// Npc的当前体力下降速度
+    int m_ActiveAuraID;  // Npc录陇禄卯碌脛鹿芒禄路录录脛脺ID
+    int m_ActiveAuraIndex;
+    int m_ActiveXinYunXingID;
 
-	int					m_CurrentNuQi;			// Npc的当前怒气值
-	int					m_CurrentNuQiMax;		// Npc的当前怒气最大值
-	int					m_CurrentNuQiReplenish;	// Npc的当前怒气回复速度
-//////===================技能攻击数据（从脚本获得）=============================
-	KMagicAttrib		m_PhysicsDamage;		        // Npc的基本伤害点(由力量敏捷与武器伤害决定，不考虑直接加伤害的魔法属性)(攻击点)
-	KMagicAttrib		m_CurrentPhysicsMagicDamageP;	// Npc的当前普点百分比
-	KMagicAttrib		m_CurrentPhysicsMagicDamageV;	// Npc的当前普点伤害
-	KMagicAttrib		m_CurrentMagicFireDamage;	    // Npc的当前火伤害
-	KMagicAttrib		m_CurrentMagicColdDamage;	    // Npc的当前冰伤害
-	KMagicAttrib		m_CurrentMagicLightDamage;	    // Npc的当前电伤害
-	KMagicAttrib		m_CurrentMagicPoisonDamage;	    // Npc的当前毒伤害
-	int					m_CurrentAttackRating;	        // Npc的当前命中率（身法命中率+技能命中率）
-	int					m_CurrentDefend;		        // Npc的当前闪避率点
-///=============================================================================
-	int 				m_CurrentSkillMingZhong;	// Npc的当前生命最大值
-	int					m_TempFireResist;	        // Npc的当前火抗性
-	int					m_TempColdResist;	        // Npc的当前冰抗性
-	int					m_TempPoisonResist;	        // Npc的当前毒抗性
-	int					m_TempLightResist;	        // Npc的当前电抗性
-	int					m_TempPhysicsResist;	    // Npc的当前物理抗性
+    bool m_IsMoreAura;
+    skillAuraInfo m_TmpAuraID[5];  // 露毛脙录录录脛脺露脿鹿芒脕脵脢卤碌脛鹿芒禄路录录脛脺ID
+    int m_ExtSkill[5];             // 鲁脝潞脜脌漏脮鹿脳麓脤卢录录脛脺
 
-	int					m_CurrentFireResist;	    // Npc的当前火抗性
-	int					m_CurrentColdResist;	    // Npc的当前冰抗性
-	int					m_CurrentPoisonResist;	    // Npc的当前毒抗性
-	int					m_CurrentLightResist;	    // Npc的当前电抗性
-	int					m_CurrentPhysicsResist;	    // Npc的当前物理抗性
+    // Npc碌脛脢碌录脢脢媒戮脻拢篓脪脩戮颅戮颅鹿媒脳掳卤赂录掳录录脛脺碌脛脭脣脣茫脕脣拢漏===================================
+    int m_CurrentExperience;       // Npc卤禄脡卤潞贸脣脥鲁枚碌脛戮颅脩茅
+    int m_CurrentLife;             // Npc碌脛碌卤脟掳脡煤脙眉
+    int m_CurrentLifeDamage;       // 脰梅脪陋脫脙脫脷脙掳脩陋麓娄脌铆
+    int m_CurPoisonDamage;         // 脰梅脪陋脫脙脫脷脙掳脩陋麓娄脌铆
+    int m_CurFireDamage;           // 脰梅脪陋脫脙脫脷脙掳脩陋麓娄脌铆
+    int m_CurrentLifeMax;          // Npc碌脛碌卤脟掳脡煤脙眉脳卯麓贸脰碌
+    int m_CurrentLifeReplenish;    // Npc碌脛碌卤脟掳脡煤脙眉禄脴赂麓脣脵露脠
+    int m_CurrentLifeReplenish_p;  // Npc碌脛碌卤脟掳脡煤脙眉禄脴赂麓脣脵露脠 掳脵路脰卤脠
+    int m_CurrentMana;             // Npc碌脛碌卤脟掳脛脷脕娄
+    int m_CurrentManaMax;          // Npc碌脛碌卤脟掳脳卯麓贸脛脷脕娄
+    int m_CurrentManaReplenish;    // Npc碌脛碌卤脟掳脛脷脕娄禄脴赂麓脣脵露脠
+    int m_CurrentManaReplenish_p;  //
+    int m_CurrentStamina;          // Npc碌脛碌卤脟掳脤氓脕娄
+    int m_CurrentStaminaMax;       // Npc碌脛碌卤脟掳脳卯麓贸脤氓脕娄
+    int m_CurrentStaminaGain;      // Npc碌脛碌卤脟掳脤氓脕娄禄脴赂麓脣脵露脠
+    int m_CurrentStaminaLoss;      // Npc碌脛碌卤脟掳脤氓脕娄脧脗陆碌脣脵露脠
 
-	int					m_CurrentFireResistMax;		// Npc的当前最大火抗性
-	int					m_CurrentColdResistMax;		// Npc的当前最大冰抗性
-	int					m_CurrentPoisonResistMax;	// Npc的当前最大毒抗性
-	int					m_CurrentLightResistMax;	// Npc的当前最大电抗性
-	int					m_CurrentPhysicsResistMax;	// Npc的当前最大物理抗性
+    int m_CurrentNuQi;           // Npc碌脛碌卤脟掳脜颅脝酶脰碌
+    int m_CurrentNuQiMax;        // Npc碌脛碌卤脟掳脜颅脝酶脳卯麓贸脰碌
+    int m_CurrentNuQiReplenish;  // Npc碌脛碌卤脟掳脜颅脝酶禄脴赂麓脣脵露脠
+    //////===================录录脛脺鹿楼禄梅脢媒戮脻拢篓麓脫陆脜卤戮禄帽碌脙拢漏=============================
+    KMagicAttrib m_PhysicsDamage;  // Npc碌脛禄霉卤戮脡脣潞娄碌茫(脫脡脕娄脕驴脙么陆脻脫毛脦盲脝梅脡脣潞娄戮枚露篓拢卢虏禄驴录脗脟脰卤陆脫录脫脡脣潞娄碌脛脛搂路篓脢么脨脭)(鹿楼禄梅碌茫)
+    KMagicAttrib m_CurrentPhysicsMagicDamageP;  // Npc碌脛碌卤脟掳脝脮碌茫掳脵路脰卤脠
+    KMagicAttrib m_CurrentPhysicsMagicDamageV;  // Npc碌脛碌卤脟掳脝脮碌茫脡脣潞娄
+    KMagicAttrib m_CurrentMagicFireDamage;      // Npc碌脛碌卤脟掳禄冒脡脣潞娄
+    KMagicAttrib m_CurrentMagicColdDamage;      // Npc碌脛碌卤脟掳卤霉脡脣潞娄
+    KMagicAttrib m_CurrentMagicLightDamage;     // Npc碌脛碌卤脟掳碌莽脡脣潞娄
+    KMagicAttrib m_CurrentMagicPoisonDamage;    // Npc碌脛碌卤脟掳露戮脡脣潞娄
+    int m_CurrentAttackRating;    // Npc碌脛碌卤脟掳脙眉脰脨脗脢拢篓脡铆路篓脙眉脰脨脗脢+录录脛脺脙眉脰脨脗脢拢漏
+    int m_CurrentDefend;          // Npc碌脛碌卤脟掳脡脕卤脺脗脢碌茫
+                                  ///=============================================================================
+    int m_CurrentSkillMingZhong;  // Npc碌脛碌卤脟掳脡煤脙眉脳卯麓贸脰碌
+    int m_TempFireResist;         // Npc碌脛碌卤脟掳禄冒驴鹿脨脭
+    int m_TempColdResist;         // Npc碌脛碌卤脟掳卤霉驴鹿脨脭
+    int m_TempPoisonResist;       // Npc碌脛碌卤脟掳露戮驴鹿脨脭
+    int m_TempLightResist;        // Npc碌脛碌卤脟掳碌莽驴鹿脨脭
+    int m_TempPhysicsResist;      // Npc碌脛碌卤脟掳脦茂脌铆驴鹿脨脭
 
-	//BOOL                m_AttackState;
-	int                 m_CurrentTempSpeed;
-	int					m_CurrentWalkSpeed;		// Npc的当前走动速度
-	int					m_CurrentRunSpeed;		// Npc的当前跑动速度
-	int					m_CurrentJumpSpeed;		// Npc的当前跳跃速度
-	int					m_CurrentJumpFrame;		// Npc的当前跳跃帧数
-	int					m_CurrentAttackSpeed;	// Npc的当前攻击速度  --外功
-	int					m_CurrentCastSpeed;		// Npc的当前施法速度  --内功
-	int					m_CurrentVisionRadius;	// Npc的当前视野范围
-	int					m_CurrentAttackRadius;	// Npc的当前攻击范围
-	int					m_CurrentActiveRadius;	// Npc的当前活动范围
-	int					m_CurrentHitRecover;	// Npc的受伤动作时间
-	int					m_CurrentHitNpcRecover;	// 造成对方的受伤动作增加多少
-	int					m_CurrentTreasure;		// Npc丢落装备的数量
-	int					m_CurrentHitRank;       // 受伤的概率
-//以下数据只需要当前值，基础值均为0 = 技能状态数据+装备数据（没状态-直接赋值）==================================
-	int					m_CurrentMeleeDmgRetPercent;	// Npc近程伤害返回的百分比
-	int					m_CurrentMeleeDmgRet;			// Npc近程被击时返回的伤害点数
-	int					m_CurrentRangeDmgRetPercent;	// Npc远程伤害返回的百分比
-	int					m_CurrentRangeDmgRet;			// Npc远程被击时返回的伤害点数
-	BOOL				m_CurrentSlowMissle;			// Npc是否在慢速子弹状态下
-	int	                m_CurrentHulueMeleeDmgRet;      // 忽略近程反弹多少点、
-    int	                m_CurrentHulueRangeDmgRet;      // 忽略远程程反弹多少点、
+    int m_CurrentFireResist;     // Npc碌脛碌卤脟掳禄冒驴鹿脨脭
+    int m_CurrentColdResist;     // Npc碌脛碌卤脟掳卤霉驴鹿脨脭
+    int m_CurrentPoisonResist;   // Npc碌脛碌卤脟掳露戮驴鹿脨脭
+    int m_CurrentLightResist;    // Npc碌脛碌卤脟掳碌莽驴鹿脨脭
+    int m_CurrentPhysicsResist;  // Npc碌脛碌卤脟掳脦茂脌铆驴鹿脨脭
 
-	int					m_CurrentDamageReduce;			// 物理伤害减少
-//	int					m_CurrentElementDamageReduce;	// 元素伤害减少
+    int m_CurrentFireResistMax;     // Npc碌脛碌卤脟掳脳卯麓贸禄冒驴鹿脨脭
+    int m_CurrentColdResistMax;     // Npc碌脛碌卤脟掳脳卯麓贸卤霉驴鹿脨脭
+    int m_CurrentPoisonResistMax;   // Npc碌脛碌卤脟掳脳卯麓贸露戮驴鹿脨脭
+    int m_CurrentLightResistMax;    // Npc碌脛碌卤脟掳脳卯麓贸碌莽驴鹿脨脭
+    int m_CurrentPhysicsResistMax;  // Npc碌脛碌卤脟掳脳卯麓贸脦茂脌铆驴鹿脨脭
 
-	int					m_CurrentDamage2Mana;			// 伤害转内力百分比
-//	int					m_CurrentManaPerEnemy;			// 杀一个敌人加多少点内力 //
-	int					m_CurrentLifeStolen;			// 偷生命百分比 吸血
-	int					m_CurrentManaStolen;			// 偷内力百分比 吸内
-	int					m_CurrentStaminaStolen;			// 偷体力百分比
-	int					m_CurrentKnockBack;				// 震退百分比
-	int					m_CurrentDeadlyStrike;			// 致命一击百分比
-//	int					m_CurrentBlindEnemy;			// 致盲敌人百分比
-//	int					m_CurrentPiercePercent;			// 穿透攻击百分比
-	int					m_CurrentFreezeTimeReducePercent;	// 冰冻时间减少百分比
-	int					m_CurrentPoisonTimeReducePercent;	// 中毒时间减少百分比
-	int					m_CurrentStunTimeReducePercent;		// 眩晕时间减少百分比
-	int					m_CurrentBurnTimeReducePercent;		// 燃烧时间减少百分比
-    int                 m_CurrentautoReviverate;            //当前的复活概率
-	int					m_CurrentStunRank_p;		        // 减少眩晕概率增加百分比
+    // BOOL                m_AttackState;
+    int m_CurrentTempSpeed;
+    int m_CurrentWalkSpeed;      // Npc碌脛碌卤脟掳脳脽露炉脣脵露脠
+    int m_CurrentRunSpeed;       // Npc碌脛碌卤脟掳脜脺露炉脣脵露脠
+    int m_CurrentJumpSpeed;      // Npc碌脛碌卤脟掳脤酶脭戮脣脵露脠
+    int m_CurrentJumpFrame;      // Npc碌脛碌卤脟掳脤酶脭戮脰隆脢媒
+    int m_CurrentAttackSpeed;    // Npc碌脛碌卤脟掳鹿楼禄梅脣脵露脠  --脥芒鹿娄
+    int m_CurrentCastSpeed;      // Npc碌脛碌卤脟掳脢漏路篓脣脵露脠  --脛脷鹿娄
+    int m_CurrentVisionRadius;   // Npc碌脛碌卤脟掳脢脫脪掳路露脦搂
+    int m_CurrentAttackRadius;   // Npc碌脛碌卤脟掳鹿楼禄梅路露脦搂
+    int m_CurrentActiveRadius;   // Npc碌脛碌卤脟掳禄卯露炉路露脦搂
+    int m_CurrentHitRecover;     // Npc碌脛脢脺脡脣露炉脳梅脢卤录盲
+    int m_CurrentHitNpcRecover;  // 脭矛鲁脡露脭路陆碌脛脢脺脡脣露炉脳梅脭枚录脫露脿脡脵
+    int m_CurrentTreasure;       // Npc露陋脗盲脳掳卤赂碌脛脢媒脕驴
+    int m_CurrentHitRank;        // 脢脺脡脣碌脛赂脜脗脢
+    // 脪脭脧脗脢媒戮脻脰禄脨猫脪陋碌卤脟掳脰碌拢卢禄霉麓隆脰碌戮霉脦陋0 = 录录脛脺脳麓脤卢脢媒戮脻+脳掳卤赂脢媒戮脻拢篓脙禄脳麓脤卢-脰卤陆脫赂鲁脰碌拢漏==================================
+    int m_CurrentMeleeDmgRetPercent;  // Npc陆眉鲁脤脡脣潞娄路碌禄脴碌脛掳脵路脰卤脠
+    int m_CurrentMeleeDmgRet;         // Npc陆眉鲁脤卤禄禄梅脢卤路碌禄脴碌脛脡脣潞娄碌茫脢媒
+    int m_CurrentRangeDmgRetPercent;  // Npc脭露鲁脤脡脣潞娄路碌禄脴碌脛掳脵路脰卤脠
+    int m_CurrentRangeDmgRet;         // Npc脭露鲁脤卤禄禄梅脢卤路碌禄脴碌脛脡脣潞娄碌茫脢媒
+    BOOL m_CurrentSlowMissle;         // Npc脢脟路帽脭脷脗媒脣脵脳脫碌炉脳麓脤卢脧脗
+    int m_CurrentHulueMeleeDmgRet;    // 潞枚脗脭陆眉鲁脤路麓碌炉露脿脡脵碌茫隆垄
+    int m_CurrentHulueRangeDmgRet;    // 潞枚脗脭脭露鲁脤鲁脤路麓碌炉露脿脡脵碌茫隆垄
 
-	int					m_EnemyPoisonTimeReducePercent;	   // 造对方中毒时间增加百分比
-	int					m_EnemyStunTimeReducePercent;       // 造对方眩晕时间增加百分比
+    int m_CurrentDamageReduce;  // 脦茂脌铆脡脣潞娄录玫脡脵
+                                //	int					m_CurrentElementDamageReduce;	// 脭陋脣脴脡脣潞娄录玫脡脵
 
-    int                 m_CurrentBuZhuoRate;                   //当前的捕获概率
-	int				    m_CurrentUpExp;                        //经验倍率
-	int					m_CurrentdanggeRate;		           //档格概率
-    int					m_CurrentzhongjiRate;		           //重击概率
-    int                 m_CurrentcjdanggeRate;                 //拆解档格
-    int                 m_CurrentcjzhongjiRate;                //拆解重击
-    int                 m_Currentsorbdamage;                   // 抵消伤害 点数
-    int                 m_Currentsorbdamage_v;                 // 抵消伤害百分比
-	int                 m_Currenadddamagev;                    //加深伤害点
-	int                 m_Currenadddamagep;                    //加深伤害百分比
-    int                 m_Currentpoisonres;                    //=忽略对方毒防:#d1-%
-    int                 m_Currentfireres;                      //=忽略对方火防:#d1-%
-    int                 m_Currentlightingres;                  //=忽略对方雷防:#d1-%
-    int                 m_Currentphysicsres;                   //=忽略对方普防:#d1-%
-    int                 m_Currentcoldres;                      //=忽略对方冰防:#d1-%
-    int 	            m_Currentallres;                       //=忽略对方全抗:#d1-%
-	int                 m_CurrentIgnoredefensep;               //当前忽略对方闪避率   //技能的数据
-	int                 m_CurrentIgnorenAttacRating;           //当前忽略对方命中率   //状态数据
-    int                 m_Currentnopkvalue;                    //=不增加PK值概率:#d1+%
-    int                 m_Currentbossdamage;                   //=对黄金boss攻击伤害<color=orange>#d1+%<color>
-    int                 m_Currentelementsenhance;              //=五行强化值：#d1-点。强化对相克五行的克制效果 我克
-    int                 m_Currentelementsresist;               //=五行弱化值：#d1-点。弱化受相克五行的克制效果 克我
+    int m_CurrentDamage2Mana;    // 脡脣潞娄脳陋脛脷脕娄掳脵路脰卤脠
+                                 //	int					m_CurrentManaPerEnemy;			// 脡卤脪禄赂枚碌脨脠脣录脫露脿脡脵碌茫脛脷脕娄 //
+    int m_CurrentLifeStolen;     // 脥碌脡煤脙眉掳脵路脰卤脠 脦眉脩陋
+    int m_CurrentManaStolen;     // 脥碌脛脷脕娄掳脵路脰卤脠 脦眉脛脷
+    int m_CurrentStaminaStolen;  // 脥碌脤氓脕娄掳脵路脰卤脠
+    int m_CurrentKnockBack;      // 脮冒脥脣掳脵路脰卤脠
+    int m_CurrentDeadlyStrike;   // 脰脗脙眉脪禄禄梅掳脵路脰卤脠
+                                 //	int					m_CurrentBlindEnemy;			// 脰脗脙陇碌脨脠脣掳脵路脰卤脠
+                                 //	int					m_CurrentPiercePercent;			// 麓漏脥赂鹿楼禄梅掳脵路脰卤脠
+    int m_CurrentFreezeTimeReducePercent;  // 卤霉露鲁脢卤录盲录玫脡脵掳脵路脰卤脠
+    int m_CurrentPoisonTimeReducePercent;  // 脰脨露戮脢卤录盲录玫脡脵掳脵路脰卤脠
+    int m_CurrentStunTimeReducePercent;    // 脩拢脭脦脢卤录盲录玫脡脵掳脵路脰卤脠
+    int m_CurrentBurnTimeReducePercent;    // 脠录脡脮脢卤录盲录玫脡脵掳脵路脰卤脠
+    int m_CurrentautoReviverate;           // 碌卤脟掳碌脛赂麓禄卯赂脜脗脢
+    int m_CurrentStunRank_p;               // 录玫脡脵脩拢脭脦赂脜脗脢脭枚录脫掳脵路脰卤脠
 
-    int                 m_Currentskillenhance;                 // 攻击技能状态加强
-    int                 m_CurrentFullManaskillenhance;         // 满内力时攻击技能加成;
-	//CEnhanceInfo        m_CurrentSkillEnhance[MAX_NPCSKILL]; // 对某技能状态加强
-	typedef std::map<int, CEnhanceInfo> _EnhanceInfo;                 //SkillId,Echance
-	_EnhanceInfo nEnhanceInfo;
-	int					m_CurrentFireEnhance;			// 火加强
-	int					m_CurrentColdEnhance;			// 迟缓时间增加
-	int					m_CurrentPoisonEnhance;			// 毒发时间间隔
-	int					m_CurrentLightEnhance;			// 眩晕时间持续
-	int                 m_CurrentPoisonTime;            // 技能的毒发时间
+    int m_EnemyPoisonTimeReducePercent;  // 脭矛露脭路陆脰脨露戮脢卤录盲脭枚录脫掳脵路脰卤脠
+    int m_EnemyStunTimeReducePercent;    // 脭矛露脭路陆脩拢脭脦脢卤录盲脭枚录脫掳脵路脰卤脠
 
-	int                 m_CurrentAttackRatingEnhancep;  // 装备属性命中率加强百分比
-    int                 m_CurrentAttackRatingEnhancev;  // 装备属性命中率加强点
+    int m_CurrentBuZhuoRate;          // 碌卤脟掳碌脛虏露禄帽赂脜脗脢
+    int m_CurrentUpExp;               // 戮颅脩茅卤露脗脢
+    int m_CurrentdanggeRate;          // 碌碌赂帽赂脜脗脢
+    int m_CurrentzhongjiRate;         // 脰脴禄梅赂脜脗脢
+    int m_CurrentcjdanggeRate;        // 虏冒陆芒碌碌赂帽
+    int m_CurrentcjzhongjiRate;       // 虏冒陆芒脰脴禄梅
+    int m_Currentsorbdamage;          // 碌脰脧没脡脣潞娄 碌茫脢媒
+    int m_Currentsorbdamage_v;        // 碌脰脧没脡脣潞娄掳脵路脰卤脠
+    int m_Currenadddamagev;           // 录脫脡卯脡脣潞娄碌茫
+    int m_Currenadddamagep;           // 录脫脡卯脡脣潞娄掳脵路脰卤脠
+    int m_Currentpoisonres;           //=潞枚脗脭露脭路陆露戮路脌:#d1-%
+    int m_Currentfireres;             //=潞枚脗脭露脭路陆禄冒路脌:#d1-%
+    int m_Currentlightingres;         //=潞枚脗脭露脭路陆脌脳路脌:#d1-%
+    int m_Currentphysicsres;          //=潞枚脗脭露脭路陆脝脮路脌:#d1-%
+    int m_Currentcoldres;             //=潞枚脗脭露脭路陆卤霉路脌:#d1-%
+    int m_Currentallres;              //=潞枚脗脭露脭路陆脠芦驴鹿:#d1-%
+    int m_CurrentIgnoredefensep;      // 碌卤脟掳潞枚脗脭露脭路陆脡脕卤脺脗脢   //录录脛脺碌脛脢媒戮脻
+    int m_CurrentIgnorenAttacRating;  // 碌卤脟掳潞枚脗脭露脭路陆脙眉脰脨脗脢   //脳麓脤卢脢媒戮脻
+    int m_Currentnopkvalue;           //=虏禄脭枚录脫PK脰碌赂脜脗脢:#d1+%
+    int m_Currentbossdamage;          //=露脭禄脝陆冒boss鹿楼禄梅脡脣潞娄<color=orange>#d1+%<color>
+    int m_Currentelementsenhance;  //=脦氓脨脨脟驴禄炉脰碌拢潞#d1-碌茫隆拢脟驴禄炉露脭脧脿驴脣脦氓脨脨碌脛驴脣脰脝脨搂鹿没 脦脪驴脣
+    int m_Currentelementsresist;  //=脦氓脨脨脠玫禄炉脰碌拢潞#d1-碌茫隆拢脠玫禄炉脢脺脧脿驴脣脦氓脨脨碌脛驴脣脰脝脨搂鹿没 驴脣脦脪
 
-	int					m_CurrentAddPhysicsDamage;		// 当前被动外功普点 直接的物理伤害加强点数
-	int                 m_CurrentAddPhysicsDamageP;     // 当前被动外普百分比
-   	int                 m_CurrentAddFireDamagev;        // 当前被动外火点
- 	int                 m_CurrentAddColdDamagev;        // 当前被动外冰点 
-	int                 m_CurrentAddLighDamagev;        // 当前被动外雷点
-	int                 m_CurrentAddPoisonDamagev;      // 当前被动外毒点
-    BOOL                m_IsDel;                        // 是否删除NPC
-    int                 m_CurrentAddmagicphysicsDamage; // 当前被动内普点
-	int                 m_CurrentAddmagicphysicsDamageP;// 当前被动内普百分比
-	int                 m_CurrentAddmagicColdDamagicv;  // 当前被动内冰点
-	int                 m_CurrentAddmagicFireDamagicv;  // 当前被动内火点  
-	int                 m_CurrentAddmagicLightDamagicv; // 当前被动内雷点
-	int                 m_CurrentAddmagicPoisonDamagicv;// 当前被动内毒点
+    int m_Currentskillenhance;          // 鹿楼禄梅录录脛脺脳麓脤卢录脫脟驴
+    int m_CurrentFullManaskillenhance;  // 脗煤脛脷脕娄脢卤鹿楼禄梅录录脛脺录脫鲁脡;
+    // CEnhanceInfo        m_CurrentSkillEnhance[MAX_NPCSKILL]; // 露脭脛鲁录录脛脺脳麓脤卢录脫脟驴
+    typedef std::map<int, CEnhanceInfo> _EnhanceInfo;  // SkillId,Echance
+    _EnhanceInfo nEnhanceInfo;
+    int m_CurrentFireEnhance;    // 禄冒录脫脟驴
+    int m_CurrentColdEnhance;    // 鲁脵禄潞脢卤录盲脭枚录脫
+    int m_CurrentPoisonEnhance;  // 露戮路垄脢卤录盲录盲赂么
+    int m_CurrentLightEnhance;   // 脩拢脭脦脢卤录盲鲁脰脨酶
+    int m_CurrentPoisonTime;     // 录录脛脺碌脛露戮路垄脢卤录盲
 
-	int					m_CurrentMeleeEnhance[MAX_MELEE_WEAPON];	// 近程物理加强
-	int					m_CurrentRangeEnhance;			// 远程物理加强
-	int					m_CurrentHandEnhance;			// 空手物理加强
-	int					m_CurrentSerisesEnhance;        // 五行的伤害加强
+    int m_CurrentAttackRatingEnhancep;  // 脳掳卤赂脢么脨脭脙眉脰脨脗脢录脫脟驴掳脵路脰卤脠
+    int m_CurrentAttackRatingEnhancev;  // 脳掳卤赂脢么脨脭脙眉脰脨脗脢录脫脟驴碌茫
 
-    int                  m_CurrentPoisondamagereturnV;   //当前毒反弹点
-    int                  m_CurrentPoisondamagereturnP;   //当前毒反弹百分比
-	int                  m_CurrentReturnskillp;          //当前诅咒反弹概率
-	int                  m_CurrentIgnoreskillp;          //无视诅咒反弹概率
-	int                  m_CurrentReturnresp;            //对反弹伤害的抗性
-	int                  m_CurrentCreatnpcv;             //当前抓捕BB的概率
-    int                  m_CurrentAllJiHuo;              //是否全身激活
-	int                  m_CurrentCreatStatus;           //当前产生的状态
-	int                  m_Currentbaopoisondmax_p;  
-	int                  m_nCurNpcLucky;
+    int m_CurrentAddPhysicsDamage;   // 碌卤脟掳卤禄露炉脥芒鹿娄脝脮碌茫 脰卤陆脫碌脛脦茂脌铆脡脣潞娄录脫脟驴碌茫脢媒
+    int m_CurrentAddPhysicsDamageP;  // 碌卤脟掳卤禄露炉脥芒脝脮掳脵路脰卤脠
+    int m_CurrentAddFireDamagev;     // 碌卤脟掳卤禄露炉脥芒禄冒碌茫
+    int m_CurrentAddColdDamagev;     // 碌卤脟掳卤禄露炉脥芒卤霉碌茫
+    int m_CurrentAddLighDamagev;     // 碌卤脟掳卤禄露炉脥芒脌脳碌茫
+    int m_CurrentAddPoisonDamagev;   // 碌卤脟掳卤禄露炉脥芒露戮碌茫
+    BOOL m_IsDel;                    // 脢脟路帽脡戮鲁媒NPC
+    int m_CurrentAddmagicphysicsDamage;   // 碌卤脟掳卤禄露炉脛脷脝脮碌茫
+    int m_CurrentAddmagicphysicsDamageP;  // 碌卤脟掳卤禄露炉脛脷脝脮掳脵路脰卤脠
+    int m_CurrentAddmagicColdDamagicv;    // 碌卤脟掳卤禄露炉脛脷卤霉碌茫
+    int m_CurrentAddmagicFireDamagicv;    // 碌卤脟掳卤禄露炉脛脷禄冒碌茫
+    int m_CurrentAddmagicLightDamagicv;   // 碌卤脟掳卤禄露炉脛脷脌脳碌茫
+    int m_CurrentAddmagicPoisonDamagicv;  // 碌卤脟掳卤禄露炉脛脷露戮碌茫
 
-    int                  m_Me2metaldamage_p;              //=对金系伤害增加：#d1+%
-    int                  m_Metal2medamage_p;              //=减少来自金系的伤害：#d1-%
-    int                  m_Me2wooddamage_p;              //=对木系伤害增加：#d1+%
-    int                  m_Wood2medamage_p;              //=减少来自木系的伤害：#d1-%
-    int                  m_Me2waterdamage_p;              //=对水系伤害增加：#d1+%
-    int                  m_Water2medamage_p;              //=减少来自水系的伤害：#d1-%
-    int                  m_Me2firedamage_p;              //=对火系伤害增加：#d1+%
-    int                  m_Fire2medamage_p;              //=减少来自火系的伤害：#d1-%
-    int                  m_Me2earthdamage_p;              //=对土系伤害增加：#d1+%
-    int                  m_Earth2medamage_p;              //=减少来自土系的伤害：#d1-%
+    int m_CurrentMeleeEnhance[MAX_MELEE_WEAPON];  // 陆眉鲁脤脦茂脌铆录脫脟驴
+    int m_CurrentRangeEnhance;                    // 脭露鲁脤脦茂脌铆录脫脟驴
+    int m_CurrentHandEnhance;                     // 驴脮脢脰脦茂脌铆录脫脟驴
+    int m_CurrentSerisesEnhance;                  // 脦氓脨脨碌脛脡脣潞娄录脫脟驴
 
-	int                  m_Staticmagicshield_p;		      //低于内力最大值多少倍的伤害
+    int m_CurrentPoisondamagereturnV;  // 碌卤脟掳露戮路麓碌炉碌茫
+    int m_CurrentPoisondamagereturnP;  // 碌卤脟掳露戮路麓碌炉掳脵路脰卤脠
+    int m_CurrentReturnskillp;         // 碌卤脟掳脳莽脰盲路麓碌炉赂脜脗脢
+    int m_CurrentIgnoreskillp;         // 脦脼脢脫脳莽脰盲路麓碌炉赂脜脗脢
+    int m_CurrentReturnresp;           // 露脭路麓碌炉脡脣潞娄碌脛驴鹿脨脭
+    int m_CurrentCreatnpcv;            // 碌卤脟掳脳楼虏露BB碌脛赂脜脗脢
+    int m_CurrentAllJiHuo;             // 脢脟路帽脠芦脡铆录陇禄卯
+    int m_CurrentCreatStatus;          // 碌卤脟掳虏煤脡煤碌脛脳麓脤卢
+    int m_Currentbaopoisondmax_p;
+    int m_nCurNpcLucky;
 
-// 只需要当前值的数据结束
-	int					m_Dir;							// Npc的方向
-	int					m_RedLum;						// Npc的亮度
-	int					m_GreenLum;
-	int					m_BlueLum;
-	int					m_MapX, m_MapY, m_MapZ;			// Npc的地图坐标(格子坐标) x （0-15） y（0-31）
-	int					m_OffX, m_OffY;					// Npc在格子中的偏移坐标（放大了1024倍）
-	int					m_DesX, m_DesY;					// Npc的需要移动到的目标坐标
-	int					m_SkillParam1, m_SkillParam2;   // 
-	int					m_OriginX, m_OriginY;			// Npc的原始坐标 （像素坐标）
-	DWORD				m_NextAITime;
-	BYTE				m_AIMAXTime;                //NpcAI
-// Npc的装备（决定客户端的换装备）	
-	int					m_HelmType;					// Npc的头盔类型
-	int					m_ArmorType;				// Npc的盔甲类型
-	int					m_WeaponType;				// Npc的武器类型
-	int					m_HorseType;				// Npc的骑马类型
-	BOOL				m_bRideHorse;				// Npc是否骑马
-	int					m_MaskType;					// Npc 面具功能
-	//int				m_FuMoType;					// Npc 附魔功能
-	int 				m_PifengType;				// Npc 披风功能
-	BYTE				m_ChiBangType;				// Npc 披风功能
-	int					m_MaskMark;					// 面具市场
-	//BYTE				m_IsFuMo;					// 
-	BYTE				m_BaiTan;					// Npc是否在摆摊
-	//char				ShopName[32];
-//客户端
-	char				TongName[32];
-	int					m_nFigure;
-	char				Name[32];				// Npc的名称-玩家
-	char                _clientName[32];
-	BYTE				m_nSex;					// Npc的性别0为男，1为女
-	int					m_NpcSettingIdx;		// Npc的设定文件索引  （行号？）
-	int					m_CorpseSettingIdx;		// Npc的尸体定义索引
-	//char				ActionScript[256];		// Npc的行为脚本
-	typedef std::map<int, std::string> _StrNoteInfo;
-	_StrNoteInfo nstrNoteInfo;
+    int m_Me2metaldamage_p;  //=露脭陆冒脧碌脡脣潞娄脭枚录脫拢潞#d1+%
+    int m_Metal2medamage_p;  //=录玫脡脵脌麓脳脭陆冒脧碌碌脛脡脣潞娄拢潞#d1-%
+    int m_Me2wooddamage_p;   //=露脭脛戮脧碌脡脣潞娄脭枚录脫拢潞#d1+%
+    int m_Wood2medamage_p;   //=录玫脡脵脌麓脳脭脛戮脧碌碌脛脡脣潞娄拢潞#d1-%
+    int m_Me2waterdamage_p;  //=露脭脣庐脧碌脡脣潞娄脭枚录脫拢潞#d1+%
+    int m_Water2medamage_p;  //=录玫脡脵脌麓脳脭脣庐脧碌碌脛脡脣潞娄拢潞#d1-%
+    int m_Me2firedamage_p;   //=露脭禄冒脧碌脡脣潞娄脭枚录脫拢潞#d1+%
+    int m_Fire2medamage_p;   //=录玫脡脵脌麓脳脭禄冒脧碌碌脛脡脣潞娄拢潞#d1-%
+    int m_Me2earthdamage_p;  //=露脭脥脕脧碌脡脣潞娄脭枚录脫拢潞#d1+%
+    int m_Earth2medamage_p;  //=录玫脡脵脌麓脳脭脥脕脧碌碌脛脡脣潞娄拢潞#d1-%
 
-	void ClearstrInfo(int i)
-	{
-		if (nstrNoteInfo.count(i)>0)
-		{
-		   nstrNoteInfo.erase(i);
-		}
-	}
+    int m_Staticmagicshield_p;  // 碌脥脫脷脛脷脕娄脳卯麓贸脰碌露脿脡脵卤露碌脛脡脣潞娄
 
-	char * GetstrInfo(int i,char * str)
-	{
-		//char nMsg[256]={0};
-		/*_StrNoteInfo::iterator it;
-		for( it = nstrNoteInfo.begin(); it != nstrNoteInfo.end(); ++it)
-		{
-			 if (it->first == i)
-			 {
+    // 脰禄脨猫脪陋碌卤脟掳脰碌碌脛脢媒戮脻陆谩脢酶
+    int m_Dir;     // Npc碌脛路陆脧貌
+    int m_RedLum;  // Npc碌脛脕脕露脠
+    int m_GreenLum;
+    int m_BlueLum;
+    int m_MapX, m_MapY, m_MapZ;        // Npc碌脛碌脴脥录脳酶卤锚(赂帽脳脫脳酶卤锚) x 拢篓0-15拢漏 y拢篓0-31拢漏
+    int m_OffX, m_OffY;                // Npc脭脷赂帽脳脫脰脨碌脛脝芦脪脝脳酶卤锚拢篓路脜麓贸脕脣1024卤露拢漏
+    int m_DesX, m_DesY;                // Npc碌脛脨猫脪陋脪脝露炉碌陆碌脛脛驴卤锚脳酶卤锚
+    int m_SkillParam1, m_SkillParam2;  //
+    int m_OriginX, m_OriginY;          // Npc碌脛脭颅脢录脳酶卤锚 拢篓脧帽脣脴脳酶卤锚拢漏
+    unsigned long m_NextAITime;
+    BYTE m_AIMAXTime;  // NpcAI
+    // Npc碌脛脳掳卤赂拢篓戮枚露篓驴脥禄搂露脣碌脛禄禄脳掳卤赂拢漏
+    int m_HelmType;     // Npc碌脛脥路驴酶脌脿脨脥
+    int m_ArmorType;    // Npc碌脛驴酶录脳脌脿脨脥
+    int m_WeaponType;   // Npc碌脛脦盲脝梅脌脿脨脥
+    int m_HorseType;    // Npc碌脛脝茂脗铆脌脿脨脥
+    BOOL m_bRideHorse;  // Npc脢脟路帽脝茂脗铆
+    int m_MaskType;     // Npc 脙忙戮脽鹿娄脛脺
+    // int				m_FuMoType;					// Npc 赂陆脛搂鹿娄脛脺
+    int m_PifengType;    // Npc 脜没路莽鹿娄脛脺
+    BYTE m_ChiBangType;  // Npc 脜没路莽鹿娄脛脺
+    int m_MaskMark;      // 脙忙戮脽脢脨鲁隆
+    // BYTE				m_IsFuMo;					//
+    BYTE m_BaiTan;  // Npc脢脟路帽脭脷掳脷脤炉
+    // char				ShopName[32];
+    // 驴脥禄搂露脣
+    char TongName[32];
+    int m_nFigure;
+    char Name[32];  // Npc碌脛脙没鲁脝-脥忙录脪
+    char _clientName[32];
+    BYTE m_nSex;             // Npc碌脛脨脭卤冒0脦陋脛脨拢卢1脦陋脜庐
+    int m_NpcSettingIdx;     // Npc碌脛脡猫露篓脦脛录镁脣梅脪媒  拢篓脨脨潞脜拢驴拢漏
+    int m_CorpseSettingIdx;  // Npc碌脛脢卢脤氓露篓脪氓脣梅脪媒
+    // char				ActionScript[256];		// Npc碌脛脨脨脦陋陆脜卤戮
+    typedef std::map<int, std::string> _StrNoteInfo;
+    _StrNoteInfo nstrNoteInfo;
+
+    void ClearstrInfo(int i)
+    {
+        if (nstrNoteInfo.count(i) > 0)
+        {
+            nstrNoteInfo.erase(i);
+        }
+    }
+
+    char* GetstrInfo(int i, char* str)
+    {
+        // char nMsg[256]={0};
+        /*_StrNoteInfo::iterator it;
+        for( it = nstrNoteInfo.begin(); it != nstrNoteInfo.end(); ++it)
+        {
+                 if (it->first == i)
+                 {
 #ifdef _SERVER
-				 printf("--获取(%s)脚本:%s --\n",Name,it->second.c_str());
+                         printf("--禄帽脠隆(%s)陆脜卤戮:%s --\n",Name,it->second.c_str());
 #endif
-				 sprintf(str,it->second.c_str());
-			     return str;
-			 }
-		} */
-		if (nstrNoteInfo.count(i)>0)
-		{//如果存在
-			sprintf(str,"%s", nstrNoteInfo[i].c_str());
+                         sprintf(str,it->second.c_str());
+                     return str;
+                 }
+        } */
+        if (nstrNoteInfo.count(i) > 0)
+        {  // 脠莽鹿没麓忙脭脷
+            sprintf(str, "%s", nstrNoteInfo[i].c_str());
 
-/*#ifdef _SERVER
-			printf("--获取(%s)(%d)脚本:%s --\n",Name,i,nstrNoteInfo[i].c_str());
-#endif */
+            /*#ifdef _SERVER
+                                    printf("--禄帽脠隆(%s)(%d)陆脜卤戮:%s --\n",Name,i,nstrNoteInfo[i].c_str());
+            #endif */
 
-			return str;
-		}
-		return NULL;
-	}
-	void   SetstrInfo(int i,char * str)
-	{
-		if  (str)
-			nstrNoteInfo[i] = str;
-		else
-			nstrNoteInfo[i] = "";
-/*#ifdef _SERVER
-			     printf("--设置(%s)(%d)脚本:%s --\n",Name,i,nstrNoteInfo[i].c_str());
-#endif */
-	}
+            return str;
+        }
+        return NULL;
+    }
+    void SetstrInfo(int i, const char* str)
+    {
+        if (str)
+            nstrNoteInfo[i] = str;
+        else
+            nstrNoteInfo[i] = "";
+        /*#ifdef _SERVER
+                                     printf("--脡猫脰脙(%s)(%d)陆脜卤戮:%s --\n",Name,i,nstrNoteInfo[i].c_str());
+        #endif */
+    }
 
-	DWORD				m_ActionScriptID;		// Npc的行为脚本ID（使用时用这个来检索）
-	
-	DWORD				m_TrapScriptID;			// Npc的当前Trap脚本ID;
+    unsigned long m_ActionScriptID;  // Npc碌脛脨脨脦陋陆脜卤戮ID拢篓脢鹿脫脙脢卤脫脙脮芒赂枚脌麓录矛脣梅拢漏
 
-	int					m_nPeopleIdx;			// 锁住的对象人物索引
-	int					m_nLastDamageIdx;		// 最后一次伤害的人物索引
-	int					m_nLastPoisonDamageIdx;	// 最后一次毒伤害的人物索引
-	int                 m_nLastBurnDamageIdx;	// 最后一次火伤害的人物索引 
-	int					m_nObjectIdx;			// 对象物品
+    unsigned long m_TrapScriptID;  // Npc碌脛碌卤脟掳Trap陆脜卤戮ID;
 
-	// Npc的基本数据（未考虑装备、技能的影响）
-	int					m_Experience;			// Npc被杀获得的经验
-	int 				m_LifeMax;				// Npc的最大生命
-	int					m_LifeReplenish;		// Npc的生命回复速度
+    int m_nPeopleIdx;            // 脣酶脳隆碌脛露脭脧贸脠脣脦茂脣梅脪媒
+    int m_nLastDamageIdx;        // 脳卯潞贸脪禄麓脦脡脣潞娄碌脛脠脣脦茂脣梅脪媒
+    int m_nLastPoisonDamageIdx;  // 脳卯潞贸脪禄麓脦露戮脡脣潞娄碌脛脠脣脦茂脣梅脪媒
+    int m_nLastBurnDamageIdx;    // 脳卯潞贸脪禄麓脦禄冒脡脣潞娄碌脛脠脣脦茂脣梅脪媒
+    int m_nObjectIdx;            // 露脭脧贸脦茂脝路
 
-	int					m_NuqiMax;		        // Npc怒气最大值
-	int					m_NuqiReplenish;	    // Npc怒气回复速度
+    // Npc碌脛禄霉卤戮脢媒戮脻拢篓脦麓驴录脗脟脳掳卤赂隆垄录录脛脺碌脛脫掳脧矛拢漏
+    int m_Experience;     // Npc卤禄脡卤禄帽碌脙碌脛戮颅脩茅
+    int m_LifeMax;        // Npc碌脛脳卯麓贸脡煤脙眉
+    int m_LifeReplenish;  // Npc碌脛脡煤脙眉禄脴赂麓脣脵露脠
 
-	int				    m_ManaMax;				// Npc的最大内力
-	int					m_ManaReplenish;		// Npc的内力回复速度
+    int m_NuqiMax;        // Npc脜颅脝酶脳卯麓贸脰碌
+    int m_NuqiReplenish;  // Npc脜颅脝酶禄脴赂麓脣脵露脠
 
-	int				    m_StaminaMax;			// Npc的最大体力
-	int					m_StaminaGain;			// Npc的体力回复速度
-	int					m_StaminaLoss;			// Npc的体力下降速度
+    int m_ManaMax;        // Npc碌脛脳卯麓贸脛脷脕娄
+    int m_ManaReplenish;  // Npc碌脛脛脷脕娄禄脴赂麓脣脵露脠
 
-	int					m_AttackRating;			// Npc的命中点（身法决定原始命中率）
-	int					m_Defend;				// Npc的闪避率
-	int					m_FireResist;			// Npc的火抗性
-	int					m_ColdResist;			// Npc的冷抗性
-	int					m_PoisonResist;			// Npc的毒抗性
-	int					m_LightResist;			// Npc的电抗性
-	int					m_PhysicsResist;		// Npc的物理抗性
+    int m_StaminaMax;   // Npc碌脛脳卯麓贸脤氓脕娄
+    int m_StaminaGain;  // Npc碌脛脤氓脕娄禄脴赂麓脣脵露脠
+    int m_StaminaLoss;  // Npc碌脛脤氓脕娄脧脗陆碌脣脵露脠
 
-	int					m_FireResistMax;		// Npc的最大火抗性
-	int					m_ColdResistMax;		// Npc的最大冰抗性
-	int					m_PoisonResistMax;		// Npc的最大毒抗性
-	int					m_LightResistMax;		// Npc的最大电抗性
-	int					m_PhysicsResistMax;		// Npc的最大物理抗性
+    int m_AttackRating;   // Npc碌脛脙眉脰脨碌茫拢篓脡铆路篓戮枚露篓脭颅脢录脙眉脰脨脗脢拢漏
+    int m_Defend;         // Npc碌脛脡脕卤脺脗脢
+    int m_FireResist;     // Npc碌脛禄冒驴鹿脨脭
+    int m_ColdResist;     // Npc碌脛脌盲驴鹿脨脭
+    int m_PoisonResist;   // Npc碌脛露戮驴鹿脨脭
+    int m_LightResist;    // Npc碌脛碌莽驴鹿脨脭
+    int m_PhysicsResist;  // Npc碌脛脦茂脌铆驴鹿脨脭
 
-	int					m_WalkSpeed;			// Npc的行走速度
-	int					m_RunSpeed;				// Npc的跑动速度
-	int					m_JumpSpeed;			// Npc的跳跃速度
-	int					m_AttackSpeed;			// Npc的外功攻击速度
-	int					m_CastSpeed;			// Npc的内功施法速度
-	int					m_VisionRadius;			// Npc的视野范围
-	int					m_DialogRadius;			// Npc的对话范围
-	int					m_ActiveRadius;			// Npc的活动范围
-	int					m_HitRecover;			// Npc的受击回复速度
-	int					m_Treasure;				// Npc丢落装备的数量(NPC.txt数据)
-	BOOL				m_bClientOnly;			// 是否加载客户端NPC数据
-//	int					m_AttackFrame;          // 外功攻击帧数						  
-//	int					m_CastFrame;            // 内功攻击帧数
-//	int					m_nCurrentMeleeSkill;	// Npc当前正执行的格斗技能
-	int					m_nCurrentMeleeTime;	
-	
-	// AI参数
-	int					m_AiMode;				// AI模式  挂机模式
-	int					m_AiParam[MAX_AI_PARAM];// 用于AI模块计算AI
-	int					m_AiAddLifeTime;
+    int m_FireResistMax;     // Npc碌脛脳卯麓贸禄冒驴鹿脨脭
+    int m_ColdResistMax;     // Npc碌脛脳卯麓贸卤霉驴鹿脨脭
+    int m_PoisonResistMax;   // Npc碌脛脳卯麓贸露戮驴鹿脨脭
+    int m_LightResistMax;    // Npc碌脛脳卯麓贸碌莽驴鹿脨脭
+    int m_PhysicsResistMax;  // Npc碌脛脳卯麓贸脦茂脌铆驴鹿脨脭
 
-	int					m_HeadImage;
+    int m_WalkSpeed;     // Npc碌脛脨脨脳脽脣脵露脠
+    int m_RunSpeed;      // Npc碌脛脜脺露炉脣脵露脠
+    int m_JumpSpeed;     // Npc碌脛脤酶脭戮脣脵露脠
+    int m_AttackSpeed;   // Npc碌脛脥芒鹿娄鹿楼禄梅脣脵露脠
+    int m_CastSpeed;     // Npc碌脛脛脷鹿娄脢漏路篓脣脵露脠
+    int m_VisionRadius;  // Npc碌脛脢脫脪掳路露脦搂
+    int m_DialogRadius;  // Npc碌脛露脭禄掳路露脦搂
+    int m_ActiveRadius;  // Npc碌脛禄卯露炉路露脦搂
+    int m_HitRecover;    // Npc碌脛脢脺禄梅禄脴赂麓脣脵露脠
+    int m_Treasure;      // Npc露陋脗盲脳掳卤赂碌脛脢媒脕驴(NPC.txt脢媒戮脻)
+    BOOL m_bClientOnly;  // 脢脟路帽录脫脭脴驴脥禄搂露脣NPC脢媒戮脻
+                         //	int					m_AttackFrame;          // 脥芒鹿娄鹿楼禄梅脰隆脢媒
+                         //	int					m_CastFrame;            // 脛脷鹿娄鹿楼禄梅脰隆脢媒
+                         //	int					m_nCurrentMeleeSkill;	// Npc碌卤脟掳脮媒脰麓脨脨碌脛赂帽露路录录脛脺
+    int m_nCurrentMeleeTime;
 
-	BYTE				m_FightMode;			// 客户端处理动作用。 战斗模式
-	BYTE				m_BayBan;			    // bayban
-	BYTE				m_OldFightMode;
-	BOOL				m_bExchangeServer;
-	BYTE				m_ExItemId;             // 子母袋
-	BYTE				m_ExBoxId;              // 扩展箱
-	DWORD				m_SyncSignal;			// 同步信号
-	KClientNpcID		m_sClientNpcID;			// 用于标明客户端npc是哪个region的第几个npc
-	DWORD				m_dwRegionID;			// 本npc所在region的id
-	KSyncPos			m_sSyncPos;
-	BYTE				m_nPKFlag;	               //PK模式
-	char				m_szChatBuffer[MAX_SENTENCE_LENGTH];
-	int					m_nChatContentLen;
-	int					m_nChatNumLine;
-	int					m_nChatFontWidth;
-	unsigned int		m_nCurChatTime;
-	BYTE				m_nSleepFlag;
-	int					m_nHurtHeight;
-	int					m_nHurtDesX;
-	int					m_nHurtDesY;
-	int                 m_PiFenLoop;
-	BYTE				m_nTongFlag;			// 是否有招人图标
-	int                 m_IsbeSel;              // 是否选中了
+    // AI虏脦脢媒
+    int m_AiMode;                 // AI脛拢脢陆  鹿脪禄煤脛拢脢陆
+    int m_AiParam[MAX_AI_PARAM];  // 脫脙脫脷AI脛拢驴茅录脝脣茫AI
+    int m_AiAddLifeTime;
 
-	int					m_DeathFrame;			// 死亡帧数
-	int					m_StandFrame;
-	int					m_HurtFrame;
-	int					m_AttackFrame;
-	int					m_CastFrame;
-	int					m_WalkFrame;
-	int					m_RunFrame;
-	int					m_StandFrame1;
-	int					m_ReviveFrame;			// 重生帧数 时间
-	int					m_SitFrame;
-	int					m_JumpFrame;
+    int m_HeadImage;
+
+    BYTE m_FightMode;  // 驴脥禄搂露脣麓娄脌铆露炉脳梅脫脙隆拢 脮陆露路脛拢脢陆
+    BYTE m_BayBan;     // bayban
+    BYTE m_OldFightMode;
+    BOOL m_bExchangeServer;
+    BYTE m_ExItemId;              // 脳脫脛赂麓眉
+    BYTE m_ExBoxId;               // 脌漏脮鹿脧盲
+    unsigned long m_SyncSignal;           // 脥卢虏陆脨脜潞脜
+    KClientNpcID m_sClientNpcID;  // 脫脙脫脷卤锚脙梅驴脥禄搂露脣npc脢脟脛脛赂枚region碌脛碌脷录赂赂枚npc
+    unsigned long m_dwRegionID;           // 卤戮npc脣霉脭脷region碌脛id
+    KSyncPos m_sSyncPos;
+    BYTE m_nPKFlag;  // PK脛拢脢陆
+    char m_szChatBuffer[MAX_SENTENCE_LENGTH];
+    int m_nChatContentLen;
+    int m_nChatNumLine;
+    int m_nChatFontWidth;
+    unsigned int m_nCurChatTime;
+    BYTE m_nSleepFlag;
+    int m_nHurtHeight;
+    int m_nHurtDesX;
+    int m_nHurtDesY;
+    int m_PiFenLoop;
+    BYTE m_nTongFlag;  // 脢脟路帽脫脨脮脨脠脣脥录卤锚
+    int m_IsbeSel;     // 脢脟路帽脩隆脰脨脕脣
+
+    int m_DeathFrame;  // 脣脌脥枚脰隆脢媒
+    int m_StandFrame;
+    int m_HurtFrame;
+    int m_AttackFrame;
+    int m_CastFrame;
+    int m_WalkFrame;
+    int m_RunFrame;
+    int m_StandFrame1;
+    int m_ReviveFrame;  // 脰脴脡煤脰隆脢媒 脢卤录盲
+    int m_SitFrame;
+    int m_JumpFrame;
+
 private:
-	bool                isRemoveMenu;
-	DWORD				m_LoopFrames;			// 循环帧数
-	int					m_nPlayerIdx;           // 玩家索引号
+    bool isRemoveMenu;
+    unsigned long m_LoopFrames;  // 脩颅禄路脰隆脢媒
+    int m_nPlayerIdx;    // 脥忙录脪脣梅脪媒潞脜
 
-	int					m_JumpFirstSpeed;
-	NPC_COMMAND			m_Command;				// 命令结构
-	BOOL				m_ProcessAI;			// 处理AI标志
-	BOOL				m_ProcessState;			// 处理状态标志
-	int					m_XFactor;
-	int					m_YFactor;
-	int					m_JumpStep;
-	int					m_JumpDir;
-	int					m_SpecialSkillStep;		// 特殊技能步骤
-	//NPC_COMMAND			m_SpecialSkillCommand;	// 特殊技能行为命令
-	KNpcFindPath		m_PathFinder;
-	BOOL				m_bActivateFlag;         //是否执行循环
-	int					m_ResDir;
-	KNpcRes				m_DataRes;				// Npc的客户端资源（图象、声音）
-   	int                 m_DurFrame[20];
-    unsigned int        uFlipTime[20];
+    int m_JumpFirstSpeed;
+    NPC_COMMAND m_Command;  // 脙眉脕卯陆谩鹿鹿
+    BOOL m_ProcessAI;       // 麓娄脌铆AI卤锚脰戮
+    BOOL m_ProcessState;    // 麓娄脌铆脳麓脤卢卤锚脰戮
+    int m_XFactor;
+    int m_YFactor;
+    int m_JumpStep;
+    int m_JumpDir;
+    int m_SpecialSkillStep;  // 脤脴脢芒录录脛脺虏陆脰猫
+    // NPC_COMMAND			m_SpecialSkillCommand;	// 脤脴脢芒录录脛脺脨脨脦陋脙眉脕卯
+    KNpcFindPath m_PathFinder;
+    BOOL m_bActivateFlag;  // 脢脟路帽脰麓脨脨脩颅禄路
+    int m_ResDir;
+    KNpcRes m_DataRes;  // Npc碌脛驴脥禄搂露脣脳脢脭麓拢篓脥录脧贸隆垄脡霉脪么拢漏
+    int m_DurFrame[20];
+    unsigned int uFlipTime[20];
 
-	// 用于普通战斗npc冒血处理
-	int			    	m_nBloodNo[defMAX_SHOW_BLOOD_NUM][2];
-	//int				m_nBloodAlpha;
-	char				m_szBloodNo[64];
+    // 脫脙脫脷脝脮脥篓脮陆露路npc脙掳脩陋麓娄脌铆
+    int m_nBloodNo[defMAX_SHOW_BLOOD_NUM][2];
+    // int				m_nBloodAlpha;
+    char m_szBloodNo[64];
+
 private:
-	BOOL				WaitForFrame(); //等待重生帧数
-	BOOL				IsReachFrame(int nPercent); 
-	void				DoStand();
-	void				OnStand();
-	void				DoRevive(); //重生
-	void				OnRevive(); //重生
-	void				DoWait();
-	void				OnWait();
-	void				DoWalk();
-	void				OnWalk();
-	void				DoRun();
-	void				OnRun();
-	void				DoSkill(int nX, int nY);
-	int					DoOrdinSkill(KSkill * pSkill, int nX, int nY);
-	void				OnSkill();
-	void				DoAttack();
-	void				DoMagic();
-	void				DoJump();
-	BOOL				OnJump();
-	void				DoSit();
-	void				OnSit();
-	void				DoHurt(int nHurtFrames = 0, int nX = 0, int nY =0,int nRank=0);
-	void				OnHurt();
-	void				DoDeath(int nMode = 0,int nLastDamageIdx=0);
-	void				OnDeath();
-	void				DoDefense(); // 档格
-	void				OnDefense();  //档格
-	void				DoIdle();
-	void				OnIdle();
-//	有关格斗技能的------------------------------------------
+    BOOL WaitForFrame();  // 碌脠麓媒脰脴脡煤脰隆脢媒
+    BOOL IsReachFrame(int nPercent);
+    void DoStand();
+    void OnStand();
+    void DoRevive();  // 脰脴脡煤
+    void OnRevive();  // 脰脴脡煤
+    void DoWait();
+    void OnWait();
+    void DoWalk();
+    void OnWalk();
+    void DoRun();
+    void OnRun();
+    void DoSkill(int nX, int nY);
+    int DoOrdinSkill(KSkill* pSkill, int nX, int nY);
+    void OnSkill();
+    void DoAttack();
+    void DoMagic();
+    void DoJump();
+    BOOL OnJump();
+    void DoSit();
+    void OnSit();
+    void DoHurt(int nHurtFrames = 0, int nX = 0, int nY = 0, int nRank = 0);
+    void OnHurt();
+    void DoDeath(int nMode = 0, int nLastDamageIdx = 0);
+    void OnDeath();
+    void DoDefense();  // 碌碌赂帽
+    void OnDefense();  // 碌碌赂帽
+    void DoIdle();
+    void OnIdle();
+    //	脫脨鹿脴赂帽露路录录脛脺碌脛------------------------------------------
 
-	BOOL				DoSecMove(int nDistance); //是断魂刺 还是 瞬移？
-	BOOL				DoManyAttack();
-	void				OnManyAttack();
-	BOOL				DoBlurAttack();
-	BOOL				DoJumpAttack();
-	BOOL				OnJumpAttack();
-	BOOL				DoRunAttack();
-	void				OnRunAttack();
-	BOOL				CastMeleeSkill(KSkill * pSkill);
-//-----------------------------------------------------------	
-	void				OnPlayerTalk();
-	void				DoSpecial1();
-	void				OnSpecial1();
-	void				DoSpecial2();
-	void				OnSpecial2();
-	void				DoSpecial3();
-	void				OnSpecial3();
-	void				DoSpecial4(int nX, int nY);
-	void				OnSpecial4();
-	void				Goto(int nMpsX, int nMpsY);
-	void				RunTo(int nMpsX, int nMpsY);
-	void				JumpTo(int nMpsX, int nMpsY);
-	void				ServeMove(int nSpeed);
-	void				ServeJump(int nSpeed);
-//	void				Enchant(void);
-//	void				ModifyEnchant(void* pData, int nAttrib);
-	BOOL				NewPath(int nMpsX, int nMpsY);
-	BOOL				NewJump(int nMpsX, int nMpsY);
-	void                MovePos(int nMoveX, int nMoveY);
-	BOOL				CheckHitTarget(int nAR, int nDf, int nIngore = 0,int nInHuLieAr=0);
-	void                DoDrag(int nDragFrame, int nDesX, int nDesY);
+    BOOL DoSecMove(int nDistance);  // 脢脟露脧禄锚麓脤 禄鹿脢脟 脣虏脪脝拢驴
+    BOOL DoManyAttack();
+    void OnManyAttack();
+    BOOL DoBlurAttack();
+    BOOL DoJumpAttack();
+    BOOL OnJumpAttack();
+    BOOL DoRunAttack();
+    void OnRunAttack();
+    BOOL CastMeleeSkill(KSkill* pSkill);
+    //-----------------------------------------------------------
+    void OnPlayerTalk();
+    void DoSpecial1();
+    void OnSpecial1();
+    void DoSpecial2();
+    void OnSpecial2();
+    void DoSpecial3();
+    void OnSpecial3();
+    void DoSpecial4(int nX, int nY);
+    void OnSpecial4();
+    void Goto(int nMpsX, int nMpsY);
+    void RunTo(int nMpsX, int nMpsY);
+    void JumpTo(int nMpsX, int nMpsY);
+    void ServeMove(int nSpeed);
+    void ServeJump(int nSpeed);
+    //	void				Enchant(void);
+    //	void				ModifyEnchant(void* pData, int nAttrib);
+    BOOL NewPath(int nMpsX, int nMpsY);
+    BOOL NewJump(int nMpsX, int nMpsY);
+    void MovePos(int nMoveX, int nMoveY);
+    BOOL CheckHitTarget(int nAR, int nDf, int nIngore = 0, int nInHuLieAr = 0);
+    void DoDrag(int nDragFrame, int nDesX, int nDesY);
 
-	void				HurtAutoMove();
+    void HurtAutoMove();
 
 public:
-	friend class KNpcAttribModify;
-	friend class KThiefSkill;
-	KNpc();
-	~KNpc();
+    friend class KNpcAttribModify;
+    friend class KThiefSkill;
+    KNpc();
+    ~KNpc();
 
-	//void                ClearEnhanceNote();
-	DWORD               GetLoopFrames(){return m_LoopFrames;};
-	void				SetActiveFlag(BOOL bFlag) { m_bActivateFlag = bFlag; };
-	void				DoPlayerTalk(char *);
-	void				CheckTrap();
-//	int                 CheckWaiGua(char *exe_name);
-	void                ReSkillEnhance(int nLeftSkill,int nIsAdd=-1);//重置对攻击技能的加成
-	void                ReFullManaSkillEnhance(int nLeftSkill,int nLeftListidx);
-	void                ReWhereSkillEnhance(int nActiveSkillID,int nCurSkillEnchance,int nIsAdd=-1);
-	//int               NpcInitJinMaiVal();                            //经脉初始化
-	int                 NpcNewInitJinMaiVal();
-	void                UseSkills(int sKillID,int sLevel,int nNpcIdx,KMagicAttrib *pData=NULL,BOOL nIfMagic=TRUE,int nTime=-1); //设置技能状态效果
-	void				Init();
-	void				Remove();
-	//DWORD             TakeTrader(DWORD a,DWORD b); //取商
-	//DWORD             TakeRemainder(DWORD a,DWORD b);	//取余
-	void				Activate();
-	//void				ActivateDrop();	//爆率的循环
-	void                NewSetNpcEnChance();
-	BOOL				IsPlayer();
-	void                GetTongBanDamage(int* nMin, int* nMax);
+    // void                ClearEnhanceNote();
+    unsigned long GetLoopFrames() { return m_LoopFrames; };
+    void SetActiveFlag(BOOL bFlag) { m_bActivateFlag = bFlag; };
+    void DoPlayerTalk(char*);
+    void CheckTrap();
+    //	int                 CheckWaiGua(char *exe_name);
+    void ReSkillEnhance(int nLeftSkill, int nIsAdd = -1);  // 脰脴脰脙露脭鹿楼禄梅录录脛脺碌脛录脫鲁脡
+    void ReFullManaSkillEnhance(int nLeftSkill, int nLeftListidx);
+    void ReWhereSkillEnhance(int nActiveSkillID, int nCurSkillEnchance, int nIsAdd = -1);
+    // int               NpcInitJinMaiVal();                            //戮颅脗枚鲁玫脢录禄炉
+    int NpcNewInitJinMaiVal();
+    void UseSkills(int sKillID,
+                   int sLevel,
+                   int nNpcIdx,
+                   KMagicAttrib* pData = NULL,
+                   BOOL nIfMagic       = TRUE,
+                   int nTime           = -1);  // 脡猫脰脙录录脛脺脳麓脤卢脨搂鹿没
+    void Init();
+    void Remove();
+    // unsigned long             TakeTrader(unsigned long a,unsigned long b); //脠隆脡脤
+    // unsigned long             TakeRemainder(unsigned long a,unsigned long b);	//脠隆脫脿
+    void Activate();
+    // void				ActivateDrop();	//卤卢脗脢碌脛脩颅禄路
+    void NewSetNpcEnChance();
+    BOOL IsPlayer();
+    void GetTongBanDamage(int* nMin, int* nMax);
 
-	/*int               GetCurFuMoNpcNo(int idx);
-	int                 GetCurFuMoIdx();
-	int                 GetCurFoMoSkllLevel(int idx);
-	*/
-	void				SetFightMode(BOOL bFightMode);
-	void				SetBayBan(BOOL bBayBan);//bayban
-	void				TurnTo(int nIdx);
-	void                setNpcDir(int nX2,int nY2);
-	int                 GetAttackFrame(){return m_AttackFrame;};    
-	int                 GetCastFrame(){return m_CastFrame;}; 
-	void                SetAttackFrame(int nCurFrame){ m_AttackFrame=nCurFrame;};    
-	void                SetCastFrame(int nCurFrame){m_CastFrame=nCurFrame;}; 
-	void				SendSerCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
-	void				ProcCommand(int nAI);
-	ISkill* 			GetActiveSkill();
-	int                 GetSkillLeftTime(int nSkillId);//获取这个技能的状态的剩余时间
-	int                 SetSkillLeftTime(int nSkillId,int nTime);   //设置这个技能的存活时间
-	void                ClearOneSkillState(int nSkillId);
+    /*int               GetCurFuMoNpcNo(int idx);
+    int                 GetCurFuMoIdx();
+    int                 GetCurFoMoSkllLevel(int idx);
+    */
+    void SetFightMode(BOOL bFightMode);
+    void SetBayBan(BOOL bBayBan);  // bayban
+    void TurnTo(int nIdx);
+    void setNpcDir(int nX2, int nY2);
+    int GetAttackFrame() { return m_AttackFrame; };
+    int GetCastFrame() { return m_CastFrame; };
+    void SetAttackFrame(int nCurFrame) { m_AttackFrame = nCurFrame; };
+    void SetCastFrame(int nCurFrame) { m_CastFrame = nCurFrame; };
+    void SendSerCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
+    void ProcCommand(int nAI);
+    ISkill* GetActiveSkill();
+    int GetSkillLeftTime(int nSkillId);             // 禄帽脠隆脮芒赂枚录录脛脺碌脛脳麓脤卢碌脛脢拢脫脿脢卤录盲
+    int SetSkillLeftTime(int nSkillId, int nTime);  // 脡猫脰脙脮芒赂枚录录脛脺碌脛麓忙禄卯脢卤录盲
+    void ClearOneSkillState(int nSkillId);
 
-	BOOL				ProcessState();
-	void				ProcStatus();
-	void				ModifyAttrib(int nAttacker, void* pData);
-	int					GetSkillLevel(int nSkillId);
-	void				SetId(DWORD	dwID)	{ m_dwID = dwID;};
-	BOOL				IsMatch(DWORD dwID)	{ return dwID == m_dwID; };	// 是否ID与该Index匹配
-	BOOL				Cost(NPCATTRIB nType, int nCost, BOOL bOnlyCheckCanCast = FALSE);				// 消耗内力体力等,如果OnlyCheckCanCost为TRUE,表示只是检查当前的内力等是否够消耗，并不实际的扣
-	//void				SelfDamage(int nDamage);						// 自身的伤害，如牺牲攻击
-	void				Load(int nNpcSettingIdx, int nLevel,int nSubWorld,int nBoss=0);						// 从TabFile中加载
-	void				GetMpsPos(int * pPosX, int *pPosY,int *nMapid);
-	BOOL				SetActiveSkill(int nSkillIdx);
-	BOOL	            ChangeSkillAttackRadius(int nSkillIdx,int nDis);
-	int				    GetSkillID(int nSkillIdx);
-	void                UpdataNpcCurData(int nWonerIndex=0,int nPlace=-1);
-	void                ReCalcNpcEquip(int nWonerIndex,int nEquipPlace=-1);
-	BOOL                UpMagicAttrib(int i,int nWonerIndex);
-	void				SetAuraSkill(int nSkillID);
-	void				SetCamp(int nCamp);
-	void				SetRankFF(int nRankFF);
-	void                SetPlayFF(int nPlayFF);
-	void				SetCurrentCamp(int nCamp); //设置当前阵营
-	void				RestoreCurrentCamp();      //恢复阵营
-	void				SetStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void *pData, int nDataNum, int nTime = -1,int nIsEuq=0);	// 主动辅助技能与被动技能
-	void                SetToolStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void *pData, int nDataNum, int nTime=-1);
-	void                SetToolNoStateEffect(int nLauncher, int nSkillID, int nLevel,int nTime);
-	void				SysnCastSkillEffect(int nLauncher,int nSkillID,int nParam1,int nParam2,int nLevel, int nTime = -1,int mMaxBei=1);
-	void				ClearStateSkillEffect();//清除NPC身上的非被动类的技能状态nMaxBeiLv
-	void				ReCalcStateEffect();
-	void				ClearNormalState();
-	void				SetImmediatelySkillEffect(int nLauncher, void *pData, int nDataNum);
-	void				AppendSkillEffect(int nIsMaigc,BOOL bIsPhysical, BOOL bIsMelee, void *pSrcData, void *pDesData, int nEnChance);
-	int					ModifyMissleLifeTime(int nLifeTime);
-	int					ModifyMissleSpeed(int nSpeed);
-	BOOL				ModifyMissleCollsion(BOOL bCollsion);
-	void				RestoreNpcBaseInfo(); //Set Current_Data ;
-	int                 GetNpcPepoleID(){return m_nPlayerIdx;};
-//	int                 GetNpcIsReviveID(){return m_IsRevive;};   
-	void				SetNpcIsRe(int nIsRe,int nTime) {m_IsRevive = nIsRe; m_ReviveFrame= nTime;};
-	void				SetNpcIsReFrame(int nIsRe,int nTime) {m_IsRe = nIsRe; m_ReviveFrame= nTime;};
-	void				RestoreState();
-	void				ClearNpcState();
-	BOOL				SetPlayerIdx(int nIdx);
-	void				DialogNpc(int nIndex);
-	void				Revive(); //c重生hon
-	void				AddBaseLifeMax(int nLife);	// 增加基本最大生命点
-	void				SetBaseLifeMax(int nLifeMax); // 设置基本最大生命点
-	void				AddCurLifeMax(int nLife);
-	void				AddBaseStaminaMax(int nStamina);// 增加基本最大体力点
-	void				SetBaseStaminaMax(int nStamina);
-	void				AddCurStaminaMax(int nStamina);
-	void				AddBaseManaMax(int nMana);	// 增加基本最大内力点
-	void				SetBaseManaMax(int nMana);
-	void				AddCurManaMax(int nMana);
-    void                NpcFuMoCastSkll(int nLauncher, int nParam1, int nParam2, int nWaitTime=0);
-//	void				ResetLifeReplenish();		// 重新计算生命回复速度
-//	void				CalcCurLifeMax();			// 计算当前最大生命点
-//	void				CalcCurStaminaMax();		// 计算当前最大体力点
-//	void				CalcCurManaMax();			// 计算当前最大内力点
-	void				CalcCurLifeReplenish();		// 计算当前生命回复速度
-	void				SetSeries(int nSeries);// 设定此 npc 的五行属性（内容还没完成）
-    void	            SetFangAndHai(KChanelBaseInfo *nNpcInfo);//改变NPC的四防，用于触发BB
-	void	            SetBaseDamage(int nMix,int nMax,int nType=0);
-	void	            GetFangAndHai(KChanelBaseInfo *nNpcInfo);
-//	int					GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel, char * szParam);
-//	int					SkillString2Id(char * szSkillString);
-	void				GetNpcCopyFromTemplate(int nNpcTemplateId, int nLevel);
-//	void				InitNpcLevelData(KTabFile * pTabFile, int nNpcTemplateId, KLuaScript * pLevelScript, int nLevel);
-//	void				InitNpcBaseData(int nNpcTemplateId);
-	void				SetPhysicsDamage(int nMinDamage, int nMaxDamage);	// 设定物理攻击的最大最小值
-	void				SetBaseAttackRating(int nAttackRating);					// 设定攻击命中率
-	void				SetBaseDefence(int nDefence);							// 设定防御力
-//	void				SetBaseWalkSpeed(int nSpeed);							// 设定行走速度
-//	void				SetBaseRunSpeed(int nSpeed);							// 设定跑步速度
-	int					GetCurActiveWeaponSkill();
-	void				LoadDataFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
-    //unsigned int	    GetColor(const char* pString); //将字符串颜色转换成16进制
-	//const               char* GetColorString(unsigned int nColor); //将16进制颜色转换成 字符串形式
-	void				ReSetRes(int nMark);
-	void				GetFrameCopyFromTemplate(int nNpcTemplateId, int nLevel);
-	void				LoadFrameFromTemplate(void * nNpcTemp=NULL);//(int nNpcTemplateId, int nLevel);
-//	int                 NpcInitJinMaiVal(); //经脉初始化
-//	void                UseSkills(int sKillID,int sLevel,int nNpcIdx); //设置技能状态效果
-//    int				GetPlayerIdx();
-	int	                CheckMaps(char *nKey,int nMapIdx);
-	int	                CheckAllItem(int nKeyCol,int nGen,int nDetail,int nPart);
-	BOOL				TestMovePos(int& nMpsX,int& nMpsY,int& nLength, int nSpeed, BOOL bCanJumpOver);
+    BOOL ProcessState();
+    void ProcStatus();
+    void ModifyAttrib(int nAttacker, void* pData);
+    int GetSkillLevel(int nSkillId);
+    void SetId(unsigned long dwID) { m_dwID = dwID; };
+    BOOL IsMatch(unsigned long dwID) { return dwID == m_dwID; };  // 脢脟路帽ID脫毛赂脙Index脝楼脜盲
+    BOOL Cost(NPCATTRIB nType,
+              int nCost,
+              BOOL bOnlyCheckCanCast =
+                  FALSE);  // 脧没潞脛脛脷脕娄脤氓脕娄碌脠,脠莽鹿没OnlyCheckCanCost脦陋TRUE,卤铆脢戮脰禄脢脟录矛虏茅碌卤脟掳碌脛脛脷脕娄碌脠脢脟路帽鹿禄脧没潞脛拢卢虏垄虏禄脢碌录脢碌脛驴脹
+    // void				SelfDamage(int nDamage);						//
+    // 脳脭脡铆碌脛脡脣潞娄拢卢脠莽脦镁脡眉鹿楼禄梅
+    void Load(int nNpcSettingIdx, int nLevel, int nSubWorld, int nBoss = 0);  // 麓脫TabFile脰脨录脫脭脴
+    void GetMpsPos(int* pPosX, int* pPosY, int* nMapid);
+    BOOL SetActiveSkill(int nSkillIdx);
+    BOOL ChangeSkillAttackRadius(int nSkillIdx, int nDis);
+    int GetSkillID(int nSkillIdx);
+    void UpdataNpcCurData(int nWonerIndex = 0, int nPlace = -1);
+    void ReCalcNpcEquip(int nWonerIndex, int nEquipPlace = -1);
+    BOOL UpMagicAttrib(int i, int nWonerIndex);
+    void SetAuraSkill(int nSkillID);
+    void SetCamp(int nCamp);
+    void SetRankFF(int nRankFF);
+    void SetPlayFF(int nPlayFF);
+    void SetCurrentCamp(int nCamp);  // 脡猫脰脙碌卤脟掳脮贸脫陋
+    void RestoreCurrentCamp();       // 禄脰赂麓脮贸脫陋
+    void SetStateSkillEffect(int nLauncher,
+                             int nSkillID,
+                             int nLevel,
+                             void* pData,
+                             int nDataNum,
+                             int nTime  = -1,
+                             int nIsEuq = 0);  // 脰梅露炉赂篓脰煤录录脛脺脫毛卤禄露炉录录脛脺
+    void SetToolStateSkillEffect(int nLauncher, int nSkillID, int nLevel, void* pData, int nDataNum, int nTime = -1);
+    void SetToolNoStateEffect(int nLauncher, int nSkillID, int nLevel, int nTime);
+    void SysnCastSkillEffect(int nLauncher,
+                             int nSkillID,
+                             int nParam1,
+                             int nParam2,
+                             int nLevel,
+                             int nTime   = -1,
+                             int mMaxBei = 1);
+    void ClearStateSkillEffect();  // 脟氓鲁媒NPC脡铆脡脧碌脛路脟卤禄露炉脌脿碌脛录录脛脺脳麓脤卢nMaxBeiLv
+    void ReCalcStateEffect();
+    void ClearNormalState();
+    void SetImmediatelySkillEffect(int nLauncher, void* pData, int nDataNum);
+    void AppendSkillEffect(int nIsMaigc,
+                           BOOL bIsPhysical,
+                           BOOL bIsMelee,
+                           void* pSrcData,
+                           void* pDesData,
+                           int nEnChance);
+    int ModifyMissleLifeTime(int nLifeTime);
+    int ModifyMissleSpeed(int nSpeed);
+    BOOL ModifyMissleCollsion(BOOL bCollsion);
+    void RestoreNpcBaseInfo();  // Set Current_Data ;
+    int GetNpcPepoleID() { return m_nPlayerIdx; };
+    //	int                 GetNpcIsReviveID(){return m_IsRevive;};
+    void SetNpcIsRe(int nIsRe, int nTime)
+    {
+        m_IsRevive    = nIsRe;
+        m_ReviveFrame = nTime;
+    };
+    void SetNpcIsReFrame(int nIsRe, int nTime)
+    {
+        m_IsRe        = nIsRe;
+        m_ReviveFrame = nTime;
+    };
+    void RestoreState();
+    void ClearNpcState();
+    BOOL SetPlayerIdx(int nIdx);
+    void DialogNpc(int nIndex);
+    void Revive();                      // c脰脴脡煤hon
+    void AddBaseLifeMax(int nLife);     // 脭枚录脫禄霉卤戮脳卯麓贸脡煤脙眉碌茫
+    void SetBaseLifeMax(int nLifeMax);  // 脡猫脰脙禄霉卤戮脳卯麓贸脡煤脙眉碌茫
+    void AddCurLifeMax(int nLife);
+    void AddBaseStaminaMax(int nStamina);  // 脭枚录脫禄霉卤戮脳卯麓贸脤氓脕娄碌茫
+    void SetBaseStaminaMax(int nStamina);
+    void AddCurStaminaMax(int nStamina);
+    void AddBaseManaMax(int nMana);  // 脭枚录脫禄霉卤戮脳卯麓贸脛脷脕娄碌茫
+    void SetBaseManaMax(int nMana);
+    void AddCurManaMax(int nMana);
+    void NpcFuMoCastSkll(int nLauncher, int nParam1, int nParam2, int nWaitTime = 0);
+    //	void				ResetLifeReplenish();		// 脰脴脨脗录脝脣茫脡煤脙眉禄脴赂麓脣脵露脠
+    //	void				CalcCurLifeMax();			// 录脝脣茫碌卤脟掳脳卯麓贸脡煤脙眉碌茫
+    //	void				CalcCurStaminaMax();		// 录脝脣茫碌卤脟掳脳卯麓贸脤氓脕娄碌茫
+    //	void				CalcCurManaMax();			// 录脝脣茫碌卤脟掳脳卯麓贸脛脷脕娄碌茫
+    void CalcCurLifeReplenish();  // 录脝脣茫碌卤脟掳脡煤脙眉禄脴赂麓脣脵露脠
+    void SetSeries(int nSeries);  // 脡猫露篓麓脣 npc 碌脛脦氓脨脨脢么脨脭拢篓脛脷脠脻禄鹿脙禄脥锚鲁脡拢漏
+    void SetFangAndHai(KChanelBaseInfo* nNpcInfo);  // 赂脛卤盲NPC碌脛脣脛路脌拢卢脫脙脫脷麓楼路垄BB
+    void SetBaseDamage(int nMix, int nMax, int nType = 0);
+    void GetFangAndHai(KChanelBaseInfo* nNpcInfo);
+    //	int					GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int
+    //nLevel, char * szParam); 	int					SkillString2Id(char * szSkillString);
+    void GetNpcCopyFromTemplate(int nNpcTemplateId, int nLevel);
+    //	void				InitNpcLevelData(KTabFile * pTabFile, int nNpcTemplateId, KLuaScript *
+    //pLevelScript, int nLevel); 	void				InitNpcBaseData(int nNpcTemplateId);
+    void SetPhysicsDamage(int nMinDamage, int nMaxDamage);  // 脡猫露篓脦茂脌铆鹿楼禄梅碌脛脳卯麓贸脳卯脨隆脰碌
+    void SetBaseAttackRating(int nAttackRating);            // 脡猫露篓鹿楼禄梅脙眉脰脨脗脢
+    void SetBaseDefence(int nDefence);                      // 脡猫露篓路脌脫霉脕娄
+    //	void				SetBaseWalkSpeed(int nSpeed); // 脡猫露篓脨脨脳脽脣脵露脠 	void
+    //SetBaseRunSpeed(int nSpeed);							// 脡猫露篓脜脺虏陆脣脵露脠
+    int GetCurActiveWeaponSkill();
+    void LoadDataFromTemplate(void* nNpcTemp = NULL);  //(int nNpcTemplateId, int nLevel);
+    // unsigned int	    GetColor(const char* pString); //陆芦脳脰路没麓庐脩脮脡芦脳陋禄禄鲁脡16陆酶脰脝
+    // const               char* GetColorString(unsigned int nColor); //陆芦16陆酶脰脝脩脮脡芦脳陋禄禄鲁脡 脳脰路没麓庐脨脦脢陆
+    void ReSetRes(int nMark);
+    void GetFrameCopyFromTemplate(int nNpcTemplateId, int nLevel);
+    void LoadFrameFromTemplate(void* nNpcTemp = NULL);  //(int nNpcTemplateId, int nLevel);
+    //	int                 NpcInitJinMaiVal(); //戮颅脗枚鲁玫脢录禄炉
+    //	void                UseSkills(int sKillID,int sLevel,int nNpcIdx); //脡猫脰脙录录脛脺脳麓脤卢脨搂鹿没
+    //    int				GetPlayerIdx();
+    int CheckMaps(char* nKey, int nMapIdx);
+    int CheckAllItem(int nKeyCol, int nGen, int nDetail, int nPart);
+    BOOL TestMovePos(int& nMpsX, int& nMpsY, int& nLength, int nSpeed, BOOL bCanJumpOver);
 
-	void                OnDrag();	                       // 拉扯 随机移动
+    void OnDrag();  // 脌颅鲁露 脣忙禄煤脪脝露炉
 
-	void                SetClientSpr(char *nSprPath,int nxLeft,int nyTop,int nzPos=0,int i=0,char *ncPart=NULL);//设置 同时运行的SPR动画
-	void				SetSleepMode(BOOL bSleep) { m_nSleepFlag = bSleep; /*m_DataRes.SetSleepState(bSleep);*/};
-	void				SetNpcState(int* pNpcState);
-	void				ActivateWaiGua();
-	void				RemoveRes();
-	void			    ClientShowMsg(const char *Msg);
-	void				ProcNetCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
-	void				Paint();
-	int					PaintInfo(int nHeightOffset, bool bSelect, int nFontSize = 12, DWORD	dwBorderColor = 0XFF000000);
-	void				PaintHonor(int nbtRankFFId,int nMpsX,int nMpsY,int i); //spr称号
-	void				PaintPifeng(int m_PifengType,int nMpsX,int nMpsY,int i); //spr披风称号
-//	void				PaintHonor(char szString[16], int nHeightOffset, int nFontSize = 12, DWORD	dwBorderColor = 0);
-	int					PaintChat(int nHeightOffset);
-	int					SetChatInfo(const char* Name, const char* pMsgBuff, unsigned short nMsgLength);//自己NPC说话
-	int					PaintLife(int nHeightOffset, bool bSelect);
-	int					PaintMana(int nHeightOffset);
-	void				DrawBorder();
-	int					DrawMenuState(int n);
-	void				DrawBlood();	//绘制血条和名字在固定位置
-	BOOL				IsCanInput() { return m_ProcessAI; };//人物AI 标志
-	void				SetMenuState(int nState, char *lpszSentence = NULL, int nLength = 0);	// 设定头顶状态
-	int					GetMenuState();				// 获得头顶状态
-	DWORD				SearchAroundID(DWORD dwID);	// 查找周围9个Region中是否有指定 ID 的 npc
-	void				SetSpecialSpr(char *lpszSprName);// 设定特殊的只播放一遍的随身spr文件
-	void				SetFrameSpr(char *lpszSprName, int nX, int nY, int nHeight,int mInterval=0);
-	void				SetInstantSpr(int nNo);
-	int					GetNormalNpcStandDir(int nFrame);
-	KNpcRes*			GetNpcRes(){return NULL;/*&m_DataRes;*/};  //得到NPC的外观
-  //KImageParam	        imgParam;  
-	int                 GetNpcPate();
-	int                 GetNpcPatePeopleInfo();
+    void SetClientSpr(const char* nSprPath,
+                      int nxLeft,
+                      int nyTop,
+                      int nzPos    = 0,
+                      int i        = 0,
+                      char* ncPart = NULL);  // 脡猫脰脙 脥卢脢卤脭脣脨脨碌脛SPR露炉禄颅
+    void SetSleepMode(BOOL bSleep) { m_nSleepFlag = bSleep; /*m_DataRes.SetSleepState(bSleep);*/ };
+    void SetNpcState(int* pNpcState);
+    void ActivateWaiGua();
+    void RemoveRes();
+    void ClientShowMsg(const char* Msg);
+    void ProcNetCommand(NPCCMD cmd, int x = 0, int y = 0, int z = 0);
+    void Paint();
+    int PaintInfo(int nHeightOffset, bool bSelect, int nFontSize = 12, unsigned long dwBorderColor = 0XFF000000);
+    void PaintHonor(int nbtRankFFId, int nMpsX, int nMpsY, int i);    // spr鲁脝潞脜
+    void PaintPifeng(int m_PifengType, int nMpsX, int nMpsY, int i);  // spr脜没路莽鲁脝潞脜
+    //	void				PaintHonor(char szString[16], int nHeightOffset, int nFontSize = 12, unsigned long
+    //dwBorderColor = 0);
+    int PaintChat(int nHeightOffset);
+    int SetChatInfo(const char* Name, const char* pMsgBuff, unsigned short nMsgLength);  // 脳脭录潞NPC脣碌禄掳
+    int PaintLife(int nHeightOffset, bool bSelect);
+    int PaintMana(int nHeightOffset);
+    void DrawBorder();
+    int DrawMenuState(int n);
+    void DrawBlood();                           // 禄忙脰脝脩陋脤玫潞脥脙没脳脰脭脷鹿脤露篓脦禄脰脙
+    BOOL IsCanInput() { return m_ProcessAI; };  // 脠脣脦茂AI 卤锚脰戮
+    void SetMenuState(int nState, char* lpszSentence = NULL, int nLength = 0);  // 脡猫露篓脥路露楼脳麓脤卢
+    int GetMenuState();                                                         // 禄帽碌脙脥路露楼脳麓脤卢
+    unsigned long SearchAroundID(unsigned long dwID);       // 虏茅脮脪脰脺脦搂9赂枚Region脰脨脢脟路帽脫脨脰赂露篓 ID 碌脛 npc
+    void SetSpecialSpr(char* lpszSprName);  // 脡猫露篓脤脴脢芒碌脛脰禄虏楼路脜脪禄卤茅碌脛脣忙脡铆spr脦脛录镁
+    void SetFrameSpr(char* lpszSprName, int nX, int nY, int nHeight, int mInterval = 0);
+    void SetInstantSpr(int nNo);
+    int GetNormalNpcStandDir(int nFrame);
+    KNpcRes* GetNpcRes() { return NULL; /*&m_DataRes;*/ };  // 碌脙碌陆NPC碌脛脥芒鹿脹
+    // KImageParam	        imgParam;
+    int GetNpcPate();
+    int GetNpcPatePeopleInfo();
 
-	// 冒血处理
-	void				ClearBlood(int i);
-	void				SetBlood(int nNo);
-	int				    PaintBlood(int nHeightOffset);	//绘制冒血
-	int	                PaintOther();
-	int	                PaintNewBlood(int nHeightOffset,int Val);
-	void                ApplySynNpcInfo(DWORD nNpcDwid);
+    // 脙掳脩陋麓娄脌铆
+    void ClearBlood(int i);
+    void SetBlood(int nNo);
+    int PaintBlood(int nHeightOffset);  // 禄忙脰脝脙掳脩陋
+    int PaintOther();
+    int PaintNewBlood(int nHeightOffset, int Val);
+    void ApplySynNpcInfo(unsigned long nNpcDwid);
 };
 
-//导致内存飙升 MAX_NPC
-extern  KNpc *Npc;//Npc[MAX_NPC];
+// 碌录脰脗脛脷麓忙矛颅脡媒 MAX_NPC
+extern KNpc* Npc;  // Npc[MAX_NPC];
 #endif
-
-

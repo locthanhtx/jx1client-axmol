@@ -101,7 +101,7 @@ char	g_szObjKind[Obj_Kind_Num][32] =
 	"Prop"
 };
 
-DWORD	g_dwObjKindNum[Obj_Kind_Num] =
+unsigned long	g_dwObjKindNum[Obj_Kind_Num] =
 {
 	0x4f70614d,
 	0x79646f42,
@@ -129,9 +129,9 @@ KObjSet::~KObjSet()
 //---------------------------------------------------------------------------
 //	���ܣ���ʼ���������ͼobj����ģ��
 //---------------------------------------------------------------------------
-BOOL	KObjSet::Init()
+int	KObjSet::Init()
 {
-	BOOL	bRet = TRUE;
+	int	bRet = TRUE;
 	int		i;
 
 	m_FreeIdxObjSet.Init(MAX_OBJECT);
@@ -191,7 +191,7 @@ BOOL	KObjSet::Init()
 //---------------------------------------------------------------------------
 //	���ܣ��ͻ������һ��obj
 //---------------------------------------------------------------------------
-int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFrame, int nXpos, int nYpos, KCObjItemInfo sInfo,DWORD nObjDwidx)
+int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFrame, int nXpos, int nYpos, KCObjItemInfo sInfo,unsigned int nObjDwidx)
 {
 	if (nDataID <= 0 || nDataID >= m_cTabFile.GetHeight())
 		return -1;
@@ -286,7 +286,7 @@ int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFram
 //---------------------------------------------------------------------------
 //	���ܣ��ͻ�������һ��Region������Obj
 //---------------------------------------------------------------------------
-BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY, int nSubWorld, int nRegion)
+int	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY, int nSubWorld, int nRegion)
 {
 	if (lpszMapPath==NULL || !lpszMapPath[0])
 		return FALSE;
@@ -312,7 +312,7 @@ BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY,
 	KSPObj	sData;
 	int		nKind;
 	KCObjItemInfo	sInfo;
-	for (int i = 0; (DWORD)i < sHead.uNumObj; ++i)
+	for (int i = 0; (unsigned long)i < sHead.uNumObj; ++i)
 	{
 		memset(sData.szScript, 0, sizeof(sData.szScript));
 		cDataFile.Read(&sData, sizeof(KSPObj) - sizeof(sData.szScript));
@@ -347,7 +347,7 @@ BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY,
 //---------------------------------------------------------------------------
 //	���ܣ��ͻ�������һ��Region������Obj
 //---------------------------------------------------------------------------
-BOOL	KObjSet::ClientAddRegionObj(KPakFile *pFile, DWORD dwDataSize)
+int	KObjSet::ClientAddRegionObj(KPakFile *pFile, unsigned int dwDataSize)
 {
 	if (!pFile || dwDataSize < sizeof(sizeof(KObjFileHead)))
 		return FALSE;
@@ -358,7 +358,7 @@ BOOL	KObjSet::ClientAddRegionObj(KPakFile *pFile, DWORD dwDataSize)
 	KCObjItemInfo	sInfo;
 
 	pFile->Read(&sHead, sizeof(sHead));
-	for (int i = 0; (DWORD)i < sHead.uNumObj; ++i)
+	for (int i = 0; (unsigned long)i < sHead.uNumObj; ++i)
 	{
 		pFile->Read(&sData, sizeof(KSPObj) - sizeof(sData.szScript));
 		if (sData.nScriptNameLen < sizeof(sData.szScript))
@@ -422,7 +422,7 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 	m_cTabFile.GetString(nDataID + 1, ObjDataField_Kind, g_szObjKind[0], szBuffer, sizeof(szBuffer));
 	for (i = 0; i < Obj_Kind_Num; ++i)
 	{
-		if (*(DWORD*)(&szBuffer) == g_dwObjKindNum[i])
+		if (*(unsigned long*)(&szBuffer) == g_dwObjKindNum[i])
 			break;
 	}
 	if (i >= Obj_Kind_Num)
@@ -728,14 +728,14 @@ ax::Color3B	KObjSet::GetNameColor(int nColorID)
 //	���ܣ��趨�Ƿ�ȫ����ʾ item �� money ��� object ������
 //			bFlag ==	TRUE ��ʾ��bFlag == FALSE ����ʾ zroc add
 //-------------------------------------------------------------------------
-void	KObjSet::SetShowNameFlag(BOOL bFlag)
+void	KObjSet::SetShowNameFlag(int bFlag)
 {
 	this->m_nShowNameFlag = bFlag;
 }
 //-------------------------------------------------------------------------
 //	���ܣ��ж��Ƿ�ȫ����ʾ item �� money ��� object ������  ����ֵ TRUE ��ʾ��FALSE ����ʾ
 //-------------------------------------------------------------------------
-BOOL	KObjSet::CheckShowName()
+int	KObjSet::CheckShowName()
 {
 	return m_nShowNameFlag;
 }

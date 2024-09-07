@@ -3,7 +3,7 @@
 //
 // File:	KPlayerFaction.cpp
 // Date:	2002.09.26
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	PlayerFaction Class
 //---------------------------------------------------------------------------
 
@@ -13,11 +13,11 @@
 #include	"KFaction.h"
 #include	"KPlayerFaction.h"
 
-#define		FACTION_NEW			"³õÈë½­ºþ"
-//#define		FACTION_OLD			"½­ºþÓÎÏÀ"
+#define		FACTION_NEW			"ï¿½ï¿½ï¿½ë½­ï¿½ï¿½"
+//#define		FACTION_OLD			"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¹¹Ôìº¯Êý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 //---------------------------------------------------------------------------
 KPlayerFaction::KPlayerFaction()
 {
@@ -25,7 +25,7 @@ KPlayerFaction::KPlayerFaction()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÇå¿ÕÃÅÅÉÐÅÏ¢
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //---------------------------------------------------------------------------
 void	KPlayerFaction::Release()
 {
@@ -35,7 +35,7 @@ void	KPlayerFaction::Release()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¸ù¾ÝÍæ¼ÒµÄÎåÐÐÊôÐÔÈ·¶¨Íæ¼ÒÃÅÅÉÊý¾Ý
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerFaction::SetSeries(int nSeries)
 {
@@ -58,9 +58,9 @@ void	KPlayerFaction::SetSeries(int nSeries)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¼ÓÈëÃÅÅÉ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
-BOOL	KPlayerFaction::AddFaction(int nSeries, char *lpszFactionName)
+int	KPlayerFaction::AddFaction(int nSeries, char *lpszFactionName)
 {
 	int		nID;
 
@@ -71,9 +71,9 @@ BOOL	KPlayerFaction::AddFaction(int nSeries, char *lpszFactionName)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¼ÓÈëÃÅÅÉ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
-BOOL	KPlayerFaction::AddFaction(int nSeries, int nFactionID)
+int	KPlayerFaction::AddFaction(int nSeries, int nFactionID)
 {
 	if (nSeries < series_metal || nSeries >= series_num)
 		return FALSE;
@@ -92,7 +92,7 @@ BOOL	KPlayerFaction::AddFaction(int nSeries, int nFactionID)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÀë¿ªµ±Ç°ÃÅÅÉ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ë¿ªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerFaction::LeaveFaction()
 {
@@ -100,9 +100,9 @@ void	KPlayerFaction::LeaveFaction()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿ª·Åµ±Ç°ÃÅÅÉÄ³¸öµÈ¼¶µÄ¼¼ÄÜ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Åµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½È¼ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
-BOOL	KPlayerFaction::OpenCurSkillLevel(int nLevel, KSkillList *pSkillList)
+int	KPlayerFaction::OpenCurSkillLevel(int nLevel, KSkillList *pSkillList)
 {
 	return TRUE;
 /*
@@ -113,7 +113,7 @@ BOOL	KPlayerFaction::OpenCurSkillLevel(int nLevel, KSkillList *pSkillList)
 
 	int		i, j;
 
-	// Éè¶¨µ±Ç°¿ª·ÅµÈ¼¶
+	// ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÅµÈ¼ï¿½
 	for (i = 0; i < FACTIONS_PRR_SERIES; i++)
 	{
 		if (m_nCurFaction == m_sSkillOpen[i].m_nID)
@@ -123,7 +123,7 @@ BOOL	KPlayerFaction::OpenCurSkillLevel(int nLevel, KSkillList *pSkillList)
 		}
 	}
 
-	// Éè¶¨Íæ¼Ò¼¼ÄÜ
+	// ï¿½è¶¨ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½
 	for (i = 0; i <= nLevel; i++)
 	{
 		for (j = 0; j < FACTION_SKILLS_PER_LEVEL; j++)
@@ -139,7 +139,7 @@ BOOL	KPlayerFaction::OpenCurSkillLevel(int nLevel, KSkillList *pSkillList)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃµ±Ç°ÃÅÅÉÕóÓª
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óª
 //---------------------------------------------------------------------------
 int		KPlayerFaction::GetGurFactionCamp()
 {
@@ -160,7 +160,7 @@ int		KPlayerFaction::GetGurFactionCamp()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃµ±Ç°ÃÅÅÉ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 int		KPlayerFaction::GetCurFactionNo()
 {
@@ -168,7 +168,7 @@ int		KPlayerFaction::GetCurFactionNo()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃµ±Ç°ÃÅÅÉ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 void	KPlayerFaction::GetCurFactionName(char *lpszGetName)
 {

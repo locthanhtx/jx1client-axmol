@@ -2,26 +2,26 @@
 //
 //  FileName    :   KSG_EncodeDecode.cpp
 //  Version     :   1.0
-//  Creater     :   
+//  Creater     :
 //  Date        :   2003-6-3 10:28:57
-//  Comment     :   
+//  Comment     :
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
 #include "KSG_EncodeDecode.h"
 
-int32_t KSG_DecodeEncode(uint32_t uSize, unsigned char *pbyBuf, uint32_t *puKey)
+int KSG_DecodeEncode(unsigned int uSize, unsigned char *pbyBuf, unsigned int *puKey)
 {
 //#ifndef WIN32
 //#pragma pack(push) //�������״̬
 //#pragma pack(8)    //�趨Ϊ4�ֽڶ��� //64λ 8���ֽ� ָ��
 //#endif
-    uint32_t *puBuf = (uint32_t *)pbyBuf;
-    uint32_t uKey = *puKey;
-    uint32_t uRemainSize = uSize%4;//ʣ�¶��ٳ��� 4�ֽڶ���
+    unsigned int *puBuf = (unsigned int *)pbyBuf;
+    unsigned int uKey = *puKey;
+    unsigned int uRemainSize = uSize%4;//ʣ�¶��ٳ��� 4�ֽڶ���
 	uSize /= 4;//�ж��ٸ�4�ı���
-    while (uSize-- > 0)   
+    while (uSize-- > 0)
 	{
         *puBuf++^=uKey;//��ֵ ������� ����
 	}
@@ -40,7 +40,7 @@ return true;
 }
 
 
-int32_t KSG_DecodeEncode_ASM(uint32_t uSize, unsigned char *pbyBuf, unsigned *puKey)
+int KSG_DecodeEncode_ASM(unsigned int uSize, unsigned char *pbyBuf, unsigned *puKey)
 {
     /*__asm mov eax, [uSize]
     __asm mov esi, [puKey]
@@ -50,7 +50,7 @@ int32_t KSG_DecodeEncode_ASM(uint32_t uSize, unsigned char *pbyBuf, unsigned *pu
 
     __asm shr eax, 2
     __asm jz  Next1
-   
+
     Loop1:
     __asm mov ebx, [edi]
     __asm add edi, 4
@@ -84,14 +84,14 @@ int32_t KSG_DecodeEncode_ASM(uint32_t uSize, unsigned char *pbyBuf, unsigned *pu
     return true;
 }
 
-int32_t KSG_DecodeEncode_New(uint32_t uSize, unsigned char *pbyBuf, uint32_t *puKey)
+int KSG_DecodeEncode_New(unsigned int uSize, unsigned char *pbyBuf, unsigned int *puKey)
 {
 	unsigned char *v3; // edi@1
-	uint32_t v4; // edx@1
-	uint32_t i; // eax@1
-	int32_t v6; // ebx@2
-	uint32_t v7; // ecx@3
-	uint32_t j; // eax@3
+	unsigned int v4; // edx@1
+	unsigned int i; // eax@1
+	int v6; // ebx@2
+	unsigned int v7; // ecx@3
+	unsigned int j; // eax@3
 	char v9; // bl@4
 	char v10; // bl@4
 

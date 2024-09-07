@@ -67,7 +67,7 @@ public:
 	//int m_nIsSKill;
 	//int m_mIsFull;
 	int m_uid;
-	//DWORD m_TextColor;
+	//unsigned long m_TextColor;
 	KImmediaItem() :m_nIndex(-1){} //, m_TextColor(0xFFFFFF00)
 //	int	Init(KIniFile* pIniFile, const char* pSection);
 };
@@ -84,7 +84,7 @@ public:
     virtual void onEnterTransitionDidFinish();
    */
 	virtual void update(float delta);
-    virtual void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
+    virtual void draw(Renderer* renderer, const Mat4& transform, unsigned int flags) override;
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static ax::Scene* scene();
 	CREATE_FUNC(KgameWorld);
@@ -197,7 +197,7 @@ public:
 
 	 void UpdateDataTeam(KUiPlayerTeam* pInfo);
 	 void setchatDelegate(bool isYes);
-	 void setchatCurChannel(char  *name);
+	 void setchatCurChannel(const char  *name);
 	 void setchatInputText(char  *text);
 	 int  getMapIdx(){return nMapidx;};
 	 void setPingTime(unsigned int ver){__pingTime=ver;};
@@ -452,13 +452,13 @@ private:
 
 	char m_szSelfName[64];	//自己的名字
 	int  AddRecentPlayer(const char* szName);
-	void ReplaceSpecialName(char* szDest, uint32_t nDestSize, char* szSrc);
+	void ReplaceSpecialName(char* szDest, unsigned int nDestSize, char* szSrc);
 	int  GetChannelIndex(const char* pTitle);
-	void OnSendChannelMessage(DWORD nChannelID, const char* Buffer, int nLen);			//����Ƶ�����쵽������
+	void OnSendChannelMessage(unsigned long nChannelID, const char* Buffer, int nLen);			//����Ƶ�����쵽������
 	void OnSendSomeoneMessage(const char* Name, const char* Buffer, int nLen,BOOL nIsItemLink=FALSE);
 	void InputCurrentChannel(int nIndex, bool bFocus);
 	int  IsHasCost(BYTE cost, int nMoney, int nLevel, int nMana, int nFullMana, int&nUseMoney, int&nUseLevel, int&nUseMana);
-	void OnDirectSendChannelMessage(DWORD nChannelID, BYTE cost, const char* Buffer, int nLen,int nItemDwIdx=0);
+	void OnDirectSendChannelMessage(unsigned long nChannelID, BYTE cost, const char* Buffer, int nLen,int nItemDwIdx=0);
 	bool IsSelfName(char* szName)
 	{
 		if (szName)

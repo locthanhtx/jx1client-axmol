@@ -92,7 +92,7 @@ void	KObj::Release()
 //-------------------------------------------------------------------------
 //	���ܣ�	���������Ϣ�� ini �ļ�
 //-------------------------------------------------------------------------
-void KObj::Save(KIniFile *IniFile, LPSTR Section)
+void KObj::Save(KIniFile *IniFile, char* Section)
 {
 	IniFile->WriteString(Section, "ObjName", m_szName);
 
@@ -160,7 +160,7 @@ void KObj::Save(KIniFile *IniFile, LPSTR Section)
 //-------------------------------------------------------------------------
 //	���ܣ�	�� ini �ļ��ж�ȡ�����Ϣ
 //-------------------------------------------------------------------------
-void KObj::Load(int nObjIndex, int nSubWorldID, KIniFile *IniFile, LPSTR Section)
+void KObj::Load(int nObjIndex, int nSubWorldID, KIniFile *IniFile, char* Section)
 {
 	IniFile->GetString(Section, "ObjName", "", m_szName, sizeof(m_szName));
 
@@ -228,7 +228,7 @@ void KObj::Load(int nObjIndex, int nSubWorldID, KIniFile *IniFile, LPSTR Section
 	m_cImage.SetTotalDir(nTotalDir);
 	m_cImage.SetCurFrame(nCurFrame);
 	m_cImage.SetCurDir(nCurDir);
-	m_cImage.SetInterVal((DWORD)nInterval);
+	m_cImage.SetInterVal((unsigned long)nInterval);
 	m_cImage.SetCenterPos(nCgX, nCgY);
 #endif
 
@@ -372,7 +372,7 @@ void	KObj::DoorClose()
 	// ȱ�ٴ�������ϰ�
 }
 
-BOOL	KObj::SetDir(int n64Dir)
+int	KObj::SetDir(int n64Dir)
 {
 	if (n64Dir < 0 || n64Dir >= 64)
 	{
@@ -435,7 +435,7 @@ void KObj::DrawInfo()
 		return;
 
 	int		nMpsX, nMpsY, nHeightOff;
-	//DWORD	dwColor;
+	//unsigned long	dwColor;
 
 	GetMpsPos(&nMpsX, &nMpsY);
 	nHeightOff = OBJ_SHOW_NAME_Y_OFF;
@@ -777,7 +777,7 @@ void	KObj::ExecScript(int nPlayerIdx,int nObjIdx,int nOgjWorlID)
 		return;
 	if (nPlayerIdx < 0)
 		return;
-	DWORD dwScriptId = m_dwScriptID;//g_FileName2Id(m_szScriptName);
+	unsigned long dwScriptId = m_dwScriptID;//g_FileName2Id(m_szScriptName);
 	bool bExecuteScriptMistake = TRUE;
 	KLuaScript * pScript = (KLuaScript*)g_GetScript(dwScriptId);
 
@@ -807,7 +807,7 @@ void	KObj::ExecScript(int nPlayerIdx,int nObjIdx,int nOgjWorlID)
 
 			nTopIndex=pScript->SafeCallBegin();
 
-			BOOL bResult = FALSE;
+			int bResult = FALSE;
 			     bResult = pScript->CallFunction("main",0,"%d%d",nObjIdx,nOgjWorlID);
 			if (bResult)
 			{//ִ�гɹ��� �ָ���ǰ�Ľű�ID
@@ -842,13 +842,13 @@ void	KObj::ExecScript(int nPlayerIdx,int nObjIdx,int nOgjWorlID)
 //-------------------------------------------------------------------------
 //	���ܣ�	��������ű�
 //-------------------------------------------------------------------------
-BOOL KObj::ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfuns,int nParm1,int nParm2,char *sSubName,char *gsName,int nParm3)
+int KObj::ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfuns,int nParm1,int nParm2,char *sSubName,char *gsName,int nParm3)
 {
 	if (!m_szScriptName)
 		return 1;
 	if (nPlayerIdx < 0)
 		return 1;
-	DWORD dwScriptId = g_CheckFileExist(m_szScriptName);//g_FileName2Id(m_szScriptName);
+	unsigned long dwScriptId = g_CheckFileExist(m_szScriptName);//g_FileName2Id(m_szScriptName);
     bool bExecuteScriptMistake = true;
 	int bResult = 0;
 	KLuaScript * pScript = (KLuaScript*)g_GetScript(dwScriptId);
@@ -937,7 +937,7 @@ void	KObj::CastSkill(int nXpos, int nYpos)
 //	Skill[m_nID][m_nLevel].cast();
 }
 
-void KObj::Remove(BOOL bSoundFlag,BOOL nIsClear)
+void KObj::Remove(int bSoundFlag,int nIsClear)
 {
 	/*if (bSoundFlag)
 	{

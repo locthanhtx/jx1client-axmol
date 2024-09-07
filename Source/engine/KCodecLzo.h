@@ -20,7 +20,7 @@ class  KCodecLzo : public KCodec
 {
 private:
 	KMemClass	m_WorkMem;
-	DWORD Compress(PBYTE pIn, DWORD dwInLen, PBYTE pOut, PDWORD pOutLen);
+	unsigned long Compress(PBYTE pIn, unsigned long dwInLen, PBYTE pOut, unsigned long* pOutLen);
 public:
 	bool  Encode(TCodeInfo* pCodeInfo);
 	bool  Decode(TCodeInfo* pCodeInfo);

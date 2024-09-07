@@ -46,7 +46,7 @@ KuiMoveToMap::~KuiMoveToMap()
 }
 
 //����ȷ��������
-KuiMoveToMap * KuiMoveToMap::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiMoveToMap * KuiMoveToMap::create(const char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
 {
 	KuiMoveToMap * popLayer = KuiMoveToMap::create();
 	popLayer->addDialogData();

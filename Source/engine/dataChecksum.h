@@ -30,23 +30,23 @@ class  dataChecksum
 {
 public:
 	//interface functions for the RSA MD5 calculation
-	 int32_t SimplyDecrypt(char* szPass, const char* szEncrypted);   //����
-	 //int32_t SimplyEncrypt(char* szResult, const char* szPass);    //����
+	 int SimplyDecrypt(char* szPass, const char* szEncrypted);   //����
+	 //int SimplyEncrypt(char* szResult, const char* szPass);    //����
 protected:
 
 private:
-     int32_t  pgChar2Int(char b);
-	 char __rol(char c, uint32_t count);
-	 int32_t  pgStrLen(const char* sz);
+     int  pgChar2Int(char b);
+	 char __rol(char c, unsigned int count);
+	 int  pgStrLen(const char* sz);
 	 void pgSwapChars(char* sz);
-	 void pgDecrypt(char* szKey, int32_t nKeyLen, char* szBuffer, const char* szEnc, int32_t nStrLen);
+	 void pgDecrypt(char* szKey, int nKeyLen, char* szBuffer, const char* szEnc, int nStrLen);
 
-//	 int32_t  SimplyDecrypt(char* szPass, const char* szEncrypted);
+//	 int  SimplyDecrypt(char* szPass, const char* szEncrypted);
 	 //����
-	 //char pgInt2Char(char i, DWORD dwTickCount = 0);
-	 //int32_t  pgSameString(const char* s1, const char* s2);
-	 //int32_t  pgEncrypt(char* szKey, int32_t nKeyLen, char* szBuffer, const char* szPass, int32_t nStrLen);
-	 //int32_t  pgEncrypt_(char* szResult, const char* szPass, DWORD dwTickCount, int32_t& nLevel);
-//	 int32_t  SimplyEncryptPassword(char* szResult, const char* szPass);
+	 //char pgInt2Char(char i, unsigned long dwTickCount = 0);
+	 //int  pgSameString(const char* s1, const char* s2);
+	 //int  pgEncrypt(char* szKey, int nKeyLen, char* szBuffer, const char* szPass, int nStrLen);
+	 //int  pgEncrypt_(char* szResult, const char* szPass, unsigned long dwTickCount, int& nLevel);
+//	 int  SimplyEncryptPassword(char* szResult, const char* szPass);
 };
 #endif // !defined(AFX_dataChecksum_H__2BC7928E_4C15_11D3_B2EE_A4A60E20D2C3__INCLUDED_)

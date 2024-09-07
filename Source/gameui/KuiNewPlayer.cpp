@@ -128,7 +128,7 @@ bool KuiNewPlayer::init()
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -154,7 +154,7 @@ bool KuiNewPlayer::init()
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -202,7 +202,7 @@ bool KuiNewPlayer::init()
 			this->addChild(ySprite,2,m_sprCount);
 			char nySprFilePath[64]={0};
 			Animation*animation = Animation::create();//����һ������
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
@@ -257,7 +257,7 @@ bool KuiNewPlayer::init()
 		if (jinTexture)
 		{
 			char nSprFilePath[64]={0};
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 			Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -278,7 +278,7 @@ bool KuiNewPlayer::init()
 		if (muTexture)
 		{
 			char nSprFilePath[64]={0};
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 			Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -299,7 +299,7 @@ bool KuiNewPlayer::init()
 		if (shuiTexture)
 		{
 			char nSprFilePath[64]={0};
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 			Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -321,7 +321,7 @@ bool KuiNewPlayer::init()
 		if (huoTexture)
 		{
 			char nSprFilePath[64]={0};
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 			Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -343,7 +343,7 @@ bool KuiNewPlayer::init()
 		if (tuTexture)
 		{
 			char nSprFilePath[64]={0};
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 			Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 			sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -1360,7 +1360,7 @@ Animation* KuiNewPlayer::creatSpranimation(int nindex,int isLoop,bool isforever)
 	_getinidata.getinidata_new(szFileName,0,&m_nWidth,&m_nHeight,&nFrams);
 	char nySprFilePath[64]={0};
     animation = Animation::create();//����һ������
-	DWORD nFielpahtdwid = g_FileName2Id(szFileName);
+	unsigned long nFielpahtdwid = g_FileName2Id(szFileName);
 	int j;
 	for (j=0;j<nFrams;j++)
 	{

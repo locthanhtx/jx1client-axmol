@@ -50,79 +50,79 @@ extern "C" {
 // NRV2B assembly decompressors
 ************************************************************************/
 
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_8
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_safe_8
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_8
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_safe_8
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_8
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_safe_8
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-
-
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_safe_le16
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
 
 
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_safe_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_fast_safe_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_safe_le32
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_safe_le16
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+
+
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_fast_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2b_decompress_asm_small_safe_le32
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
@@ -132,79 +132,79 @@ UCL_EXTERN(int32_t) ucl_nrv2b_decompress_asm_small_safe_le32
 // NRV2D assembly decompressors
 ************************************************************************/
 
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_8
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_safe_8
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_8
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_safe_8
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_8
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_safe_8
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-
-
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_safe_le16
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
 
 
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_safe_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_fast_safe_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_safe_le32
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_safe_le16
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+
+
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_fast_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2d_decompress_asm_small_safe_le32
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
@@ -214,79 +214,79 @@ UCL_EXTERN(int32_t) ucl_nrv2d_decompress_asm_small_safe_le32
 // NRV2E assembly decompressors
 ************************************************************************/
 
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_8
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_safe_8
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_8
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_safe_8
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_8
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_safe_8
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-
-
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_safe_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_le16
-                                (const ucl_bytep src, ucl_uint  src_len,
-                                       ucl_bytep dst, ucl_uintp dst_len,
-                                       ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_safe_le16
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_safe_8
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
 
 
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_safe_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_fast_safe_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_safe_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_le16
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
-UCL_EXTERN(int32_t) ucl_nrv2e_decompress_asm_small_safe_le32
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_safe_le16
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+
+
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_fast_safe_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_le32
+                                (const ucl_bytep src, ucl_uint  src_len,
+                                       ucl_bytep dst, ucl_uintp dst_len,
+                                       ucl_voidp wrkmem);
+UCL_EXTERN(int) ucl_nrv2e_decompress_asm_small_safe_le32
                                 (const ucl_bytep src, ucl_uint  src_len,
                                        ucl_bytep dst, ucl_uintp dst_len,
                                        ucl_voidp wrkmem);
@@ -303,7 +303,7 @@ ucl_crc32_asm(ucl_uint32 _c, const ucl_bytep _buf, ucl_uint _len,
 UCL_EXTERN(ucl_uint32)
 ucl_crc32_asm_small(ucl_uint32 _c, const ucl_bytep _buf, ucl_uint _len);
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_cpuid_asm(ucl_uint32p /* ucl_uint32 info[16] */ );
 
 UCL_EXTERN(unsigned)

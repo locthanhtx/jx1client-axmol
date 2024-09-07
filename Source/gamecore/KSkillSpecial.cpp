@@ -35,7 +35,7 @@ KSkillSpecial::KSkillSpecial()
 #endif
 };
 
-BOOL KSkillSpecial::Init()
+int KSkillSpecial::Init()
 {
 	//m_RUImage.szImage[0] = 0;
 	ZeroMemory(m_RUImage.szImage,sizeof(m_RUImage.szImage));
@@ -45,7 +45,7 @@ BOOL KSkillSpecial::Init()
 }
 
 //������ײЧ��
-void KSkillSpecial::DrawC(DWORD nCurLifeFrame)
+void KSkillSpecial::DrawC(unsigned long nCurLifeFrame)
 {
 
 	if (nCurLifeFrame > m_nEndTime) return;

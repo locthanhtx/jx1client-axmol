@@ -311,7 +311,7 @@
 //
 //            //std:string nFileName ="\\spr\\skill\\1502\\kl\\kl_150_jiankun_fu.spr";
 //			//g_StrLower(nFileName);
-//			DWORD nFielpahtdwid = g_FileName2Id("\\spr\\skill\\1502\\kl_150_jiankun_fu.spr");
+//			unsigned long nFielpahtdwid = g_FileName2Id("\\spr\\skill\\1502\\kl_150_jiankun_fu.spr");
 //
 //			for (int i=1;i<21;i++)
 //			{
@@ -483,7 +483,7 @@
 //        #endif
 //    }
 //
-//	DWORD nFielpahtdwid = g_FileName2Id("\\spr\\skill\\1502\\kl_150_jiankun_fu.spr");
+//	unsigned long nFielpahtdwid = g_FileName2Id("\\spr\\skill\\1502\\kl_150_jiankun_fu.spr");
 //	for (int i=1;i<21;i++)
 //	{
 //		char nSprFilePath[64]={0};

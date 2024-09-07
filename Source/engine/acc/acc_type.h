@@ -45,7 +45,7 @@ __acc_gnuc_extension__ typedef unsigned long long acc_ullong_t;
 //   optional: least64 acc_int64l_t
 ************************************************************************/
 
-/* acc_int32e_t is int32_t in <stdint.h> terminology */
+/* acc_int32e_t is int in <stdint.h> terminology */
 #if !defined(acc_int32e_t)
 #if (SIZEOF_INT == 4)
 #  define acc_int32e_t          int

@@ -3,7 +3,7 @@
 //
 // File:	KLittleMap.h
 // Date:	2003.05.08
-// Code:	╠ъЁгюквс
+// Code:	О©╫ъЁО©╫О©╫О©╫О©╫О©╫
 //---------------------------------------------------------------------------
 
 #ifndef KLITTLEMAP_H
@@ -19,49 +19,49 @@
 class	KLittleMap
 {
 private:
-	RECT		m_sMapRect;				// ╠╬╣ьм╪╣дregion╥╤н╖(вСио║╒сроб)
-	int			m_nMapWidth;			// ╣ьм╪Ё╓(region, m_sMapRect.right - m_sMapRect.left + 1)
-	int			m_nMapHeight;			// ╣ьм╪©М(region, m_sMapRect.bottom - m_sMapRect.top + 1)
-	BYTE		*m_pbyLoadFlag;			// дЁ╦Жregion╣дуо╟╜йЩ╬щтьхКсК╥Я
-	BYTE		**m_ppbtBarrier;		// кЫспregion╣дуо╟╜йЩ╬щ
+	RECT		m_sMapRect;				// О©╫О©╫О©╫О©╫м╪О©╫О©╫regionО©╫О©╫н╖(О©╫О©╫О©╫о║О©╫О©╫О©╫О©╫О©╫)
+	int			m_nMapWidth;			// О©╫О©╫м╪О©╫О©╫(region, m_sMapRect.right - m_sMapRect.left + 1)
+	int			m_nMapHeight;			// О©╫О©╫м╪О©╫О©╫(region, m_sMapRect.bottom - m_sMapRect.top + 1)
+	BYTE		*m_pbyLoadFlag;			// дЁО©╫О©╫regionО©╫О©╫О©╫о╟О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	BYTE		**m_ppbtBarrier;		// О©╫О©╫О©╫О©╫regionО©╫О©╫О©╫о╟О©╫О©╫О©╫О©╫О©╫
 
-	int			m_nScreenX;				// фад╩отй╬вСио╫гвЬ╠Й
-	int			m_nScreenY;				// фад╩отй╬вСио╫гвЬ╠Й
-	int			m_nShowWidth;			// отй╬©М╤Юиы╦Жregion╣дуо╟╜
-	int			m_nShowHeight;			// отй╬╦ъ╤Юиы╦Жregion╣дуо╟╜
+	int			m_nScreenX;				// О©╫О©╫д╩О©╫О©╫й╬О©╫О©╫О©╫о╫О©╫О©╫О©╫О©╫О©╫
+	int			m_nScreenY;				// О©╫О©╫д╩О©╫О©╫й╬О©╫О©╫О©╫о╫О©╫О©╫О©╫О©╫О©╫
+	int			m_nShowWidth;			// О©╫О©╫й╬О©╫О©╫О©╫О©╫О©╫ы╦О©╫regionО©╫О©╫О©╫о╟О©╫
+	int			m_nShowHeight;			// О©╫О©╫й╬О©╫ъ╤О©╫О©╫ы╦О©╫regionО©╫О©╫О©╫о╟О©╫
 
-	KRColor		m_sBarrierColor;		// уо╟╜яуи╚
-	KRColor		m_sSelfColor;			// жВ╫гяуи╚
-	KRColor		m_sTeammateColor;		// ╤ссяяуи╚
-	KRColor		m_sPlayerColor;			// фДкШмФ╪ряуи╚
-	KRColor		m_sFightNpcColor;		// у╫╤╥npcяуи╚
-	KRColor		m_sNormalNpcColor;		// фум╗npcяуи╚
-	BOOL		m_bColorLoadFlag;		// яуи╚иХ╤╗нд╪Чйг╥Яря╬╜тьхК
-	BOOL		m_bTeammateShowFlag;	// йг╥Яотй╬╤сся
-	BOOL		m_bPlayerShowFlag;		// йг╥Яотй╬фДкШмФ╪р
-	BOOL		m_bFightNpcShowFlag;	// йг╥Яотй╬у╫╤╥npc
-	BOOL		m_bNormalNpcShowFlag;	// йг╥Яотй╬фум╗npc
+	KRColor		m_sBarrierColor;		// О©╫о╟О©╫О©╫О©╫и╚
+	KRColor		m_sSelfColor;			// О©╫О©╫О©╫О©╫О©╫О©╫и╚
+	KRColor		m_sTeammateColor;		// О©╫О©╫О©╫О©╫О©╫О©╫и╚
+	KRColor		m_sPlayerColor;			// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫и╚
+	KRColor		m_sFightNpcColor;		// у╫О©╫О©╫npcО©╫О©╫и╚
+	KRColor		m_sNormalNpcColor;		// О©╫О©╫м╗npcО©╫О©╫и╚
+	int		m_bColorLoadFlag;		// О©╫О©╫и╚О©╫Х╤╗О©╫д╪О©╫О©╫г╥О©╫О©╫я╬О©╫О©╫О©╫О©╫О©╫
+	int		m_bTeammateShowFlag;	// О©╫г╥О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫
+	int		m_bPlayerShowFlag;		// О©╫г╥О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	int		m_bFightNpcShowFlag;	// О©╫г╥О©╫О©╫О©╫й╬у╫О©╫О©╫npc
+	int		m_bNormalNpcShowFlag;	// О©╫г╥О©╫О©╫О©╫й╬О©╫О©╫м╗npc
 
-	KRUPoint	m_sPoint[LITTLE_MAP_POINT_NUM];	// сцсз╩Фжф
-	int			m_nPointPos;		// сцсз╩Фжф
+	KRUPoint	m_sPoint[LITTLE_MAP_POINT_NUM];	// О©╫О©╫О©╫з╩О©╫О©╫О©╫
+	int			m_nPointPos;		// О©╫О©╫О©╫з╩О©╫О©╫О©╫
 	KRUShadow	m_sBigPoint;
 public:
-	int			m_nShowFlag;		// йг╥Яотй╬п║╣ьм╪
+	int			m_nShowFlag;		// О©╫г╥О©╫О©╫О©╫й╬п║О©╫О©╫м╪
 public:
 	KLittleMap();
 	~KLittleMap();
 	void	Release();
-	void	Init(int nLeft, int nTop, int nRight, int nBottom);	// ЁУй╪╩╞ё╛╥жеДдз╢Ф©у╪Д
-	BYTE	*GetBarrierBuf(int nX, int nY);	// ╩Я╣цдЁ╦Жregion╣дуо╟╜йЩ╬щ╣д╢Ф╢╒╣ьж╥
-	void	SetHaveLoad(int nX, int nY);	// иХ╤╗рятьхКдЁ╦Жregion╣дуо╟╜йЩ╬щ
-	void	Draw(int nX, int nY);			// ╩Фжф
-	void	SetTeammateShow(BOOL bFlag);	// ╤ссяотй╬©╙╧ь
-	void	SetPlayerShow(BOOL bFlag);		// фДкЭмФ╪ротй╬©╙╧ь
-	void	SetFightNpcShow(BOOL bFlag);	// у╫╤╥npcотй╬©╙╧ь
-	void	SetNormalNpcShow(BOOL bFlag);	// фум╗npcотй╬©╙╧ь
-	void	SetScreenPos(int nX, int nY);	// иХ╤╗п║╣ьм╪тзфад╩ио╣дотй╬н╩жц
-	void	Show(int nFlag);				// п║╣ьм╪отй╬©╙╧ь
-	void	SetShowSize(int nWidth, int nHeight);// иХ╤╗отй╬дзхщ╣д╢Сп║
+	void	Init(int nLeft, int nTop, int nRight, int nBottom);	// О©╫О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫з╢О©╫у╪О©╫
+	BYTE	*GetBarrierBuf(int nX, int nY);	// О©╫О©╫О©╫дЁО©╫О©╫regionО©╫О©╫О©╫о╟О©╫О©╫О©╫О©╫щ╣д╢Ф╢╒О©╫О©╫ж╥
+	void	SetHaveLoad(int nX, int nY);	// О©╫Х╤╗О©╫О©╫О©╫О©╫О©╫О©╫дЁО©╫О©╫regionО©╫О©╫О©╫о╟О©╫О©╫О©╫О©╫О©╫
+	void	Draw(int nX, int nY);			// О©╫О©╫О©╫О©╫
+	void	SetTeammateShow(int bFlag);	// О©╫О©╫О©╫О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫
+	void	SetPlayerShow(int bFlag);		// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╬О©╫О©╫О©╫О©╫
+	void	SetFightNpcShow(int bFlag);	// у╫О©╫О©╫npcО©╫О©╫й╬О©╫О©╫О©╫О©╫
+	void	SetNormalNpcShow(int bFlag);	// О©╫О©╫м╗npcО©╫О©╫й╬О©╫О©╫О©╫О©╫
+	void	SetScreenPos(int nX, int nY);	// О©╫Х╤╗п║О©╫О©╫м╪О©╫О©╫О©╫О©╫д╩О©╫о╣О©╫О©╫О©╫й╬н╩О©╫О©╫
+	void	Show(int nFlag);				// п║О©╫О©╫м╪О©╫О©╫й╬О©╫О©╫О©╫О©╫
+	void	SetShowSize(int nWidth, int nHeight);// О©╫Х╤╗О©╫О©╫й╬О©╫О©╫О©╫щ╣д╢О©╫п║
 };
 
 

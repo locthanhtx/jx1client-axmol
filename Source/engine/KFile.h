@@ -22,20 +22,20 @@ private:
 //#else
 	FILE *		m_hFile;	// File Handle
 //#endif
-	uint32_t		m_dwLen;	// File Size
-	uint32_t		m_dwPos;	// File Pointer
+	unsigned int		m_dwLen;	// File Size
+	unsigned int		m_dwPos;	// File Pointer
 public:
 	KFile();
 	~KFile();
 	bool		Open(char *FileName);
-	bool		Create(char *FileName);
+	bool		Create(const char *FileName);
 	bool		Append(char * FileName);
 	void		Close();
-	uint32_t Read(void *lpBuffer,uint32_t dwReadBytes);
-	uint32_t Write(void * lpBuffer, uint32_t dwWriteBytes);
-	uint32_t Seek(int32_t lDistance, uint32_t dwMoveMethod);
-	uint32_t Tell();
-	uint32_t Size();
+	unsigned int Read(void *lpBuffer,unsigned int dwReadBytes);
+	unsigned int Write(void * lpBuffer, unsigned int dwWriteBytes);
+	unsigned int Seek(int lDistance, unsigned int dwMoveMethod);
+	unsigned int Tell();
+	unsigned int Size();
 	FILE * getFilePtr(){return m_hFile;};
 };
 //---------------------------------------------------------------------------

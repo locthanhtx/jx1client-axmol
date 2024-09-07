@@ -48,7 +48,7 @@ struct RELAY_DATA : EXTEND_HEADER
 	UINT	nToRelayID;								//0�����ڹ㲥, -1������㲥
 	UINT	nFromIP;								//0.0.0.0ʱ�����ս���Relay��ϵ��Relay����дnFromIP��nFromRelayID
 	UINT	nFromRelayID;
-	WORD	routeDateLength;						//Ҫת�����ݳ��ȣ����ݴӽṹ��β����ʼ
+	unsigned short	routeDateLength;						//Ҫת�����ݳ��ȣ����ݴӽṹ��β����ʼ
 	//��ӦҪת����Э�������
 };
 
@@ -60,9 +60,9 @@ struct RELAY_ASKWAY_DATA : EXTEND_HEADER
 	UINT	nFromIP;								//0.0.0.0ʱ�����ս���Relay��ϵ��Relay����дnFromIP��nFromRelayID
 	UINT	nFromRelayID;
 	UINT	seekRelayCount;							//���Ҿ�����Relay�ĸ�������-1ʱΪ���ɴ�
-	WORD	seekMethod;								//ָ�����ҷ���
-	WORD	wMethodDataLength;						//�����������ݳ��ȣ����ݴӽṹ��β����ʼ
-	WORD	routeDateLength;						//Ҫת�����ݳ��ȣ����ݴӷ����������ݽ�β����ʼ
+	unsigned short	seekMethod;								//ָ�����ҷ���
+	unsigned short	wMethodDataLength;						//�����������ݳ��ȣ����ݴӽṹ��β����ʼ
+	unsigned short	routeDateLength;						//Ҫת�����ݳ��ȣ����ݴӷ����������ݽ�β����ʼ
 	//��Ӧ������������
 	//ת������
 };
@@ -77,7 +77,7 @@ struct RELAY_ASKWAY_DATA : EXTEND_HEADER
 struct tagExtendProtoHeader
 {
 	BYTE ProtocolType;	//c2s_extend / s2c_extend
-	WORD wLength;
+	unsigned short wLength;
 	//extend pckg
 };
 
@@ -121,7 +121,7 @@ struct PLAYERCOMM_FREECHANNELID : EXTEND_HEADER
 struct PLAYERCOMM_SUBSCRIBE : EXTEND_HEADER
 {
 	UINT channelid;
-	BOOL subscribe;
+	int subscribe;
 };
 
 //playercomm_s2c_gmquerychannelid
@@ -141,7 +141,7 @@ struct PLAYERCOMM_GMFREECHANNELID : EXTEND_HEADER
 struct PLAYERCOMM_GMSUBSCRIBE : EXTEND_HEADER
 {
 	UINT channelid;
-	BOOL subscribe;
+	int subscribe;
 };
 
 
@@ -149,7 +149,7 @@ struct CHAT_MSG_EX : EXTEND_HEADER
 {
 	char	m_szSourceName[__X_NAME_LEN_];	// ��Դ��ҽ�ɫ����
 	char	m_szAccountName[__X_NAME_LEN_];	// ��Դ����˺�����
-	WORD SentenceLength;
+	unsigned short SentenceLength;
 	//��˵����
 };
 

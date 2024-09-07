@@ -212,7 +212,7 @@ void	KProtocolProcess::SyncSecMov(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_JUMP_SYNC* pNetCommandJump = (NPC_JUMP_SYNC *)pMsg;
-	DWORD dwNpcId = pNetCommandJump->ID;
+	unsigned long dwNpcId = pNetCommandJump->ID;
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
@@ -381,13 +381,13 @@ void KProtocolProcess::NpcSleepSync(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_SLEEP_SYNC*	pSync = (NPC_SLEEP_SYNC *)pMsg;
-	DWORD	dwNpcId = pSync->NpcID;
+	unsigned long	dwNpcId = pSync->NpcID;
 
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
 	if (nIdx > 0)
 	{
-		Npc[nIdx].SetSleepMode((BOOL)pSync->bSleep);
+		Npc[nIdx].SetSleepMode((int)pSync->bSleep);
 		Npc[nIdx].m_SyncSignal = SubWorld[0].m_dwCurrentTime;
 	}
 }
@@ -396,14 +396,14 @@ void KProtocolProcess::NpcSleepSync(BYTE* pMsg)
 void KProtocolProcess::s2cPing(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-//	DWORD	dwTimer = GetTickCount();
+//	unsigned long	dwTimer = GetTickCount();
 //	PING_COMMAND* PingCmd = (PING_COMMAND *)pMsg;
 //
 //	dwTimer -= PingCmd->m_dwTime;
 //	dwTimer >>= 1;
 //	g_SubWorldSet.SetPing(dwTimer);
 //	g_bPingReply = TRUE;
-	DWORD	dwTimer;
+	unsigned long	dwTimer;
 #ifdef WIN32
 	dwTimer = GetTickCount(); //��ȡϵͳ���е�ʱ��
 #else
@@ -433,7 +433,7 @@ void KProtocolProcess::s2cPing(BYTE* pMsg)
 void KProtocolProcess::ServerReplyClientPing(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwTimer;
+	unsigned long	dwTimer;
 #ifdef WIN32
 	dwTimer = GetTickCount(); //��ȡϵͳ���е�ʱ��
 #else
@@ -441,7 +441,7 @@ void KProtocolProcess::ServerReplyClientPing(BYTE* pMsg)
 	gettimeofday(&m_pStartUpdate,NULL);
 	dwTimer = m_pStartUpdate.tv_sec*1000+m_pStartUpdate.tv_usec/1000;
 #endif
-	//DWORD	dwTimer = GetTickCount();
+	//unsigned long	dwTimer = GetTickCount();
 	PING_COMMAND* pPc = (PING_COMMAND *)pMsg;
 	if (g_GameWorld)
 		g_GameWorld->setPingTime(pPc->m_dwTime);
@@ -481,10 +481,10 @@ void	KProtocolProcess::s2cChatScreenSingleError(BYTE* pMsg)
 void KProtocolProcess::NetCommandChgCamp(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcId;
+	unsigned long	dwNpcId;
 
 	NPC_CHGCAMP_SYNC *nComp = (NPC_CHGCAMP_SYNC *)pMsg;
-	//dwNpcId = *(DWORD *)&pMsg[1];
+	//dwNpcId = *(unsigned long *)&pMsg[1];
 	dwNpcId  = nComp->ID;
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
@@ -498,9 +498,9 @@ void KProtocolProcess::NetCommandChgCamp(BYTE* pMsg)
 void KProtocolProcess::NetCommandChgCurCamp(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcId;
+	unsigned long	dwNpcId;
 	NPC_CHGCURCAMP_SYNC	*NetCommand = (NPC_CHGCURCAMP_SYNC *)pMsg;
-	dwNpcId = NetCommand->ID;//*(DWORD *)&pMsg[1];
+	dwNpcId = NetCommand->ID;//*(unsigned long *)&pMsg[1];
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
 	if (nIdx > 0)
@@ -547,7 +547,7 @@ void KProtocolProcess::NetCommandJump(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
 	NPC_JUMP_SYNC* pNetCommandJump = (NPC_JUMP_SYNC *)pMsg;
-	DWORD dwNpcId = pNetCommandJump->ID;
+	unsigned long dwNpcId = pNetCommandJump->ID;
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
@@ -574,16 +574,16 @@ void KProtocolProcess::NetCommandHurt(BYTE* pMsg)
 void KProtocolProcess::NetCommandRemoveNpc(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcID;
+	unsigned long	dwNpcID;
 	NPC_REMOVE_SYNC	*RemoveSync = (NPC_REMOVE_SYNC*)pMsg;;
-	dwNpcID = RemoveSync->ID;//*(DWORD *)&pMsg[1];
+	dwNpcID = RemoveSync->ID;//*(unsigned long *)&pMsg[1];
 	int nIdx = NpcSet.SearchID(dwNpcID);
 
 	if (Player[CLIENT_PLAYER_INDEX].ConformIdx(nIdx))
 	{//������ǿͻ��˱���
 		if (Npc[nIdx].m_RegionIndex >= 0)
 		{
-			if(RemoveSync->Rv)//(*(BOOL *)&pMsg[5])
+			if(RemoveSync->Rv)//(*(int *)&pMsg[5])
 				SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].RemoveNpc(nIdx);
 			SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].DecNpcRef(Npc[nIdx].m_MapX, Npc[nIdx].m_MapY);
 		}
@@ -600,10 +600,10 @@ void KProtocolProcess::NetCommandRemoveNpc(BYTE* pMsg)
 void KProtocolProcess::NetCommandRun(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcID;
-	DWORD	MapX, MapY;
+	unsigned long	dwNpcID;
+	unsigned long	MapX, MapY;
 	NPC_RUN_SYNC *NetCommand = (NPC_RUN_SYNC *)pMsg;
-	dwNpcID = NetCommand->ID;//*(DWORD *)&pMsg[1];
+	dwNpcID = NetCommand->ID;//*(unsigned long *)&pMsg[1];
 	MapX = NetCommand->nMpsX;//*(int *)&pMsg[5];
 	MapY = NetCommand->nMpsY;//*(int *)&pMsg[9];
 
@@ -739,20 +739,20 @@ void KProtocolProcess::RequestNpcFail(BYTE* pMsg)
 void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	/*DWORD	dwNpcID;
+	/*unsigned long	dwNpcID;
 	int		nSkillID, nSkillLevel, nSkillEnChance;
 	int		MapX, MapY;
 
-	dwNpcID = *(DWORD *)&pMsg[1];
+	dwNpcID = *(unsigned long *)&pMsg[1];
 	nSkillID = *(int *)&pMsg[5];
 	nSkillLevel = *(int *)&pMsg[9];
 	MapX = *(int *)&pMsg[13];
 	MapY = *(int *)&pMsg[17];
 	nSkillEnChance = *(int *)&pMsg[21];
 	*/
-	DWORD	dwNpcID;
+	unsigned long	dwNpcID;
 	int		nSkillID, nSkillLevel, nSkillEnChance,nWaitTimer,mIsEnChance,mMaxBeiLv=1;
-	int 	MapX, MapY; //DWORD
+	int 	MapX, MapY; //unsigned long
 	NPC_SKILL_SYNC	*pPress = (NPC_SKILL_SYNC*)pMsg;
 
 	dwNpcID      = pPress->ID;
@@ -805,10 +805,10 @@ void KProtocolProcess::NetCommandSkill(BYTE* pMsg)
 void KProtocolProcess::NetCommandWalk(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcID;
-	DWORD	MapX, MapY;
+	unsigned long	dwNpcID;
+	unsigned long	MapX, MapY;
 	NPC_WALK_SYNC *NetCommand =(NPC_WALK_SYNC *)pMsg;
-	dwNpcID = NetCommand->ID;//*(DWORD *)&pMsg[1];
+	dwNpcID = NetCommand->ID;//*(unsigned long *)&pMsg[1];
 	MapX = NetCommand->nMpsX;//*(int *)&pMsg[5];
 	MapY =  NetCommand->nMpsY;//*(int *)&pMsg[9];
 	int nIdx = NpcSet.SearchID(dwNpcID);
@@ -1175,7 +1175,7 @@ void KProtocolProcess::s2cGetCurAttribute(BYTE* pMsg)
 void KProtocolProcess::s2cGetLeadExp(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwLevel = Player[CLIENT_PLAYER_INDEX].m_dwLeadLevel;
+	unsigned long	dwLevel = Player[CLIENT_PLAYER_INDEX].m_dwLeadLevel;
 
 	PLAYER_LEAD_EXP_SYNC	*pLeadExp = (PLAYER_LEAD_EXP_SYNC*)pMsg;
 	Player[CLIENT_PLAYER_INDEX].m_dwLeadExp = pLeadExp->m_dwLeadExp;
@@ -1259,17 +1259,17 @@ void KProtocolProcess::s2cGetTeammateLevel(BYTE* pMsg)
 		return;
 	}
 
-	if ((DWORD)g_Team[0].m_nCaptain == pLevel->m_dwTeammateID)
+	if ((unsigned long)g_Team[0].m_nCaptain == pLevel->m_dwTeammateID)
 	{
-		g_Team[0].m_nMemLevel[0] = (WORD)pLevel->m_btLevel;
+		g_Team[0].m_nMemLevel[0] = (unsigned short)pLevel->m_btLevel;
 		return;
 	}
 
 	for (int i = 0; i < MAX_TEAM_MEMBER; i++)
 	{
-		if ((DWORD)g_Team[0].m_nMember[i] == pLevel->m_dwTeammateID)
+		if ((unsigned long)g_Team[0].m_nMember[i] == pLevel->m_dwTeammateID)
 		{
-			g_Team[0].m_nMemLevel[i + 1] = (WORD)pLevel->m_btLevel;
+			g_Team[0].m_nMemLevel[i + 1] = (unsigned short)pLevel->m_btLevel;
 			break;
 		}
 	}
@@ -1955,7 +1955,7 @@ void KProtocolProcess::s2cTeamAddMember(BYTE* pMsg)
 	if (nMemNum < 0)
 		return;
 	g_Team[0].m_nMember[nMemNum] = pAddMem->m_dwNpcID;
-	g_Team[0].m_nMemLevel[nMemNum + 1] = (WORD)pAddMem->m_btLevel;
+	g_Team[0].m_nMemLevel[nMemNum + 1] = (unsigned short)pAddMem->m_btLevel;
 	strcpy(g_Team[0].m_szMemName[nMemNum + 1], pAddMem->m_szName);
 	g_Team[0].m_nMemNum++;
 	Player[CLIENT_PLAYER_INDEX].m_cTeam.DeleteOneFromApplyList(pAddMem->m_dwNpcID);
@@ -1990,7 +1990,7 @@ void KProtocolProcess::s2cTeamChangeCaptain(BYTE* pMsg)
 
 	nMemNo = g_Team[0].FindMemberID(pChange->m_dwCaptainID);
 	// ��ǰ������������
-	if ((DWORD)g_Team[0].m_nCaptain != pChange->m_dwMemberID || nMemNo < 0)
+	if ((unsigned long)g_Team[0].m_nCaptain != pChange->m_dwMemberID || nMemNo < 0)
 	{
 		Player[CLIENT_PLAYER_INDEX].ApplySelfTeamInfo();
 		return;
@@ -2082,7 +2082,7 @@ void KProtocolProcess::s2cUpdataSelfTeamInfo(BYTE* pMsg)
 		g_Team[0].SetTeamOpen();
 
 	g_Team[0].m_nTeamServerID = pSelfInfo->nTeamServerID;	  //�����ڷ������е� Ψһid
-	g_Team[0].m_nMemLevel[0] = (WORD)pSelfInfo->m_btLevel[0];
+	g_Team[0].m_nMemLevel[0] = (unsigned short)pSelfInfo->m_btLevel[0];
 	strcpy(g_Team[0].m_szMemName[0], pSelfInfo->m_szNpcName[0]);
 	g_Team[0].m_nMemNum = 0;
 	for (i = 0; i < MAX_TEAM_MEMBER; i++)
@@ -2090,7 +2090,7 @@ void KProtocolProcess::s2cUpdataSelfTeamInfo(BYTE* pMsg)
 		if (pSelfInfo->m_dwNpcID[i + 1] > 0)
 		{
 			g_Team[0].m_nMember[i] = pSelfInfo->m_dwNpcID[i + 1];         //��Ա��Ϣ
-			g_Team[0].m_nMemLevel[i + 1] = (WORD)pSelfInfo->m_btLevel[i + 1];
+			g_Team[0].m_nMemLevel[i + 1] = (unsigned short)pSelfInfo->m_btLevel[i + 1];
 			strcpy(g_Team[0].m_szMemName[i + 1], pSelfInfo->m_szNpcName[i + 1]);
 			g_Team[0].m_nMemNum++;
 		}
@@ -2334,7 +2334,7 @@ void KProtocolProcess::s2cnpcsetpos(BYTE* pMsg)
 		int nRegionX = pSync->m_dwMapX / (SubWorld[m_gubWorldIndex].m_nCellWidth * SubWorld[m_gubWorldIndex].m_nRegionWidth);
 		int nRegionY = pSync->m_dwMapY / (SubWorld[m_gubWorldIndex].m_nCellHeight * SubWorld[m_gubWorldIndex].m_nRegionHeight);
 		int nRegion  = -1;
-		DWORD	dwRegionID = MAKELONG(nRegionX, nRegionY);
+		unsigned long	dwRegionID = MAKELONG(nRegionX, nRegionY);
 		nRegion = SubWorld[m_gubWorldIndex].FindRegion(dwRegionID);
 		if (Npc[nIdx].m_RegionIndex != nRegion || nRegion < 0)
 		{
@@ -2485,7 +2485,7 @@ void KProtocolProcess::SyncNpcMin(BYTE* pMsg)
 		{
 			Npc[nIdx].m_CurrentLifeMax = NpcSync->nCurrentLifeMax;
 
-			LONG	nOldLife = Npc[nIdx].m_CurrentLife;         //��һ�ε�Ѫ��
+			int	nOldLife = Npc[nIdx].m_CurrentLife;         //��һ�ε�Ѫ��
 
 			//Npc[nIdx].m_CurrentLife = (Npc[nIdx].m_CurrentLifeMax * NpcSync->LifePerCent) >> 7;
 
@@ -2629,7 +2629,7 @@ void KProtocolProcess::SyncNpcMinPlayer(BYTE* pMsg)
 		int nRegionX = pSync->m_dwMapX/(SubWorld[0].m_nCellWidth * SubWorld[0].m_nRegionWidth);
 		int nRegionY = pSync->m_dwMapY/(SubWorld[0].m_nCellHeight * SubWorld[0].m_nRegionHeight);
 
-		DWORD dwRegionID = MAKELONG(nRegionX, nRegionY);
+		unsigned long dwRegionID = MAKELONG(nRegionX, nRegionY);
 		//messageBox("Player start add map:LoadMapC","SyncNpcMinPlayer");
 		SubWorld[0].LoadMapC(SubWorld[0].m_SubWorldID, dwRegionID);
 		nRegion = SubWorld[0].FindRegion(dwRegionID);
@@ -2681,7 +2681,7 @@ void KProtocolProcess::SyncObjectAdd(BYTE* pMsg)
 
     sInfo.m_cHaveAttack=  ((pObjSyncAdd->m_btFlag & 0x04) > 0 ? 1 : 0);
 	//sInfo.m_cAttackerDwid=0;// pObjSyncAdd->m_nAttackerDwid;
-	DWORD m_cAttackerDwid=0;
+	unsigned long m_cAttackerDwid=0;
 
     if (sInfo.m_cHaveAttack)
 	{
@@ -2873,7 +2873,7 @@ void KProtocolProcess::SyncPlayer(BYTE* pMsg)
 	}
 	Npc[nIdx].m_BaiTan	= pPlaySync->m_bBaiTan;
 
-	BOOL bChange = FALSE;
+	int bChange = FALSE;
 
 	if (Npc[nIdx].m_HorseType == -1)
 	{
@@ -3023,7 +3023,7 @@ void KProtocolProcess::SyncPlayerMin(BYTE* pMsg)
 	if (Npc[nIdx].m_BaiTan)
 	   Npc[nIdx].SetstrInfo(STR_SHOP_NAME,pPlaySync->ShopName);
 
-	BOOL bChange = FALSE;
+	int bChange = FALSE;
 	Npc[nIdx].m_JinMaiBingJia=pPlaySync->mJinMaiBingJia;
     Npc[nIdx].m_ZhenYuan=pPlaySync->mZhenYuan;
 
@@ -3414,11 +3414,11 @@ void	KProtocolProcess::s2cDirectlyCastSkill(BYTE * pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;;
 
-	DWORD	dwNpcID;
+	unsigned long	dwNpcID;
 	int		nSkillID, nSkillLevel, nSkillEnChance,nWaitTimer,mIsEnChance,mMaxBeiLv=1;
-	int 	MapX, MapY; //DWORD
+	int 	MapX, MapY; //unsigned long
 	NPC_SKILL_SYNC	*pPress = (NPC_SKILL_SYNC*)pMsg;
-/*	dwNpcID = *(DWORD *)&pMsg[1];
+/*	dwNpcID = *(unsigned long *)&pMsg[1];
 	nSkillID = *(int *)&pMsg[5];
 	nSkillLevel = *(int *)&pMsg[9];
 	MapX = *(int *)&pMsg[13];
@@ -3497,7 +3497,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			KSystemMessage	sMsg;
 
 			memset(szName, 0, sizeof(szName));
-			memcpy(szName, pMsg + sizeof(SHOW_MSG_SYNC) - sizeof(LPVOID), pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
+			memcpy(szName, pMsg + sizeof(SHOW_MSG_SYNC) - sizeof(void*), pShowMsg->m_wLength + 1 + sizeof(void*) - sizeof(SHOW_MSG_SYNC));
 			if (strcmp(Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].Name, szName) == 0)
 			{
 				sprintf(sMsg.szMessage, "%s", strCoreInfo[MSG_TEAM_BE_KICKEN].c_str());
@@ -3543,7 +3543,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 			if (!Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag)
 				break;
 			KSystemMessage	sMsg;
-			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
+			unsigned long	dwID = *(unsigned long*)(&pShowMsg->m_lpBuf);
 			if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID == dwID)
 			{
 				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE_SELF_MSG].c_str(), g_Team[0].m_szMemName[0]);
@@ -3553,7 +3553,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 				sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), "����");
 				for (int i = 0; i < MAX_TEAM_MEMBER; i++)
 				{
-					if ((DWORD)g_Team[0].m_nMember[i] == dwID)
+					if ((unsigned long)g_Team[0].m_nMember[i] == dwID)
 					{
 						sprintf(sMsg.szMessage, strCoreInfo[MSG_TEAM_LEAVE].c_str(), g_Team[0].m_szMemName[i + 1]);
 						break;
@@ -3572,7 +3572,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 		{
 			char	szName[32];
 			memset(szName, 0, sizeof(szName));
-			memcpy(szName, &pShowMsg->m_lpBuf, pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
+			memcpy(szName, &pShowMsg->m_lpBuf, pShowMsg->m_wLength + 1 + sizeof(void*) - sizeof(SHOW_MSG_SYNC));
 
 			KSystemMessage	sMsg;
 			sprintf(sMsg.szMessage, MSG_TEAM_REFUSE_INVITE, szName);
@@ -3599,7 +3599,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TEAM_CHANGE_CAPTAIN_FAIL:
 		{
 			int		nMember;
-			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
+			unsigned long	dwID = *(unsigned long*)(&pShowMsg->m_lpBuf);
 			nMember = g_Team[0].FindMemberID(dwID);
 			if (nMember < 0)
 				break;
@@ -3620,7 +3620,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 	case enumMSG_ID_TEAM_CHANGE_CAPTAIN_FAIL2:
 		{
 			int		nMember;
-			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
+			unsigned long	dwID = *(unsigned long*)(&pShowMsg->m_lpBuf);
 			nMember = g_Team[0].FindMemberID(dwID);
 			if (nMember < 0)
 				break;
@@ -3700,7 +3700,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 		break;
 	case enumMSG_ID_TRADE_REFUSE_APPLY:
 		{
-			int	nIdx = NpcSet.SearchID(*((DWORD*)&pShowMsg->m_lpBuf));
+			int	nIdx = NpcSet.SearchID(*((unsigned long*)&pShowMsg->m_lpBuf));
 			if (nIdx <= 0)
 				return;
 			KSystemMessage	sMsg;
@@ -3744,7 +3744,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 		break;
 	case enumMSG_ID_GET_ITEM:
 		{
-			DWORD	dwID = *(DWORD*)(&pShowMsg->m_lpBuf);
+			unsigned long	dwID = *(unsigned long*)(&pShowMsg->m_lpBuf);
 
 			int nItemIdx = ItemSet.SearchID(dwID);
 			if (nItemIdx <= 0 || nItemIdx >= MAX_ITEM)
@@ -3892,7 +3892,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 		{
 			char	szName[32];
 			memset(szName, 0, sizeof(szName));
-			memcpy(szName, &pShowMsg->m_lpBuf, pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
+			memcpy(szName, &pShowMsg->m_lpBuf, pShowMsg->m_wLength + 1 + sizeof(void*) - sizeof(SHOW_MSG_SYNC));
 
 			KSystemMessage	sMsg;
 			sMsg.eType = SMT_NORMAL;
@@ -3908,7 +3908,7 @@ void	KProtocolProcess::s2cShowMsg(BYTE *pMsg)
 		{
 			//char szName[32];
 			//memset(szName, 0, sizeof(szName));
-			//memcpy(szName, pMsg + sizeof(SHOW_MSG_SYNC) - sizeof(LPVOID), pShowMsg->m_wLength + 1 + sizeof(LPVOID) - sizeof(SHOW_MSG_SYNC));
+			//memcpy(szName, pMsg + sizeof(SHOW_MSG_SYNC) - sizeof(void*), pShowMsg->m_wLength + 1 + sizeof(void*) - sizeof(SHOW_MSG_SYNC));
 
 			KSystemMessage	sMsg;
 			sMsg.eType = SMT_NORMAL;
@@ -4288,7 +4288,7 @@ void KProtocolProcess::s2cExtendChat(BYTE* pMsg)
 	}
 }
 
-static BOOL sParseUGName(const std::string& name, std::string* pUnit, std::string* pGroup)
+static int sParseUGName(const std::string& name, std::string* pUnit, std::string* pGroup)
 {
 	static const char char_split = '\n';
 
@@ -4495,7 +4495,7 @@ void KProtocolProcess::s2cExtendTong(BYTE* pMsg)
 		{//����������ͬ�� �ܾ������ ����  �ͻ���
 			TONG_APPLY_ADD_SYNC	*pApply = (TONG_APPLY_ADD_SYNC*)pMsg;
 			char	szName[32];
-			DWORD	dwNameID;
+			unsigned long	dwNameID;
 			int		nPlayerIdx;
 
 			memset(szName, 0, sizeof(szName));
@@ -5048,9 +5048,9 @@ void	KProtocolProcess::s2csyncurupdata(BYTE* pMsg)
 void KProtocolProcess::NetCommandSetRankFF(BYTE* pMsg)
 {
 	if  (NULL==pMsg||NULL==this) return;
-	DWORD	dwNpcId;
+	unsigned long	dwNpcId;
 	RANKFF_SYNC	*NetCommand = (RANKFF_SYNC *)pMsg;
-	dwNpcId = NetCommand->ID;//' *(DWORD *)&pMsg[1];
+	dwNpcId = NetCommand->ID;//' *(unsigned long *)&pMsg[1];
 	int nIdx = NpcSet.SearchID(dwNpcId);
 
 	if (nIdx > 0)
@@ -5100,7 +5100,7 @@ void KProtocolProcess::LadderResult(BYTE* pMsg)
 			pLadderMessage[i].nValueAppend = pLadderData->StatData[i].nValue;
 			pLadderMessage[i].cSortFlag = (char)pLadderData->StatData[i].bySort;
 		}
-		unsigned int uParam = 10 | (((WORD)pLadderData->dwLadderID) << 16);
+		unsigned int uParam = 10 | (((unsigned short)pLadderData->dwLadderID) << 16);
 		CoreDataChanged(GDCNII_RANK_INFORMATION_ARRIVE, uParam, (intptr_t)pLadderMessage);
 		delete [] pLadderMessage;
 		pLadderMessage = NULL;

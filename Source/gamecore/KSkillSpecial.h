@@ -25,11 +25,11 @@ public:
 	int			m_nPZ;
 	int			m_nCurDir;
 	int			m_nNpcIndex;
-	DWORD		m_dwMatchID;
+	unsigned long		m_dwMatchID;
 	TMissleRes  * m_pMissleRes;
-	DWORD		m_nBeginTime;
-	DWORD		m_nEndTime;
-	//BOOL		m_bFollowMissle;
+	unsigned long		m_nBeginTime;
+	unsigned long		m_nEndTime;
+	//int		m_bFollowMissle;
 	int		   m_eStatus;
 #ifdef TOOLVERSION
 	KCacheNode	* m_pSprNode ;
@@ -39,9 +39,9 @@ public:
 	//Class Function
 public:
 	KSkillSpecial();
-	BOOL		Init();
+	int		Init();
 	void		Remove();
-	void		DrawC(DWORD nCurLifeFrame);
+	void		DrawC(unsigned long nCurLifeFrame);
 	void		Draw(int nX, int nY , int nZ, int nDir, int nAllFrame,  int nCurLifeFrame);
 	void		SetAnimation(char * szFile, unsigned int uImage);
 private:

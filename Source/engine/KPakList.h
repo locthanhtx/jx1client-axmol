@@ -22,28 +22,28 @@ class KPakList
 public:
 	KPakList();
 	~KPakList();
-	int32_t		Open(char* pPakListFile,int32_t nKind=0);
+	int		Open(char* pPakListFile,int nKind=0);
 	void		Close();
 	//���Ұ��ڵ����ļ�
-	bool		pFindElemFileA(uint32_t uId, XPackElemFileRef& ElemRef);
+	bool		pFindElemFileA(unsigned int uId, XPackElemFileRef& ElemRef);
 	//���Ұ��ڵ����ļ�
-	bool		pFindElemFile(char* pszFileName, XPackElemFileRef& ElemRef);
+	bool		pFindElemFile(const char* pszFileName, XPackElemFileRef& ElemRef);
 	//��ȡ���ڵ����ļ�
-	int32_t			ElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize);
+	int			ElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize);
 	//��ȡspr�ļ�ͷ��������spr
 	SPRHEAD*	GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTable);
 	//��ȡ��֡ѹ����spr��һ֡������
-	SPRFRAME*	GetSprFrame(int32_t nPackIndex, SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &nSingFrameSize);
+	SPRFRAME*	GetSprFrame(int nPackIndex, SPRHEAD* pSprHeader, int nFrame,unsigned int &nSingFrameSize);
 
-	bool		pGetFilePath(char* pszFileName, XPackElemFileRef& ElemRef);
+	bool		pGetFilePath(const char* pszFileName, XPackElemFileRef& ElemRef);
 
 
 private:
-	uint32_t FileNameToId(const char* pszFileName);
+	unsigned int FileNameToId(const char* pszFileName);
 private:
 	#define MAX_PAK		50   //����PAK����������
 	XPackFile*			m_PakFilePtrList[MAX_PAK];
-	int32_t				m_nPakNumber;
+	int				m_nPakNumber;
 };
 
 extern KPakList* g_pPakList;

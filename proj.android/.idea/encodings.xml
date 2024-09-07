@@ -9,6 +9,6 @@
     <file url="file://$PROJECT_DIR$/../Source/gamecore/KNpcResNode.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/../Source/gamescene/KHRocker.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/../Source/gamescene/KHRocker.h" charset="GBK" />
-    <file url="PROJECT" charset="GB18030" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

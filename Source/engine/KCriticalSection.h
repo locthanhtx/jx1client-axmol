@@ -46,7 +46,7 @@ public:
      #endif
     }
 
-    int32_t Lock()
+    int Lock()
     {
       //  EnterCriticalSection(&m_CriticalSection);
        #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -58,7 +58,7 @@ public:
        return true;
     }
 
-    int32_t UnLock()
+    int UnLock()
     {
         //LeaveCriticalSection(&m_CriticalSection);
       #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)

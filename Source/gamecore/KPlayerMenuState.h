@@ -3,7 +3,7 @@
 //
 // File:	KPlayerMenuState.h
 // Date:	2002.12.10
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	PlayerMenuState Class
 //---------------------------------------------------------------------------
 
@@ -14,10 +14,10 @@
 enum
 {
 	PLAYER_MENU_STATE_NORMAL = 0,
-	PLAYER_MENU_STATE_TEAMOPEN,  //¶ÓÎé´ò¿ª×é¶Ó
-	PLAYER_MENU_STATE_TRADEOPEN, //½»Ò×´ò¿ª
-	PLAYER_MENU_STATE_TRADING,   //½»Ò×ÖÐ
-	PLAYER_MENU_STATE_IDLE,      //Ë¯Ãß×´Ì¬
+	PLAYER_MENU_STATE_TEAMOPEN,  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	PLAYER_MENU_STATE_TRADEOPEN, //ï¿½ï¿½ï¿½×´ï¿½
+	PLAYER_MENU_STATE_TRADING,   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	PLAYER_MENU_STATE_IDLE,      //Ë¯ï¿½ï¿½×´Ì¬
 	PLAYER_MENU_STATE_NUM,
 };
 
@@ -25,8 +25,8 @@ class KPlayerMenuState
 {
 public:
 	int			m_nState;
-	int			m_nTradeDest;						// ·þÎñÆ÷¶Ë¼ÇµÄÊÇ player index ¿Í»§¶Ë¼ÇµÄÊÇ npc id
-	int			m_nTradeState;						// ÊÇ·ñÒÑ¾­µãÁËok 0 Ã»ÓÐ 1 µãÁË
+	int			m_nTradeDest;						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼Çµï¿½ï¿½ï¿½ player index ï¿½Í»ï¿½ï¿½Ë¼Çµï¿½ï¿½ï¿½ npc id
+	int			m_nTradeState;						// ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ok 0 Ã»ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
 	char		m_szSentence[MAX_SENTENCE_LENGTH];
 	int			m_nTradeDestState;
 
@@ -43,7 +43,7 @@ public:
 	char		m_szName[PLAYER_MENU_STATE_NUM][80];
 
 public:
-	BOOL		Init();
+	int		Init();
 	void		GetStateSpr(int nState, char *lpszGetName);
 };
 

@@ -3,16 +3,16 @@
 //
 // File:	KPlayerTask.h
 // Date:	2002.10.05
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	PlayerTask Class
 //---------------------------------------------------------------------------
 
 #ifndef KPLAYERTASK_H
 #define KPLAYERTASK_H
 
-#define		MAX_TASK		4000   //×î´óÈÎÎñÊý
+#define		MAX_TASK		4000   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define		MAX_TEMP_TASK	4000
-//-------------ÐÂµÄ----------------------------------------------
+//-------------ï¿½Âµï¿½----------------------------------------------
 //#include <algorithm>
 #include <map>
 struct cTaskInfo
@@ -25,24 +25,24 @@ struct cTaskInfo
 class KPlayerTask
 {
 public:
-	//int			nSave[MAX_TASK];					// ÓÃÓÚ¼ÇÂ¼ÈÎÎñÊÇ·ñÍê³É£¬Ðë±£´æµ½Êý¾Ý¿â
-	//int			nClear[MAX_TEMP_TASK];				// ÓÃÓÚ¼ÇÂ¼ÈÎÎñ¹ý³ÌÖÐµÄÖÐ¼ä²½ÖèµÄÍê³ÉÇé¿ö£¬²»±£´æµ½Êý¾Ý¿â£¬Íæ¼ÒÏÂÏßºó´ÎÊý¾ÝÇå¿Õ
+	//int			nSave[MAX_TASK];					// ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½É£ï¿½ï¿½ë±£ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½
+	//int			nClear[MAX_TEMP_TASK];				// ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ð¼ä²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	typedef std::map<DWORD, INT> _KTasklate,_KTaskTemplate;
-	_KTasklate		m_Tasklate;	
+	typedef std::map<unsigned long, INT> _KTasklate,_KTaskTemplate;
+	_KTasklate		m_Tasklate;
 	_KTaskTemplate	m_TaskTemplate;
 
-	cTaskInfo   nTaskInfo[20];                      // ÓÃÓÚ¿Í»§¶ËÈÎÎñÏµÍ³¼ÇÂ¼
+	cTaskInfo   nTaskInfo[20];                      // ï¿½ï¿½ï¿½Ú¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Â¼
 	int         nTaskGenre;
 	char        nTaskDesc[512];
 public:
-	KPlayerTask();									// ¹¹Ôìº¯Êý
-	void		Release();							// Çå¿Õ
-	void		ClearTempVar();						// Çå³ýÁÙÊ±¹ý³Ì¿ØÖÆ±äÁ¿
-	int			GetSaveVal(int nNo);				// µÃµ½ÈÎÎñÍê³ÉÇé¿ö
-	void		SetSaveVal(int nNo, int bFlag);	    // Éè¶¨ÈÎÎñÍê³ÉÇé¿ö
-	int			GetClearVal(int nNo);				// µÃµ½ÁÙÊ±¹ý³Ì¿ØÖÆ±äÁ¿Öµ
-	void		SetClearVal(int nNo, int nVal);		// Éè¶¨ÁÙÊ±¹ý³Ì¿ØÖÆ±äÁ¿Öµ
+	KPlayerTask();									// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	void		Release();							// ï¿½ï¿½ï¿½
+	void		ClearTempVar();						// ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
+	int			GetSaveVal(int nNo);				// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		SetSaveVal(int nNo, int bFlag);	    // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int			GetClearVal(int nNo);				// ï¿½Ãµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½Æ±ï¿½ï¿½ï¿½Öµ
+	void		SetClearVal(int nNo, int nVal);		// ï¿½è¶¨ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½Æ±ï¿½ï¿½ï¿½Öµ
 	//NewByte = SetByte(Value, ByteNo, ByteValue)
 	//int         SetTaskByte(int nIntValue,int nByteNumber,int nByteValue);
 	//ByteValue = GetByte(Value, ByteNo)

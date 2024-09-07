@@ -17,8 +17,8 @@
 class KMemNode : public KNode
 {
 public:
-	DWORD	m_dwMemSize;//�ڴ��С
-	DWORD	m_dwMemSign;//�ڴ��־
+	unsigned long	m_dwMemSize;//�ڴ��С
+	unsigned long	m_dwMemSign;//�ڴ��־
 };
 //---------------------------------------------------------------------------
 class KMemList : public KList
@@ -36,7 +36,7 @@ public:
 	void ShowUsage()
 	{//��ʾ�Ѿ�ʹ�õ��ڴ���С
 		KMemNode* pNode = (KMemNode*)GetHead();
-		DWORD dwMemSize = 0;
+		unsigned long dwMemSize = 0;
 		while (pNode)
 		{
 			dwMemSize += pNode->m_dwMemSize;
@@ -51,11 +51,11 @@ public:
 	// ����:	lpMem		Ҫ�ͷŵ��ڴ�ָ��
 	// ����:	void
 	//---------------------------------------------------------------------------
-	void g_MemFreeBySign(DWORD MemSign)
+	void g_MemFreeBySign(unsigned long MemSign)
 	{
 		//	HANDLE hHeap = GetProcessHeap();
 		KMemNode* pNode = (KMemNode*)GetHead();
-		DWORD dwMemSize = 0;
+		unsigned long dwMemSize = 0;
 		while (pNode)
 		{
 			//dwMemSize += pNode->m_dwMemSize;
@@ -69,7 +69,7 @@ public:
 				break;
 			}
 			pNode = (KMemNode*)pNode->GetNext();
-		}	
+		}
 	}
 };
 static KMemList m_MemList;
@@ -84,9 +84,9 @@ static KMemList m_MemList;
 void g_MemInfo()
 {
 //	MEMORYSTATUS stat;
-	
+
 //	GlobalMemoryStatus(&stat);
-	
+
 //	g_DebugLog("Total Physical Memory = %d MB", stat.dwTotalPhys >> 20);
 //	g_DebugLog("Total Virtual Memory = %d MB", stat.dwTotalVirtual >> 20);
 //	g_DebugLog("%d percent of memory is in use.", stat.dwMemoryLoad);
@@ -97,11 +97,11 @@ void g_MemInfo()
 // ����:	dwSize		�ڴ���С
 // ����:	lpMem (lpMem = NULL ��ʾ����ʧ��)
 //---------------------------------------------------------------------------
-void * g_MemAlloc(DWORD dwSize)
+void * g_MemAlloc(unsigned long dwSize)
 {
 //	HANDLE hHeap = GetProcessHeap();
 	unsigned char * lpMem = NULL;
-	DWORD  dwHeapSize = dwSize + sizeof(KMemNode);	  //�ڴ���ͷ�ṹ
+	unsigned long  dwHeapSize = dwSize + sizeof(KMemNode);	  //�ڴ���ͷ�ṹ
 
 //	lpMem = (PBYTE)HeapAlloc(hHeap, 0, dwHeapSize);
 	lpMem = (unsigned char *)new char[dwHeapSize];
@@ -117,7 +117,7 @@ void * g_MemAlloc(DWORD dwSize)
 	pNode->m_dwMemSize = dwSize;
 	pNode->m_dwMemSign = MEMSIGN; //�ڴ��ʾ
 	m_MemList.AddHead(pNode);     //��ǰ������Ѿ������ڴ��Ľڵ�
-	
+
 	return (lpMem + sizeof(KMemNode));
 //	return 0;
 }
@@ -134,7 +134,7 @@ void g_MemFreeSec(void * lpMem)
 	if (lpMem == NULL)
 		return;
 	//lpMem = (PBYTE)lpMem - sizeof(KMemNode);
-	
+
 	KMemNode* pNode = (KMemNode *)lpMem;
 	if (pNode->m_dwMemSign != MEMSIGN)
 	{
@@ -148,7 +148,7 @@ void g_MemFreeSec(void * lpMem)
 	lpMem=NULL;
 }
 
-void g_MemFreeSign(DWORD nSign)
+void g_MemFreeSign(unsigned long nSign)
 {
 	  m_MemList.g_MemFreeBySign(nSign);   //ɾ�������ʶ�Ľڵ� �ڴ�
 
@@ -189,8 +189,8 @@ void g_MemFree(void *lpMem)
 //			dwLen	:	��������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemCopy(void * lpDest, void * lpSrc, DWORD dwLen)
-{	
+void g_MemCopy(void * lpDest, void * lpSrc, unsigned long dwLen)
+{
      memcpy(lpDest, lpSrc, dwLen);
 }
 //---------------------------------------------------------------------------
@@ -201,7 +201,7 @@ void g_MemCopy(void * lpDest, void * lpSrc, DWORD dwLen)
 //			dwLen	:	��������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemCopyMmx(void * lpDest,void * lpSrc, DWORD dwLen)
+void g_MemCopyMmx(void * lpDest,void * lpSrc, unsigned long dwLen)
 {
      memcpy(lpDest, lpSrc, dwLen);
 }
@@ -212,10 +212,10 @@ void g_MemCopyMmx(void * lpDest,void * lpSrc, DWORD dwLen)
 //			lpSrc	:	�ڴ��2
 //			dwLen	:	�Ƚϳ���
 // ����:	TRUE	:	��ͬ
-//			FALSE	:	��ͬ	
+//			FALSE	:	��ͬ
 //---------------------------------------------------------------------------
-bool g_MemComp(void * lpDest, void * lpSrc, DWORD dwLen)
-{	
+bool g_MemComp(void * lpDest, void * lpSrc, unsigned long dwLen)
+{
 /*#ifdef WIN32
 	__asm
 	{
@@ -248,7 +248,7 @@ loc_not_equal:
 //			byFill	:	����ֽ�
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemFill(void *  lpDest, DWORD  dwLen, unsigned char byFill)
+void g_MemFill(void *  lpDest, unsigned long  dwLen, unsigned char byFill)
 {
 /*#ifdef WIN32
 	__asm
@@ -279,8 +279,8 @@ void g_MemFill(void *  lpDest, DWORD  dwLen, unsigned char byFill)
 //			wFill	:	�����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemFill(void * lpDest, DWORD dwLen, unsigned short  wFill)
-{	
+void g_MemFill(void * lpDest, unsigned long dwLen, unsigned short  wFill)
+{
 /*#ifdef WIN32
 	__asm
 	{
@@ -309,8 +309,8 @@ void g_MemFill(void * lpDest, DWORD dwLen, unsigned short  wFill)
 //			dwFill	:	�����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemFill(void * lpDest, DWORD dwLen, DWORD dwFill)
-{	
+void g_MemFill(void * lpDest, unsigned long dwLen, unsigned long dwFill)
+{
 /*#ifdef WIN32
 	__asm
 	{
@@ -330,7 +330,7 @@ void g_MemFill(void * lpDest, DWORD dwLen, DWORD dwFill)
 //			dwLen	:	�ڴ泤��
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemZero(void * lpDest,  DWORD dwLen)
+void g_MemZero(void * lpDest,  unsigned long dwLen)
 {
 /*#ifdef WIN32
 	__asm
@@ -357,7 +357,7 @@ void g_MemZero(void * lpDest,  DWORD dwLen)
 //			dwXor	:	����ֽ�
 // ����:	void
 //---------------------------------------------------------------------------
-void g_MemXore(void * lpDest,  DWORD dwLen,  DWORD dwXor)
+void g_MemXore(void * lpDest,  unsigned long dwLen,  unsigned long dwXor)
 {
 /*#ifdef WIN32
 	__asm
@@ -376,10 +376,10 @@ loc_xor_loop:
 loc_xor_exit:
 	}
 #else*/
-     DWORD *ptr = (DWORD *)lpDest;
-     while((int32_t)dwLen > 0) {
+     unsigned long *ptr = (unsigned long *)lpDest;
+     while((int)dwLen > 0) {
        *ptr++ ^= dwXor;
-       dwLen -= sizeof(DWORD);
+       dwLen -= sizeof(unsigned long);
      }
 //#endif
 }

@@ -1,5 +1,5 @@
 // ***************************************************************************************
-// ³¡¾°µØÍ¼µÄÇøÓò¶ÔÏóµÄÀàÉùÃ÷
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // Copyright : Kingsoft 2002
 // Author    : wooy(wu yue)
 // CreateTime: 2002-11-11
@@ -21,20 +21,20 @@ class KPakFile;
 
 //##ModelId=3DB8F89F02D5
 //##Documentation
-//## ³¡¾°µØÍ¼ÖÐµÄÒ»¸öÇøÓò¡££¨¿Í»§¶Ë°æ£©
+//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ò¡££ï¿½ï¿½Í»ï¿½ï¿½Ë°æ£©
 class KScenePlaceRegionC
 {
   public:
 
 	//##ModelId=3DD7E5A80351
 	//##Documentation
-	//## ÇøÓò¶ÔÏóÔËÐÐÊ±µÄÒ»Ð©²ÎÊý(Íâ²¿Òà¿ÉÒýÓÃ)
-	enum KREGION_WORK_PARAM_PUB { 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½(ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	enum KREGION_WORK_PARAM_PUB {
 		//##Documentation
-		//## µ¥¸öÇøÓòµÄºáÏò¿í¶È£¨µ¥Î»£ºÏñµã£©
-		RWPP_AREGION_WIDTH = 512, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ã£©
+		RWPP_AREGION_WIDTH = 512,
 		//##Documentation
-		//## µ¥¸öÇøÓòµÄ×ÝÏò¿í¶È£¨µ¥Î»£ºÏñµã£©
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ã£©
 		RWPP_AREGION_HEIGHT = 1024 };
 
   public:
@@ -44,26 +44,26 @@ class KScenePlaceRegionC
 
 	//##ModelId=3DD7EA9200F8
 	~KScenePlaceRegionC();
-   
+
 	//##ModelId=3DBDAC140299
 	//##Documentation
-	//## Ö¸Ê¾ÇøÓò¶ÔÏóÓ¦¸Ã¼ÓÔØµÄÇøÓòÊý¾ÝµÄÇøÓòË÷Òý×ø±ê
+	//## Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¼ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool ToLoad(
 		//##Documentation
-		//## ÇøÓòµÄºáÏòË÷Òý
-		int nIndexX, 
+		//## ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int nIndexX,
 		//##Documentation
-		//## ÇøÓòµÄ×ÝÏòË÷Òý
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nIndexY);
 
 	int  getStatus(){return m_Status;};
 	//##ModelId=3DB901F101CD
 	//##Documentation
-	//## ÔØÈëÇøÓòÐÅÏ¢¡£
-	//## º¯Êý¹ý³Ì²Î¿´[Use Case View\³¡¾°\¿Í»§¶Ë\µ¥¸öÇøÓòµÄ¼ÓÔØ]¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì²Î¿ï¿½[Use Case View\ï¿½ï¿½ï¿½ï¿½\ï¿½Í»ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½]ï¿½ï¿½
 	bool LoadRe(
 		//##Documentation
-		//## Ö¸Ïò´æ´¢ÇøÓòÐÅÏ¢µÄ'ÇøÓòÄ¿Â¼'ËùÔÚµÄ¸¸Ä¿Â¼µÄÃû³ÆµÄ»º³åÇø¡£
+		//## Ö¸ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½Ä¿Â¼'ï¿½ï¿½ï¿½ÚµÄ¸ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		const char* pszBaseFolderName);
 
 
@@ -71,32 +71,32 @@ class KScenePlaceRegionC
 
 	//##ModelId=3DD3DD2C0141
 	//##Documentation
-	//## »ñÈ¡ÇøÓòµÄË÷Òý×ø±ê
+	//## ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void GetRegionIndex(
 		//##Documentation
-		//## ºáÏòË÷Òý
-		int& nX, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int& nX,
 		//##Documentation
-		//## ×ÝÏòË÷Òý
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int& nY) const;
 
 	//##ModelId=3DBF876400B2
 	//##Documentation
-	//## Çå¿Õ´Ë¶ÔÏóµÄÊý¾Ý
+	//## ï¿½ï¿½Õ´Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Clear();
 
     void GetFliePath(char* nName,char * nPath,int nMaxRows=100);
-   
+
 	//##ModelId=3DBF9582039A
 	//##Documentation
-	//## Ô¤äÖÈ¾µØ±í²ãÍ¼ÐÎ
+	//## Ô¤ï¿½ï¿½È¾ï¿½Ø±ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 	bool PrerenderGround(bool bForce);
 	unsigned int GetColor(LPCTSTR pString);
 
 
 	//##ModelId=3DDBD8C80309
 	//##Documentation
-	//## »æÖÆ³¡¾°ÇøÓòµØ±í²ã
+	//## ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½
 	void PaintGround(int bRegionIndex,int fullorpart=1);
 	void PaintBuildinObj(RECT* pRepresentArea,int bRegionIndex,bool isClear);
 	void ReomeGroundObj(int bRegionIndex);
@@ -106,53 +106,53 @@ class KScenePlaceRegionC
 
 	//##ModelId=3DE29E9102B0
 	//##Documentation
-	//## »ñÈ¡¸ß¿Õ¶ÔÏó×î´óµÄ»æÍ¼´ÎÐò±àºÅ¡£
+	//## ï¿½ï¿½È¡ï¿½ß¿Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½
 	unsigned int GetAboveHeadLayer(
-		//## Ö¸Ïò¸ß¿Õ¶ÔÏóµÄÁÐ±í
+		//## Ö¸ï¿½ï¿½ß¿Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		KBuildinObj*& pObjsAboveHead);
 
 	//##ModelId=3DE29F360221
 	//##Documentation
-	//## »æÖÆ¸ß¿ÕÎïÌå
+	//## ï¿½ï¿½ï¿½Æ¸ß¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	static void PaintAboveHeadObj(
 		KBuildinObj* pObj,
 		RECT* pRepresentArea,int nindex);
 
 	//##ModelId=3DE33AB30318
 	//##Documentation
-	//## »ñÈ¡ÇøÓòÄÚÄÚ½¨¶ÔÏóµÄÁÐ±í¡£
+	//## ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
 	void GetBuildinObjs(
 		//##Documentation
-		//## Ö¸Ïò°´µã·½Ê½ÅÅÐò¶ÔÏóµÄÁÐ±í
-		KIpotBuildinObj*& pObjsPointList, 
+		//## Ö¸ï¿½ò°´µã·½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+		KIpotBuildinObj*& pObjsPointList,
 		//##Documentation
-		//## °´µã·½Ê½ÅÅÐò¶ÔÏóµÄÊýÄ¿
-		unsigned int& nNumObjsPoint, 
+		//## ï¿½ï¿½ï¿½ã·½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+		unsigned int& nNumObjsPoint,
 		//##Documentation
-		//## Ö¸Ïò°´Ïß·½Ê½ÅÅÐò¶ÔÏóµÄÁÐ±í
+		//## Ö¸ï¿½ï¿½ï¿½ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		KIpotBuildinObj*& pObjsLineList,
 		//##Documentation
-		//## °´Ïß·½Ê½ÅÅÐò¶ÔÏóµÄÊýÄ¿
-		unsigned int& nNumObjsLine, 
+		//## ï¿½ï¿½ï¿½ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+		unsigned int& nNumObjsLine,
 		//##Documentation
-		//## Ö¸Ïò°´Ê÷·½Ê½ÅÅÐò¶ÔÏóµÄÁÐ±í
-		KIpotBuildinObj*& pObjsTreeList, 
+		//## Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+		KIpotBuildinObj*& pObjsTreeList,
 		//##Documentation
-		//## °´Ê÷·½Ê½ÅÅÐò¶ÔÏóµÄÊýÄ¿
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		unsigned int& nNumObjsTree);
 
-	//## »ñÈ¡ÇøÓòÄÚÄÚ½¨Î´³õÊ¼»¯µÄ¶ÔÏóµÄÁÐ±í¡£
+	//## ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½Î´ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
 	void GetBIOSBuildinObjs(
-		KBuildinObj*& pObjsList, 
-		unsigned int& nNumObjs 
+		KBuildinObj*& pObjsList,
+		unsigned int& nNumObjs
     );
 
-	//»ñµÃÄÚ½¨¹âÔ´µÄÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Ï¢
 	unsigned int GetBuildinLights(
 		KBuildInLightInfo*& pLights);
 
 	void SetNestRegion(KScenePlaceRegionC* pNest);
-	
+
 	void EnterProcessArea(KRUImage* pImage);
 	void LeaveProcessArea();
 	KRUImage* GetPrerenderGroundImage() { return m_pPrerenderGroundImg; }
@@ -164,66 +164,66 @@ class KScenePlaceRegionC
 
 //#ifdef SWORDONLINE_SHOW_DBUG_INFO
 	void PaintObstacle();
-	BOOL GetNextMapPos();
+	int GetNextMapPos();
 
 //#endif
 
   private:
-	
+
 	//##Documentation
-	//## ÇøÓò¶ÔÏóÔËÐÐÊ±µÄÒ»Ð©²ÎÊý(½öÄÚ²¿Ê¹ÓÃ)
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú²ï¿½Ê¹ï¿½ï¿½)
 	//##ModelId=3DD7E4C101E9
 	enum KREGION_WORK_PARAM
 	{
 		//##Documentation
-		//## µØ±íºáÏò»®·Ö¸ñ×ÓµÄÊýÄ¿
-		RWP_NUM_GROUND_CELL_H = 16, 
+		//## ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ò»®·Ö¸ï¿½ï¿½Óµï¿½ï¿½ï¿½Ä¿
+		RWP_NUM_GROUND_CELL_H = 16,
 		//##Documentation
-		//## µØ±í×ÝÏò»®·Ö¸ñ×ÓµÄÊýÄ¿
+		//## ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ò»®·Ö¸ï¿½ï¿½Óµï¿½ï¿½ï¿½Ä¿
 		RWP_NUM_GROUND_CELL_V = 16,
 
 		RWP_NEST_REGION_0 = 1,
 		//##Documentation
-		//## Ä¬ÈÏµØÍ¼¸ñµÄºá¿í¡£
-		//## µØÍ¼¸ñÖ¸³¡¾°µØÍ¼Îª×÷ÕÏ°­µÈ¼ÆËã»®·ÖµÄ×îÐ¡¸ñ×Óµ¥Ôª¡£
+		//## Ä¬ï¿½Ïµï¿½Í¼ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½
+		//## ï¿½ï¿½Í¼ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Îªï¿½ï¿½ï¿½Ï°ï¿½ï¿½È¼ï¿½ï¿½ã»®ï¿½Öµï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Óµï¿½Ôªï¿½ï¿½
 		RWP_OBSTACLE_WIDTH = 32,
 		//##Documentation
-		//## Ä¬ÈÏµØÍ¼¸ñµÄ×Ý¿í¡£
-		//## µØÍ¼¸ñÖ¸³¡¾°µØÍ¼Îª×÷ÕÏ°­µÈ¼ÆËã»®·ÖµÄ×îÐ¡¸ñ×Óµ¥Ôª¡£
+		//## Ä¬ï¿½Ïµï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+		//## ï¿½ï¿½Í¼ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Îªï¿½ï¿½ï¿½Ï°ï¿½ï¿½È¼ï¿½ï¿½ã»®ï¿½Öµï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Óµï¿½Ôªï¿½ï¿½
 		RWP_OBSTACLE_HEIGHT = 32,
 	};
 
 	//##ModelId=3DCE75E2003D
 	//##Documentation
-	//## ÇøÓò¶ÔÏóµÄ×´Ì¬Ã¶¾Ù
-	enum KREGION_STATUS { 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ã¶ï¿½ï¿½
+	enum KREGION_STATUS {
 		//##Documentation
-		//## ¿ÕÏÐÎÞÊý¾Ý×´Ì¬¡£
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½
 		REGION_S_IDLE,
 		//##Documentation
-		//## µÈ´ýÖ´ÐÐ¼ÓÔØ
+		//## ï¿½È´ï¿½Ö´ï¿½Ð¼ï¿½ï¿½ï¿½
 		REGION_S_TO_LOAD,
 		//##Documentation
-		//## ¼ÓÔØÊý¾ÝÈëÖÐ
-		REGION_S_LOADING, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		REGION_S_LOADING,
 		//##Documentation
-		//## ¼ÓÔØÊý¾ÝÍê±Ï£¬¿ÉÒÔ±»Ó¦ÓÃ×´Ì¬¡£
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ó¦ï¿½ï¿½×´Ì¬ï¿½ï¿½
 		REGION_S_STANDBY,
 		//##Documentation
-		//## Êý¾Ý´¦ÀíÖÐ
+		//## ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½
 		REGION_S_PROCESSING };
 
 	struct KGroundLayerData
 	{
-		unsigned int uNumGrunode;	//µØ±í¸ñÍ¼ÐÎµÄÊýÄ¿
-		unsigned int uNumObject;	//½ôÌùµØÃæµÄÀàËÆÂ·ÃæÖ®ÀàµÄ¶ÔÏóµÄÊýÄ¿
+		unsigned int uNumGrunode;	//ï¿½Ø±ï¿½ï¿½ï¿½Í¼ï¿½Îµï¿½ï¿½ï¿½Ä¿
+		unsigned int uNumObject;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ö®ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		KSPRCrunode* pGrunodes;
 		KSPRCoverGroundObj* pObjects;
 	};
 
 	//##ModelId=3DE1311803A3
 	//##Documentation
-	//## ÄÚ½¨¶ÔÏóÊý¾Ý
+	//## ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	struct KBiosData
 	{
 		KBuildinObjFileHead	Numbers;
@@ -235,65 +235,65 @@ class KScenePlaceRegionC
 
 	//##ModelId=3DB90015018D
 	//##Documentation
-	//## ÔØÈëÕÏ°­ÐÅÏ¢¡£
-	void LoadObstacle(		 
-		//## Êý¾ÝÎÄ¼þ¶ÔÏóµÄÖ¸Õë
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+	void LoadObstacle(
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 		KPakFile* pDataFile,
-		//## Êý¾ÝÎÄ¼þµÄ´óÐ¡
-		unsigned int uSize); 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½Ð¡
+		unsigned int uSize);
 	//##ModelId=3DBDADE00001
 	//##Documentation
-	//## ÔØÈëÎïÆ·ÐÅÏ¢¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½
 	bool LoadAboveGroundObjects(
-		//## Êý¾ÝÎÄ¼þ¶ÔÏóµÄÖ¸Õë
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 		KPakFile* pDataFile,
-		//## Êý¾ÝÎÄ¼þµÄ´óÐ¡
-		unsigned int uSize); 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½Ð¡
+		unsigned int uSize);
 	//##ModelId=3DB9001D00BD
 	//##Documentation
-	//## ÔØÈëµØ±íÐÅÏ¢
+	//## ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ï¢
 	bool LoadGroundLayer(
-		//## Êý¾ÝÎÄ¼þ¶ÔÏóµÄÖ¸Õë
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 		KPakFile* pDataFile,
-		//## Êý¾ÝÎÄ¼þµÄ´óÐ¡
-		unsigned int uSize); 
-	// ÔØÈëÊÂ¼þµãÐÅÏ¢
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½Ð¡
+		unsigned int uSize);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	void LoadTrap(
-		//## Êý¾ÝÎÄ¼þ¶ÔÏóµÄÖ¸Õë
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 		KPakFile* pDataFile,
-		//## Êý¾ÝÎÄ¼þµÄ´óÐ¡
-		unsigned int uSize); 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½Ð¡
+		unsigned int uSize);
 
 	void AddGrundCoverObj(KSPRCoverGroundObj* pObj);
-	
+
   private:
 
 	unsigned int	m_Flag;
 	//int m_isClear ;
 	//##ModelId=3DBD531C02B2
 	//##Documentation
-	//## ×´Ì¬±ê¼Ç
+	//## ×´Ì¬ï¿½ï¿½ï¿½
 	KREGION_STATUS m_Status;
-	
+
 	//##ModelId=3DDC11C400A3
 	//##Documentation
-	//## Region×óÉÏ½ÇµãÔÚÕû¸ö³¡¾°µØÍ¼ÖÐµÄ×ø±ê£¨µ¥Î»£ºÏñËØµã£©
+	//## Regionï¿½ï¿½ï¿½Ï½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ðµï¿½ï¿½ï¿½ï¿½ê£¨ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Øµã£©
 	POINT m_LeftTopCornerScenePos;
 	//##ModelId=3DBE392600F3
 	//##Documentation
-	//## ÇøÓòµÄ×ÝÏòÓëºáÏòË÷Òý×ø±ê
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	POINT m_RegionIndex;
 	//##ModelId=3DE131AE01A0
 	//##Documentation
-	//## ÄÚ½¨¶ÔÏóÊý¾Ý
-	KBiosData m_BiosData; //Õâ¸öÇøÓòµÄ Ê÷Ä¾ ·¿ÎÝµÈ
+	//## ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KBiosData m_BiosData; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¾ ï¿½ï¿½ï¿½Ýµï¿½
 
-//-----µØ±í²ãÊý¾Ý-----
+//-----ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----
 	KGroundLayerData	m_GroundLayerData;
 
 	//##ModelId=3DD7F09402D4
 	//##Documentation
-	//## Ô¤ÏÈäÖÈ¾µÄµØ±í²ãÍ¼ÐÎ¡£
+	//## Ô¤ï¿½ï¿½ï¿½ï¿½È¾ï¿½ÄµØ±ï¿½ï¿½ï¿½Í¼ï¿½Î¡ï¿½
 	KRUImage* m_pPrerenderGroundImg;
 
 	int      m_BackTreeNum;
@@ -313,8 +313,8 @@ class KScenePlaceRegionC
 			memset(m_adwDataFlag, 0, sizeof(m_adwDataFlag));
 #endif
 		}
-		
-		BOOL HasData(INT nX, INT nY) CONST
+
+		int HasData(INT nX, INT nY) CONST
 		{
 			return (m_adwDataFlag[nX] & (1 << nY)) != 0;
 		}
@@ -323,9 +323,9 @@ class KScenePlaceRegionC
 			INT nResult	= 0;
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			if (m_adwDataFlag[nX] & (1 << nY))
@@ -335,14 +335,14 @@ class KScenePlaceRegionC
 Exit0:
 			return nResult;
 		}
-		BOOL SetData(INT nX, INT nY, INT nData)
+		int SetData(INT nX, INT nY, INT nData)
 		{
-			DWORD dwId	= MAKELONG(nX, nY);
+			unsigned long dwId	= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			if (nData)
@@ -358,21 +358,21 @@ Exit0:
 Exit0:
 			return TRUE;
 		}
-		BOOL IncData(INT nX, INT nY)
+		int IncData(INT nX, INT nY)
 		{
-			DWORD dwId	= MAKELONG(nX, nY);
+			unsigned long dwId	= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 			  goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
-			
-			if (m_adwDataFlag[nX] & (1 << nY))	// ÒÑ¾­ÓÐµÄ£¬+1
+
+			if (m_adwDataFlag[nX] & (1 << nY))	// ï¿½Ñ¾ï¿½ï¿½ÐµÄ£ï¿½+1
 			{
 				m_mapRegData[dwId]++;
 			}
-			else								// ÐÂµÄ£¬Ö±½ÓÖÃ1
+			else								// ï¿½ÂµÄ£ï¿½Ö±ï¿½ï¿½ï¿½ï¿½1
 			{
 				m_adwDataFlag[nX] |= 1 << nY;
 				m_mapRegData[dwId]	= 1;
@@ -380,31 +380,31 @@ Exit0:
 Exit0:
 			return TRUE;
 		}
-		BOOL DecData(INT nX, INT nY)
+		int DecData(INT nX, INT nY)
 		{
-			BOOL bResult	= FALSE;
-			DWORD dwId		= MAKELONG(nX, nY);
+			int bResult	= FALSE;
+			unsigned long dwId		= MAKELONG(nX, nY);
 			//KGLOG_PROCESS_ERROR(nX >= 0 && nX < REGION_WIDTH);
 			//KGLOG_PROCESS_ERROR(nY >= 0 && nY < REGION_HEIGHT);
-			if (nX<0 || nX>=REGION_WIDTH) 
+			if (nX<0 || nX>=REGION_WIDTH)
 				goto Exit0;
-			if (nY<0 || nY>=REGION_HEIGHT) 
+			if (nY<0 || nY>=REGION_HEIGHT)
 				goto Exit0;
 
 			//KGLOG_PROCESS_ERROR(m_adwDataFlag[nX] & (1 << nY));
 			if (m_adwDataFlag[nX] & (1 << nY))
 			{
-				if (--m_mapRegData[dwId] == 0)	// ¼õÎª0ÁË
+				if (--m_mapRegData[dwId] == 0)	// ï¿½ï¿½Îª0ï¿½ï¿½
 				{
 					m_mapRegData.erase(dwId);
 					m_adwDataFlag[nX] &= ~(1 << nY);
-				} 
-			}		
+				}
+			}
 Exit0:
 			return bResult;
 		}
-		
-		BOOL Clear()
+
+		int Clear()
 		{
 			//ZeroStruct(m_adwDataFlag);
 #ifdef WIN32
@@ -421,19 +421,19 @@ Exit0:
 			return TRUE;
 		}
 	private:
-		DWORD m_adwDataFlag[REGION_WIDTH];	// ÓÃÎ»À´±ê¼ÇÄ³µãÊÇ·ñÓÐÊý¾Ý£¨¸ÕºÃREGION_HEIGHT == 32£¬ÓÃÒ»¸öDWORD£©
-		typedef std::map<DWORD, INT> _mapRegData;
+		unsigned long m_adwDataFlag[REGION_WIDTH];	// ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½unsigned longGION_HEIGHT == 32ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½unsigned longï¿½ï¿½
+		typedef std::map<unsigned long, INT> _mapRegData;
 		_mapRegData m_mapRegData;
-	};	
+	};
 //---------------------------------------------------------
 
 
 	//long		m_ObstacleInfo[RWP_NUM_GROUND_CELL_H][RWP_NUM_GROUND_CELL_V * 2];
 	//long		m_TrapInfo[RWP_NUM_GROUND_CELL_H][RWP_NUM_GROUND_CELL_V * 2];
 
-	_KGridRegData	m_cObstacle;						                // Ã¿¸ö¸ñ×ÓÉÏµÄÕÏ°­ÐÅÏ¢
-//	_KGridData	m_cFindPath;										// Ñ°Â·±í
-	_KGridRegData	m_cTrap;							                // Ã¿¸ö¸ñ×ÓÉÏµÄTrapÐÅÏ¢
+	_KGridRegData	m_cObstacle;						                // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Ï°ï¿½ï¿½ï¿½Ï¢
+//	_KGridData	m_cFindPath;										// Ñ°Â·ï¿½ï¿½
+	_KGridRegData	m_cTrap;							                // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Trapï¿½ï¿½Ï¢
 
 };
 

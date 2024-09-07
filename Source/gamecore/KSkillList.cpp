@@ -83,7 +83,7 @@ void KSkillList::SetSkillLevel(int nId/*���ܵ�ID��*/, int nLevel)
 		SetLevel(i, nLevel);
 }
 
-BOOL KSkillList::SetLevel(int nIndex/*�����б��������*/, int nLevel)
+int KSkillList::SetLevel(int nIndex/*�����б��������*/, int nLevel)
 {
 	if (nIndex <= 0 || nIndex >= MAX_NPCSKILL)
 		return FALSE;
@@ -100,7 +100,7 @@ BOOL KSkillList::SetLevel(int nIndex/*�����б��������*
 	return TRUE;
 }
 //�ӽű��н������µȼ����ܵ�����
-BOOL KSkillList::IncreaseLevel(int nIdx, int nLvl, int Qeuip,BOOL nIsClearExp)
+int KSkillList::IncreaseLevel(int nIdx, int nLvl, int Qeuip,int nIsClearExp)
 {
 	if (nIdx <= 0 || nIdx >= MAX_NPCSKILL)
 		return FALSE;
@@ -661,7 +661,7 @@ int KSkillList::GetLevel(int nSkillID)
 	return 0;
 }
 
-BOOL KSkillList::SetSLevelByListidx(int nListidx, int nLevel,BOOL nKind)
+int KSkillList::SetSLevelByListidx(int nListidx, int nLevel,int nKind)
 {
 	if (nListidx<=0 && nListidx>=MAX_NPCSKILL) return FALSE;
 
@@ -690,7 +690,7 @@ BOOL KSkillList::SetSLevelByListidx(int nListidx, int nLevel,BOOL nKind)
 	return FALSE;
 }
 
-BOOL KSkillList::SetSLevel(int nSkillID, int nLevel,BOOL nKind)
+int KSkillList::SetSLevel(int nSkillID, int nLevel,int nKind)
 {
 	int i;
 
@@ -753,7 +753,7 @@ int KSkillList::GetCurrentLevelByIdx(int nListIdx)
 }
 
 //�Ƿ���Է����� �����ܵ� ʱ����
-BOOL KSkillList::CanCast(int nSkillID, DWORD dwTime)
+int KSkillList::CanCast(int nSkillID, unsigned long dwTime)
 {
 
 	if (!nSkillID)
@@ -771,7 +771,7 @@ BOOL KSkillList::CanCast(int nSkillID, DWORD dwTime)
 	return TRUE;
 }
 //�Ƿ���Է����� �����ܵ� ʱ����
-BOOL KSkillList::CanCastByIndex(int nSkListIndex, DWORD dwTime)
+int KSkillList::CanCastByIndex(int nSkListIndex, unsigned long dwTime)
 {
 
 	if (nSkListIndex<=0 && nSkListIndex>=MAX_NPCSKILL) return false;
@@ -782,20 +782,20 @@ BOOL KSkillList::CanCastByIndex(int nSkListIndex, DWORD dwTime)
 	return TRUE;
 }
 //���������ܽⶳʱ��
-void	KSkillList::SetHorseNextCastTimeByIndex(int nSkListIndex, DWORD dwTime)
+void	KSkillList::SetHorseNextCastTimeByIndex(int nSkListIndex, unsigned long dwTime)
 {
 	if (nSkListIndex<=0 && nSkListIndex>=MAX_NPCSKILL) return;
 	m_Skills[nSkListIndex].NextHorseCastTime = dwTime;
 }
 //�´η�����ʱ��
-void KSkillList::SetNextCastTimeByIndex(int nSkListIndex, DWORD dwTime)
+void KSkillList::SetNextCastTimeByIndex(int nSkListIndex, unsigned long dwTime)
 {
 	if (nSkListIndex<=0 && nSkListIndex>=MAX_NPCSKILL) return;
 	m_Skills[nSkListIndex].NextCastTime = dwTime;
 }
 
 //���������ܽⶳʱ��
-void	KSkillList::SetHorseNextCastTime(int nSkillID, DWORD dwTime)
+void	KSkillList::SetHorseNextCastTime(int nSkillID, unsigned long dwTime)
 {
 	if (!nSkillID)
 		return;
@@ -805,7 +805,7 @@ void	KSkillList::SetHorseNextCastTime(int nSkillID, DWORD dwTime)
 	m_Skills[i].NextHorseCastTime = dwTime;
 }
 //�´η�����ʱ��
-void KSkillList::SetNextCastTime(int nSkillID, DWORD dwTime)
+void KSkillList::SetNextCastTime(int nSkillID, unsigned long dwTime)
 {
 //	m_Skills[nSkillID].NextCastTime = dwTime;
 //	return;
@@ -1163,7 +1163,7 @@ void KSkillList::AddCEnChance( int nId, int nEnChance )
 	}
 }
 
-int	KSkillList::CheckNoSkill(char *nKey,int nSkillidx)
+int KSkillList::CheckNoSkill(const char* nKey, int nSkillidx)
 {
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=0;
 

@@ -53,7 +53,9 @@ KuiTaskInfo::~KuiTaskInfo()
 }
 
 //����ȷ��������
-KuiTaskInfo * KuiTaskInfo::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiTaskInfo* KuiTaskInfo::create(const char* title,
+                                 Ref* callbackListener,
+                                 const std::function<void(ax::Node*)>& callfun)
 {
 	KuiTaskInfo * popLayer = KuiTaskInfo::create();
 	popLayer->addDialogData();

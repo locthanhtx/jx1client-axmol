@@ -17,7 +17,7 @@
 
 #define MAX_VALUE_LEN 300
 
-BOOL KNpcTemplate::InitNpcBaseData(int nNpcTemplateId)
+int KNpcTemplate::InitNpcBaseData(int nNpcTemplateId)
 {
 	if (nNpcTemplateId < 0 )
 		return FALSE;
@@ -65,7 +65,7 @@ BOOL KNpcTemplate::InitNpcBaseData(int nNpcTemplateId)
 
 }
 //�ӽű��л�ȡNPC����ԭʼ����
-BOOL KNpcTemplate::InitNpcLevelData(int nNpcTemplateId, KLuaScript * pLevelScript, int nLevel)
+int KNpcTemplate::InitNpcLevelData(int nNpcTemplateId, KLuaScript * pLevelScript, int nLevel)
 {
 	if (nNpcTemplateId < 0 || nLevel <= 0 || (!pLevelScript))
 		return FALSE;
@@ -112,7 +112,13 @@ int KNpcTemplate::GetNpcLevelDataFromScript(KLuaScript * pScript, char * szDataN
 	return nReturn;
 }
 //��ȡ�ű�NPC ���� �ȼ� ����������
-int KNpcTemplate::GetNpcKeyDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel,double nParam1, double nParam2,double nParam3,int nSeries)
+int KNpcTemplate::GetNpcKeyDataFromScript(KLuaScript* pScript,
+                                          const char* szDataName,
+                                          int nLevel,
+                                          double nParam1,
+                                          double nParam2,
+                                          double nParam3,
+                                          int nSeries)
 {
 	int nTopIndex = 0;
 	int nReturn = 0;

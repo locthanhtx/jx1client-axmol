@@ -33,16 +33,16 @@ public:
 
 	void Wait() const;
 
-	bool Wait(uint32_t timeoutMillis) const;
+	bool Wait(unsigned int timeoutMillis) const;
 
 	void Start();
 
-	void Terminate( uint32_t exitCode = 0 );
+	void Terminate( unsigned int exitCode = 0 );
 
 	virtual void Run() = 0;
 
 private:
-	static uint32_t __stdcall  ThreadFunction( void *pV );
+	static unsigned int __stdcall  ThreadFunction( void *pV );
 	void * m_hThread;
 	/*
 	 * No copies do not implement
@@ -67,7 +67,7 @@ public:
     void Wait() const;
     void Start();
     void setAutoDelete(bool autoDelete);
-    void Terminate(uint32_t exitCode);
+    void Terminate(unsigned int exitCode);
 
 protected:
     virtual void Run() = 0; // Virtual method to be implemented by derived classes

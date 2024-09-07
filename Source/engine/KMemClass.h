@@ -17,18 +17,18 @@ class KMemClass
 {
 private:
 	PVOID		m_lpMemPtr;
-	DWORD		m_lpMemLen;
+	unsigned long		m_lpMemLen;
 public:
 	KMemClass();
 	~KMemClass();
-	PVOID		Alloc(DWORD dwSize);
+	PVOID		Alloc(unsigned long dwSize);
 	void		Free();
 	void		Zero();
 	void		Fill(BYTE byFill);
-	void		Fill(WORD wFill);
-	void		Fill(DWORD dwFill);
+	void		Fill(unsigned short wFill);
+	void		Fill(unsigned long dwFill);
 	PVOID		GetMemPtr() { return m_lpMemPtr; };
-	DWORD		GetMemLen() { return m_lpMemLen; };
+	unsigned long		GetMemLen() { return m_lpMemLen; };
 };
 //---------------------------------------------------------------------------
 #endif

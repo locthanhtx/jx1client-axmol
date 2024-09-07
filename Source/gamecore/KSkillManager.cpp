@@ -31,7 +31,7 @@ KSkillManager::~KSkillManager()
     }
 }
 
-BOOL KSkillManager::Init()
+int KSkillManager::Init()
 {
     int i = 0;
     int j = 0;

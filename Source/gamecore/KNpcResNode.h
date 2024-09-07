@@ -3,249 +3,270 @@
 //
 // File:	KNpcResNode.h
 // Date:	2002.01.06
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Obj Class
 //---------------------------------------------------------------------------
 
 #pragma once
 
-#include	"engine/KNode.h"
+#include "engine/KNode.h"
 
-// ÄÐÖ÷½Ç Å®Ö÷½Ç £¨Æ´½Ónpc£© ÆÕÍ¨npc
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ´ï¿½ï¿½npcï¿½ï¿½ ï¿½ï¿½Í¨npc
 enum
 {
-	NPC_RES_SPECIAL = 0,
-	NPC_RES_NORMAL,
-	MAX_NPC_RES_KIND,
+    NPC_RES_SPECIAL = 0,
+    NPC_RES_NORMAL,
+    MAX_NPC_RES_KIND,
 };
 
-#define	MAX_BODY_PART			6		// Õû¸önpc·ÖÎª¼¸¸ö´ó²¿·Ö  5
-#define	MAX_BODY_PART_SECT		4		// Ã¿¸ö´ó²¿·Ö·ÖÎª¼¸¸öÐ¡²¿·Ö
-#define	MAX_PART				(MAX_BODY_PART*MAX_BODY_PART_SECT) //24
-#define MAX_NPC_IMAGE_NUM		(1 + MAX_PART + 12 + 1 + 1)        //»æ»­µÄÊýÁ¿(¿ÉÖØ¸´Ê¹ÓÃ) »æÖÆÁÐ±í ÒõÓ°+ ÉíÌå²¿¼þ  + Ä§·¨×´Ì¬ + ÌØÊâ¶¯»­(Ò»´ÎÐÔ) + Í·¶¥×´Ì¬(Ñ­»·SPR)
-#define	MAX_ACTION				128  //ÐÐÎªÊýÁ¿ÏÞÖÆ
-#define MAX_RES_STATE			500  //×´Ì¬µÄÊýÁ¿ÏÞÖÆ
+#define MAX_BODY_PART      6                                     // ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ó²¿·ï¿½  5
+#define MAX_BODY_PART_SECT 4                                     // Ã¿ï¿½ï¿½ï¿½ó²¿·Ö·ï¿½Îªï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+#define MAX_PART           (MAX_BODY_PART * MAX_BODY_PART_SECT)  // 24
+#define MAX_NPC_IMAGE_NUM \
+    (1 + MAX_PART + 12 + 1 + 1)  // ï¿½æ»­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ø¸ï¿½Ê¹ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ ï¿½ï¿½Ó°+ ï¿½ï¿½ï¿½å²¿ï¿½ï¿½  + Ä§ï¿½ï¿½×´Ì¬ + ï¿½ï¿½ï¿½â¶¯ï¿½ï¿½(Ò»ï¿½ï¿½ï¿½ï¿½) +
+                                 // Í·ï¿½ï¿½×´Ì¬(Ñ­ï¿½ï¿½SPR)
+#define MAX_ACTION    128  // ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define MAX_RES_STATE 500  // ×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// ´¦Àí¶¯×÷µÄÖÖÀàÃû³Æ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class CActionName
 {
 private:
-	char	m_szName[MAX_ACTION][FILE_NAME_LENGTH];	// ¶¯×÷Ãû³Æ
-	int		m_nMaxAction;				// ×î´óÔÊÐí¶¯×÷ÖÖÀà
-	int		m_nCurActionNo;				// ¶¯×÷ÖÖÀà
+    char m_szName[MAX_ACTION][FILE_NAME_LENGTH];  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nMaxAction;                             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nCurActionNo;                           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 public:
-	CActionName();
-	// »ñÈ¡¶¯×÷ÖÖÀà¡¢Ãû³ÆµÈÐÅÏ¢
-	BOOL	Init(char *lpszFileName);
-	// ÓÉ¶¯×÷Ãû³ÆµÃµ½¶¯×÷±àºÅ
-	int		GetActionNo(char *lpszName);
-	// µÃµ½¶¯×÷ÖÖÀàÊý
-	int		GetActionCount();
-	// ÓÉ¶¯×÷±àºÅµÃµ½¶¯×÷Ãû³Æ
-	BOOL	GetActionName(int nNo, char *lpszName, int nSize);
-
+    CActionName();
+    // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¡¢ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ï¢
+    int Init(const char* lpszFileName);
+    // ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetActionNo(char* lpszName);
+    // ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetActionCount();
+    // ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ÅµÃµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetActionName(int nNo, char* lpszName, int nSize);
 };
 
 class CShadowFileName
 {
 private:
-	struct	SShadowFileInfo
-	{
-		char	m_szName[FILE_NAME_LENGTH];
-		int		m_nTotalFrame;  //×ÜÖ¡Êý
-		int		m_nTotalDir;    //×Ü·½Ïò
-		int		m_nInterval;    //Ê±¼ä¼ä¸ô  
-		int		m_nCgX;
-		int		m_nCgY;
-	}	*m_psInfo;
-	int		m_nInfoLength;
+    struct SShadowFileInfo
+    {
+        char m_szName[FILE_NAME_LENGTH];
+        int m_nTotalFrame;  // ï¿½ï¿½Ö¡ï¿½ï¿½
+        int m_nTotalDir;    // ï¿½Ü·ï¿½ï¿½ï¿½
+        int m_nInterval;    // Ê±ï¿½ï¿½ï¿½ï¿½
+        int m_nCgX;
+        int m_nCgY;
+    }* m_psInfo;
+    int m_nInfoLength;
 
 public:
-	CShadowFileName();
-	~CShadowFileName();
-	// ³õÊ¼»¯ÄÚ´æ·ÖÅä
-	void		Init(int nActionCount);
-	// µÃµ½Ä³¸ö¶¯×öµÄÒõÓ°ÎÄ¼þÃû¼°ÆäÏà¹ØÎÄ¼þÐÅÏ¢
-	BOOL		GetFile(int nActionNo, int *pnFrame, int *pnDir, int *pnInterval, int *pnCgX, int *pnCgY, char *lpszName);
-friend class KNpcResNode;
+    CShadowFileName();
+    ~CShadowFileName();
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½
+    void Init(int nActionCount);
+    // ï¿½Ãµï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢
+    int GetFile(int nActionNo, int* pnFrame, int* pnDir, int* pnInterval, int* pnCgX, int* pnCgY, char* lpszName);
+    friend class KNpcResNode;
 };
-//×´Ì¬Î»ÖÃ
+// ×´Ì¬Î»ï¿½ï¿½
 enum StateMagicType
 {
-	STATE_MAGIC_HEAD = 0, //×´Ì¬Î»ÖÃ Í·²¿
-	STATE_MAGIC_BODY,  //ÉíÉÏ
-	STATE_MAGIC_FOOT, //½Åµ×
-	STATE_MAGIC_TYPE_NUM,
+    STATE_MAGIC_HEAD = 0,  // ×´Ì¬Î»ï¿½ï¿½ Í·ï¿½ï¿½
+    STATE_MAGIC_BODY,      // ï¿½ï¿½ï¿½ï¿½
+    STATE_MAGIC_FOOT,      // ï¿½Åµï¿½
+    STATE_MAGIC_TYPE_NUM,
 };
 
-// ×´Ì¬ÓëËæÉí¹âÐ§¶ÔÓ¦±í
+// ×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ó¦ï¿½ï¿½
 class CStateMagicTable
 {
 private:
-	int			m_nType[MAX_RES_STATE];			// ÀàÐÍ£ºÍ·¶¥¡¢½Åµ×¡¢ÉíÉÏ   Î»ÖÃ
-	int			m_nPlayType[MAX_RES_STATE];		// ²¥·ÅÀàÐÍ£ºÑ­»·²¥·Å
-	int			m_nBackStart[MAX_RES_STATE];	// ÉíÉÏÀàÐÍnpc±³ºó¿ªÊ¼Ö¡
-	int			m_nBackEnd[MAX_RES_STATE];		// ÉíÉÏÀàÐÍnpc±³ºó½áÊøÖ¡
-	int			m_nTotalFrame[MAX_RES_STATE];	// spr ÎÄ¼þ×ÜÖ¡Êý
-	int			m_nTotalDir[MAX_RES_STATE];		// spr ÎÄ¼þ×Ü·½ÏòÊý
-	int			m_nInterVal[MAX_RES_STATE];     // spr ÎÄ¼þÖ¡¼ä¸ô
-	int			m_nMapPosX[MAX_RES_STATE];      // spr ÎÄ¼þÖ¡¼ä¸ô
-	int			m_nMapPosY[MAX_RES_STATE];      // spr ÎÄ¼þÖ¡¼ä¸ô
-	char		m_szName[MAX_RES_STATE][128];	// spr ÎÄ¼þÃû
+    int m_nType[MAX_RES_STATE];         // ï¿½ï¿½ï¿½Í£ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Åµ×¡ï¿½ï¿½ï¿½ï¿½ï¿½   Î»ï¿½ï¿½
+    int m_nPlayType[MAX_RES_STATE];     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nBackStart[MAX_RES_STATE];    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½Ê¼Ö¡
+    int m_nBackEnd[MAX_RES_STATE];      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
+    int m_nTotalFrame[MAX_RES_STATE];   // spr ï¿½Ä¼ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
+    int m_nTotalDir[MAX_RES_STATE];     // spr ï¿½Ä¼ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nInterVal[MAX_RES_STATE];     // spr ï¿½Ä¼ï¿½Ö¡ï¿½ï¿½ï¿½
+    int m_nMapPosX[MAX_RES_STATE];      // spr ï¿½Ä¼ï¿½Ö¡ï¿½ï¿½ï¿½
+    int m_nMapPosY[MAX_RES_STATE];      // spr ï¿½Ä¼ï¿½Ö¡ï¿½ï¿½ï¿½
+    char m_szName[MAX_RES_STATE][128];  // spr ï¿½Ä¼ï¿½ï¿½ï¿½
 public:
-	CStateMagicTable();							// ¹¹Ôìº¯Êý
-	BOOL		Init();							// ³õÊ¼»¯
-	// ¹¦ÄÜ:	µÃµ½Ä³ÖÖ×´Ì¬µÄ¹âÓ°Ð§¹ûµÄÐÅÏ¢
-	void		GetInfo(int nNo, char *lpszGetName, int *pnType, int *pnPlayType, int *pnBackStart, int *pnBackEnd, int *pnTotalFrame, int *pnTotalDir, int *pnInterVal,int *MapPosX=0,int *MapPosY=0);
+    CStateMagicTable();  // ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+    int Init();          // ï¿½ï¿½Ê¼ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½:	ï¿½Ãµï¿½Ä³ï¿½ï¿½×´Ì¬ï¿½Ä¹ï¿½Ó°Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void GetInfo(int nNo,
+                 char* lpszGetName,
+                 int* pnType,
+                 int* pnPlayType,
+                 int* pnBackStart,
+                 int* pnBackEnd,
+                 int* pnTotalFrame,
+                 int* pnTotalDir,
+                 int* pnInterVal,
+                 int* MapPosX = 0,
+                 int* MapPosY = 0);
 };
 
 typedef struct SPR_INFO
 {
-	int		nTotalFrames;
-	int		nTotalDirs;
-	int		nInterval;
-	char	szFileName[256];
+    int nTotalFrames;
+    int nTotalDirs;
+    int nInterval;
+    char szFileName[256];
 } CSPR_INFO;
-// Ä³²¿¼þµÄËùÓÐ×°±¸ÔÚ¸÷ÖÖ¶¯×÷ÏÂµÄÍ¼ÏñÎÄ¼þÃû
+// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Âµï¿½Í¼ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 class CRESINFO
 {
 public:
-	int			m_nActionKind;				// ¶¯×÷ÖÖÀàÊý
-	int			m_nEquipKind;				// ×°±¸ÖÖÀàÊý
-	CSPR_INFO	*m_cSprInfo;				// Ä³²¿¼þËùÓÐ×ÊÔ´ÎÄ¼þµÄÏà¹ØÐÅÏ¢
+    int m_nActionKind;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nEquipKind;       // ×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    CSPR_INFO* m_cSprInfo;  // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 public:
-	CRESINFO();
-	~CRESINFO();
-	// Çå³ýÊý¾Ý
-	void		AutoDelete();
-	// Éè¶¨¶¯×÷ÖÖÀàÊý£¬×°±¸ÖÖÀàÊý£¬·ÖÅä±í¸ñÄÚ´æ»º³åÇø
-	BOOL		AutoNew(int nWidth, int nHeight);
-	// ¸ù¾Ý¶¯×÷±àºÅ¡¢×°±¸±àºÅµÃµ½×ÊÔ´ÎÄ¼þÃû
-	BOOL		GetName(int nActionNo, int nEquipNo, char *lpszDefault, char *lpszGetName, int nStrLen);
-	int			GetInterval(int nActionNo, int nEquipNo, int nDefault);
-	int			GetTotalFrames(int nActionNo, int nEquipNo, int nDefault);
-	int			GetTotalDirs(int nActionNo, int nEquipNo, int nDefault);
+    CRESINFO();
+    ~CRESINFO();
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void AutoDelete();
+    // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ»ºï¿½ï¿½ï¿½ï¿½
+    int AutoNew(int nWidth, int nHeight);
+    // ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½×°ï¿½ï¿½ï¿½ï¿½ÅµÃµï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½
+    int GetName(int nActionNo, int nEquipNo, const char* lpszDefault, char* lpszGetName, int nStrLen);
+    int GetInterval(int nActionNo, int nEquipNo, int nDefault);
+    int GetTotalFrames(int nActionNo, int nEquipNo, int nDefault);
+    int GetTotalDirs(int nActionNo, int nEquipNo, int nDefault);
 };
 
-
-// ×°±¸¡¢×´Ì¬Óë¶¯×÷¶ÔÕÕ±í£¬KNpcResNode ÖÐÓÐÁ½¸ö£¬Ò»¸öÓÃÓÚÃ»ÆïÂíµÄ£¬Ò»¸öÓÃÓÚÆïÂíµÄ
+// ×°ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ë¶¯ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½KNpcResNode ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class CEquipStyleTable
 {
 private:
-	int			m_nStyleKind;		// ×´Ì¬ÖÖÀàÊý
-	int			m_nEquipKind;		// ×°±¸ÖÖÀàÊý
-	int			*m_lpnActionNo;		// ±í¸ñÊý¾Ý£¬´óÐ¡Îª m_nStyleKind * m_nEquipKind
+    int m_nStyleKind;    // ×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nEquipKind;    // ×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int* m_lpnActionNo;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ð¡Îª m_nStyleKind * m_nEquipKind
 public:
-	CEquipStyleTable();
-	~CEquipStyleTable();
-	// Çå³ýÊý¾Ý
-	void		AutoDelete();
-	// Éè¶¨±í¸ñ³¤¿í£¬³õÊ¼»¯±í¸ñ»º³åÇø
-	BOOL		AutoNew(int nWidth, int nHeight);
-	// Éè¶¨±í¸ñÖÐÄ³Ò»ÏîµÄÖµ
-	void		SetValue(int nXpos, int nYpos, int nValue);
-	// µÃµ½±í¸ñÖÐÄ³Ò»ÏîµÄÖµ
-	int			GetValue(int nXpos, int nYpos);
+    CEquipStyleTable();
+    ~CEquipStyleTable();
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void AutoDelete();
+    // ï¿½è¶¨ï¿½ï¿½ï¿½ñ³¤¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ñ»º³ï¿½ï¿½ï¿½
+    int AutoNew(int nWidth, int nHeight);
+    // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½ï¿½Öµ
+    void SetValue(int nXpos, int nYpos, int nValue);
+    // ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½ï¿½Öµ
+    int GetValue(int nXpos, int nYpos);
 };
 
-
-// ÓÃÓÚÅÅÐò±í
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef struct SACTTABLEOFF
 {
-	int		nActOff;			// ´Ë¶¯×÷ÔÚË³Ðò¶ÔÓ¦±íÖÐÐÅÏ¢µÄÎ»ÖÃ
-	int		nLineNum;			// ´Ë¶¯×÷ÔÚ¶ÔÓ¦±íÖÐµÄÏàÓ¦ÐÅÏ¢ÓÐ¶àÉÙÐÐ
-	BOOL	bUseDefault;		// ´Ë¶¯×÷¸÷¸ö·½ÏòµÄË³ÐòÐÅÏ¢ÊÇ·ñÊ¹ÓÃÄ¬ÈÏ·½Ê½
-	SACTTABLEOFF() { Clear(); };
-	void	Clear() { nActOff = 0; nLineNum = 0; bUseDefault = TRUE; };
+    int nActOff;      // ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Î»ï¿½ï¿½
+    int nLineNum;     // ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ó¦ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ï¢ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    int bUseDefault;  // ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ç·ï¿½Ê¹ï¿½ï¿½Ä¬ï¿½Ï·ï¿½Ê½
+    SACTTABLEOFF() { Clear(); };
+    void Clear()
+    {
+        nActOff     = 0;
+        nLineNum    = 0;
+        bUseDefault = TRUE;
+    };
 } SActTableOff;
 
-// ¶ÔÅÅÐò±íµÄ´¦Àí
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 class CSortTable
 {
 private:
-	SActTableOff	m_sActTableOff[MAX_ACTION];	// Ã¿¸ö¶¯×÷ÔÚ±í¸ñÖÐµÄ²éÕÒ·½Ê½
-	int				*m_lpnSortTable;			// ÅÅÐò±í£¬´óÐ¡Îª£ºm_nSortTableSize * (m_nPartNum + 1)
-	int				m_nSortTableSize;			// ±í¸ñÓÐ¶àÉÙÐÐ
-	int				m_nPartNum;					// ÓÐ¶àÉÙÖÖ²¿¼þ£¬±í¸ñÃ¿Ò»ÐÐµÚÒ»¸öµ¥Ôª±íÊ¾µÚ¼¸èå£¬
-												// ºóÃæ¸ú×Å m_nPartNum ¸öµ¥Ôª£¬´æ´¢Ã¿¸ö²¿¼þµÄ±àºÅ
+    SActTableOff m_sActTableOff[MAX_ACTION];  // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ÐµÄ²ï¿½ï¿½Ò·ï¿½Ê½
+    int* m_lpnSortTable;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Îªï¿½ï¿½m_nSortTableSize * (m_nPartNum + 1)
+    int m_nSortTableSize;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nPartNum;  // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ê¾ï¿½Ú¼ï¿½ï¿½å£¬
+                     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ m_nPartNum ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½æ´¢Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½
 public:
-	CSortTable();
-	~CSortTable();
-	char			m_sSortTableFileName[100]; //ÅÅÐò±íµÄÎÄ¼þÃû£¬ÓÃÓÚ±à¼©Æ÷
-	// ´ÓÅÅÐòÎÄ¼þÖÐ°ÑÅÅÐòÐÅÏ¢¶ÁÈ¡³öÀ´£¬ÐèÒª´«ÈëµÄÐÅÏ¢ÓÐ£ºÅÅÐòÎÄ¼þÃû¡¢¸÷ÖÖ¶¯×÷µÄÃû³ÆµÈÐÅÏ¢¡¢²¿¼þµÄÊýÁ¿
-	BOOL			GetcTable(char *lpszFileName, CActionName *cActionName, int nPartNum);
-	BOOL			GetkTable(KIniFile *pIni, CActionName *cActionName, int nPartNum);
-	// ´Ó±í¸ñÖÐµÃµ½Ò»×éÅÅÐòÐÅÏ¢
-	BOOL			GetSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int nTableLen);
-private:
-	// Çå³ýÊý¾Ý
-	void			Release();
-	// ´Ó×Ö·û´®ÖÐ°ÑÒ»ÏµÁÐÊý×ÖÈ¡³öÀ´
-	void			SortStrToNum(char *lpszStr, int *lpnTable, int nTableSize);
-};
-// ×¢£º±í¸ñÇ°Ãæ MAX_SORT_DIR ÐÐÊÇËùÓÐ¶¯×÷ÔÚÄ¬ÈÏ·½Ê½ÏÂµÄÅÅÐò·½Ê½£¬µ±¶¯×÷Ö¸Ã÷Ê¹ÓÃÄ¬ÈÏ
-//     ·½Ê½¶øÇÒ²»ÔÚÌØÊâèåµÄÇé¿öÏÂÊ¹ÓÃÕâÐ©ÐÅÏ¢£»¸ú×ÅÊÇËùÓÐ¶¯×÷µÄÌØÊâÅÅÐòÐÅÏ¢£¬Ã¿Ò»¸ö
-//     ¶¯×÷Ò»¸öµ¥Ôª£¬Ã¿¸öµ¥Ôª·ÖÎªÁ½²¿·Ö£ºµÚÒ»²¿·ÖÊÇËùÓÐ MAX_SORT_DIR ¸ö·½ÏòµÄÅÅÐòÐÅ
-//     Ï¢£¬Èç¹û´Ë¶¯×÷Ö¸Ã÷²»ÓÃÄ¬ÈÏ·½Ê½£¬ÔòÕâ¸ö²¿·Ö´æÔÚ²¢ÇÒÕ¼ MAX_SORT_DIR ÐÐ£»µÚ¶þ²¿
-//     ·ÖÊÇÌØÊâèåµÄÅÅÐò·½Ê½£¬ÌØÊâèåµÄÊýÁ¿ÓÉ¶¯×÷Ö¸Ã÷£¨µ±´æÔÚµÚÒ»²¿·ÖÊ±Îª nLineNum - 
-//     MAX_SORT_DIR£¬µ±²»´æÔÚµÚÒ»²¿·ÖÊ±Îª nLineNum£©£¬Èç¹ûÃ»ÓÐÌØÊâèå£¬ÔòÕâ²¿·Ö²»´æÔÚ
+    CSortTable();
+    ~CSortTable();
+    char m_sSortTableFileName[100];  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±à¼©ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetcTable(char* lpszFileName, CActionName* cActionName, int nPartNum);
+    int GetkTable(KIniFile* pIni, CActionName* cActionName, int nPartNum);
+    // ï¿½Ó±ï¿½ï¿½ï¿½ï¿½ÐµÃµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    int GetSort(int nActNo, int nDir, int nFrameNo, int* lpnTable, int nTableLen);
 
-class  KNpcResNode : public KNode
+private:
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void Release();
+    // ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ð°ï¿½Ò»Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+    void SortStrToNum(char* lpszStr, int* lpnTable, int nTableSize);
+};
+// ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ MAX_SORT_DIR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ï·ï¿½Ê½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ê¹ï¿½ï¿½Ä¬ï¿½ï¿½
+//     ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ã¿Ò»ï¿½ï¿½
+//     ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ MAX_SORT_DIR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//     Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ï·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Õ¼ MAX_SORT_DIR ï¿½Ð£ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½
+//     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±Îª nLineNum -
+//     MAX_SORT_DIRï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±Îª nLineNumï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½â²¿ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½
+
+class KNpcResNode : public KNode
 {
 private:
-	int					m_nNpcKind;				// ÄÐÖ÷½Ç Å®Ö÷½Ç ÆÕÍ¨npc
-	int					m_nPartNum;				// Êµ¼Ê´æÔÚµÄ²¿¼þ×ÜÊýÁ¿
-	char				m_szResPath[80];		// Í¼ÐÎÎÄ¼þ(spr)´æ·ÅµÄÂ·¾¶
-	CRESINFO			m_cResInfo[MAX_PART];	// Ä³²¿¼þµÄËùÓÐ×ÊÔ´ÎÄ¼þÐÅÏ¢£¨°üÀ¨ËùÓÐ×ÊÔ´ÎÄ¼þÃû£©
-	CEquipStyleTable	m_NoHorseTable;
-	CEquipStyleTable	m_OnHorseTable;
-	char				m_szSoundName[MAX_ACTION][80];
-	
-public:
-	CSortTable			m_cSortTable;
-
-	struct SECTINFO
-	{
-		int				nFlag;					// ´Ë²¿¼þÊÇ·ñ´æÔÚ
-		char			szSectName[32];			// ´Ë²¿¼þµÄ²¿¼þÃû
-		char			szSectResName[80];		// ´Ë²¿¼þ¶ÔÓ¦µÄ×ÊÔ´ËµÃ÷ÎÄ¼þÃû
-		char			szSectSprInfoName[80];	// ´Ë²¿¼þ¶ÔÓ¦µÄ×ÊÔ´ÐÅÏ¢ËµÃ÷ÎÄ¼þ
-		SECTINFO() { Clear(); };
-		void	Clear() { nFlag = 0; szSectName[0] = 0; szSectResName[0] = 0; szSectSprInfoName[0] = 0; };
-
-	}m_nSectInfo[MAX_PART];	// ²¿¼þÐÅÏ¢
-
-	CShadowFileName		m_cShadowInfo;			// ¶ÔÓ¦ËùÓÐ¶¯×÷µÄÒõÓ°ÎÄ¼þÐÅÏ¢
-
-	char				m_szNpcName[80];		// Íæ¼ÒÀàÐÍÃû
+    int m_nNpcKind;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í¨npc
+    int m_nPartNum;        // Êµï¿½Ê´ï¿½ï¿½ÚµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    char m_szResPath[80];  // Í¼ï¿½ï¿½ï¿½Ä¼ï¿½(spr)ï¿½ï¿½Åµï¿½Â·ï¿½ï¿½
+    CRESINFO m_cResInfo[MAX_PART];  // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+    CEquipStyleTable m_NoHorseTable;
+    CEquipStyleTable m_OnHorseTable;
+    char m_szSoundName[MAX_ACTION][80];
 
 public:
-	KNpcResNode();
-	~KNpcResNode();
-	//	³õÊ¼»¯£¬ÔØÈëËùÓÐÏàÓ¦Êý¾Ý
-	BOOL			Init(char *lpszNpcName, CActionName *cActionName, CActionName *cNpcAction);
-	// ÅÐ¶Ï×ÊÔ´ÀàÐÍ(·ÇÆ´½ÓÀàÐÍ»¹ÊÇÆ´½ÓÀàÐÍ)
-	int				GetNpcKind() { return m_nNpcKind; };
-	// ÅÐ¶ÏÄ³¸ö²¿¼þÊÇ·ñ´æÔÚ
-	BOOL			CheckPartExist(int nPartNo);
-	// »ñµÃÄ³¸ö²¿¼þµÄÄ³¸ö×°±¸ÔÚÄ³¸ö¶¯×÷ÏÂµÄ spr ÎÄ¼þÃû
-	BOOL			GetFileName(int nPartNo, int nActionNo, int nEquipNo, char *lpszDefault, char *lpszGetName, int nStrLen);
-	// »ñµÃÄ³¸ö²¿¼þµÄÄ³¸ö×°±¸ÔÚÄ³¸ö¶¯×÷ÏÂµÄ spr ÎÄ¼þµÄÖ¡¼ä¸ô
-	int				GetInterval(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
-	// »ñµÃÄ³¸ö²¿¼þµÄÄ³¸ö×°±¸ÔÚÄ³¸ö¶¯×÷ÏÂµÄ spr ÎÄ¼þµÄ×ÜÖ¡Êý
-	int				GetTotalFrames(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
-	// »ñµÃÄ³¸ö²¿¼þµÄÄ³¸ö×°±¸ÔÚÄ³¸ö¶¯×÷ÏÂµÄ spr ÎÄ¼þµÄ×Ü·½ÏòÊý
-	int				GetTotalDirs(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
-	// »ñµÃÄ³ÎäÆ÷Ä³×´Ì¬ÏÂµÄ¶¯×÷±àºÅ
-	int				GetActNo(int nDoing, int nEquipNo, BOOL bRideHorse);
-	// ´Ó±í¸ñÖÐµÃµ½Ò»×éÅÅÐòÐÅÏ¢
-	BOOL			GetnSort(int nActNo, int nDir, int nFrameNo, int *lpnTable, int nTableLen);
+    CSortTable m_cSortTable;
 
-	// °ÑÂ·¾­ºÍÎÄ¼þÃûºÏ³ÉÔÚÒ»Æð³ÉÎª´øÂ·¾¶µÄÎÄ¼þÃû
-	void			ComposePathAndName(char *lpszGet, char *lpszPath, char *lpszName);
-	// »ñµÃÄ³¸ö¶¯×÷¶ÔÓ¦µÄÒôÐ§ÎÄ¼þÃû
-	void			GetActionSoundName(int nAction, char *lpszSoundName);
+    struct SECTINFO
+    {
+        int nFlag;                   // ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+        char szSectName[32];         // ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½
+        char szSectResName[80];      // ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô´Ëµï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+        char szSectSprInfoName[80];  // ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½Ï¢Ëµï¿½ï¿½ï¿½Ä¼ï¿½
+        SECTINFO() { Clear(); };
+        void Clear()
+        {
+            nFlag                = 0;
+            szSectName[0]        = 0;
+            szSectResName[0]     = 0;
+            szSectSprInfoName[0] = 0;
+        };
 
-	static void		GetShadowName(char *lpszShadow, char *lpszSprName);
+    } m_nSectInfo[MAX_PART];  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+
+    CShadowFileName m_cShadowInfo;  // ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½Ä¼ï¿½ï¿½ï¿½Ï¢
+
+    char m_szNpcName[80];  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+public:
+    KNpcResNode();
+    ~KNpcResNode();
+    //	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+    int Init(char* lpszNpcName, CActionName* cActionName, CActionName* cNpcAction);
+    // ï¿½Ð¶ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    int GetNpcKind() { return m_nNpcKind; };
+    // ï¿½Ð¶ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+    int CheckPartExist(int nPartNo);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ spr ï¿½Ä¼ï¿½ï¿½ï¿½
+    int GetFileName(int nPartNo, int nActionNo, int nEquipNo, const char* lpszDefault, char* lpszGetName, int nStrLen);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ spr ï¿½Ä¼ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½
+    int GetInterval(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ spr ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
+    int GetTotalFrames(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ spr ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetTotalDirs(int nPartNo, int nActionNo, int nEquipNo, int nDefault);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ä³×´Ì¬ï¿½ÂµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int GetActNo(int nDoing, int nEquipNo, int bRideHorse);
+    // ï¿½Ó±ï¿½ï¿½ï¿½ï¿½ÐµÃµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    int GetnSort(int nActNo, int nDir, int nFrameNo, int* lpnTable, int nTableLen);
+
+    // ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Îªï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+    void ComposePathAndName(char* lpszGet, const char* lpszPath, char* lpszName);
+    // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ä¼ï¿½ï¿½ï¿½
+    void GetActionSoundName(int nAction, char* lpszSoundName);
+
+    static void GetShadowName(char* lpszShadow, char* lpszSprName);
 };

@@ -102,7 +102,7 @@ typedef struct
 	int     mIsWarCity;
 	int     m_bFigure; //���ְλ
 	char    TongName[32];
-	UINT	m_LockNpcDwID;//DWORD
+	UINT	m_LockNpcDwID;//unsigned long
 	char    ShopName[32];
 	BYTE    nCurGsSerIdx;
 } PLAYER_NORMAL_SYNC;
@@ -111,7 +111,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT   ID;//DWORD
+	UINT   ID;//unsigned long
 	int     m_IsInCity;
 
 } PLAYER_NORMALMAP_SYNC;
@@ -224,7 +224,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT	ID;//DWORD
+	UINT	ID;//unsigned long
 	int		RankFF;
 }	RANKFF_SYNC; // danh hieu
 /*
@@ -272,7 +272,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	Camp;				// ��Ӫ
 	BYTE	CurrentCamp;		// ��ǰ��Ӫ
 	BYTE	m_bySeries;			// ����ϵ
@@ -282,9 +282,9 @@ typedef struct
 	BYTE	m_btKind;			// npc����
 	int 	MapX;				// λ����Ϣ
 	int 	MapY;				// λ����Ϣ
-	UINT	ID;					// Npc��ΨһID  DWORD
+	UINT	ID;					// Npc��ΨһID  unsigned long
 	int		NpcSettingIdx;		// �ͻ������ڼ��������Դ��������ֵ�趨
-	WORD	NpcEnchant;			// ��ǿ��NPC�������bit��ʾ��ǿ���ͣ������Ƿ��ɫ֮����ɼ�ǿ����Ŀ�ڿͻ���ȷ����
+	unsigned short	NpcEnchant;			// ��ǿ��NPC�������bit��ʾ��ǿ���ͣ������Ƿ��ɫ֮����ɼ�ǿ����Ŀ�ڿͻ���ȷ����
 	int     Dangge;
 	int     Zhongji;
 	int     nLifeYu;
@@ -294,7 +294,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT	ID;//DWORD
+	UINT	ID;//unsigned long
 	int 	MapX;
 	int 	MapY;
 	BYTE	Camp;
@@ -314,9 +314,9 @@ typedef struct
 	char    _clientName[32]; //�ͻ�����ʾ��˵������
 	int     nLifeDamagePerCent;
 	int 	mliveTime;
-	UINT	nGuiShuDwid;//DWORD
+	UINT	nGuiShuDwid;//unsigned long
 	int     nZhuaVal;
-	UINT    nTongBanNum;//DWORD
+	UINT    nTongBanNum;//unsigned long
 	int     nAttackFrame;
 	int     nCastFrame;
 	int     nNpcMaxLife;
@@ -339,12 +339,12 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT	m_dwNpcID;//DWORD
+	UINT	m_dwNpcID;//unsigned long
 	int 	m_dwMapX;
 	int 	m_dwMapY;
 	int 	m_wOffX;
 	int 	m_wOffY;
-	UINT    m_GameLeftTiem;//DWORD
+	UINT    m_GameLeftTiem;//unsigned long
 } NPC_PLAYER_TYPE_NORMAL_SYNC;
 
 typedef struct
@@ -371,7 +371,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT	ID;//DWORD
+	UINT	ID;//unsigned long
     char	nDeathName[32];
 
 }NPC_SIT_SYNC, NPC_DEATH_SYNC, NPC_REQUEST_COMMAND, NPC_REQUEST_FAIL;
@@ -379,8 +379,8 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	UINT	ID;//DWORD
-	BOOL	Rv;
+	UINT	ID;//unsigned long
+	int	Rv;
 } NPC_REMOVE_SYNC;
 
 typedef struct
@@ -573,7 +573,7 @@ typedef struct PLAYER_SEND_SELF_TEAM_INFO_DATA
 	char	m_szNpcName[MAX_TEAM_MEMBER + 1][32];	// ÿ����Ա�����֣��ӳ����ڵ�һλ��
 	UINT	nTeamServerID;							// �����ڷ������ϵ�Ψһ��ʶ
 	UINT	m_dwLeadExp;							// ��ҵ�ͳ��������
-	WORD	m_btLevel[MAX_TEAM_MEMBER + 1];			// ÿ����Ա�ĵȼ����ӳ����ڵ�һλ��
+	unsigned short	m_btLevel[MAX_TEAM_MEMBER + 1];			// ÿ����Ա�ĵȼ����ӳ����ڵ�һλ��
 	PLAYER_SEND_SELF_TEAM_INFO_DATA() {memset(m_szNpcName, 0, 32 * (MAX_TEAM_MEMBER + 1)); nTeamServerID = -1;};
 } PLAYER_SEND_SELF_TEAM_INFO;						// ��������ͻ��˷��Ϳͻ�������������Ϣ����
 
@@ -598,7 +598,7 @@ typedef struct
 typedef struct PLAYER_TEAM_ADD_MEMBER_DATA
 {
 	BYTE	ProtocolType;		// Э������
-	WORD	m_btLevel;			// �����ߵȼ�
+	unsigned short	m_btLevel;			// �����ߵȼ�
 	UINT	m_dwNpcID;			// ������npc id
 	char	m_szName[32];		// ����������
 	PLAYER_TEAM_ADD_MEMBER_DATA() {memset(m_szName, 0, 32);};
@@ -663,7 +663,7 @@ typedef struct
 {
 	BYTE	ProtocolType;			// Э������
 	BYTE	m_btCurFactionID;		// ��ǰ����id
-	WORD	m_btLevel;				// ���ܿ��ŵȼ�
+	unsigned short	m_btLevel;				// ���ܿ��ŵȼ�
 } PLAYER_FACTION_SKILL_LEVEL;		// ������֪ͨ��ҿ��ŵ�ǰ���ɼ��ܵ�ĳ���ȼ�
 
 typedef struct
@@ -674,11 +674,11 @@ typedef struct
 typedef struct PLAYER_SEND_CHAT_DATA_COMMAND
 {
 	BYTE	ProtocolType;		// Э������
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btCurChannel;		// ��ǰ����Ƶ��
 	BYTE	m_btType;			// MSG_G_CHAT �� MSG_G_CMD �򡭡�
 	BYTE	m_btChatPrefixLen;	// ��ʽ�����ַ�����
-	WORD	m_wSentenceLen;		// ������䳤��
+	unsigned short	m_wSentenceLen;		// ������䳤��
 	UINT	m_dwTargetID;		// ������� id
 	int		m_nTargetIdx;		// ��������ڷ������˵� idx
 	char	m_szSentence[MAX_SENTENCE_LENGTH + CHAT_MSG_PREFIX_MAX_LEN];	// �����������
@@ -688,11 +688,11 @@ typedef struct PLAYER_SEND_CHAT_DATA_COMMAND
 typedef struct PLAYER_SEND_CHAT_DATA_SYNC
 {
 	BYTE	ProtocolType;		// Э������
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btCurChannel;		// ��ǰ����״̬
 	BYTE	m_btNameLen;		// ���ֳ���
 	BYTE	m_btChatPrefixLen;	// �����ַ�����
-	WORD	m_wSentenceLen;		// ������䳤��
+	unsigned short	m_wSentenceLen;		// ������䳤��
 	UINT	m_dwSourceID;		//
 	char	m_szSentence[32 + CHAT_MSG_PREFIX_MAX_LEN + MAX_SENTENCE_LENGTH];	// �����������
 	PLAYER_SEND_CHAT_DATA_SYNC() { memset(m_szSentence, 0, sizeof(m_szSentence)); };
@@ -701,7 +701,7 @@ typedef struct PLAYER_SEND_CHAT_DATA_SYNC
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btState;
 	int		m_nID;
 	int		m_nDataID;
@@ -711,7 +711,7 @@ typedef struct
 	int		m_nItemID;
 	BYTE	m_btDir;
 	BYTE	m_btItemWidth;
-	WORD	m_wCurFrame;
+	unsigned short	m_wCurFrame;
 	BYTE	m_btItemHeight;
 	int 	m_btColorID;
 	BYTE	m_btFlag;
@@ -727,7 +727,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	//WORD    m_wLength;
+	//unsigned short    m_wLength;
 	int		m_nID;
 	//int		m_nDataID;
 	//int		m_nItemID;
@@ -778,7 +778,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;		// Э������
-	WORD  	m_btLevel;			// ��ǰ�ȼ�
+	unsigned short  	m_btLevel;			// ��ǰ�ȼ�
 	int		m_nExp;				// ��ǰ����
 	int		m_nAttributePoint;	// ʣ�����Ե�
 	int		m_nSkillPoint;		// ʣ�༼�ܵ�
@@ -790,7 +790,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;		// Э������
-	WORD	m_btLevel;			// ��ǰ�ȼ�
+	unsigned short	m_btLevel;			// ��ǰ�ȼ�
 	UINT	m_dwTeammateID;		// ���� npc id
 } PLAYER_TEAMMATE_LEVEL_SYNC;	// ���������ʱ��֪ͨ����
 
@@ -831,7 +831,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;		// Э������
-	BOOL	m_nIsOpen;			// �Ƿ���
+	int	m_nIsOpen;			// �Ƿ���
 	int		m_nDianShu;		    // ����
 	int		m_nYinL;		    // ��������
 	int		m_nJinBi;		    // ������
@@ -914,7 +914,7 @@ typedef struct
 	int				m_RongMagicLev[6];	// �������ɲ���
 //	int		        m_BaoMagicLev[6];
 	int             m_JBLevel[7];
-	WORD			m_Version;			// װ���汾
+	unsigned short			m_Version;			// װ���汾
 	int 			m_Durability;		// �;ö�
 	UINT			m_RandomSeed;		// �������
 	int				m_GoldId;			// �ƽ�Id
@@ -1154,7 +1154,7 @@ typedef struct
 	BYTE			ProtocolType;		// Э������
 	// npc����
 	UINT			m_dwID;				// Npc��ID
-	WORD  			m_btLevel;			// Npc�ĵȼ�
+	unsigned short  			m_btLevel;			// Npc�ĵȼ�
 	BYTE			m_btSex;			// �Ա�
 	BYTE			m_btKind;			// Npc������
 	BYTE			m_btSeries;			// Npc������ϵ
@@ -1163,13 +1163,13 @@ typedef struct
 	UINT			m_wManaMax;			// Npc���������
 	int				m_HeadImage;
 	// player ����
-	WORD			m_wAttributePoint;	// δ�������Ե�
-	WORD			m_wSkillPoint;		// δ���似�ܵ�
-	WORD			m_wStrength;		// ��ҵĻ������������������˺���
-	WORD			m_wDexterity;		// ��ҵĻ������ݣ��������С�������
-	WORD			m_wVitality;		// ��ҵĻ�������������������������
-	WORD			m_wEngergy;			// ��ҵĻ�������������������
-	WORD			m_wLucky;			// ��ҵĻ�������ֵ
+	unsigned short			m_wAttributePoint;	// δ�������Ե�
+	unsigned short			m_wSkillPoint;		// δ���似�ܵ�
+	unsigned short			m_wStrength;		// ��ҵĻ������������������˺���
+	unsigned short			m_wDexterity;		// ��ҵĻ������ݣ��������С�������
+	unsigned short			m_wVitality;		// ��ҵĻ�������������������������
+	unsigned short			m_wEngergy;			// ��ҵĻ�������������������
+	unsigned short			m_wLucky;			// ��ҵĻ�������ֵ
 	int 			m_nExp;				// ��ǰ����ֵ(��ǰ�ȼ���npc����)
 	UINT			m_dwLeadExp;		// ͳ��������ֵ
 	BYTE 			m_btCUnlocked;      //�Ƿ�����
@@ -1180,8 +1180,8 @@ typedef struct
 	int				m_nFactionAddTimes;	// ����������ɵ��ܴ���
 
 	// ����
-	WORD			m_wWorldStat;		// ��������
-	WORD			m_wSectStat;		// ��������
+	unsigned short			m_wWorldStat;		// ��������
+	unsigned short			m_wSectStat;		// ��������
 
 	// Ǯ
 	int				m_nMoney1;
@@ -1197,7 +1197,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	BOOL            m_IsLogin;
+	int            m_IsLogin;
 	unsigned int    m_clientKey;
 }CLIENT_SYNC_END;
 
@@ -1262,7 +1262,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wProtocolLong;
+	unsigned short	m_wProtocolLong;
 	BYTE	m_nOperateType;				//��������
 	BYTE	m_bUIId, m_bOptionNum, m_bParam1, m_bParam2, m_Select;// m_bParam1,����Ϣ�����ֱ�ʶ�����ַ�����ʶ, m_bParam2,�Ƿ����������������ѡ�����
 	int		m_nParam;
@@ -1273,7 +1273,7 @@ typedef struct
 
 typedef struct
 {
-	WORD	SkillId;
+	unsigned short	SkillId;
 	BYTE	SkillLevel;
 	BYTE	SkillAdd;
 	int     CurSkillExp;
@@ -1282,7 +1282,7 @@ typedef struct
 typedef struct
 {
 	BYTE						ProtocolType;
-	WORD						m_wProtocolLong;
+	unsigned short						m_wProtocolLong;
 	SKILL_SEND_ALL_SYNC_DATA	m_sAllSkill[80];
 } SKILL_SEND_ALL_SYNC;
 
@@ -1312,7 +1312,7 @@ typedef struct defWORLD_SYNC
 	int WarCityJB;     //���н����ʽ�
 	int WarCityGX;     //���н��蹱��
 	int WPKFlag;       //��ͼ��pkģʽ����
-	BOOL m_IsShowLoop;
+	int m_IsShowLoop;
 	int m_GameStat;
 } WORLD_SYNC;
 
@@ -1331,7 +1331,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	UINT			m_dwTargetNpcID;	// Ŀ�� npc id
 	char			m_szInfo[MAX_SENTENCE_LENGTH];// ���Է��Ļ�
 } CHAT_APPLY_ADD_FRIEND_COMMAND;		// ������Ӻ���
@@ -1367,7 +1367,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	char			m_szName[32];		// �ܾ�������
 } CHAT_REFUSE_FRIEND_SYNC;				// ֪ͨ�ͻ������������ѵ����뱻�ܾ�
 
@@ -1460,7 +1460,7 @@ struct tagNewDelRoleResponse : public tagDBSelPlayer
 struct tagGatewayBroadCast : public tagProtoHeader
 {
 	UINT	uCmdType;
-	BOOL    iSavePai;
+	int    iSavePai;
 	char	szData[MAX_GATEWAYBROADCAST_LEN];
 };
 
@@ -1502,7 +1502,7 @@ struct tagPermitPlayerExchange
 	BYTE cProtocol;
 	GUID guid;
 	UINT dwIp;
-	WORD wPort;
+	unsigned short wPort;
 	bool bPermit;
 };
 /*
@@ -1533,7 +1533,7 @@ struct tagQueryGameSvrInfo : public tagProtoHeader
  */
 struct tagNotifySvrIp : public tagProtoHeader
 {
-	WORD	pckgID;
+	unsigned short	pckgID;
 
 	BYTE	cIPType;
 	UINT	dwMapID;
@@ -1563,7 +1563,7 @@ struct tagNotifyPlayerExchange : public tagProtoHeader
 
 struct tagRequestSvrIp : public tagProtoHeader
 {
-	WORD	pckgID;
+	unsigned short	pckgID;
 
 	BYTE	cIPType;
 	UINT	dwMapID;
@@ -1603,7 +1603,7 @@ struct tagGameSvrInfo : public tagProtoHeader
 	UINT			nIPAddr_Intraner;
 	UINT			nIPAddr_Internet;
 	unsigned short	nPort;
-	WORD			wCapability;
+	unsigned short			wCapability;
 };
 
 /*
@@ -1792,7 +1792,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	UINT			m_dwID;				// ���� id
 	int				m_nPlayerIdx;		// ���� player index
 	char			m_szName[32];		// ��������
@@ -1863,7 +1863,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	char			m_szSentence[MAX_SENTENCE_LENGTH];
 } TRADE_APPLY_OPEN_COMMAND;
 
@@ -1882,7 +1882,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	UINT			m_dwID;
 	BYTE			m_btState;
 	char			m_szSentence[MAX_SENTENCE_LENGTH];
@@ -1952,7 +1952,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;			// ����
+	unsigned short			m_wLength;			// ����
 	BYTE			m_btError;			// ��������	0 �Է��ر��˴�Ƶ����1 �Ҳ����Է�
 	char			m_szName[32];		// �Է�����
 } CHAT_SCREENSINGLE_ERROR_SYNC;
@@ -1973,7 +1973,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;		// Э������
-	WORD			m_wLength;			// ����
+	unsigned short			m_wLength;			// ����
 	int				m_nIdx;             //���NPC����
 	char			m_szName[32];
 } TEAM_INVITE_ADD_SYNC;
@@ -2003,7 +2003,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	UINT			m_dwSkillID;		// ����
 	int				m_nLevel;           //�ȼ�
 	int				m_nTime;			// ʱ��
@@ -2014,7 +2014,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	UINT			m_dwSkillID;		// ����
 	int				m_nLevel;           //�ȼ�
 	int				m_nTime;			// ʱ��
@@ -2130,10 +2130,10 @@ typedef struct
 typedef struct tagSHOW_MSG_SYNC
 {
 	BYTE			ProtocolType;
-	WORD			m_wLength;
-	WORD			m_wMsgID;
-	//LPVOID			m_lpBuf;
-	DWORD           m_lpBuf;
+	unsigned short			m_wLength;
+	unsigned short			m_wMsgID;
+	//void*			m_lpBuf;
+	unsigned long           m_lpBuf;
 	char            m_Mmsgs[125];
 	//tagSHOW_MSG_SYNC() {m_lpBuf = NULL;};
 	//~tagSHOW_MSG_SYNC() {Release();}
@@ -2161,7 +2161,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	BYTE			m_btState;
 	UINT			m_dwNpcID;
 	char			m_szName[32];
@@ -2170,7 +2170,7 @@ typedef struct
 typedef struct
 {
 	BYTE			ProtocolType;
-	WORD			m_wLength;
+	unsigned short			m_wLength;
 	BYTE			m_btState;
 	UINT			m_dwNpcID;
 	char			m_szName[32];
@@ -2195,7 +2195,7 @@ struct SViewItemInfo
     //int  			m_RongMagicLev[6];	// �������ɲ���
 	//int		    m_BaoMagicLev[6];
 	//int           m_JBLevel[7];
-	WORD			m_Version;			// װ���汾
+	unsigned short			m_Version;			// װ���汾
 	//BYTE 			m_Durability;		// �;ö�
 	UINT			m_RandomSeed;		// �������
 	UINT  			m_GoldId;			// �ƽ�Id
@@ -2231,7 +2231,7 @@ typedef struct
     int  			m_RongMagicLev[6];	// �������ɲ���
 //	int		        m_BaoMagicLev[6];
 //	int             m_JBLevel[7];
-	WORD			m_Version;			// װ���汾
+	unsigned short			m_Version;			// װ���汾
 	BYTE			m_Durability;		// �;ö�
 	UINT			m_RandomSeed;		// �������
 	BYTE			m_GoldId;			// �ƽ�Id
@@ -2311,7 +2311,7 @@ typedef struct
 typedef struct
 {
 	BYTE		ProtocolType;
-	WORD		wSize;
+	unsigned short		wSize;
 	int			nCount;
 	UINT		dwLadderID[0];
 } LADDER_LIST;
@@ -2329,7 +2329,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
+	unsigned short	wSize;
 	UINT	packageID;
 	char	someone[_NAME_LEN];
 	UINT    nItemDwid;
@@ -2339,7 +2339,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
+	unsigned short	wSize;
 	UINT	packageID;
 	BYTE	filter;
 	UINT	channelid;
@@ -2351,7 +2351,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
+	unsigned short	wSize;
 	UINT	packageID;
 	char	someone[_NAME_LEN];
 	UINT	channelid;
@@ -2370,18 +2370,18 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
-	WORD	wChatLength;
+	unsigned short	wSize;
+	unsigned short	wChatLength;
 } CHAT_EVERYONE;
 
 
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
-	WORD	wChatLength;
+	unsigned short	wSize;
+	unsigned short	wChatLength;
 	BYTE	byHasIdentify;
-	WORD	wPlayerCount;
+	unsigned short	wPlayerCount;
 //	UINT   nItemDwid;
 } CHAT_GROUPMAN;   ////���� �� ���� ������ ����
 
@@ -2389,10 +2389,10 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
+	unsigned short	wSize;
 	UINT	nameid;
 	unsigned int lnID;
-	WORD	wChatLength;
+	unsigned short	wChatLength;
 } CHAT_SPECMAN;
 
 
@@ -2400,14 +2400,14 @@ enum { tgtcls_team, tgtcls_fac, tgtcls_tong, tgtcls_scrn, tgtcls_bc,tgtcls_msgr}
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	wSize;
+	unsigned short	wSize;
 	UINT	nFromIP;
 	UINT	nFromRelayID;
 	UINT	channelid;
 	//UINT	nItemDwid;
 	BYTE	TargetCls;
 	UINT	TargetID;  //��·��
-	WORD	routeDateLength;
+	unsigned short	routeDateLength;
 } CHAT_RELEGATE;
 
 
@@ -2417,14 +2417,14 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 } S2C_TONG_HEAD;
 
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 } STONG_PROTOCOL_HEAD;
 
@@ -2503,7 +2503,7 @@ typedef struct
 typedef struct
 {
 	int		m_nPlayerIdx;
-	BOOL	m_bSuccessFlag;
+	int	m_bSuccessFlag;
 	char	m_szName[32];
 } STONG_SERVER_TO_CORE_LEAVE;
 
@@ -2565,7 +2565,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btCamp;
 	char	m_szName[defTONG_NAME_MAX_LENGTH + 1];  //�������
@@ -2575,7 +2575,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwNpcID;
 } TONG_APPLY_ADD_COMMAND;
@@ -2584,7 +2584,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btCurFigure;
@@ -2598,7 +2598,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btFailId;
 } TONG_CREATE_FAIL_SYNC;
@@ -2620,7 +2620,7 @@ struct CTONG_WAR_CITY_INFO
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwParam;	 //��������ID
 	UINT	m_dwNpcID;
@@ -2642,7 +2642,7 @@ typedef struct
 typedef struct
 {
  BYTE	ProtocolType;
- WORD	m_wLength;
+ unsigned short	m_wLength;
  BYTE	m_btMsgId;
  int    m_WarCityCount;
  CTONG_WAR_CITY_INFO snWarInfo[7];               // ��ս��������Ϣ
@@ -2651,7 +2651,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	int		m_nPlayerIdx;
 	char	m_szName[32];
@@ -2672,7 +2672,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btCamp;
 	char	m_szTongName[32];
@@ -2684,7 +2684,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 } TONG_APPLY_DISMISS_COMMAND;
 
@@ -2702,7 +2702,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	int		m_nPlayerIdx;       //�����˵�Playerid
 	UINT	m_dwNameID;         //�����˵�����ID
@@ -2712,7 +2712,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btInfoID;
 	int		m_nParam1;   // ����İ����id
@@ -2743,13 +2743,13 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwNpcID;
 	UINT	m_dwMoney;
 	int		m_nCredit;
 	BYTE	m_btCamp;
-	WORD	m_btLevel;	  //���ĵȼ�
+	unsigned short	m_btLevel;	  //���ĵȼ�
 	BYTE	m_btDirectorNum;
 	BYTE	m_btManagerNum;
 	UINT	m_dwMemberNum;
@@ -2762,12 +2762,12 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwMoney;
 	int		m_nCredit;
 	BYTE	m_btCamp;
-	WORD	m_btLevel;
+	unsigned short	m_btLevel;
 	BYTE	m_btDirectorNum;
 	BYTE	m_btManagerNum;
 	UINT	m_dwMemberNum;
@@ -2780,12 +2780,12 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwMoney;
 	int		m_nCredit;
 	BYTE	m_btCamp;
-	WORD	m_btLevel;
+	unsigned short	m_btLevel;
 	BYTE	m_btDirectorNum;
 	BYTE	m_btManagerNum;
 	UINT	m_dwMemberNum;
@@ -2799,7 +2799,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btStateNo;
 	BYTE	m_btCurNum;
@@ -2813,7 +2813,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	BYTE	m_btJoinFlag;
 	BYTE	m_btFigure;
@@ -2833,7 +2833,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btSuccessFlag;
@@ -2848,7 +2848,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btFigure;
@@ -2859,7 +2859,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btSuccessFlag;
@@ -2871,7 +2871,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btFigure;
@@ -2882,7 +2882,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btFigure;
@@ -2893,7 +2893,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	BYTE	m_btFailID;
@@ -2905,7 +2905,7 @@ typedef struct
 {
 	BYTE	ProtocolType;
 	UINT	m_dwNpcID;
-	WORD	m_wGoldFlag;
+	unsigned short	m_wGoldFlag;
 } NPC_GOLD_CHANGE_SYNC;
 
 typedef struct
@@ -3058,8 +3058,8 @@ typedef struct
 	int				m_RongMagicLev[6];	// �������ɲ���
 //	int		        m_BaoMagicLev[6];
 //	int             m_JBLevel[7];
-	WORD			m_Version;			// װ���汾
-//	WORD			m_Durability;		// �;ö�
+	unsigned short			m_Version;			// װ���汾
+//	unsigned short			m_Durability;		// �;ö�
 	UINT			m_RandomSeed;		// �������
 	int				m_GoldId;			// �ƽ�Id
 	int             m_IsBaiJin;
@@ -3107,7 +3107,7 @@ typedef struct
     int	    m_btRMagicLevel[6];
 	int 	m_btBMagicLevel[6]; // ��ʯ
 	int 	m_btJMagicLevel[7]; // ����
-	WORD	m_wVersion;			// װ���汾
+	unsigned short	m_wVersion;			// װ���汾
 	UINT	m_dwRandomSeed;		// �������
 	int		m_nIdx;
 	UINT	m_uPrice;
@@ -3151,8 +3151,8 @@ typedef struct
 	int				m_RongMagicLev[6];	// �������ɲ���
 //	int		        m_BaoMagicLev[6];
 	int             m_JBLevel[7];
-	WORD			m_Version;			// װ���汾
-	WORD			m_Durability;		// �;ö�
+	unsigned short			m_Version;			// װ���汾
+	unsigned short			m_Durability;		// �;ö�
 	UINT			m_RandomSeed;		// �������
 	int				m_GoldId;			// �ƽ�Id
 	int				m_StackNum;
@@ -3253,7 +3253,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	UINT	m_dwMoney;
@@ -3264,7 +3264,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	UINT   m_NpcDwid;
@@ -3274,7 +3274,7 @@ typedef struct
 typedef struct
 {
 	BYTE	ProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwYTongNameID;
 	UINT	m_dwDTongNameID;
@@ -3287,7 +3287,7 @@ typedef struct
 {
 	BYTE	ProtocolType;
 	BYTE	NextProtocolType;
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	BYTE	m_btMsgId;
 	UINT	m_dwTongNameID;
 	int  	m_inParam;

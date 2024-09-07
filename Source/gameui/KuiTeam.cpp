@@ -72,7 +72,7 @@ KuiTeam::~KuiTeam()
 }
 
 //����ȷ��������
-KuiTeam * KuiTeam::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiTeam* KuiTeam::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiTeam * popLayer = KuiTeam::create();
 	popLayer->addDialogData();

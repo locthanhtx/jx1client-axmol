@@ -21,7 +21,7 @@
 #define		MAX_TEAM_MEMBER						7		// 最大队员数量(不包括队长)
 #define		MAX_SENTENCE_LENGTH					256		// 聊天每个语句最大长度
 
-#define		FILE_NAME_LENGTH		            256		
+#define		FILE_NAME_LENGTH		            256
 
 
 #define		defMAX_PLAYER_SEND_MOVE_FRAME		5
@@ -41,18 +41,18 @@
 如果这是一个服务器控制的npc ，ID 值为 0 ，No 值为 -1  ---*/
 struct	KClientNpcID
 {
-	DWORD	m_dwRegionID;
-	int32_t		m_nNo;
+	unsigned long	m_dwRegionID;
+	int		m_nNo;
 };
 
 typedef struct
 {
-	int32_t		nIdx;
-	int32_t		nPlace;
-	int32_t		nX;
-	int32_t		nY;
-	int32_t		nPrice;      //�̵깺��۸�
-	int32_t     nIsRongQi;   //�ĸ�������Ķ���
+	int		nIdx;
+	int		nPlace;
+	int		nX;
+	int		nY;
+	int		nPrice;      //�̵깺��۸�
+	int     nIsRongQi;   //�ĸ�������Ķ���
 	BYTE    nLianJieFlg; //�Ƿ���������
 	BYTE    nModel;
 } PlayerItem;
@@ -297,12 +297,12 @@ enum	// �������
 
 struct KMapPos
 {
-	int32_t		nSubWorld;
-	int32_t		nRegion;
-	int32_t		nMapX;
-	int32_t		nMapY;
-	int32_t		nOffX;
-	int32_t		nOffY;
+	int		nSubWorld;
+	int		nRegion;
+	int		nMapX;
+	int		nMapY;
+	int		nOffX;
+	int		nOffY;
 };
 
 // ע�⣺��ö�ٲ��������(by zroc)
@@ -368,8 +368,8 @@ enum COLORKIND
 #define MAGICATTRIB
 struct KMagicAttrib
 {
-	int32_t				nAttribType;					//��������
-	int32_t				nValue[3];						//���Բ���
+	int				nAttribType;					//��������
+	int				nValue[3];						//���Բ���
 	KMagicAttrib(){nValue[0] = nValue[1] = nValue[2] = nAttribType = 0;};
 };
 #else
@@ -392,8 +392,8 @@ struct TMissionLadderSelfInfo
 {
 	char		  szMissionName[32];	 //64
 	unsigned char ucGroup;				 // 2
-	int32_t			  nGlbParam[MAX_GLBMISSION_PARAM]; //6
-	int32_t			  nParam[MAX_MISSION_PARAM];   // 32
+	int			  nGlbParam[MAX_GLBMISSION_PARAM]; //6
+	int			  nParam[MAX_MISSION_PARAM];   // 32
 	void Clear() {
 		memset(szMissionName, 0, sizeof(szMissionName));
 		memset(nGlbParam, 0, sizeof(nGlbParam));
@@ -405,29 +405,29 @@ struct TMissionLadderInfo
 {
 	unsigned char ucGroup;	 //2
 	char		  Name[32];		//32
-	int32_t			  nParam[MAX_MISSION_PARAM]; //32
+	int			  nParam[MAX_MISSION_PARAM]; //32
 	/*void Clear() {
 		ucGroup = 0;
 		memset(Name, 0, sizeof(Name));
 		memset(nParam, 0, sizeof(nParam));
 	};*/
 };
-typedef struct
+typedef struct BuySellInfo
 {
 
-	int32_t		m_nBuyIdx;
-	DWORD	m_SubWorldID;
-	int32_t		m_nMpsX;
-	int32_t		m_nMpsY;
-	//int32_t		m_nShopIdx[MAX_SUPERSHOP_SHOPTAB];
-	//int32_t		m_nShopNum;
-	int32_t		m_nPriceType;
+	int		m_nBuyIdx;
+	unsigned long	m_SubWorldID;
+	int		m_nMpsX;
+	int		m_nMpsY;
+	//int		m_nShopIdx[MAX_SUPERSHOP_SHOPTAB];
+	//int		m_nShopNum;
+	int		m_nPriceType;
 
 	void	Clear() {
 		//memset(m_nShopIdx, -1, sizeof(m_nShopIdx));
 		m_nBuyIdx = -1 ; m_nPriceType = moneyunit_money; m_SubWorldID = -1; m_nMpsX = 0; m_nMpsY = 0;
 	}
-} BuySellInfo;
+} ;
 
 struct KUiMsgParam
 {
@@ -440,15 +440,15 @@ struct KUiMsgParam
 };
 struct KTime
 {
-	int32_t bYear;
-	int32_t bMonth;
-	int32_t bDay;
-	int32_t bHour;
-	int32_t bMin;
+	int bYear;
+	int bMonth;
+	int bDay;
+	int bHour;
+	int bMin;
 };
 struct KviewTime
 {
-	int32_t bYear;
+	int bYear;
 	BYTE bMonth;
 	BYTE bDay;
 	BYTE bHour;
@@ -533,18 +533,18 @@ enum ITEM_PARM_DROP
 
 		/*
 		  INT	        m_nRandSum;		// ������֮�ͣ�100w��֮һ	���������������ֵ���򲻻���䣩
-		  int32_t         nLuckRateSum;
-		  int32_t			nMagicRate;
-		  int32_t			nMaxRandRate;
-		  int32_t			nMoneyRate;
-		  int32_t         nMoneyNum;
-		  int32_t			nMoneyScale;
-		  int32_t			nMinItemLevelScale;   //��С�ȼ�����
-		  int32_t			nMaxItemLevelScale;	  //
-		  int32_t		    nMinItemLevel;
-		  int32_t		    nMaxItemLevel;
-		  int32_t         nTypeNum;             //���µ�����
-		  int32_t         nIsBianShi;           //�Ƿ���Ա� �ɱ�ʶװ��
+		  int         nLuckRateSum;
+		  int			nMagicRate;
+		  int			nMaxRandRate;
+		  int			nMoneyRate;
+		  int         nMoneyNum;
+		  int			nMoneyScale;
+		  int			nMinItemLevelScale;   //��С�ȼ�����
+		  int			nMaxItemLevelScale;	  //
+		  int		    nMinItemLevel;
+		  int		    nMaxItemLevel;
+		  int         nTypeNum;             //���µ�����
+		  int         nIsBianShi;           //�Ƿ���Ա� �ɱ�ʶװ��
 		*/
 };
 
@@ -560,8 +560,8 @@ enum ITEM_PARM_DROP
 
 struct ItemCounmd
 {
-	int32_t Uid[16];
-	int32_t nMun;
+	int Uid[16];
+	int nMun;
 };
 enum
 {
@@ -629,13 +629,13 @@ struct KGameObjDesc
 struct KUiAnswer
 {
 	char  AnswerText[64];	//��ѡ�����֣����԰������Ʒ���
-	int32_t		AnswerLen;		//��ѡ�𰸴洢���ȣ��������Ʒ�����������������
+	int		AnswerLen;		//��ѡ�𰸴洢���ȣ��������Ʒ�����������������
 };
 struct KUiQuestionAndAnswer
 {
 	char		Question[512];	//�������֣����԰������Ʒ��� //����Ϣ
-	int32_t			QuestionLen;	//�������ִ洢���ȣ��������Ʒ�����������������
-	int32_t			AnswerCount;	//��ѡ�𰸵���Ŀ
+	int			QuestionLen;	//�������ִ洢���ȣ��������Ʒ�����������������
+	int			AnswerCount;	//��ѡ�𰸵���Ŀ
 	KUiAnswer	Answer[1];		//��ѡ��
 };
 
@@ -652,7 +652,7 @@ struct KUiNpcSpr
 struct KUiItemNameInfo
 {
 	char	szItemName[64];			//��Ʒ����
-	DWORD	dwItemNameColor;		//��Ʒ������ɫ
+	unsigned long	dwItemNameColor;		//��Ʒ������ɫ
 };
 //==================================
 //	������Ϸ�������ɵĵط�
@@ -707,15 +707,15 @@ enum UI_TRADE_OPER_DATA
 struct KUiItemBuySelInfo
 {
 	char			szItemName[64];	//��Ʒ����
-	int32_t				nPrice;			//����������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
-	int32_t				nPriceXu;       //���
+	int				nPrice;			//����������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
+	int				nPriceXu;       //���
 	BYTE            nPriceType;     //���ҵ�����
 
-	int32_t             nOldPrice;
-	int32_t             nOldPriceXu;
-	int32_t             nCurPriceXu;
+	int             nOldPrice;
+	int             nOldPriceXu;
+	int             nCurPriceXu;
 	BOOL            bNewArrival;
-//	int32_t             nMoneyUnit;
+//	int             nMoneyUnit;
 
 };
 
@@ -724,17 +724,17 @@ struct KUiItemBuySelInfo
 //==================================
 struct KUiTongYong
 {
-	int32_t inKind;
-	int32_t inParma;
-	int32_t inParmb;
-	int32_t inParmc;
-	int32_t inParmd;
+	int inKind;
+	int inParma;
+	int inParmb;
+	int inParmc;
+	int inParmd;
 };
 /*
 struct	nJinDuClient
 {
-	int32_t  nTimeVal;
-	int32_t	 nMsgidx;
+	int  nTimeVal;
+	int	 nMsgidx;
 	char szCallFun[32];   //�ص�����
 	char szParma[32];     //����
 	char szParmb[32];     //����
@@ -746,8 +746,8 @@ struct KUiScrptinfo
 	struct	KTaskClient
 	{
 		char szContent[128];	//����
-		int32_t	 nTaskidx;			//������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
-		int32_t	 nTaskType;
+		int	 nTaskidx;			//������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
+		int	 nTaskType;
 		char  nTaskName[32];
 	};
 	KTaskClient nTaskInfo[20];
@@ -757,9 +757,9 @@ struct KUiScrptinfo
 //==================================
 struct KUiGameObject
 {
-	uint32_t uGenre;	//��������
-	uint32_t uId;		//����id
-	//	int32_t			 nData;		//�����ʵ����ص�ĳ����
+	unsigned int uGenre;	//��������
+	unsigned int uId;		//����id
+	//	int			 nData;		//�����ʵ����ص�ĳ����
 };
 
 //==================================
@@ -767,41 +767,41 @@ struct KUiGameObject
 //==================================
 struct KUiRegion
 {
-	int32_t		h;		//���Ͻ���������
-	int32_t		v;		//���Ͻ����������
-	int32_t		Width;	//������
-	int32_t		Height;	//�����ݿ�
-	int32_t     IsRongqi; //���ĸ����������� �������� �� �����������
+	int		h;		//���Ͻ���������
+	int		v;		//���Ͻ����������
+	int		Width;	//������
+	int		Height;	//�����ݿ�
+	int     IsRongqi; //���ĸ����������� �������� �� �����������
 };
 
 struct KUiItemdObject
 {
-	uint32_t	uGenre;
-	uint32_t	uId;
-	uint32_t    nindex;
-	int32_t				DataX;
-	int32_t				DataY;
-	int32_t				DataW;   //���
-	int32_t				DataH;   //�߶�
-	int32_t             nGenkind;//���ڵ���������
+	unsigned int	uGenre;
+	unsigned int	uId;
+	unsigned int    nindex;
+	int				DataX;
+	int				DataY;
+	int				DataW;   //���
+	int				DataH;   //�߶�
+	int             nGenkind;//���ڵ���������
 	Rect          nRect;
 };
 
 struct KUiDraggedObject
 {
-	uint32_t	uGenre;
-	uint32_t	uId;
-	int32_t				DataX;
-	int32_t				DataY;
-	int32_t				DataW;  //���
-	int32_t				DataH;  //�߶�
+	unsigned int	uGenre;
+	unsigned int	uId;
+	int				DataX;
+	int				DataY;
+	int				DataW;  //���
+	int				DataH;  //�߶�
 	//    char            uName[32];
-	int32_t m_posvs;
+	int m_posvs;
 	unsigned char m_dirvs,m_vs_lastframe;
-	int32_t bCheckpVS;
+	int bCheckpVS;
 	KRUPoint* pVS;
-	int32_t* ndir;
-	uint32_t nDelay;
+	int* ndir;
+	unsigned int nDelay;
 	KUiDraggedObject()
 	{
 		bCheckpVS = 0; //FALSE
@@ -825,7 +825,7 @@ struct KUiObjAtContRegion : public KUiObjAtRegion
 	union
 	{
 		UIOBJECT_CONTAINER	eContainer;
-		int32_t					nContainer;
+		int					nContainer;
 	};
 };
 //========��������===============
@@ -834,11 +834,11 @@ struct KUiJinMaiDescz
 {
 	struct KUiDesc
 	{
-		int32_t ncZhenYuan;
-		int32_t ncHuMaiDan;
-		int32_t ncRaTe;
-		int32_t ncMgcid;
-		int32_t ncBinjia;
+		int ncZhenYuan;
+		int ncHuMaiDan;
+		int ncRaTe;
+		int ncMgcid;
+		int ncBinjia;
 		char ncMiaoShu[215];
 		char nXueNane[32];
 
@@ -849,12 +849,12 @@ struct KUiJinMaiDescz
 //========�ϻ���===============
 struct KUiLaoHuJi
 {
-	int32_t nIsOpen;
-	int32_t nType;
-	int32_t nYinL;
-	int32_t nJinBi;
-	int32_t nBeiLv;
-	int32_t nDianShu;
+	int nIsOpen;
+	int nType;
+	int nYinL;
+	int nJinBi;
+	int nBeiLv;
+	int nDianShu;
 };
 
 //========����===============
@@ -862,17 +862,17 @@ struct KUiJinMaiLevel
 {
 	struct KUiLevel
 	{
-		int32_t  nLeVel[18];
+		int  nLeVel[18];
 	};
   KUiLevel  nJinMai[10];
-  int32_t nZhenYuan;
-  int32_t nBinJia;
+  int nZhenYuan;
+  int nBinJia;
 };
 //========����===============
 struct KUiJinMaiType
 {
-	int32_t  nType;
-	int32_t  nLevel;
+	int  nType;
+	int  nLevel;
 	//	KUiJinMaiLevel  nJinMai[10];
 };
 
@@ -881,43 +881,43 @@ struct KUiJinMaiType
 //========����===============
 struct KUiJinMaiInfo
 {
-	int32_t  nZhenYuan;
-	int32_t  nBingJia;
+	int  nZhenYuan;
+	int  nBingJia;
 //	KUiJinMaiLevel  nJinMai[10];
 };
 
 //========��ħ===============
 struct KUiFuMoInfo
 {
-	int32_t  nNpcSkill[5];
+	int  nNpcSkill[5];
 	BYTE nSkillLevel[5];
-	int32_t  nNpcGongji[5];
-	int32_t  nNpcFangyu[5];
-	int32_t  nNpclife[5];
-	int32_t  nNpcGongsu[5];
-	int32_t  nNpcXingYun[5];
+	int  nNpcGongji[5];
+	int  nNpcFangyu[5];
+	int  nNpclife[5];
+	int  nNpcGongsu[5];
+	int  nNpcXingYun[5];
 
 };
 
 //========��ս��Ϣ===============
 struct KUiAttackInfo
 {
-	int32_t         m_AttackState;
-	int32_t         m_AttackTime;
-	int32_t         m_nDeathCount;	   //�����Ĵ���
-	int32_t         m_nDDeathCount;	   //�����Ĵ���\
-	int32_t         m_nAttackNum;	                            // ��ս����
-	int32_t         m_nWinNum;								// ʤ������
-	int32_t         m_nLoseNum;
+	int         m_AttackState;
+	int         m_AttackTime;
+	int         m_nDeathCount;	   //�����Ĵ���
+	int         m_nDDeathCount;	   //�����Ĵ���\
+	int         m_nAttackNum;	                            // ��ս����
+	int         m_nWinNum;								// ʤ������
+	int         m_nLoseNum;
 	char        m_AttackName[32];  //��ս�İ��
 };
 
 /*typedef struct
 {
-	int32_t		m_nBuyIdx;     //����ID
-	DWORD	m_SubWorldID;
-	int32_t		m_nMpsX;
-	int32_t		m_nMpsY;
+	int		m_nBuyIdx;     //����ID
+	unsigned long	m_SubWorldID;
+	int		m_nMpsX;
+	int		m_nMpsY;
 	void	Clear() {m_nBuyIdx = -1; m_SubWorldID = -1; m_nMpsX = 0; m_nMpsY = 0;}
 } NewBuySellInfo;*/
 
@@ -925,84 +925,84 @@ struct KUiAttackInfo
 //========ͬ��===============
 struct KUiTongBanbaseInfo
 {
-int32_t  nmLife;
-int32_t  nmLifeFull;
-int32_t  nmMana;
-int32_t  nmManaFull;
+int  nmLife;
+int  nmLifeFull;
+int  nmMana;
+int  nmManaFull;
 };
 //========ͬ��===============
 struct KUiTongBanInfo
 {
-	int32_t   nDwID;
+	int   nDwID;
 	char  nTname[32];
 	char  nGuiShuName[32];
-	int32_t   nCount;
+	int   nCount;
 };
 //========ת�̳齱===============
 struct KUiZhuanpanInfo
 {
-int32_t  nIsVip;
-int32_t  nCJcishu;
+int  nIsVip;
+int  nCJcishu;
 char nPlayerName[32];
 };
 //========����===============
 struct KUiGuZiInfo
 {
-	int32_t  nIsVip;
-	int32_t  nCJcishuA;   //����
-	int32_t  nCJcishuB;   //����
-	int32_t  nCJcishuC;   //����
-	int32_t  nCJcishuD;   //����
-	int32_t  nCJcishuE;   //����
+	int  nIsVip;
+	int  nCJcishuA;   //����
+	int  nCJcishuB;   //����
+	int  nCJcishuC;   //����
+	int  nCJcishuD;   //����
+	int  nCJcishuE;   //����
 	char nPlayerNameA[32];
 	char nPlayerNameB[32];
 	char nPlayerNameC[32];
 	char nPlayerNameD[32];
 	char nPlayerNameE[32];
-	int32_t  nIsShuai;
-	int32_t  nGyajinA;  //Ѻ��
-	int32_t  nGyajinB;  //Ѻ��
-	int32_t  nGyajinC;  //Ѻ��
-	int32_t  nGyajinD;  //Ѻ��
-	int32_t  nGyajinE;  //Ѻ��
-	int32_t  nIsStartA;  //��ʼ�ı�ʾ
-	int32_t  nIsStartB;  //��ʼ�ı�ʾ
-	int32_t  nIsStartC;  //��ʼ�ı�ʾ
-	int32_t  nIsStartD;  //��ʼ�ı�ʾ
-	int32_t  nIsStartE;  //��ʼ�ı�ʾ
-	int32_t  nZuoweiHao;  //��λ��
-	int32_t  nIsMenber;
-	int32_t  nmodel;   //ģʽ
-	int32_t  nSubZuoWeiHao; //��ͼ����λ ��˭˦����
-	int32_t  nIsXiaZhuA;//�Ƿ�������
-	int32_t  nIsXiaZhuB;
-	int32_t  nIsXiaZhuC;
-	int32_t  nIsXiaZhuD;
-	int32_t  nIsXiaZhuE;
-	int32_t  nCurFarmA;  //��ǰ֡
-	int32_t  nCurFarmB;  //��ǰ֡
+	int  nIsShuai;
+	int  nGyajinA;  //Ѻ��
+	int  nGyajinB;  //Ѻ��
+	int  nGyajinC;  //Ѻ��
+	int  nGyajinD;  //Ѻ��
+	int  nGyajinE;  //Ѻ��
+	int  nIsStartA;  //��ʼ�ı�ʾ
+	int  nIsStartB;  //��ʼ�ı�ʾ
+	int  nIsStartC;  //��ʼ�ı�ʾ
+	int  nIsStartD;  //��ʼ�ı�ʾ
+	int  nIsStartE;  //��ʼ�ı�ʾ
+	int  nZuoweiHao;  //��λ��
+	int  nIsMenber;
+	int  nmodel;   //ģʽ
+	int  nSubZuoWeiHao; //��ͼ����λ ��˭˦����
+	int  nIsXiaZhuA;//�Ƿ�������
+	int  nIsXiaZhuB;
+	int  nIsXiaZhuC;
+	int  nIsXiaZhuD;
+	int  nIsXiaZhuE;
+	int  nCurFarmA;  //��ǰ֡
+	int  nCurFarmB;  //��ǰ֡
 
 };
 
 struct KUiItemLian
 {
-	int32_t nItemDWID;
+	int nItemDWID;
 	char nPlayerName[32];
 };
 
 struct KUiGuZiXinxi
 {
-int32_t nMapID;
-int32_t nDianshu;
-int32_t nIsStartID;
+int nMapID;
+int nDianshu;
+int nIsStartID;
 
 };
 struct KUiGuZiJieSuan
 {
-	int32_t nMaxDian;
-	int32_t nKFmoney;
-	int32_t nGRdian[5];
-	int32_t nGRjinbi[5];
+	int nMaxDian;
+	int nKFmoney;
+	int nGRdian[5];
+	int nGRjinbi[5];
 	char nPlayerNameA[32];
 	char nPlayerNameB[32];
 	char nPlayerNameC[32];
@@ -1011,9 +1011,9 @@ struct KUiGuZiJieSuan
 };
 struct KUiGuZiCurFarms
 {
-	int32_t nCurFarmsA;
-	int32_t nCurFarmsB;
-	int32_t nMapID;
+	int nCurFarmsA;
+	int nCurFarmsB;
+	int nMapID;
 };
 //================================
 
@@ -1025,7 +1025,7 @@ struct PLAYER_GIVEUI
     char    m_Callback[64];
 	char    m_Error[16];
 	//char    m_Content[125];
-	uint32_t uId[24];
+	unsigned int uId[24];
     char 	m_szTitle[64];
 };
 
@@ -1037,7 +1037,7 @@ struct PLAYER_JISHOU
     char    m_Callback[16];
 	char    m_Error[16];
 	char    m_Content[125];
-	uint32_t uId[32];
+	unsigned int uId[32];
 	char 	m_szTitle[125];
 };
 
@@ -1133,12 +1133,12 @@ enum SYS_MESSAGE_CONFIRM_TYPE
 struct KSystemMessage
 {
 	char			szMessage[256];	//��Ϣ�ı�
-	uint32_t	uReservedForUi;	//����ʹ�õ�������,core����0����
+	unsigned int	uReservedForUi;	//����ʹ�õ�������,core����0����
 	unsigned char	eType;			//��Ϣ����ȡֵ����ö������ SYS_MESSAGE_TYPE
 	unsigned char	byConfirmType;	//��Ӧ����
 	unsigned char	byPriority;		//���ȼ�,��ֵԽ�󣬱�ʾ���ȼ�Խ��
 	unsigned char	byParamSize;	//����GDCNI_SYSTEM_MESSAGE��Ϣ��pParamBuf��ָ�����������ռ�Ĵ�С��
-    int32_t		        nMsgLen;
+    int		        nMsgLen;
 };
 
 //==================================
@@ -1146,12 +1146,12 @@ struct KSystemMessage
 //==================================
 struct KUiChatChannel
 {
-	int32_t			 nChannelNo;
-	uint32_t uChannelId;
+	int			 nChannelNo;
+	unsigned int uChannelId;
 	union
 	{
-		int32_t		 nChannelIndex;
-		int32_t		 nIsSubscibed;	//�Ƿ񱻶���
+		int		 nChannelIndex;
+		int		 nIsSubscibed;	//�Ƿ񱻶���
 	};
 	char		 cTitle[32];
 };
@@ -1162,7 +1162,7 @@ struct KUiChatChannel
 struct KUiChatGroupInfo
 {
 	char	    szTitle[32];	//���������
-	int32_t		nNumFriend;		//���ں��ѵ���Ŀ
+	int		nNumFriend;		//���ں��ѵ���Ŀ
 };
 
 //==================================
@@ -1170,7 +1170,7 @@ struct KUiChatGroupInfo
 //==================================
 struct KUiChatMessage
 {
-	uint32_t uColor;
+	unsigned int uColor;
 	short	nContentLen;
 	char    szContent[256];
 };
@@ -1181,8 +1181,8 @@ struct KUiChatMessage
 
 struct KUiBaseTask
 {
-	int32_t nVala;
-	int32_t nValb;
+	int nVala;
+	int nValb;
 };
 
 //==================================
@@ -1203,43 +1203,43 @@ struct KUiPlayerBaseInfo
 	char	    Agname[32];	//�º�
 	char	    Name[32];	//����
 	char    Title[32];	//�ƺ�
-	int32_t		nCurFaction;// Hi?n t?i ?ang gia nh?p m?n ph��i id N?u l�� -1 th�� hi?n t?i kh?ng c�� trong m?n ph��i.
-	int32_t		nRankInWorld;//Gi�� tr? x?p h?ng Jianghu, gi�� tr? 0 c�� ngh?a l�� kh?ng c�� trong b?ng x?p h?ng
-	uint32_t nCurTong;// Id t��n nh��m hi?n ?? tham gia, n?u n�� l�� 0, hi?n kh?ng c�� trong nh��m
-	int32_t		nMissionGroup;// Hi?n t?i ?ang gia nh?p m?n ph��i id N?u l�� -1 th�� hi?n t?i kh?ng c�� trong m?n ph��i.
-	int32_t		nRepute; // danh vong
-	int32_t		nFuYuan; // phuc duyen
-	int32_t		nReBorn; // trung sinh
-	int32_t     nReBornLevel;
-	int32_t		nPKValue; // pk
-	int32_t     nLucky;
-	int32_t     nTonLuky;//B?n ??ng h��nh may m?n
-	int32_t     nCurPinDao;//k��nh t?m th?i -1 cho kh?ng
+	int		nCurFaction;// Hi?n t?i ?ang gia nh?p m?n ph��i id N?u l�� -1 th�� hi?n t?i kh?ng c�� trong m?n ph��i.
+	int		nRankInWorld;//Gi�� tr? x?p h?ng Jianghu, gi�� tr? 0 c�� ngh?a l�� kh?ng c�� trong b?ng x?p h?ng
+	unsigned int nCurTong;// Id t��n nh��m hi?n ?? tham gia, n?u n�� l�� 0, hi?n kh?ng c�� trong nh��m
+	int		nMissionGroup;// Hi?n t?i ?ang gia nh?p m?n ph��i id N?u l�� -1 th�� hi?n t?i kh?ng c�� trong m?n ph��i.
+	int		nRepute; // danh vong
+	int		nFuYuan; // phuc duyen
+	int		nReBorn; // trung sinh
+	int     nReBornLevel;
+	int		nPKValue; // pk
+	int     nLucky;
+	int     nTonLuky;//B?n ??ng h��nh may m?n
+	int     nCurPinDao;//k��nh t?m th?i -1 cho kh?ng
 };
 
 struct KUiPlayerPicInfo
 {
 	char  nPicPath[256];	//ͷ��·��
-	int32_t     nSprRankid;
+	int     nSprRankid;
 };
 
 struct KUiPlayerActivityInfo
 {
 	char	nTimeInfo[64];	//ʱ����Ϣ
-	int32_t     nTaskInfo;
-	int32_t     nHour;
-	int32_t     nMin;
-	int32_t     nNpcLevel;
-	int32_t     nExpTime;            //�ϴ���ȡ�����ʱ��
-	int32_t     nYinLiangTime;       //�ϴ���ȡ�����ʱ��
-	int32_t     nJinBiTime;
-	int32_t     nExpPiontTime;
+	int     nTaskInfo;
+	int     nHour;
+	int     nMin;
+	int     nNpcLevel;
+	int     nExpTime;            //�ϴ���ȡ�����ʱ��
+	int     nYinLiangTime;       //�ϴ���ȡ�����ʱ��
+	int     nJinBiTime;
+	int     nExpPiontTime;
 };
 
 struct KUiPlayerGameTime
 {
 
-	LONG   npTime;
+	int   npTime;
 
 };
 
@@ -1249,14 +1249,14 @@ struct KUiPlayerGameTime
 struct KUiPlayerSetTimeInfo
 {
 	char	  nTimeInfo[64];	//ʱ����Ϣ
-	int32_t     nTaskInfo;
-	int32_t     nHour;
-	int32_t     nMin;
-	int32_t     nNpcLevel;
-	int32_t     nExpTime;            //�ϴ���ȡ�����ʱ��
-	int32_t     nYinLiangTime;       //�ϴ���ȡ�����ʱ��
-	int32_t     nJinBiTime;
-	int32_t     nExpPiontTime;
+	int     nTaskInfo;
+	int     nHour;
+	int     nMin;
+	int     nNpcLevel;
+	int     nExpTime;            //�ϴ���ȡ�����ʱ��
+	int     nYinLiangTime;       //�ϴ���ȡ�����ʱ��
+	int     nJinBiTime;
+	int     nExpPiontTime;
 
 };
 //==================================
@@ -1264,61 +1264,61 @@ struct KUiPlayerSetTimeInfo
 //==================================
 struct KUiPlayerRuntimeInfo
 {
-	int32_t		nLifeFull;			//������ֵ
-	int32_t		nLife;				//����
-	int32_t		nManaFull;			//������ֵ
-	int32_t		nMana;				//����
-	int32_t		nStaminaFull;		//������ֵ
-	int32_t		nStamina;			//����
-	int32_t		nAngryFull;			//ŭ��ֵ
-//	int32_t		nAngry;				//ŭ
-	int32_t		nExperienceFull;	//������ֵ
-	int32_t		nExperience;		//��ǰ����ֵ
-	int32_t		nCurLevelExperience;//��ǰ����������Ҫ�ľ���ֵ
-    int32_t     nIsGetSkill;
-	int32_t     nIsGetChaqi;
+	int		nLifeFull;			//������ֵ
+	int		nLife;				//����
+	int		nManaFull;			//������ֵ
+	int		nMana;				//����
+	int		nStaminaFull;		//������ֵ
+	int		nStamina;			//����
+	int		nAngryFull;			//ŭ��ֵ
+//	int		nAngry;				//ŭ
+	int		nExperienceFull;	//������ֵ
+	int		nExperience;		//��ǰ����ֵ
+	int		nCurLevelExperience;//��ǰ����������Ҫ�ľ���ֵ
+    int     nIsGetSkill;
+	int     nIsGetChaqi;
 	unsigned char	byActionDisable;//�Ƿ񲻿ɽ��и��ֶ�����Ϊö��PLAYER_ACTION_LISTȡֵ�����
 	unsigned char	byAction;	//���ڽ��е���Ϊ������Ϊö��PLAYER_ACTION_LISTȡֵ�����
 	unsigned short wReserved;	//����
-	int32_t     nVipType;
-	DWORD  nGameLeftTime;
-	uint32_t     nIsTranse;
+	int     nVipType;
+	unsigned long  nGameLeftTime;
+	unsigned int     nIsTranse;
 };
 
 struct KUiGetCurAngry
 {
-	int32_t		nAngry;				//ŭ
+	int		nAngry;				//ŭ
 };
 
 struct KItemlian
 {
 
-	uint32_t     uGenre;
-	int32_t                cClorid;
-	uint32_t    cItemID;
+	unsigned int     uGenre;
+	int                cClorid;
+	unsigned int    cItemID;
 	char           cItemName[32];  //����
 	char         cPlayerName[32];  //�������
-    int32_t         nDwid;
+    int         nDwid;
 };
 
 struct KUiPlayerindexbaseInfo
 {
-	int32_t		nmLifeFull;			//������ֵ
-	int32_t		nmLife;				//��ǰ����
-	int32_t		nmManaFull;			//������ֵ
-	int32_t		nmMana;				//��ǰ����
-	int32_t		nmStaminaFull;		//������ֵ
-	int32_t		nmStamina;			//����
-	int32_t		nmAngryFull;			//ŭ��ֵ
-	int32_t		nmAngry;				//ŭ
-	int32_t		nmExperienceFull;	//������ֵ
-	int32_t		nmExperience;		//��ǰ����ֵ
-	int32_t		nmCurLevelExperience;//��ǰ����������Ҫ�ľ���ֵ
+	int		nmLifeFull;			//������ֵ
+	int		nmLife;				//��ǰ����
+	int		nmManaFull;			//������ֵ
+	int		nmMana;				//��ǰ����
+	int		nmStaminaFull;		//������ֵ
+	int		nmStamina;			//����
+	int		nmAngryFull;			//ŭ��ֵ
+	int		nmAngry;				//ŭ
+	int		nmExperienceFull;	//������ֵ
+	int		nmExperience;		//��ǰ����ֵ
+	int		nmCurLevelExperience;//��ǰ����������Ҫ�ľ���ֵ
 
 	unsigned char	mbyActionDisable;//�Ƿ񲻿ɽ��и��ֶ�����Ϊö��PLAYER_ACTION_LISTȡֵ�����
 	unsigned char	mbyAction;	//���ڽ��е���Ϊ������Ϊö��PLAYER_ACTION_LISTȡֵ�����
 	unsigned short mwReserved;	//����
-	int32_t     nmLuky;//��ǰ����ֵ
+	int     nmLuky;//��ǰ����ֵ
 };
 
 //==================================
@@ -1337,27 +1337,27 @@ enum UI_PLAYER_ATTRIBUTE
 //==================================
 struct KUiPlayerAttribute
 {
-	int32_t		nMoney;				//����
-	int32_t		nXu;
-	int32_t		nLevel;				//�ȼ�
+	int		nMoney;				//����
+	int		nXu;
+	int		nLevel;				//�ȼ�
 	char    StatusDesc[16];		//״̬����
 
-	int32_t		nBARemainPoint;		//��������ʣ�����
-	int32_t		nStrength;			//����
-	int32_t		nDexterity;			//����
-	int32_t		nVitality;			//����
-	int32_t		nEnergy;			//����
+	int		nBARemainPoint;		//��������ʣ�����
+	int		nStrength;			//����
+	int		nDexterity;			//����
+	int		nVitality;			//����
+	int		nEnergy;			//����
 
-	int32_t		nKillMAX;			//sat thuong lon nhat
-	int32_t		nKillMIN;			//sat thuong nho nhat
-	int32_t		nRightKillMax;		//sat thuong lon nhat tay phai
-	int32_t		nRightKillMin;		//sat thuong nho nhat tay phai
+	int		nKillMAX;			//sat thuong lon nhat
+	int		nKillMIN;			//sat thuong nho nhat
+	int		nRightKillMax;		//sat thuong lon nhat tay phai
+	int		nRightKillMin;		//sat thuong nho nhat tay phai
 
-	int32_t		nAttack;			//������
-	int32_t		nDefence;			//������
-	int32_t		nMoveSpeed;			//�ƶ��ٶ�
-	int32_t		nAttackSpeed;		//�⹥���ٶ�
-	int32_t		nCastSpeed;		    //�ڹ����ٶ�
+	int		nAttack;			//������
+	int		nDefence;			//������
+	int		nMoveSpeed;			//�ƶ��ٶ�
+	int		nAttackSpeed;		//�⹥���ٶ�
+	int		nCastSpeed;		    //�ڹ����ٶ�
 
 	char		nPhyDef[32];			// Ph��ng ng? v?t l?
 	char		nCoolDef[32];			//��������
@@ -1365,16 +1365,16 @@ struct KUiPlayerAttribute
 	char		nFireDef[32];			//�������
 	char		nPoisonDef[32];			//���ط���
 
-	int32_t		nRankInWorld;	// xep hang
-	int32_t		nRepute; // danh vong
-	int32_t		nFuYuan; // phuc duyen
-	int32_t		nReBorn; // trung sinh
-	int32_t		nPKValue; // phuc duyen
-	int32_t     nLuky;//gi�� tr? may m?n hi?n t?i
-	int32_t     nZhonji; // Tr?ng k��ch
-	int32_t     nDangge; // Ng?n c��ch
-	int32_t     nSprRankId;
-	int32_t     nForBitChat;
+	int		nRankInWorld;	// xep hang
+	int		nRepute; // danh vong
+	int		nFuYuan; // phuc duyen
+	int		nReBorn; // trung sinh
+	int		nPKValue; // phuc duyen
+	int     nLuky;//gi�� tr? may m?n hi?n t?i
+	int     nZhonji; // Tr?ng k��ch
+	int     nDangge; // Ng?n c��ch
+	int     nSprRankId;
+	int     nForBitChat;
 };
 
 //==================================
@@ -1384,7 +1384,7 @@ struct KUiPlayerImmedItemSkill
 {
 	KUiGameObject	ImmediaItem[9];  //��ݼ���Ʒ��������
 	KUiGameObject	IMmediaSkill[2];
-	int32_t nStackNum;
+	int nStackNum;
 };
 
 //==================================
@@ -1414,9 +1414,9 @@ enum UI_EQUIPMENT_POSITION
 //==================================
 struct KUiPlayerLiveSkillBase
 {
-	int32_t		nRemainPoint;			//ʣ�༼�ܵ���
-	int32_t		nLiveExperience;		//��ǰ���ܾ���ֵ
-	int32_t		nLiveExperienceFull;	//�����¼���Ҫ�ľ���ֵ
+	int		nRemainPoint;			//ʣ�༼�ܵ���
+	int		nLiveExperience;		//��ǰ���ܾ���ֵ
+	int		nLiveExperienceFull;	//�����¼���Ҫ�ľ���ֵ
 };
 
 
@@ -1427,8 +1427,8 @@ struct KUiPlayerLiveSkillBase
 struct KUiJinDuTiaoInfo
 {
 	char 	nTitle[32];
-	int32_t		nMsgIndex;
-	int32_t		nTimes;
+	int		nMsgIndex;
+	int		nTimes;
 	char    nCallFuc[16];
 	char    szParma[32];
 	char    szParmb[32];
@@ -1442,10 +1442,10 @@ struct KUiSkillData : public KUiGameObject
 {
 	union
 	{
-		int32_t		nLevel;
-		int32_t		nData;
+		int		nLevel;
+		int		nData;
 	};
-//int32_t	nJiaChengSkill;
+//int	nJiaChengSkill;
 };
 
 
@@ -1456,10 +1456,10 @@ struct KUiChessData : public KUiGameObject
 {
 	union
 	{
-		int32_t		nLevel;
-		int32_t		nData;
+		int		nLevel;
+		int		nData;
 	};
-	//int32_t	nJiaChengSkill;
+	//int	nJiaChengSkill;
 };
 
 
@@ -1473,19 +1473,19 @@ struct KUiChessData : public KUiGameObject
 //==================================
 struct KUiPlayerLeaderShip
 {
-	int32_t		nLeaderShipLevel;			//ͳ˧���ȼ�
-	int32_t		nLeaderShipExperience;		//ͳ˧������ֵ
-	int32_t		nLeaderShipExperienceFull;	//�����¼���Ҫ�ľ���ֵ
+	int		nLeaderShipLevel;			//ͳ˧���ȼ�
+	int		nLeaderShipExperience;		//ͳ˧������ֵ
+	int		nLeaderShipExperienceFull;	//�����¼���Ҫ�ľ���ֵ
 };
 
 /*struct KUiItemObject
 {
-	uint32_t	uGenre;
-	uint32_t	uId;
-	int32_t				DataX;
-	int32_t				DataY;
-	int32_t				DataW;  //���
-	int32_t				DataH;  //�߶�
+	unsigned int	uGenre;
+	unsigned int	uId;
+	int				DataX;
+	int				DataY;
+	int				DataW;  //���
+	int				DataH;  //�߶�
 };*/
 //==================================
 //	һ����ҽ�ɫ��
@@ -1493,12 +1493,12 @@ struct KUiPlayerLeaderShip
 struct KUiPlayerItem
 {
 	char			Name[32];	    //��ҽ�ɫ����
-	uint32_t	uId;		    //��ҽ�ɫDWid
-	int32_t				nIndex;		    //��ҽ�ɫ����
-	int32_t				nData;		    //�������ص�һ����ֵ������������Ӧ��λ���й�
+	unsigned int	uId;		    //��ҽ�ɫDWid
+	int				nIndex;		    //��ҽ�ɫ����
+	int				nData;		    //�������ص�һ����ֵ������������Ӧ��λ���й�
 	char            BZname[32];     //����������
-	int32_t             nShopType;      //�̵������
-	int32_t             nApplyStartPos; //�����б�ʼλ��
+	int             nShopType;      //�̵������
+	int             nApplyStartPos; //�����б�ʼλ��
 };
 //==================================
 //	һ����ҽ�ɫ��
@@ -1506,10 +1506,10 @@ struct KUiPlayerItem
 struct KUiLianItem
 {
 	char			Name[32];	//�������
-	uint32_t	uId;		//��ƷDWid
-	int32_t				nIndex;		//��Ʒ����
-	int32_t				w;		    //���
-	int32_t             h;          //����
+	unsigned int	uId;		//��ƷDWid
+	int				nIndex;		//��Ʒ����
+	int				w;		    //���
+	int             h;          //����
 };
 
 //==================================
@@ -1529,8 +1529,8 @@ struct KUiPlayerTeam
 	char			cNumMember;				//��Ա��Ŀ
 	char			cNumTojoin;				//���������Ա����Ŀ
 	bool			bOpened;				//�����Ƿ����������˼���
-	int32_t				nTeamServerID;			//�����ڷ������ϵ�id�����ڱ�ʶ�ö��飬-1 Ϊ��
-	int32_t				nCaptainPower;
+	int				nTeamServerID;			//�����ڷ������ϵ�id�����ڱ�ʶ�ö��飬-1 Ϊ��
+	int				nCaptainPower;
 };
 
 /* ���ǾɵĴ��룬�µ��Ѿ�����KNpcGold���洦����
@@ -1539,20 +1539,20 @@ struct KUiPlayerTeam
 //==================================
 struct KNpcEnchant
 {
-	int32_t		nExp;					// ����
-	int32_t		nLife;					// ����
-	int32_t		nLifeReplenish;			// ��Ѫ
-	int32_t		nAttackRating;			// ����
-	int32_t		nDefense;				// ����
-	int32_t		nMinDamage;
-	int32_t		nMaxDamage;
+	int		nExp;					// ����
+	int		nLife;					// ����
+	int		nLifeReplenish;			// ��Ѫ
+	int		nAttackRating;			// ����
+	int		nDefense;				// ����
+	int		nMinDamage;
+	int		nMaxDamage;
 
-	int32_t		TreasureNumber;				// װ��
-	int32_t		AuraSkill;					// �⻷
-	int32_t		DamageEnhance;				// �˺�
-	int32_t		SpeedEnhance;				// �ٶ�
-	int32_t		SelfResist;					// ������
-	int32_t		ConquerResist;				// ��������
+	int		TreasureNumber;				// װ��
+	int		AuraSkill;					// �⻷
+	int		DamageEnhance;				// �˺�
+	int		SpeedEnhance;				// �ٶ�
+	int		SelfResist;					// ������
+	int		ConquerResist;				// ��������
 #ifndef _SERVER
 	char	NameModify[32];				// ����
 #endif
@@ -1563,7 +1563,7 @@ struct KNpcEnchant
 //==================================
 struct KNpcSpeicalEnchant
 {
-	int32_t		ValueModify;
+	int		ValueModify;
 	char	NameModify[16];
 };
 */
@@ -1573,12 +1573,12 @@ struct KNpcSpeicalEnchant
 //==================================
 enum OPTIONS_LIST
 {
-	OPTION_PERSPECTIVE,		//͸��ģʽ  nParam = (int32_t)(bool)bEnable �Ƿ���
-	OPTION_DYNALIGHT,		//��̬��Ӱ	nParam = (int32_t)(bool)bEnable �Ƿ���
+	OPTION_PERSPECTIVE,		//͸��ģʽ  nParam = (int)(bool)bEnable �Ƿ���
+	OPTION_DYNALIGHT,		//��̬��Ӱ	nParam = (int)(bool)bEnable �Ƿ���
 	OPTION_MUSIC_VALUE,		//��������	nParam = ������С��ȡֵΪ0��-10000��
 	OPTION_SOUND_VALUE,		//��Ч����	nParam = ������С��ȡֵΪ0��-10000��
 	OPTION_BRIGHTNESS,		//���ȵ���	nParam = ���ȴ�С��ȡֵΪ0��-100��
-	OPTION_WEATHER,			//����Ч������ nParam = (int32_t)(bool)bEnable �Ƿ���
+	OPTION_WEATHER,			//����Ч������ nParam = (int)(bool)bEnable �Ƿ���
 };
 
 //==================================
@@ -1587,20 +1587,20 @@ enum OPTIONS_LIST
 struct KUiSceneTimeInfo
 {
 	char    szSceneName[64];		//������
-	int32_t		nSceneId;				//����id
-	int32_t		nScenePos0;				//������ǰ���꣨����
-	int32_t		nScenePos1;				//������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			//�Է���Ϊ��λ
+	int		nSceneId;				//����id
+	int		nScenePos0;				//������ǰ���꣨����
+	int		nScenePos1;				//������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			//�Է���Ϊ��λ
 	char    nMapType[32];           //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 
 	char    nWarGTong[32];
 	char    nWarSTong[32];
-	int32_t     nIsWhos;
+	int     nIsWhos;
 
     char    nPlayerName[32];  //�Լ�����
 	char    nTongMaster[32];  //�Լ�������
@@ -1616,26 +1616,26 @@ struct KUiSceneTimeInfo
 	char	nWarTaiLeName[32];    // ̫��
 
 
-	int32_t     nIsFuCheng;
-	int32_t     nIsZuoHu;
-    int32_t     nIsYuoHu;
-	int32_t     nIsTaiS;
-	int32_t     nIsZhonS;
-	int32_t     nIsShangS;
-	int32_t     nIsMiShu;
-	int32_t     nIsTaiLe;
+	int     nIsFuCheng;
+	int     nIsZuoHu;
+    int     nIsYuoHu;
+	int     nIsTaiS;
+	int     nIsZhonS;
+	int     nIsShangS;
+	int     nIsMiShu;
+	int     nIsTaiLe;
 
-	int32_t     nCZIsNanOrNv;//���л�Ů
-	int32_t     nFZIsNanOrNv;
-	int32_t     nZHIsNanOrNv;
-	int32_t     nYHIsNanOrNv;
-	int32_t     nTSIsNanOrNv;
-	int32_t     nZSIsNanOrNv;
-	int32_t     nSSIsNanOrNv;
-	int32_t     nMSIsNanOrNv;
-	int32_t     nTLIsNanOrNv;
+	int     nCZIsNanOrNv;//���л�Ů
+	int     nFZIsNanOrNv;
+	int     nZHIsNanOrNv;
+	int     nYHIsNanOrNv;
+	int     nTSIsNanOrNv;
+	int     nZSIsNanOrNv;
+	int     nSSIsNanOrNv;
+	int     nMSIsNanOrNv;
+	int     nTLIsNanOrNv;
 	*/
-    int32_t     nTaskVal;
+    int     nTaskVal;
 	BOOL    nIsHideNuQi;
 };
 //==================================
@@ -1644,16 +1644,16 @@ struct KUiSceneTimeInfo
 struct KUiCityMapInfoA
 {
 	char	   szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1661,16 +1661,16 @@ struct KUiCityMapInfoA
 struct KUiCityMapInfoB
 {
 	char	   szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1678,16 +1678,16 @@ struct KUiCityMapInfoB
 struct KUiCityMapInfoC
 {
 	char    szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1695,16 +1695,16 @@ struct KUiCityMapInfoC
 struct KUiCityMapInfoD
 {
 	char	   szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1712,16 +1712,16 @@ struct KUiCityMapInfoD
 struct KUiCityMapInfoE
 {
 	char	    szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1729,16 +1729,16 @@ struct KUiCityMapInfoE
 struct KUiCityMapInfoF
 {
 	char    szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1746,16 +1746,16 @@ struct KUiCityMapInfoF
 struct KUiCityMapInfoG
 {
 	char   szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 //==================================
 //	�����İ�ս��ͼ��Ϣ
@@ -1763,16 +1763,16 @@ struct KUiCityMapInfoG
 struct KUiCityMapInfoH
 {
 	char    szSceneName[32];		   //������
-	int32_t		nSceneId;				   //����id
-	int32_t		nScenePos0;				   //������ǰ���꣨����
-	int32_t		nScenePos1;				   //������ǰ���꣨�ϣ�
-	int32_t		nGameSpaceTime;			   //�Է���Ϊ��λ
+	int		nSceneId;				   //����id
+	int		nScenePos0;				   //������ǰ���꣨����
+	int		nScenePos1;				   //������ǰ���꣨�ϣ�
+	int		nGameSpaceTime;			   //�Է���Ϊ��λ
 	char    nMapType[16];               //��ͼ����
 	char    nWarMaster[32];
 	char    nWarTong[32];
-	int32_t     nWarShui;
-	int32_t     nWarZhi;
-	int32_t     nIsWarCity;
+	int     nWarShui;
+	int     nWarZhi;
+	int     nIsWarCity;
 };
 
 //==================================
@@ -1781,15 +1781,15 @@ struct KUiCityMapInfoH
 //������ʾ����ά������
 struct KPosition3
 {
-	int32_t nX;
-	int32_t nY;
-	int32_t nZ;
+	int nX;
+	int nY;
+	int nZ;
 };
 
 struct KLightInfo
 {
 	KPosition3 oPosition;			// ��Դλ��
-	DWORD dwColor;					// ��Դ��ɫ������
+	unsigned long dwColor;					// ��Դ��ɫ������
 	long  nRadius;					// ���ð뾶
 };
 
@@ -1806,61 +1806,61 @@ enum SCENE_PLACE_MAP_ELEM
 //�����ĵ�ͼ��Ϣ
 struct KSceneMapInfo
 {
-	int32_t	nScallH;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
-	int32_t nScallV;		//��ʵ��������ڵ�ͼ������Ŵ����
-	int32_t	nFocusMinH;
-	int32_t nFocusMinV;
-	int32_t nFocusMaxH;
-	int32_t nFocusMaxV;
-	int32_t nOrigFocusH;
-	int32_t nOrigFocusV;
-	int32_t nFocusOffsetH;
-	int32_t nFocusOffsetV;
+	int	nScallH;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
+	int nScallV;		//��ʵ��������ڵ�ͼ������Ŵ����
+	int	nFocusMinH;
+	int nFocusMinV;
+	int nFocusMaxH;
+	int nFocusMaxV;
+	int nOrigFocusH;
+	int nOrigFocusV;
+	int nFocusOffsetH;
+	int nFocusOffsetV;
 };
 
 struct KSceneMapSizePos
 {
-int32_t Arealeft;
-int32_t Areatop;
+int Arealeft;
+int Areatop;
 };
 
 struct KChaQIMapPos
 {
-	int32_t	nCursorX;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
-	int32_t nCursorY;		//��ʵ��������ڵ�ͼ������Ŵ����
+	int	nCursorX;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
+	int nCursorY;		//��ʵ��������ڵ�ͼ������Ŵ����
 
 };
 
 struct KSkillMapPos
 {
-	int32_t	nCursorX;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
-	int32_t nCursorY;		//��ʵ��������ڵ�ͼ������Ŵ����
+	int	nCursorX;		//��ʵ��������ڵ�ͼ�ĺ���Ŵ����
+	int nCursorY;		//��ʵ��������ڵ�ͼ������Ŵ����
 
 };
 
 
 struct KNewsMessage
 {
-	int32_t		nType;						//��Ϣ����
+	int		nType;						//��Ϣ����
 	char	sMsg[MAX_MESSAGE_LENGTH];	//��Ϣ����
-	int32_t		nMsgLen;					//��Ϣ���ݴ洢����
+	int		nMsgLen;					//��Ϣ���ݴ洢����
 };
 
 struct KTaskPathInfo
 {
-	int32_t		nTaskType;				    //��Ϣ����
-	int32_t 	nMsgIndex;	                //��Ϣ����
-	int32_t		nMapIdx;					//�����ͼ
-    int32_t		nMapXpos;
-	int32_t		nMapYpos;
+	int		nTaskType;				    //��Ϣ����
+	int 	nMsgIndex;	                //��Ϣ����
+	int		nMapIdx;					//�����ͼ
+    int		nMapXpos;
+	int		nMapYpos;
 };
 
 
 struct	KTaskClient
 {
 	char szContent[128];	//����
-	int32_t	 nTaskidx;			//������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
-	int32_t	 nTaskType;
+	int	 nTaskidx;			//������Ǯ����ֵΪ���۸񣬸�ֵ��ʾ����ļ۸�Ϊ(-nPrice)
+	int	 nTaskType;
 	char szTaskName[32];
 };
 
@@ -1873,10 +1873,10 @@ struct KRankIndex
 
 struct KListIndex
 {
-    int32_t nTaskId;
-	int32_t nType;
-	int32_t nClass;
-	int32_t nTrace;
+    int nTaskId;
+	int nType;
+	int nClass;
+	int nTrace;
 };
 
 
@@ -1887,15 +1887,15 @@ struct KRankMessage
 	char szMsg[MAX_RANK_MESSAGE_STRING_LENGTH];	// ��������
 	unsigned short		usMsgLen;				// �������ݵĳ���
 	short				cSortFlag;				// ���ֵ��QOO_RANK_DATA��ʱ���ʾ����������ֵ��ʾ������ֵ��ʾ����0ֵ��ʾλ��δ��
-	int32_t					nValueAppend;			// �������ֵ
+	int					nValueAppend;			// �������ֵ
 
 };
 
 struct KMissionRecord
 {
 	char			sContent[256];	//�洢������ʾ��Ϣ�Ļ����������ַ���Ϊ���Ʒ��Ѿ�������ַ�����
-	int32_t				nContentLen;	//sContent����Ч���ݵĳ���(��λ���ֽ�)���������һ��������256�ֽ�
-	uint32_t	uValue;			//������ֵ
+	int				nContentLen;	//sContent����Ч���ݵĳ���(��λ���ֽ�)���������һ��������256�ֽ�
+	unsigned int	uValue;			//������ֵ
 };
 
 //������Ϣ
@@ -1903,16 +1903,16 @@ struct KTongInfo
 {
 	char  szName[32];			//�������
 	char  szMasterName[32];		//��������
-	int32_t   nFaction;				//�����Ӫ
-	int32_t   nMoney;				//����ʽ�
-	int32_t   nReserve[2];          //��������
-	int32_t	  nMemberCount;         //��������
-	int32_t   nManagerCount;        //�ӳ�����
-	int32_t   nDirectorCount;       //��������
-	int32_t   nFigure;              //��ɾ��
-	int32_t   nLevel;               //���ȼ�
-	int32_t   nGongxian;            //��ṱ�׶�
-	int32_t   nHouYue;              //����Ծ��
+	int   nFaction;				//�����Ӫ
+	int   nMoney;				//����ʽ�
+	int   nReserve[2];          //��������
+	int	  nMemberCount;         //��������
+	int   nManagerCount;        //�ӳ�����
+	int   nDirectorCount;       //��������
+	int   nFigure;              //��ɾ��
+	int   nLevel;               //���ȼ�
+	int   nGongxian;            //��ṱ�׶�
+	int   nHouYue;              //����Ծ��
 };
 
 //���ɻ�����Ϣ
@@ -1920,24 +1920,24 @@ struct KClientTongInfo
 {
 	char  szName[32];			//�������
 	char  szMasterName[32];		//��������
-	int32_t   nFaction;				//�����Ӫ
-	int32_t   nMoney;				//����ʽ�
-	int32_t   nReserve[2];          //��������
-	int32_t	  nMemberCount;         //��������
-	int32_t   nManagerCount;        //�ӳ�����
-	int32_t   nDirectorCount;       //��������
-	int32_t   nApplyCount;          //�����б������
-	int32_t   nZhaoMuCount;         //������ļ��Ϣ������
-	int32_t   nFigure;              //��ɾ��
-	int32_t   nLevel;               //���ȼ�
-	int32_t   nGongxian;            //��ṱ�׶�
-	int32_t   nHouYue;              //����Ծ��
+	int   nFaction;				//�����Ӫ
+	int   nMoney;				//����ʽ�
+	int   nReserve[2];          //��������
+	int	  nMemberCount;         //��������
+	int   nManagerCount;        //�ӳ�����
+	int   nDirectorCount;       //��������
+	int   nApplyCount;          //�����б������
+	int   nZhaoMuCount;         //������ļ��Ϣ������
+	int   nFigure;              //��ɾ��
+	int   nLevel;               //���ȼ�
+	int   nGongxian;            //��ṱ�׶�
+	int   nHouYue;              //����Ծ��
 };
 
 //������ļ�͹�����Ϣ
 struct KClientZhaoMuInfo
 {
-    int32_t 	inType;
+    int 	inType;
     char szQingXiang[32];
     char szHuoDong1[32];
     char	 szHuoDong2[32];
@@ -1945,8 +1945,8 @@ struct KClientZhaoMuInfo
     char szHuoDong4[32];
     char szJiYu[64];
     char    szGongGao[128];
-    int32_t     inAcceptLevel;
-	int32_t     inRefuseLevel;
+    int     inAcceptLevel;
+	int     inRefuseLevel;
 };
 //���������б�
 struct KClientApplyList
@@ -1954,11 +1954,11 @@ struct KClientApplyList
     struct ApplyList
 	{
       char	  szName[32];  //����
-      int32_t     inLevel;     //�ȼ�
+      int     inLevel;     //�ȼ�
 	};
-      int32_t     nCurNum;
-	  int32_t 	  inType;      //����
-	  int32_t     nStartPos;
+      int     nCurNum;
+	  int 	  inType;      //����
+	  int     nStartPos;
     ApplyList nInfo[defTONG_ONE_PAGE_MAX_NUM];
 };
 //�԰��ڳ�Ա���Ķ�������ı��Լ�����Ĺ�ϵ�Ķ���
@@ -1984,7 +1984,7 @@ enum TONG_MONEY_ACTION_TYPE
 struct KTongOperationParam
 {
 	TONG_ACTION_TYPE	eOper;				//������
-	int32_t                 nData[4];
+	int                 nData[4];
 	char				szPassword[32];		//��������Ҫ�����룬�����Ӧ�Ĳ������Ҫ���룬��ֱ��������Ϊ�ա�
 };
 
@@ -1997,8 +1997,8 @@ struct KTongMemberItem : public KUiPlayerItem
 //ĳ�������XX�Ĺ�ϵ��(XX�����ǰ�ᣬ����ȵ�)
 struct KUiPlayerRelationWithOther : KUiPlayerItem
 {
-	int32_t		nRelation;
-	int32_t		nParam;
+	int		nRelation;
+	int		nParam;
 };
 
 //ͨ�õĴ�����������Ϸ����Ľṹ
@@ -2006,9 +2006,9 @@ struct KUiGameObjectWithName
 {
 	char			szName[32];  //�����
 	char			szString[32];
-	int32_t				nData;       //ְλ
-	int32_t				nParam;      //��ǰ��ʼ���
-	uint32_t 	uParam;      //��ǰ����
+	int				nData;       //ְλ
+	int				nParam;      //��ǰ��ʼ���
+	unsigned int 	uParam;      //��ǰ����
 };
 
 //ͨ�ð����Ϣ�ṹ
@@ -2022,40 +2022,40 @@ struct KUiTongInfoWithName
 	char szHuoDong4[32];
 	char szJiYu[64];
 	char    szGongGao[128];
-	int32_t     inAcceptLevel;
-	int32_t     inRefuseLevel;
+	int     inAcceptLevel;
+	int     inRefuseLevel;
 };
 
 
 //ͨ�ð����Ϣ�ṹ
 struct gameAutoplaerInfo
 {
-	int32_t 	 isopenmoney;
-	int32_t      isopendaoju;
-	int32_t      insopenzhuang;
-	int32_t      isopentuzhi;
-	int32_t      ismonyeandzhuang;
+	int 	 isopenmoney;
+	int      isopendaoju;
+	int      insopenzhuang;
+	int      isopentuzhi;
+	int      ismonyeandzhuang;
 };
 
 //ͨ��ִ�нű�
 struct KUiPlyerDoscript
 {
-	int32_t     inKind;
-	int32_t     inCurTime;
-	int32_t     inCurTimeb;
-	int32_t     inCurTimec;
-	int32_t     inCurTimed;
+	int     inKind;
+	int     inCurTime;
+	int     inCurTimeb;
+	int     inCurTimec;
+	int     inCurTimed;
 	char    szItemInfo[32];
 };
 
 //ͨ��ִ�нű�
 struct KUiPlyerVipDoscript
 {
-	int32_t     inKind;
-	int32_t     inCurExp;
-	int32_t     inCurLucky;
-	int32_t     inCurJiHuo;
-	int32_t     inCurWuHang;
+	int     inKind;
+	int     inCurExp;
+	int     inCurLucky;
+	int     inCurJiHuo;
+	int     inCurWuHang;
 	char    snCardAcc[32];
 	char    snCardPass[32];
 };
@@ -2064,11 +2064,11 @@ struct KUiPlyerVipDoscript
 //ͨ��ִ�нű�
 struct KUiPlyerDuanZao
 {
-	int32_t     inKind;
-	int32_t     inCurTimea;
-	int32_t     inCurTimeb;
-	int32_t     inCurTimec;
-	int32_t     inCurTimed;
+	int     inKind;
+	int     inCurTimea;
+	int     inCurTimeb;
+	int     inCurTimec;
+	int     inCurTimed;
 	//char    szItemInfo[32];
 };
 
@@ -2076,11 +2076,11 @@ struct KUiPlyerDuanZao
 //ͨ��ִ�нű�
 struct KUiPlyerVipDaZao
 {
-	int32_t     inKind;
-	int32_t     inCurExp;
-	int32_t     inCurLucky;
-	int32_t     inCurJiHuo;
-	int32_t     inCurWuHang;
+	int     inKind;
+	int     inCurExp;
+	int     inCurLucky;
+	int     inCurJiHuo;
+	int     inCurWuHang;
 	char    snCardAcc[32];
 	char    snCardPass[32];
 
@@ -2088,8 +2088,8 @@ struct KUiPlyerVipDaZao
 
 struct	nJinDuClient
 {
-	int32_t  nTimeVal;
-	int32_t	 nMsgidx;
+	int  nTimeVal;
+	int	 nMsgidx;
 	char szCallFun[16];   //�ص�����
 	char szParma[32];     //����
 	char szParmb[32];     //����

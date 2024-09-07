@@ -29,7 +29,7 @@ KItemGenerator::~KItemGenerator()
 /******************************************************************************
 	���ܣ�	װ�����ݳ�ʼ��. ��tab file�ж�ȡ����
 ******************************************************************************/
-BOOL KItemGenerator::Init()
+int KItemGenerator::Init()
 {
 	if (!m_BPTLib.Init())		// �˵��ô����ɵ�tab file���������еĳ�ʼ����
 	{
@@ -103,7 +103,7 @@ BOOL KItemGenerator::Init()
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_Medicine(IN int nDetailType,
+int KItemGenerator::Gen_Medicine(IN int nDetailType,
 								  IN int nLevel,
 								  IN int nVersion,
 								  IN OUT KItem* pItem,
@@ -114,7 +114,7 @@ BOOL KItemGenerator::Gen_Medicine(IN int nDetailType,
 	if  (this==NULL || pItem==NULL)
 		return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed();
@@ -146,7 +146,7 @@ BOOL KItemGenerator::Gen_Medicine(IN int nDetailType,
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
+int KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 								  IN int nLevel,
 								  IN int nVersion,
 								  IN OUT KItem* pItem,
@@ -158,7 +158,7 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 	if  (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed();
@@ -201,7 +201,7 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-/*BOOL KItemGenerator::Gen_Item(IN int nItemGenre,
+/*int KItemGenerator::Gen_Item(IN int nItemGenre,
 							  IN int nSeriesReq,
 							  IN int nLevel,
 							  IN int nLucky,
@@ -267,7 +267,7 @@ BOOL KItemGenerator::Gen_MedicineShop(IN int nDetailType,
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и��� �̵� --�������װ��
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
+int KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -278,7 +278,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 								   IN int nEnChance,\
 								   IN int nPoint,\
 								   IN int nRongpoint,\
-								   IN int IsWhere,IN BOOL nIsShop,\
+								   IN int IsWhere,IN int nIsShop,\
 								   IN int nPrice,IN int nFsxu,int nIsBang,\
 								   IN int nPriceType,IN int nLucky)
 {
@@ -288,7 +288,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 	if  (this==NULL || !pItem==NULL)
 		return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������˰汾
 	return bEC;
@@ -734,7 +734,7 @@ BOOL KItemGenerator::Gen_paiEquipment(IN int nDetailType,\
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и��� �̵� --�������װ��
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
+int KItemGenerator::Gen_Equipment(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -745,7 +745,7 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 								   IN int nEnChance,\
 								   IN int nPoint,\
 								   IN int nRongpoint,\
-								   IN int IsWhere,IN BOOL nIsShop,\
+								   IN int IsWhere,IN int nIsShop,\
 								   IN int nPrice,IN int nFsxu,int nIsBang,int nPriceType)
 {
 	//_ASSERT(this != NULL);
@@ -753,7 +753,7 @@ BOOL KItemGenerator::Gen_Equipment(IN int nDetailType,\
 	if  (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed(); //ȡ���������
 	if (pnaryMALevel)
@@ -1020,7 +1020,7 @@ nLucky: ����ֵ
 ����:	�� pnaryMA ��ָ�����з���ħ�������Ժ�������, ��6��
 ******************************************************************************/
 // Add by Freeway Chen in 2003.5.30
-BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
+int KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 									         int nSeriesReq, int nLucky,\
 						   KItemNormalAttrib* pnaryMA, int nGameVersion)
 {
@@ -1229,7 +1229,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 }
 
 // Following Code is implement by DongBo
-//BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel, int nSeriesReq, int nLucky,
+//int KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel, int nSeriesReq, int nLucky,
 //									 KItemNormalAttrib* pnaryMA)
 //{
 //
@@ -1260,7 +1260,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 							m_GMA_nCount[1]��������ħ�����Ե�����
 			ʧ��ʱ������
 ******************************************************************************/
-/*BOOL KItemGenerator::GMA_GetAvaliableMA(int nType)
+/*int KItemGenerator::GMA_GetAvaliableMA(int nType)
 {
 	//TODO: ������Ҫ��nType����ת��, ��װ������ֵ��� m_BPTLib.m_CMAT ���������
 	for (int i = 0; i < 2; ++i)		// 0: ǰ׺, 1: ��׺
@@ -1283,7 +1283,7 @@ BOOL KItemGenerator::Gen_MagicAttrib(int nType, const int* pnaryMALevel,\
 							m_GMA_naryDropRate��������ħ�����Եĳ��ָ���
 			ʧ��ʱ������
 ******************************************************************************/
-/*BOOL KItemGenerator::GMA_GetLevelAndDropRate(int nType)
+/*int KItemGenerator::GMA_GetLevelAndDropRate(int nType)
 {
 	//TODO: ������Ҫ��nType����ת��, ��װ������ֵ��� m_BPTLib.m_CMAT ���������
 
@@ -1385,7 +1385,7 @@ const KMAGICATTRIB_TABFILE* KItemGenerator::GetMARecord(int i) const
 	return nCount;
 }
  */
-BOOL KItemGenerator::GetMedicineCommonAttrib(IN int nDetailType, IN int nLevel, IN OUT KItem* pItem)
+int KItemGenerator::GetMedicineCommonAttrib(IN int nDetailType, IN int nLevel, IN OUT KItem* pItem)
 {
 	if (NULL == pItem)
 	{
@@ -1415,9 +1415,9 @@ BOOL KItemGenerator::GetMedicineCommonAttrib(IN int nDetailType, IN int nLevel, 
 ******************************************************************************/
 // Add by flying on May.30.2003
 // Try to get a "Gold Item" if possible.
-/*BOOL KItemGenerator::GetGoldItemByRandom(IN int nCondition, OUT KItem * pItem)
+/*int KItemGenerator::GetGoldItemByRandom(IN int nCondition, OUT KItem * pItem)
 {
-	BOOL bResult = FALSE;
+	int bResult = FALSE;
 	const KBASICPROP_EQUIPMENT_GOLD* pArray[MAX_ITEM];
 	int i = 0;
 	int j = 0;
@@ -1442,7 +1442,7 @@ Exit0:
 	return FALSE;
 } */
 //ˢ�׽�װ��
-BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN const int* pnay, IN int nSeries, IN int nEnChance,IN int nRongpiont,IN int nLevel,IN BOOL nIsLogin)
+int KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN const int* pnay, IN int nSeries, IN int nEnChance,IN int nRongpiont,IN int nLevel,IN int nIsLogin)
 {
 	int i = 0;
 	int j = 0;
@@ -1566,7 +1566,7 @@ BOOL KItemGenerator::GetPlatinaByIndex(IN int nIndex, OUT KItem * pItem, IN cons
 	����:	�ɹ�ʱ������, ��������� pItem ��ָ�����и���
 			ʧ��ʱ���ؼ�
 ******************************************************************************/
-BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN const int* pnay, IN int nSeries, IN int nEnChance,IN int nRongpiont,IN int nLevel,IN BOOL nIsLogin)
+int KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN const int* pnay, IN int nSeries, IN int nEnChance,IN int nRongpiont,IN int nLevel,IN int nIsLogin)
 {
 	int i = 0;
 	int j = 0;
@@ -1692,7 +1692,7 @@ BOOL KItemGenerator::GetGoldItemByIndex(IN int nIndex, OUT KItem * pItem, IN con
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
+int KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -1704,7 +1704,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 								   IN int nEnChance,\
 								   IN int nRongID,\
 								   IN int Goidid,\
-								   IN const int* BaoMagLevel,IN BOOL nIsLogin)
+								   IN const int* BaoMagLevel,IN int nIsLogin)
 {
 
 	//_ASSERT(this != NULL);
@@ -1713,7 +1713,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 	    		return false;
 
     int nCount = 0;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������汾
 	if (nIsLogin)
@@ -1929,7 +1929,7 @@ BOOL KItemGenerator::GetPlatinaItemByRong(IN int nDetailType,\
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
+int KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 								   IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
@@ -1941,7 +1941,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 								   IN OUT KItem* pItem, \
 								   IN int nEnChance,\
 								   IN int nRongID,\
-								   IN BOOL nIsLogin,int nPoint)
+								   IN int nIsLogin,int nPoint)
 {
 
 	//_ASSERT(this != NULL);
@@ -1949,7 +1949,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 	  if  (this==NULL || pItem==NULL)
 		    		return false;
     int nCount = 0;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������汾
 
@@ -2126,7 +2126,7 @@ BOOL KItemGenerator::GetGoldItemByRandom(IN int Goidid,\
 ****************************************************************************
 // Add by flying on May.30.2003
 // Try to get a "Gold Item" if possible.
-BOOL KItemGenerator::GetGoldItemByRong(IN int nIndex,
+int KItemGenerator::GetGoldItemByRong(IN int nIndex,
 									   OUT KItem * pItem,
 									   IN const int* pnay,
 									   IN int nSeries,
@@ -2143,7 +2143,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nIndex,
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
+int KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -2155,7 +2155,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 								   IN int nEnChance,\
 								   IN int nRongID,\
 								   IN int Goidid,\
-								   IN const int* BaoMagLevel,IN BOOL nIsLogin)
+								   IN const int* BaoMagLevel,IN int nIsLogin)
 {
 
 	//_ASSERT(this != NULL);
@@ -2163,7 +2163,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 	  if (this==NULL || pItem==NULL)
 		return false;
     int nCount = 0;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 #ifdef _SERVER	// �������汾
 
@@ -2389,7 +2389,7 @@ BOOL KItemGenerator::GetGoldItemByRong(IN int nDetailType,\
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
+int KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -2403,7 +2403,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 								   IN int nRongID,\
 								   IN int Goidid,\
 								   IN int nIsDaZhao,\
-								   KMagicAttrib *nRogMag,IN int IsWhere,IN BOOL nIsLogin)
+								   KMagicAttrib *nRogMag,IN int IsWhere,IN int nIsLogin)
 {
 
 	//_ASSERT(this != NULL);
@@ -2411,7 +2411,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 	if (this==NULL || pItem==NULL)
 			return false;
     int nCount = 0;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 /*
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 	if (pnaryMALevel)
@@ -2834,7 +2834,7 @@ BOOL KItemGenerator::Gen_EquipmentRong(IN int nDetailType,\
 	����:	�ɹ�ʱ���ط���, ��������� pItem ��ָ�����и���
 			ʧ��ʱ������
 ******************************************************************************/
-BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
+int KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -2858,7 +2858,7 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 	if (this==NULL || pItem==NULL)
 			return false;
     int nCount = 0;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 #ifdef _SERVER	// �������汾
 	pItem->m_GeneratorParam.uRandomSeed = g_GetRandomSeed(); //ȡ���������
 	if (pnaryMALevel)
@@ -3279,7 +3279,7 @@ BOOL KItemGenerator::Gen_EquipmentCilent(IN int nDetailType,\
 }
 
 
-BOOL KItemGenerator::GetEquipmentCommonAttrib(IN int nDetailType, IN int nParticularType, IN int nLevel, IN int nSeries, IN OUT KItem* pItem)
+int KItemGenerator::GetEquipmentCommonAttrib(IN int nDetailType, IN int nParticularType, IN int nLevel, IN int nSeries, IN OUT KItem* pItem)
 {
 	if (NULL == pItem)
 	{
@@ -3360,7 +3360,7 @@ BOOL KItemGenerator::GetEquipmentCommonAttrib(IN int nDetailType, IN int nPartic
 			ʧ��ʱ������
 ******************************************************************************/
 
-BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
+int KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 								   IN int nParticularType,\
 								   IN int nSeriesReq,\
 								   IN int nLevel,\
@@ -3378,7 +3378,7 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);//�����������,װ�����ԾͲ����
 
@@ -3777,13 +3777,13 @@ BOOL KItemGenerator::Gen_ExistEquipment(IN int nDetailType,\
 	}
 }
 //������������Ʒ
-BOOL KItemGenerator::Gen_Quest(IN int nDetailType, IN OUT KItem* pItem,IN int nStackNum,IN int nLevel)
+int KItemGenerator::Gen_Quest(IN int nDetailType, IN OUT KItem* pItem,IN int nStackNum,IN int nLevel)
 {
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
 
@@ -3804,7 +3804,7 @@ BOOL KItemGenerator::Gen_Quest(IN int nDetailType, IN OUT KItem* pItem,IN int nS
 	return TRUE;
 }
 //�����������̵���Ʒ
-BOOL KItemGenerator::Gen_QuestShop(IN int nDetailType,\
+int KItemGenerator::Gen_QuestShop(IN int nDetailType,\
 								   IN OUT KItem* pItem,\
 								   IN int nStackNum,\
 								   int nPerXu,\
@@ -3816,7 +3816,7 @@ BOOL KItemGenerator::Gen_QuestShop(IN int nDetailType,\
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
 
 	const KBASICPROP_QUEST* pQuest = NULL;
@@ -3843,7 +3843,7 @@ BOOL KItemGenerator::Gen_QuestShop(IN int nDetailType,\
 }
 
 //------------------------------------------�����Ƹ�
-BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
+int KItemGenerator::Gen_Fusion(IN int nParticularType,\
 								IN OUT KItem* pItem,\
 								IN int nStackNum,\
 								IN int nLevel,\
@@ -3856,7 +3856,7 @@ BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 /*
 	if (npnaryJBLevel)
         memcpy(pItem->m_GeneratorParam.nJGeneratorLevel, npnaryJBLevel, sizeof(int) * 7); //�������ԣ�itemlevel���飩
@@ -3912,7 +3912,7 @@ BOOL KItemGenerator::Gen_Fusion(IN int nParticularType,\
 	return TRUE;
 }
 //------------------------------------------
-BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
+int KItemGenerator::Gen_Mine(IN int nDetailType, \
 							  IN OUT KItem* pItem,\
 							  IN int nStackNum,\
 							  IN int nLevel,\
@@ -3925,7 +3925,7 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	if (npnaryJBLevel)
         memcpy(pItem->m_GeneratorParam.nJGeneratorLevel, npnaryJBLevel, sizeof(int) * 7); //�������ԣ�itemlevel���飩
 	else
@@ -4008,14 +4008,14 @@ BOOL KItemGenerator::Gen_Mine(IN int nDetailType, \
 	return TRUE;
 }
 //�����̵���mine��Ʒ
-BOOL KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int nStackNum,IN int nLevel,IN int nSerises,IN int nMagicA,int nPerXu,int nPrice,int nIsBang,int nPriceType)
+int KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int nStackNum,IN int nLevel,IN int nSerises,IN int nMagicA,int nPerXu,int nPrice,int nIsBang,int nPriceType)
 {
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
 
 	//if (nDetailType>m_BPTLib.GetMineRecordNumber()-1);	  //�ݴ� ������Χ ���е� Mine��Ʒ�� ����
@@ -4082,14 +4082,14 @@ BOOL KItemGenerator::Gen_MineShop(IN int nDetailType, IN OUT KItem* pItem,IN int
 	pItem->SetAttrib_Base(sBAS);
 	return TRUE;
 }
-BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���سǾ�
+int KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���سǾ�
 {
 	//_ASSERT(this != NULL);
 	//_ASSERT(pItem != NULL);
 	if (this==NULL || pItem==NULL)
 			return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	ZeroMemory(&pItem->m_GeneratorParam, sizeof(pItem->m_GeneratorParam));
 
 	const KBASICPROP_TOWNPORTAL* pPortal = NULL;
@@ -4103,12 +4103,12 @@ BOOL KItemGenerator::Gen_TownPortal(IN OUT KItem* pItem) //����һ���
 	return TRUE;
 }
 
-// BOOL KItemGenerator::GetDIYItem(IN int nLuck,IN int nPoint, IN int nLevel, OUT KItem* pItem,IN int nSeries,IN int nDetail, IN int nParticular,IN int* pnMagicLevel, IN int nEnChance)
+// int KItemGenerator::GetDIYItem(IN int nLuck,IN int nPoint, IN int nLevel, OUT KItem* pItem,IN int nSeries,IN int nDetail, IN int nParticular,IN int* pnMagicLevel, IN int nEnChance)
 // {
 // 	_ASSERT(this != NULL);
 // 	_ASSERT(pItem != NULL);
 //
-// 	BOOL bEC = FALSE;
+// 	int bEC = FALSE;
 //
 // 	g_RandomSeed(pItem->m_GeneratorParam.uRandomSeed);
 // 	if (pnMagicLevel)

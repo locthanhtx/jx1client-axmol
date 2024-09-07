@@ -27,10 +27,16 @@ public:
 	//����
 	CREATE_FUNC(KuiShowSprite);
 
-	static KuiShowSprite * create(char * nFilePath,int nXpos,int nYpos,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun,bool nTouchesModel=true,int nRenderFlag=0);
+	static KuiShowSprite* create(const char* nFilePath,
+                                     int nXpos,
+                                     int nYpos,
+                                     Ref* callbackListener,
+                                     const std::function<void(ax::Node*)>& callfun,
+                                     bool nTouchesModel = true,
+                                     int nRenderFlag    = 0);
 	//���Ӽ���ͼ��
 	void addDialogData();
-	void mianDialogSet(char * nFilePath,int nXpos,int nYpos,bool nTouchesModel=true,int nRenderFlag=0);
+        void mianDialogSet(const char* nFilePath, int nXpos, int nYpos, bool nTouchesModel = true, int nRenderFlag = 0);
 	void setcoloseButton(Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
 	virtual void draw(ax::Renderer* renderer, const ax::Mat4& transform, unsigned int flags);

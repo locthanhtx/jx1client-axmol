@@ -28,7 +28,9 @@ public:
 	//����
 	CREATE_FUNC(KuistoreBox);
 
-	static KuistoreBox * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuistoreBox* create(const char* title,
+                                   Ref* callbackListener,
+                                   const std::function<void(ax::Node*)>& callfun);
 
 	virtual void update(float delta);
 //	virtual void draw();

@@ -60,7 +60,7 @@ KRegion::~KRegion()
 
 }
 
-BOOL KRegion::Init(int nWidth, int nHeight)
+int KRegion::Init(int nWidth, int nHeight)
 {
 	m_nWidth	= nWidth;	//16
 	m_nHeight	= nHeight;	//32
@@ -71,7 +71,7 @@ BOOL KRegion::Init(int nWidth, int nHeight)
 	return TRUE;
 }
 
-BOOL KRegion::Load(int nX, int nY)
+int KRegion::Load(int nX, int nY)
 {
 
 	Close();
@@ -103,7 +103,7 @@ BOOL KRegion::Load(int nX, int nY)
 //	���ܣ�����ͻ��˵�ͼ�ϱ�region �� object���ݣ�����npc��box�ȣ�
 //	��� bLoadNpcFlag == TRUE ��Ҫ���� clientonly npc else ������
 //----------------------------------------------------------------------
-BOOL KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
+int KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
 {
 	char szPath[FILE_NAME_LENGTH], szFile[FILE_NAME_LENGTH];
 
@@ -119,13 +119,13 @@ BOOL KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
 	sprintf(szFile, "%s\\%03d_%s", szPath, nX, REGION_COMBIN_FILE_NAME_CLIENT);
 	if (cData.Open(szFile))
 	{//���Ұ��е� ��ͼ�ļ�
-		DWORD	dwHeadSize;
-		DWORD	dwMaxElemFile = 0;
+		unsigned long	dwHeadSize;
+		unsigned long	dwMaxElemFile = 0;
 		KCombinFileSection	sElemFile[REGION_ELEM_FILE_COUNT];
 
-		if (cData.Size() < sizeof(DWORD) + sizeof(KCombinFileSection) * REGION_ELEM_FILE_COUNT)
+		if (cData.Size() < sizeof(unsigned long) + sizeof(KCombinFileSection) * REGION_ELEM_FILE_COUNT)
 			goto gotoCLOSE;
-		cData.Read(&dwMaxElemFile, sizeof(DWORD));
+		cData.Read(&dwMaxElemFile, sizeof(unsigned long));
 		if (dwMaxElemFile > REGION_ELEM_FILE_COUNT)
 		{
 			cData.Read(sElemFile, sizeof(sElemFile));
@@ -135,7 +135,7 @@ BOOL KRegion::LoadObjectC(int nSubWorld, int nX, int nY, char *lpszPath)
 		{
 			cData.Read(sElemFile, sizeof(sElemFile));
 		}
-		dwHeadSize = sizeof(DWORD) + sizeof(KCombinFileSection) * dwMaxElemFile;
+		dwHeadSize = sizeof(unsigned long) + sizeof(KCombinFileSection) * dwMaxElemFile;
 
 		// ����npc����
 		 cData.Seek(dwHeadSize + sElemFile[REGION_NPC_FILE_INDEX].uOffset, FILE_BEGIN);
@@ -155,7 +155,7 @@ gotoCLOSE:
 		/*KPakFile		cNpcData;
 		KNpcFileHead	sNpcFileHead;
 		KSPNpc			sNpcCell;
-		DWORD			i;
+		unsigned long			i;
 		KClientNpcID	sTempID;
 		int				nNpcNo;
 
@@ -213,7 +213,7 @@ NPC_CLOSE:
 //----------------------------------------------------------------------
 //	���ܣ�����ͻ��˵�ͼ�ϱ� region �� clientonlynpc ����
 //----------------------------------------------------------------------
-BOOL	KRegion::LoadClientNpc(KPakFile *pFile, DWORD dwDataSize)
+int	KRegion::LoadClientNpc(KPakFile *pFile, unsigned long dwDataSize)
 {
 	return FALSE;
 
@@ -222,7 +222,7 @@ BOOL	KRegion::LoadClientNpc(KPakFile *pFile, DWORD dwDataSize)
 
 	KNpcFileHead	sNpcFileHead;
 	KSPNpc			sNpcCell;
-	DWORD			i;
+	unsigned long			i;
 	KClientNpcID	sTempID;
 	int				nNpcNo;
 
@@ -265,7 +265,7 @@ BOOL	KRegion::LoadClientNpc(KPakFile *pFile, DWORD dwDataSize)
 //----------------------------------------------------------------------
 //	���ܣ�����ͻ��˵�ͼ�ϱ� region �� clientonlyobj ����
 //----------------------------------------------------------------------
-BOOL	KRegion::LoadClientObj(KPakFile *pFile, DWORD dwDataSize)
+int	KRegion::LoadClientObj(KPakFile *pFile, unsigned long dwDataSize)
 {
 	return ObjSet.ClientAddRegionObj(pFile, dwDataSize);
 }
@@ -295,17 +295,17 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 
 	if (cData.Open(szFile))
 	{
-		DWORD	dwHeadSize;
-		DWORD	dwMaxElemFile = 0;
+		unsigned long	dwHeadSize;
+		unsigned long	dwMaxElemFile = 0;
 		KCombinFileSection	sElemFile[REGION_ELEM_FILE_COUNT];
 
-		if (cData.Size() < sizeof(DWORD) + sizeof(KCombinFileSection) * REGION_ELEM_FILE_COUNT)
+		if (cData.Size() < sizeof(unsigned long) + sizeof(KCombinFileSection) * REGION_ELEM_FILE_COUNT)
 		{
 			ZeroMemory(nTempTable, sizeof(nTempTable));
 		}
 		else
 		{
-			cData.Read(&dwMaxElemFile, sizeof(DWORD));
+			cData.Read(&dwMaxElemFile, sizeof(unsigned long));
 			if (dwMaxElemFile > REGION_ELEM_FILE_COUNT)
 			{
 				cData.Read(sElemFile, sizeof(sElemFile));
@@ -316,12 +316,12 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 				cData.Read(sElemFile, sizeof(sElemFile));
 			}
 
-			dwHeadSize = sizeof(DWORD) + sizeof(KCombinFileSection) * dwMaxElemFile;
+			dwHeadSize = sizeof(unsigned long) + sizeof(KCombinFileSection) * dwMaxElemFile;
 
 			if (sElemFile[REGION_OBSTACLE_FILE_INDEX].uLength >= sizeof(nTempTable))
 			{//����ȫ�ϰ� �� �����ϰ�
 				cData.Seek(dwHeadSize + sElemFile[REGION_OBSTACLE_FILE_INDEX].uOffset, FILE_BEGIN);
-				cData.Read((LPVOID)nTempTable, sizeof(nTempTable));
+				cData.Read((void*)nTempTable, sizeof(nTempTable));
 					for (i = 0; i < REGION_GRID_HEIGHT; ++i)
 					{
 		              for (j = 0; j < REGION_GRID_WIDTH; ++j)
@@ -354,7 +354,7 @@ void	KRegion::LoadLittleMapData(int nX, int nY, char *lpszPath, INT *lpbtObstacl
 	{//��ͼ��Ե û�������Ϊ -1��
 		/*sprintf(szFile, "%03d_%s", nX, REGION_OBSTACLE_FILE);
 		if (cData.Open(szFile))
-			cData.Read((LPVOID)nTempTable, sizeof(nTempTable));
+			cData.Read((void*)nTempTable, sizeof(nTempTable));
 		else
 			ZeroMemory(nTempTable, sizeof(nTempTable));
 
@@ -770,12 +770,12 @@ void KRegion::RemoveObj(int nIdx)
 }
 
 
-BOOL KRegion::SetTrap(int nMapX, int nMapY,int nCellNum,DWORD uTrapScriptId)
+int KRegion::SetTrap(int nMapX, int nMapY,int nCellNum,unsigned long uTrapScriptId)
 {
 	    return FALSE;
 }
 
-DWORD KRegion::GetTrap(int nMapX, int nMapY)
+unsigned long KRegion::GetTrap(int nMapX, int nMapY)
 {
 	return 0;
 }
@@ -796,7 +796,7 @@ BYTE KRegion::GetBarrier(int nMapX, int nMapY, int nDx, int nDy)
 
 
 //��ȡ�ϰ�������(��������)
-BYTE KRegion::GetNewBarrier(int nMapX, int nMapY, int nDx, int nDy,BOOL nIsCheckNpc)
+BYTE KRegion::GetNewBarrier(int nMapX, int nMapY, int nDx, int nDy,int nIsCheckNpc)
 {
     if ( nMapX<0 || nMapX >=REGION_GRID_WIDTH ||  nMapY<0 || nMapY >=REGION_GRID_HEIGHT)
 	{
@@ -821,7 +821,7 @@ BYTE KRegion::GetNewBarrier(int nMapX, int nMapY, int nDx, int nDy,BOOL nIsCheck
 //	������bCheckNpc ���Ƿ��ж�npc�γɵ��ϰ�
 //	����ֵ���ϰ�����(if ���� == Obstacle_NULL ���ϰ�)
 //----------------------------------------------------------------------------
-BYTE	KRegion::GetBarrierNewMin(int nGridX, int nGridY, int nOffX, int nOffY, BOOL bCheckNpc)
+BYTE	KRegion::GetBarrierNewMin(int nGridX, int nGridY, int nOffX, int nOffY, int bCheckNpc)
 {
 	//_ASSERT(0 <= nGridX && nGridX < REGION_GRID_WIDTH && 0 <= nGridY && nGridY < REGION_GRID_HEIGHT);
 	if ( nGridX<0 || nGridX >=REGION_GRID_WIDTH ||  nGridY<0 || nGridY >=REGION_GRID_HEIGHT)
@@ -850,7 +850,7 @@ BYTE	KRegion::GetBarrierNewMin(int nGridX, int nGridY, int nOffX, int nOffY, BOO
 //	������bCheckNpc ���Ƿ��ж�npc�γɵ��ϰ�
 //	����ֵ���ϰ�����(if ���� == Obstacle_NULL ���ϰ�)
 //----------------------------------------------------------------------------
-BYTE	KRegion::GetBarrierMin(int nGridX, int nGridY, int nOffX, int nOffY, BOOL bCheckNpc)
+BYTE	KRegion::GetBarrierMin(int nGridX, int nGridY, int nOffX, int nOffY, int bCheckNpc)
 {
 	//_ASSERT(0 <= nGridX && nGridX < REGION_GRID_WIDTH && 0 <= nGridY && nGridY < REGION_GRID_HEIGHT);
 	if ( nGridX<0 || nGridX >=REGION_GRID_WIDTH ||  nGridY<0 || nGridY >=REGION_GRID_HEIGHT)
@@ -890,7 +890,7 @@ int KRegion::GetRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 	return nRet;
 }
 
-BOOL KRegion::AddRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
+int KRegion::AddRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 {
 	BYTE* pBuffer = NULL;
 	int nRef = 0;
@@ -929,7 +929,7 @@ BOOL KRegion::AddRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 	}
 }
 
-BOOL KRegion::DecRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
+int KRegion::DecRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 {
 	BYTE* pBuffer = NULL;
 	int nRef = 0;
@@ -972,7 +972,7 @@ BOOL KRegion::DecRef(int nMapX, int nMapY, MOVE_OBJ_KIND nType)
 	}
 }
 */
-BOOL KRegion::AddPlayer(int nIdx)
+int KRegion::AddPlayer(int nIdx)
 {
 	if (nIdx > 0 && nIdx < MAX_PLAYER)
 	{
@@ -988,7 +988,7 @@ BOOL KRegion::AddPlayer(int nIdx)
 	return FALSE;
 }
 
-BOOL KRegion::RemovePlayer(int nIdx)
+int KRegion::RemovePlayer(int nIdx)
 {
 	if (nIdx > 0 && nIdx < MAX_PLAYER)
 	{
@@ -1007,7 +1007,7 @@ BOOL KRegion::RemovePlayer(int nIdx)
 //-------------------------------------------------------------------------
 //	���ܣ�Ѱ�ұ��������Ƿ���ĳ��ָ�� id �� npc
 //-------------------------------------------------------------------------
-int		KRegion::SearchNpc(DWORD dwNpcID)
+int		KRegion::SearchNpc(unsigned long dwNpcID)
 {
 	KIndexNode *pNode = NULL;
 

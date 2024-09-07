@@ -13,7 +13,7 @@
 
 //#include "KWin32.h"
 
-int32_t KSG_StringToMD5String(char szDestMD5String[64], const char cszSrcString[]);
+int KSG_StringToMD5String(char szDestMD5String[64], const char cszSrcString[]);
 
 #endif // KSG_MD5_STRING_H
 

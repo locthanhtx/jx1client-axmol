@@ -53,7 +53,9 @@ KuiTongCreateSheet::~KuiTongCreateSheet()
 }
 
 //����ȷ��������
-KuiTongCreateSheet * KuiTongCreateSheet::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiTongCreateSheet* KuiTongCreateSheet::create(const char* title,
+                                               Ref* callbackListener,
+                                               const std::function<void(ax::Node*)>& callfun)
 {
 	KuiTongCreateSheet * popLayer = KuiTongCreateSheet::create();
 	popLayer->addDialogData();

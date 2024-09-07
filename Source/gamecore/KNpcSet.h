@@ -1,5 +1,5 @@
-#ifndef	KNpcSetH
-#define	KNpcSetH
+#ifndef KNpcSetH
+#define KNpcSetH
 #include "engine/KbugInfo.h"
 #include "engine/KLinkArray.h"
 #include "KNpc.h"
@@ -7,191 +7,222 @@
 #include "KNpcGold.h"
 #include <map>
 
-#define		MAX_NPC_REQUEST	200   //×î´óµÄNPC ÇëÇóÊýÁ¿
+#define MAX_NPC_REQUEST 200  // ï¿½ï¿½ï¿½ï¿½NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 class KNpcTemplate;
 
-#define		MAX_INSTANT_STATE	20
-#define		MAX_INSTANT_SOUND	30
-class	KInstantSpecial
+#define MAX_INSTANT_STATE 20
+#define MAX_INSTANT_SOUND 30
+class KInstantSpecial
 {
 private:
-	int		m_nLoadFlag;
-	char	m_szSprName[MAX_INSTANT_STATE][FILE_NAME_LENGTH];
-	char	m_szSoundName[MAX_INSTANT_SOUND][FILE_NAME_LENGTH];
+    int m_nLoadFlag;
+    char m_szSprName[MAX_INSTANT_STATE][FILE_NAME_LENGTH];
+    char m_szSoundName[MAX_INSTANT_SOUND][FILE_NAME_LENGTH];
 
-	KCacheNode	*m_pSoundNode;	// ÉùÐ§Ö¸Õë
-//	KWavSound	*m_pWave;		// ÉùÐ§wavÖ¸Õë
+    KCacheNode* m_pSoundNode;  // ï¿½ï¿½Ð§Ö¸ï¿½ï¿½
+    //	KWavSound	*m_pWave;		// ï¿½ï¿½Ð§wavÖ¸ï¿½ï¿½
 
 private:
-	void	LoadSprName();
-	void	LoadSoundName();
+    void LoadSprName();
+    void LoadSoundName();
 
 public:
-	KInstantSpecial();
-	void	GetSprName(int nNo, char *lpszName, int nLength);
-	void	PlaySound(int nNo);
+    KInstantSpecial();
+    void GetSprName(int nNo, char* lpszName, int nLength);
+    void PlaySound(int nNo);
 };
 
 typedef struct
 {
-	DWORD	dwRequestId;
-	DWORD	dwRequestTime;
+    unsigned long dwRequestId;
+    unsigned long dwRequestTime;
 } RequestNpc;
 
 typedef struct
 {
-	int		nStandFrame[2];
-	int		nWalkFrame[2];
-	int		nRunFrame[2];
-	int		nWalkSpeed;
-	int		nRunSpeed;
-	int		nAttackFrame;
-	int		nHurtFrame;
+    int nStandFrame[2];
+    int nWalkFrame[2];
+    int nRunFrame[2];
+    int nWalkSpeed;
+    int nRunSpeed;
+    int nAttackFrame;
+    int nHurtFrame;
 } PlayerBaseValue;
 
 class KNpcSet
 {
 public:
-	KNpcGoldTemplate	m_cGoldTemplate;					// »Æ½ð¹ÖÎïÄ£°å
-//	KNpcPartnerTemplate	m_cPartnerTemplate;					// Í¬°éÄ£°å
-	PlayerBaseValue		m_cPlayerBaseValue;					// Íæ¼Ò±ê×¼Êý¾Ý
+    KNpcGoldTemplate m_cGoldTemplate;    // ï¿½Æ½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+                                         //	KNpcPartnerTemplate	m_cPartnerTemplate;					// Í¬ï¿½ï¿½Ä£ï¿½ï¿½
+    PlayerBaseValue m_cPlayerBaseValue;  // ï¿½ï¿½Ò±ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 
-	KInstantSpecial		m_cInstantSpecial;
+    KInstantSpecial m_cInstantSpecial;
 
 private:
-	DWORD				m_dwIDCreator;						//	ÓÎÏ·ÊÀ½çÖÐµÄDWIDºÅ
-	KLinkArray			m_FreeIdxNpcSet;					//	¿ÉÓÃ±í
-	KLinkArray			m_UseIdxNpcSet;						//	ÒÑÓÃ±í
-	//int                 m_nListCurIdx;
-	typedef std::map<DWORD, KNpcTemplate*> _KMapTemplate;
-	//INT				m_anTemplateRowId[MAX_NPCSTYLE + 1];
-	_KMapTemplate		m_mapTemplate;
-	//KTabFile			m_cTabFile;
-	enum
-	{
-		PATE_CHAT = 0x01,
-		PATE_NAME = 0x02,
-		PATE_LIFE = 0x04,
-		PATE_MANA = 0x08,
-	};
-	int					m_nShowPateFlag;					// ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×ÖÔÚÍ·¶¥ÉÏ zroc add
-	RequestNpc			m_RequestNpc[MAX_NPC_REQUEST];		//	Ïò·þÎñÆ÷ÉêÇëµÄID±í
-	KLinkArray			m_RequestFreeIdx;					//  Ïò·þÎñÆ÷ÉêÇë¿ÕÏÐ±í
-	KLinkArray			m_RequestUseIdx;					//	Ïò·þÎñÆ÷ÉêÇë¿ÉÓÃ±í
+    unsigned long m_dwIDCreator;  //	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½DWIDï¿½ï¿½
+    KLinkArray m_FreeIdxNpcSet;   //	ï¿½ï¿½ï¿½Ã±ï¿½
+    KLinkArray m_UseIdxNpcSet;    //	ï¿½ï¿½ï¿½Ã±ï¿½
+    // int                 m_nListCurIdx;
+    typedef std::map<unsigned long, KNpcTemplate*> _KMapTemplate;
+    // INT				m_anTemplateRowId[MAX_NPCSTYLE + 1];
+    _KMapTemplate m_mapTemplate;
+    // KTabFile			m_cTabFile;
+    enum
+    {
+        PATE_CHAT = 0x01,
+        PATE_NAME = 0x02,
+        PATE_LIFE = 0x04,
+        PATE_MANA = 0x08,
+    };
+    int m_nShowPateFlag;  // ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ zroc add
+    RequestNpc m_RequestNpc[MAX_NPC_REQUEST];  //	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½
+    KLinkArray m_RequestFreeIdx;               //  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    KLinkArray m_RequestUseIdx;                //	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½
 public:
-	KNpcSet();
-	void			Init();
-	virtual         BOOL Release(void);
-	int				GetNpcCount(int nKind = -1, int nCamp = -1);
-	int				SearchName(LPSTR szName);
-	int             SearchNameInMap(LPSTR szName,int inMapidx,int nType=0);
-	int             SearchGSNameInMap(LPSTR szName,int inMapidx);
-	int				SearchNpcSettingID(LPSTR szName);
-	int				SearchByTongName(LPSTR szName);  //ÇøÓòÐÔÓÃµÄ
-	int				SearchID(DWORD dwID);            //ÇøÓòÐÔÓÃµÄ
-	int             DelNpcInNpcSet(int nNpcSettings);
-	int             SearchGSName(LPSTR szName);
-	int				SearchNameID(DWORD dwID);        //²éÕÒÍæ¼ÒµÄ
-	BOOL			IsNpcExist(int nIdx, DWORD dwId);
-	int				AddServerNpcB(int nNpcSetingIdxInfo, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX = 0, int nOffY = 0,int nBoss=0);
-	int				AddServerNpcA(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss=0,int nRodom=0,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1,int nNpcKind=-1,unsigned int nNpcDwidx=0);
-	int				AddMapNpc(int nSubWorld, void* pNpcInfo);
-    int				Addyabiao(int nNpcSetingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, int nSeries, IN int nComp,IN int nRindexid,int nBoss=0);
-    int	            AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, IN int nSeries, IN int nComp,IN int nRindexid,int nBoss=0);
-	void			Remove(int nIdx,BOOL isNeedSyn = TRUE);
-	void			RemoveAll();
-	NPC_RELATION	GetRelation(int nIdx1, int nIdx2);
-	int             GetNPCBaiTan(int nIdex);
-	int				GetNearestNpc(int nMapX, int nMapY, int nId, int nRelation);
-	static int		GetDistance(int nIdx1, int nIdx2);
-	static int		GetDistanceSquare(int nIdx1, int nIdx2);
-	static INT	    GetMapDisX(INT nIdx1, INT nIdx2);
-	static INT	    GetMapDisY(INT nIdx1, INT nIdx2);
+    KNpcSet();
+    void Init();
+    virtual int Release(void);
+    int GetNpcCount(int nKind = -1, int nCamp = -1);
+    int SearchName(char* szName);
+    int SearchNameInMap(char* szName, int inMapidx, int nType = 0);
+    int SearchGSNameInMap(char* szName, int inMapidx);
+    int SearchNpcSettingID(char* szName);
+    int SearchByTongName(char* szName);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+    int SearchID(unsigned long dwID);    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+    int DelNpcInNpcSet(int nNpcSettings);
+    int SearchGSName(char* szName);
+    int SearchNameID(unsigned long dwID);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½
+    int IsNpcExist(int nIdx, unsigned long dwId);
+    int AddServerNpcB(int nNpcSetingIdxInfo,
+                      int nSubWorld,
+                      int nRegion,
+                      int nMapX,
+                      int nMapY,
+                      int nOffX = 0,
+                      int nOffY = 0,
+                      int nBoss = 0);
+    int AddServerNpcA(int nNpcSetingIdxInfo,
+                      int nSubWorld,
+                      int nMpsX,
+                      int nMpsY,
+                      int nBoss              = 0,
+                      int nRodom             = 0,
+                      int nOffwminx          = 1,
+                      int nOffwmaxx          = 1,
+                      int nOffhminy          = 1,
+                      int nOffhmaxy          = 1,
+                      int nNpcKind           = -1,
+                      unsigned int nNpcDwidx = 0);
+    int AddMapNpc(int nSubWorld, void* pNpcInfo);
+    int Addyabiao(int nNpcSetingIdxInfo,
+                  int nSubWorld,
+                  int nMpsX,
+                  int nMpsY,
+                  int nSeries,
+                  IN int nComp,
+                  IN int nRindexid,
+                  int nBoss = 0);
+    int AddTongBan(int nNpcSettingIdxInfo,
+                   int nSubWorld,
+                   int nMpsX,
+                   int nMpsY,
+                   IN int nSeries,
+                   IN int nComp,
+                   IN int nRindexid,
+                   int nBoss = 0);
+    void Remove(int nIdx, int isNeedSyn = TRUE);
+    void RemoveAll();
+    NPC_RELATION GetRelation(int nIdx1, int nIdx2);
+    int GetNPCBaiTan(int nIdex);
+    int GetNearestNpc(int nMapX, int nMapY, int nId, int nRelation);
+    static int GetDistance(int nIdx1, int nIdx2);
+    static int GetDistanceSquare(int nIdx1, int nIdx2);
+    static INT GetMapDisX(INT nIdx1, INT nIdx2);
+    static INT GetMapDisY(INT nIdx1, INT nIdx2);
 
-	int				GetNextIdx(int nIdx);
-	// °ÑËùÓÐnpcµÄ bActivateFlag ÉèÎª FALSE (Ã¿´ÎÓÎÏ·Ñ­»·´¦ÀíËùÓÐnpcµÄactivateÖ®Ç°×öÕâ¸ö´¦Àí)
-	void			ClearActivateFlagOfAllNpc();
-	void			LoadPlayerBaseValue(LPSTR szFile);
-	int				GetPlayerWalkSpeed() { return m_cPlayerBaseValue.nWalkSpeed; };
-	int				GetPlayerRunSpeed() { return m_cPlayerBaseValue.nRunSpeed; };
-	int				GetPlayerAttackFrame() { return m_cPlayerBaseValue.nAttackFrame; };
-	int				GetPlayerHurtFrame() { return m_cPlayerBaseValue.nHurtFrame; };
-	int             CheckForBit(int *nVal,char* mVal,int Model=1);
-	BOOL            CheckThisNpc(int nSetings,char *nKey);
+    int GetNextIdx(int nIdx);
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ bActivateFlag ï¿½ï¿½Îª FALSE (Ã¿ï¿½ï¿½ï¿½ï¿½Ï·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½activateÖ®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    void ClearActivateFlagOfAllNpc();
+    void LoadPlayerBaseValue(const char* szFile);
+    int GetPlayerWalkSpeed() { return m_cPlayerBaseValue.nWalkSpeed; };
+    int GetPlayerRunSpeed() { return m_cPlayerBaseValue.nRunSpeed; };
+    int GetPlayerAttackFrame() { return m_cPlayerBaseValue.nAttackFrame; };
+    int GetPlayerHurtFrame() { return m_cPlayerBaseValue.nHurtFrame; };
+    int CheckForBit(int* nVal,const char* mVal, int Model = 1);
+    int CheckThisNpc(int nSetings, const char* nKey);
 
-	KNpcTemplate*	GetTemplate(INT nNpcTemplateId,INT nLevel);
+    KNpcTemplate* GetTemplate(INT nNpcTemplateId, INT nLevel);
 
-	int				GetPlayerStandFrame(BOOL bMale) 
-	{ 
-		if (bMale)
-			return m_cPlayerBaseValue.nStandFrame[0];
-		else
-			return m_cPlayerBaseValue.nStandFrame[1];
-	};
-	int				GetPlayerWalkFrame(BOOL bMale)
-	{
-		if (bMale)
-			return m_cPlayerBaseValue.nWalkFrame[0];
-		else
-			return m_cPlayerBaseValue.nWalkFrame[1];
-	};
-	int				GetPlayerRunFrame(BOOL bMale)
-	{
-		if (bMale)
-			return m_cPlayerBaseValue.nRunFrame[0];
-		else
-			return m_cPlayerBaseValue.nRunFrame[1];
-	};
-	BOOL			IsNpcRequestExist(DWORD	dwID);
-	void			InsertNpcRequest(DWORD dwID);
-	void			RemoveNpcRequest(DWORD dwID);
-	int				GetRequestIndex(DWORD dwID);
-	// Ìí¼ÓÒ»¸ö¿Í»§¶Ënpc£¨ÐèÒªÉè¶¨ClientNpcID£©
-	int				AddClientNpc(int nTemplateID, int nRegionX, int nRegionY, int nMpsX, int nMpsY, int nNo);
-	// ´ÓnpcÊý×éÖÐÑ°ÕÒÊôÓÚÄ³¸öregionµÄ client npc £¬Ìí¼Ó½øÈ¥
-	void			InsertNpcToRegion(int nRegionIdx);
-	// ²éÕÒÄ³¸öClientIDµÄnpcÊÇ·ñ´æÔÚ
-	int				SearchClientID(KClientNpcID sClientID);
-	// Ä³×ù±êÉÏ¾«È·²éÕÒNpc£¬¿Í»§¶Ë×¨ÓÃ
-	int				SearchNpcAt(int nX, int nY, int nRelation, int nRange);
-	void			CheckBalance();
-	int				GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount);	// »ñµÃÖÜÎ§Íæ¼ÒÁÐ±í(ÓÃÓÚ¶ÓÎéÑûÇëÁÐ±í)
-	void			GetAroundOpenCaptain(int nCamp);		// »ñµÃÖÜÎ§Í¬ÕóÓªµÄÒÑ¿ª·Å¶ÓÎé¶Ó³¤ÁÐ±í
-	int				GetAroundPlayer(KUiPlayerItem *pList, int nCount);	// »ñµÃÖÜÎ§Íæ¼ÒÁÐ±í(ÓÃÓÚÁÐ±í)
+    int GetPlayerStandFrame(int bMale)
+    {
+        if (bMale)
+            return m_cPlayerBaseValue.nStandFrame[0];
+        else
+            return m_cPlayerBaseValue.nStandFrame[1];
+    };
+    int GetPlayerWalkFrame(int bMale)
+    {
+        if (bMale)
+            return m_cPlayerBaseValue.nWalkFrame[0];
+        else
+            return m_cPlayerBaseValue.nWalkFrame[1];
+    };
+    int GetPlayerRunFrame(int bMale)
+    {
+        if (bMale)
+            return m_cPlayerBaseValue.nRunFrame[0];
+        else
+            return m_cPlayerBaseValue.nRunFrame[1];
+    };
+    int IsNpcRequestExist(unsigned long dwID);
+    void InsertNpcRequest(unsigned long dwID);
+    void RemoveNpcRequest(unsigned long dwID);
+    int GetRequestIndex(unsigned long dwID);
+    // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½Òªï¿½è¶¨ClientNpcIDï¿½ï¿½
+    int AddClientNpc(int nTemplateID, int nRegionX, int nRegionY, int nMpsX, int nMpsY, int nNo);
+    // ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½regionï¿½ï¿½ client npc ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½È¥
+    void InsertNpcToRegion(int nRegionIdx);
+    // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ClientIDï¿½ï¿½npcï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+    int SearchClientID(KClientNpcID sClientID);
+    // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½È·ï¿½ï¿½ï¿½ï¿½Npcï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½×¨ï¿½ï¿½
+    int SearchNpcAt(int nX, int nY, int nRelation, int nRange);
+    void CheckBalance();
+    int GetAroundPlayerForTeamInvite(KUiPlayerItem* pList, int nCount);  // ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½(ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½)
+    void GetAroundOpenCaptain(int nCamp);  // ï¿½ï¿½ï¿½ï¿½ï¿½Î§Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ñ¿ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ð±ï¿½
+    int GetAroundPlayer(KUiPlayerItem* pList, int nCount);  // ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½)
 
-	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
-	void			SetShowNameFlag(BOOL bFlag);
-	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
-	BOOL			CheckShowName();
-	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
-	void			SetShowChatFlag(BOOL bFlag);
-	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
-	BOOL			CheckShowChat();
-	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
-	void			SetShowLifeFlag(BOOL bFlag);
-	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
-	BOOL			CheckShowLife();
-	// Éè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦  bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
-	void			SetShowManaFlag(BOOL bFlag);
-	// ÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
-	BOOL			CheckShowMana();
+    // ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+    void SetShowNameFlag(int bFlag);
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+    int CheckShowName();
+    // ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+    void SetShowChatFlag(int bFlag);
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+    int CheckShowChat();
+    // ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+    void SetShowLifeFlag(int bFlag);
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+    int CheckShowLife();
+    // ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
+    void SetShowManaFlag(int bFlag);
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
+    int CheckShowMana();
+
 private:
-	void			SetID(int m_nIndex);
-	int				FindFreeNpcSet();
-
+    void SetID(int m_nIndex);
+    int FindFreeNpcSet();
 
     // Add By Freeway Chen in 2003.7.14
 private:
-    // [µÚÒ»¸öNPC.m_Kind][µÚ¶þ¸öNPC.m_Kind][µÚÒ»¸öNPC.m_CurrentCamp][µÚ¶þ¸ö¸öNPC.m_CurrentCamp]
-    //unsigned char m_RelationTable[kind_num][kind_num][camp_num][camp_num];
-    // Éú³É¹ØÏµ±í
-    //int GenRelationTable();
+    // [ï¿½ï¿½Ò»ï¿½ï¿½NPC.m_Kind][ï¿½Ú¶ï¿½ï¿½ï¿½NPC.m_Kind][ï¿½ï¿½Ò»ï¿½ï¿½NPC.m_CurrentCamp][ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½NPC.m_CurrentCamp]
+    // unsigned char m_RelationTable[kind_num][kind_num][camp_num][camp_num];
+    // ï¿½ï¿½ï¿½É¹ï¿½Ïµï¿½ï¿½
+    // int GenRelationTable();
     NPC_RELATION GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1, NPCCAMP Camp2);
-
 };
 
 // modify by Freeway Chen in 2003.7.14
-// È·¶¨Á½¸öNPCÖ®¼äµÄÕ½¶·¹ØÏµ
+// È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCÖ®ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ
 extern KNpcSet NpcSet;
 #endif

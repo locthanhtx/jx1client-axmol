@@ -55,7 +55,15 @@ KuigetStringInUI::~KuigetStringInUI()
 }
 
 //����ȷ��������
-KuigetStringInUI * KuigetStringInUI::create(char* pszTitle,int nMinLen, int nMaxLen,const char* pszCallback,const char* pszError,int bNum,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun,int outKind)
+KuigetStringInUI* KuigetStringInUI::create(const char* pszTitle,
+                                           int nMinLen,
+                                           int nMaxLen,
+                                           const char* pszCallback,
+                                           const char* pszError,
+                                           int bNum,
+                                           Ref* callbackListener,
+                                           const std::function<void(ax::Node*)>& callfun,
+                                           int outKind)
 {
 	KuigetStringInUI * popLayer = KuigetStringInUI::create();
 	//popLayer->setTitle(title);
@@ -127,7 +135,7 @@ bool KuigetStringInUI::init()
 	return true;
 }
 
-void KuigetStringInUI::addDialogData(char* pszTitle)
+void KuigetStringInUI::addDialogData(const char* pszTitle)
 {
 	if  (!g_pCoreShell) return;
 

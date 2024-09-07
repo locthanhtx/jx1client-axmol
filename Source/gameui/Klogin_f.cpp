@@ -151,7 +151,7 @@ bool Klogin_f::init()
 	if (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);//这个市用来标记缓存的 不需要转换编码
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -176,7 +176,7 @@ bool Klogin_f::init()
 	if (GameConfig)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -201,7 +201,7 @@ bool Klogin_f::init()
 	if (Rep)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -226,7 +226,7 @@ bool Klogin_f::init()
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -277,10 +277,10 @@ bool Klogin_f::init()
 		// 	mainlayer->addChild(Canbgspr,0);
 		// }
 		// pMenu->alignItemsVertically();     //设置为竖排排列
-		//pMenu->alignItemsHorizontally();//默认间隔是kDefaultPadding=5  
-		//pMenu->alignItemsHorizontallyWithPadding(20);//指定间隔  
-		//pMenu->alignItemsVertically();//默认间隔也是kDefaultPadding=5 
-		//pMenu->alignItemsInRows(3,2,1,NULL);   
+		//pMenu->alignItemsHorizontally();//默认间隔是kDefaultPadding=5
+		//pMenu->alignItemsHorizontallyWithPadding(20);//指定间隔
+		//pMenu->alignItemsVertically();//默认间隔也是kDefaultPadding=5
+		//pMenu->alignItemsInRows(3,2,1,NULL);
 		pMenu->alignItemsVerticallyWithPadding(5);//指定间隔
 		pMenu->setPosition(ax::Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));//ax::Vec2::ZERO
 		m_sprCount ++;
@@ -311,7 +311,7 @@ bool Klogin_f::init()
 			this->addChild(ySprite,2,m_sprCount);
 			char nySprFilePath[64]={0};
 			Animation*animation = Animation::create();//创建一个动画
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);

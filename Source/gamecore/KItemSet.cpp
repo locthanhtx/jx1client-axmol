@@ -7,8 +7,8 @@
 KItemSet	ItemSet;
 /*!*****************************************************************************
 // Function		: KItemSet::KItemSet
-// Purpose		: 
-// Return		: 
+// Purpose		:
+// Return		:
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
@@ -40,8 +40,8 @@ KItemSet::~KItemSet()
 
 /*!*****************************************************************************
 // Function		: KItemSet::Init
-// Purpose		: 
-// Return		: void 
+// Purpose		:
+// Return		: void
 // Comments		:
 // Author		: Spe  ά��ĥ������
 *****************************************************************************/
@@ -87,7 +87,7 @@ void KItemSet::Init()
 	IniFile.GetInteger("Defend", "Ring1", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_ring1]);
 	IniFile.GetInteger("Defend", "Ring2", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_ring2]);
 	IniFile.GetInteger("Defend", "Pendant", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_pendant]);
-	IniFile.GetInteger("Defend", "Horse", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_horse]);  
+	IniFile.GetInteger("Defend", "Horse", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_horse]);
 	IniFile.GetInteger("Defend", "Pifeng", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_pifeng]);
 	IniFile.GetInteger("Defend", "Yinjian", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_yinjian]);
 	IniFile.GetInteger("Defend", "Shipin", 0, &m_nItemAbradeRate[enumAbradeDefend][itempart_shiping]);
@@ -123,20 +123,20 @@ void KItemSet::Init()
     IniFile.GetInteger("Equip", "Pifeng", 64, &m_nItemAbradeRate[enumAbradeEquip][itempart_pifeng]);
 	IniFile.GetInteger("Equip", "Yinjian", 64, &m_nItemAbradeRate[enumAbradeEquip][itempart_yinjian]);
 	IniFile.GetInteger("Equip", "Shipin", 64, &m_nItemAbradeRate[enumAbradeEquip][itempart_shiping]);
-	IniFile.GetInteger("Equip", "Mask", 64, &m_nItemAbradeRate[enumAbradeEquip][itempart_mask]);	
+	IniFile.GetInteger("Equip", "Mask", 64, &m_nItemAbradeRate[enumAbradeEquip][itempart_mask]);
 	IniFile.Clear();
 	//printf(" KItemSet::Init(%d) OK!!!..\n",MAX_ITEM);
 }
 
 /*!*****************************************************************************
 // Function		: KItemSet::SearchID
-// Purpose		: 
-// Return		: int 
-// Argumant		: DWORD dwID
+// Purpose		:
+// Return		: int
+// Argumant		: unsigned long dwID
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-int KItemSet::SearchID(DWORD dwID)
+int KItemSet::SearchID(unsigned long dwID)
 {
 	int nIdx = 0;
 
@@ -149,7 +149,7 @@ int KItemSet::SearchID(DWORD dwID)
 			break;
 	}
 	return nIdx;
-	
+
 }
 //������Ʒ
 int KItemSet::Add(KItem* pItem)
@@ -174,7 +174,7 @@ int KItemSet::Add(KItem* pItem)
 //************************************
 // Method:    Add
 // FullName:  KItemSet::Add   ˢ������ԵĻƽ�װ��  ��IN int nId  �ƽ�ID ��
-// Access:    public 					 
+// Access:    public
 // Returns:   int
 // Qualifier:
 // Parameter: IN int nId
@@ -187,20 +187,20 @@ int KItemSet::AddRondomGold(IN int nGoldIdx , IN int* pnMagicLevel , \
 				  int nYear, int nMonth, int nDay, int nHour,int nMin,\
 				  IN int* pnRMagicLevel,\
 				  IN int nLevel,IN int nLuck, IN int nDetailType, \
-				  IN int nParticular,IN int nStackNum,IN int nVersion,int nIsPlatina,IN BOOL nIsLogin,IN UINT nRandomSeed)
+				  IN int nParticular,IN int nStackNum,IN int nVersion,int nIsPlatina,IN int nIsLogin,IN UINT nRandomSeed)
 {
 //	KASSERT(NULL != pItem);
-	
+
 	int i = FindFreeItemSet();
-	
+
 	if (i<=0)
 		return 0;
-	
+
 	KItem*	pItem = &Item[i]; //�²��� û�д���
 
 	pItem->m_GeneratorParam.nVersion    = nVersion;      // �汾
 	pItem->m_GeneratorParam.uRandomSeed = nRandomSeed;   // �������
-    
+
 	if (nLevel<=0)
 		nLevel = 1;
 
@@ -208,11 +208,11 @@ int KItemSet::AddRondomGold(IN int nGoldIdx , IN int* pnMagicLevel , \
 
     /*if (pnRMagicLevel>0 || pnBMagicLevel>0)              // ���� �� ��ʯ
 	{
-	   if  (nIsPlatina==0) //�ƽ� 
+	   if  (nIsPlatina==0) //�ƽ�
            ItemGen.GetGoldItemByRong(nDetailType, nParticular, nSeries, nLevel, pnMagicLevel,pnRMagicLevel, nLuck, nVersion, pItem, nEnChance, nRongpiont,nId,pnBMagicLevel,nIsLogin);
 	   else	//�׽�
 		   ItemGen.GetPlatinaItemByRong(nDetailType, nParticular, nSeries, nLevel, pnMagicLevel,pnRMagicLevel, nLuck, nVersion, pItem, nEnChance, nRongpiont,nId,pnBMagicLevel,nIsLogin);
-	} 
+	}
 	else
 	{
 		if (nIsPlatina==0) //�ƽ�
@@ -234,7 +234,7 @@ int KItemSet::AddRondomGold(IN int nGoldIdx , IN int* pnMagicLevel , \
 //************************************
 // Method:    Add
 // FullName:  KItemSet::Add   ˢ�ƽ�װ��  ��IN int nId  �ƽ�ID ��
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:
 // Parameter: IN int nId
@@ -247,30 +247,30 @@ int KItemSet::AddGold(IN int nId , IN int* pnMagicLevel , \
 				  int nYear, int nMonth, int nDay, int nHour,int nMin,\
 				  IN int* pnRMagicLevel,IN int* pnBMagicLevel,\
 				  IN int nLevel,IN int nLuck, IN int nDetailType, \
-				  IN int nParticular,IN int nStackNum,IN int nVersion,int nIsPlatina,IN BOOL nIsLogin,IN UINT nRandomSeed)
+				  IN int nParticular,IN int nStackNum,IN int nVersion,int nIsPlatina,IN int nIsLogin,IN UINT nRandomSeed)
 {
 //	KASSERT(NULL != pItem);
-	
+
 	int i = FindFreeItemSet();
-	
+
 	if (i<=0)
 		return 0;
-	
+
 	KItem*	pItem = &Item[i]; //�²��� û�д���
 
 	pItem->m_GeneratorParam.nVersion    = nVersion;      // �汾
 	pItem->m_GeneratorParam.uRandomSeed = nRandomSeed;   // �������
-    
+
 	if (nLevel<=0)
 		nLevel = 1;
 
     if (*pnRMagicLevel>0 || *pnBMagicLevel>0)              // ���� �� ��ʯ
 	{
-	   if  (nIsPlatina==0) //�ƽ� 
+	   if  (nIsPlatina==0) //�ƽ�
            ItemGen.GetGoldItemByRong(nDetailType, nParticular, nSeries, nLevel, pnMagicLevel,pnRMagicLevel, nLuck, nVersion, pItem, nEnChance, nRongpiont,nId,pnBMagicLevel,nIsLogin);
 	   else	//�׽�
 		   ItemGen.GetPlatinaItemByRong(nDetailType, nParticular, nSeries, nLevel, pnMagicLevel,pnRMagicLevel, nLuck, nVersion, pItem, nEnChance, nRongpiont,nId,pnBMagicLevel,nIsLogin);
-	} 
+	}
 	else
 	{
 		if (nIsPlatina==0) //�ƽ�
@@ -290,7 +290,7 @@ int KItemSet::AddGold(IN int nId , IN int* pnMagicLevel , \
 //************************************
 // Method:    Add
 // FullName:  KItemSet::Add
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:
 // Parameter: IN int nId
@@ -303,16 +303,16 @@ int KItemSet::AddRong(int Goidid, int nSeries, \
 				  int nParticularType, int* pnMagicLevel,int* rnMagicLevel,int* BnMagicLevel, \
 				  int nVersion, UINT nRandomSeed,int nStackNum, int nEnChance,\
 				  int nRongID,int nPoint,int mIsDaZhao,KMagicAttrib *nItemMag,\
-				  int nYear, int nMonth, int nDay, int nHour,int nMin,int IsWhere,BOOL nIsLoggin)
+				  int nYear, int nMonth, int nDay, int nHour,int nMin,int IsWhere,int nIsLoggin)
 
-{	
+{
 	int i = FindFreeItemSet();	//���ҿ����õ�װ���ڵ�
     if (i<=0)
 	return 0;
 //	int nPoint=0; //���ܴ�����װ
 	KItem*	pItem = &Item[i];
 
-	pItem->m_GeneratorParam.nVersion    = nVersion;    //�汾 
+	pItem->m_GeneratorParam.nVersion    = nVersion;    //�汾
 	pItem->m_GeneratorParam.uRandomSeed = nRandomSeed; //�������
 
 	if (nLevel<=0)
@@ -334,7 +334,7 @@ int KItemSet::AddRong(int Goidid, int nSeries, \
 }
 /*!*****************************************************************************
 // Function		: KItemSet::Add   ������װ�õ�   ��� ����   ---�������װ�� �����õĺ���
-// Purpose		: 
+// Purpose		:
 // Return		: int ������
 // Argumant		: int �������ͣ�װ����ҩƷ����ʯ��������
 // Argumant		: int ħ���ȼ������Ӧ��װ��������һ��װ������ɫװ��������ȡ�����
@@ -354,7 +354,7 @@ int KItemSet::AddOther(int nItemGenre, int nSeries, \
 				  IN int* pnBsLevel,IN int IsWhere,IN int nIsLogin)
 {
 	int i = FindFreeItemSet();
-	
+
 	if (i <= 0)
 		return 0;
 
@@ -368,7 +368,7 @@ int KItemSet::AddOther(int nItemGenre, int nSeries, \
 
 	switch(nItemGenre)          //���Դ����װ������
 	{
-	case item_equip:            // װ����0	 
+	case item_equip:            // װ����0
          ItemGen.Gen_EquipmentRong(nDetailType,nParticularType, nSeries, nLevel, pnMagicLevel,pnRMagicLevel, nLuck, nVersion, pItem, nEnChance,nPoint, nRongpiont,0,0,NULL,IsWhere,nIsLogin);
 		break;
 	case item_medicine:			// ҩƷ��1
@@ -390,7 +390,7 @@ int KItemSet::AddOther(int nItemGenre, int nSeries, \
 		break;
 	default:
 		break;
-	}	
+	}
 #ifdef _SERVER
 	SetID(i);
 #endif
@@ -409,10 +409,10 @@ int KItemSet::AddCilentItem(int nItemGenre, int nSeries, \
 			  IN int* pnMagType,IN int* pnMagVala,IN int* pnMagValb,IN int* pnMagValc,IN int IsWhere)
 {
 	int i = FindFreeItemSet();
-	
+
 	if (i<=0)
 		return 0;
-	
+
 	KItem*	pItem = &Item[i];
     //int Goidid=0;
 	pItem->m_GeneratorParam.nVersion    = nVersion;
@@ -452,7 +452,7 @@ int KItemSet::AddCilentItem(int nItemGenre, int nSeries, \
 		break;
 	default:
 		break;
-	}	
+	}
 #ifdef _SERVER
 	SetID(i);
 #endif
@@ -465,8 +465,8 @@ int KItemSet::AddCilentItem(int nItemGenre, int nSeries, \
 
 /*!*****************************************************************************
 // Function		: KItemSet::FindFree
-// Purpose		: 
-// Return		: int 
+// Purpose		:
+// Return		: int
 // Comments		:
 // Author		: Spe
 *****************************************************************************/

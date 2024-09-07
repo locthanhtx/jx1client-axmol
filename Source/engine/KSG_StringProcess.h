@@ -14,15 +14,15 @@
 USING_NS_AX;
 #include "KbugInfo.h"
 
-int32_t KSG_StringGetInt(const char **ppcszString, int32_t nDefaultValue);
-bool KSG_StringSkipSymbol(const char **ppcszString, int32_t nSymbol);
+int KSG_StringGetInt(const char **ppcszString, int nDefaultValue);
+bool KSG_StringSkipSymbol(const char **ppcszString, int nSymbol);
 
-inline int32_t KSG_StringGetInt(char **ppszString, int32_t nDefaultValue)
+inline int KSG_StringGetInt(char **ppszString, int nDefaultValue)
 {
     return KSG_StringGetInt((const char **)ppszString, nDefaultValue);
 }
 
-inline bool KSG_StringSkipSymbol(char **ppszString, int32_t nSymbol)
+inline bool KSG_StringSkipSymbol(char **ppszString, int nSymbol)
 {
     return KSG_StringSkipSymbol((const char **)ppszString, nSymbol);
 }

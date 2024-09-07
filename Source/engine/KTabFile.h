@@ -11,70 +11,96 @@
 #include "cocos2d.h"
 #include "KMemClass.h"
 #include "KITabFile.h"
-//#include "KTabFileCtrl.h"
+// #include "KTabFileCtrl.h"
 //---------------------------------------------------------------------------
 typedef struct tagTabOffset
 {
-	uint32_t		dwOffset;
-	uint32_t		dwLength;
+    unsigned int dwOffset;
+    unsigned int dwLength;
 } TABOFFSET;
 
-class  KTabFile:public KITabFile
+class KTabFile 
 {
 private:
-	int32_t			m_Width;
-	int32_t			m_Height;
-	KMemClass	m_Memory;
-	KMemClass	m_OffsetTable;
-	uint32_t	dwSize;
-	//uint32_t		dwFileIdx;
-	//void *		Buffer;
-	//char        nMemKey[32];
+    int m_Width;
+    int m_Height;
+    KMemClass m_Memory;
+    KMemClass m_OffsetTable;
+    unsigned int dwSize;
+    // unsigned int		dwFileIdx;
+    // void *		Buffer;
+    // const char        nMemKey[32];
 private:
-	void		CreateTabOffset();
-	BOOL		GetValue(int32_t nRow, int32_t nColumn, char * lpRString, uint32_t dwSize);
-	int32_t			Str2Col(char * szColumn);
-public:
-	KTabFile();
-	~KTabFile();
-//	KTabFileCtrl *TabFileCtrl;
-	BOOL		Load(char * FileName/*,char * mMemKey=NULL*/);
-	bool        CreatFile(char * FileName);
-	BOOL		Save(char * FileName){return false;}; //�޷�����
-	BOOL		LoadPack( char * FileName);
-	//uint32_t       GetFileDwIdx(){ return dwFileIdx;}
+    void CreateTabOffset();
+    int GetValue(int nRow, int nColumn, char* lpRString, unsigned int dwSize);
+    int Str2Col(const char* szColumn);
 
-	uint32_t		GetSize(){ return dwSize;};
-	int32_t			FindRow( char * szRow);//������1Ϊ����ֵ
-	int32_t			FindColumn( char * szColumn);//������1Ϊ����ֵ
-	void		Col2Str(int32_t nCol,  char * szColumn);
-	int32_t			GetWidth() { return m_Width;};
-	int32_t			GetHeight() { return m_Height;};
-	// int32_t			GetWidth() { return 1;};
-	// int32_t			GetHeight() { return 1;};
-	BOOL		GetString(int32_t nRow, char * szColumn, char * lpDefault, char * lpRString, uint32_t dwSize, BOOL bColumnLab = TRUE);
-	BOOL		GetString(char * szRow, int32_t szColumn, char * lpDefault, char * lpRString, uint32_t dwSize, BOOL bColumnLab = TRUE);
-	BOOL		GetString(int32_t nRow, int32_t nColumn, char * lpDefault, char * lpRString, uint32_t dwSize);
-	BOOL		GetString(char * szRow, char * szColumn, char * lpDefault, char * lpRString, uint32_t dwSize);
-	BOOL		GetInteger(int32_t nRow, char * szColumn, int32_t nDefault, int32_t *pnValue, BOOL bColumnLab = TRUE);
-	BOOL		GetInteger6(int32_t nRow, char * szColumna,char * szColumnb,char * szColumnc,char * szColumnd,char * szColumne,char * szColumnf,int32_t nDefault, int32_t *pnValue, BOOL bColumnLab= TRUE);
-	BOOL		GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char * szColumnc,int32_t nDefault, int32_t *pnValue, BOOL bColumnLab= TRUE);
-	BOOL		GetInteger(int32_t nRow, int32_t nColumn, int32_t nDefault, int32_t *pnValue);
-	BOOL        GetIntegerDW(int32_t nRow, char * szColumn, int32_t nDefault,uint32_t *pnValue, BOOL bColumnLab = TRUE);
-	BOOL		GetInteger(char * szRow, char * szColumn, int32_t nDefault, int32_t *pnValue);
-	BOOL		GetFloat(int32_t nRow, char * szColumn, float fDefault, float *pfValue, BOOL bColumnLab = TRUE);
-	BOOL		GetDouble(int32_t nRow, char * szColumn, double fDefault, double *pfValue, BOOL bColumnLab = TRUE);
-	BOOL		GetDword(int32_t nRow, char * szColumn, uint32_t fDefault, uint32_t *pfValue, BOOL bColumnLab = TRUE);
-//	BOOL		GetFloat(char * szRow, char * szColumn, float fDefault, float *pfValue);
-	BOOL		GetFloat(int32_t nRow, int32_t nColumn, float fDefault, float *pfValue);
-	BOOL		GetFloat(char * szRow, char * szColumn, float fDefault, float *pfValue);
-	void        GetInt2(int32_t nRow, int32_t szColumn, int32_t *pRect);
-	void        GetInt15(int32_t nRow, int32_t szColumn, int32_t *pRect);
-	void        GetInt15s(int32_t nRow, char * szColumn, int32_t *pRect);
-	void        GetInt3(int32_t nRow, int32_t szColumn, int32_t *pRect);
-	void        GetInt2s(int32_t nRow, char * szColumn, int32_t *pRect);
-	void        GetInt3s(int32_t nRow, char * szColumn, int32_t *pRect);
-	void		Clear();
+public:
+    KTabFile();
+    ~KTabFile();
+    //	KTabFileCtrl *TabFileCtrl;
+    int Load(const char* FileName /*,const char * mMemKey=NULL*/);
+    bool CreatFile(const char* FileName);
+    int Save(const char* FileName) { return false; };  // �޷�����
+    //int LoadPack(const char* FileName);
+    // unsigned int       GetFileDwIdx(){ return dwFileIdx;}
+
+    unsigned int GetSize() { return dwSize; };
+    int FindRow(const char* szRow);        // ������1Ϊ����ֵ
+    int FindColumn(const char* szColumn);  // ������1Ϊ����ֵ
+    void Col2Str(int nCol, char* szColumn);
+    int GetWidth() { return m_Width; };
+    int GetHeight() { return m_Height; };
+    // int			GetWidth() { return 1;};
+    // int			GetHeight() { return 1;};
+    int GetString(int nRow,
+                  const char* szColumn,
+                  const char* lpDefault,
+                  char* lpRString,
+                  unsigned int dwSize,
+                  int bColumnLab = TRUE);
+    int GetString(const char* szRow,
+                  int szColumn,
+                  const char* lpDefault,
+                  char* lpRString,
+                  unsigned int dwSize,
+                  int bColumnLab = TRUE);
+    int GetString(int nRow, int nColumn, const char* lpDefault, char* lpRString, unsigned int dwSize);
+    int GetString(const char* szRow, const char* szColumn, const char* lpDefault, char* lpRString, unsigned int dwSize);
+    int GetInteger(int nRow, const char* szColumn, int nDefault, int* pnValue, int bColumnLab = TRUE);
+    int GetInteger6(int nRow,
+                    const char* szColumna,
+                    const char* szColumnb,
+                    const char* szColumnc,
+                    const char* szColumnd,
+                    const char* szColumne,
+                    const char* szColumnf,
+                    int nDefault,
+                    int* pnValue,
+                    int bColumnLab = TRUE);
+    int GetInteger3(int nRow,
+                    const char* szColumna,
+                    const char* szColumnb,
+                    const char* szColumnc,
+                    int nDefault,
+                    int* pnValue,
+                    int bColumnLab = TRUE);
+    int GetInteger(int nRow, int nColumn, int nDefault, int* pnValue);
+    int GetIntegerDW(int nRow, const char* szColumn, int nDefault, unsigned int* pnValue, int bColumnLab = TRUE);
+    int GetInteger(const char* szRow, const char* szColumn, int nDefault, int* pnValue);
+    int GetFloat(int nRow, const char* szColumn, float fDefault, float* pfValue, int bColumnLab = TRUE);
+    int GetDouble(int nRow, const char* szColumn, double fDefault, double* pfValue, int bColumnLab = TRUE);
+    int GetDword(int nRow, const char* szColumn, unsigned int fDefault, unsigned int* pfValue, int bColumnLab = TRUE);
+    //	int		GetFloat(const char * szRow, const char * szColumn, float fDefault, float *pfValue);
+    int GetFloat(int nRow, int nColumn, float fDefault, float* pfValue);
+    int GetFloat(const char* szRow, const char* szColumn, float fDefault, float* pfValue);
+    void GetInt2(int nRow, int szColumn, int* pRect);
+    void GetInt15(int nRow, int szColumn, int* pRect);
+    void GetInt15s(int nRow, const char* szColumn, int* pRect);
+    void GetInt3(int nRow, int szColumn, int* pRect);
+    void GetInt2s(int nRow, const char* szColumn, int* pRect);
+    void GetInt3s(int nRow, const char* szColumn, int* pRect);
+    void Clear();
 };
 //---------------------------------------------------------------------------
 #endif

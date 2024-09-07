@@ -97,7 +97,7 @@ bool Klogin::init()
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -122,7 +122,7 @@ bool Klogin::init()
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -229,7 +229,7 @@ bool Klogin::init()
 			this->addChild(ySprite,2,m_sprCount);
 			char nySprFilePath[64]={0};
 			Animation*animation = Animation::create();//����һ������
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
@@ -325,7 +325,7 @@ bool Klogin::init()
 			/*char nSprFilePath[64]={0};
 			Animation*animation = Animation::create();//����һ������
             //std:string nFileName ="\\spr\\skill\\1502\\kl\\kl_150_jiankun_fu.spr";
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,i);

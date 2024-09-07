@@ -53,7 +53,7 @@ void	KPlayerTeam::ReleaseList()
 }
 
 
-BOOL	KPlayerTeam::ApplyCreate()//char *lpszTeamName)
+int	KPlayerTeam::ApplyCreate()//char *lpszTeamName)
 {
 //	if (!lpszTeamName || !lpszTeamName[0])
 //		return FALSE;
@@ -75,7 +75,7 @@ BOOL	KPlayerTeam::ApplyCreate()//char *lpszTeamName)
 //---------------------------------------------------------------------------
 //	���ܣ�����������
 //---------------------------------------------------------------------------
-void	KPlayerTeam::InviteAdd(DWORD dwNpcID)
+void	KPlayerTeam::InviteAdd(unsigned long dwNpcID)
 {
 	if (!this->m_nFlag || this->m_nFigure != TEAM_CAPTAIN || g_Team[0].m_nState != Team_S_Open)
 		return;
@@ -145,7 +145,7 @@ void	KPlayerTeam::ReplyInvite(int nIdx, int nResult)
 //---------------------------------------------------------------------------
 //	���ܣ��趨�Ƿ��Զ��ܾ����˵ļ�����������
 //---------------------------------------------------------------------------
-void	KPlayerTeam::SetAutoRefuseInvite(BOOL bFlag)
+void	KPlayerTeam::SetAutoRefuseInvite(int bFlag)
 {
 	KSystemMessage	sMsg;
 	sMsg.eType = SMT_NORMAL;
@@ -170,7 +170,7 @@ void	KPlayerTeam::SetAutoRefuseInvite(BOOL bFlag)
 //---------------------------------------------------------------------------
 //	���ܣ�����Ƿ��Զ��ܾ����˵ļ�����������״̬
 //---------------------------------------------------------------------------
-BOOL	KPlayerTeam::GetAutoRefuseState()
+int	KPlayerTeam::GetAutoRefuseState()
 {
 	return m_bAutoRefuseInviteFlag;
 }
@@ -247,7 +247,7 @@ void	KPlayerTeam::UpdateamUI()
 //---------------------------------------------------------------------------
 //	���ܣ����������б���ɾ��ĳ��������
 //---------------------------------------------------------------------------
-void	KPlayerTeam::DeleteOneFromApplyList(DWORD dwNpcID)
+void	KPlayerTeam::DeleteOneFromApplyList(unsigned long dwNpcID)
 {
 	for (int i = 0; i < MAX_TEAM_APPLY_LIST; ++i)
 	{
@@ -314,11 +314,11 @@ int		KTeam::FindFree()
 //	���ܣ�Ѱ�Ҿ���ָ��npc id�Ķ�Ա���������ӳ���
 //	����ֵ����Ա�� m_nMember �����е�λ��
 //---------------------------------------------------------------------------
-int		KTeam::FindMemberID(DWORD dwNpcID)
+int		KTeam::FindMemberID(unsigned long dwNpcID)
 {
 	for (int i = 0; i <	MAX_TEAM_MEMBER; ++i)
 	{
-		if (m_nMember[i] > 0 && (DWORD)m_nMember[i] == dwNpcID)
+		if (m_nMember[i] > 0 && (unsigned long)m_nMember[i] == dwNpcID)
 			return i;
 	}
 	return -1;
@@ -326,7 +326,7 @@ int		KTeam::FindMemberID(DWORD dwNpcID)
 //---------------------------------------------------------------------------
 //	���ܣ��趨����״̬���򿪣���������³�Ա��
 //---------------------------------------------------------------------------
-BOOL	KTeam::SetTeamOpen()
+int	KTeam::SetTeamOpen()
 {
 	m_nState = Team_S_Open;
 	Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateInterface();
@@ -337,7 +337,7 @@ BOOL	KTeam::SetTeamOpen()
 //---------------------------------------------------------------------------
 //	���ܣ��趨����״̬���رգ�����������³�Ա��
 //---------------------------------------------------------------------------
-BOOL	KTeam::SetTeamClose()
+int	KTeam::SetTeamClose()
 {
 	m_nState = Team_S_Close;
 	Player[CLIENT_PLAYER_INDEX].m_cTeam.UpdateInterface();
@@ -355,7 +355,7 @@ int	KTeam::CalcCaptainPower()
 //---------------------------------------------------------------------------
 //	���ܣ��ͻ��˴���һ֧���飨�ͻ���ֻ���ܴ���һ֧�Ķ��飬���ڱ�����ң�
 //---------------------------------------------------------------------------
-void	KTeam::CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLevel, DWORD nTeamServerID)
+void	KTeam::CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLevel, unsigned long nTeamServerID)
 {
 	Release();
 	m_nCaptain = nCaptainNpcID;
@@ -367,7 +367,7 @@ void	KTeam::CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLev
 //---------------------------------------------------------------------------
 //	���ܣ����һ�������Ա
 //---------------------------------------------------------------------------
-BOOL	KTeam::AddMember(DWORD dwNpcID, int nLevel, char *lpszNpcName)
+int	KTeam::AddMember(unsigned long dwNpcID, int nLevel, char *lpszNpcName)
 {
 	for (int i = 0; i < MAX_TEAM_MEMBER;++i)
 	{
@@ -390,9 +390,9 @@ BOOL	KTeam::AddMember(DWORD dwNpcID, int nLevel, char *lpszNpcName)
 //---------------------------------------------------------------------------
 //	���ܣ��ͻ���ɾ��һ�������Ա
 //---------------------------------------------------------------------------
-void	KTeam::DeleteMember(DWORD dwNpcID)
+void	KTeam::DeleteMember(unsigned long dwNpcID)
 {
-	if (dwNpcID == (DWORD)m_nCaptain)
+	if (dwNpcID == (unsigned long)m_nCaptain)
 	{
 		Release();
 		return;
@@ -400,7 +400,7 @@ void	KTeam::DeleteMember(DWORD dwNpcID)
 
 	for (int i = 0; i < MAX_TEAM_MEMBER; ++i)
 	{
-		if ((DWORD)m_nMember[i] == dwNpcID)
+		if ((unsigned long)m_nMember[i] == dwNpcID)
 		{
 			m_nMemNum--;
 			m_nMember[i] = -1;
@@ -449,7 +449,7 @@ int		KTeam::GetMemberInfo(KUiPlayerItem *pList, int nCount)
 //---------------------------------------------------------------------------
 //	���ܣ��ж϶����Ƿ����
 //---------------------------------------------------------------------------
-BOOL	KTeamSet::CheckName(char *lpszName)
+int	KTeamSet::CheckName(char *lpszName)
 {
 	if (!lpszName || !lpszName[0])
 		return FALSE;

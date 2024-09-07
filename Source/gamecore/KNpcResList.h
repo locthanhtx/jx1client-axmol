@@ -3,7 +3,7 @@
 //
 // File:	KNpcResList.h
 // Date:	2002.01.06
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Obj Class
 //---------------------------------------------------------------------------
 
@@ -16,23 +16,23 @@
 class KNpcResList : public KList
 {
 public:
-	CActionName				m_cActionName;  //ÐÐÎªÃû³Æ "¶¯×÷±àºÅ±í.txt" Ó¢ÎÄ
-	CActionName				m_cNpcAction;   //¶¯×÷ÖÖÀà "npc¶¯×÷±í.txt"  Ó¢ÎÄ
-	CStateMagicTable		m_cStateTable;  //×´Ì¬ÓëËæÉí¹âÐ§¶ÔÓ¦±í
+	CActionName				m_cActionName;  //ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½.txt" Ó¢ï¿½ï¿½
+	CActionName				m_cNpcAction;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt"  Ó¢ï¿½ï¿½
+	CStateMagicTable		m_cStateTable;  //×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ó¦ï¿½ï¿½
 	KPlayerMenuStateGraph	m_cMenuState; //
 
 private:
 
-	// ²éÕÒÍ¬ÃûµÄ NpcResNode ²¢·µ»Ø½Úµã
+	// ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ NpcResNode ï¿½ï¿½ï¿½ï¿½ï¿½Ø½Úµï¿½
 	KNpcResNode*		FindNpcRes(char *lpszNpcName);
 
 public:
     KNpcResList();
     ~KNpcResList();
-	
-    // ³õÊ¼»¯ ActionName
-	BOOL				Init();
-	// Ìí¼ÓÒ»¸ö NpcResNode ²¢·µ»Ø½Úµã£¬Èç¹ûÒÑ´æÔÚ£¬Ö±½Ó·µ»Ø½Úµã
+
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ ActionName
+	int				Init();
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ NpcResNode ï¿½ï¿½ï¿½ï¿½ï¿½Ø½Úµã£¬ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½Ú£ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø½Úµï¿½
 	KNpcResNode*		AddNpcRes(char *lpszNpcName);
 	KNpcResNode*	    ClearAllNpcRes();
 	KNpcResNode*	    ClearOneNpcRes(char *lpszNpcName);

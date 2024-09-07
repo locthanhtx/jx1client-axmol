@@ -8,274 +8,272 @@
 #ifndef KIMAGESTORE2_H_HEADER_INCLUDED_C23109DC
 #define KIMAGESTORE2_H_HEADER_INCLUDED_C23109DC
 
-//#include "../iRepresent/KRepresentUnit.h"
-#include "gamecore/KRUImage.h" 
+// #include "../iRepresent/KRepresentUnit.h"
+#include "gamecore/KRUImage.h"
 #include "engine/KCriticalSection.h"
-//#include <ddraw.h>
+// #include <ddraw.h>
 struct KImageParam;
 
-//## ����ͼ��ͼ����Դ����
-//## ������ͬid��ͼ�ζ���ֻ��һ����
+// ## ����ͼ��ͼ����Դ����
+// ## ������ͬid��ͼ�ζ���ֻ��һ����
 class KImageStore2
 {
 public:
     KImageStore2();
     ~KImageStore2();
 
-//====���ImageStore����Ĳ���====
+    //====���ImageStore����Ĳ���====
 
-	//## ��ʼ��iResStore�ӿڶ���
+    // ## ��ʼ��iResStore�ӿڶ���
     bool Init();
 
-    //## ����ͷ�ȫ����ͼ�ζ��󣬼Ȱ�����̬���صģ�Ҳ����ͨ������CreateImage���ɵġ�
+    // ##
+    // ����ͷ�ȫ����ͼ�ζ��󣬼Ȱ�����̬���صģ�Ҳ����ͨ������CreateImage���ɵġ�
     void Free();
 
-    //## ����ͼ�ζ�̬����ƽ�������
+    // ## ����ͼ�ζ�̬����ƽ�������
     void SetBalanceParam(
-        //## ����ͼ�ε���Ŀ��ƽ��ֵ��
-        int nNumImage, 
-        //## ÿ���ٴ�����ͼ�ζ������һ��ƽ���顣
-		uint32_t uCheckPoint = 10000);
+        // ## ����ͼ�ε���Ŀ��ƽ��ֵ��
+        int nNumImage,
+        // ## ÿ���ٴ�����ͼ�ζ������һ��ƽ���顣
+        unsigned int uCheckPoint = 10000);
 
-//====��Ե���ͼ�εĲ���====
+    //====��Ե���ͼ�εĲ���====
 
-	//## ����ڴ�ͼ�ζ���ʧ�ܣ��򷵻�0�����򷵻ظ���ͼ������ת�����ɵ���ֵid��
-    /*uint32_t CreateImage(
+    // ##
+    // ����ڴ�ͼ�ζ���ʧ�ܣ��򷵻�0�����򷵻ظ���ͼ������ת�����ɵ���ֵid��
+    /*unsigned int CreateImage(
         //## ͼ�ε����֡�
-        const char* pszName, 
+        const char* pszName,
         //## ͼ�κ��
-        int nWidth, 
+        int nWidth,
         //## ͼ���ݿ�
-        int nHeight, 
+        int nHeight,
         //## ͼ������
         int nType);
-	*/
-    //## ��ȡ�Ѿ����ڵ�ͨ��CreateImage������ͼ��
+        */
+    // ## ��ȡ�Ѿ����ڵ�ͨ��CreateImage������ͼ��
     /*void* GetExistedCreateBitmap(
-		//## ͼ������
+                //## ͼ������
         const char* pszImage,
-		//## ͼ��id
-		uint32_t uImage,
-		//## ͼ��ԭ����iImageStore�ڵ�λ�á�
+                //## ͼ��id
+                unsigned int uImage,
+                //## ͼ��ԭ����iImageStore�ڵ�λ�á�
         short& nImagePosition);
-	*/
-	/*bool CreateBitmapSurface(
-		//## ͼ������
-        const char* pszImage,
-		//## ͼ��id
-		uint32_t& uImage,
-		//## ͼ��ԭ����iImageStore�ڵ�λ�á�
-        short& nImagePosition);
-	*/
-	//## ָ���ͷ�ĳ��ͼ��Դ��
+        */
+    /*bool CreateBitmapSurface(
+            //## ͼ������
+    const char* pszImage,
+            //## ͼ��id
+            unsigned int& uImage,
+            //## ͼ��ԭ����iImageStore�ڵ�λ�á�
+    short& nImagePosition);
+    */
+    // ## ָ���ͷ�ĳ��ͼ��Դ��
     void FreeImage(
-        //## ͼ���ļ���/ͼ������
+        // ## ͼ���ļ���/ͼ������
         char* pszImage);
-	void* GetSprFrameData(char* pszImage, uint32_t& uImage,
-		short& nImagePosition, int nFrame,uint32_t& nSingFrameSize);
-    //## ��ȡͼ�ε����ݻ�������
+    void* GetSprFrameData(char* pszImage,
+                          unsigned int& uImage,
+                          short& nImagePosition,
+                          int nFrame,
+                          unsigned int& nSingFrameSize);
+    // ## ��ȡͼ�ε����ݻ�������
     void* GetImage(
-        //## ͼ��Դ�ļ�����/ͼ������
-         char* pszImage, 
-        //## ͼ��id
-        uint32_t& uImage, 
-        //## ͼ��ԭ����iImageStore�ڵ�λ�á�
-        short& nImagePosition, 
-        //## Ҫ��ȡͼ�ε�֡��������
+        // ## ͼ��Դ�ļ�����/ͼ������
+        const char* pszImage,
+        // ## ͼ��id
+        unsigned int& uImage,
+        // ## ͼ��ԭ����iImageStore�ڵ�λ�á�
+        short& nImagePosition,
+        // ## Ҫ��ȡͼ�ε�֡��������
         int nFrame,
-        //## ͼ��Դ����
+        // ## ͼ��Դ����
         int nType,
-		//������Ҫ��֡����buffer
-		void*& pFrameData,
-		void*& pOffsetTable,
-		int& bSingleFrameLoad,uint32_t &nSingFrameSize);
+        // ������Ҫ��֡����buffer
+        void*& pFrameData,
+        void*& pOffsetTable,
+        int& bSingleFrameLoad,
+        unsigned int& nSingFrameSize);
 
-    //## ��ȡĳ��ͼ����Դ�������Ϣ��
+    // ## ��ȡĳ��ͼ����Դ�������Ϣ��
     bool GetImageParam(
-        //## ָ�򱣴�ͼ����Դ�ļ���/ͼ�����Ļ�����
-        char* pszImage,
-        //## ͼ��Դ����
-		int nType,
-		//## ͼ����Ϣ�洢�ṹ��ָ��
+        // ## ָ�򱣴�ͼ����Դ�ļ���/ͼ�����Ļ�����
+        const char* pszImage,
+        // ## ͼ��Դ����
+        int nType,
+        // ## ͼ����Ϣ�洢�ṹ��ָ��
         KImageParam* pImageData);
-	
-	//## ��ȡĳ��ͼ����Դĳ֡����Ϣ��
-	bool GetImageFrameParam(
-        //## ָ�򱣴�ͼ����Դ�ļ���/ͼ�����Ļ�����
-        char* pszImage,
-        //## ͼ��Դ����
-		int nType,
-		//ͼ��֡����
-		int		nFrame,
-        //## ֡ͼ�����������ͼ�ε�ƫ��
-		KRPosition2* pOffset,
-		//## ֡ͼ�δ�С
-		KRPosition2* pSize);
 
-    //## ��ȡͼ��ָ��֡��ĳ������alphaֵ��
+    // ## ��ȡĳ��ͼ����Դĳ֡����Ϣ��
+    bool GetImageFrameParam(
+        // ## ָ�򱣴�ͼ����Դ�ļ���/ͼ�����Ļ�����
+        char* pszImage,
+        // ## ͼ��Դ����
+        int nType,
+        // ͼ��֡����
+        int nFrame,
+        // ## ֡ͼ�����������ͼ�ε�ƫ��
+        KRPosition2* pOffset,
+        // ## ֡ͼ�δ�С
+        KRPosition2* pSize);
+
+    // ## ��ȡͼ��ָ��֡��ĳ������alphaֵ��
     /*int GetImagePixelAlpha(
         //## ͼ����Դ�ļ���/ͼ����
-        const char* pszImage, 
+        const char* pszImage,
         //## ͼ��Դ����
         int nType,
-		//## ͼ�ε�֡������
-        int nFrame, 
+                //## ͼ�ε�֡������
+        int nFrame,
         //## �����ͼ�к�����
-        int nX, 
+        int nX,
         //## �����ͼ��������
         int nY);
-	*/
-    //## ����ͼ�ε��ļ��������ļ�ֻ��ISI_T_BITMAP16��ʽ��ͼ����Ч������ָ����ͼ���Ƿ�ɹ����浽�ļ���
+        */
+    // ## ����ͼ�ε��ļ��������ļ�ֻ��ISI_T_BITMAP16��ʽ��ͼ����Ч������ָ����ͼ���Ƿ�ɹ����浽�ļ���
     bool SaveImage(
-        //## �����ļ������֡�
-        const char* pszFile, 
-        //## ͼ����
-        const char* pszImage, 
-        //## Ŀ��ͼ���ļ�������
+        // ## �����ļ������֡�
+        const char* pszFile,
+        // ## ͼ����
+        const char* pszImage,
+        // ## Ŀ��ͼ���ļ�������
         int nFileType);
 
-	/*uint32_t SetAdjustColorList(uint32_t* puColorList, uint32_t uCount);
+    /*unsigned int SetAdjustColorList(unsigned int* puColorList, unsigned int uCount);
 
-	char* GetAdjustColorPalette(
-		int nISPosition,	//ͼ����iImageStore�ڵ�λ�á�
-		unsigned uColor);//ƫɫ��
-	*/
+    char* GetAdjustColorPalette(
+            int nISPosition,	//ͼ����iImageStore�ڵ�λ�á�
+            unsigned uColor);//ƫɫ��
+    */
 private:
+    struct _KISImageFrameObj
+    {
+        bool bRef;  // �ڱ��λ�ͼѭ�����Ƿ����õ�
+        bool bReserved;
+        unsigned short sOffTableSize;
+        unsigned int pFrameSize;
+        union
+        {  // ͬʱֻ��ʹ��һ��
+            // ͼ��֡����ƫ�Ʊ������Ӹ�֡����
+            void* pOffsetTable;
+            // ֡���ݻ�����
+            void* pFrameData;
+        };
+    };
 
-	struct _KISImageFrameObj
-	{        
-		bool			bRef;	//�ڱ��λ�ͼѭ�����Ƿ����õ�
-		bool			bReserved;
-		unsigned short	sOffTableSize;
-		uint32_t 	pFrameSize;
-		union
-		{//ͬʱֻ��ʹ��һ��
-			//ͼ��֡����ƫ�Ʊ������Ӹ�֡����
-			void*			pOffsetTable;
-			//֡���ݻ�����
-			void*			pFrameData;
-		};
-	};
-
-    //## �洢����ͼ��id�������Լ�����ָ��Ľṹ
+    // ## �洢����ͼ��id�������Լ�����ָ��Ľṹ
     struct _KISImageObj
     {
-        //## ͼ�ε�id
-        uint32_t uId;
-		//## ����Ϊ���ڴ��д�����ͼ�Σ����ܴӴ��̶�̬���أ�����cache����
+        // ## ͼ�ε�id
+        unsigned int uId;
+        // ## ����Ϊ���ڴ��д�����ͼ�Σ����ܴӴ��̶�̬���أ�����cache����
         bool bNotCacheable;
-		//�Ƿ񰴵�֡����
+        // �Ƿ񰴵�֡����
         bool bSingleFrameLoad;
-		//�ڱ��λ�ͼѭ�����Ƿ����õ�
-		bool bRef;
-        //## ͼ�ε�����
+        // �ڱ��λ�ͼѭ�����Ƿ����õ�
+        bool bRef;
+        // ## ͼ�ε�����
         unsigned char bType;
-        //## ͼ�����ݶ���ָ�롣
+        // ## ͼ�����ݶ���ָ�롣
         void* pObject;
-		/*union
-		{
-			//ƫɫɫ��, ISI_T_SPR��ʽ��ͼ��
-			char* pcAdjustColorPalettes;
-			//DirectDraw Surface, ISI_T_BITMAP16��ʽ��ͼ��
-            LPDIRECTDRAWSURFACE pSurface;
-		};*/
-		//ͼ�ε�֡����
-		_KISImageFrameObj* pFrames;
+        /*union
+        {
+                //ƫɫɫ��, ISI_T_SPR��ʽ��ͼ��
+                char* pcAdjustColorPalettes;
+                //DirectDraw Surface, ISI_T_BITMAP16��ʽ��ͼ��
+    LPDIRECTDRAWSURFACE pSurface;
+        };*/
+        // ͼ�ε�֡����
+        _KISImageFrameObj* pFrames;
     };
 
 private:
-
-	//## ��չm_pObjectList�Ŀռ䣬ʹ�ô洢����ͼ��Դ���ñ�������
+    // ## ��չm_pObjectList�Ŀռ䣬ʹ�ô洢����ͼ��Դ���ñ�������
     bool ExpandSpace();
 
-    //## ���ͼ��Դ�洢����ƽ��״����
+    // ## ���ͼ��Դ�洢����ƽ��״����
     void CheckBalance();
 
-    //## ��ø���id�ڼ�¼���е�λ�á�
-    //## ����ֵ���壺
-    //##  ����ֵ >= 0 --> ������id�ڼ�¼���е�λ�ã���0��ʼ������ֵ��
-    //##  ����ֵ < 0  --> ����û�и�����id�������Ҫ�����id�Ļ�������λ��Ӧ��Ϊ(-����ֵ-1)
+    // ## ��ø���id�ڼ�¼���е�λ�á�
+    // ## ����ֵ���壺
+    // ##  ����ֵ >= 0 --> ������id�ڼ�¼���е�λ�ã���0��ʼ������ֵ��
+    // ##  ����ֵ < 0  --> ����û�и�����id�������Ҫ�����id�Ļ�������λ��Ӧ��Ϊ(-����ֵ-1)
     int FindImage(
-        //##Documentation
-        //## ͼ�ε�id
-        uint32_t uImage, 
-        //##Documentation
-        //## ͼ�μ�¼��m_pObjectList�п��ܵ�λ�á�
+        // ##Documentation
+        // ## ͼ�ε�id
+        unsigned int uImage,
+        // ##Documentation
+        // ## ͼ�μ�¼��m_pObjectList�п��ܵ�λ�á�
         int nPossiblePosition);
 
-	//��ȡͼ�ζ����ĳһ֡�����ݻ�����
-	void* GetSprFrame(
-		 char* pszImageFile,
-		_KISImageObj& ImgObject,
-		int nFrame,uint32_t& nSingFrameSize);
+    // ��ȡͼ�ζ����ĳһ֡�����ݻ�����
+    void* GetSprFrame(const char* pszImageFile, _KISImageObj& ImgObject, int nFrame, unsigned int& nSingFrameSize);
 
-    //## �ͷ�ָ����ͼ�ζ���
+    // ## �ͷ�ָ����ͼ�ζ���
     void FreeImageObject(
-        //## ͼ�ζ���ָ�롣
+        // ## ͼ�ζ���ָ�롣
         _KISImageObj& ImgObject,
-		//�ͷŴ�ͼ�ε���֡���ݣ��������ֵΪ��������ʾ�ͷ�����ͼ��
-		int nFrame = -1);
+        // �ͷŴ�ͼ�ε���֡���ݣ��������ֵΪ��������ʾ�ͷ�����ͼ��
+        int nFrame = -1);
 
-    //## ����ͼ�ζ�������ָ��ͼ����Դ������ʧ�����
+    // ## ����ͼ�ζ�������ָ��ͼ����Դ������ʧ�����
     void* LoadImage(
-        //## ͼ���ļ���
-        char* pszImageFile, 
-        //## ͼ������
+        // ## ͼ���ļ���
+        char* pszImageFile,
+        // ## ͼ������
         _KISImageObj& ImgObj,
-		//����ͼ�ε���һ֡����
-		int nFrame,
-		//���ڻ�ȡ֡���ݵĻ�����ָ��
-		void*& pFrameData,uint32_t& nSingFrameSize);
+        // ����ͼ�ε���һ֡����
+        int nFrame,
+        // ���ڻ�ȡ֡���ݵĻ�����ָ��
+        void*& pFrameData,
+        unsigned int& nSingFrameSize);
 
-	//�ļ���ת��Ϊ�ַ���
-	uint32_t ImageNameToId(char* pszName);
+    // �ļ���ת��Ϊ�ַ���
+    unsigned int ImageNameToId(const char* pszName);
 
-	//char* CreateAdjustColorPalette(const char* pOrigPalette, int nNumColor);
+    // char* CreateAdjustColorPalette(const char* pOrigPalette, int nNumColor);
 
-	//���ȫ����ƫɫɫ��
-	//void ClearAllAdjustColorPalette();
+    // ���ȫ����ƫɫɫ��
+    // void ClearAllAdjustColorPalette();
 
 private:
-
     enum IS_BALANCE_PARAM
-	{
-        //## ��չm_pObjectList��ÿ�β������ӵ�Ԫ�ص���Ŀ
+    {
+        // ## ��չm_pObjectList��ÿ�β������ӵ�Ԫ�ص���Ŀ
         ISBP_EXPAND_SPACE_STEP = 128,
-        //## ÿ���ٴ�����ͼ�ζ������һ��ƽ�����Ĭ��ֵ��
-        ISBP_CHECK_POINT_DEF = 256 + 128, 
-        //## ͼ����Ŀƽ���Ĭ��ֵ
-        ISBP_BALANCE_NUM_DEF = 256 + 128,// + 128 + 512, 
-        //## ������Χ���Ȳ��ҵķ�Χ��С��
+        // ## ÿ���ٴ�����ͼ�ζ������һ��ƽ�����Ĭ��ֵ��
+        ISBP_CHECK_POINT_DEF = 256 + 128,
+        // ## ͼ����Ŀƽ���Ĭ��ֵ
+        ISBP_BALANCE_NUM_DEF = 256 + 128,  // + 128 + 512,
+                                           // ## ������Χ���Ȳ��ҵķ�Χ��С��
         ISBP_TRY_RANGE_DEF = 8,
-	};
+    };
 
 private:
-
-    //## ����ͼ�ζ���ṹ�����Ա���������ͼ�ε�id�����������С�
+    // ## ����ͼ�ζ���ṹ�����Ա���������ͼ�ε�id�����������С�
     _KISImageObj* m_pObjectList;
 
-    //## m_pObjectList�����а���_KISImageObjԪ�ص���Ŀ���ߵ�ǰ��������ɴ洢ͼ����Ϣ����Ŀ��m_pObjectList�ռ��С�ı�ʱͬʱ������ֵ��
+    // ## m_pObjectList�����а���_KISImageObjԪ�ص���Ŀ���ߵ�ǰ��������ɴ洢ͼ����Ϣ����Ŀ��m_pObjectList�ռ��С�ı�ʱͬʱ������ֵ��
     int m_nNumReserved;
 
-    //## ���ص�ͼ����Դ����Ŀ����Щͼ�ε���Ϣ�����Ŵ洢��m_pObjectList��ͷ��ʼ��λ�ã�����ͼ�ε�id�������С�
+    // ## ���ص�ͼ����Դ����Ŀ����Щͼ�ε���Ϣ�����Ŵ洢��m_pObjectList��ͷ��ʼ��λ�ã�����ͼ�ε�id�������С�
     int m_nNumImages;
 
-    //## ��ͼ�ζ�������ܴ������ۼӼ�¼ֵ��
-    uint32_t m_uImageAccessCounter; 
+    // ## ��ͼ�ζ�������ܴ������ۼӼ�¼ֵ��
+    unsigned int m_uImageAccessCounter;
 
-    //## ����ƽ���ʱ�����á�
-    uint32_t m_uCheckPoint;
+    // ## ����ƽ���ʱ�����á�
+    unsigned int m_uCheckPoint;
 
-    //## �������ڴ���ͼ����Ŀ��ƽ��ֵ
-	int m_nBalanceNum;
+    // ## �������ڴ���ͼ����Ŀ��ƽ��ֵ
+    int m_nBalanceNum;
 
-	#define	MAX_ADJUSTABLE_COLOR_NUM	16 //8
-	uint32_t	m_uSprAdjustColorList[MAX_ADJUSTABLE_COLOR_NUM];
-	uint32_t	m_uNumSprAdustColor;
+#define MAX_ADJUSTABLE_COLOR_NUM 16  // 8
+    unsigned int m_uSprAdjustColorList[MAX_ADJUSTABLE_COLOR_NUM];
+    unsigned int m_uNumSprAdustColor;
 
-    KCriticalSection    m_ImageProcessLock;
-
+    KCriticalSection m_ImageProcessLock;
 };
-
 
 #endif /* KIMAGESTORE2_H_HEADER_INCLUDED_C23109DC */

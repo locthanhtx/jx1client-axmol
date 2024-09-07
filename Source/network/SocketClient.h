@@ -3,14 +3,14 @@
 	file base:	SocketClient
 	file ext:	h
 	author:		liupeng
-	
-	purpose:	
+
+	purpose:
 *********************************************************************/
 #ifndef __INCLUDE_SOCKETCLIENT_H__
 #define __INCLUDE_SOCKETCLIENT_H__
 #pragma once
 #include "cocos2d.h"
-#ifdef WIN32 
+#ifdef WIN32
 #include <winsock2.h>
 #endif
 //#include "UsesWinsock.h"
@@ -30,7 +30,7 @@
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-class CSocketClient:protected CThread,protected CIOBuffer::Allocator //private CUsesWinsock, 
+class CSocketClient:protected CThread,protected CIOBuffer::Allocator //private CUsesWinsock,
 #else
 class CSocketClient:protected CThread,protected CIOBuffer::Allocator
 #endif
@@ -49,21 +49,21 @@ public:
 	bool StartConnections();
 	void StopConnections();
 	void InitiateShutdown();
-	void WaitForShutdownToComplete(int32_t isCleartheThread=false);
-	void Write( const char *pData, uint32_t dataLength );
+	void WaitForShutdownToComplete(int isCleartheThread=false);
+	void Write( const char *pData, unsigned int dataLength );
 	bool Write( CIOBuffer *pBuffer );
 protected:
 	CSocketClient(
 		const std::string &addressToConnectServer,
 		unsigned short portToConnectServer,
-		uint32_t maxFreeBuffers,
-		uint32_t bufferSize, /* = 1024 */
-		int32_t  mSocketNo
+		unsigned int maxFreeBuffers,
+		unsigned int bufferSize, /* = 1024 */
+		int  mSocketNo
 		);
 	CSocketClient(
-		uint32_t maxFreeBuffers,
-		uint32_t bufferSize, /* = 1024 */
-		int32_t  mSocketNo
+		unsigned int maxFreeBuffers,
+		unsigned int bufferSize, /* = 1024 */
+		int  mSocketNo
 		);
 	void ReleaseBuffers();
 	bool WaitAndVerifyCipher();
@@ -76,9 +76,9 @@ protected:
     unsigned m_uClientKey;
 
     #pragma pack( 1 )
-    struct 
+    struct
 	{
-		WORD			wLen;
+		unsigned short			wLen;
 		ACCOUNT_BEGIN	AccountBegin;
 	}m_theSendAccountBegin;
     #pragma pack()
@@ -86,13 +86,13 @@ protected:
 private:
 	/*
 	 * Override this to create the listening socket of your choice
-	 */	
-	virtual SOCKET CreateConnectionSocket( 
+	 */
+	virtual SOCKET CreateConnectionSocket(
 				const std::string &addressToConnectServer,
 				unsigned short port);
 	/*
 	 * Interface for derived classes to receive state change notifications...
-	 */	
+	 */
 	virtual void OnStartConnections() {};  //֪ͨ�Ѿ�����
 	virtual void OnStopConnections() {};   //֪ͨ�Ѿ��Ͽ�����
 	virtual void OnShutdownInitiated() {};
@@ -115,8 +115,8 @@ private:
 		STATE_STOP,  //�Ͽ�
 		STATE_START, //����
 	};
-	int32_t m_SocketState;
-	int32_t m_SocketNo;
+	int m_SocketState;
+	int m_SocketNo;
 
 };
 #endif //__INCLUDE_SOCKETCLIENT_H__

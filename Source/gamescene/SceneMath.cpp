@@ -41,7 +41,7 @@ int	SM_Distance_PointLine(const POINT& Point, const POINT& LP1, const POINT& LP2
 	y2 = LP2.y - Point.y;
 
 //  ֱ�߷��̣�
-//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0 
+//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0
 //	int d = abs(pt.y*(x2-x1) - pt.x*(y2-y1) + (x1*y2 - x2*y1) ) / sqrtf((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
 
 	int d = (int)(abs(x1*y2 - x2*y1) / sqrt(double((x2-x1))*(x2-x1) + (y2-y1)*(y2-y1)));
@@ -78,7 +78,7 @@ RELATION_ENUM	SM_Relation_PointLine(const POINT& Point, const POINT& LP1, const 
 //	x0=pt.x; y0=pt.y;
 	x1=p1.x; y1=p1.y; x2=p2.x; y2=p2.y;
 //  ֱ�߷��̣�
-//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0 
+//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0
 	int f = /*y0 * (x2 - x1) - x0 * (y2 - y1) +*/ (x1*y2 - x2*y1);
 	if (f <= TOGGLE_VALUE_0_1 && f >= -TOGGLE_VALUE_0_1)
 	{
@@ -94,12 +94,12 @@ RELATION_ENUM	SM_Relation_PointLine(const POINT& Point, const POINT& LP1, const 
 RELATION_ENUM	SM_Relation_PointLine_New(const POINT& Point, const POINT& LP1, const POINT& LP2)
 {
 	POINT p1 = {
-        LP1.x - Point.x,  
+        LP1.x - Point.x,
         LP1.y - Point.y
     };
 
 	if (
-        (abs(p1.x) <= TOGGLE_VALUE_0_1_SQRT) && 
+        (abs(p1.x) <= TOGGLE_VALUE_0_1_SQRT) &&
         (abs(p1.y) <= TOGGLE_VALUE_0_1_SQRT)
     )
 		return RELATION_ON;
@@ -110,7 +110,7 @@ RELATION_ENUM	SM_Relation_PointLine_New(const POINT& Point, const POINT& LP1, co
     };
 
 	if (
-        (abs(p2.x) <= TOGGLE_VALUE_0_1_SQRT) && 
+        (abs(p2.x) <= TOGGLE_VALUE_0_1_SQRT) &&
         (abs(p2.y) <= TOGGLE_VALUE_0_1_SQRT)
     )
 		return RELATION_ON;
@@ -129,7 +129,7 @@ RELATION_ENUM	SM_Relation_PointLine_New(const POINT& Point, const POINT& LP1, co
 
 	if (f < 0)
 		return RELATION_UP;
-    
+
     return RELATION_DOWN;
 }
 
@@ -143,21 +143,21 @@ static unsigned uNewFastCount = 0;
 {
     g_pRepresent->OutputText(12, Name, KRF_ZERO_END, nMpsX - 12 * g_StrLen(Name) / 4, nMpsY, dwColor, 0, m_Height + nHeightOff);
     if (!gs_nTimerStartFlag)
-    {   
+    {
         gs_Timer.Start();
         gs_nTimerStartFlag = true;
     }
 
-    DWORD dwTimeCount1 = gs_Timer.GetElapseFrequency();
+    unsigned long dwTimeCount1 = gs_Timer.GetElapseFrequency();
 
     RELATION_ENUM Result_old = SM_Relation_PointLine_Old(Point, LP1, LP2);
 
-    DWORD dwTimeCount2 = gs_Timer.GetElapseFrequency();
+    unsigned long dwTimeCount2 = gs_Timer.GetElapseFrequency();
 
    RELATION_ENUM Result_new = SM_Relation_PointLine_New(Point, LP1, LP2);
 
-    DWORD dwTimeCount3 = gs_Timer.GetElapseFrequency();
-    
+    unsigned long dwTimeCount3 = gs_Timer.GetElapseFrequency();
+
     if (Result_old != Result_new)
     {
         _ASSERT(false);
@@ -203,8 +203,8 @@ RELATION_ENUM SM_Relation_LineLine_CheckCut(const POINT& LP11, const POINT& LP12
 			x4 = LP22.x - offset.x;
 			y4 = LP22.y - offset.y;
 
-			//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0 
-			//	y(x4-x3) - x(y4-y3) + (x3y4 - x4y3) = 0 
+			//	y(x2-x1) - x(y2-y1) + (x1y2 - x2y1) = 0
+			//	y(x4-x3) - x(y4-y3) + (x3y4 - x4y3) = 0
 			//	y = -( (x1*y2 - x2*y1)(y4 - y3) - (x3*y4 - x4*y3)(y2 - y1) ) /  ( (x2 - x1) * (y4 - y3) - (x4 - x3)(y2 - y1) );
 
 			if (x2 == x1 && x4 == x3)
@@ -282,7 +282,7 @@ void SM_GetPointFromFloatSting32(char* pString, float& x, float& y, float& z)
 	}
 	pString[i] = 0;
 	y = (float)(atof(pString) * 32);
-	
+
 	z = (float)(atof(pString + i + 1) * 32);
 }
 

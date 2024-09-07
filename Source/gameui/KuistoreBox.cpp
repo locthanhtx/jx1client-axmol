@@ -66,7 +66,7 @@ KuistoreBox::~KuistoreBox()
 }
 
 //����ȷ��������
-KuistoreBox * KuistoreBox::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuistoreBox* KuistoreBox::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuistoreBox * popLayer = KuistoreBox::create();
 	//popLayer->setTitle(title);

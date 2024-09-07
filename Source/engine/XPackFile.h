@@ -15,7 +15,11 @@
 USING_NS_AX;
 
 #include "KbugInfo.h"
+#ifdef WIN32
+#include <pthreadwin32.h>
+#else
 #include <pthread.h>
+#endif
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
 #define CRITICAL_SECTION pthread_mutex_t
 #endif
@@ -29,49 +33,49 @@ public:
 	XPackFile();
 	~XPackFile();
 	//�򿪰��ļ�
-	bool		Open(const char* pszPackFileName, int32_t nSelfIndex);
-	//bool		OpenX(const char* pszPackFileName, int32_t nSelfIndex);
+	bool		Open(const char* pszPackFileName, int nSelfIndex);
+	//bool		OpenX(const char* pszPackFileName, int nSelfIndex);
 	//�رհ��ļ�
 	void		Close();
 	//���Ұ��ڵ����ļ�
-	bool		XFindElemFile(uint32_t uId, XPackElemFileRef& ElemRef);
+	bool		XFindElemFile(unsigned int uId, XPackElemFileRef& ElemRef);
 	//��ȡ���ڵ����ļ�
-	int32_t			XElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize);
+	int			XElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize);
 
 	//��ȡspr�ļ�ͷ��������spr
 	SPRHEAD*	GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTable);
 	//��ȡ��֡ѹ����spr��һ֡������
-	SPRFRAME*	GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &nSingFrameSize);
+	SPRFRAME*	GetSprFrame(SPRHEAD* pSprHeader, int nFrame,unsigned int &nSingFrameSize);
     std::string fileName;
 
 private:
 	//ֱ�Ӷ�ȡ���ļ������е����ݵ�������
-	bool		DirectRead(void* pBuffer, uint32_t uOffset, uint32_t uSize) const;
+	bool		DirectRead(void* pBuffer, unsigned int uOffset, unsigned int uSize) const;
 	//����ѹ�ض�ȡ���ļ���������
-	bool		ExtractRead(void* pBuffer, uint32_t uExtractSize,
-						int32_t lCompressType, uint32_t uOffset, uint32_t uSize) const;
+	bool		ExtractRead(void* pBuffer, unsigned int uExtractSize,
+						int lCompressType, unsigned int uOffset, unsigned int uSize) const;
 	//���������в������ļ���
-	int32_t			XFindElemFileA(uint32_t ulId) const;
+	int			XFindElemFileA(unsigned int ulId) const;
 	//��cache��������ļ�
-	int32_t         ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int32_t s_size,unsigned char * d_buf,uint32_t *d_size) const;
-	int32_t         ucl_nrv2e_decompress_8_3(unsigned char * a1, uint32_t a2, unsigned char * a3, uint32_t *a4) const;
-	int32_t         ucl_nrv2e_decompress_8_2(unsigned char * a1, uint32_t a2, unsigned char *a3, uint32_t *a4) const;
-	int32_t         ucl_nrv2e_decompress_8_1(unsigned char * a1, uint32_t a2, unsigned char *a3, uint32_t *a4) const;
-	int32_t         ucl_decompress_8_New(unsigned char * a1, uint32_t a2, unsigned char * a3, uint32_t *a4) const;
-	int32_t			FindElemFileInCache(uint32_t uId, int32_t nDesireIndex);
+	int         ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int s_size,unsigned char * d_buf,unsigned int *d_size) const;
+	int         ucl_nrv2e_decompress_8_3(unsigned char * a1, unsigned int a2, unsigned char * a3, unsigned int *a4) const;
+	int         ucl_nrv2e_decompress_8_2(unsigned char * a1, unsigned int a2, unsigned char *a3, unsigned int *a4) const;
+	int         ucl_nrv2e_decompress_8_1(unsigned char * a1, unsigned int a2, unsigned char *a3, unsigned int *a4) const;
+	int         ucl_decompress_8_New(unsigned char * a1, unsigned int a2, unsigned char * a3, unsigned int *a4) const;
+	int			FindElemFileInCache(unsigned int uId, int nDesireIndex);
 	//�����ļ�������ӵ�cache
-	int32_t			AddElemFileToCache(void* pBuffer, int32_t nElemIndex);
+	int			AddElemFileToCache(void* pBuffer, int nElemIndex);
 	//����һ��������������ָ�������ļ����ݶ�������
-	void*		ReadElemFile(int32_t nElemIndex) const;
+	void*		ReadElemFile(int nElemIndex) const;
 	//�ͷ�һ��cache��������
-	static void	FreeElemCache(int32_t nCacheIndex);
+	static void	FreeElemCache(int nCacheIndex);
 
 private:
 	//HANDLE					m_hFile;			//���ļ����
 	FILE *                  m_hFile;
-	uint32_t			m_uFileSize;		//���ļ���С
-	int32_t						m_nElemFileCount;	//���ļ��ĸ���
-	int32_t						m_nSelfIndex;		//���ļ��Լ��ڰ������е�����
+	unsigned int			m_uFileSize;		//���ļ���С
+	int						m_nElemFileCount;	//���ļ��ĸ���
+	int						m_nSelfIndex;		//���ļ��Լ��ڰ������е�����
 	struct XPackIndexInfo*	m_pIndexList;		//���ļ������б�
   //struct XPackIndexInfoX*	m_pIndexListX;		//���ļ������б�
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
@@ -83,29 +87,29 @@ private:
 	struct XPackElemFileCache
 	{
 		void*			pBuffer;			//�������ļ����ݵĻ�����
-		uint32_t	uId;				//���ļ�id
-		int32_t			lSize;				//���ļ���С
-		int32_t				nPackIndex;			//�����ĸ����ļ�
-		int32_t				nElemIndex;			//���ļ��������б��е�λ��
-		uint32_t	uRefFlag;			//�������ñ��
+		unsigned int	uId;				//���ļ�id
+		int			lSize;				//���ļ���С
+		int				nPackIndex;			//�����ĸ����ļ�
+		int				nElemIndex;			//���ļ��������б��е�λ��
+		unsigned int	uRefFlag;			//�������ñ��
 	};
 
 	#define	MAX_XPACKFILE_CACHE			10
 	//���ļ���cache����
 	static	XPackElemFileCache	ms_ElemFileCache[MAX_XPACKFILE_CACHE];
 	//���ļ���cache����Ŀ
-	static	int32_t					ms_nNumElemFileCache;
+	static	int					ms_nNumElemFileCache;
 };
 
 
 //====UCLѹ���㷨����====
 /*extern "C"
 {
-	ENGINE_API int32_t CD_LCU_I();
-	ENGINE_API int32_t CD_LCU_C(const unsigned char* pSrcBuffer, uint32_t nSrcLen,
-		unsigned char* pDestBuffer, uint32_t* pDestLen, int32_t nCompressLevel);
-	ENGINE_API int32_t CD_LCU_D(const unsigned char* pSrcBuffer, unsigned nSrcLen,
-		unsigned char* pDestBuffer, uint32_t uExtractSize);
+	ENGINE_API int CD_LCU_I();
+	ENGINE_API int CD_LCU_C(const unsigned char* pSrcBuffer, unsigned int nSrcLen,
+		unsigned char* pDestBuffer, unsigned int* pDestLen, int nCompressLevel);
+	ENGINE_API int CD_LCU_D(const unsigned char* pSrcBuffer, unsigned nSrcLen,
+		unsigned char* pDestBuffer, unsigned int uExtractSize);
 }*/
 
 #endif

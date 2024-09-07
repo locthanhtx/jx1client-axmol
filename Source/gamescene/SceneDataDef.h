@@ -1,5 +1,5 @@
 // ***************************************************************************************
-// ³¡¾°Ä£¿éµÄÒ»Ð©Êý¾Ý¶¨Òå
+// ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½
 // Copyright : Kingsoft 2002
 // Author    : wooy(wu yue)
 // CreateTime: 2002-11-11
@@ -9,23 +9,23 @@
 #ifndef SCENEDATADEF_H_HEADER_INCLUDED_C225572F
 #define SCENEDATADEF_H_HEADER_INCLUDED_C225572F
 
-#define	REGION_COMBIN_FILE_NAME_SERVER "region_s.dat"		//³¡¾°µØÍ¼ÇøÓòÊý¾ÝµÄ·þÎñÆ÷¶Ë°æºÏ²¢ÎÄ¼þµÄÎÄ¼þÃû
-#define	REGION_COMBIN_FILE_NAME_CLIENT "Region_C.dat"		//³¡¾°µØÍ¼ÇøÓòÊý¾ÝµÄ¿Í»§¶Ë°æºÏ²¢ÎÄ¼þµÄÎÄ¼þÃû
+#define	REGION_COMBIN_FILE_NAME_SERVER "region_s.dat"		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë°ï¿½Ï²ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+#define	REGION_COMBIN_FILE_NAME_CLIENT "Region_C.dat"		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¿Í»ï¿½ï¿½Ë°ï¿½Ï²ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 
-//³¡¾°µØÍ¼Êý¾ÝÎÄ¼þ£¬Ã¿¸öÇøÓò×éÖ¯³ÉÈô¸É¸ö´æ´¢²»Í¬Êý¾ÝµÄÎÄ¼þ£¬ÕâÐ©ÎÄ¼þÓÖÒÔÇøÓòÎªµ¥Î»£¬·Ö±ðºÏ²¢³ÉÒ»¸ö¼¯ºÏÎÄ¼þ
-//¼¯ºÏÎÄ¼þµÄ¸ñÊ½ÈçÏÂ£º
-//1.ÏÈ´æ´¢Ò»¸öËÄ×Ö½ÚµÄunsigned intÊý¾Ý£¬±íÊ¾´ËºÏ³ÉÎÄ¼þÖÐ¹²°üº¬¼¸¸ö×ÓÎÄ¼þ
-//2.´æ´¢×ÓÎÄ¼þ´óÐ¡£¬ÒÔ¼°¿ªÊ¼¿ªÊ¼Æ«ÒÆÎ»ÖÃµÄÐÅÏ¢½á¹¹µÄÁÐ±í¡£ÓÐ¼¸¸ö×ÓÎÄ¼þ¾ÍÁ¬Ðø´æÓÐ¼¸¸öKCombinFileSection
-//					¸÷×ÓÎÄ¼þµÄÆ«ÒÆÎ»ÖÃÊÇ´ÓÐÅÏ¢½á¹¹µÄÁÐ±íÖ®ºóµÄÎ»ÖÃ¿ªÊ¼ËãÆð.
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¯ï¿½ï¿½ï¿½ï¿½ï¿½É¸ï¿½ï¿½æ´¢ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½ï¿½Ö±ï¿½Ï²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä¸ï¿½Ê½ï¿½ï¿½ï¿½Â£ï¿½
+//1.ï¿½È´æ´¢Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö½Úµï¿½unsigned intï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½Ê¾ï¿½ËºÏ³ï¿½ï¿½Ä¼ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+//2.ï¿½æ´¢ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê¼Æ«ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½Ï¢ï¿½á¹¹ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½KCombinFileSection
+//					ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Æ«ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½Ï¢ï¿½á¹¹ï¿½ï¿½ï¿½Ð±ï¿½Ö®ï¿½ï¿½ï¿½Î»ï¿½Ã¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½.
 struct KCombinFileSection
 {
-	unsigned int	uOffset;	//µ¥Î»£º×Ö½Ú
-	unsigned int	uLength;	//µ¥Î»£º×Ö½Ú
+	unsigned int	uOffset;	//ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ö½ï¿½
+	unsigned int	uLength;	//ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ö½ï¿½
 };
-//3.×ÓÎÄ¼þµÄ´æ´¢´ÎÐò£¬Ã¿¸ö×ÓÎÄ¼þ¶ÔÓ¦ÓÚÊ²Ã´£¬ÓÉSCENE_FILE_INDEXÀïÃ¶¾Ù¸ø³ö½âÊÍ¡£Ã¿¸öÃ¶¾ÙÖµ±íÊ¾×ÓÎÄ¼þÔÚºÏ²¢ÎÄ¼þÖÐµÄ´ÎÐòË÷Òý¡£
+//3.ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½SCENE_FILE_INDEXï¿½ï¿½Ã¶ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¡ï¿½Ã¿ï¿½ï¿½Ã¶ï¿½ï¿½Öµï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ÚºÏ²ï¿½ï¿½Ä¼ï¿½ï¿½ÐµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum SCENE_FILE_INDEX
 {
-	REGION_OBSTACLE_FILE_INDEX	= 0,//"OBSTACLE.DAT"ÕÏ°­ÎÄ¼þ
+	REGION_OBSTACLE_FILE_INDEX	= 0,//"OBSTACLE.DAT"ï¿½Ï°ï¿½ï¿½Ä¼ï¿½
 	REGION_TRAP_FILE_INDEX,			//"Trap.dat"
 	REGION_NPC_FILE_INDEX,			//"Npc_S.dat" or "Npc_C.dat"
 	REGION_OBJ_FILE_INDEX,			//"Obj_S.dat" or "Obj_C.dat"
@@ -34,250 +34,250 @@ enum SCENE_FILE_INDEX
 
 	REGION_ELEM_FILE_COUNT
 };
-//4.´æ´¢×ÓÎÄ¼þµÄÊý¾Ý¡£
+//4.ï¿½æ´¢ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
 
 
-#define REGION_GROUND_LAYER_FILE	"Ground.dat"			//µØ±í²ãÐÅÏ¢¶þ½øÖÆ´æ´¢ÎÄ¼þ
-#define	REGION_BUILDIN_OBJ_FILE		"BuildinObj.Dat"		//³¡¾°µØÍ¼ÄÚ½¨¶ÔÏó¼¯ºÏÐÅÏ¢ÎÄ¼þ
-#define	REGION_OBSTACLE_FILE		"OBSTACLE.DAT"			//ÕÏ°­ÎÄ¼þ
+#define REGION_GROUND_LAYER_FILE	"Ground.dat"			//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½
+#define	REGION_BUILDIN_OBJ_FILE		"BuildinObj.Dat"		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ó¼¯ºï¿½ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½
+#define	REGION_OBSTACLE_FILE		"OBSTACLE.DAT"			//ï¿½Ï°ï¿½ï¿½Ä¼ï¿½
 #define REGION_NPC_FILE_SERVER		"Npc_S.dat"
 #define REGION_NPC_FILE_CLIENT		"Npc_C.dat"
 #define REGION_OBJ_FILE_SERVER		"Obj_S.dat"
 #define REGION_OBJ_FILE_CLIENT		"Obj_C.dat"
-#define REGION_TRAP_FILE			"Trap.dat"				//ÊÂ¼þµãÎÄ¼þ
+#define REGION_TRAP_FILE			"Trap.dat"				//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 
 #define	MAX_RESOURCE_FILE_NAME_LEN	128
-#define NOT_ABOVE_HEAD_OBJ			0xFFFF	//²¢·Ç¸ß¿Õ¶ÔÏó
+#define NOT_ABOVE_HEAD_OBJ			0xFFFF	//ï¿½ï¿½ï¿½Ç¸ß¿Õ¶ï¿½ï¿½ï¿½
 
 
 enum IPOT_RENDER_LAYER
 {
-	IPOT_RL_COVER_GROUND	= 0x01,		//Æ½ÆÌÔÚµØÃæÉÏ£¬ÔÚÈ«²¿ÎïÌåÖ®ÏÂ
-	IPOT_RL_OBJECT			= 0x02,		//µ±Ç°ÎïÌå²ã
-	IPOT_RL_INFRONTOF_ALL	= 0x04,		//ÔÚÒ»ÇÐµÄÉÏ²ã
-	IPOT_RL_LIGHT_PROP		= 0x08,		//´Ë¶ÔÏó´øÓÐ¹âÔ´ÊôÐÔ
+	IPOT_RL_COVER_GROUND	= 0x01,		//Æ½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½
+	IPOT_RL_OBJECT			= 0x02,		//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½
+	IPOT_RL_INFRONTOF_ALL	= 0x04,		//ï¿½ï¿½Ò»ï¿½Ðµï¿½ï¿½Ï²ï¿½
+	IPOT_RL_LIGHT_PROP		= 0x08,		//ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
 };
 
-//## ÈýÎ¬×ø±ê
+//## ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
 struct KTriDimensionCoord
 {
 	int x, y, z;
 };
 
-//¡ö¡ö¡öGround.DatµØ±í²ãÐÅÏ¢¶þ½øÖÆ´æ´¢ÎÄ¼þ¡ö¡ö¡ö
-//°´´ÎÐò´æ´¢ÈçÏÂÈý²¿·ÖÄÚÈÝ£º
-//1.ÎÄ¼þÍ·½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ground.Datï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+//1.ï¿½Ä¼ï¿½Í·ï¿½á¹¹
 struct KGroundFileHead
 {
-	unsigned int uNumGrunode;	//µØ±í¸ñÍ¼ÐÎµÄÊýÄ¿
-	unsigned int uNumObject;	//½ôÌùµØÃæµÄÀàËÆÂ·ÃæÖ®ÀàµÄ¶ÔÏóµÄÊýÄ¿
+	unsigned int uNumGrunode;	//ï¿½Ø±ï¿½ï¿½ï¿½Í¼ï¿½Îµï¿½ï¿½ï¿½Ä¿
+	unsigned int uNumObject;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ö®ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	unsigned int uObjectDataOffset;
 };
-//2.´æ´¢KGroundFileHead::nNumGrunode¸öÒÔKSPRCrunode½á¹¹±íÊöµÄµØ±í¸ñÍ¼ÐÎ
-struct KSPRCrunode//## µØ±í¸ñÍ¼ÐÎÐÅÏ¢¡£
+//2.ï¿½æ´¢KGroundFileHead::nNumGrunodeï¿½ï¿½ï¿½ï¿½KSPRCrunodeï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ÄµØ±ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+struct KSPRCrunode//## ï¿½Ø±ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 {
 	struct KSPRCrunodeParam
 	{
-		unsigned short h, v;		//´ËÍ¼ÐÎËùÔÚµÄ£¨ÇøÓòÄÚ£©µØ±í¸ñ×ø±ê
-		unsigned short nFrame;		//ÒýÓÃÍ¼ÐÎµÄµÚ¼¸Ö¡
-		unsigned short nFileNameLen;//Í¼ÐÎÎÄ¼þÃû³¤¶È£¨°üÀ¨½áÊø·û£©£¬È¡Öµ²»¿É´óÓÚMAX_RESOURCE_FILE_NAME_LEN
+		unsigned short h, v;		//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		unsigned short nFrame;		//ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ÎµÄµÚ¼ï¿½Ö¡
+		unsigned short nFileNameLen;//Í¼ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½MAX_RESOURCE_FILE_NAME_LEN
 	}	Param;
 
-	//## Í¼ÐÎÎÄ¼þÃû
-	char szImgName[1];	//´Ë½á¹¹Îª±ä³¤£¬Êµ¼Ê³¤¶ÈÎª´Ë½á¹¹ÖÐµÄnFileNameLenÊýÖµ
+	//## Í¼ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	char szImgName[1];	//ï¿½Ë½á¹¹Îªï¿½ä³¤ï¿½ï¿½Êµï¿½Ê³ï¿½ï¿½ï¿½Îªï¿½Ë½á¹¹ï¿½Ðµï¿½nFileNameLenï¿½ï¿½Öµ
 };
-//3.´æ´¢KGroundFileHead::nNumObject¸öÒÔKSPRCoverGroundObj½á¹¹±íÊöµÄ½ôÌùµØÃæ¶ÔÏó
-//ÒªÇó°´ÕÕ»æÖÆµÄÏÈºóË³ÐòÅÅÁÐºÃ
+//3.ï¿½æ´¢KGroundFileHead::nNumObjectï¿½ï¿½ï¿½ï¿½KSPRCoverGroundObjï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//Òªï¿½ï¿½ï¿½Õ»ï¿½ï¿½Æµï¿½ï¿½Èºï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½
 #pragma pack(push, 2)
-struct KSPRCoverGroundObj//## ±íÊö½ôÌùµØÃæµÄÀàËÆÂ·ÃæÖ®ÀàµÄ¶ÔÏó½á¹¹¡£
+struct KSPRCoverGroundObj//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ö®ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
 {
-	//## ¶ÔÏó¶¨Î»µãÔÚ³¡¾°µØÍ¼µÄ×ø±ê¡£µ¥Î»£¨³¡¾°µã×ø±ê£©
-	int nPositionX;			//ºáÏò×ø±ê
-	int nPositionY;			//×ÝÏò×ø±ê
-	
-	char szImage[MAX_RESOURCE_FILE_NAME_LEN];	//ÒýÓÃµÄÍ¼ÐÎµÄÎÄ¼þÃû¡£
-	
-	unsigned short	nWidth;	//Í¼ÐÎºá¿í
-	unsigned short	nHeight;//Í¼ÐÎ×Ý¿í
+	//## ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ê¡£ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£©
+	int nPositionX;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int nPositionY;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//## ÒýÓÃÍ¼ÐÎµÄµÚ¼¸Ö¡
+	char szImage[MAX_RESOURCE_FILE_NAME_LEN];	//ï¿½ï¿½ï¿½Ãµï¿½Í¼ï¿½Îµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	unsigned short	nWidth;	//Í¼ï¿½Îºï¿½ï¿½
+	unsigned short	nHeight;//Í¼ï¿½ï¿½ï¿½Ý¿ï¿½
+
+	//## ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ÎµÄµÚ¼ï¿½Ö¡
 	unsigned short nFrame;
 
-	//±£Áô£¬Îª¶¨Öµ0
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Öµ0
 	union
 	{
 		unsigned char	bReserved;
 		unsigned char	bRelateRegion;
 	};
 
-	//## »æÖÆ´ÎÐò£¨Ö÷£©
+	//## ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	unsigned char	bOrder;
 
-	//## »æÖÆ´ÎÐò£¨´Î£©
+	//## ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ò£¨´Î£ï¿½
 	short	nLayer;
 
 };
 #pragma pack(pop)
-//¡ö¡ö¡öGround.DatµØ±í²ãÐÅÏ¢¶þ½øÖÆ´æ´¢ÎÄ¼þ--´æ´¢ÄÚÈÝ½áÊø---¡ö¡ö¡ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ground.Datï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½--ï¿½æ´¢ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-//¡ö¡ö¡öBuildinObj.Dat³¡¾°ÄÚ½¨¶ÔÏó¶þ½øÖÆ´æ´¢ÎÄ¼þ¡ö¡ö¡ö
-//°´´ÎÐò´æ´¢ÈçÏÂÈý²¿·ÖÄÚÈÝ£º
-//1.ÎÄ¼þÍ·½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BuildinObj.Datï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+//1.ï¿½Ä¼ï¿½Í·ï¿½á¹¹
 struct KBuildinObjFileHead
 {
-	//## ÇøÓòÖÐÄÚ½¨¶ÔÏóµÄ×ÜµÄÊýÄ¿
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½Ä¿
 	unsigned int nNumBios;		//nNumBios = nNumBiosTree + nNumBiosLine + nNumBiosPoint + nNumBiosAbove
-	//## ÒÔÊ÷·½Ê½ÅÅÐòµÄÄÚ½¨¶ÔÏóµÄÊýÄ¿
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	unsigned short nNumBiosTree;
-	//## ÒÔµ×±ß·½Ê½ÅÅÐòµÄÄÚ½¨¶ÔÏóµÄÊýÄ¿
+	//## ï¿½Ôµ×±ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	unsigned short nNumBiosLine;
-	//## ÒÔµã·½Ê½ÅÅÐòµÄÄÚ½¨¶ÔÏóµÄÊýÄ¿
+	//## ï¿½Ôµã·½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	unsigned short nNumBiosPoint;
-	//## ¸ß¿ÕÄÚ½¨¶ÔÏóµÄÊýÄ¿
+	//## ï¿½ß¿ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	unsigned short nNumBiosAbove;
 
-	//## ¸ß¿Õ¶ÔÏó×î´óµÄ»æÍ¼´ÎÐò±àºÅ¡£
+	//## ï¿½ß¿Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½
 	unsigned short nMaxAboveHeadObjOrder;
 	unsigned short nNumBulidinLight;
 };
-//2.KBuildinObjFileHead::nNumBios¸öÒÔKBuildinObj½á¹¹±íÊöµÄ³¡¾°ÄÚ½¨¶ÔÏó
-//´æ´¢µÄË³ÐòÎª:´æ´¢ÒÔµã·½Ê½ÅÅÐòµÄÈ«²¿¶ÔÏó;
-//ÔÙ´æ´¢ÒÔµ×±ß·½Ê½ÅÅÐòµÄÈ«²¿¶ÔÏó;
-//ÔÙ´æ´¢°´°´Ê÷·½Ê½ÅÅÐòµÄÈ«²¿¶ÔÏó;
-//ÔÙ´æ´¢È«²¿µÄ¸ß¿Õ¶ÔÏó
-struct KBuildinObj//## ±íÊö³¡¾°µØÍ¼ÉÏµÄÄÚ½¨¶ÔÏóµÄ½á¹¹
-{//ÒÔÏÂ½á¹¹,²»ÄÜµ÷»»Î»ÖÃ
-	//## Í¼ÐÎµÄÊôÐÔ
-	unsigned int Props;//ÆäÖµÎªÃ¶¾ÙSPBIO_PROPSÈ¡ÖµµÄ×éºÏ
+//2.KBuildinObjFileHead::nNumBiosï¿½ï¿½ï¿½ï¿½KBuildinObjï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½æ´¢ï¿½ï¿½Ë³ï¿½ï¿½Îª:ï¿½æ´¢ï¿½Ôµã·½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+//ï¿½Ù´æ´¢ï¿½Ôµ×±ß·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+//ï¿½Ù´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+//ï¿½Ù´æ´¢È«ï¿½ï¿½ï¿½Ä¸ß¿Õ¶ï¿½ï¿½ï¿½
+struct KBuildinObj//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ïµï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½á¹¹
+{//ï¿½ï¿½ï¿½Â½á¹¹,ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	//## Í¼ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½
+	unsigned int Props;//ï¿½ï¿½ÖµÎªÃ¶ï¿½ï¿½SPBIO_PROPSÈ¡Öµï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//====Í¼ÐÎÏà¹Ø====
-	//ËÄ¸öÍ¼ÐÎµã°´ÄæÊ±Õë·½Ïò°ÚÁÐ
-	KTriDimensionCoord ImgPos1;	//Í¼ÐÎµÚÒ»¸öµã¶ÔÓ¦×ø±êµã
-	KTriDimensionCoord ImgPos2;	
+	//====Í¼ï¿½ï¿½ï¿½ï¿½ï¿½====
+	//ï¿½Ä¸ï¿½Í¼ï¿½Îµã°´ï¿½ï¿½Ê±ï¿½ë·½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KTriDimensionCoord ImgPos1;	//Í¼ï¿½Îµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½
+	KTriDimensionCoord ImgPos2;
 	KTriDimensionCoord ImgPos3;
-	KTriDimensionCoord ImgPos4; //Í¼ÐÎµÚËÄ¸öµã¶ÔÓ¦×ø±êµã
+	KTriDimensionCoord ImgPos4; //Í¼ï¿½Îµï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	short	nImgWidth;		//Í¼ÐÎÌùÍ¼µÄ¿í(µ¥Î»£ºÏñËØµã)
-	short	nImgHeight;		//Í¼ÐÎÌùÍ¼µÄ¸ß(µ¥Î»£ºÏñËØµã)
-    
-	char  szImage[MAX_RESOURCE_FILE_NAME_LEN];	//Í¼ÐÎ×ÊÔ´µÄÎÄ¼þÃû
-	unsigned int   uFlipTime;	//µ±Ç°Ö¡ÇÐ»»³öÀ´µÄÊ±¼ä
-    unsigned short nFrame;		//»æÖÆµÄÍ¼ÐÎÖ¡Ë÷Òý
-	unsigned short nImgNumFrames;//´Ë¶ÔÏó°üº¬Í¼ÐÎÖ¡µÄÊýÄ¿
-	unsigned short nAniSpeed;	//¶¯»­µÄ²¥·ÅËÙ¶È£¬ÖµÁã±íÊ¾Îªµ¥Ö¡Í¼
+	short	nImgWidth;		//Í¼ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¿ï¿½(ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½)
+	short	nImgHeight;		//Í¼ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¸ï¿½(ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½)
 
-	//====¸ß¿Õ¶ÔÏóµÄ»æÍ¼Ë³Ðò====
+	char  szImage[MAX_RESOURCE_FILE_NAME_LEN];	//Í¼ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+	unsigned int   uFlipTime;	//ï¿½ï¿½Ç°Ö¡ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    unsigned short nFrame;		//ï¿½ï¿½ï¿½Æµï¿½Í¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½
+	unsigned short nImgNumFrames;//ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½Ä¿
+	unsigned short nAniSpeed;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ù¶È£ï¿½Öµï¿½ï¿½ï¿½Ê¾Îªï¿½ï¿½Ö¡Í¼
+
+	//====ï¿½ß¿Õ¶ï¿½ï¿½ï¿½Ä»ï¿½Í¼Ë³ï¿½ï¿½====
 	unsigned short nOrder;
-	//====±ê¼Ç¶ÔÏóÎ»ÖÃ====
+	//====ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½====
 	KTriDimensionCoord oPos1;
 	KTriDimensionCoord oPos2;
 
 	float fAngleXY;
 	float fNodicalY;
 };
-//¡ö¡ö¡öBuildinObj.Dat³¡¾°ÄÚ½¨¶ÔÏó¶þ½øÖÆ´æ´¢ÎÄ¼þ--´æ´¢ÄÚÈÝ½áÊø---¡ö¡ö¡ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BuildinObj.Datï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½--ï¿½æ´¢ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-//## spbio¶ÔÏóµÄÊôÐÔ¶¨Òå
+//## spbioï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½
 enum SPBIO_PROPS_LIST
-{ 
+{
 	//##Documentation
-	//## Æ½ÐÐÓÚµØ±í£¬²»×÷ÊÜ¹âÇÐ·Ö¡£
-	SPBIO_P_PLANETYPE_H = 0x00, 
+	//## Æ½ï¿½ï¿½ï¿½ÚµØ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ð·Ö¡ï¿½
+	SPBIO_P_PLANETYPE_H = 0x00,
 	//##Documentation
-	//## Æ½ÐÐÓÚµØ±í£¬ÇÒ×÷ÊÜ¹âÇÐ·Ö¡£
-	SPBIO_P_PLANETYPE_H_D = 0x01, 
+	//## Æ½ï¿½ï¿½ï¿½ÚµØ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ð·Ö¡ï¿½
+	SPBIO_P_PLANETYPE_H_D = 0x01,
 	//##Documentation
-	//## ´¹Ö±ÓÚµØ±í£¬²»×÷ÊÜ¹âÇÐ·Ö¡£
-	SPBIO_P_PLANETYPE_V = 0x02, 
+	//## ï¿½ï¿½Ö±ï¿½ÚµØ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ð·Ö¡ï¿½
+	SPBIO_P_PLANETYPE_V = 0x02,
 	//##Documentation
-	//## ´¹Ö±ÓÚµØ±í£¬ÇÒ×÷ÊÜ¹âÇÐ·Ö¡£
-	SPBIO_P_PLANETYPE_V_D = 0x03, 
+	//## ï¿½ï¿½Ö±ï¿½ÚµØ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ð·Ö¡ï¿½
+	SPBIO_P_PLANETYPE_V_D = 0x03,
 	//##Documentation
-	//## Í¼ÃæÀàÐÍ¶¨ÒåÖµmask
-	SPBIO_P_PLANETYPE_MASK = 0x03, 
+	//## Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½Öµmask
+	SPBIO_P_PLANETYPE_MASK = 0x03,
 	//##Documentation
-	//## ²»ÊÜ¹â
-	SPBIO_P_LIT_NONE = 0x00, 
+	//## ï¿½ï¿½ï¿½Ü¹ï¿½
+	SPBIO_P_LIT_NONE = 0x00,
 	//##Documentation
-	//## °´ÕÕÇÐ·ÖÊÜ¹â
-	SPBIO_P_LIT_DIV = 0x04, 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½Ü¹ï¿½
+	SPBIO_P_LIT_DIV = 0x04,
 	//##Documentation
-	//## °´ÕÕÖØÐÄÊÜ¹â
-	SPBIO_P_LIT_CENTRE = 0x08, 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½
+	SPBIO_P_LIT_CENTRE = 0x08,
 	//##Documentation
-	//## Æ½ÐÐÊÜ¹â
-	SPBIO_P_LIT_PARALLEL = 0x0C, 
+	//## Æ½ï¿½ï¿½ï¿½Ü¹ï¿½
+	SPBIO_P_LIT_PARALLEL = 0x0C,
 	//##Documentation
-	//## ¹âÕÕÇÐ·Ö·½Ê½¶¨ÒåµÄmask
-	SPBIO_P_LIT_MASK = 0x0C, 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½Ð·Ö·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½mask
+	SPBIO_P_LIT_MASK = 0x0C,
 	//##Documentation
-	//## ²»µ²¹â
-	SPBIO_P_BLOCK_LIGHT_NONE = 0x00, 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPBIO_P_BLOCK_LIGHT_NONE = 0x00,
 	//##Documentation
-	//## °´ÕÕµ×±ßµ²¹â
-	SPBIO_P_BLOCK_LIGHT_BOTTOM = 0x10, 
+	//## ï¿½ï¿½ï¿½Õµ×±ßµï¿½ï¿½ï¿½
+	SPBIO_P_BLOCK_LIGHT_BOTTOM = 0x10,
 	//##Documentation
-	//## °´ÕÕÒ»¸öÔ²µ²¹â
-	SPBIO_P_BLOCK_LIGHT_CIRCLE = 0x20, 
+	//## ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½
+	SPBIO_P_BLOCK_LIGHT_CIRCLE = 0x20,
 	//##Documentation
-	//## µ²¹â·½Ê½¶¨ÒåÖµmask
-	SPBIO_P_BLOCK_LIGHT_MASK = 0x30, 
+	//## ï¿½ï¿½ï¿½â·½Ê½ï¿½ï¿½ï¿½ï¿½Öµmask
+	SPBIO_P_BLOCK_LIGHT_MASK = 0x30,
 	//##Documentation
-	//## µµ¹â°ë¾¶Îª0.2
-	SPBIO_P_BLOCK_L_RADIUS_2 = 0x00, 
+	//## ï¿½ï¿½ï¿½ï¿½ë¾¶Îª0.2
+	SPBIO_P_BLOCK_L_RADIUS_2 = 0x00,
 	//##Documentation
-	//## µµ¹â°ë¾¶Îª0.3
-	SPBIO_P_BLOCK_L_RADIUS_3 = 0x40, 
+	//## ï¿½ï¿½ï¿½ï¿½ë¾¶Îª0.3
+	SPBIO_P_BLOCK_L_RADIUS_3 = 0x40,
 	//##Documentation
-	//## µµ¹â°ë¾¶Îª0.4
-	SPBIO_P_BLOCK_L_RADIUS_4 = 0x80, 
+	//## ï¿½ï¿½ï¿½ï¿½ë¾¶Îª0.4
+	SPBIO_P_BLOCK_L_RADIUS_4 = 0x80,
 	//##Documentation
-	//## µµ¹â°ë¾¶Îª0.5
-	SPBIO_P_BLOCK_L_RADIUS_5 = 0xC0, 
+	//## ï¿½ï¿½ï¿½ï¿½ë¾¶Îª0.5
+	SPBIO_P_BLOCK_L_RADIUS_5 = 0xC0,
 	//##Documentation
-	//## µµ¹â°ë¾¶ÎªÊýÖµmask
-	SPBIO_P_BLOCK_L_RADIUS_MASK = 0xC0, 
+	//## ï¿½ï¿½ï¿½ï¿½ë¾¶Îªï¿½ï¿½Öµmask
+	SPBIO_P_BLOCK_L_RADIUS_MASK = 0xC0,
 	//##Documentation
-	//## °´ÕÕµãÅÅÐò
-	SPBIO_P_SORTMANNER_POINT = 0x0000, 
+	//## ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
+	SPBIO_P_SORTMANNER_POINT = 0x0000,
 	//##Documentation
-	//## °´ÕÕ±ßÅÅÐò
-	SPBIO_P_SORTMANNER_LINE = 0x0100, 
+	//## ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPBIO_P_SORTMANNER_LINE = 0x0100,
 	//##Documentation
-	//## °´ÕÕÊ÷ÅÅÐò
-	SPBIO_P_SORTMANNER_TREE = 0x0200, 
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SPBIO_P_SORTMANNER_TREE = 0x0200,
 	//##Documentation
-	//## ÅÅÐò·½Ê½µÄmask
+	//## ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½mask
 	SPBIO_P_SORTMANNER_MASK = 0x0300,
-	
+
 	//##Documentation
-	//## ÐèÒªÒª¼ÓÁÁÏÔÊ¾
+	//## ï¿½ï¿½ÒªÒªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 	SPBIO_F_HIGHT_LIGHT = 0x0400,
 };
 
 
-//¡ö¡ö¡öTrap.dat³¡¾°ÊÂ¼þµãÐÅÏ¢¶þ½øÖÆ´æ´¢ÎÄ¼þ¡ö¡ö¡ö
-//°´´ÎÐò´æ´¢ÈçÏÂÈý²¿·ÖÄÚÈÝ£º
-//1.ÎÄ¼þÍ·½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Trap.datï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+//1.ï¿½Ä¼ï¿½Í·ï¿½á¹¹
 struct KTrapFileHead
 {
-	unsigned int uNumTrap;		//ÊÂ¼þµãµÄÊýÄ¿
-	unsigned int uReserved[2];	//¹Ì¶¨ÖµÎª0
+	unsigned int uNumTrap;		//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+	unsigned int uReserved[2];	//ï¿½Ì¶ï¿½ÖµÎª0
 };
-//2.´æ´¢KTrapFileHead::nNumTrap¸öÒÔKSPTrap½á¹¹±íÊöµÄµØ±íÊÂ¼þµã
+//2.ï¿½æ´¢KTrapFileHead::nNumTrapï¿½ï¿½ï¿½ï¿½KSPTrapï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ÄµØ±ï¿½ï¿½Â¼ï¿½ï¿½ï¿½
 struct KSPTrap
 {
-	unsigned char	cX;			//ÇøÓòµÄXÎ»ÖÃ£¨·¶Î§0-16£©
-	unsigned char	cY;			//ÇøÓòµÄYÎ»ÖÃ ·¶Î§0-32£©
-	unsigned char	cNumCell;	//Á¬Ðø¸²¸ÇÁË¼¸¸öÐ¡¸ñ×Ó
-	unsigned char	cReserved;	//±£Áô£¬¹Ì¶¨ÖµÎª0
-	unsigned int	uTrapId;	//¸ù¾ÝÊÂ¼þ¹ØÁªÎÄ¼þÃû×ª»¯¶øµÃµ½µÄÊÂ¼þid±êÊ¶(½Å±¾ID)
+	unsigned char	cX;			//ï¿½ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½Ã£ï¿½ï¿½ï¿½Î§0-16ï¿½ï¿½
+	unsigned char	cY;			//ï¿½ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½ ï¿½ï¿½Î§0-32ï¿½ï¿½
+	unsigned char	cNumCell;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+	unsigned char	cReserved;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ÖµÎª0
+	unsigned int	uTrapId;	//ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Â¼ï¿½idï¿½ï¿½Ê¶(ï¿½Å±ï¿½ID)
 };
-//¡ö¡ö¡öTrap.Dat³¡¾°ÊÂ¼þµãÐÅÏ¢¶þ½øÖÆ´æ´¢ÎÄ¼þ--´æ´¢ÄÚÈÝ½áÊø---¡ö¡ö¡ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Trap.Datï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ´æ´¢ï¿½Ä¼ï¿½--ï¿½æ´¢ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//ÓÃÓÚ´¢´æµØÍ¼ÊôÐÔÎÄ¼þ²ÎÊý
+//ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 struct KMapList
 {
 	char				nMapName[64];
@@ -296,78 +296,78 @@ struct KMapList
 	char 	            nNormalDropRate[MAX_RESOURCE_FILE_NAME_LEN];
 	char	            nNewWorldScript[MAX_RESOURCE_FILE_NAME_LEN];
 	char                nNewWorldParam[MAX_RESOURCE_FILE_NAME_LEN];
-	unsigned char		nCSeries;		// npc ÎåÐÐ
+	unsigned char		nCSeries;		// npc ï¿½ï¿½ï¿½ï¿½
 	int                 nMinLevel;
 	int                 nMaxLevel;
-	unsigned short		nScriptNameLen;	// Npc½Å±¾ÎÄ¼þÃû³¤¶È£¨°üÀ¨½áÊø·û£©£¬È¡Öµ²»¿É´óÓÚMAX_RESOURCE_FILE_NAME_LEN
+	unsigned short		nScriptNameLen;	// Npcï¿½Å±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½MAX_RESOURCE_FILE_NAME_LEN
 	char			    sZScript[MAX_RESOURCE_FILE_NAME_LEN];
-	
-}; 
-//¡ö¡ö¡öNpc_S.dat, Npc_C.datµØÍ¼ÉÏµÄnpc´æ´¢ÎÄ¼þ¡ö¡ö¡ö
-//°´´ÎÐò´æ´¢ÈçÏÂÈý²¿·ÖÄÚÈÝ£º
-//1.ÎÄ¼þÍ·½á¹¹
+
+};
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Npc_S.dat, Npc_C.datï¿½ï¿½Í¼ï¿½Ïµï¿½npcï¿½æ´¢ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+//1.ï¿½Ä¼ï¿½Í·ï¿½á¹¹
 struct KNpcFileHead
 {
-	unsigned int uNumNpc;		//ÊÂ¼þµãµÄÊýÄ¿
-	unsigned int uReserved[2];	//¹Ì¶¨ÖµÎª0
+	unsigned int uNumNpc;		//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+	unsigned int uReserved[2];	//ï¿½Ì¶ï¿½ÖµÎª0
 };
-//2.´æ´¢KNpcFileHead::nNumNpc¸öÒÔKSPNpc½á¹¹±íÊöµÄnpc
+//2.ï¿½æ´¢KNpcFileHead::nNumNpcï¿½ï¿½ï¿½ï¿½KSPNpcï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npc
 struct KSPNpc
 {
-	int					nTemplateID;	// Ä£°å±àºÅ(¶ÔÓ¦Ä£°åÎÄ¼þ"\Settings\NpcS.txt"£¬±àºÅ´Ó 0 ¿ªÊ¼)
+	int					nTemplateID;	// Ä£ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ó¦Ä£ï¿½ï¿½ï¿½Ä¼ï¿½"\Settings\NpcS.txt"ï¿½ï¿½ï¿½ï¿½Å´ï¿½ 0 ï¿½ï¿½Ê¼)
 	int					nPositionX;
 	int					nPositionY;
-	bool				bSpecialNpc;	// ÌØÊânpc  À¶¹Ö£¿
-	char				cReserved[3];	// ±£Áô
-	char				szName[32];		// npc Ãû×Ö
-	short				nLevel;			// µÈ¼¶
-	short				nCurFrame;		// ÔØÈëÊ±Í¼ÏñÊÇµÚ¼¸Ö¡
-	short				nHeadImageNo;	// Í·ÏñÍ¼ÐÎ±àºÅ	 NpcSettings
-	short				shKind;			// npcÀàÐÍ
-	unsigned char		cCamp;			// npc ÕóÓª
-	unsigned char		cSeries;		// npc ÎåÐÐ
-	unsigned short		nScriptNameLen;	// Npc½Å±¾ÎÄ¼þÃû³¤¶È£¨°üÀ¨½áÊø·û£©£¬È¡Öµ²»¿É´óÓÚMAX_RESOURCE_FILE_NAME_LEN
-	char				szScript[MAX_RESOURCE_FILE_NAME_LEN];	//Npc½Å±¾ÎÄ¼þÃû//´Ë½á¹¹Êµ¼Ê´æ´¢Ê±Îª±ä³¤£¬Êµ¼Ê³¤¶ÈÎª´Ë½á¹¹ÖÐµÄnScriptNameLenÊýÖµ
+	bool				bSpecialNpc;	// ï¿½ï¿½ï¿½ï¿½npc  ï¿½ï¿½ï¿½Ö£ï¿½
+	char				cReserved[3];	// ï¿½ï¿½ï¿½ï¿½
+	char				szName[32];		// npc ï¿½ï¿½ï¿½ï¿½
+	short				nLevel;			// ï¿½È¼ï¿½
+	short				nCurFrame;		// ï¿½ï¿½ï¿½ï¿½Ê±Í¼ï¿½ï¿½ï¿½ÇµÚ¼ï¿½Ö¡
+	short				nHeadImageNo;	// Í·ï¿½ï¿½Í¼ï¿½Î±ï¿½ï¿½	 NpcSettings
+	short				shKind;			// npcï¿½ï¿½ï¿½ï¿½
+	unsigned char		cCamp;			// npc ï¿½ï¿½Óª
+	unsigned char		cSeries;		// npc ï¿½ï¿½ï¿½ï¿½
+	unsigned short		nScriptNameLen;	// Npcï¿½Å±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½MAX_RESOURCE_FILE_NAME_LEN
+	char				szScript[MAX_RESOURCE_FILE_NAME_LEN];	//Npcï¿½Å±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½//ï¿½Ë½á¹¹Êµï¿½Ê´æ´¢Ê±Îªï¿½ä³¤ï¿½ï¿½Êµï¿½Ê³ï¿½ï¿½ï¿½Îªï¿½Ë½á¹¹ï¿½Ðµï¿½nScriptNameLenï¿½ï¿½Öµ
     char                nNDropFile[MAX_RESOURCE_FILE_NAME_LEN];
     char                nGDropFile[MAX_RESOURCE_FILE_NAME_LEN];
 	//KTriDimensionCoord	Pos;
 };
-//¡ö¡ö¡öNpc_S.dat, Npc_C.datµØÍ¼ÉÏµÄnpc´æ´¢ÎÄ¼þ--´æ´¢ÄÚÈÝ½áÊø---¡ö¡ö¡ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Npc_S.dat, Npc_C.datï¿½ï¿½Í¼ï¿½Ïµï¿½npcï¿½æ´¢ï¿½Ä¼ï¿½--ï¿½æ´¢ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//¡ö¡ö¡öObj_S.dat, Obj_C.datµØÍ¼ÉÏµÄObj´æ´¢ÎÄ¼þ¡ö¡ö¡ö
-//°´´ÎÐò´æ´¢ÈçÏÂÈý²¿·ÖÄÚÈÝ£º
-//1.ÎÄ¼þÍ·½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Obj_S.dat, Obj_C.datï¿½ï¿½Í¼ï¿½Ïµï¿½Objï¿½æ´¢ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+//1.ï¿½Ä¼ï¿½Í·ï¿½á¹¹
 struct KObjFileHead
 {
-	unsigned int uNumObj;		//ÊÂ¼þµãµÄÊýÄ¿
-	unsigned int uReserved[2];	//¹Ì¶¨ÖµÎª0
+	unsigned int uNumObj;		//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+	unsigned int uReserved[2];	//ï¿½Ì¶ï¿½ÖµÎª0
 };
-//2.´æ´¢KObjFileHead::nNumObj¸öÒÔKSPObj½á¹¹±íÊöµÄObj
+//2.ï¿½æ´¢KObjFileHead::nNumObjï¿½ï¿½ï¿½ï¿½KSPObjï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Obj
 struct KSPObj
 {
-	int					nTemplateID;	//Ä£°å±àºÅ(¶ÔÓ¦Ä£°åÎÄ¼þ"\Settings\ObjData.txt"£¬±àºÅ´Ó1¿ªÊ¼)
+	int					nTemplateID;	//Ä£ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ó¦Ä£ï¿½ï¿½ï¿½Ä¼ï¿½"\Settings\ObjData.txt"ï¿½ï¿½ï¿½ï¿½Å´ï¿½1ï¿½ï¿½Ê¼)
 	short				nState;
-	unsigned short		nBioIndex;		//µ±bSkipPaintÎªÕæÖµÊ±£¬´ËÊý¾ÝÓÐÐ§£¬·ñÔòÎª¶¨Öµ0
+	unsigned short		nBioIndex;		//ï¿½ï¿½bSkipPaintÎªï¿½ï¿½ÖµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Öµ0
 	KTriDimensionCoord	Pos;
 	char				nDir;
-	bool				bSkipPaint;		//ÊÇ·ñºöÂÔ´ËobjµÄ»æÖÆ
-	unsigned short		nScriptNameLen;	//Obj½Å±¾ÎÄ¼þÃû³¤¶È£¨°üÀ¨½áÊø·û£©£¬È¡Öµ²»¿É´óÓÚMAX_RESOURCE_FILE_NAME_LEN
-	char				szScript[MAX_RESOURCE_FILE_NAME_LEN];	//Obj½Å±¾ÎÄ¼þÃû//Êµ¼Ê´æ´¢Ê±Îª±ä³¤£¬Êµ¼Ê³¤¶ÈÎª´Ë½á¹¹ÖÐµÄnScriptNameLenÊýÖµ
+	bool				bSkipPaint;		//ï¿½Ç·ï¿½ï¿½ï¿½Ô´ï¿½objï¿½Ä»ï¿½ï¿½ï¿½
+	unsigned short		nScriptNameLen;	//Objï¿½Å±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½MAX_RESOURCE_FILE_NAME_LEN
+	char				szScript[MAX_RESOURCE_FILE_NAME_LEN];	//Objï¿½Å±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½//Êµï¿½Ê´æ´¢Ê±Îªï¿½ä³¤ï¿½ï¿½Êµï¿½Ê³ï¿½ï¿½ï¿½Îªï¿½Ë½á¹¹ï¿½Ðµï¿½nScriptNameLenï¿½ï¿½Öµ
 };
-//¡ö¡ö¡öObj_S.dat, Obj_C.datµØÍ¼ÉÏµÄnpc´æ´¢ÎÄ¼þ--´æ´¢ÄÚÈÝ½áÊø---¡ö¡ö¡ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Obj_S.dat, Obj_C.datï¿½ï¿½Í¼ï¿½Ïµï¿½npcï¿½æ´¢ï¿½Ä¼ï¿½--ï¿½æ´¢ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// ³¡¾°ÄÚ½¨¹âÔ´ÊôÐÔ½á¹¹
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ô½á¹¹
 struct KBuildInLightInfo
 {
-	KTriDimensionCoord	oPos;			// ¹âÔ´×ø±ê
-	DWORD				dwColor;		// ¹âÔ´ÑÕÉ«ºÍÁÁ¶È
-	int					nMinRange;		// ×îÐ¡°ë¾¶
-	int					nMaxRange;		// ×î´ó°ë¾¶
-	int					nCycle;			// Ñ­»·ÖÜÆÚ,ºÁÃë
+	KTriDimensionCoord	oPos;			// ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
+	unsigned long				dwColor;		// ï¿½ï¿½Ô´ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int					nMinRange;		// ï¿½ï¿½Ð¡ï¿½ë¾¶
+	int					nMaxRange;		// ï¿½ï¿½ï¿½ë¾¶
+	int					nCycle;			// Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½
 };
 
 #pragma pack(1)
-// ÓÃÓÚ¹âÕÕ¼ÆËãµÄÑÕÉ«½á¹¹
+// ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½á¹¹
 struct KLColor
 {
 	//unsigned int r;
@@ -379,12 +379,12 @@ struct KLColor
 	unsigned short b;
     unsigned short ReserveForAlign;
 
-    // ÏÂÃæµÄ´úÂëµ¼ÖÂºÜ¶àµÄÐÔÄÜËðÊ§
+    // ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ëµ¼ï¿½ÂºÜ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§
 //	KLColor()
 //	{
 //        r = 0, g = 0, b = 0;
 //	}
-//	
+//
 //	KLColor(int rr, int gg, int bb)
 //	{
 //		r = rr, g = gg, b = bb;
@@ -395,7 +395,7 @@ struct KLColor
 		r = rr, g = gg, b = bb;
 	}
 
-	void SetColor(DWORD dwColor)
+	void SetColor(unsigned long dwColor)
 	{
 		r = (unsigned short)((dwColor>>16) & 0xff);
 		g = (unsigned short)((dwColor>>8) & 0xff);
@@ -407,7 +407,7 @@ struct KLColor
 		g = (int)(g * f);
 		b = (int)(b * f);
 	}
-	DWORD GetColor()
+	unsigned long GetColor()
 	{
 		return 0xff000000 | (r<<16) | (g<<8) | b;
 	}

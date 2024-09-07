@@ -75,7 +75,7 @@ private:
 
 	KMapFightMusic	m_sFightMusic[defMUSIC_MAX_STAGE];
 
-	BOOL			m_bFightMode;
+	int			m_bFightMode;
 	int				m_nCurStage;
 
 public:
@@ -87,10 +87,10 @@ public:
 	// ��Ϸ�������ֲ���
 	// ������nMapID ��ͼid
     //		nGameTime ��Ϸʱ��(0 -- 1440)
-	void			Play(int nMapID, int nGameTime, BOOL bFightMode);
+	void			Play(int nMapID, int nGameTime, int bFightMode);
 	void			Stop();
 
-	void			Start(int nMapID, int nGameTime, BOOL bFightMode);// ������Ϸ���������趨�򿪵�ʱ�򣬲�������
+	void			Start(int nMapID, int nGameTime, int bFightMode);// ������Ϸ���������趨�򿪵�ʱ�򣬲�������
 	void			SetGameVolume(int nVolume);	// �趨��Ϸ��������������С(0 -- 100)
 	void			SetWeatherVolume(int nVolume);	// �趨����������������С��Ӱ��(0 -- 100)
 	void			ScriptPlay(char *lpszMusicName);// �ýű���������

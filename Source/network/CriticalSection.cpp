@@ -43,15 +43,15 @@ inline void CCriticalSection::Leave()
 }
 
 
-inline BOOL CCriticalSection::TryEnter()
+inline int CCriticalSection::TryEnter()
 {
 	//return bool(::TryEnterCriticalSection(&m_crit));
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return BOOL(::TryEnterCriticalSection(&m_crit));
+	return int(::TryEnterCriticalSection(&m_crit));
 #else
-	return BOOL(pthread_mutex_trylock(&m_crit));
+	return int(pthread_mutex_trylock(&m_crit));
 #endif
-	
+
 }
 
 

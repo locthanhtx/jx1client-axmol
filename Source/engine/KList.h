@@ -30,11 +30,11 @@ public:
 	void AddTail(KNode *pNode); // �����������һ���ڵ�
 	KNode* RemoveHead(void); // ɾ����һ���ڵ�
 	KNode* RemoveTail(void); // ɾ�����һ���ڵ�
-	KNode* GetStatusNode(int32_t n);
-    KNode* RemoveOneTail(int32_t n);//ɾ��ĳ���ڵ�
+	KNode* GetStatusNode(int n);
+    KNode* RemoveOneTail(int n);//ɾ��ĳ���ڵ�
 
-	BOOL IsEmpty(void);      // �Ƿ��Ǹ��յ�����
-	LONG GetNodeCount(void);
+	int IsEmpty(void);      // �Ƿ��Ǹ��յ�����
+	int GetNodeCount(void);
 };
 //---------------------------------------------------------------------------
 
@@ -53,9 +53,9 @@ inline KList::KList(void)
 // ����:	IsEmpty
 // ����:	�Ƿ�Ϊ��
 // ����:	void
-// ����:	BOOL
+// ����:	int
 //---------------------------------------------------------------------------
-inline BOOL KList::IsEmpty(void)
+inline int KList::IsEmpty(void)
 {
 	return (m_ListHead.GetNext() == NULL);
 }
@@ -83,7 +83,7 @@ inline KNode* KList::GetTail(void)
 // ����:	AddHead
 // ����:	��ͷ������һ���ڵ�
 // ����:	KNode*
-// ����:	BOOL
+// ����:	int
 //---------------------------------------------------------------------------
 inline void KList::AddHead(KNode *pNode)
 {
@@ -129,11 +129,11 @@ inline KNode* KList::RemoveTail(void)
 // ����:	GetNodeCount
 // ����:	ȡ�ýڵ����
 // ����:	void
-// ����:	LONG
+// ����:	int
 //---------------------------------------------------------------------------
-inline LONG KList::GetNodeCount(void)
+inline int KList::GetNodeCount(void)
 {
-	int32_t nNode = 0;
+	int nNode = 0;
 	KNode* pNode = GetHead();
 	while (pNode)
 	{
@@ -148,9 +148,9 @@ inline LONG KList::GetNodeCount(void)
 // ����:	void
 // ����:	KNode*
 //---------------------------------------------------------------------------
-inline KNode* KList::GetStatusNode(int32_t n)
+inline KNode* KList::GetStatusNode(int n)
 {
-	int32_t nNode = 0;
+	int nNode = 0;
 	KNode* pNode = GetHead();
 	while (pNode)
 	{
@@ -170,7 +170,7 @@ inline KNode* KList::GetStatusNode(int32_t n)
 // ����:	void
 // ����:	KNode*
 //---------------------------------------------------------------------------
-inline KNode* KList::RemoveOneTail(int32_t n)
+inline KNode* KList::RemoveOneTail(int n)
 {
 /*	KNode* pNode = m_ListTail.GetPrev();
 	if (pNode)
@@ -178,7 +178,7 @@ inline KNode* KList::RemoveOneTail(int32_t n)
 	return pNode;*/
 
 
-	int32_t nNode = 0;
+	int nNode = 0;
 	KNode* pNode = GetHead();
 	while (pNode)
 	{

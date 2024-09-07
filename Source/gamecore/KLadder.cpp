@@ -14,71 +14,71 @@ KLadder::~KLadder()
 	ZeroMemory(&GameStatData, sizeof(TGAME_STAT_DATA));
 }
 
-BOOL KLadder::Init(void* pData, size_t uSize)
+int KLadder::Init(void* pData, size_t uSize)
 {
 	if (uSize != sizeof(TGAME_STAT_DATA))
 		return FALSE;
-//╩Ях║еецШйЩ╬щ╟Э
+//О©╫О©╫х║О©╫О©╫О©╫О©╫О©╫О©╫О©╫щ╟О©╫
 	memcpy(&GameStatData, pData, uSize);
 	return TRUE;
 }
-//цееижпг╟10╣х╪╤еецШ
+//О©╫О©╫О©╫О©╫О©╫О©╫г╟10О©╫х╪О©╫О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenFacMasterHand(int nFac)
 {
 	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)
 		return NULL;
-	return GameStatData.LevelStatBySect[nFac + 1];   //0тзр╟    1-10
+	return GameStatData.LevelStatBySect[nFac + 1];   //0О©╫О©╫р╟    1-10
 }
-//цееижпг╟10╫Пг╝еецШ
+//О©╫О©╫О©╫О©╫О©╫О©╫г╟10О©╫О©╫г╝О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenFacRich(int nFac)
 {
-	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)  //10╦Жцееи╣деецШ
+	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)  //10О©╫О©╫О©╫О©╫О©╫и╣О©╫О©╫О©╫О©╫О©╫
 		return NULL;
-	return GameStatData.MoneyStatBySect[nFac + 1];   //0н╙тзр╟	 1-10
+	return GameStatData.MoneyStatBySect[nFac + 1];   //0н╙О©╫О©╫р╟	 1-10
 }
-//цееижпг╟10╫П╠реецШ
+//О©╫О©╫О©╫О©╫О©╫О©╫г╟10О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenFacXu(int nFac)
 {
-	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)  //10╦Жцееи╣деецШ
+	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)  //10О©╫О©╫О©╫О©╫О©╫и╣О©╫О©╫О©╫О©╫О©╫
 		return NULL;
 	return GameStatData.XuStatBySect[nFac + 1];
 }
-//йю╫Гг╟10и╠хкеецШ
+//О©╫О©╫О©╫О©╫г╟10и╠О©╫О©╫О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenKiller()
 {
 	return GameStatData.KillerStat;
 }
-//йю╫Гг╟10╣х╪╤еецШ
+//О©╫О©╫О©╫О©╫г╟10О©╫х╪О©╫О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenMasterHand()
 {
 	return GameStatData.LevelStat;
 }
-//йю╫Гг╟10╫Пг╝еецШ
+//О©╫О©╫О©╫О©╫г╟10О©╫О©╫г╝О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenRich()
 {
 	return GameStatData.MoneyStat;
 }
-//йю╫Гг╟10╫П╠реецШ
+//О©╫О©╫О©╫О©╫г╟10О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 const TRoleList* KLadder::TopTenXu()
 {
 	return GameStatData.XuStat;
 }
 
-//цееижп╣х╪╤еецШ╣ду╪спбй
+//О©╫О©╫О©╫О©╫О©╫п╣х╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫у╪О©╫О©╫О©╫О©╫
 int KLadder::GetFacMasterHandPercent(int nFac)
 {
 	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)
 		return 0;
 	return GameStatData.SectLevelMost[nFac + 1];
 }
-//цееижп╫Пг╝еецШ╣ду╪спбй
+//О©╫О©╫О©╫О©╫О©╫п╫О©╫г╝О©╫О©╫О©╫О©╫О©╫О©╫у╪О©╫О©╫О©╫О©╫
 int KLadder::GetFacMoneyPercent(int nFac)
 {
 	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)
 		return NULL;
 	return GameStatData.SectMoneyMost[nFac + 1];
 }
-//╦В╦Жцееи╣дхкйЩ
+//О©╫О©╫О©╫О©╫О©╫О©╫О©╫и╣О©╫О©╫О©╫О©╫О©╫
 int KLadder::GetFacMemberCount(int nFac)
 {
 	if (nFac < - 1 || nFac >= series_num * FACTIONS_PRR_SERIES)
@@ -86,35 +86,35 @@ int KLadder::GetFacMemberCount(int nFac)
 	return GameStatData.SectPlayerNum[nFac + 1];
 }
 
-const TRoleList* KLadder::GetTopTen(DWORD dwLadderID)  //т╜йЩ╬щ 1-26╦Ж
+const TRoleList* KLadder::GetTopTen(unsigned long dwLadderID)  //т╜О©╫О©╫О©╫О©╫ 1-26О©╫О©╫
 {
 	if (dwLadderID <= enumLadderBegin || dwLadderID >= enumLadderEnd)  //0----38
-	{																			 
+	{
 		return NULL;
 	}
 
 	if (dwLadderID == enumTopTenMasterHand)
 	{
-		return GameStatData.LevelStat;  //йю╫Г╣х╪╤еецШ
+		return GameStatData.LevelStat;  //О©╫О©╫О©╫О©╫х╪О©╫О©╫О©╫О©╫О©╫
 	}
 	else if (dwLadderID == enumTopTenRicher)
 	{
-		return GameStatData.MoneyStat;  //йю╫Г╫Пг╝еецШ
+		return GameStatData.MoneyStat;  //О©╫О©╫О©╫О©╫О©╫г╝О©╫О©╫О©╫О©╫
 	}
 	else if (dwLadderID == enumTopTenKiller)
 	{
-		return GameStatData.KillerStat;  //йю╫Ги╠хкеецШ
+		return GameStatData.KillerStat;  //О©╫О©╫О©╫О©╫и╠О©╫О©╫О©╫О©╫О©╫О©╫
 	}
 	else if (dwLadderID == enumTopTenXu)
 	{
-		return GameStatData.XuStat;       //йю╫Г╫П╠реецШ
+		return GameStatData.XuStat;       //О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	}
-	else if (dwLadderID < enumFacTopTenRicher)   //5-15  цееи╣х╪╤еепп  5 н╙тзр╟й╝╢Сеепп
+	else if (dwLadderID < enumFacTopTenRicher)   //5-15  О©╫О©╫О©╫и╣х╪О©╫О©╫О©╫О©╫О©╫  5 н╙О©╫О©╫р╟й╝О©╫О©╫О©╫О©╫О©╫О©╫
 	{
-		return TopTenFacMasterHand(dwLadderID - enumFacTopTenMasterHand - 1);  //цееижпг╟10╣х╪╤еецШ(0 -- 9)
+		return TopTenFacMasterHand(dwLadderID - enumFacTopTenMasterHand - 1);  //О©╫О©╫О©╫О©╫О©╫О©╫г╟10О©╫х╪О©╫О©╫О©╫О©╫О©╫(0 -- 9)
 	}
-	else //╢Ссз╣хсз15 ╬мйгцееижпг╟10╫Пг╝еецШ  15н╙тзр╟й╝╢С╦╩╨ю	 16-26
+	else //О©╫О©╫О©╫з╣О©╫О©╫О©╫15 О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫г╟10О©╫О©╫г╝О©╫О©╫О©╫О©╫  15н╙О©╫О©╫р╟й╝О©╫С╦╩╨О©╫	 16-26
 	{
-		return TopTenFacRich(dwLadderID - enumFacTopTenRicher - 1);  //цееи╫Пг╝еецШ	 (0-9)
+		return TopTenFacRich(dwLadderID - enumFacTopTenRicher - 1);  //О©╫О©╫О©╫и╫О©╫г╝О©╫О©╫О©╫О©╫	 (0-9)
 	}
 }

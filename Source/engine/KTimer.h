@@ -34,7 +34,7 @@ private:
 	timeval m_nTimeStart;
 	timeval m_nTimeStop;
 #endif
-	int32_t				m_nFPS;
+	int				m_nFPS;
 public:
 	KTimer();
 	void			Start();
@@ -42,7 +42,7 @@ public:
 	long long		GetElapse();
 	long long		GetElapseFrequency();
 	long long		GetInterval();
-	bool			Passed(uint32_t nTime);
-	bool			GetFPS(int32_t* nFPS);
+	bool			Passed(unsigned int nTime);
+	bool			GetFPS(int* nFPS);
 };
 #endif

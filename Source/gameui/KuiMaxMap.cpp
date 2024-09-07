@@ -66,7 +66,7 @@ KuiMaxMap::~KuiMaxMap()
 }
 
 //创建确定弹出框
-KuiMaxMap * KuiMaxMap::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiMaxMap* KuiMaxMap::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiMaxMap * popLayer = KuiMaxMap::create();
 	popLayer->addDialogData();
@@ -131,7 +131,7 @@ void KuiMaxMap::addDialogData()
 	char nSprFileKey[64]={0};
 	char mjpgPath[256];
 	sprintf(mjpgPath, "%s", maxMapPicPath.c_str());
-	DWORD nFielpahtdwid = g_FileName2Id(mjpgPath);
+	unsigned long nFielpahtdwid = g_FileName2Id(mjpgPath);
 	sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
 	//sprintf(nDebugmsg,"Toa do 6: nXpos:%d-nYpos:%d",xPos,yPos);
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSprFileKey);

@@ -142,7 +142,7 @@ ACCLIB_PUBLIC(int, acc_isatty) (int fd)
         acclib_handle_t h = __ACCLIB_FUNCNAME(acc_get_osfhandle)(fd);
         if ((HANDLE)h != INVALID_HANDLE_VALUE)
         {
-            DWORD d = 0;
+            unsigned long d = 0;
             if (GetConsoleMode((HANDLE)h, &d) == 0)
                 return 0;   /* GetConsoleMode failed -> not a tty */
         }

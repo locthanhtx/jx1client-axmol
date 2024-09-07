@@ -45,36 +45,36 @@ KuiEscInfo::~KuiEscInfo()
 
 }
 
-//创建确定弹出框
-KuiEscInfo * KuiEscInfo::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+//麓麓陆篓脠路露篓碌炉鲁枚驴貌
+KuiEscInfo* KuiEscInfo::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiEscInfo * popLayer = KuiEscInfo::create();
 	popLayer->addDialogData();
-	//设置按钮
+	//脡猫脰脙掳麓脜楼
 	popLayer->setcoloseButton(callbackListener,callfun);
 	popLayer->isOpen = true;
 	return popLayer;
 }
 
-//初始化
+//鲁玫脢录禄炉
 bool KuiEscInfo::init()
 {
 	if ( !Layer::init() ){
 		return false;
 	}
-	//精灵帧缓存
+	//戮芦脕茅脰隆禄潞麓忙
 	//SpriteFrameCache * sfCache = SpriteFrameCache::sharedSpriteFrameCache();
 	//sfCache->addSpriteFramesWithFile("p_tips.plist");
-	//添加模态背景
+	//脤铆录脫脛拢脤卢卤鲁戮掳
 	/*Color4B color(112, 128, 144, 150);
-	LayerColor * colorLayer = LayerColor::create(color);//颜色层
+	LayerColor * colorLayer = LayerColor::create(color);//脩脮脡芦虏茫
 	colorLayer->setPosition(ax::Vec2::ZERO);
-	//colorLayer->setContentSize(winSize);//设置和窗口的大小
+	//colorLayer->setContentSize(winSize);//脡猫脰脙潞脥麓掳驴脷碌脛麓贸脨隆
 	this->addChild(colorLayer);
 	*/
 	char nSprName[128]={0};
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统2.spr");
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁2.spr");
 	g_StrLower(nSprName);
 	int m_nWidth,m_nHeight,nFrams;
 	Texture2D *bgCur = NULL;
@@ -87,27 +87,27 @@ bool KuiEscInfo::init()
 	ParentNode_Task= spriteBox;
 	spriteBox->setPosition(ax::Vec2(winSize.width/2,winSize.height/2));
 	this->addChild(spriteBox);
-	//获得背景图片的大小
+	//禄帽碌脙卤鲁戮掳脥录脝卢碌脛麓贸脨隆
     Size contentSize = spriteBox->getContentSize();
 	m_size = contentSize;
 	m_origin = spriteBox->getPosition();
 
-	//colorLayer->setContentSize(contentSize);//设置和窗口的大小
-	//开启触摸响应
+	//colorLayer->setContentSize(contentSize);//脡猫脰脙潞脥麓掳驴脷碌脛麓贸脨隆
+	//驴陋脝么麓楼脙镁脧矛脫娄
 
 	this->scheduleUpdate();
 //    auto touchListener = EventListenerTouchOneByOne::create();
 //    touchListener->onTouchBegan = AX_CALLBACK_2(KuiEscInfo::ccTouchBegan, this);
 //    touchListener->onTouchMoved = AX_CALLBACK_2(KuiEscInfo::ccTouchMoved, this);
 //    touchListener->onTouchEnded = AX_CALLBACK_2(KuiEscInfo::ccTouchEnded, this);
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);   //?1¤7?1¤7?0?9?1¤7?1¤7?1?6?1¤7?1¤7?	return true;
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);   //?1隆猫7?1隆猫7?0?9?1隆猫7?1隆猫7?1?6?1隆猫7?1隆猫7?	return true;
 }
 
 void KuiEscInfo::addDialogData()
 {
 	if  (!g_pCoreShell) return;
 
-	/*pMoneyLabel = Label::createWithTTF("","fonts/gb_song.ttf", 12);//统帅
+	/*pMoneyLabel = Label::createWithTTF("","fonts/gb_song.ttf", 12);//脥鲁脣搂
 	pMoneyLabel->setAnchorPoint(ax::Vec2(0,0));
 	pMoneyLabel->setPosition(ax::Vec2(70,35));
 	ParentNode_Task->addChild(pMoneyLabel,1);
@@ -122,7 +122,7 @@ void KuiEscInfo::addDialogData()
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	sprintf(nSprName,"\\Spr\\Ui3\\帮会界面\\帮会信息页\\帮会分页-帮会信息.spr");
+	sprintf(nSprName,"\\Spr\\Ui3\\掳茂禄谩陆莽脙忙\\掳茂禄谩脨脜脧垄脪鲁\\掳茂禄谩路脰脪鲁-掳茂禄谩脨脜脧垄.spr");
 	g_StrLower(nSprName);
 
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
@@ -135,16 +135,16 @@ void KuiEscInfo::addDialogData()
 
 	*/
 	Color4B color(112, 128, 144, 150);
-	colorLayer = LayerColor::create(color);//颜色层
+	colorLayer = LayerColor::create(color);//脩脮脡芦虏茫
 	colorLayer->setPosition(ax::Vec2::ZERO);
-	colorLayer->setContentSize(ax::Size::ZERO);  //设置和窗口的大小
+	colorLayer->setContentSize(ax::Size::ZERO);  //脡猫脰脙潞脥麓掳驴脷碌脛麓贸脨隆
 	ParentNode_Task->addChild(colorLayer,1000);
-	//创建一个动作 改变精灵颜色
-	//red = CCTintBy::create(0.2,0,-255,-255);//持续时间+颜色
+	//麓麓陆篓脪禄赂枚露炉脳梅 赂脛卤盲戮芦脕茅脩脮脡芦
+	//red = CCTintBy::create(0.2,0,-255,-255);//鲁脰脨酶脢卤录盲+脩脮脡芦
 	//red->retain();
 }
 
-//设置确定取消按钮,参数：调用层对象，调用层回调函数
+//脡猫脰脙脠路露篓脠隆脧没掳麓脜楼,虏脦脢媒拢潞碌梅脫脙虏茫露脭脧贸拢卢碌梅脫脙虏茫禄脴碌梅潞炉脢媒
 void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
 {
 	m_callbackListener = callbackListener;
@@ -156,7 +156,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	SPRFRAMSINFO nSprInfo;
 	ZeroMemory(&nSprInfo,sizeof(nSprInfo));
 	ZeroMemory(nSprName,sizeof(nSprName));
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统－退出.spr");
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁拢颅脥脣鲁枚.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -173,7 +173,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	ExitGameConfirm->setPosition(ax::Vec2(m_size.width/2,m_size.height-15));
 	ExitGameConfirm->setTag(1);
 	//
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统－帮助.spr");
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁拢颅掳茂脰煤.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -191,7 +191,7 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	GameHelpConfirm->setTag(2);
 
 	//
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统－选项.spr");
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁拢颅脩隆脧卯.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -208,8 +208,8 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	OptionsConfirm->setPosition(ax::Vec2(m_size.width/2,m_size.height-92));
 	OptionsConfirm->setTag(3);
 
-	//\spr\Ui3\系统\系统－离线托管.spr
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统－离线托管.spr");
+	//\spr\Ui3\脧碌脥鲁\脧碌脥鲁拢颅脌毛脧脽脥脨鹿脺.spr
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁拢颅脌毛脧脽脥脨鹿脺.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -227,8 +227,8 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	OfflineConfirm->setTag(4);
 
 
-	//返回游戏
-	t_sprintf(nSprName,"\\spr\\Ui3\\系统\\系统－返回.spr");
+	//路碌禄脴脫脦脧路
+	t_sprintf(nSprName,"\\spr\\Ui3\\脧碌脥鲁\\脧碌脥鲁拢颅路碌禄脴.spr");
 	g_StrLower(nSprName);
 	bgCur = _getinidata.getinidata_one(nSprName,0,&m_nWidth,&m_nHeight,&nFrams,&nSprInfo);
 	if (bgCur==NULL)
@@ -244,15 +244,15 @@ void KuiEscInfo::setcoloseButton(Ref * callbackListener,const std::function<void
 	MenuItemSprite * LeaveConfirm = MenuItemSprite::create(sprite_Leave_normal, sprite_Leave_select, CC_CALLBACK_1(KuiEscInfo::btnCallBackFunc, this));
 	LeaveConfirm->setPosition(ax::Vec2(m_size.width/2,m_size.height-165));
 	LeaveConfirm->setTag(5);
-	//加入菜单
+	//录脫脠毛虏脣碌楼
     Menu * menu = Menu::create(ExitGameConfirm,GameHelpConfirm,OptionsConfirm,OfflineConfirm,LeaveConfirm,NULL);
 	menu->setAnchorPoint(ax::Vec2(0,0));
-	menu->setPosition(ax::Vec2(0,0));             //?1¤7?0?5?1¤7???1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?0?2?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7
-	ParentNode_Task->addChild(menu);         //?1¤7?0?3?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7
+	menu->setPosition(ax::Vec2(0,0));             //?1隆猫7?0?5?1隆猫7???1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?0?2?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7
+	ParentNode_Task->addChild(menu);         //?1隆猫7?0?3?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7
 }
 
 
-//点击按钮回调函数
+//碌茫禄梅掳麓脜楼禄脴碌梅潞炉脢媒
 void KuiEscInfo::oktouchEvent(Ref *pSender, ax::ui::AbstractCheckButton::TouchEventType type)
 {
 	if  (!g_pCoreShell || !g_GameWorld) return;
@@ -307,14 +307,14 @@ void KuiEscInfo::btnCallBackFunc(Ref * pSender)
 			break;
 		case 3:
 			break;
-		case 4://离线
+		case 4://脌毛脧脽
 			{
 			  if(g_pCoreShell)
-			     g_pCoreShell->OperationRequest(GOI_LIXIAN, 0, 0);  //发送离线请求
+			     g_pCoreShell->OperationRequest(GOI_LIXIAN, 0, 0);  //路垄脣脥脌毛脧脽脟毛脟贸
 			   buttonCallBackFunc(NULL);
 		    }
 			break;
-		case 5://返回游戏
+		case 5://路碌禄脴脫脦脧路
 			 buttonCallBackFunc(NULL);
 			break;
 		default:
@@ -322,43 +322,43 @@ void KuiEscInfo::btnCallBackFunc(Ref * pSender)
 		}
 	}
 }
-//执行上层对象的回调函数，关闭弹出框
+//脰麓脨脨脡脧虏茫露脭脧贸碌脛禄脴碌梅潞炉脢媒拢卢鹿脴卤脮碌炉鲁枚驴貌
 void KuiEscInfo::buttonCallBackFunc(Ref * pSender)
 {
 	Node * node = NULL;
 	if (pSender)
 		node= dynamic_cast<Node *>(pSender);
-	//node->setTag(3000);//设置tag，在调用层可以获取到
+	//node->setTag(3000);//脡猫脰脙tag拢卢脭脷碌梅脫脙虏茫驴脡脪脭禄帽脠隆碌陆
 		(m_callfun)(node);
 
 	this->removeFromParentAndCleanup(true);
 }
 
-//关闭弹出框
+//鹿脴卤脮碌炉鲁枚驴貌
 void KuiEscInfo::closePopLayer(Ref * pSender)
 {
 	this->removeFromParentAndCleanup(true);
 }
 
-//重写触摸注册函数，重新给定触摸级别
+//脰脴脨麓麓楼脙镁脳垄虏谩潞炉脢媒拢卢脰脴脨脗赂酶露篓麓楼脙镁录露卤冒
 void KuiEscInfo::registerWithTouchDispatcher()
 {
     auto touchListener = ax::EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
     ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//?1¤7?1¤7?1¤7?1¤7?0?6?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?0?7?1¤7?1¤7?1¤7?1¤7?1¤7?0?2?1¤7?1¤7?28?1¤7?1¤7?1¤7?1¤7CCMenu?0?4?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?0?8?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?1¤7?¤?1¤7?1¤7?0?6?1¤7?1¤7?1¤7
+	//?1隆猫7?1隆猫7?1隆猫7?1隆猫7?0?6?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?0?7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?0?2?1隆猫7?1隆猫7?28?1隆猫7?1隆猫7?1隆猫7?1隆猫7CCMenu?0?4?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?0?8?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?1隆猫7?隆猫?1隆猫7?1隆猫7?0?6?1隆猫7?1隆猫7?1隆猫7
 //	//ax::Director::getInstance()->getTouchDispatcher()->addTargetedDelegate(this,128, true);
 }
 
 Rect KuiEscInfo::getRect(Node* pNode,int i)
 {
 	Rect  rc;
-	rc.origin     = pNode->getPosition(); //这个因该是图内偏移
+	rc.origin     = pNode->getPosition(); //脮芒赂枚脪貌赂脙脢脟脥录脛脷脝芦脪脝
 	//visibleSize
 	rc.size       = pNode->getContentSize();
 
-	rc.origin.x   = m_origin.x - m_size.width/2 + rc.origin.x; //起点最左边
-	rc.origin.y   = m_origin.y - m_size.height/2+ rc.origin.y; //最上边    //- rc.origin.y
+	rc.origin.x   = m_origin.x - m_size.width/2 + rc.origin.x; //脝冒碌茫脳卯脳贸卤脽
+	rc.origin.y   = m_origin.y - m_size.height/2+ rc.origin.y; //脳卯脡脧卤脽    //- rc.origin.y
 
 	return rc;
 }
@@ -371,32 +371,32 @@ void KuiEscInfo::ccTouchEnded(Touch *pTouch, Event *pEvent)
 	//__loopTime = MAX_LOOP_TIME;
 }
 
-//移动中
+//脪脝露炉脰脨
 void KuiEscInfo::ccTouchMoved(Touch *pTouch, Event *pEvent)
 {
 	if (!m_bScrolling || !__isCanMove) return;
 	Point point   = ParentNode_Task->convertToNodeSpace(ax::Director::getInstance()->convertToGL(pTouch->getLocationInView()));
-	Point diff    = point - m_lastPoint;                   //设置图片的位置
+	Point diff    = point - m_lastPoint;                   //脡猫脰脙脥录脝卢碌脛脦禄脰脙
 	ParentNode_Task->setPosition(ParentNode_Task->getPosition() + diff);
 	m_origin      = ParentNode_Task->getPosition();
 	m_lastPoint = point;
 }
-//触摸函数ccTouchBegan，返回true
+//麓楼脙镁潞炉脢媒ccTouchBegan拢卢路碌禄脴true
 bool KuiEscInfo::ccTouchBegan(Touch *pTouch, Event *pEvent)
 {
 	Point point = ParentNode_Task->convertToNodeSpace(ax::Director::getInstance()->convertToGL(pTouch->getLocationInView()));
 	Rect rect = ax::Rect(0, 0, winSize.width/*ParentNode_Task->getContentSize().width*/,winSize.height/* ParentNode_Task->getContentSize().height*/);
-	m_bScrolling = rect.containsPoint(point); //如果在范围内 就可以拖动
+	m_bScrolling = rect.containsPoint(point); //脠莽鹿没脭脷路露脦搂脛脷 戮脥驴脡脪脭脥脧露炉
 	m_lastPoint = point;
 	return true;
 }
 
 //--------------------------------------------------------------------------
-//	功能：更新队伍信息
+//	鹿娄脛脺拢潞赂眉脨脗露脫脦茅脨脜脧垄
 //--------------------------------------------------------------------------
 void KuiEscInfo::update(float delta)
 {
-	//messageBox("无限循环","update");
+	//messageBox("脦脼脧脼脩颅禄路","update");
 	if (isOpen && g_pCoreShell)
 	{
 	}
@@ -404,5 +404,5 @@ void KuiEscInfo::update(float delta)
 
 //void KuiEscInfo::draw()
 //{
-//	//messageBox("无限循环","draw");
+//	//messageBox("脦脼脧脼脩颅禄路","draw");
 //}

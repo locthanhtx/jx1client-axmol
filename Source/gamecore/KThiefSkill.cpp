@@ -118,7 +118,7 @@ Label_ProcessAI1:
 
 }
 
-BOOL	KThiefSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2)  const
+int	KThiefSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2)  const
 {
 	if (nParam1 != -1)
 		return FALSE;
@@ -153,7 +153,7 @@ void	KThiefSkill::GetDesc(unsigned int ulSkillId, unsigned int ulCurLevel, char 
 	strcpy(pszMsg, m_szSkillDesc);
 }
 
-BOOL	KThiefSkill::LoadSetting(char * szSettingFile)
+int KThiefSkill::LoadSetting(const char* szSettingFile)
 {
 	//_ASSERT(szSettingFile);
 	if  (!szSettingFile)

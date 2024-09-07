@@ -1,5 +1,5 @@
 #include "KDownLoadFile.h"
-    
+
 //#include "..\deprecated\CCDeprecated.h"
 #include <string>
 #ifdef WIN32
@@ -56,12 +56,12 @@ bool downloadFile::DownLoadFile(std::string nfullPath,std::string filename,bool 
         return false;
     }
 
-    int32_t localFileLength = 0;
+    int localFileLength = 0;
     if (!reload) {
         localFileLength = getLocalFileLenth(filename.c_str());
     }
 
-    int32_t timeout = 20;
+    int timeout = 20;
     std::string packageUrl = m_downloadUrl + filename;
     double fileSize = getDownloadFileLenth(packageUrl.c_str());
 
@@ -143,7 +143,7 @@ FILE* downloadFile::createFile(const char *file,bool reload)
 				if (mkdir(buf, S_IRWXU))
 					return NULL;
 #endif
-				
+
 			}
 
 		}
@@ -160,7 +160,7 @@ FILE* downloadFile::createFile(const char *file,bool reload)
 				if ((fp = fopen(file,"ab+")) == NULL)
 					return NULL;
 			}
-		
+
 			return fp;
 		//}
 	//} while (1);
@@ -168,7 +168,7 @@ FILE* downloadFile::createFile(const char *file,bool reload)
 	//return NULL;
 }
 
-int32_t downloadFile::getLocalFileLenth(const char* filename)
+int downloadFile::getLocalFileLenth(const char* filename)
 {
 	std::string fullPath = m_WritablePath+filename;//ax::FileUtils::getInstance()->getWritablePath() + filename;
 
@@ -176,18 +176,18 @@ int32_t downloadFile::getLocalFileLenth(const char* filename)
 	if (fp)
 	{
 		fseek(fp, 0, SEEK_END);
-		int32_t length = ftell(fp);
+		int length = ftell(fp);
 		fclose(fp);
 		fp =NULL;
 		return length;
 	}
 	return 0;
 }
-int32_t downloadFile::progressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded)
+int downloadFile::progressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded)
 {
-	//��ǰ�����ļ��������СtotalToDownload  
-	//��ǰ���صĴ�СnowDownloaded  
-	//��ǰ���ص��ļ����� 
+	//��ǰ�����ļ��������СtotalToDownload
+	//��ǰ���صĴ�СnowDownloaded
+	//��ǰ���ص��ļ�����
 	if (m_inst)
 	    m_inst->curpercent = nowDownloaded/totalToDownload * 100;
 	return 0;
@@ -216,7 +216,7 @@ double downloadFile::getDownloadFileLenth(const char *url){
 	curl_easy_setopt(handle, CURLOPT_URL, url);
 //���ó�ʱ CURLOPT_TIMEOUT_MS
 
-	curl_easy_setopt(handle, CURLOPT_TIMEOUT,5); 
+	curl_easy_setopt(handle, CURLOPT_TIMEOUT,5);
 
 	curl_easy_setopt(handle, CURLOPT_HEADER, 1);    //ֻҪ��headerͷ
 

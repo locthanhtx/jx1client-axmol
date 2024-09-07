@@ -40,7 +40,7 @@ KMemStack::~KMemStack()
 // ����:	nChunkSize	Chunk�ߴ��С
 // ����:	void
 //---------------------------------------------------------------------------
-void KMemStack::Init(int32_t nChunkSize)
+void KMemStack::Init(int nChunkSize)
 {
 	FreeAllChunks();
 	m_nChunkSize = nChunkSize;
@@ -51,7 +51,7 @@ void KMemStack::Init(int32_t nChunkSize)
 // ����:	nSize	�ڴ��С
 // ����:	PVOID	�ڴ�ָ�룬= NULL ��ʾ����ʧ��
 //---------------------------------------------------------------------------
-PVOID KMemStack::Push(int32_t nSize)
+PVOID KMemStack::Push(int nSize)
 {
 	PBYTE pResult;
 
@@ -75,9 +75,9 @@ PVOID KMemStack::Push(int32_t nSize)
 // ����:	pMem	�ڴ��ָ��
 // ����:	void
 //---------------------------------------------------------------------------
-void KMemStack::Free(LPVOID pMem)
+void KMemStack::Free(void* pMem)
 {
-	/*if (pMem)		
+	/*if (pMem)
 	{
 		g_MemFree(pMem);
 		pMem = NULL;
@@ -89,10 +89,10 @@ void KMemStack::Free(LPVOID pMem)
 // ����:	AllocNewChunk
 // ����:	�����µ��ڴ�飬�������Ϊ0
 // ����:	void
-// ����:	TRUE	�ɹ� 
+// ����:	TRUE	�ɹ�
 //			FALSE	ʧ��
 //---------------------------------------------------------------------------
-BOOL KMemStack::AllocNewChunk()
+int KMemStack::AllocNewChunk()
 {
 	if (m_nChunkTop >= MAX_CHUNK)
 	{
@@ -120,7 +120,7 @@ BOOL KMemStack::AllocNewChunk()
 //---------------------------------------------------------------------------
 void KMemStack::FreeAllChunks()
 {
-	for (int32_t i = 0; i < m_nChunkTop; i++)
+	for (int i = 0; i < m_nChunkTop; i++)
 	{
 		if (m_pStack[i]!=NULL)
 		{
@@ -139,7 +139,7 @@ void KMemStack::FreeAllChunks()
 // ����:	void
 // ����:	Chunk �Ĵ�С in bytes
 //---------------------------------------------------------------------------
-int32_t KMemStack::GetChunkSize()
+int KMemStack::GetChunkSize()
 {
 	return m_nChunkSize;
 }
@@ -149,7 +149,7 @@ int32_t KMemStack::GetChunkSize()
 // ����:	void
 // ����:	�ڴ��ջ�Ĵ�С in bytes
 //---------------------------------------------------------------------------
-int32_t KMemStack::GetStackSize()
+int KMemStack::GetStackSize()
 {
 	return (m_nStackTop + (m_nChunkTop - 1) * m_nChunkSize);
 }

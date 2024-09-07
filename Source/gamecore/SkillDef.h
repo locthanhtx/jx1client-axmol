@@ -1,65 +1,65 @@
 #ifndef __SKILLDEF_H__
 #define __SKILLDEF_H__
 
-#define MAX_SKILL  2000                   //¼¼ÄÜÊýÁ¿ÏÞÖÆ 1000
-#define MAX_SKILLLEVEL 64				  //×î´ó¼¼ÄÜµÈ¼¶
+#define MAX_SKILL  2000                   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1000
+#define MAX_SKILLLEVEL 64				  //ï¿½ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
 #define MaxMissleDir	64
-#define MAXSKILLLEVELSETTINGNUM	20        //¹©ÌîÐ´Á¢¼´¼¼ÄÜ×´Ì¬Ê±Ïà¹ØÊý¾ÝÖÖÀà20  Ã¿¸ö¼¼ÄÜÊôÐÔÊýÁ¿ÏÞÖÆ
+#define MAXSKILLLEVELSETTINGNUM	20        //ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½20  Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define MAX_SKILLVEDATA_COUNT	20
-#define MAX_MISSLESTYLE  1000             //ÏµÍ³µÄ×Óµ¯ÀàÐÍÉÏÏß txt
-#define MISSLE_MIN_COLLISION_ZHEIGHT 0	  //×Óµ¯ÂäµØÅö×²µÄ¸ß¶È¡£
-#define MISSLE_MAX_COLLISION_ZHEIGHT 20   //×Óµ¯¸ßÓÚ¸Ã¸ß¶ÈÊ±,²»¼ÆËãÅö×²	
+#define MAX_MISSLESTYLE  1000             //ÏµÍ³ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ txt
+#define MISSLE_MIN_COLLISION_ZHEIGHT 0	  //ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½Ä¸ß¶È¡ï¿½
+#define MISSLE_MAX_COLLISION_ZHEIGHT 20   //ï¿½Óµï¿½ï¿½ï¿½ï¿½Ú¸Ã¸ß¶ï¿½Ê±,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
 
 //---------------------------------------------------------------------------
-// MoveKind ÔË¶¯ÀàÐÍ
+// MoveKind ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 enum eMissleMoveKind
 {
-	    MISSLE_MMK_Stand,							//	Ô­µØ
-		MISSLE_MMK_Line,							//	Ö±Ïß·ÉÐÐ
-		MISSLE_MMK_Random,							//	Ëæ»ú·ÉÐÐ£¨°µºÚ¶þÅ®Î×µÄCharged Bolt£©
-		MISSLE_MMK_Circle,							//	»·ÐÐ·ÉÐÐ£¨Î§ÈÆÔÚÉí±ß£¬°µºÚ¶þ´Ì¿ÍµÄ¼¯Æø£©
-		MISSLE_MMK_Helix,							//	°¢»ùÃ×µÂÂÝÐýÏß£¨°µºÚ¶þÓÎÏÀµÄBless Hammer£©
-		MISSLE_MMK_Follow,							//	¸ú×ÙÄ¿±ê·ÉÐÐ
-		MISSLE_MMK_Motion,							//	Íæ¼Ò¶¯×÷Àà
-		MISSLE_MMK_Parabola,						//	Å×ÎïÏß
-		MISSLE_MMK_SingleLine,						//	±ØÖÐµÄµ¥Ò»Ö±Ïß·ÉÐÐÄ§·¨
-		MISSLE_MMK_RollBack = 100,					//  ×Óµ¥À´»Ø·ÉÐÐ
-		MISSLE_MMK_Toss		,						//	×óÓÒÕðµ´
+	    MISSLE_MMK_Stand,							//	Ô­ï¿½ï¿½
+		MISSLE_MMK_Line,							//	Ö±ï¿½ß·ï¿½ï¿½ï¿½
+		MISSLE_MMK_Random,							//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Å®ï¿½×µï¿½Charged Boltï¿½ï¿½
+		MISSLE_MMK_Circle,							//	ï¿½ï¿½ï¿½Ð·ï¿½ï¿½Ð£ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½Ì¿ÍµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½
+		MISSLE_MMK_Helix,							//	ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bless Hammerï¿½ï¿½
+		MISSLE_MMK_Follow,							//	ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½
+		MISSLE_MMK_Motion,							//	ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½
+		MISSLE_MMK_Parabola,						//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		MISSLE_MMK_SingleLine,						//	ï¿½ï¿½ï¿½ÐµÄµï¿½Ò»Ö±ï¿½ß·ï¿½ï¿½ï¿½Ä§ï¿½ï¿½
+		MISSLE_MMK_RollBack = 100,					//  ï¿½Óµï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½
+		MISSLE_MMK_Toss		,						//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 //---------------------------------------------------------------------------
-// FollowKind ¸úËæÀàÐÍ	(Ö÷ÒªÊÇÕë¶ÔÔ­µØ¡¢»·ÐÐÓëÂÝÐýÏß·ÉÐÐÓÐÒâÒå)
+// FollowKind ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	(ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 //---------------------------------------------------------------------------
 enum eMissleFollowKind
 {
-	MISSLE_MFK_None,							//	²»¸úËæÈÎºÎÎï¼þ
-	MISSLE_MFK_NPC,								//	¸úËæNPC»òÍæ¼Ò
-	MISSLE_MFK_Missle,							//	¸úËæ×Óµ¯
+	MISSLE_MFK_None,							//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½
+	MISSLE_MFK_NPC,								//	ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½
+	MISSLE_MFK_Missle,							//	ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
 };
 
-#define	MAX_MISSLE_STATUS 4                      //×î´óµÄ×Óµ¯×´Ì¬Êý£¿
+#define	MAX_MISSLE_STATUS 4                      //ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
 
 enum eMissleStatus
 {
-	MS_DoWait,  //0µÈ´ý×´Ì¬
-	MS_DoFly,   //1·ÉÐÐ×´Ì¬
-	MS_DoVanish, //2ÏûÍö×´Ì¬
-	MS_DoCollision,//3Åö×²
+	MS_DoWait,  //0ï¿½È´ï¿½×´Ì¬
+	MS_DoFly,   //1ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	MS_DoVanish, //2ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	MS_DoCollision,//3ï¿½ï¿½×²
 };
 
 
 enum eSkillLRInfo
 {
-	BothSkill,          //×óÓÒ¼ü½Ô¿É0
-	leftOnlySkill,		//×ó¼ü1
-	RightOnlySkill,		//ÓÒ¼ü2
-	NoneSkill,			//¶¼²»¿É3
+	BothSkill,          //ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½Ô¿ï¿½0
+	leftOnlySkill,		//ï¿½ï¿½ï¿½1
+	RightOnlySkill,		//ï¿½Ò¼ï¿½2
+	NoneSkill,			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
 };
 
 //--------------------------------------------------------Skill.h
 
-//¼¼ÄÜ·¢ËÍÕßµÄÀàÐÍ
+//ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
 /*enum eGameActorType
 {
 	Actor_Npc,
@@ -70,9 +70,9 @@ enum eSkillLRInfo
 }; */
 enum eSkillLauncherType
 {
-	SKILL_SLT_Npc = 0, //NPC·¢¼¼ÄÜÓÐÐ§
-	SKILL_SLT_Obj ,    //ÎïÆ··¢¼¼ÄÜÓÐÐ§
-	SKILL_SLT_Missle,  //×Óµ¯·¢¼¼ÄÜÓÐÐ§
+	SKILL_SLT_Npc = 0, //NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+	SKILL_SLT_Obj ,    //ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
+	SKILL_SLT_Missle,  //ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 };
 
 
@@ -80,8 +80,8 @@ enum eSkillLauncherType
 
 struct	TOrginSkill
 {
-	int		nNpcIndex;				//	NpcµÄindex
-	DWORD	nSkillId;				//	·¢ËÍµÄskillid
+	int		nNpcIndex;				//	Npcï¿½ï¿½index
+	unsigned long	nSkillId;				//	ï¿½ï¿½ï¿½Íµï¿½skillid
 };
 
 #endif*/
@@ -92,38 +92,38 @@ enum eSkillParamType
 	SKILL_SPT_TargetIndex	= -1,
 	SKILL_SPT_Direction		= -2,
 };
- 
-//¼¼ÄÜµÄÀàÐÍ
+
+//ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
 enum eSKillStyle
 {
-	    SKILL_SS_Missles = 0,			//	×Óµ¯Àà0		±¾¼¼ÄÜÓÃÓÚ·¢ËÍ×Óµ¯Àà
-		SKILL_SS_Melee,                 //  Íâ¹¦Ïµ1     Ô¶³Ì×Óµ¯¹¥»÷¼¼ÄÜ£¿
-		SKILL_SS_InitiativeNpcState,	//	Ö÷¶¯Àà2		±¾¼¼ÄÜÓÃÓÚ¸Ä±äµ±Ç°NpcµÄÖ÷¶¯×´Ì¬
-		SKILL_SS_PassivityNpcState,		//	±»¶¯Àà3		±¾¼¼ÄÜÓÃÓÚ¸Ä±äNpcµÄ±»¶¯×´Ì¬
-		SKILL_SS_CreateNpc,				//	²úÉúNpcÀà4	±¾¼¼ÄÜÓÃÓÚÉú³ÉÒ»¸öÐÂµÄNpc
-		SKILL_SS_BuildPoison,			//	Á¶¶¾Àà5		±¾¼¼ÄÜÓÃÓÚÁ¶¶¾
-		SKILL_SS_AddPoison,				//	¼Ó¶¾Àà6		±¾¼¼ÄÜÓÃÓÚ¸øÎäÆ÷¼Ó¶¾ÐÔ
-		SKILL_SS_GetObjDirectly,		//	È¡ÎïÀà7		±¾¼¼ÄÜÓÃÓÚ¸ô¿ÕÈ¡Îï
-		SKILL_SS_StrideObstacle ,		//	¿çÔ½Àà8		±¾¼¼ÄÜÓÃÓÚ¿çÔ½ÕÏ°­
-		SKILL_SS_BodyToObject,			//	±äÎïÀà9		±¾¼¼ÄÜÓÃÓÚ½«Ê¬Ìå±ä³É±¦Ïä
-		SKILL_SS_Mining,				//	²É¿óÀà10		±¾¼¼ÄÜÓÃÓÚ²É¿óËæ»úÉú³É¿óÊ¯
-		SKILL_SS_RepairWeapon,			//	ÐÞ¸´Àà11		±¾¼¼ÄÜÓÃÓÚÐÞ¸´×°±¸
-		SKILL_SS_Capture,				//	²¶×½Àà12		±¾¼¼ÄÜÓÃÓÚ²¶×½¶¯ÎïNpc
-		SKILL_SS_Thief,				    //	ÍµÇÔÀà13
-//		SKILL_SS_NewMissles,			//	ÐÂ×Óµ¯14
+	    SKILL_SS_Missles = 0,			//	ï¿½Óµï¿½ï¿½ï¿½0		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½
+		SKILL_SS_Melee,                 //  ï¿½â¹¦Ïµ1     Ô¶ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½
+		SKILL_SS_InitiativeNpcState,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Ä±äµ±Ç°Npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+		SKILL_SS_PassivityNpcState,		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸Ä±ï¿½Npcï¿½Ä±ï¿½ï¿½ï¿½×´Ì¬
+		SKILL_SS_CreateNpc,				//	ï¿½ï¿½ï¿½ï¿½Npcï¿½ï¿½4	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½Npc
+		SKILL_SS_BuildPoison,			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SKILL_SS_AddPoison,				//	ï¿½Ó¶ï¿½ï¿½ï¿½6		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
+		SKILL_SS_GetObjDirectly,		//	È¡ï¿½ï¿½ï¿½ï¿½7		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½È¡ï¿½ï¿½
+		SKILL_SS_StrideObstacle ,		//	ï¿½ï¿½Ô½ï¿½ï¿½8		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½Ô½ï¿½Ï°ï¿½
+		SKILL_SS_BodyToObject,			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½9		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½Ê¬ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½
+		SKILL_SS_Mining,				//	ï¿½É¿ï¿½ï¿½ï¿½10		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²É¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½Ê¯
+		SKILL_SS_RepairWeapon,			//	ï¿½Þ¸ï¿½ï¿½ï¿½11		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½×°ï¿½ï¿½
+		SKILL_SS_Capture,				//	ï¿½ï¿½×½ï¿½ï¿½12		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½×½ï¿½ï¿½ï¿½ï¿½Npc
+		SKILL_SS_Thief,				    //	Íµï¿½ï¿½ï¿½ï¿½13
+//		SKILL_SS_NewMissles,			//	ï¿½ï¿½ï¿½Óµï¿½14
 };
 
-//Í¬Ê±·¢³öµÄ¶à¸ö×Óµ¯µÄ·½ÏòÆðÊ¼¸ñÊ½
+//Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½Óµï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê½
 enum eMisslesForm
 {
-	    SKILL_MF_Wall	= 0,			//0Ç½ÐÎ	¶à¸ö×Óµ¯³Ê´¹Ö±·½ÏòÅÅÁÐ£¬ÀàÊ½»ðÇ½×´
-		SKILL_MF_Line,					//1ÏßÐÎ	¶à¸ö×Óµ¯³ÊÆ½ÐÐÓÚÍæ¼Ò·½ÏòÅÅÁÐ
-		SKILL_MF_Spread,				//2É¢ÐÎ	¶à¸ö×Óµ¯³ÊÒ»¶¨µÄ½Ç¶ÈµÄ·¢É¢×´	
-		SKILL_MF_Circle,				//3Ô²ÐÎ	¶à¸ö×Óµ¯Î§³ÉÒ»¸öÈ¦
-		SKILL_MF_Random,				//4Ëæ»ú	¶à¸ö×Óµ¯Ëæ»úÅÅ·Å
-		SKILL_MF_Zone,					//5ÇøÓò	¶à¸ö×Óµ¯·ÅÖÁÔÚÄ³¸ö·¶Î§ÄÚ
-		SKILL_MF_AtTarget,				//6¶¨µã	¶à¸ö×Óµ¯¸ù¾Ý
-		SKILL_MF_AtFirer,				//7±¾Éí	¶à¸ö×Óµ¯Í£ÔÚÍæ¼Òµ±Ç°Î»ÖÃ
+	    SKILL_MF_Wall	= 0,			//0Ç½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Ê´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ç½×´
+		SKILL_MF_Line,					//1ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SKILL_MF_Spread,				//2É¢ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä½Ç¶ÈµÄ·ï¿½É¢×´
+		SKILL_MF_Circle,				//3Ô²ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½Î§ï¿½ï¿½Ò»ï¿½ï¿½È¦
+		SKILL_MF_Random,				//4ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½Å·ï¿½
+		SKILL_MF_Zone,					//5ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
+		SKILL_MF_AtTarget,				//6ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+		SKILL_MF_AtFirer,				//7ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½Óµï¿½Í£ï¿½ï¿½ï¿½ï¿½Òµï¿½Ç°Î»ï¿½ï¿½
 		SKILL_MF_COUNT,
 };
 
@@ -132,7 +132,7 @@ enum eMeleeForm
 	Melee_AttackWithBlur = SKILL_MF_COUNT,
 	Melee_Jump,
 	Melee_JumpAndAttack,
-	Melee_RunAndAttack, //¶Ï»ê´Ì
+	Melee_RunAndAttack, //ï¿½Ï»ï¿½ï¿½
 	Melee_ManyAttack,
 	Melee_Move,
 };
@@ -150,19 +150,19 @@ enum eMisslesGenerateStyle
 {
 	    SKILL_MGS_NULL		= 0,
 		SKILL_MGS_SAMETIME	,    //Í¬Ê±
-		SKILL_MGS_ORDER		,	 //°´Ë³Ðò
+		SKILL_MGS_ORDER		,	 //ï¿½ï¿½Ë³ï¿½ï¿½
 		SKILL_MGS_RANDONORDER,
 		SKILL_MGS_RANDONSAME,
-		SKILL_MGS_CENTEREXTENDLINE,  //ÓÉÖÐ¼äÏòÁ½ÖÜÀ©É¢
+		SKILL_MGS_CENTEREXTENDLINE,  //ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¢
 };
 /*
-typedef struct 
+typedef struct
 {
 	int dx;
 	int dy;
 }TCollisionOffset;
 
-typedef struct 
+typedef struct
 {
 	int nRegion;
 	int nMapX;
@@ -170,7 +170,7 @@ typedef struct
 }
 TMisslePos;
 
-typedef struct 
+typedef struct
 {
 	TCollisionOffset m_Offset [4];
 }
@@ -179,22 +179,22 @@ TCollisionMatrix;
 extern TCollisionMatrix g_CollisionMatrix[64];
  */
 
-typedef struct 
+typedef struct
 {
-	int nLauncher;	
-	DWORD dwLauncherID;			
-	eSkillLauncherType eLauncherType; //·¢ËÍÕß£¬Ò»°ãÎªNpc
+	int nLauncher;
+	unsigned long dwLauncherID;
+	eSkillLauncherType eLauncherType; //ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½Ò»ï¿½ï¿½ÎªNpc
 
 
 	int nParent;
-	eSkillLauncherType eParentType;	  //Ä¸	 
-	DWORD dwParentID;
+	eSkillLauncherType eParentType;	  //Ä¸
+	unsigned long dwParentID;
 
 	int nParam1;
 	int nParam2;
 	int nWaitTime;
 	int nTargetId;
-	DWORD dwTargetNpcID;
+	unsigned long dwTargetNpcID;
 }
 TOrdinSkillParam, * LPOrdinSkillParam;
 

@@ -74,7 +74,15 @@ private:
 	void  closeSkilldescPadCallback(Node *pNode);
 
 	int   getfreeSkillNode(int skillidx);
-	Texture2D * GetiniData(char *sprPath,int nFramIndex,int nMpsX,int nMpsY,int nMpsZ,int *mScreeX,int *mScreeY,int bRenderFlag=0,int bSinglePlaneCoord=0);
+        Texture2D* GetiniData(const char* sprPath,
+                              int nFramIndex,
+                              int nMpsX,
+                              int nMpsY,
+                              int nMpsZ,
+                              int* mScreeX,
+                              int* mScreeY,
+                              int bRenderFlag       = 0,
+                              int bSinglePlaneCoord = 0);
 	//�Ի��򱳾���С
 	Point m_origin;
 	Size m_size;

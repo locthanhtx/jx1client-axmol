@@ -94,7 +94,7 @@ bool KTranSence::init()
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -139,7 +139,7 @@ bool KTranSence::init()
 	this->addChild(bgSprite,0,m_sprCount);
 	//-------------------------------------------
 	Animation*animation = Animation::create();//����һ������
-	DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+	unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 	for (int i=0;i<5;i++)
 	{
 		//sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);

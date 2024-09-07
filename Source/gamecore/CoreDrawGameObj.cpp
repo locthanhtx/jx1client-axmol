@@ -15,12 +15,12 @@
 #include "CoreShell.h"
 #include "CoreDrawGameObj.h"
 //=========================
-#define  PHYSICSSKILLICON "\\spr\\Ui\\¼¼ÄÜÍ¼±ê\\icon_sk_ty_ap.spr"
-#define  ADDSKILLPIONT    "\\spr\\Ui4\\common\\¼Óµã°´Å¥.spr"
+#define  PHYSICSSKILLICON "\\spr\\Ui\\ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½\\icon_sk_ty_ap.spr"
+#define  ADDSKILLPIONT    "\\spr\\Ui4\\common\\ï¿½Óµã°´Å¥.spr"
 #define  SHOW_SPACE_HEIGHT 5
 //=========================
 
-BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int Width, int Height, int nParam,int inParam)
+int CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int Width, int Height, int nParam,int inParam)
 {
 	return true;
 
@@ -30,45 +30,45 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 		if (uId > 0)
 		{
 			int nHeight = Npc[uId].GetNpcPate();
-			
+
 			if  (!Npc[uId].IsPlayer() && Npc[uId].m_Kind!=kind_dialoger)
-				Npc[uId].PaintBlood(nHeight/2);	  //»æÖÆÃ°Ñª
+				Npc[uId].PaintBlood(nHeight/2);	  //ï¿½ï¿½ï¿½ï¿½Ã°Ñª
 
 			if ((nParam & IPOT_RL_INFRONTOF_ALL) == IPOT_RL_INFRONTOF_ALL)
 			{
 				int nnHeight = nHeight;
-				    nHeight = Npc[uId].PaintChat(nHeight);	//Í·¶¥ÁÄÌìÐÅÏ¢ÖÐÓÐÃû×Ö
-				
-			    if (nHeight == nnHeight)	//Ã»ÓÐÁÄÌìÐÅÏ¢Ê±»æÖÆÈËÎïÐÅÏ¢
+				    nHeight = Npc[uId].PaintChat(nHeight);	//Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+			    if (nHeight == nnHeight)	//Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 				{
-					    //if (nnHeight != nHeight)	//ÓÐÄÚÁ¦ÏÔÊ¾Ê±
+					    //if (nnHeight != nHeight)	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Ê±
 						//{
-						//	if(Npc[uId].m_CurrentCamp != camp_event)   //¶Ô»°Õß²»ÏÔÊ¾ÄÚÁ¦Ìõ
+						//	if(Npc[uId].m_CurrentCamp != camp_event)   //ï¿½Ô»ï¿½ï¿½ß²ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						//		nHeight = Npc[uId].PaintMana(nHeight+3);
-						//nHeight = nnHeight+3;//ºÃ¿´
-						//} 
+						//nHeight = nnHeight+3;//ï¿½Ã¿ï¿½
+						//}
 					if (NpcSet.CheckShowLife())
 					{
 						if (Npc[uId].m_Hide.nTime <= 0 || Player[CLIENT_PLAYER_INDEX].m_nIndex == uId)
-						{ 
-							if(Npc[uId].m_CurrentCamp != camp_event)                     //Â·ÈË¶Ô»°NPC²»ÏÔÊ¾ÑªÌõ
-								nHeight = Npc[uId].PaintLife(nnHeight, true);				  
+						{
+							if(Npc[uId].m_CurrentCamp != camp_event)                     //Â·ï¿½Ë¶Ô»ï¿½NPCï¿½ï¿½ï¿½ï¿½Ê¾Ñªï¿½ï¿½
+								nHeight = Npc[uId].PaintLife(nnHeight, true);
 						}
 					}
 
 					if (NpcSet.CheckShowName())
 					{
 						if (Npc[uId].m_Hide.nTime <= 0 || Player[CLIENT_PLAYER_INDEX].m_nIndex == uId)
-						{//±¾ÈË
+						{//ï¿½ï¿½ï¿½ï¿½
 						    if (Player[CLIENT_PLAYER_INDEX].GetTargetNpc() && Player[CLIENT_PLAYER_INDEX].GetTargetNpc() == uId)
-							{  
-							    nHeight = Npc[uId].PaintInfo(nHeight,false,14,0XFF000000);	//±»Ñ¡ÖÐµÄÈËÃû·Å´óÏÔÊ¾	    
-							} 
+							{
+							    nHeight = Npc[uId].PaintInfo(nHeight,false,14,0XFF000000);	//ï¿½ï¿½Ñ¡ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½ï¿½ï¿½Ê¾
+							}
 					     	else
-							{ 
+							{
 							    nHeight = Npc[uId].PaintInfo(nHeight, true);
 						        nHeight += 0;
-							} 
+							}
 						}
 					}
 				}
@@ -76,28 +76,28 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			else if ((nParam & IPOT_RL_OBJECT) == IPOT_RL_OBJECT)
 			{
 				if (Npc[uId].m_Hide.nTime <= 0 ||  Player[CLIENT_PLAYER_INDEX].m_nIndex == uId)
-				{ 
-					 Npc[uId].Paint();  //»æ»­ NPC Íâ¹Û
+				{
+					 Npc[uId].Paint();  //ï¿½æ»­ NPC ï¿½ï¿½ï¿½
 
 				     if ((int)uId == Player[CLIENT_PLAYER_INDEX].GetTargetNpc())
-					 { 
-					     Npc[uId].DrawBorder();//»æ»­ NPC ÑÕÉ«±ß¿òÍâ¹Û	 3D¼ÓÁÁ
-					 } 														 
+					 {
+					     Npc[uId].DrawBorder();//ï¿½æ»­ NPC ï¿½ï¿½É«ï¿½ß¿ï¿½ï¿½ï¿½ï¿½	 3Dï¿½ï¿½ï¿½ï¿½
+					 }
 				}
-			}			
+			}
 		}
 		break;
 	case CGOG_MISSLE:
 	if (uId > 0 && uId < MAX_MISSLE)
 	{
 	    if (!Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bIsHideMissle)
-		{//»æ»­ Ãµ¹å»¨ ±ÀÀ£(ÒÑ¾­ÐÞ¸´)
-        	Missle[uId].Paint();  //»æÖÆ×Óµ¯Í¼
+		{//ï¿½æ»­ Ãµï¿½å»¨ ï¿½ï¿½ï¿½ï¿½(ï¿½Ñ¾ï¿½ï¿½Þ¸ï¿½)
+        	Missle[uId].Paint();  //ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Í¼
 		}
 	}
 	break;
-	
-	case CGOG_IME_ITEM:        //¿ì½ÝÀ¸ÎïÆ·Í¼±ê--¼¼ÄÜ--µþ¼ÓÊýÁ¿
+
+	case CGOG_IME_ITEM:        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Í¼ï¿½ï¿½--ï¿½ï¿½ï¿½ï¿½--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (uId == 0)
 			break;
 		if (Width == 0 && Height == 0)
@@ -115,7 +115,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			y += (Height - Item[uId].GetHeight() * ITEM_CELL_HEIGHT) / 2;
 		}
 
-		if (Item[uId].GetGenre()==1)  //Ò©Æ·  ¾ÍÏÔÊ¾°ü¸¤ÀïÃæµÄ×ÜÊý
+		if (Item[uId].GetGenre()==1)  //Ò©Æ·  ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			int szStackNum=0;
 			    Item[uId].GetDetailType();
@@ -124,11 +124,11 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			    Item[uId].Paint(x, y,TRUE,szStackNum);
 		}
         else
-		   Item[uId].Paint(x, y);  //Ãè»æ¿Éµþ·ÅÊýÁ¿,FALSE
+		   Item[uId].Paint(x, y);  //ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,FALSE
 /*
 #ifndef _SERVER
 		//-------------------------------------------------------------------------------
-		//	¹¦ÄÜ£º»ñÈ¡°ü¸¤µÄÍ¬ÖÖÎïÆ·µÄ µþ¼ÓÊýÁ¿
+		//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//-------------------------------------------------------------------------------
 		int		KItemList::GetSameEquipmentItemNum(int nIdx)
 		{
@@ -142,7 +142,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 #endif
 */
 		break;
-  case CGOG_COM_ITEM:   //´òÔìÀ¸ÎïÆ·
+  case CGOG_COM_ITEM:   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 		if (uId == 0)
 			break;
 		if (Width == 0 && Height == 0)
@@ -159,20 +159,20 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			x += (Width - Item[uId].GetWidth() * ITEM_CELL_WIDTH) / 2;
 			y += (Height - Item[uId].GetHeight() * ITEM_CELL_HEIGHT) / 2;
 		}
-		Item[uId].Paint(x, y);  //²»Ãè»æ¿Éµþ·ÅÊýÁ¿,FALSE
+		Item[uId].Paint(x, y);  //ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,FALSE
 		break;
-	case CGOG_ITEM_SET:     //ÎïÆ·Í¼±êÏÔÊ¾
+	case CGOG_ITEM_SET:     //ï¿½ï¿½Æ·Í¼ï¿½ï¿½ï¿½ï¿½Ê¾
 		if (uId == 0)
 			break;
-		Item[uId].Paint(x, y,nParam);    //Ãè»æ¿Éµþ·ÅÊýÁ¿
+		Item[uId].Paint(x, y,nParam);    //ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		break;
-	case CGOG_CHESS_ITEM:   //ÏóÆåÍ¼±êÏÔÊ¾
+	case CGOG_CHESS_ITEM:   //ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê¾
 		if (uId == 0)
 			break;
-		//	Item[uId].Paint(x, y,nParam);    //Ãè»æ¿Éµþ·ÅÊýÁ¿
+		//	Item[uId].Paint(x, y,nParam);    //ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		break;
-	case CGOG_PLAYERSELLITEM:  //»æ»­°ÚÌ¯ÎïÆ·Í¼±ê
-	case CGOG_ITEM:            //ÎïÆ·Í¼±êÏÔÊ¾
+	case CGOG_PLAYERSELLITEM:  //ï¿½æ»­ï¿½ï¿½Ì¯ï¿½ï¿½Æ·Í¼ï¿½ï¿½
+	case CGOG_ITEM:            //ï¿½ï¿½Æ·Í¼ï¿½ï¿½ï¿½ï¿½Ê¾
 		if (uId == 0)
 			break;
 
@@ -190,20 +190,20 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			x += (Width - Item[uId].GetWidth() * ITEM_CELL_WIDTH) / 2;
 			y += (Height - Item[uId].GetHeight() * ITEM_CELL_HEIGHT) / 2;
 		}
-		Item[uId].Paint(x, y);    //Ãè»æ¿Éµþ·ÅÊýÁ¿
+		Item[uId].Paint(x, y);    //ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		break;
-	case CGOG_MENU_NPC:  //²Ëµ¥ »æ»­ NPCÍâ¹Û
+	case CGOG_MENU_NPC:  //ï¿½Ëµï¿½ ï¿½æ»­ NPCï¿½ï¿½ï¿½
 		if (nParam)
 		{
-			((KNpcRes *)nParam)->SetPos(0, x + Width / 2, y + Height / 2 + 28, 0, FALSE, TRUE);  //Éè¶¨Î»ÖÃ
+			((KNpcRes *)nParam)->SetPos(0, x + Width / 2, y + Height / 2 + 28, 0, FALSE, TRUE);  //ï¿½è¶¨Î»ï¿½ï¿½
              #define	STAND_TOTAL_FRAME	15
-			int nFrame = g_SubWorldSet.m_nLoopRate % STAND_TOTAL_FRAME;   //·þÎñÆ÷µ±Ç°µÄÊ±¼ä
-			((KNpcRes *)nParam)->Draw(0, 0, STAND_TOTAL_FRAME, nFrame, true);  // 2D »æ»­Íâ¹Û
+			int nFrame = g_SubWorldSet.m_nLoopRate % STAND_TOTAL_FRAME;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê±ï¿½ï¿½
+			((KNpcRes *)nParam)->Draw(0, 0, STAND_TOTAL_FRAME, nFrame, true);  // 2D ï¿½æ»­ï¿½ï¿½ï¿½
 		}
 		break;
-	
+
 	case CGOG_NPC_BLUR_DETAIL(1):
-		//Npc[uId].GetNpcRes()->m_cNpcBlur.Draw(1); // »æ»­²ÐÓ°
+		//Npc[uId].GetNpcRes()->m_cNpcBlur.Draw(1); // ï¿½æ»­ï¿½ï¿½Ó°
 		break;
 	case CGOG_NPC_BLUR_DETAIL(2):
 		//Npc[uId].GetNpcRes()->m_cNpcBlur.Draw(2);
@@ -233,12 +233,12 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 				ISkill *pSkill = g_SkillManager.GetSkill(nSkillId,1);
 				if (pSkill)
 				{
-					pSkill->DrawSkillIcon(x, y, Width, Height,inParam);  //»æÖÆ¼¼ÄÜÍ¼±ê
+					pSkill->DrawSkillIcon(x, y, Width, Height,inParam);  //ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 				}
 			}
 			else
 			{
-				if(uId == -1) 
+				if(uId == -1)
 				{
 					KRUImage RUIconImage;
 					RUIconImage.nType = ISI_T_SPR;
@@ -247,7 +247,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 					RUIconImage.uImage = 0;
 					RUIconImage.nISPosition = IMAGE_IS_POSITION_INIT;
 					RUIconImage.bRenderFlag = 0;
-					strcpy(RUIconImage.szImage, PHYSICSSKILLICON); //Í¨ÓÃÍ¼±ê
+					strcpy(RUIconImage.szImage, PHYSICSSKILLICON); //Í¨ï¿½ï¿½Í¼ï¿½ï¿½
 					RUIconImage.oPosition.nX = x;
 					RUIconImage.oPosition.nY = y;
 					RUIconImage.oPosition.nZ = 0;
@@ -258,7 +258,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 		}
 		break;
 	case CGOG_SKILL_LIVE:
-	case CGOG_SKILL_SHORTCUT:  // ¿ì½Ý¼¼ÄÜÃè»æ
+	case CGOG_SKILL_SHORTCUT:  // ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 		int nSkillId = (int)uId;
 		if (nSkillId > 0)
@@ -266,12 +266,12 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			ISkill *pSkill = g_SkillManager.GetSkill(nSkillId,1);
 			if (pSkill)
             {
-				pSkill->DrawSkillIcon(x, y, Width, Height);  //»æÖÆ¼¼ÄÜÍ¼±ê
+				pSkill->DrawSkillIcon(x, y, Width, Height);  //ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
             }
 		}
 		else
 		{
-			if(uId == -1) 
+			if(uId == -1)
 			{
 				KRUImage RUIconImage;
 				RUIconImage.nType = ISI_T_SPR;
@@ -280,7 +280,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 				RUIconImage.uImage = 0;
 				RUIconImage.nISPosition = IMAGE_IS_POSITION_INIT;
 				RUIconImage.bRenderFlag = 0;
-				strcpy(RUIconImage.szImage, PHYSICSSKILLICON); //Í¨ÓÃÍ¼±ê
+				strcpy(RUIconImage.szImage, PHYSICSSKILLICON); //Í¨ï¿½ï¿½Í¼ï¿½ï¿½
 				RUIconImage.oPosition.nX = x;
 				RUIconImage.oPosition.nY = y;
 				RUIconImage.oPosition.nZ = 0;
@@ -290,7 +290,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 		}
 		}
 		break;
-	case CGOG_OBJECT:   //µØÉÏÎïÆ·
+	case CGOG_OBJECT:   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 		if (uId)
 		{
 			if ((nParam & IPOT_RL_INFRONTOF_ALL) == IPOT_RL_INFRONTOF_ALL)
@@ -298,7 +298,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 			//if ((nParam & IPOT_RL_OBJECT) == IPOT_RL_OBJECT)
 			{
 //				if (ObjSet.CheckShowName())
-					KObject[uId].DrawInfo();	  //»æ»­Ãû×Ö
+					KObject[uId].DrawInfo();	  //ï¿½æ»­ï¿½ï¿½ï¿½ï¿½
 				//	KObject[uId].DrawBorder();
 			}
 			else
@@ -310,7 +310,7 @@ BOOL CoreDrawGameObj(unsigned int uObjGenre, unsigned int uId, int x, int y, int
 					KObject[uId].DrawBorder();
 			}
 
-/*//////////////////////////////ÏÔÊ¾¿ÉµþÊýÁ¿////////////////////////////
+/*//////////////////////////////ï¿½ï¿½Ê¾ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½////////////////////////////
 if (Width == 0 && Height == 0)
 {
 #define	ITEM_CELL_WIDTH		26
@@ -326,17 +326,17 @@ x += (Width - Item[uId].GetWidth() * ITEM_CELL_WIDTH) / 2;
 y += (Height - Item[uId].GetHeight() * ITEM_CELL_HEIGHT) / 2;
 }
 
-  Item[uId].Paint(x, y); 
-	
+  Item[uId].Paint(x, y);
+
 //////////////////////////////////////////////////////////////////////*/
 		}
 		break;
-	case CGOG_NPCSELLITEM://»æ»­ÉÌ³Ç¡¡ÉÌµêµÄ¶«Î÷
+	case CGOG_NPCSELLITEM://ï¿½æ»­ï¿½Ì³Ç¡ï¿½ï¿½Ìµï¿½Ä¶ï¿½ï¿½ï¿½
 		if (uId < 0)
 			break;
 		BuySell.PaintItem(uId, x, y);
 		break;
-	case CGOG_NPCSELLITEM_PAI://»æ»­ÅÄÂôÐÐµÄ¶«Î÷
+	case CGOG_NPCSELLITEM_PAI://ï¿½æ»­ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½
 		if (uId < 0)
 			break;
 		BuySell.PaintItemPai(uId, x, y,CGOG_NPCSELLITEM_PAI);
@@ -352,7 +352,7 @@ void	CoreGetGameObjLightInfo(unsigned int uObjGenre, unsigned int uId, KLightInf
 {
 	switch (uObjGenre)
 	{
-	case CGOG_NPC:   //NPCÑÕÉ«¼ÓÁÁ
+	case CGOG_NPC:   //NPCï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 		if (uId > 0 && uId < MAX_NPC)
 		{
 			int uMap=0;
@@ -384,7 +384,7 @@ void	CoreGetGameObjLightInfo(unsigned int uObjGenre, unsigned int uId, KLightInf
 			{
 				Missle[uId].GetLightInfo(pLightInfo);
 			}
-		} 
+		}
 		break;
 	default:
 		break;

@@ -27,7 +27,7 @@ CEvent *_CreateEvent(bool bManualReset, bool bInitialState)
 	return pEvent;
 }
 
-uint32_t WaitForSingleObject(CEvent *pEvent, int32_t cms)
+unsigned int WaitForSingleObject(CEvent *pEvent, int cms)
 {
 	assert(pEvent);
 	if( pEvent->Wait(cms) )
@@ -41,9 +41,9 @@ uint32_t WaitForSingleObject(CEvent *pEvent, int32_t cms)
 CSocketClient::CSocketClient(
 		const std::string &addressToConnectServer,
 		unsigned short portToConnectServer,
-		uint32_t maxFreeBuffers,
-		uint32_t bufferSize, /* = 1024 */
-		int32_t mSocketNo)
+		unsigned int maxFreeBuffers,
+		unsigned int bufferSize, /* = 1024 */
+		int mSocketNo)
 	  : CIOBuffer::Allocator(bufferSize, maxFreeBuffers),
 		m_address(addressToConnectServer),
 		m_port(portToConnectServer),
@@ -64,9 +64,9 @@ CSocketClient::CSocketClient(
 }
 
 CSocketClient::CSocketClient(
-		uint32_t maxFreeBuffers,
-		uint32_t bufferSize, /* = 1024 */
-		int32_t   mSocketNo
+		unsigned int maxFreeBuffers,
+		unsigned int bufferSize, /* = 1024 */
+		int   mSocketNo
 		)
 	: CIOBuffer::Allocator(bufferSize, maxFreeBuffers),
 	m_port(0),
@@ -189,19 +189,19 @@ SOCKET CSocketClient::CreateConnectionSocket(
 					  unsigned short port)
 {
 #ifdef WIN32
-	//WORD wVersionRequested = 0x202;
+	//unsigned short wVersionRequested = 0x202;
 	//WSAStartup(wVersionRequested, &wsaData);
 	SOCKET s = ::WSASocket(AF_INET,SOCK_STREAM,IPPROTO_IP,NULL,0,0);
-	uint32_t ul=1;
-	int32_t ret;
-	ret=ioctlsocket(s,FIONBIO,(uint32_t *)&ul);//���óɷ�����ģʽ��
+	unsigned int ul=1;
+	int ret;
+	ret=ioctlsocket(s,FIONBIO,(u_long *)&ul);//���óɷ�����ģʽ��
 	if(ret==SOCKET_ERROR)//����ʧ�ܡ�
 	{
 	  messageBox("ioctlsocket is fail..","ioctlsocket");
 	}
 #else
 	SOCKET s = socket(AF_INET, SOCK_STREAM,IPPROTO_IP);
-	int32_t flags = fcntl(s,F_GETFL,0);                        //��ȡ�ļ���flagsֵ��
+	int flags = fcntl(s,F_GETFL,0);                        //��ȡ�ļ���flagsֵ��
 	fcntl(s,F_SETFL,flags|O_NONBLOCK);                     //���óɷ�����ģʽ��
 #endif
 	char ninfo[64]={0};
@@ -240,7 +240,7 @@ void CSocketClient::InitiateShutdown()
 	OnShutdownInitiated();
 }
 
-void CSocketClient::WaitForShutdownToComplete(int32_t isCleartheThread)
+void CSocketClient::WaitForShutdownToComplete(int isCleartheThread)
 {
 	/*
 	 * If we havent already started a shut down, do so...
@@ -271,7 +271,7 @@ void CSocketClient::Run()
 	try
 	{
 		timeval pstTime = {0,0};
-		DWORD g_nServiceLoop = 0;
+		unsigned long g_nServiceLoop = 0;
 		while (true)
 		{
 		 if (++g_nServiceLoop & 0x80000000)
@@ -293,8 +293,8 @@ void CSocketClient::Run()
 
 		 if (m_SocketNo==1 && m_bIsGameSevConnecting)
 	     {//��Ϸ������
-				DWORD dwNumBytes = 0;
-	            DWORD dwFlags = 0;
+				unsigned long dwNumBytes = 0;
+	            unsigned long dwFlags = 0;
 				if (!pReadContext)
 					break;
 	            pReadContext->SetupRead(); //���ýṹ������ݵĵ�ǰָ��
@@ -312,8 +312,8 @@ void CSocketClient::Run()
 					//ReadCompleted(pReadContext);
 
 					//const unsigned char *pPackData = pBuffer->GetBuffer();
-					//uint32_t used = pBuffer->GetUsed();
-					uint32_t nSize          = pReadContext->GetUsed();
+					//unsigned int used = pBuffer->GetUsed();
+					unsigned int nSize          = pReadContext->GetUsed();
 					const unsigned char* pBuffer = pReadContext->GetBuffer();
 
 					PROTOCOL_MSG_TYPE*	pMsg = (PROTOCOL_MSG_TYPE*)pBuffer; //��ǰ��
@@ -379,7 +379,7 @@ void CSocketClient::Run()
 	try
 	{
 		timeval pstTime = {0,0};
-		DWORD g_nServiceLoop = 0;
+		unsigned long g_nServiceLoop = 0;
 		//fd_set fdRead={0};
 		//fd_set fdRead;
 		 while (true)
@@ -395,7 +395,7 @@ void CSocketClient::Run()
 			//fdRead.fd_count=0;
 			//fdRead.fd_array[0] = m_connectSocket;
 			//�Ƿ������ݿ���
-			//int32_t ret = select(m_connectSocket+1,&fdRead,NULL,NULL,0); //&pstTime
+			//int ret = select(m_connectSocket+1,&fdRead,NULL,NULL,0); //&pstTime
 			//if (ret== SOCKET_ERROR || ret==0)
 			//{//����
 				//break;
@@ -449,8 +449,8 @@ void CSocketClient::OnError( const std::string &message )
 
 void CSocketClient::OnRead( CIOBuffer *pBuffer )
 {//���հ�
-	DWORD dwNumBytes = 0;
-	DWORD dwFlags = 0;
+	unsigned long dwNumBytes = 0;
+	unsigned long dwFlags = 0;
 	pBuffer->SetupRead(); //���ýṹ������ݵĵ�ǰָ��
 	dwNumBytes = recv(m_connectSocket,pBuffer->GetWSABUF()->buf,pBuffer->GetWSABUF()->len,dwFlags);
 	//���յ����ֽ�����
@@ -458,7 +458,7 @@ void CSocketClient::OnRead( CIOBuffer *pBuffer )
 	{//������� ���������Ѿ��Ͽ�
 		//StopConnections();
 		return;
-		DWORD lastError = ::WSAGetLastError();
+		unsigned long lastError = ::WSAGetLastError();
 		if ( ERROR_IO_PENDING != lastError)
 		{
 			if (lastError == WSAECONNABORTED || //��������ʧ��
@@ -496,7 +496,7 @@ void CSocketClient::OnRead( CIOBuffer *pBuffer )
 	}
 }
 
-void CSocketClient::Write( const char *pData, uint32_t dataLength )
+void CSocketClient::Write( const char *pData, unsigned int dataLength )
 {
 	if ( INVALID_SOCKET != m_connectSocket &&
 		dataLength > 0 &&
@@ -516,7 +516,7 @@ void CSocketClient::Write( const char *pData, uint32_t dataLength )
 //��ʼ����
 bool CSocketClient::Write( CIOBuffer *pBuffer )
 {
-	uint32_t uDataLength = 0;
+	unsigned int uDataLength = 0;
 
 	if (NULL== pBuffer ||\
 		(0 == (uDataLength = pBuffer->GetUsed())) ||\
@@ -529,11 +529,11 @@ bool CSocketClient::Write( CIOBuffer *pBuffer )
 	 * Begin to send data
 	 */
 
-	int32_t nError = 0;
-	DWORD lastError= 0;
+	int nError = 0;
+	unsigned long lastError= 0;
 
-	DWORD dwFlags = 0;//MSG_NOSIGNAL;
-	DWORD dwSendNumBytes = 0;
+	unsigned long dwFlags = 0;//MSG_NOSIGNAL;
+	unsigned long dwSendNumBytes = 0;
 	timeval gs_CheckRW_timeout = {0,0};
 	pBuffer->SetupWrite();
 	WSABUF &wsa = *(pBuffer->GetWSABUF());
@@ -586,7 +586,7 @@ bool CSocketClient::Write( CIOBuffer *pBuffer )
 	return false;
 }
 
-static const DWORD g_dwTimeout = 5;//��
+static const unsigned long g_dwTimeout = 5;//��
 
 bool CSocketClient::WaitAndVerifyCipher()
 {
@@ -605,10 +605,10 @@ bool CSocketClient::WaitAndVerifyCipher()
 	 * Select function set read timeout
 	 */
 	SOCKET s = ( SOCKET )m_connectSocket;
-	DWORD dwTotalLength = 0;
+	unsigned long dwTotalLength = 0;
 	while (true)
 	{
-		DWORD dwBytesRead = 0L;
+		unsigned long dwBytesRead = 0L;
 		/*
 		 * Set Descriptor
 		 */
@@ -618,7 +618,7 @@ bool CSocketClient::WaitAndVerifyCipher()
 		//fdRead.fd_array[0] = s;
 		FD_ZERO(&fdRead);
 		FD_SET(s,&fdRead);
-		int32_t res;
+		int res;
 #ifdef WIN32
 		res = select(0,&fdRead,NULL,NULL,pstTime); //FD_SETSIZE
 #else
@@ -626,7 +626,7 @@ bool CSocketClient::WaitAndVerifyCipher()
 #endif
 		if (res > 0)
 		{
-			res = recv(s,(LPSTR)&m_theSendAccountBegin + dwTotalLength, sizeof( m_theSendAccountBegin ) - dwTotalLength,0);
+			res = recv(s,(char*)&m_theSendAccountBegin + dwTotalLength, sizeof( m_theSendAccountBegin ) - dwTotalLength,0);
 			if (res > 0)
 			{
 				dwBytesRead = res;

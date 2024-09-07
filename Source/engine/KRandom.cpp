@@ -15,19 +15,19 @@
 #define IA 3877
 #define IC 29573
 //---------------------------------------------------------------------------
-static uint32_t nRandomSeed = 42;  //long long		UINT
+static unsigned int nRandomSeed = 42;  //long long		UINT
 //---------------------------------------------------------------------------
 // ����:	RandomnSeed
 // ����:	�������������
 // ����:	nRandomSeed	:	���������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_RandomSeed(uint32_t nSeed)
+void g_RandomSeed(unsigned int nSeed)
 {
 	nRandomSeed = nSeed;
 
 	//if (nRandomSeed>500000)
-	//	nRandomSeed=42; 
+	//	nRandomSeed=42;
 }
 
 //---------------------------------------------------------------------------
@@ -36,7 +36,7 @@ void g_RandomSeed(uint32_t nSeed)
 // ����:	nMax	:	���ֵ
 // ����:	һ��С��nMax�������
 //---------------------------------------------------------------------------
-uint32_t g_Random(uint32_t nMax)
+unsigned int g_Random(unsigned int nMax)
 {
 	if (nMax)
 	{
@@ -50,7 +50,7 @@ uint32_t g_Random(uint32_t nMax)
 			return nRandomSeed%nMax;
 		}
 
-		return nRandomSeed%nMax; //ȡ����				  
+		return nRandomSeed%nMax; //ȡ����
 	}
 	else
 	{
@@ -62,7 +62,7 @@ uint32_t g_Random(uint32_t nMax)
 // ����:	ȡ�õ�ʱ��α�������
 // ����:	���ص�ǰ��α�������
 //---------------------------------------------------------------------------
-uint32_t g_GetRandomSeed()
+unsigned int g_GetRandomSeed()
 {
 	if  (nRandomSeed<0)
 	{
@@ -87,7 +87,7 @@ unsigned __int64 g_Random(UINT nMax)
 		//if (nRandomSeed>500000)	 //���������ж� 20��
 		//    nRandomSeed=42;
 		nRandomSeed = nRandomSeed * IA + IC;	  //19W
-		return nRandomSeed%nMax; //ȡ����				  
+		return nRandomSeed%nMax; //ȡ����
 	}
 	else
 	{

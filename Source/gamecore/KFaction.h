@@ -3,7 +3,7 @@
 //
 // File:	KFaction.h
 // Date:	2002.09.26
-// Code:	╠ъЁгюквс
+// Code:	О©╫ъЁО©╫О©╫О©╫О©╫О©╫
 // Desc:	Faction Class
 //---------------------------------------------------------------------------
 
@@ -12,28 +12,28 @@
 
 #include "GameDataDef.h"
 
-#define		FACTIONS_PRR_SERIES				2			// нЕппц©╦Жо╣╣дцееийЩ
-#define		MAX_FACTION						(FACTIONS_PRR_SERIES * series_num+1)	// вэ╣дцееийЩ
+#define		FACTIONS_PRR_SERIES				2			// О©╫О©╫О©╫О©╫ц©О©╫О©╫о╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+#define		MAX_FACTION						(FACTIONS_PRR_SERIES * series_num+1)	// О©╫э╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 
 class KFaction
 {
 public:
-	struct	SFactionAttirbute							// ц©╦Жцееи╣дйТпт
+	struct	SFactionAttirbute							// ц©О©╫О©╫О©╫О©╫О©╫и╣О©╫О©╫О©╫О©╫О©╫
 	{
-		int		m_nIndex;								// ╠Ю╨е
-		int		m_nSeries;								// нЕппйТпт
-		int		m_nCamp;								// уСс╙
-		char	m_szName[64];							// цееицШ
-	}m_sAttribute[MAX_FACTION];			                // кЫспцееи
+		int		m_nIndex;								// О©╫О©╫О©╫
+		int		m_nSeries;								// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+		int		m_nCamp;								// О©╫О©╫с╙
+		char	m_szName[64];							// О©╫О©╫О©╫О©╫О©╫О©╫
+	}m_sAttribute[MAX_FACTION];			                // О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 
 public:
 	KFaction();
 	~KFaction();
 
-	BOOL			Init();								// ЁУй╪╩╞ё╛тьхКцееик╣цВнд╪Ч
-	int				GetID(int nSeries, int nNo);		// ╦Ы╬щнЕппйТпт╨м╠╬йТпт╣з╪╦╦Жцееи╣ц╣╫цееи╠Ю╨е
-	int				GetID(int nSeries, char *lpszName);	// ╦Ы╬щнЕппйТпт╨мцееицШ╣ц╣╫цееи╠Ю╨е
-	int				GetCamp(int nFactionID);			// ╩Я╣цдЁ╦Жцееи╣дуСс╙
+	int			Init();								// О©╫О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫к╣О©╫О©╫О©╫д╪О©╫
+	int				GetID(int nSeries, int nNo);		// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╨м╠О©╫О©╫О©╫О©╫т╣з╪О©╫О©╫О©╫О©╫О©╫О©╫и╣ц╣О©╫О©╫О©╫О©╫и╠О©╫О©╫
+	int				GetID(int nSeries, char *lpszName);	// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╨О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ц╣О©╫О©╫О©╫О©╫и╠О©╫О©╫
+	int				GetCamp(int nFactionID);			// О©╫О©╫О©╫дЁО©╫О©╫О©╫О©╫О©╫и╣О©╫О©╫О©╫с╙
 };
 
 extern	KFaction	g_Faction;

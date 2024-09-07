@@ -77,7 +77,9 @@ public:
 	//����
 	CREATE_FUNC(KuiAutoPlay);
 	//using CThread::Start;
-	static KuiAutoPlay * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+        static KuiAutoPlay* create(const char* title,
+                                   Ref* callbackListener,
+                                   const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
     virtual void onDraw(const ax::Mat4 &transform, unsigned int flags);
 	void  _removeDelegate(bool isThis);

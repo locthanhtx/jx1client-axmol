@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------------
 // Sword3 Engine (c) 1999-2000 by Kingsoft
-// 
+//
 // File:	KStepLuaScript.h
 // Date:	2001-9-11 11:11:09
 // Code:	Romandou
-// Desc:	
+// Desc:
 //---------------------------------------------------------------------------
 #ifndef KStepLuaScript_H
 #define KStepLuaScript_H
@@ -24,7 +24,7 @@ struct TScriptMsg
 	char * szMsgData;
 	Lua_State* StateAddr;
 	TScriptMsg * NextMsg;
-	
+
 };
 
 typedef enum
@@ -45,15 +45,15 @@ class  KStepLuaScript : public KLuaScript
 public:
 				KStepLuaScript();
 	virtual		~KStepLuaScript();
-				KStepLuaScript( int32_t StackSize);
-	
-	int32_t			Active();
-	BOOL		GetNextLine(LPBYTE lpByte, char * szLin);
-	BOOL		ExeLine(LPSTR szLine);
-	BOOL		CheckLine(LPSTR szLine);//��齫ִ�е�Lua����Ƿ�����������粻����for goto 
-	BOOL		GetExeBufferFromFile(char * filename);//��õ�ǰ�ļ���ִ�жε����
-	BOOL		GetExeBuffer(void *, int32_t len);//���ִ�жε����
-	BOOL		Load(LPSTR szFileName);
+				KStepLuaScript( int StackSize);
+
+	int			Active();
+	int		GetNextLine(LPBYTE lpByte, char * szLin);
+	int		ExeLine(char* szLine);
+	int		CheckLine(char* szLine);//��齫ִ�е�Lua����Ƿ�����������粻����for goto
+	int		GetExeBufferFromFile(char * filename);//��õ�ǰ�ļ���ִ�жε����
+	int		GetExeBuffer(void *, int len);//���ִ�жε����
+	int		Load(char* szFileName);
 	void		SeekBegin(){m_CurPos = 0;	};
 	void		SeekToExeBegin(){m_CurPos = m_FirstExecuteLine;};
 
@@ -62,31 +62,31 @@ public:
 	void		RunIdle(){	m_Status = ssRunIdle;};
 	void		RunResume(){ m_Status = ssRunResume;};
 	void		RunWaitMsg(){ m_Status = ssRunWaitMsg;	};
-	BOOL		IsRunMain(){ return m_Status == ssRunMain; };
-	BOOL		IsRunFunc(){ return m_Status == ssRunFunc; };
-	BOOL		IsRunIdle(){ return m_Status == ssRunIdle;};
-	BOOL		IsRunResume(){ return m_Status == ssRunResume;	};
-	BOOL		IsRunWaitMsg(){return m_Status == ssRunWaitMsg;};
-	
+	int		IsRunMain(){ return m_Status == ssRunMain; };
+	int		IsRunFunc(){ return m_Status == ssRunFunc; };
+	int		IsRunIdle(){ return m_Status == ssRunIdle;};
+	int		IsRunResume(){ return m_Status == ssRunResume;	};
+	int		IsRunWaitMsg(){return m_Status == ssRunWaitMsg;};
+
 	KMemClass	m_Memory;
-	BOOL		SendMessage(KStepLuaScript * pSendedScript, char * szMessageName, char * szData);
-	BOOL		AddMessage(Lua_State * L, char * szMessageName, char * szData);
-	LPSTR		GetWaitingMsg(){return m_szWaitingMsg;};
-	
+	int		SendMessage(KStepLuaScript * pSendedScript, char * szMessageName, char * szData);
+	int		AddMessage(Lua_State * L, char * szMessageName, char * szData);
+	char*		GetWaitingMsg(){return m_szWaitingMsg;};
+
 	void		PosUp();
-	void		GotoLabel( LPSTR szLabelName);
-	int32_t			GetStatus(){return m_Status;	};
+	void		GotoLabel( char* szLabelName);
+	int			GetStatus(){return m_Status;	};
 
 private:
 
 	TScriptMsg  *m_pMsgQueue;
 	RunStatus	m_Status;       // �ű���״̬
-	BOOL		m_ScriptStyle; //�ýű����������Ƿ�Ϊ������   ��������
-	int32_t		m_CurLine;
-	int32_t		m_BufLen;
-	int32_t		m_CurPos;
-	int32_t		m_FirstExecuteLine;
-	int32_t		m_EndExecuteLine;
+	int		m_ScriptStyle; //�ýű����������Ƿ�Ϊ������   ��������
+	int		m_CurLine;
+	int		m_BufLen;
+	int		m_CurPos;
+	int		m_FirstExecuteLine;
+	int		m_EndExecuteLine;
 	char		m_szFilename[32];
 	char		m_szWaitingMsg[40];
 };

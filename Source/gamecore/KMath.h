@@ -97,12 +97,12 @@ inline int g_IsConquer(int nSrcSeries, int nDesSeries) //���
 
 //extern INT g_InternalIsAccrueConquer(INT pAccrueConquerTable[], INT nSrcSeries, INT nDesSeries);
 
-/*inline BOOL g_IsAccrue(INT nSrcSeries, INT nDesSeries)
+/*inline int g_IsAccrue(INT nSrcSeries, INT nDesSeries)
 {
     return g_InternalIsAccrueConquer(g_nAccrueSeries, nSrcSeries, nDesSeries);
 }
 
-inline BOOL g_IsConquer(INT nSrcSeries, INT nDesSeries)
+inline int g_IsConquer(INT nSrcSeries, INT nDesSeries)
 {
     return g_InternalIsAccrueConquer(g_nConquerSeries, nSrcSeries, nDesSeries);
 }*/

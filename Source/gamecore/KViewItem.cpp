@@ -38,7 +38,7 @@ void	KViewItem::ApplyViewEquip(int npcIndex)
 	VIEW_EQUIP_COMMAND	sView;
 	sView.ProtocolType = c2s_viewequip;
 	sView.m_dwNpcID    = Npc[npcIndex].m_dwID;
-    sView.m_bPrcess    = 0; 
+    sView.m_bPrcess    = 0;
 	//int nNpcidx=NpcSet.SearchID(Npc[npcIndex].m_dwID);
 
 //   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("�����鿴װ��");
@@ -144,19 +144,19 @@ void	KViewItem::GetData(BYTE* pMsg,int nUpdate)
 			continue;
 		//-------------------------------------------------------------
 		int pnMagicParam[6],pnRMagicParam[6],pnBMagicParam[6],pnJBParam[7];
-		
+
 		for (j = 0; j < 6; ++j)
 		{
 			pnMagicParam[j]  = pItemSync->m_sInfo[i].m_MagicLevel[j];
 			pnRMagicParam[j] = 0;//pItemSync->m_sInfo[i].m_RongMagicLev[j];
 			//pnBMagicParam[j] = 0;//pItemSync->m_sInfo[i].m_BaoMagicLev[j];
-			
+
 		}
 		for (j = 0; j < 7; ++j)
 		{
 			pnJBParam[j]     = 0;//pItemSync->m_sInfo[i].m_JBLevel[j];
 		}
-		
+
 		if (pItemSync->m_sInfo[i].m_GoldId<=0)
 			nItemIdx = ItemSet.AddCilentItem(\
 			pItemSync->m_sInfo[i].m_Genre,\
@@ -218,12 +218,12 @@ void	KViewItem::GetData(BYTE* pMsg,int nUpdate)
 		}
 		if (nItemIdx <= 0)
 			continue;
-		
+
 		//if (nItemIdx > 0) //pItemSync->m_sInfo[i].m_Time.bYear, \\pItemSync->m_sInfo[i].m_StackNum, pItemSync->m_sInfo[i].m_EnChance
 		{//���ÿͻ��˸�����Ϣ
 			Item[nItemIdx].SetIsCanUse(pItemSync->m_sInfo[i].m_IsCanUse); //�ͻ��������Ƿ����ʹ��
 			Item[nItemIdx].SetWonName("ϵͳ");//pItemSync->m_WonName pItemSync->m_sInfo[i].m_WonName
-			//Item[nItemIdx].SetDurability((short)pItemSync->m_sInfo[i].m_Durability);  // ͬ���־ö�		
+			//Item[nItemIdx].SetDurability((short)pItemSync->m_sInfo[i].m_Durability);  // ͬ���־ö�
 			Item[nItemIdx].SetID(pItemSync->m_sInfo[i].m_ID);
 		}
 		     m_sItem[i].nIdx       = nItemIdx;
@@ -232,7 +232,7 @@ void	KViewItem::GetData(BYTE* pMsg,int nUpdate)
 	CoreDataChanged(GDCNI_VIEW_PLAYERITEM, (uintptr_t)&sPlayer, 0);
 }
 
-void KViewItem::UpdateItem( DWORD dwNpcID )
+void KViewItem::UpdateItem( unsigned long dwNpcID )
 {
 	if (m_nProcess >= 16)
 	{
@@ -258,11 +258,11 @@ int KViewItem::GetCount()
 	}
 }
 
-void KViewItem::Check( int nCount, DWORD dwId )
+void KViewItem::Check( int nCount, unsigned long dwId )
 {
 	//if (nCount == 0)
 	//	CoreDataChanged(GDCNI_CLOSE_BAITAN, 0 ,0); //�رղ鿴װ��
-	
+
 	if (nCount != m_nId)
 	{
 		UpdateItem(dwId);

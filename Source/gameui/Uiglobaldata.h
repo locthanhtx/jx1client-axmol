@@ -36,8 +36,8 @@
 #define ZeroStruct(buf)					ZeroMemory(&(buf), sizeof(buf))
 #endif
 
-#define MAX_MELEEWEAPON_PARTICULARTYPE_NUM 100   //ÎäÆ÷×î´óÏÞÖÆ
-#define MAX_RANGEWEAPON_PARTICULARTYPE_NUM 100   //°µÆ÷×î´óÏÞÖÆ
+#define MAX_MELEEWEAPON_PARTICULARTYPE_NUM 100   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define MAX_RANGEWEAPON_PARTICULARTYPE_NUM 100   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #define  SCHEME_INI_AUTO_SETING "jx50ai/autoset/%u_set.ini"
 #define  SCHEME_INI_AUTO_ITEM   "jx50ai/equipName.txt"
@@ -51,7 +51,7 @@
 
 
 #include "cocos2d.h"
-//stdio.h Èç¹ûÃ»ÓÐÕâ¸öÍ·ÎÄ¼þ »á³öÏÖÒ»Ð©´íÎó ÒâÍâÀàÐÍµÄxxx ÒâË¼¾ÍÊÇÃ»ÓÐÕâ¸öÀàÐÍµÄ ÉùÃ÷
+//stdio.h ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½xxx ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½
 #include "engine/KbugInfo.h"
 #include "engine/KEngine.h"
 #include "engine/KGbktoUtf8.h"
@@ -71,52 +71,52 @@ typedef void (*fnNetMsgCallbackFunc)(void* pMsgData);
 //#define	MAX_MSG_COUNT	1 << (PROTOCOL_MSG_SIZE * 8)
 //iKNetMsgTargetObject*	m_MsgTargetObjs[MAX_MSG_COUNT];
 
-//uiÑ¡Ôñ½øÈëµÄ×´Ì¬ ÄÄ¸ö½çÃæ
+//uiÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½
 #define	MAX_PLAYER_PER_ACCOUNT	3
-#define	SERVER_IP_MASK	"wNx0j0IA3_13KLLx2z_wbhAsAjD0e76C" //·þÎñÆ÷ip
-#define	CLIENT_MASK	    "0h706ENyd00gTA_vbiASkuQ02sDKnEHi"  //¿Í»§¶Ë±êÊ¾
+#define	SERVER_IP_MASK	"wNx0j0IA3_13KLLx2z_wbhAsAjD0e76C" //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ip
+#define	CLIENT_MASK	    "0h706ENyd00gTA_vbiASkuQ02sDKnEHi"  //ï¿½Í»ï¿½ï¿½Ë±ï¿½Ê¾
 #define CLIENT_VER_FILE "\\Settings\\Ver\\Xfsverjx.ini"
 
 #ifndef WIN32
 typedef struct  _SYSTEMTIME
 {
-	WORD wYear;
-	WORD wMonth;
-	WORD wDayOfWeek;
-	WORD wDay;
-	WORD wHour;
-	WORD wMinute;
-	WORD wSecond;
-	WORD wMilliseconds;
+	unsigned short wYear;
+	unsigned short wMonth;
+	unsigned short wDayOfWeek;
+	unsigned short wDay;
+	unsigned short wHour;
+	unsigned short wMinute;
+	unsigned short wSecond;
+	unsigned short wMilliseconds;
 }	SYSTEMTIME;
 typedef struct  _FILETIME
 {
-	DWORD dwLowDateTime;
-	DWORD dwHighDateTime;
+	unsigned long dwLowDateTime;
+	unsigned long dwHighDateTime;
 }	FILETIME;
 #endif
 
 struct KRoleChiefInfo
 {
-	char				Name[32];		//ÐÕÃû
-	unsigned	char	Gender;			//ÐÔ±ð	be one of the SSC_CHARACTER_GENDER value
-	unsigned	char	Attribute;		//ÎåÐÐÊôÐÔ
+	char				Name[32];		//ï¿½ï¿½ï¿½ï¿½
+	unsigned	char	Gender;			//ï¿½Ô±ï¿½	be one of the SSC_CHARACTER_GENDER value
+	unsigned	char	Attribute;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//	unsigned   short	NativeRevID;
 	union
-	{ //ÁªºÏ±äÁ¿ Ò»´ÎÖ»ÄÜ¸³ÖµÒ»¸ö
-		unsigned short	NativePlaceId;	//³öÉúµØID
-		short			nLevel;			//µÈ¼¶		
+	{ //ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ Ò»ï¿½ï¿½Ö»ï¿½Ü¸ï¿½ÖµÒ»ï¿½ï¿½
+		unsigned short	NativePlaceId;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+		short			nLevel;			//ï¿½È¼ï¿½
 	};
 };
 enum UI_STEP_STATE
 {
-	UI_STEP_NONE,  
-	UI_STEP_STOP,  
-	UI_STEP_START, 
+	UI_STEP_NONE,
+	UI_STEP_STOP,
+	UI_STEP_START,
 };
 
 enum UI_EQ_KIND
-{//ÓÎÏ·uiÖÐµÄ¸¸½Úµã
+{//ï¿½ï¿½Ï·uiï¿½ÐµÄ¸ï¿½ï¿½Úµï¿½
 	UI_EQ_PART_HEAD = 1, //Í·10
 	UI_EQ_PART_BOBY=6,
 	UI_EQ_PART_LEFTHD,
@@ -137,7 +137,7 @@ enum UI_EQ_KIND
 
 enum PAD_KIND
 {
-	PAD_KIND_ITEM, //Ãû³Æ
+	PAD_KIND_ITEM, //ï¿½ï¿½ï¿½ï¿½
 	PAD_KIND_ROLE,
 	PAD_KIND_ITEMEX,
 	PAD_KIND_CHUWUXIANG,
@@ -146,59 +146,59 @@ enum PAD_KIND
 
 enum NPC_PART_OTHER_KEY
 {
-   NPC_NAME, //Ãû³Æ
-   NPC_LIFE, //ÉúÃüÌõ
-   NPC_TITLE,//³ÆºÅ
-   NPC_TONG, //°ï»áÃû
-   NPC_TIME, //´æ»îÊ±¼ä
-   NPC_SEX,  //ÎåÐÐ
-   PLAYER_AUTO,  //¹Ò»ú
-   PLAYER_TAN,   //°ÚÌ¯
+   NPC_NAME, //ï¿½ï¿½ï¿½ï¿½
+   NPC_LIFE, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   NPC_TITLE,//ï¿½Æºï¿½
+   NPC_TONG, //ï¿½ï¿½ï¿½ï¿½ï¿½
+   NPC_TIME, //ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+   NPC_SEX,  //ï¿½ï¿½ï¿½ï¿½
+   PLAYER_AUTO,  //ï¿½Ò»ï¿½
+   PLAYER_TAN,   //ï¿½ï¿½Ì¯
    PLAYER_PIFENG,   //PIFENG
    PLAYER_SPRCHENGHAO,   //PIFENG
    PLAYER_TITLE,    //TITLE
    PLAYER_REBORN,
-   KEY_COUNT, 
+   KEY_COUNT,
 };
 
-enum LOGIN_LOGIC_STATUS//·¢ËÍµÄÏûÏ¢
+enum LOGIN_LOGIC_STATUS//ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ï¢
 {
-	LL_S_IDLE = 0,					//¿ÕÏÐ
-	LL_S_WAIT_INPUT_ACCOUNT,		//µÈ´ý´«ÕËºÅÃÜÂë
-	LL_S_ACCOUNT_CONFIRMING,		//µÈ´ýÕËºÅÃÜÂëÑéÖ¤
-	LL_S_WAIT_ROLE_LIST,			//µÈ´ý½ÓÊÕ½ÇÉ«ÁÐ±íÊý¾Ý
-	LL_S_ROLE_LIST_READY,			//½ÇÉ«ÁÐ±í¾ÍÐ÷
-	LL_S_CREATING_ROLE,				//ÕýÔÚÐÂ½¨½ÇÉ«
-	LL_S_WAIT_TO_DEL,				//µÈ´ýÑéÖ¤É¾³ý
-	LL_S_DELETING_ROLE,				//ÕýÔÚÉ¾³ý½ÇÉ«
-	LL_S_WAIT_TO_LOGIN_GAMESERVER,	//µÈ´ýµÇÂ½ÓÎÏ··þÎñÆ÷
-	LL_S_ENTERING_GAME,				//ÕýÔÚ½øÈëÓÎÏ·
-	LL_S_IN_GAME,					//ÓÎÏ·ÔËÐÐÊ±
+	LL_S_IDLE = 0,					//ï¿½ï¿½ï¿½ï¿½
+	LL_S_WAIT_INPUT_ACCOUNT,		//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_S_ACCOUNT_CONFIRMING,		//ï¿½È´ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
+	LL_S_WAIT_ROLE_LIST,			//ï¿½È´ï¿½ï¿½ï¿½ï¿½Õ½ï¿½É«ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_S_ROLE_LIST_READY,			//ï¿½ï¿½É«ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_S_CREATING_ROLE,				//ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½É«
+	LL_S_WAIT_TO_DEL,				//ï¿½È´ï¿½ï¿½ï¿½Ö¤É¾ï¿½ï¿½
+	LL_S_DELETING_ROLE,				//ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½É«
+	LL_S_WAIT_TO_LOGIN_GAMESERVER,	//ï¿½È´ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_S_ENTERING_GAME,				//ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·
+	LL_S_IN_GAME,					//ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê±
 };
 
-enum LOGIN_LOGIC_RESULT_INFO //·µ»ØµÄÏûÏ¢
+enum LOGIN_LOGIC_RESULT_INFO //ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢
 {
-	LL_R_NOTHING,					//ÎÞ½á¹ûÐÅÏ¢
-	LL_R_CONNECT_FAILED,			//Á¬½ÓÊ§°Ü
-	LL_R_CONNECT_SERV_BUSY,			//·þÎñÆ÷Ã¦
-	LL_R_CONNECT_TIMEOUT,			//Á¬½Ó³¬Ê±Î´»ñµÃÏìÓ¦
-	LL_R_ACCOUNT_PWD_ERROR,			//ÕËºÅ/ÃÜÂë´íÎó
-	LL_R_ACCOUNT_FREEZE,			//ÕËºÅ¶³½á
-	LL_R_ACCOUNT_LOCKED,			//ÕËºÅ±»Ëø¶¨
-	LL_R_INVALID_ROLENAME,			//(ÐÂ½¨)½ÇÉ«µÄÃû×Ö²»ºÏ·¨
-	LL_R_SERVER_SHUTDOWN,			//ÓÎÏ··þÎñÆ÷ÒÑÂú»òÕýÔÚÎ¬»¤ÖÐ
-	LL_R_INVALID_PROTOCOLVERSION,	//°æ±¾ºÅ½Ï¾É£¬ÐèÒªÉý¼¶µ½ÐÂµÄ¿Í»§¶Ë	
-	LL_R_INVALID_PASSWORD,			//£¨É¾³ý½ÇÉ«Ê±£©Ìá¹©µÄÃÜÂë´íÎó
-	LL_R_ACCOUNT_CONFIRM_SUCCESS,	//ÕËºÅÑéÖ¤³É¹¦
-	LL_R_CREATE_ROLE_SUCCESS,		//´´½¨½ÇÉ«³É¹¦
-	LL_R_LOGIN_TO_GAMESERVER,		//¿ªÊ¼ÁËÓëÓÎÏ·ÊÀ½ç·þÎñÆ÷µÄÁ¬½Ó
-	LL_R_ACCOUNT_NOT_ENOUGH_POINT,	//ÕËºÅµãÊý²»×ã
-	LL_R_DENGLUQI_XFSJX,	        //×¨ÓÃµÇÂ¼Æ÷
-	LL_R_WAIGUA_XFSJX,	            //Íâ¹Ò¼ì²â
-	LL_R_CHANNEL_ROLE,              //È´»»½ÇÉ«
-	LL_R_FORBITOPEN_GAMECLIENT,	    //ÏÞÖÆ¶à¿ª
-	LL_R_DIANNAO_GUANLIYUAN,        //¹ÜÀíÔ±Éí·Ý
-	LL_R_OPNE_ACCOUNT,              //´ò¿ªÕËºÅ
+	LL_R_NOTHING,					//ï¿½Þ½ï¿½ï¿½ï¿½ï¿½Ï¢
+	LL_R_CONNECT_FAILED,			//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	LL_R_CONNECT_SERV_BUSY,			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¦
+	LL_R_CONNECT_TIMEOUT,			//ï¿½ï¿½ï¿½Ó³ï¿½Ê±Î´ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
+	LL_R_ACCOUNT_PWD_ERROR,			//ï¿½Ëºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_R_ACCOUNT_FREEZE,			//ï¿½ËºÅ¶ï¿½ï¿½ï¿½
+	LL_R_ACCOUNT_LOCKED,			//ï¿½ËºÅ±ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_R_INVALID_ROLENAME,			//(ï¿½Â½ï¿½)ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ï·ï¿½
+	LL_R_SERVER_SHUTDOWN,			//ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
+	LL_R_INVALID_PROTOCOLVERSION,	//ï¿½æ±¾ï¿½Å½Ï¾É£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¿Í»ï¿½ï¿½ï¿½
+	LL_R_INVALID_PASSWORD,			//ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½É«Ê±ï¿½ï¿½ï¿½á¹©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_R_ACCOUNT_CONFIRM_SUCCESS,	//ï¿½Ëºï¿½ï¿½ï¿½Ö¤ï¿½É¹ï¿½
+	LL_R_CREATE_ROLE_SUCCESS,		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½É¹ï¿½
+	LL_R_LOGIN_TO_GAMESERVER,		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_R_ACCOUNT_NOT_ENOUGH_POINT,	//ï¿½ËºÅµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	LL_R_DENGLUQI_XFSJX,	        //×¨ï¿½Ãµï¿½Â¼ï¿½ï¿½
+	LL_R_WAIGUA_XFSJX,	            //ï¿½ï¿½Ò¼ï¿½ï¿½
+	LL_R_CHANNEL_ROLE,              //È´ï¿½ï¿½ï¿½ï¿½É«
+	LL_R_FORBITOPEN_GAMECLIENT,	    //ï¿½ï¿½ï¿½Æ¶à¿ª
+	LL_R_DIANNAO_GUANLIYUAN,        //ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+	LL_R_OPNE_ACCOUNT,              //ï¿½ï¿½ï¿½Ëºï¿½
 
 };
 
@@ -248,33 +248,33 @@ enum CHECK_BOX_TAG
 };
 struct KLoginServer
 {
-	char			Title[32];		//·þÎñÆ÷ÎÄ×ÖËµÃ÷
-	unsigned char	Address[4];		//·þÎñÆ÷ipµØÖ·
+	char			Title[32];		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
+	unsigned char	Address[4];		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ipï¿½ï¿½Ö·
 };
 
 struct	m_Choices
 {
-	int						nServerRegionIndex;			//·þÎñÆ÷ÇøÓòË÷Òý
-	KLoginServer			AccountServer;				//µ±Ç°Ê¹ÓÃµÄ·þÎñÆ÷
-	char					Account[32];				//µ±Ç°ÕËºÅ
-	KSG_PASSWORD    		Password;					//µ±Ç°ÕËºÅµÄÃÜÂë
-	char					szProcessingRoleName[32];	//µ±Ç°´¦ÀíµÄ½ÇÉ«µÄÃû×Ö
-	bool					bRememberAccount;			//ÊÇ·ñ¼ÍÂ¼µÇÂ½ÕËºÅ
-	bool					bRememberAll;				//ÊÇ·ñ¼ÍÂ¼È«²¿µÄµÇÂ½Ñ¡Ôñ
-	bool					bAutoLoginEnable;			//ÊÇ·ñÔÊÐí×Ô¶¯µÇÂ½
-	bool					bIsRoleNewCreated;			//µ±Ç°½ÇÉ«ÊÇ·ñÎªÐÂ½¨µÄ½ÇÉ«
-	bool					bLoaded;					//ÊÇ·ñÒÑ¼ÓÔØÑ¡Ôñ¼ÍÂ¼
+	int						nServerRegionIndex;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	KLoginServer			AccountServer;				//ï¿½ï¿½Ç°Ê¹ï¿½ÃµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½
+	char					Account[32];				//ï¿½ï¿½Ç°ï¿½Ëºï¿½
+	KSG_PASSWORD    		Password;					//ï¿½ï¿½Ç°ï¿½ËºÅµï¿½ï¿½ï¿½ï¿½ï¿½
+	char					szProcessingRoleName[32];	//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	bool					bRememberAccount;			//ï¿½Ç·ï¿½ï¿½Â¼ï¿½ï¿½Â½ï¿½Ëºï¿½
+	bool					bRememberAll;				//ï¿½Ç·ï¿½ï¿½Â¼È«ï¿½ï¿½ï¿½Äµï¿½Â½Ñ¡ï¿½ï¿½
+	bool					bAutoLoginEnable;			//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Â½
+	bool					bIsRoleNewCreated;			//ï¿½ï¿½Ç°ï¿½ï¿½É«ï¿½Ç·ï¿½Îªï¿½Â½ï¿½ï¿½Ä½ï¿½É«
+	bool					bLoaded;					//ï¿½Ç·ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Â¼
 };
 
 extern m_Choices m_ClientChoices;
-extern short m_nNumRole;	        //½ÇÉ«ÊýÁ¿
+extern short m_nNumRole;	        //ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 extern int   nGlobaluistep;
 extern KRoleChiefInfo	m_RoleList[MAX_PLAYER_PER_ACCOUNT];
 
-extern int  nPlaceId;               //Ñ¡ÔñµÄ³öÉúµØ
-extern int  nNativePlaceId;         //µØÍ¼±àºÅ
+extern int  nPlaceId;               //Ñ¡ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½
+extern int  nNativePlaceId;         //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
 extern RECT maxMapRc;
 extern bool isthisVer;
-extern int  nCuraMapIdx;            //Ñ¡ÔñµÄ³öÉúµØ
+extern int  nCuraMapIdx;            //Ñ¡ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #endif

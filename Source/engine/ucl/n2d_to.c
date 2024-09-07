@@ -39,7 +39,7 @@
 #define TEST_OVERLAP
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_test_overlap_8        ( const ucl_bytep src, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )
@@ -50,7 +50,7 @@ ucl_nrv2d_test_overlap_8        ( const ucl_bytep src, ucl_uint src_off,
 }
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_test_overlap_le16     ( const ucl_bytep src, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )
@@ -61,7 +61,7 @@ ucl_nrv2d_test_overlap_le16     ( const ucl_bytep src, ucl_uint src_off,
 }
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_test_overlap_le32     ( const ucl_bytep src, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )

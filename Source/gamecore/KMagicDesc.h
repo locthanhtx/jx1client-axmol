@@ -11,11 +11,11 @@ private:
 public:
 	KMagicDesc();
 	~KMagicDesc();
-	BOOL		Init();
+	int		Init();
 	void        scat(char* p,char const* q);
-	const char*	GetDesc(void* pData,int nType=0) ;//0为物品 1 为技能
+	const char*	GetDesc(void* pData,int nType=0) ;//0为锟斤拷品 1 为锟斤拷锟斤拷
 	const char* GetDesc_(void *pData,int nType=0);
-	const void 	GetDesc_New(char *strReturn,void* pData,int nType=0); //0为物品 1 为技能
+	const void 	GetDesc_New(char *strReturn,void* pData,int nType=0); //0为锟斤拷品 1 为锟斤拷锟斤拷
 	const char* BaoShiGetDesc(void *pData);
 };
 

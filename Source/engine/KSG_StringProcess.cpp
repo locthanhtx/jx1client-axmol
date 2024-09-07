@@ -11,17 +11,17 @@
 #include "KSG_StringProcess.h"
 
 
-int32_t KSG_StringGetInt(const char **ppcszString, int32_t nDefaultValue)
+int KSG_StringGetInt(const char **ppcszString, int nDefaultValue)
 {
-    int32_t nResult = false;
-    int32_t nRetValue = 0;
-    int32_t nNegSignFlag = false;
-    int32_t nRetValueValidFlag = false;
+    int nResult = false;
+    int nRetValue = 0;
+    int nNegSignFlag = false;
+    int nRetValueValidFlag = false;
     const char *pcszString = NULL;
 
     if (!ppcszString)
         goto Exit0;
-    
+
     pcszString = *ppcszString;
 
     if (!pcszString)
@@ -29,7 +29,7 @@ int32_t KSG_StringGetInt(const char **ppcszString, int32_t nDefaultValue)
 
     while (isspace(*pcszString))
         pcszString++;
-    
+
     if ((*pcszString) == '\0')
         goto Exit0;
 
@@ -46,12 +46,12 @@ int32_t KSG_StringGetInt(const char **ppcszString, int32_t nDefaultValue)
             goto Exit0;
     }
 
-    
+
     while (isdigit(*pcszString))
     {
         nRetValueValidFlag = true;
 
-        nRetValue = nRetValue * 10 +  ((int32_t)(*pcszString - '0'));
+        nRetValue = nRetValue * 10 +  ((int)(*pcszString - '0'));
 
         pcszString++;
     }
@@ -72,21 +72,21 @@ Exit0:
         (!nResult) ||
         (!nRetValueValidFlag)
     )
-        nRetValue = nDefaultValue; 
+        nRetValue = nDefaultValue;
 
 
     return nRetValue;
 }
 
 
-bool KSG_StringSkipSymbol(const char **ppcszString, int32_t nSymbol)
+bool KSG_StringSkipSymbol(const char **ppcszString, int nSymbol)
 {
     bool bResult = false;
     const char *pcszString = NULL;
 
     if (!ppcszString)
         goto Exit0;
-    
+
     pcszString = *ppcszString;
 
     if (!pcszString)
@@ -94,7 +94,7 @@ bool KSG_StringSkipSymbol(const char **ppcszString, int32_t nSymbol)
 
     while (isspace(*pcszString))
         pcszString++;
-    
+
     if (((unsigned)(*pcszString)) != (unsigned)nSymbol)
         goto Exit0;
 

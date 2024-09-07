@@ -58,7 +58,7 @@
 #include "stdio.h"
 #include "md5.h"
 
-int32_t main(int32_t argc, char *argv[])
+int main(int argc, char *argv[])
 {
     static const char *const test[7] = {
 	"", /*d41d8cd98f00b204e9800998ecf8427e*/
@@ -79,9 +79,9 @@ int32_t main(int32_t argc, char *argv[])
 	    md5_byte_t digest[16];
 
         md5_init(&state);
-	    
+
         FILE *fp = fopen(argv[1], "rb");
-        if (!fp) 
+        if (!fp)
             return -1;
 
         while (true)
@@ -99,7 +99,7 @@ int32_t main(int32_t argc, char *argv[])
         fclose(fp);
         fp = NULL;
 
-	    int32_t i;
+	    int i;
         printf("File %s:\n", argv[1]);
 
     	printf("MD5 = ");
@@ -112,22 +112,22 @@ int32_t main(int32_t argc, char *argv[])
 	        printf("%02X", digest[i]);
 
 	    printf("\n");
-        
+
         return 0;
     }
 
 
 
 
-        
 
-                        
-    int32_t i;
+
+
+    int i;
 
     for (i = 0; i < 7; ++i) {
 	md5_state_t state;
 	md5_byte_t digest[16];
-	int32_t di;
+	int di;
 
 	md5_init(&state);
 	md5_append(&state, (const md5_byte_t *)test[i], strlen(test[i]));
@@ -149,9 +149,9 @@ int32_t main(int32_t argc, char *argv[])
 #include <math.h>
 main()
 {
-    int32_t i;
+    int i;
     for (i = 1; i <= 64; ++i) {
-	uint32_t v = (uint32_t)(4294967296.0 * fabs(sin((double)i)));
+	unsigned int v = (unsigned int)(4294967296.0 * fabs(sin((double)i)));
 	printf("#define T%d 0x%08lx\n", i, v);
     }
     return 0;
@@ -244,7 +244,7 @@ md5_process(md5_state_t *pms, const md5_byte_t *data /*[64]*/)
      */
     md5_word_t X[16];
     const md5_byte_t *xp = data;
-    int32_t i;
+    int i;
 
     for (i = 0; i < 16; ++i, xp += 4)
 	X[i] = xp[0] + (xp[1] << 8) + (xp[2] << 16) + (xp[3] << 24);
@@ -394,11 +394,11 @@ md5_init(md5_state_t *pms)
 }
 
 void
-md5_append(md5_state_t *pms, const md5_byte_t *data, int32_t nbytes)
+md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes)
 {
     const md5_byte_t *p = data;
-    int32_t left = nbytes;
-    int32_t offset = (pms->count[0] >> 3) & 63;
+    int left = nbytes;
+    int offset = (pms->count[0] >> 3) & 63;
     md5_word_t nbits = (md5_word_t)(nbytes << 3);
 
     if (nbytes <= 0)
@@ -412,7 +412,7 @@ md5_append(md5_state_t *pms, const md5_byte_t *data, int32_t nbytes)
 
     /* Process an initial partial block. */
     if (offset) {
-	int32_t copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
+	int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
 
 	memcpy(pms->buf + offset, p, copy);
 	if (offset + copy < 64)
@@ -441,7 +441,7 @@ md5_finish(md5_state_t *pms, md5_byte_t digest[16])
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
     md5_byte_t data[8];
-    int32_t i;
+    int i;
 
     /* Save the length before padding. */
     for (i = 0; i < 8; ++i)

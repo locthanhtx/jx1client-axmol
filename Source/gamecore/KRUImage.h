@@ -180,7 +180,7 @@ struct KRUImage : public KRepresentUnit
 
    //short	bMatchReferenceSpot;
 
-   ///BOOL bFrameDraw;
+   ///int bFrameDraw;
 
 };
 

@@ -538,7 +538,7 @@ BYTE KSubWorld::TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int n
 	return m_Region[nRegion].GetBarrierMin(nMapX, nMapY, nDx, nDy,TRUE); //��ȷ����
 }
 
-BOOL KSubWorld::SetTrap(int nMpsX, int nMpsY,int nCellNum,DWORD uTrapScriptId)
+int KSubWorld::SetTrap(int nMpsX, int nMpsY,int nCellNum,unsigned long uTrapScriptId)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY;
 	    Mps2Map(nMpsX, nMpsY, &nRegion, &nMapX, &nMapY, &nOffX, &nOffY);
@@ -548,7 +548,7 @@ BOOL KSubWorld::SetTrap(int nMpsX, int nMpsY,int nCellNum,DWORD uTrapScriptId)
 	return m_Region[nRegion].SetTrap(nMapX, nMapY,nCellNum,uTrapScriptId);
 }
 
-DWORD KSubWorld::GetTrap(int nMpsX, int nMpsY)
+unsigned long KSubWorld::GetTrap(int nMpsX, int nMpsY)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY;
 	Mps2Map(nMpsX, nMpsY, &nRegion, &nMapX, &nMapY, &nOffX, &nOffY);
@@ -564,7 +564,7 @@ BYTE KSubWorld::GetBarrier(int nMpsX, int nMpsY)
 
 
 ///ȴ����ͼ��ʱ��ͻ��˼��ص�ͼ��Ϣ
-BOOL KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
+int KSubWorld::LoadMapC(int nId, int nRegion,bool isClearAll)
 {
 	static int	nXOff[8] = {0, -1, -1, -1, 0,  1, 1, 1};
 	static int	nYOff[8] = {1, 1,  0,  -1, -1, -1, 0, 1};
@@ -1465,7 +1465,7 @@ void KSubWorld::GetFreeNewObjPos(POINT& pos)
 	return;
 }
 
-BOOL KSubWorld::CanPutObj(POINT pos,int nModle,BOOL nIsCheckNpc)
+int KSubWorld::CanPutObj(POINT pos,int nModle,int nIsCheckNpc)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY,nIsShowInfo=0,nIsShowHave=0;
 	    Mps2Map(pos.x,pos.y,&nRegion,&nMapX,&nMapY,&nOffX,&nOffY);

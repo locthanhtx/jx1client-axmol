@@ -67,7 +67,7 @@ void	KNpcGold::Init(int nIdx)
 //---------------------------------------------------------------------------
 //	���ܣ��趨�Ƿ�Ϊ�ƽ����
 //---------------------------------------------------------------------------
-void	KNpcGold::SetGoldType(BOOL bFlag)
+void	KNpcGold::SetGoldType(int bFlag)
 {
 	this->m_nIsGold = (bFlag != 0 ? 1 : 0);
 }
@@ -187,7 +187,7 @@ void	KNpcGold::RecoverBackData()
 //---------------------------------------------------------------------------
 //	���ܣ���һ�����ʱ�ɻƽ����---���ּ��ʲ�������-
 //---------------------------------------------------------------------------
-void KNpcGold::RandChangeGold(BOOL bGold,int BossType,int nSubWorld)  //Ĭ�� 5 �� flase
+void KNpcGold::RandChangeGold(int bGold,int BossType,int nSubWorld)  //Ĭ�� 5 �� flase
 {
 	//if (SubWorld[nSubWorld].m_SubWorldID==38)
 	//printf("--BOSS����B��%d ��ͼ:%d--\n",BossType,SubWorld[nSubWorld].m_SubWorldID);
@@ -372,7 +372,7 @@ KNpcGoldTemplate::KNpcGoldTemplate()
 	this->m_nEffectTypeNum = 0;
 }
 //���ֵ�ģ��
-BOOL	KNpcGoldTemplate::Init()
+int	KNpcGoldTemplate::Init()
 {
 	KTabFile	cFile;
 

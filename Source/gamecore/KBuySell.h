@@ -4,7 +4,7 @@
 #define	BUY_SELL_SCALE		4
 
 class KItem;
-//商店商品产生结构
+//锟教碉拷锟斤拷品锟斤拷锟斤拷锟结构
 typedef struct
 {
 	int		nGenre;
@@ -14,7 +14,7 @@ typedef struct
 	int		nLevel;
 	int		nPrice;
 	int		nPriceXu;
-} ItemGenerate; 
+} ItemGenerate;
 
 class KInventory;
 
@@ -23,7 +23,7 @@ class KBuySell
 public:
 	KBuySell();
 	~KBuySell();
-	BOOL			Init();
+	int			Init();
 	int				GetWidth() { return m_Width; }
 	int				GetHeight() { return m_Height; }
 	// int				GetWidth() { return 1; }
@@ -37,7 +37,7 @@ private:
 	int				m_Height;
 	int				m_MaxItem;
 public:
-	//客户端打开商城
+	//锟酵伙拷锟剿达拷锟教筹拷
 	KInventory*		m_pShopRoom;
 	KInventory*		m_pSShopRoom;
 	//typedef std::map<int, KItem*> _mItemPtr;

@@ -24,7 +24,7 @@
 #include <string.h>
 //---------------------------------------------------------------------------
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-static char szRootPath[MAXPATH] = "D:\\cocos2dx226\\projects\\jxclient\\data";
+static char szRootPath[MAXPATH] = "D:\\Source\\jxmbcc\\jx1client-axmol\\build\\bin\\jx1client\\Debug\\data";
 //D:\\cocos2dx226\\projects\\jxclient\\Resources";		// ����·��
 static char szCurrPath[MAXPATH] = "\\";		// ��ǰ·��
 #define CURPOS 1
@@ -35,20 +35,20 @@ static char szCurrPath[MAXPATH] = "/";		// ��ǰ·��
 #define CURPOS 1
 #endif
 
-int32_t RemoveTwoPointPath(LPTSTR szPath, int32_t nLength)
+int RemoveTwoPointPath(char* szPath, int nLength)
 {
-	int32_t nRemove = 0;
+	int nRemove = 0;
 	//KASSERT(szPath);
 	if (!szPath) return 0;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	LPTSTR lpszOld ="\\..\\";
+	char* lpszOld = (char*)"\\..\\";
 #else
-	LPTSTR lpszOld ="/../";
+	char* lpszOld ="/../";
 #endif
-	LPTSTR lpszTarget = strstr(szPath, lpszOld);
+	char* lpszTarget = strstr(szPath, lpszOld);
 	if (lpszTarget)
 	{
-		LPTSTR lpszAfter = lpszTarget + 3;
+		char* lpszAfter = lpszTarget + 3;
 		while(lpszTarget > szPath)
 		{
 			lpszTarget--;
@@ -63,20 +63,20 @@ int32_t RemoveTwoPointPath(LPTSTR szPath, int32_t nLength)
 	return nLength - nRemove;
 }
 
-int32_t RemoveOnePointPath(LPTSTR szPath, int32_t nLength)
+int RemoveOnePointPath(char* szPath, int nLength)
 {
-	int32_t nRemove = 0;
+	int nRemove = 0;
 	//KASSERT(szPath);
 	if (!szPath) return 0;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	LPTSTR lpszOld = "\\.\\";
+        char* lpszOld = (char*)"\\.\\";
 #else
-	LPTSTR lpszOld = "/./"; //LPCTSTR
+	char* lpszOld = "/./"; //LPCTSTR
 #endif
-	LPTSTR lpszTarget = strstr(szPath, lpszOld);
+	char* lpszTarget = strstr(szPath, lpszOld);
 	if (lpszTarget)
 	{
-		LPTSTR lpszAfter = lpszTarget + 2;
+		char* lpszAfter = lpszTarget + 2;
 		memmove(lpszTarget, lpszAfter, (nLength - (lpszAfter - szPath) + 1) * sizeof(char));
 		nRemove = (lpszAfter - lpszTarget);
 		return RemoveOnePointPath(szPath, nLength - nRemove);
@@ -85,7 +85,7 @@ int32_t RemoveOnePointPath(LPTSTR szPath, int32_t nLength)
 	return nLength - nRemove;
 }
 
-int32_t RemoveAllPointPath(LPTSTR szPath, int32_t nLength)
+int RemoveAllPointPath(char* szPath, int nLength)
 {
 	return RemoveOnePointPath(szPath, RemoveTwoPointPath(szPath, nLength));
 }
@@ -96,7 +96,7 @@ int32_t RemoveAllPointPath(LPTSTR szPath, int32_t nLength)
 // ����:	lpPathName	·����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_SetRootPath(LPSTR lpPathName,bool isChange)
+void g_SetRootPath(char* lpPathName,bool isChange)
 {
 	if (lpPathName)
 	{
@@ -125,7 +125,7 @@ void g_SetRootPath(LPSTR lpPathName,bool isChange)
 	}
 
 	// ȥ��·��ĩβ�� '\'
-	int32_t len = g_StrLen(szRootPath);
+	int len = g_StrLen(szRootPath);
 	if (szRootPath[len - 1] == '\\' || szRootPath[len - 1] == '/')
 	{
 		szRootPath[len - 1] = 0;
@@ -137,7 +137,7 @@ void g_SetRootPath(LPSTR lpPathName,bool isChange)
 // ����:	lpPathName	·����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetRootPath(LPSTR lpPathName)
+void g_GetRootPath(char* lpPathName)
 {
 	g_StrCpy(lpPathName, szRootPath);
 }
@@ -147,7 +147,7 @@ void g_GetRootPath(LPSTR lpPathName)
 // ����:	lpPathName	·����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_SetFilePath(LPSTR lpPathName)
+void g_SetFilePath(const char* lpPathName)
 {
 	// ȥ��ǰ��� "\\"
 	if (lpPathName[0] == '\\' ||lpPathName[0] == '/')
@@ -160,7 +160,7 @@ void g_SetFilePath(LPSTR lpPathName)
 	}
 
 	// ĩβ���� "\\"
-	int32_t len = g_StrLen(szCurrPath);
+	int len = g_StrLen(szCurrPath);
 	if (len > 0 && szCurrPath[len - 1] != '\\' && szCurrPath[len - 1] != '/')
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -186,7 +186,7 @@ void g_SetFilePath(LPSTR lpPathName)
 // ����:	lpPathName	·����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetFilePath(LPSTR lpPathName)
+void g_GetFilePath(char* lpPathName)
 {
 	g_StrCpy(lpPathName, szCurrPath);
 }
@@ -197,7 +197,7 @@ void g_GetFilePath(LPSTR lpPathName)
 //			lpFileName	�ļ���
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetFullPath(LPSTR lpPathName, LPSTR lpFileName)
+void g_GetFullPath(char* lpPathName, const char* lpFileName)
 {
 	// �ļ�����ȫ·��
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
@@ -209,7 +209,7 @@ void g_GetFullPath(LPSTR lpPathName, LPSTR lpFileName)
 	//messageBox(szRootPath,"szRootPath-b");
 	// ȥ��·��ĩβ�� '\'
 
-	int32_t len = g_StrLen(szRootPath);
+	int len = g_StrLen(szRootPath);
 	if (szRootPath[len - 1] == '\\' || szRootPath[len - 1] == '/')
 	{
 		szRootPath[len - 1] = 0;
@@ -259,7 +259,7 @@ void g_GetFullPath(LPSTR lpPathName, LPSTR lpFileName)
 //			lpFileName	�ļ���
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetHalfPath(LPSTR lpPathName, LPSTR lpFileName)
+void g_GetHalfPath(char* lpPathName, char* lpFileName)
 {
 	// �ļ����в���·��
 	if (lpFileName[0] == '\\' || lpFileName[0] == '/')
@@ -284,7 +284,7 @@ void g_GetHalfPath(LPSTR lpPathName, LPSTR lpFileName)
 //			lpFileName	�ļ���
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetPackPath(LPSTR lpPathName, LPSTR lpFileName)
+void g_GetPackPath(char* lpPathName, char* lpFileName)
 {
 	// �ļ����в���·��
 	if (lpFileName[0] == '\\' || lpFileName[0] == '/')
@@ -297,14 +297,14 @@ void g_GetPackPath(LPSTR lpPathName, LPSTR lpFileName)
 		g_StrCat(lpPathName,lpFileName);
 	}
 
-	int32_t len = g_StrLen(lpPathName);
+	int len = g_StrLen(lpPathName);
 	RemoveAllPointPath(lpPathName,len + 1);
 	// ȫ��ת��ΪСд��ĸ
 	g_StrLower(lpPathName);
 
 	/*#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-	   int32_t nleng = g_StrLen(lpPathName);
-	   for(int32_t  i =0;i<nleng;i++)
+	   int nleng = g_StrLen(lpPathName);
+	   for(int  i =0;i<nleng;i++)
 	   {
 		   if (lpPathName[i]=='/')
 			   lpPathName[i] = '\\';
@@ -319,10 +319,10 @@ void g_GetPackPath(LPSTR lpPathName, LPSTR lpFileName)
 //			lpFileName	�ļ���
 // ����:	void
 //---------------------------------------------------------------------------
-void g_GetDiskPath(LPSTR lpPathName, LPSTR lpFileName)
+void g_GetDiskPath(char* lpPathName, char* lpFileName)
 {
 	g_StrCpy(lpPathName, "C:");
-	for (int32_t i = 0; i < 24; lpPathName[0]++, ++i)
+	for (int i = 0; i < 24; lpPathName[0]++, ++i)
 	{
 //		if (GetDriveType(lpPathName) == DRIVE_CDROM)
 //			break;
@@ -349,13 +349,13 @@ void g_GetDiskPath(LPSTR lpPathName, LPSTR lpFileName)
 // ����:	lpPathName	·����
 // ����:	void
 //---------------------------------------------------------------------------
-void	g_CreatePath(LPSTR lpPathName)
+void	g_CreatePath(char* lpPathName)
 {
 	if (!lpPathName || !lpPathName[0])
 		return;
 
 	char	szFullPath[MAXPATH];
-	int32_t		i;
+	int		i;
 	// �ļ�����ȫ·��
 	if (lpPathName[CURPOS] == ':')
 	{
@@ -388,7 +388,7 @@ void	g_CreatePath(LPSTR lpPathName)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		if (szFullPath[i] == '\\') {
 			szFullPath[i] = 0;
-			CreateDirectory(szFullPath, NULL);
+			CreateDirectoryA(szFullPath, NULL);
 			szFullPath[i] = '\\';
 		}
 #else
@@ -399,7 +399,7 @@ void	g_CreatePath(LPSTR lpPathName)
 #endif
 	}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	CreateDirectory(szFullPath, NULL);
+	CreateDirectoryA(szFullPath, NULL);
 #else
 	// flying comment
 	// �촫��ʵ���������
@@ -414,7 +414,7 @@ void	g_CreatePath(LPSTR lpPathName)
 // ����:	void
 // ע�⣺   ����û�п����ַ����ĳ��ȣ�ʹ�õ�ʱ��Ҫ��֤�ַ����ĳ����㹻
 //---------------------------------------------------------------------------
-void	g_UnitePathAndName(char *lpPath, char *lpFile, char *lpGet)
+void g_UnitePathAndName(const char* lpPath, const char* lpFile, char* lpGet)
 {
 	if (!lpPath || !lpFile || !lpGet)
 		return;
@@ -425,7 +425,7 @@ void	g_UnitePathAndName(char *lpPath, char *lpFile, char *lpGet)
 	sprintf(lpGet,strlp.c_str());
 	*/
 	strcpy(lpGet, lpPath);
-	int32_t	nSize = strlen(lpGet);
+	int	nSize = strlen(lpGet);
 	if (lpGet[nSize] - 1 != '\\')
 	{
 		lpGet[nSize] = '\\';
@@ -448,9 +448,9 @@ void	g_UnitePathAndName(char *lpPath, char *lpFile, char *lpGet)
 // ����:	lpPathName	·�������ļ���
 // ����:	TRUE���ɹ���FALSE��ʧ�ܡ�
 //---------------------------------------------------------------------------
-BOOL g_FileExists(LPSTR FileName)
+int g_FileExists(char* FileName)
 {
-	BOOL	bExist = FALSE;
+	int	bExist = FALSE;
 	char	szFullName[MAX_PATH];
 	if (FileName && FileName[0])
 	{
@@ -465,7 +465,7 @@ BOOL g_FileExists(LPSTR FileName)
 		{
 #ifdef WIN32
 			 g_GetFullPath(szFullName, FileName);
-			 bExist = !(GetFileAttributes(szFullName) & FILE_ATTRIBUTE_DIRECTORY);// || dword == INVALID_FILE_ATTRIBUTES)
+			 bExist = !(GetFileAttributesA(szFullName) & FILE_ATTRIBUTE_DIRECTORY);// || dword == INVALID_FILE_ATTRIBUTES)
 #else
 			 std::string nCurFilePath = FileName;
 			 bExist = ax::FileUtils::getInstance()->isFileExist(nCurFilePath);//��Դ��
@@ -484,22 +484,22 @@ BOOL g_FileExists(LPSTR FileName)
 // ע��:	��Ϸ����������ؽ����������õĹ�ϣ��������Ҳ����
 //			������������������޸��������ʱҲ��Ӧ�޸�������
 //			�����Ӧ���Ǹ��������������������Common.lib���̵�Utils.h
-//			�У���������Ϊ DWORD HashStr2ID( const char * const pStr );
+//			�У���������Ϊ unsigned long HashStr2ID( const char * const pStr );
 //---------------------------------------------------------------------------
-uint32_t g_FileName2Id(char * lpFileName)
+unsigned int g_FileName2Id(char * lpFileName)
 {
 ////////////////////////////////////////////////////////////////
 	if (lpFileName)
 	{
-		int32_t len = strlen(lpFileName);
-		uint32_t dwID = 0;
-		for (int32_t i = 0;i<len; ++i) //lpFileName[i]
+		int len = strlen(lpFileName);
+		unsigned int dwID = 0;
+		for (int i = 0;i<len; ++i) //lpFileName[i]
 		{
 			dwID =(dwID + (i + 1) * lpFileName[i])%0x8000000B*0xFFFFFFEF;//0x8000000B*0xFFFFFFEF;
 		}
-		return (uint32_t)(dwID^0x12345678);	    //0x12345678  305419896
+		return (unsigned int)(dwID^0x12345678);	    //0x12345678  305419896
 	}
-	return (uint32_t)(-1);
+	return (unsigned int)(-1);
 }
 //---------------------------------------------------------------------------
 // ����:	change file extention
@@ -508,9 +508,9 @@ uint32_t g_FileName2Id(char * lpFileName)
 //			lpNewExt	����չ����������'.'
 // ����:	void
 //---------------------------------------------------------------------------
-void g_ChangeFileExt(LPSTR lpFileName, LPSTR lpNewExt)
+void g_ChangeFileExt(char* lpFileName, char* lpNewExt)
 {
-	int32_t  i;
+	int  i;
 
 	for (i = 0; lpFileName[i]; ++i)
 	{
@@ -535,12 +535,12 @@ void g_ChangeFileExt(LPSTR lpFileName, LPSTR lpNewExt)
 //			lpFilePath	�ļ���������·����
 // ����:	void
 //---------------------------------------------------------------------------
-void g_ExtractFileName(LPSTR lpFileName, LPSTR lpFilePath)
+void g_ExtractFileName(char* lpFileName, char* lpFilePath)
 {
-	int32_t nLen = g_StrLen(lpFilePath);
+	int nLen = g_StrLen(lpFilePath);
 	if (nLen < 5)
 		return;
-	int32_t nPos = nLen;
+	int nPos = nLen;
 	while (--nPos > 0)
 	{
 		if (lpFilePath[nPos] == '\\'||lpFilePath[nPos] == '/')
@@ -555,12 +555,12 @@ void g_ExtractFileName(LPSTR lpFileName, LPSTR lpFilePath)
 //			lpFilePath	·�������ļ���
 // ����:	void
 //---------------------------------------------------------------------------
-void g_ExtractFilePath(LPSTR lpPathName, LPSTR lpFilePath)
+void g_ExtractFilePath(char* lpPathName, char* lpFilePath)
 {
-	int32_t nLen = g_StrLen(lpFilePath);
+	int nLen = g_StrLen(lpFilePath);
 	if (nLen < 5)
 		return;
-	int32_t nPos = nLen;
+	int nPos = nLen;
 	while (--nPos > 0)
 	{
 		if (lpFilePath[nPos] == '\\' ||lpFilePath[nPos] == '/')
@@ -569,9 +569,9 @@ void g_ExtractFilePath(LPSTR lpPathName, LPSTR lpFilePath)
 	g_StrCpyLen(lpPathName, lpFilePath, nPos);
 }
 
-uint32_t g_CheckFileExist(const char * lpFileName)
+unsigned int g_CheckFileExist(const char * lpFileName)
 {
-	if  (!lpFileName) return (uint32_t)(-1);
+	if  (!lpFileName) return (unsigned int)(-1);
 
 #ifndef WIN32
 	dataChecksum nappInfo;
@@ -585,7 +585,7 @@ uint32_t g_CheckFileExist(const char * lpFileName)
 	nappInfo.SimplyDecrypt(nstrps,APP_STRINFO_2);
 	strcat(destStr,nstrps);
 //	if (strcmp(m_MobileKey.c_str(),destStr)!= 0)
-//		return (uint32_t)(-1);
+//		return (unsigned int)(-1);
 #endif
 	/*char lpFileName[256];
 	ZeroMemory(lpFileName,sizeof(lpFileName));
@@ -593,9 +593,9 @@ uint32_t g_CheckFileExist(const char * lpFileName)
 	*/
 	if (lpFileName)
 	{
-		int32_t len = strlen(lpFileName);
-		uint32_t dwID = 0;
-		for (int32_t i = 0;i<len; ++i) //lpFileName[i]
+		int len = strlen(lpFileName);
+		unsigned int dwID = 0;
+		for (int i = 0;i<len; ++i) //lpFileName[i]
 		{
 			/*if (lpFileName[i] >= 0xE0) //���� 3���ֽ�
 			{
@@ -624,6 +624,6 @@ uint32_t g_CheckFileExist(const char * lpFileName)
 		}
 		return (dwID^305419896);	    //0x12345678  305419896
 	}
-	return (uint32_t)(-1);
+	return (unsigned int)(-1);
 }
 //---------------------------------------------------------------------------

@@ -30,7 +30,7 @@ public:
 	virtual bool init();
 	//����
 	CREATE_FUNC(KuiMoveToMap);
-	static KuiMoveToMap * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiMoveToMap * create(const char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
 //	virtual void draw();
 	bool    isOpen;

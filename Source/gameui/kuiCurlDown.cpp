@@ -6,8 +6,17 @@
 //
 //
 #include "KuiCurlDown.h"
-#include "pthread.h"
-#include <unistd.h>
+#ifdef WIN32
+#    include <pthreadwin32.h>
+#else
+#    include <pthread.h>
+#endif
+#ifdef _WIN32
+#    include <io.h>
+#    define access _access
+#else
+#    include <unistd.h>
+#endif
 static pthread_mutex_t g_downloadMutex_1;
 
 kuiCurlDown::~kuiCurlDown(){

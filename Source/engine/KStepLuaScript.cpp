@@ -35,10 +35,10 @@ KStepLuaScript::KStepLuaScript(void)
 //---------------------------------------------------------------------------
 // ����:	KStepLuaScript::KStepLuaScript
 // ����:
-// ����:	int32_t StackSize
+// ����:	int StackSize
 // ����:
 //---------------------------------------------------------------------------
-KStepLuaScript::KStepLuaScript(int32_t StackSize)
+KStepLuaScript::KStepLuaScript(int StackSize)
 {
 	m_CurLine			= 0;
 	m_BufLen			= 0;
@@ -60,10 +60,10 @@ KStepLuaScript::~KStepLuaScript(void)
 	m_Memory.Free();
 }
 
-BOOL KStepLuaScript::GetNextLine(LPBYTE lpByte, char * szLine)
+int KStepLuaScript::GetNextLine(LPBYTE lpByte, char * szLine)
 {
-	int32_t nCurPos;
-	int32_t i = 0;
+	int nCurPos;
+	int i = 0;
 
 	nCurPos = m_CurPos;
 	while(1)
@@ -94,7 +94,7 @@ BOOL KStepLuaScript::GetNextLine(LPBYTE lpByte, char * szLine)
 	return FALSE;
 }
 //����lua�ű�
-BOOL KStepLuaScript::Load(LPSTR szFileName)
+int KStepLuaScript::Load(char* szFileName)
 {
 
 	if (!szFileName)
@@ -118,7 +118,7 @@ BOOL KStepLuaScript::Load(LPSTR szFileName)
 	blocker.ScanIf(pIfLine);
 	KMemClass1 * pMem = NULL;
 
-	int32_t len = blocker.GetBuffer(pMem);
+	int len = blocker.GetBuffer(pMem);
 	if (len == 0) return FALSE;
 	if (!GetExeBuffer(pMem->GetMemPtr(), len))	return FALSE;
 	if (!KLuaScript::LoadBuffer((PBYTE)m_Memory.GetMemPtr(), len ))		return FALSE;
@@ -136,7 +136,7 @@ BOOL KStepLuaScript::Load(LPSTR szFileName)
 }
 
 //ִ�и������
-BOOL KStepLuaScript::ExeLine(LPSTR szLine)
+int KStepLuaScript::ExeLine(char* szLine)
 {
 	if (szLine)
 	{
@@ -145,15 +145,15 @@ BOOL KStepLuaScript::ExeLine(LPSTR szLine)
 	return FALSE;
 }
 
-BOOL KStepLuaScript::CheckLine(LPSTR szLine)//��齫ִ�е�Lua����Ƿ�����������粻����for goto
+int KStepLuaScript::CheckLine(char* szLine)//��齫ִ�е�Lua����Ƿ�����������粻����for goto
 {
 	return TRUE;
 }
 
-BOOL KStepLuaScript::GetExeBufferFromFile(char * FileName)//��õ�ǰ�ļ���ִ�жε����
+int KStepLuaScript::GetExeBufferFromFile(char * FileName)//��õ�ǰ�ļ���ִ�жε����
 {
 	KPakFile	File;
-	DWORD		Size;
+	unsigned long		Size;
 
 	// open file
 	if (!File.Open(FileName))
@@ -191,7 +191,7 @@ BOOL KStepLuaScript::GetExeBufferFromFile(char * FileName)//��õ�ǰ�ļ�
 	m_CurPos = 0;
 
 	char szLine[100];
-	int32_t nCurPos = 0;
+	int nCurPos = 0;
 
 	LPBYTE lpByte;
 	lpByte = (LPBYTE) m_Memory.GetMemPtr();
@@ -229,14 +229,14 @@ BOOL KStepLuaScript::GetExeBufferFromFile(char * FileName)//��õ�ǰ�ļ�
 
 }
 //��Buffer�л�ô���
-BOOL KStepLuaScript::GetExeBuffer(void * szScriptBuffer, int32_t nLen)//���ִ�жε����
+int KStepLuaScript::GetExeBuffer(void * szScriptBuffer, int nLen)//���ִ�жε����
 {
 	char szLine[100];
-	int32_t nCurPos = 0;
+	int nCurPos = 0;
 
 	LPBYTE lpByte;
 
-	int32_t Size = nLen;
+	int Size = nLen;
 	m_BufLen = Size + 3;//m_Memory.GetMemLen();
 	if (!m_Memory.Alloc(Size+16))
 		return FALSE;
@@ -280,11 +280,11 @@ BOOL KStepLuaScript::GetExeBuffer(void * szScriptBuffer, int32_t nLen)//���
 }
 
 
-int32_t KStepLuaScript::Active()
+int KStepLuaScript::Active()
 {
 	char szLine[100];
-	int32_t nCurPos = 0;
-	int32_t index = 0;
+	int nCurPos = 0;
+	int index = 0;
 
 	TScriptMsg * pNode = m_pMsgQueue;
 
@@ -310,7 +310,7 @@ int32_t KStepLuaScript::Active()
 
 	m_pMsgQueue = NULL;
 	if (IsRunIdle()) return 1;
-	static int32_t ii = 0;
+	static int ii = 0;
 
 	while(m_CurPos < m_EndExecuteLine && m_CurPos >= m_FirstExecuteLine)
 	{
@@ -348,9 +348,9 @@ int32_t KStepLuaScript::Active()
 //��һ��
 void	KStepLuaScript::PosUp()
 {
-	int32_t nCurPos = m_CurPos - 2;
+	int nCurPos = m_CurPos - 2;
 
-	int32_t i = 0;
+	int i = 0;
 	if (nCurPos <= 0)  return;
 	LPBYTE lpByte = (LPBYTE )m_Memory.GetMemPtr();
 
@@ -364,10 +364,10 @@ void	KStepLuaScript::PosUp()
 
 
 
-void	KStepLuaScript::GotoLabel( LPSTR szLabelName)
+void	KStepLuaScript::GotoLabel( char* szLabelName)
 {
-	int32_t nCurPos = m_FirstExecuteLine;
-	LPSTR lpByte = (LPSTR )m_Memory.GetMemPtr();
+	int nCurPos = m_FirstExecuteLine;
+	char* lpByte = (char* )m_Memory.GetMemPtr();
 	char szLabel[50];
 	sprintf(szLabel, "Label(\"%s\")",szLabelName);
 
@@ -384,7 +384,7 @@ void	KStepLuaScript::GotoLabel( LPSTR szLabelName)
 	GetNextLine((LPBYTE)lpByte, szLine);
 }
 
-BOOL    KStepLuaScript::AddMessage(Lua_State * L, char * MessageName, char * szData)
+int    KStepLuaScript::AddMessage(Lua_State * L, char * MessageName, char * szData)
 {
 
 	if (strlen(MessageName) == 0)
@@ -423,7 +423,7 @@ BOOL    KStepLuaScript::AddMessage(Lua_State * L, char * MessageName, char * szD
 
 }
 
-BOOL	KStepLuaScript::SendMessage(KStepLuaScript * pSendedScript, char * szMessageName, char * szData)
+int	KStepLuaScript::SendMessage(KStepLuaScript * pSendedScript, char * szMessageName, char * szData)
 {
 
 	if (pSendedScript == NULL)

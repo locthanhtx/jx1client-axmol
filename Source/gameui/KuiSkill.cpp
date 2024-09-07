@@ -1229,7 +1229,15 @@ void Kuiskill::update(float delta)
 	}
 }
 
-Texture2D * Kuiskill::GetiniData(char *sprPath,int nFramIndex,int nMpsX,int nMpsY,int nMpsZ,int *mScreeX,int *mScreeY,int bRenderFlag,int bSinglePlaneCoord)
+Texture2D* Kuiskill::GetiniData(const char* sprPath,
+                                int nFramIndex,
+                                int nMpsX,
+                                int nMpsY,
+                                int nMpsZ,
+                                int* mScreeX,
+                                int* mScreeY,
+                                int bRenderFlag,
+                                int bSinglePlaneCoord)
 {
 	    if  (sprPath==NULL)
 			return NULL;

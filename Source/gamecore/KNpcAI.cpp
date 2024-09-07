@@ -30,7 +30,7 @@ KNpcAI NpcAI;
 KSubWorldSet g_SubWorldSetA;
 
 KNpcAI::KNpcAI()
-{//¹¹Ôìº¯Êý
+{//ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 	m_nIndex = 0;
 	m_bActivate = TRUE;
 
@@ -38,7 +38,7 @@ KNpcAI::KNpcAI()
 }
 
 KNpcAI::~KNpcAI()
-{//Îö¹¹º¯Êý
+{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 }
 
@@ -49,16 +49,16 @@ void KNpcAI::Activate(int nIndex)
 
 	if (Npc[m_nIndex].IsPlayer())
 	{
-		// ÐÂÔöµÄPlayer AIÔÚÕâÀïµ÷ÓÃÊµÏÖ¡£¸üÐÂ¸öÈË¹¥³ÇÐÅÏ¢
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Player AIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¡ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		g_ScenePlace.setIsPaint(true);
 		ProcessPlayer();
 		return;
 	}
-	if (Npc[m_nIndex].m_Kind > 3 && Npc[m_nIndex].m_AiMode > 10)  //µÐÈË¹ØÏµ
+	if (Npc[m_nIndex].m_Kind > 3 && Npc[m_nIndex].m_AiMode > 10)  //ï¿½ï¿½ï¿½Ë¹ï¿½Ïµ
 	{
 		if (CanShowNpc())
 		{
-			// ÈÃNPCËæ»úÐÝÏ¢Ò»ÏÂ£¬ÊÇ¸öºÃ½¨Òé¡£
+			// ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ò»ï¿½Â£ï¿½ï¿½Ç¸ï¿½ï¿½Ã½ï¿½ï¿½é¡£
 			if (GetRandomNumber(0, 1))
 			{
 				Npc[m_nIndex].m_AiParam[5] = 0;
@@ -73,7 +73,7 @@ void KNpcAI::Activate(int nIndex)
 //---------------------------------------------------------------------
 // flying add these functions
 // Run at client.
-// ½ö½öÓÐ»­ÃæÐ§¹ûµÄNPC
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½NPC
 int KNpcAI::ProcessShowNpc()
 {
     int nResult  = false;
@@ -81,43 +81,43 @@ int KNpcAI::ProcessShowNpc()
 
 	switch (Npc[m_nIndex].m_AiMode)
 	{
-	// ·ÉÄñÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 11:
 		nRetCode = ShowNpcType11();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// òßòÑÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 12:
 		nRetCode = ShowNpcType12();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// ÓãÀàÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 13:
 		nRetCode = ShowNpcType13();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// ÀÏÊóÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 14:
 		nRetCode = ShowNpcType14();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// ¼¦È®ÐÍ
+	// ï¿½ï¿½È®ï¿½ï¿½
 	case 15:
 		nRetCode = ShowNpcType15();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// ÍÃ×ÓÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 16:
 		nRetCode = ShowNpcType16();
         if (!nRetCode)
             goto Exit0;
 		break;
-	// ºûµûÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	case 17:
 		nRetCode = ShowNpcType17();
         if (!nRetCode)
@@ -132,7 +132,7 @@ Exit0:
 	return nResult;
 }
 
-// ·ÉÄñÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KNpcAI::ShowNpcType11()
 {
     int nResult = false;
@@ -150,12 +150,12 @@ int KNpcAI::ShowNpcType11()
 	int nOffY = 0;
 	int nOffsetDir = 0;
 
-	// Ð§¹û¼ÓÇ¿ Ëæ»úµ÷Õû¸ß¶È
+	// Ð§ï¿½ï¿½ï¿½ï¿½Ç¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -166,7 +166,7 @@ int KNpcAI::ShowNpcType11()
 
     nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -180,12 +180,12 @@ int KNpcAI::ShowNpcType11()
 	else
 		aNpc.m_Dir %= 64;
 
-    // ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
     if (!nRetCode)
         goto Exit0;
 
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -195,7 +195,7 @@ Exit0:
 	return nResult;
 }
 
-// òßòÑÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // done
 int KNpcAI::ShowNpcType12()
 {
@@ -214,12 +214,12 @@ int KNpcAI::ShowNpcType12()
 	int nOffsetDir = 0;
 	KNpc& aNpc = Npc[m_nIndex];
 
-	// Ð§¹û¼ÓÇ¿ Ëæ»úµ÷Õû¸ß¶È
+	// Ð§ï¿½ï¿½ï¿½ï¿½Ç¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -228,7 +228,7 @@ int KNpcAI::ShowNpcType12()
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -245,11 +245,11 @@ int KNpcAI::ShowNpcType12()
 	else
 		aNpc.m_Dir %= 64;
 
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
 	if (!nRetCode)
 		goto Exit0;
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -259,7 +259,7 @@ Exit0:
 	return nResult;
 }
 
-// ÓãÀàÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // done
 int KNpcAI::ShowNpcType13()
 {
@@ -280,7 +280,7 @@ int KNpcAI::ShowNpcType13()
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -289,7 +289,7 @@ int KNpcAI::ShowNpcType13()
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -302,7 +302,7 @@ int KNpcAI::ShowNpcType13()
 	}
 	//if (KeepActiveShowRange())
 	//	aNpc.m_Dir += 32;
-	// ¸½½üÓÐÍæ¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nIndex = IsPlayerCome();
 	if (nIndex > 0)
 	{
@@ -310,9 +310,9 @@ int KNpcAI::ShowNpcType13()
 		DoShowFlee(nIndex);
 		goto Exit0;
 	}
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -322,7 +322,7 @@ Exit0:
 	return nResult;
 }
 
-// ÀÏÊóÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // done
 int KNpcAI::ShowNpcType14()
 {
@@ -342,17 +342,17 @@ int KNpcAI::ShowNpcType14()
 	KNpc& aNpc = Npc[m_nIndex];
 
 	nRandom = GetRandomNumber(1, 10);
-	// µôÍ·¾ÍÅÜ
+	// ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
 	if (nRandom < 4)
 		nDistance = -nDistance;
-	// à»à»·¢´ô
+	// ï¿½à»·ï¿½ï¿½ï¿½
 	else if (nRandom < 7)
 	{
 		aNpc.SendSerCommand(do_stand);
 		goto Exit0;
 	}
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -360,7 +360,7 @@ int KNpcAI::ShowNpcType14()
 	if (GetRandomNumber(0, 1))
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -377,11 +377,11 @@ int KNpcAI::ShowNpcType14()
 		aNpc.m_Dir += 64;
 	else
 		aNpc.m_Dir %= 64;
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
 	if (!nRetCode)
 		goto Exit0;
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -391,7 +391,7 @@ Exit0:
 	return nResult;
 }
 
-// ¼¦È®ÐÍ
+// ï¿½ï¿½È®ï¿½ï¿½
 int KNpcAI::ShowNpcType15()
 {
 	int nResult  = false;
@@ -411,7 +411,7 @@ int KNpcAI::ShowNpcType15()
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -420,7 +420,7 @@ int KNpcAI::ShowNpcType15()
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -433,7 +433,7 @@ int KNpcAI::ShowNpcType15()
 	}
 	//if (KeepActiveShowRange())
 	//	aNpc.m_Dir += 32;
-	// ¸½½üÓÐÍæ¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nIndex = IsPlayerCome();
 	if (nIndex > 0)
 	{
@@ -441,9 +441,9 @@ int KNpcAI::ShowNpcType15()
 		DoShowFlee(nIndex);
 		goto Exit0;
 	}
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -453,7 +453,7 @@ Exit0:
 	return nResult;
 }
 
-// ÍÃ×ÓÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KNpcAI::ShowNpcType16()
 {
 	int nResult  = false;
@@ -474,7 +474,7 @@ int	nCmap=0;
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -482,7 +482,7 @@ int	nCmap=0;
 	if (GetRandomNumber(0, 1))
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
-	// ¸½½üÓÐÍæ¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nIndex = IsPlayerCome();
 	if (nIndex > 0)
 	{
@@ -493,7 +493,7 @@ int	nCmap=0;
 		goto Exit1;
 	}
 
-	// ¼ÆËã¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -505,16 +505,16 @@ int	nCmap=0;
 		aNpc.m_AiParam[5] = 0;
 	}
 
-	// ¼ÆËãÐÂ½Ç¶È
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½
 	//if (KeepActiveShowRange())
 	//	aNpc.m_Dir += 32;
 	aNpc.m_Dir += GetRandomNumber(0, 6);
 	aNpc.m_Dir %= 64;
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
 	if (!nRetCode)
 		goto Exit0;
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -525,7 +525,7 @@ Exit0:
 	return nResult;
 }
 
-// ºûµûÐÍ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KNpcAI::ShowNpcType17()
 {
 	int nResult  = false;
@@ -543,12 +543,12 @@ int	nCmap=0;
 	int nOffsetDir = 0;
 	KNpc& aNpc = Npc[m_nIndex];
 
-	// Ð§¹û¼ÓÇ¿ Ëæ»úµ÷Õû¸ß¶È
+	// Ð§ï¿½ï¿½ï¿½ï¿½Ç¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 	aNpc.m_Height = GetRandomNumber(aNpc.m_AiParam[6] - 4, aNpc.m_AiParam[6]);
 
 	aNpc.GetMpsPos(&nCurX, &nCurY,&nCmap);
 
-	// ¼ÆËãÐÂ½Ç¶È ºÍ ¾àÀë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â½Ç¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_AiParam[3] > 0)
 		nOffsetDir = GetRandomNumber(aNpc.m_AiParam[3], aNpc.m_AiParam[2]);
 	else
@@ -557,7 +557,7 @@ int	nCmap=0;
 		nOffsetDir = -nOffsetDir;
 	nDistance = GetRandomNumber(aNpc.m_AiParam[0] - aNpc.m_AiParam[1], aNpc.m_AiParam[0]);
 
-	// È¡µÃÔË¶¯ËùÐèµÄÊ±¼ä£¬±£´æÔÚ²ÎÊý±íÖÐ
+	// È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (aNpc.m_CurrentWalkSpeed > 0)
 	{
 		aNpc.m_AiParam[4] = (int) nDistance / aNpc.m_CurrentWalkSpeed;
@@ -580,11 +580,11 @@ int	nCmap=0;
 		aNpc.m_Dir += 64;
 	else
 		aNpc.m_Dir %= 64;
-	// ¸ù¾ÝÈý½Çº¯Êý¼ÆËãÆ«ÒÆµÄX¡¢YÊýÖµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æµï¿½Xï¿½ï¿½Yï¿½ï¿½Öµ
 	nRetCode = GetNpcMoveOffset(aNpc.m_Dir, nDistance, &nOffX, &nOffY);
 	if (!nRetCode)
 		goto Exit0;
-	// »ñÈ¡Ä¿±ê×ø±ê
+	// ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nDesX = nCurX + nOffX;
 	nDesY = nCurY + nOffY;
 	aNpc.SendSerCommand(do_walk, nDesX, nDesY);
@@ -598,8 +598,8 @@ Exit0:
 // flying comment
 void KNpcAI::ProcessPlayer()
 {
-//¿Í»§¶Ë
-	int i = Npc[m_nIndex].m_nPeopleIdx;//Ëø¶¨ÈËÎï
+//ï¿½Í»ï¿½ï¿½ï¿½
+	int i = Npc[m_nIndex].m_nPeopleIdx;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	if  (Npc[m_nIndex].m_randmove.nTime>0 && m_nIndex==Player[CLIENT_PLAYER_INDEX].m_nIndex)
 	{
@@ -615,7 +615,7 @@ void KNpcAI::ProcessPlayer()
 		FollowPeople(i);
 	}
 
-	i = Npc[m_nIndex].m_nObjectIdx; //Ëø¶¨ÎïÆ·
+	i = Npc[m_nIndex].m_nObjectIdx; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 
 	if (Npc[m_nIndex].m_AutoplayId<=0 && i > 0)
 	{
@@ -659,7 +659,7 @@ void KNpcAI::FollowPeople(int nIdx)
 	}
 
 	if (Npc[m_nIndex].m_AutoplayId)
-	{//¹Ò»ú×´Ì¬ ×Ô¶¯Ê¹ÓÃ¼¼ÄÜ×´Ì¬¾ÍÍ£Ö¹Ñ°¹Ö
+	{//ï¿½Ò»ï¿½×´Ì¬ ï¿½Ô¶ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Í£Ö¹Ñ°ï¿½ï¿½
 		if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsUseSkill)
 		{
 			Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -672,7 +672,7 @@ void KNpcAI::FollowPeople(int nIdx)
    /*
 	if (Player[CLIENT_PLAYER_INDEX].m_ItemList.Hand())
 	{
-		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=yellow>ÌáÊ¾<color>:ÊÖÉÏÓÐ°ó¶¨µÄ¶«Î÷!");
+		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=yellow>ï¿½ï¿½Ê¾<color>:ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ó¶¨µÄ¶ï¿½ï¿½ï¿½!");
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		return;
 	}*/
@@ -680,19 +680,19 @@ void KNpcAI::FollowPeople(int nIdx)
 /*
 	char nPname[32];
 	g_StrCpyLen(nPname,Npc[m_nIndex].Name,sizeof(Npc[m_nIndex].Name));
-    g_StrCatLen(nPname,"µÄ[ïÚ³µ]",sizeof("µÄ[ïÚ³µ]"));
+    g_StrCatLen(nPname,"ï¿½ï¿½[ï¿½Ú³ï¿½]",sizeof("ï¿½ï¿½[ï¿½Ú³ï¿½]"));
 	int nReg;
-    nReg=strcmpi(nPname, Npc[nIdx].Name); //Õâ¸ö¶Ô±È²»·Ö×ÖÄ¸µÄ´óÐ¡
+    nReg=strcmpi(nPname, Npc[nIdx].Name); //ï¿½ï¿½ï¿½ï¿½Ô±È²ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ä´ï¿½Ð¡
 
-    if ((Npc[nIdx].m_btRankFFId==88 && Npc[m_nIndex].m_nPKFlag==0)|| nReg==0) //»òÕßÊÇ×Ô¼ºµÄïÚ³µ
+    if ((Npc[nIdx].m_btRankFFId==88 && Npc[m_nIndex].m_nPKFlag==0)|| nReg==0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Ú³ï¿½
 	return;
-   *///ÊÇïÚ³µ
+   *///ï¿½ï¿½ï¿½Ú³ï¿½
 
-	// È¡µÃµ½Ä¿±êµÄ¾àÀë
+	// È¡ï¿½Ãµï¿½Ä¿ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 	int distance = NpcSet.GetDistance(nIdx, m_nIndex);
-	int	nRelation = NpcSet.GetRelation(m_nIndex, nIdx);  //»ñÈ¡Óë¶Ô·½µÄ¹ØÏµ
+	int	nRelation = NpcSet.GetRelation(m_nIndex, nIdx);  //ï¿½ï¿½È¡ï¿½ï¿½Ô·ï¿½ï¿½Ä¹ï¿½Ïµ
 
-	// Ð¡ÓÚ¶Ô»°°ë¾¶¾Í¿ªÊ¼¶Ô»°
+	// Ð¡ï¿½Ú¶Ô»ï¿½ï¿½ë¾¶ï¿½Í¿ï¿½Ê¼ï¿½Ô»ï¿½
 	  if ((Npc[nIdx].m_Kind == kind_dialoger))
 	  {
 		if (distance <= Npc[nIdx].m_DialogRadius)
@@ -703,14 +703,14 @@ void KNpcAI::FollowPeople(int nIdx)
 
 			// Send Command to Server
 			SendClientCmdWalk(x,y);
-			Player[CLIENT_PLAYER_INDEX].DialogNpc(nIdx);//´ò¿ª¶Ô»°¿ò
+			Player[CLIENT_PLAYER_INDEX].DialogNpc(nIdx);//ï¿½ò¿ª¶Ô»ï¿½ï¿½ï¿½
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nPeopleIdx = 0;
 			Npc[nIdx].TurnTo(Player[CLIENT_PLAYER_INDEX].m_nIndex);
 
 			return;
 		}
 	  }
-		// °ÚÌ¯
+		// ï¿½ï¿½Ì¯
 		if (Npc[nIdx].m_Kind == kind_player && Npc[nIdx].m_BaiTan && distance <= Npc[nIdx].m_DialogRadius)
 		{
 			int x, y;
@@ -718,20 +718,20 @@ void KNpcAI::FollowPeople(int nIdx)
 			Npc[m_nIndex].SendSerCommand(do_walk, x,y);
 			// Send Command to Server
 			SendClientCmdWalk(x, y);
-			Player[CLIENT_PLAYER_INDEX].OpenBaiTan(Npc[nIdx].m_dwID);//´ò¿ª°ÚÌ¯Ãæ°å
+			Player[CLIENT_PLAYER_INDEX].OpenBaiTan(Npc[nIdx].m_dwID);//ï¿½ò¿ª°ï¿½Ì¯ï¿½ï¿½ï¿½
 			Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_nPeopleIdx = 0;
 			Npc[nIdx].TurnTo(Player[CLIENT_PLAYER_INDEX].m_nIndex);
 			return;
 		}
-	///PK¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+	///PKï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 //	if (Npc[nEnemyIdx].m_FightMode==0)
 //	{
 //		Npc[m_nIndex].m_nPeopleIdx = 0;
 //		nEnemyIdx=0;
 //	}
 
-	// ¾àÀëÐ¡ÓÚ¹¥»÷·¶Î§¾Í¿ªÊ¼¹¥»÷
-	if (nRelation == relation_enemy) //Èç¹ûÊÇµÐÈË¹ØÏµ ¾Í¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½Í¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+	if (nRelation == relation_enemy) //ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½Ë¹ï¿½Ïµ ï¿½Í¹ï¿½ï¿½ï¿½
 	{
        	if (Npc[nIdx].m_Kind == kind_player && Npc[nIdx].m_FightMode==0)
 		{
@@ -739,17 +739,17 @@ void KNpcAI::FollowPeople(int nIdx)
 		}
 
 		if  (Npc[m_nIndex].m_randmove.nTime>0 || Npc[nIdx].m_Doing == do_jump)
-		{//»ìÂÒ×´Ì¬
+		{//ï¿½ï¿½ï¿½ï¿½×´Ì¬
 			Npc[m_nIndex].m_nPeopleIdx = 0;
 		    //CommonAction();
 			return;
 		}
 
-		//×Ô¶¯µ÷Õû¹¥»÷¾àÀë
+		//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!Npc[m_nIndex].m_AutoplayId)
-		{//·Ç¹Ò»ú×´Ì¬
+		{//ï¿½Ç¹Ò»ï¿½×´Ì¬
 			if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum>0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum%2==0)
-			{//Ã¿2Ãëµ÷ÕûÒ»´Î¹¥»÷¾àÀë
+			{//Ã¿2ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			   int nSkillMagic =0;
 			   if  (Npc[m_nIndex].m_ActiveSkillID>0)
 			       nSkillMagic = Npc[m_nIndex].m_ActiveSkListIndex;//Npc[m_nIndex].m_SkillList.FindSame(Npc[m_nIndex].m_ActiveSkillID);
@@ -757,19 +757,19 @@ void KNpcAI::FollowPeople(int nIdx)
 				   nSkillMagic = Npc[m_nIndex].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetLeftSkill());
 
 			   if (Npc[nIdx].m_CurrentLife == Npc[nIdx].m_CurrentLifeMax)
-			   {//¿¨¹ÖÁË-Ö±Ã»µôÑªµÄ
+			   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-Ö±Ã»ï¿½ï¿½Ñªï¿½ï¿½
 				 //Npc[m_nIndex].m_CurrentAttackRadius -=18;
 				   Npc[m_nIndex].ChangeSkillAttackRadius(nSkillMagic,-18);
 			   }
 
 			   if (Npc[nIdx].m_CurrentLife == Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife)
-			   {//Ã»µôÑª -Ò»Ö±Ã»µôÑªµÄ
+			   {//Ã»ï¿½ï¿½Ñª -Ò»Ö±Ã»ï¿½ï¿½Ñªï¿½ï¿½
 				   //Npc[m_nIndex].m_CurrentAttackRadius -=18;
 				   Npc[m_nIndex].ChangeSkillAttackRadius(nSkillMagic,-18);
 			   }
 
 			   if (Npc[nIdx].m_CurrentLife > Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife)
-			   {//»ØÑª
+			   {//ï¿½ï¿½Ñª
 				   //Npc[m_nIndex].m_CurrentAttackRadius -=18;
 				   Npc[m_nIndex].ChangeSkillAttackRadius(nSkillMagic,-18);
 			   }
@@ -778,7 +778,7 @@ void KNpcAI::FollowPeople(int nIdx)
 
 
 			/*char nMSG[64];
-			sprintf(nMSG,"--µ±Ç°¹¥»÷¾àÀë:--%d--ÉúÃü:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);
+			sprintf(nMSG,"--ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:--%d--ï¿½ï¿½ï¿½ï¿½:%d",Npc[m_nIndex].m_CurrentAttackRadius,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife);
 			Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMSG);
 			*/
 
@@ -790,12 +790,12 @@ void KNpcAI::FollowPeople(int nIdx)
 			SendClientCmdSkill(Npc[m_nIndex].m_ActiveSkillID, -1, Npc[nIdx].m_dwID);
 
 			if (!Npc[m_nIndex].m_AutoplayId)
-			{//·Ç¹Ò»ú×´Ì¬,Ê¹ÓÃ¼¼ÄÜºó  ±£´æNPCµÄµ±Ç°ÑªÁ¿
+			{//ï¿½Ç¹Ò»ï¿½×´Ì¬,Ê¹ï¿½Ã¼ï¿½ï¿½Üºï¿½  ï¿½ï¿½ï¿½ï¿½NPCï¿½Äµï¿½Ç°Ñªï¿½ï¿½
 				Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=Npc[nIdx].m_CurrentLife;
 				Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum++;
 			}
 		}
-		// à»à»×·
+		// ï¿½ï¿½×·
 		else
 		{
 			int nDesX, nDesY,nDmap;
@@ -813,14 +813,14 @@ void KNpcAI::FollowPeople(int nIdx)
 				SendClientCmdWalk(nDesX, nDesY);
 			}
 			if (!Npc[m_nIndex].m_AutoplayId)
-			{//·Ç¹Ò»ú×´Ì¬,Ê¹ÓÃ¼¼ÄÜºó  ±£´æNPCµÄµ±Ç°ÑªÁ¿
+			{//ï¿½Ç¹Ò»ï¿½×´Ì¬,Ê¹ï¿½Ã¼ï¿½ï¿½Üºï¿½  ï¿½ï¿½ï¿½ï¿½NPCï¿½Äµï¿½Ç°Ñªï¿½ï¿½
 				Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 				Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
 			}
 		}
 		return;
 	}
-	// ¸úËæ
+	// ï¿½ï¿½ï¿½ï¿½
 	if (Npc[nIdx].m_Kind == kind_player)
 	{
 		int nDesX, nDesY,nDmap;
@@ -850,30 +850,30 @@ void KNpcAI::FollowPeople(int nIdx)
 }
 
 
-void KNpcAI::TriggerMapTrap()     //ÈËÎïµÄ½Å±¾trapµã
+void KNpcAI::TriggerMapTrap()     //ï¿½ï¿½ï¿½ï¿½Ä½Å±ï¿½trapï¿½ï¿½
 {
 	Npc[m_nIndex].CheckTrap();
 }
 
-void KNpcAI::TriggerObjectTrap()  //ÎïÆ·µÄ½Å±¾trapµã
+void KNpcAI::TriggerObjectTrap()  //ï¿½ï¿½Æ·ï¿½Ä½Å±ï¿½trapï¿½ï¿½
 {
 	return;
 }
 
-//ÉèÖÃµ±Ç°×ø±êÎªÆðµã×ø±ê
+//ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::Setscpos(int m_nIndex,int x,int y)
 {
 	int xxa;
 	int xyy;
 	int xMap;
-	Npc[m_nIndex].GetMpsPos(&xxa,&xyy,&xMap);   //ÏñËØ×ø±ê
+	Npc[m_nIndex].GetMpsPos(&xxa,&xyy,&xMap);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 //	Npc[m_DesY].m_MapY,
     Npc[m_nIndex].m_OriginX=xxa;
     Npc[m_nIndex].m_OriginY=xyy;
 }
 
-//ÉèÖÃµ±Ç°×ø±êÎªÆðµã×ø±ê
+//ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::SetCurpos(int m_nIndex,int x,int y)
 {
 //	Npc[m_DesY].m_MapY,
@@ -903,7 +903,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 
 	   if (!nPos.Load(nFiledPath))
 	   {
-	      Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("½Å±¾³ö´í,Í£Ö¹¹Ò»ú¡£");
+	      Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½,Í£Ö¹ï¿½Ò»ï¿½ï¿½ï¿½");
 		  return;
        } */
 
@@ -930,13 +930,13 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 
      nDistancea = SubWorld[0].GetDistance(xx,yy,mDesMpsX,mDesMpsY);
 
-	  if (nDistancea<nDistance)  //Èç¹ûÐ¡ÓÚ×îÐ¡Öµ
+	  if (nDistancea<nDistance)  //ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum=i;
 	 else
 	    continue;
    }
  }
-    //µÃµ½ÁË¾àÀë×îÐ¡¾àÀëµÄ ×ø±ê
+    //ï¿½Ãµï¿½ï¿½Ë¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsHaveDo=1;
     char msg[64]={0};
     Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
@@ -949,7 +949,7 @@ void KNpcAI::MoveJiaoBen(int m_Index)
     if (nDesMpsX<=0 || nDesMpsY<=0)
 	{
 	      /*char msg[64];
-		  sprintf(msg,"½Å±¾(X:%s,Y:%d)³ö´í,(%d)Í£Ö¹¹Ò»ú¡£",nDesMpsX,nDesMpsY,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
+		  sprintf(msg,"ï¿½Å±ï¿½(X:%s,Y:%d)ï¿½ï¿½ï¿½ï¿½,(%d)Í£Ö¹ï¿½Ò»ï¿½ï¿½ï¿½",nDesMpsX,nDesMpsY,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
 	      Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);*/
 		  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsHaveDo=0;
 		  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
@@ -962,28 +962,28 @@ void KNpcAI::MoveJiaoBen(int m_Index)
        Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos=nDesMpsY;
 
 
-	//sprintf(msg,"ÌáÊ¾:µ±Ç°(%d)×ø±ê,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
+	//sprintf(msg,"ï¿½ï¿½Ê¾:ï¿½ï¿½Ç°(%d)ï¿½ï¿½ï¿½ï¿½,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
     //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
-    //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //×ßµ½ÁËÕâ¸öµã
+    //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
      //GotoWhere(nDesMpsX,);
 
 	if (AiCheckDistance(xx,yy,nDesMpsX,nDesMpsY,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentRunSpeed))  //16
-	{//ÅÜµ½ÁËÄ³¸öµã
-	   //sprintf(msg,"ÌáÊ¾:×ßµ½Ä¿±ê,µÚ %d ¸ö×ø±êµã",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
+	{//ï¿½Üµï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½
+	   //sprintf(msg,"ï¿½ï¿½Ê¾:ï¿½ßµï¿½Ä¿ï¿½ï¿½,ï¿½ï¿½ %d ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum);
        //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
        Player[CLIENT_PLAYER_INDEX].m_Autoplay.nRunLoop = 0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos=nDesMpsX;
        Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos=nDesMpsY;
        //SetCurpos(m_Index,nDesMpsX,nDesMpsY);
 	  if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum<mRows && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurStaus==0)
-	      Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum +=1; //ÉèÖÃÏÂÒ»¸öµãµÄ×ø±ê
+	      Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum +=1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  else
-	  {//×ßµ½ÖÕµãºó Íù»Ø×ß
+	  {//ï¿½ßµï¿½ï¿½Õµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurStaus=1;
-	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum -=1; //ÉèÖÃÏÂÒ»¸öµãµÄ×ø±ê  Íù»Ø×ß
+	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum -=1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		 if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum==0)
 		 {
@@ -1003,22 +1003,22 @@ void KNpcAI::MoveJiaoBen(int m_Index)
 		nForBitTime =9;
 
 	if (nRunTime>nForBitTime*18 && nRunTime%(nForBitTime*18)==0)
-	{//ÅÜµÃÌ«¾ÃÁË,»¹Ã»ÓÐÅÜµ½.²»ÅÜÁË,¾ÍÖ±½Ó·Éµ½ÄÄÀïÁË
-		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=gyellow>ÖúÊÖ<color>:ÈËÎï¿¨µØÍ¼,±ä¸üÖ±·É³É¹¦!");
+	{//ï¿½Üµï¿½Ì«ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Üµï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ö±ï¿½Ó·Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=gyellow>ï¿½ï¿½ï¿½ï¿½<color>:ï¿½ï¿½ï¿½ï¿¨ï¿½ï¿½Í¼,ï¿½ï¿½ï¿½Ö±ï¿½É³É¹ï¿½!");
 		return;
 	}*/
- //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=gyellow>ÖúÊÖ<color>:ÅÜÏòÄ¿±êÖÐ¡¡!");
+ //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("<color=gyellow>ï¿½ï¿½ï¿½ï¿½<color>:ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ð¡ï¿½!");
  if (Player[CLIENT_PLAYER_INDEX].m_nSendMoveFrames >= defMAX_PLAYER_SEND_MOVE_FRAME)
  {
     if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 	{
-          Npc[m_Index].SendSerCommand(do_run,nDesMpsX,nDesMpsY);  //ÅÜÏòÄ¿±ê
-	      SendClientCmdRun(nDesMpsX,nDesMpsY); //ÅÜÏòÄ¿±ê
+          Npc[m_Index].SendSerCommand(do_run,nDesMpsX,nDesMpsY);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+	      SendClientCmdRun(nDesMpsX,nDesMpsY); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	}
 	else
 	{
-		  Npc[m_Index].SendSerCommand(do_walk,nDesMpsX,nDesMpsY);  //ÅÜÏòÄ¿±ê
-	      SendClientCmdWalk(nDesMpsX,nDesMpsY); //ÅÜÏòÄ¿±ê
+		  Npc[m_Index].SendSerCommand(do_walk,nDesMpsX,nDesMpsY);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+	      SendClientCmdWalk(nDesMpsX,nDesMpsY); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	}
    Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
    Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
@@ -1080,13 +1080,13 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
      nDistancea = SubWorld[0].GetDistance(xx,yy,mDesMpsX,mDesMpsY);
 
-	  if (nDistancea<nDistance)  //Èç¹ûÐ¡ÓÚ×îÐ¡Öµ
+	  if (nDistancea<nDistance)  //ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ð¡Öµ
 	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum=i;
 	 else
 	    continue;
    }
 
-    //µÃµ½ÁË¾àÀë×îÐ¡¾àÀëµÄ ×ø±ê
+    //ï¿½Ãµï¿½ï¿½Ë¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsHaveDo=1;
     //char msg[64]={0};
     Player[CLIENT_PLAYER_INDEX].nYaBiao.GetInteger(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,2,0,&nDesMpsX);
@@ -1094,11 +1094,11 @@ void KNpcAI::MoveYaBiao(int m_Index)
 
     //nPos.Clear();
 
-	 //sprintf(msg,"ÌáÊ¾:µ±Ç°(%d)×ø±ê,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
+	 //sprintf(msg,"ï¿½ï¿½Ê¾:ï¿½ï¿½Ç°(%d)ï¿½ï¿½ï¿½ï¿½,X: %d,Y:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum,xx,yy);
      //Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);
 
     //if (!ai_PathFinder.CheckDistance(xx>>10, yy >>10, nDesMpsX, nDesMpsY, Npc[m_Index].m_CurrentRunSpeed)) //m_CurrentRunSpeed
-    //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //×ßµ½ÁËÕâ¸öµã
+    //if (((xx-nDesMpsX >=0 && xx-nDesMpsX<=10) && (yy-nDesMpsY >=0 && yy-nDesMpsY<=10)) || ((xx-nDesMpsX <0 && xx-nDesMpsX>=-10) && (yy-nDesMpsY <0 && yy-nDesMpsY>=-10)))  //ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
      //GotoWhere(nDesMpsX,);
 
@@ -1111,7 +1111,7 @@ void KNpcAI::MoveYaBiao(int m_Index)
 	if (AiCheckDistance(xx,yy,nDesMpsX,nDesMpsY,Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_CurrentRunSpeed))//16
 	{
 	 if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum<mRows)
-	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum +=1;     //ÉèÖÃÏÂÒ»¸öµãµÄ×ø±ê
+	     Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurNum +=1;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	   return;
     }
@@ -1123,12 +1123,12 @@ void KNpcAI::MoveYaBiao(int m_Index)
 	}
 	else
 	{
-		   Npc[m_Index].SendSerCommand(do_walk,nDesMpsX,nDesMpsY);  //ÅÜÏòÄ¿±ê
-	       SendClientCmdWalk(nDesMpsX,nDesMpsY); //ÅÜÏòÄ¿±ê
+		   Npc[m_Index].SendSerCommand(do_walk,nDesMpsX,nDesMpsY);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+	       SendClientCmdWalk(nDesMpsX,nDesMpsY); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	}
 }
 
-void KNpcAI::GotoWhere(int x, int y, int mode) //Êó±êµã»÷µÄ×ø±ê
+void KNpcAI::GotoWhere(int x, int y, int mode) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
 	if (mode < 0 || mode > 2)
 		return;
@@ -1144,12 +1144,12 @@ void KNpcAI::GotoWhere(int x, int y, int mode) //Êó±êµã»÷µÄ×ø±ê
 		int nY = y;
 		int nZ = 0;
 
-		//g_ScenePlace.ViewPortCoordToSpaceCoord(nX, nY, nZ);  //×ª³ÉÈýÎ¬¿Õ¼ä×ø±ê	Êó±ê×ø±ê ×ª»»³É³¡¾°ÖÐµÄÏñËØ×ø±ê
+		//g_ScenePlace.ViewPortCoordToSpaceCoord(nX, nY, nZ);  //×ªï¿½ï¿½ï¿½ï¿½Î¬ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ×ªï¿½ï¿½ï¿½É³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		SubWorld[0].GetMpsByLocalPosition(nX, nY, nZ);
 		int nIndex = Player[CLIENT_PLAYER_INDEX].m_nIndex;
 
 
-		//ÐèÒª¼ì²â ÕÏ°­  ½¹µãµÄËÄ¸ö·½Î»¼ì
+		//ï¿½ï¿½Òªï¿½ï¿½ï¿½ ï¿½Ï°ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 
 		if (!bRun)
 		{
@@ -1168,7 +1168,7 @@ void KNpcAI::GotoWhere(int x, int y, int mode) //Êó±êµã»÷µÄ×ø±ê
 	}
 }
 
-void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
+void KNpcAI::mainPickItem(int m_Index)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 {
 	if (Npc[m_Index].m_AutoplayId==1)
 		return;
@@ -1188,7 +1188,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 	}
 
 	/*if 	(Npc[m_Index].m_nObjectIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ
+	{//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
 		//Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
@@ -1205,7 +1205,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 	if  (Npc[m_Index].m_nObjectIdx<=0)
 	{
 		int CurState = 0;
-		int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+		int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (nObjectIdx>0)
 		{
 			Npc[m_Index].m_nPeopleIdx=0;
@@ -1246,7 +1246,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 
 	if  (Npc[m_Index].m_nObjectIdx>0)
 	{
-		//CCMessageBox("ÕÒµ½ÎïÆ·","test");
+		//CCMessageBox("ï¿½Òµï¿½ï¿½ï¿½Æ·","test");
 		int xx,yy,Mmap,nMapIdx;
 		Npc[m_Index].GetMpsPos(&xx, &yy,&Mmap);
 
@@ -1256,13 +1256,13 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 		KObject[nObjectIdx].GetMpsPos(&x, &y);
 		if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 		{
-			Npc[m_Index].SendSerCommand(do_run,x,y);  //ÅÜÏòÄ¿±ê
-			SendClientCmdRun(x,y); //ÅÜÏòÄ¿±ê
+			Npc[m_Index].SendSerCommand(do_run,x,y);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+			SendClientCmdRun(x,y); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		}
 		else
 		{
-			Npc[m_Index].SendSerCommand(do_walk,x,y);  //ÅÜÏòÄ¿±ê
-			SendClientCmdWalk(x,y); //ÅÜÏòÄ¿±ê
+			Npc[m_Index].SendSerCommand(do_walk,x,y);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+			SendClientCmdWalk(x,y); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		}
 
 		if (((xx - x) * (xx - x) + (yy - y) * (yy - y))<(PLAYER_PICKUP_CLIENT_DISTANCE*PLAYER_PICKUP_CLIENT_DISTANCE))
@@ -1283,7 +1283,7 @@ void KNpcAI::mainPickItem(int m_Index)  //¹¥»÷°´Å¥
 	}
 }
 
-void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
+void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 {
 	if (Npc[m_Index].m_Doing == do_death || Npc[m_Index].m_Doing == do_revive || Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsUseSkill)
 	{
@@ -1301,7 +1301,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	}
 
 	if 	(Npc[m_Index].m_nPeopleIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ
+	{//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
 		Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
@@ -1314,21 +1314,21 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 							 int nHorse=0,nIsHorse;
 							     nHorse= pCurSkill->GetHorseLimited();
 							 nIsHorse=Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse;
-							 if(nHorse) //1(²»ÄÜÆïÂíÊ¹ÓÃ) 2(ÐèÒªÆïÂíÊ¹ÓÃ)
-							 {//Èç¹ûÓÐÆïÂíÏÞÖÆµÄ
+							 if(nHorse) //1(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½) 2(ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½)
+							 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½
 								 if (nHorse==1)
 								 {
 									 if (nIsHorse)
-									 {//ÆïÂí×´Ì¬,ÔòÏÂÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
+									 {//ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										 SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 									 }
 								 }
 
 								 if (nHorse==2)
 								 {
 									 if (!nIsHorse)
-									 {//·ÇÆïÂí×´Ì¬,ÔòÉÏÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
+									 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										 SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 									 }
 								 }
 							 }
@@ -1339,8 +1339,8 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
    {
 
 	 if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse)
-	 {//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
-		   SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
+	 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		   SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 	 }
 
      Npc[m_Index].m_nPeopleIdx = 0;
@@ -1357,7 +1357,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	int xx,yy,Mmap,nMapIdx;
 	Npc[m_Index].GetMpsPos(&xx, &yy,&Mmap);
 
-   if (Npc[m_Index].m_randmove.nTime>0)                          //»ìÂÒ×´Ì¬²»ÄÜ·¢ÕÐ
+   if (Npc[m_Index].m_randmove.nTime>0)                          //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½
    {
 	   Npc[m_Index].m_nPeopleIdx=0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
@@ -1366,7 +1366,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
    }
 
    if (Npc[m_Index].m_nPeopleIdx>0 && Npc[Npc[m_Index].m_nPeopleIdx].m_Doing == do_jump)
-   {//Ê¹ÓÃÇá¹¦
+   {//Ê¹ï¿½ï¿½ï¿½á¹¦
 	   Npc[m_Index].m_nPeopleIdx=0;
 	   if (!Npc[m_Index].m_AutoplayId)
 	   {
@@ -1378,18 +1378,18 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	   //Npc[m_Index].m_nObjectIdx=0;	Npc[nIdx].m_Doing == do_jump
 	   return;
    }
-//  Ëø¶¨µ½Ä¿±êÎïÆ·
-//  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Æ·
+//  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //  Npc[m_Index].m_nObjectIdx=nObjectIdx;
-    int nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index,0,180); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+    int nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index,0,180); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 	if (nEnemyIdx<=0)
-	{//Èç¹û¸½½üÃ»ÓÐ¾ÍÈ«ÆÁ²éÕÒ
-       nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+       nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 	}
 
 	/*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw <=0)
 	{
-        Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+        Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=Npc[nEnemyIdx].m_dwID;
 	}
 	else
@@ -1398,26 +1398,26 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 
 		if  (nEnemyIdx<=0)
 		{
-			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 			if (nEnemyIdx<=0)
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
 		}
 
-		Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+		Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}*/
-	Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+	Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	int nSkillMagic = 0;
 
 	//------------------------
 	//if (Npc[m_Index].m_CurrentMana>=10 && Npc[m_Index].m_CurrentLife>=10)
 	if (!m_Kind)
-	{//×ó¼ü
+	{//ï¿½ï¿½ï¿½
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetLeftSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetLeftSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
 	}
 	else
-	{//ÓÒ¼ü
+	{//ï¿½Ò¼ï¿½
 		nSkillMagic = Player[CLIENT_PLAYER_INDEX].GetRightSkillListidx();//Npc[m_Index].m_SkillList.FindSame(Player[CLIENT_PLAYER_INDEX].GetRightSkill());
 		Npc[m_Index].SetActiveSkill(nSkillMagic);
 	}
@@ -1426,11 +1426,11 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 
     if (nEnemyIdx>0)
 	{
-		//------------------------ÁÙÊ±±£»¤
+		//------------------------ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		/*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsFell)
 		{
 		  	//FleeEnemy(nEnemyIdx);
-			//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:<color=gyellow>¿ªÊ¼ÌÓÀëµÐÈË<color>");
+			//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:<color=gyellow>ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<color>");
 			//Npc[m_Index].m_nPeopleIdx = 0;
 			//return;
 		}*/
@@ -1439,7 +1439,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 		{
 			Npc[m_Index].m_nPeopleIdx = 0;
 			Npc[nEnemyIdx].m_IsbeSel  = 0;
-			//ÕýÔÚ¹¥»÷ÖÐ
+			//ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (!Npc[m_Index].m_AutoplayId)
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			//Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
@@ -1448,8 +1448,8 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 		}
 
 	    //distance = NpcSet.GetDistance(nEnemyIdx, m_Index);
-	   //¼ì²âÖ»ÄÜµ÷Õû¹¥»÷¾àÀë
-         //Ã¿Ãëµ÷ÕûÏÂ¹¥»÷¾àÀë
+	   //ï¿½ï¿½ï¿½Ö»ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+         //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		/*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife==Npc[nEnemyIdx].m_CurrentLife)
 		{
 			  // Npc[m_Index].m_CurrentAttackRadius -=18;
@@ -1457,13 +1457,13 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 		}
 
 	    if (Npc[nEnemyIdx].m_CurrentLife == Npc[nEnemyIdx].m_CurrentLifeMax)
-		{//¿¨¹ÖÁË
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			   //Npc[m_Index].m_CurrentAttackRadius -=18;
 		    Npc[m_Index].ChangeSkillAttackRadius(nSkillMagic,-18);
 		}
 
 	    if (Npc[nEnemyIdx].m_CurrentLife > Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife)
-		{//»ØÑªµÄ
+		{//ï¿½ï¿½Ñªï¿½ï¿½
 			  // Npc[m_Index].m_CurrentAttackRadius -=18;
 			Npc[m_Index].ChangeSkillAttackRadius(nSkillMagic,-18);
 		}
@@ -1476,7 +1476,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
    if (nEnemyIdx==0)
 	{
 	     /*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoModel==1)
-         {//½Å±¾
+         {//ï¿½Å±ï¿½
             MoveJiaoBen(m_Index);
 			return;
          }*/
@@ -1484,13 +1484,13 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 		///SendClientCmdRun(Npc[m_Index].m_OriginX, Npc[m_Index].m_OriginY);
 
 		//int xxa,xyy,Xmap;
-	    //Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ÏñËØ×ø±ê
+	    //Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
        /* if (AiCheckDistance(xxa,xyy,Npc[m_Index].m_OriginX,Npc[m_Index].m_OriginY,Npc[m_Index].m_CurrentRunSpeed))//16
     	{
 			if (Npc[m_Index].m_bRideHorse)
-			{//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
-				SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 			}
 	        Npc[m_Index].SendSerCommand(do_sit);
             SendClientCmdSit(TRUE);
@@ -1500,7 +1500,7 @@ void KNpcAI::mainSkillattack(int m_Index,int m_Kind)  //¹¥»÷°´Å¥
 	}
 }
 
-void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  //¹Ò»ú
+void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  //ï¿½Ò»ï¿½
 {
 	if (Npc[m_Index].m_Doing == do_death || Npc[m_Index].m_Doing == do_revive || Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsUseSkill)
 	{
@@ -1518,7 +1518,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	}
 
 	if 	(Npc[m_Index].m_nPeopleIdx>0 && SubWorld[Npc[m_Index].m_SubWorldIndex].m_SubWorldID !=SubWorld[Npc[Npc[m_Index].m_nPeopleIdx].m_SubWorldIndex].m_SubWorldID)
-	{//µØÍ¼²»ÏàÍ¬µÄ
+	{//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
 		Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 		Npc[m_Index].m_nPeopleIdx=0;
 		Npc[m_Index].m_nObjectIdx=0;
@@ -1531,21 +1531,21 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 							 int nHorse=0,nIsHorse;
 							     nHorse= pCurSkill->GetHorseLimited();
 							 nIsHorse=Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse;
-							 if(nHorse) //1(²»ÄÜÆïÂíÊ¹ÓÃ) 2(ÐèÒªÆïÂíÊ¹ÓÃ)
-							 {//Èç¹ûÓÐÆïÂíÏÞÖÆµÄ
+							 if(nHorse) //1(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½) 2(ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½)
+							 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½
 								 if (nHorse==1)
 								 {
 									 if (nIsHorse)
-									 {//ÆïÂí×´Ì¬,ÔòÏÂÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
+									 {//ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										 SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 									 }
 								 }
 
 								 if (nHorse==2)
 								 {
 									 if (!nIsHorse)
-									 {//·ÇÆïÂí×´Ì¬,ÔòÉÏÂí
-										 SendClientCmdRide(); //ÆïÂí·¢ËÍº¯Êý
+									 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										 SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 									 }
 								 }
 							 }
@@ -1556,8 +1556,8 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    {
 
 	 if (Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_bRideHorse)
-	 {//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
-		   SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
+	 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		   SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 	 }
 
      Npc[m_Index].m_nPeopleIdx = 0;
@@ -1573,7 +1573,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	Npc[m_Index].GetMpsPos(&xx, &yy,&Mmap);
 
    if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoModel==1)
-   {//½Å±¾
+   {//ï¿½Å±ï¿½
      //if (Npc[m_Index].m_nPeopleIdx = 0)
       //   MoveJiaoBen(m_Index);
 	   Player[CLIENT_PLAYER_INDEX].nPos.GetInteger(1,1,0,&nMapIdx);
@@ -1585,7 +1585,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:µ±Ç°Â·Ïß²»ÊÇ¸ÃµØÍ¼,ÇëÖØÐÂÂ¼ÖÆÂ·Ïß!");
+		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½Ç°Â·ï¿½ß²ï¿½ï¿½Ç¸Ãµï¿½Í¼,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Â·ï¿½ï¿½!");
 		   return;
 		}
 
@@ -1597,19 +1597,19 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 	     /*char msg[64];
 	     int DisJuli = g_GetDistance(xx,yy,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos);
-	         sprintf(msg,"X:%d,Y:%d,¾àÀë:%d,·¶Î§:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos,DisJuli,fanwei);
+	         sprintf(msg,"X:%d,Y:%d,ï¿½ï¿½ï¿½ï¿½:%d,ï¿½ï¿½Î§:%d",Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos,DisJuli,fanwei);
 			 Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(msg);*/
 
-      if(KeepActiveJiaoBen(fanwei,m_Index,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos)) //±£³Ö»î¶¯·¶Î§
+      if(KeepActiveJiaoBen(fanwei,m_Index,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurXpos,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nCurYpos)) //ï¿½ï¿½ï¿½Ö»î¶¯ï¿½ï¿½Î§
          return;
    }
    else
    {//ÏµÍ³
-	 if(KeepActiveCharacter(fanwei,m_Index,xx,yy)) //±£³Ö»î¶¯·¶Î§
+	 if(KeepActiveCharacter(fanwei,m_Index,xx,yy)) //ï¿½ï¿½ï¿½Ö»î¶¯ï¿½ï¿½Î§
        return;
    }
 
-   if (Npc[m_Index].m_randmove.nTime>0)                          //»ìÂÒ×´Ì¬²»ÄÜ·¢ÕÐ
+   if (Npc[m_Index].m_randmove.nTime>0)                          //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½
    {
 	   Npc[m_Index].m_nPeopleIdx=0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
@@ -1618,7 +1618,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    }
 
    if (Npc[m_Index].m_nPeopleIdx>0 && Npc[Npc[m_Index].m_nPeopleIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Npc[Npc[m_Index].m_nPeopleIdx].m_IsHaveAttack==1)
-   {//Èç¹û¹¥»÷´ÎÊý
+   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      Npc[m_Index].m_nPeopleIdx=0;
 	 Npc[Npc[m_Index].m_nPeopleIdx].m_IsbeSel  = 0;
 	 Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
@@ -1630,7 +1630,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    }
 
    if (Npc[m_Index].m_nPeopleIdx>0 && Npc[Npc[m_Index].m_nPeopleIdx].m_Doing == do_jump)
-   {//Ê¹ÓÃÇá¹¦
+   {//Ê¹ï¿½ï¿½ï¿½á¹¦
 	   Npc[m_Index].m_nPeopleIdx=0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
@@ -1642,21 +1642,21 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    }
 
    if (Npc[m_Index].m_nObjectIdx>0 && KObject[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && KObject[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
-   {//Èç¹ûÊÇ±¾ÈË¶ªµÄ¾Í²»Ê°È¡µÄÁË
+   {//ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½Ë¶ï¿½ï¿½Ä¾Í²ï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½
      Npc[m_Index].m_nObjectIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
 	 return;
    }
 
-//  Ëø¶¨µ½Ä¿±êÎïÆ·
-//  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+//  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Æ·
+//  int nObjectIdx =  GetNearestObject(relation_enemy,m_Index);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //  Npc[m_Index].m_nObjectIdx=nObjectIdx;
 
    int nRetaMoney =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoney;           //Ç®
-   int nRetaEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoEques;           //×°±¸
-   int nRetaMoneyAndEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoneyAndEques;   //Ç®ºÍ×°±¸
-   int nRetaTuPu  =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTuPu;            //ÉñÃØÍ¼Ö¾
-   BYTE nRetaTool =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTool;            //µÀ¾ß
+   int nRetaEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoEques;           //×°ï¿½ï¿½
+   int nRetaMoneyAndEques =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoMoneyAndEques;   //Ç®ï¿½ï¿½×°ï¿½ï¿½
+   int nRetaTuPu  =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTuPu;            //ï¿½ï¿½ï¿½ï¿½Í¼Ö¾
+   BYTE nRetaTool =  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTool;            //ï¿½ï¿½ï¿½ï¿½
 //   char nsetionKey[32],nTempItemName[80];
    gameAutoplaerInfo nAutoinfo;
    nAutoinfo.isopenmoney      = nRetaMoney;
@@ -1668,7 +1668,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
    if ((nRetaMoney||nRetaEques||nRetaMoneyAndEques||nRetaTuPu||nRetaTool)  && nPickState == PICCK_NONE)
    {
 	   int CurState = 0;
-	   int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+	   int nObjectIdx =  GetNearestObject(m_Index,(BYTE*)&nAutoinfo,&CurState);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	   if (nObjectIdx>0)
 	   {
@@ -1709,7 +1709,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
    /*if (nRetaMoney==1  && nPickState == PICCK_NONE)
    {
-	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_MONEY);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_MONEY);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	   if (nObjectIdx>0)
 	   {
@@ -1723,7 +1723,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
    if (nRetaEques==1 && nPickState == PICCK_NONE)
    {
-	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	   if (nObjectIdx>0)
 	   {
@@ -1736,7 +1736,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
   if (nRetaMoneyAndEques==1 && nPickState == PICCK_NONE)
   {
-	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM_MONEY);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+	   int nObjectIdx =  GetNearestObject(m_Index,PICCK_ITEM_MONEY);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	   if (nObjectIdx>0)
 	   {
@@ -1746,12 +1746,12 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		   Npc[m_Index].m_nObjectIdx=nObjectIdx;
 	   }
   }
-//-----------------------------------------------Í¼Æ×
+//-----------------------------------------------Í¼ï¿½ï¿½
   if (nRetaTuPu==1 && nPickState == PICCK_NONE)
   {
-	     sprintf(nTempItemName,UTEXT("ÉñÃØÍ¼Ö¾",1).c_str());
-	     int nObjectIdx =  GetNearestObject(m_Index,-1,nTempItemName);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
-		 sprintf(nTempItemName,UTEXT("ÉñÃØÂ·Ö¾",1).c_str());
+	     sprintf(nTempItemName,UTEXT("ï¿½ï¿½ï¿½ï¿½Í¼Ö¾",1).c_str());
+	     int nObjectIdx =  GetNearestObject(m_Index,-1,nTempItemName);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 sprintf(nTempItemName,UTEXT("ï¿½ï¿½ï¿½ï¿½Â·Ö¾",1).c_str());
 		 int nObjectIdxa=  GetNearestObject(m_Index,-1,nTempItemName);
 
 		 if (nObjectIdx>0)
@@ -1770,14 +1770,14 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		 }
 
   }
-//----------------------------------------------------------------µÀ¾ß
+//----------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½
   if (nRetaTool==1 && nPickState == PICCK_NONE)
   {
 	 char nItemName[64]={0},nTempItemName[64];
 	 for(int i=0;i<16;++i)
 	 {
-		 Player[CLIENT_PLAYER_INDEX].nToolItem.GetString(i+1,1,"ÎÞÊý¾Ý",nItemName,sizeof(nItemName));
-	     int nObjectIdx =  GetNearestObject(m_Index,-1,nItemName);//»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+		 Player[CLIENT_PLAYER_INDEX].nToolItem.GetString(i+1,1,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",nItemName,sizeof(nItemName));
+	     int nObjectIdx =  GetNearestObject(m_Index,-1,nItemName);//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		 if (nObjectIdx>0)
 		 {
@@ -1790,9 +1790,9 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	}
   }
   */
-// Ëø¶¨µ½Ä¿±êNPC
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½NPC
 	if (Npc[m_Index].m_nObjectIdx>0 && nPickState!=PICCK_NONE)
-	{//¼ñÍê¶«Î÷ÔÙ´ò¹Ö
+	{//ï¿½ï¿½ï¿½ê¶«ï¿½ï¿½ï¿½Ù´ï¿½ï¿½
 		AutoMovePickUp(m_Index,Npc[m_Index].m_nObjectIdx,xx,yy,nPickState);
 		if (Npc[m_Index].m_nPeopleIdx>0)
 		{
@@ -1802,15 +1802,15 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		return;
 	}
 
-    int nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index,0,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcDis); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+    int nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index,0,Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcDis); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 	if (nEnemyIdx<=0)
-	{//Èç¹û¸½½üÃ»ÓÐ¾ÍÈ«ÆÁ²éÕÒ
-       nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¾ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+       nEnemyIdx = GetNearestCharacter(relation_enemy,m_Index); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 	}
 
 	/*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw <=0)
 	{
-        Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+        Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=Npc[nEnemyIdx].m_dwID;
 	}
 	else
@@ -1819,15 +1819,15 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 		if  (nEnemyIdx<=0)
 		{
-			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+			nEnemyIdx = GetNearestCharacter(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw,m_Index,2); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 			if (nEnemyIdx<=0)
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
 		}
 
-		Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+		Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}*/
 
-	Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //Ëø¶¨µÐÈË²¢ÅÜÏòµÐÈË
+	Npc[m_Index].m_nPeopleIdx=nEnemyIdx;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	int nSkillMagic = 0;
 
@@ -1848,11 +1848,11 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
     if (nEnemyIdx>0)
 	{
-		//------------------------ÁÙÊ±±£»¤
+		//------------------------ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		/*if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nIsFell)
 		{
 		  	//FleeEnemy(nEnemyIdx);
-			//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:<color=gyellow>¿ªÊ¼ÌÓÀëµÐÈË<color>");
+			//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:<color=gyellow>ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½<color>");
 			//Npc[m_Index].m_nPeopleIdx = 0;
 			//return;
 		}*/
@@ -1874,7 +1874,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		{
 			Npc[m_Index].m_nPeopleIdx = 0;
 			Npc[nEnemyIdx].m_IsbeSel  = 0;
-			//ÕýÔÚ¹¥»÷ÖÐ
+			//ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½
 			Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
@@ -1889,23 +1889,23 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
        if (nLtime>0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop>=(nLtime*18) && Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop%(nLtime*18)==0 && Npc[nEnemyIdx].m_IsHaveAttack==0)
 	   {
 	       if (Npc[nEnemyIdx].m_CurrentLife == Npc[nEnemyIdx].m_CurrentLifeMax)
-		   {//¿¨¹ÖÁË
-		      Npc[nEnemyIdx].m_IsHaveAttack=1;             //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
-              Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ÉÏ´Î¹¥»÷×ÅµÄDWID
+		   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		      Npc[nEnemyIdx].m_IsHaveAttack=1;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+              Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
 			  Npc[nEnemyIdx].m_IsbeSel  = 0;
               Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-			  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:Ô­µØ´ò×ª,Ö´ÐÐÈ¡Ïû¹¥»÷!");
+			  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:Ô­ï¿½Ø´ï¿½×ª,Ö´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
 			  return;
 		   }
 	   }
-	   //¼ì²âÖ»ÄÜµ÷Õû¹¥»÷¾àÀë
+	   //ï¿½ï¿½ï¿½Ö»ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   //if (Player[CLIENT_PLAYER_INDEX].m_isopenjuli)
 	     if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum>0 && !(Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum%18))
-	     {//Ã¿Ãëµ÷ÕûÏÂ¹¥»÷¾àÀë
+	     {//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		   if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife==Npc[nEnemyIdx].m_CurrentLife)
 		   {
 			  // Npc[m_Index].m_CurrentAttackRadius -=18;
@@ -1913,13 +1913,13 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		   }
 
 	       if (Npc[nEnemyIdx].m_CurrentLife == Npc[nEnemyIdx].m_CurrentLifeMax)
-		   {//¿¨¹ÖÁË
+		   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			   //Npc[m_Index].m_CurrentAttackRadius -=18;
 			   Npc[m_Index].ChangeSkillAttackRadius(nSkillMagic,-18);
 		   }
 
 		   if (Npc[nEnemyIdx].m_CurrentLife > Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife)
-		   {//»ØÑªµÄ
+		   {//ï¿½ï¿½Ñªï¿½ï¿½
 			  // Npc[m_Index].m_CurrentAttackRadius -=18;
 			   Npc[m_Index].ChangeSkillAttackRadius(nSkillMagic,-18);
 		   }
@@ -1929,8 +1929,8 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	int	nRelation = NpcSet.GetRelation(m_Index, nEnemyIdx);
 
     if (nEnemyIdx>0 && distance <= Npc[m_Index].m_CurrentAttackRadius)
-	{//ÔÚ¹¥»÷·¶Î§ÄÚ
-	//	Npc[m_Index].m_nPeopleIdx=nEnemyIdx; // Ëø¶¨Ä³¹ÖÎï
+	{//ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
+	//	Npc[m_Index].m_nPeopleIdx=nEnemyIdx; // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum++;
 
 	   Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngAttackLoop=0;
@@ -1939,51 +1939,51 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 		       Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 
        if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum >=(nActiveNum*18) && Npc[nEnemyIdx].m_IsHaveAttack==0)
-	   {//¹¥»÷ÁË¶àÉÙÃëºó
+	   {//ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		   int  nTempLoop = Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime++;
            if (nTempLoop>=90 && nTempLoop%90==0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife==Npc[nEnemyIdx].m_CurrentLife)
-		   {//Ã»»ØÑªµÄ¹ÖÎï ¿¨¹ÖÁË
-               Npc[nEnemyIdx].m_IsHaveAttack=1;             //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
+		   {//Ã»ï¿½ï¿½Ñªï¿½Ä¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+               Npc[nEnemyIdx].m_IsHaveAttack=1;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 			   Npc[nEnemyIdx].m_IsbeSel  = 0;
-               Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ÉÏ´Î¹¥»÷×ÅµÄDWID
+               Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
                Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-			   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:¹¥»÷³¬Ê±,Ö´ÐÐÈ¡Ïû¹¥»÷A!");
+			   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±,Ö´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A!");
 			   return;
 		   }
 
 		   if (nTempLoop>=36 && nTempLoop%36==0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife>0 && Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife<Npc[nEnemyIdx].m_CurrentLife)
-		   {//»ØÑª¹Ö
-			   Npc[nEnemyIdx].m_IsHaveAttack=1;                   //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
+		   {//ï¿½ï¿½Ñªï¿½ï¿½
+			   Npc[nEnemyIdx].m_IsHaveAttack=1;                   //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 			   Npc[nEnemyIdx].m_IsbeSel  = 0;
-			   Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ÉÏ´Î¹¥»÷×ÅµÄDWID
+			   Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			   Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-			   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:¹ÖÎï»ØÑªÖÐ,¹¥»÷³¬Ê±,È¡Ïû¹¥»÷!");
+			   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±,È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
 			   return;
 		   }
 
 	       if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum%10==0 && Npc[nEnemyIdx].m_CurrentLife == Npc[nEnemyIdx].m_CurrentLifeMax)
-		   {//¿¨¹ÖÁË
-		      Npc[nEnemyIdx].m_IsHaveAttack=1;                   //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
+		   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		      Npc[nEnemyIdx].m_IsHaveAttack=1;                   //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
               Npc[nEnemyIdx].m_IsbeSel = 0;
-              Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ÉÏ´Î¹¥»÷×ÅµÄDWID
+              Npc[nEnemyIdx].m_AttackerDwid=Npc[m_Index].m_dwID; //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
               Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nLocKnpcDw=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-			  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:¹¥»÷³¬Ê±,Ö´ÐÐÈ¡Ïû¹¥»÷!");
+			  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±,Ö´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
 			  return;
 		   }
-		   //´òÖÐÁË...
+		   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 	   }
-	   else if (Npc[nEnemyIdx].m_IsHaveAttack==0)//ÔÚ¹¥»÷ÆÚ¼ä
+	   else if (Npc[nEnemyIdx].m_IsHaveAttack==0)//ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½
 	   {
-            //ÕýÔÚ¹¥»÷ÖÐ
+            //ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		   /*if (!Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum%18)
-		   {//Ã¿Ãë¼ì²âÒ»´Î
+		   {//Ã¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		   } */
 
 	       Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=Npc[nEnemyIdx].m_CurrentLife;
@@ -1996,7 +1996,7 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 	else if (nEnemyIdx==0)
 	{
 	     if (Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoModel==1)
-         {//½Å±¾
+         {//ï¿½Å±ï¿½
             MoveJiaoBen(m_Index);
 			return;
          }
@@ -2006,13 +2006,13 @@ void KNpcAI::FollowCharacter(int m_Index,int fanwei, int juli,int nActiveNum)  /
 
 		int xxa,xyy,Xmap;
 
-	    Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ÏñËØ×ø±ê
+	    Npc[m_Index].GetMpsPos(&xxa, &xyy,&Xmap);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (AiCheckDistance(xxa,xyy,Npc[m_Index].m_OriginX,Npc[m_Index].m_OriginY,Npc[m_Index].m_CurrentRunSpeed))//16
     	{
 			if (Npc[m_Index].m_bRideHorse)
-			{//Èç¹ûÊÇÆïÂí×´Ì¬,¾ÍÏÂÂíÔÙ ´ò×ø
-				SendClientCmdRide(); //ÉÏÏÂÂí·¢ËÍº¯Êý
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				SendClientCmdRide(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½
 			}
 	        Npc[m_Index].SendSerCommand(do_sit);
             SendClientCmdSit(TRUE);
@@ -2028,13 +2028,13 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 
 		 if (Player[CLIENT_PLAYER_INDEX].m_RunStatus)
 		 {
-            Npc[nIndex].SendSerCommand(do_run,x,y);  //ÅÜÏòÄ¿±ê
-		    SendClientCmdRun(x,y); //ÅÜÏòÄ¿±ê
+            Npc[nIndex].SendSerCommand(do_run,x,y);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+		    SendClientCmdRun(x,y); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		 }
 		 else
 		 {
-			Npc[nIndex].SendSerCommand(do_walk,x,y);  //ÅÜÏòÄ¿±ê
-			SendClientCmdWalk(x,y); //ÅÜÏòÄ¿±ê
+			Npc[nIndex].SendSerCommand(do_walk,x,y);  //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+			SendClientCmdWalk(x,y); //ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		 }
 
 		 int nLtime=Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAutoTime;
@@ -2058,7 +2058,7 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 				{
 				   KObject[nObjIdx].m_AttackerDwid=Npc[nIndex].m_dwID;
 				   KObject[nObjIdx].m_IsHaveAttack=1;
-				   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:Ô­µØ´ò×ª,Ö´ÐÐÈ¡Ïû¼ñÈ¡!");
+				   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:Ô­ï¿½Ø´ï¿½×ª,Ö´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½È¡!");
 
 				   //if (iPickState==PICCK_ITEM)
 					   Player[CLIENT_PLAYER_INDEX].m_Autoplay.ngItemLoop=0;
@@ -2106,21 +2106,21 @@ int  KNpcAI::AutoMovePickUp(int nIndex ,int nObjIdx,int xx,int yy, AutoPickUp iP
 	     return TRUE;
 }
 
-//¸úËæ¹¥»÷
+//ï¿½ï¿½ï¿½æ¹¥ï¿½ï¿½
 void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
 	//	Npc[i].m_Hide.nTime=0;
 	//	Npc[r].m_Hide.nTime=0;
-	int distance = NpcSet.GetDistance(i, r);  //»ñÈ¡³¡¾°µÄ¾àÀë ÈËÓë¹ÖÎïÖ®¼äµÄ¾àÀë
+	int distance = NpcSet.GetDistance(i, r);  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 
 	if ( distance == 0)
 		distance = 1;
 	//#define	MINI_ATTACK_RANGE	75
-	//	if (distance <= Npc[r].m_CurrentAttackRadius) //×îÐ¡¹¥»÷¾àÀë
+	//	if (distance <= Npc[r].m_CurrentAttackRadius) //ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//	{
-	///		KeepAttackRangeA(i,Npc[r].m_CurrentAttackRadius,r); //±£³Ö¹¥»÷·¶Î§
+	///		KeepAttackRangeA(i,Npc[r].m_CurrentAttackRadius,r); //ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§
 	///		return;
 	//	}
 	// Attack Enemy
@@ -2131,7 +2131,7 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 	//	int	nIdx = SKill->IsCanSkillid();
 	//   Npc[r].m_ActiveSkillID=nIdx;
 
-    if (Npc[i].m_IsHaveAttack==1 && Npc[i].m_AttackerDwid==Npc[r].m_dwID)  //ÒÑ¾­ÊÇ¿¨¹ÖµÄ ¾Í·ÅÆú¹¥»÷ÁË
+    if (Npc[i].m_IsHaveAttack==1 && Npc[i].m_AttackerDwid==Npc[r].m_dwID)  //ï¿½Ñ¾ï¿½ï¿½Ç¿ï¿½ï¿½Öµï¿½ ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    return;
 
 
@@ -2140,8 +2140,8 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 	   {
 	       if (Npc[i].m_CurrentLife == Npc[i].m_CurrentLifeMax)
 		   {
-		      Npc[i].m_IsHaveAttack=1;             //ÊÇ·ñÉèÖÃÎª¹¥»÷ÎÞÐ§ÁË
-              Npc[i].m_AttackerDwid=Npc[r].m_dwID; //ÉÏ´Î¹¥»÷×ÅµÄDWID
+		      Npc[i].m_IsHaveAttack=1;             //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+              Npc[i].m_AttackerDwid=Npc[r].m_dwID; //ï¿½Ï´Î¹ï¿½ï¿½ï¿½ï¿½Åµï¿½DWID
               Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 			  Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
 			  return;
@@ -2152,7 +2152,7 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 		   //  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(mag);
 	   }
 
-	if (distance <= (Npc[r].m_CurrentAttackRadius-100) /*&& InEyeshota(i,r)*/)  //Ð¡ÓÚ¹¥»÷·¶Î§ ¾ÍÊ¹ÓÃ¼¼ÄÜ
+	if (distance <= (Npc[r].m_CurrentAttackRadius-100) /*&& InEyeshota(i,r)*/)  //Ð¡ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§ ï¿½ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½
 	{
         Npc[r].SendSerCommand(do_skill, Npc[r].m_ActiveSkillID, -1, i);
 		SendClientCmdSkill(Npc[r].m_ActiveSkillID, -1, Npc[i].m_dwID);
@@ -2163,18 +2163,18 @@ void KNpcAI::FollowAttackCharacter(int i,int r, int l,int nActiveNum)
 	{
 		int x, y,nmmap;
 		Npc[i].GetMpsPos(&x, &y,&nmmap);
-		Npc[r].SendSerCommand(do_run, x, y);  //ÅÜÏòµÐÈË
-		SendClientCmdRun(x, y); //ÅÜÏòµÐÈË
+		Npc[r].SendSerCommand(do_run, x, y);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SendClientCmdRun(x, y); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 }
 
-//¹Ò»ú
-BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶¯·¶Î§
+//ï¿½Ò»ï¿½
+int KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ï¿½ï¿½ï¿½Ö»î¶¯ï¿½ï¿½Î§
 {
 	int x, y,nmapp;
-	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë
+	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½
 
-	int	nRange = g_GetDistance(xx,yy,x,y); //±È½Ï ÏÖÔÚµÄ¾àÀë ºÍÔ­À´¾àÀëµÄ²î¾à
+	int	nRange = g_GetDistance(xx,yy,x,y); //ï¿½È½ï¿½ ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½
 
 	if (AiCheckDistance(x,y,xx,yy,Npc[indexid].m_CurrentRunSpeed))//16
 	{
@@ -2182,13 +2182,13 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
 	   return FALSE;
 	}
 
-	// ·¢ÏÖ³¬³ö»î¶¯·¶Î§£¬°Ñµ±Ç°»î¶¯·¶Î§ËõÐ¡£¬±ÜÃâÔÚ»î¶¯·¶Î§±ßÔµÀ´»Ø»Î¡£
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ñµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ôµï¿½ï¿½ï¿½Ø»Î¡ï¿½
 	if (nRange>fanwei)//<1000
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei/10;//500
 	}
 
-	// ·¢ÏÖ³¬³öµ±Ç°»î¶¯·¶Î§£¬Íù»Ø×ß
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nRange > Npc[indexid].m_CurrentActiveRadius)  //
 	{
 	    if (Npc[indexid].m_nPeopleIdx>0)
@@ -2199,14 +2199,14 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:¹ÖÎï³¬³ö»î¶¯·¶Î§,È¡Ïû¹¥»÷!");
+		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï³¬ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§,È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
         }
 
         if (Npc[indexid].m_nObjectIdx>0)
 		{
            KObject[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
 		   KObject[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
-		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:ÎïÆ·³¬³ö»î¶¯·¶Î§,Ö´ÐÐÈ¡ÏûÊ°È¡!");
+		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§,Ö´ï¿½ï¿½È¡ï¿½ï¿½Ê°È¡!");
 		   nPickState=PICCK_NONE;
 		}
 
@@ -2229,7 +2229,7 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
 	return TRUE;
 
 	}
-	else	// ÔÚµ±Ç°»î¶¯·¶Î§ÄÚ£¬»Ö¸´µ±Ç°»î¶¯·¶Î§´óÐ¡¡£
+	else	// ï¿½Úµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei;
 	}
@@ -2237,19 +2237,19 @@ BOOL KNpcAI::KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶
     return FALSE;
 }
 
-BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»î¶¯·¶Î§
+int KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ï¿½ï¿½ï¿½Ö»î¶¯ï¿½ï¿½Î§
 {
 	int x, y,nmapp;
-	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCËùÔÚµÄ ×ø±ê  ÏÖÔÚµÄ¾àÀë
-	int	nRange = g_GetDistance(Npc[indexid].m_OriginX, Npc[indexid].m_OriginY, x, y); //±È½Ï ÏÖÔÚµÄ¾àÀë ºÍÔ­À´¾àÀëµÄ²î¾à
+	Npc[indexid].GetMpsPos(&x, &y,&nmapp); //NPCï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½
+	int	nRange = g_GetDistance(Npc[indexid].m_OriginX, Npc[indexid].m_OriginY, x, y); //ï¿½È½ï¿½ ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½
 
-	// ·¢ÏÖ³¬³ö»î¶¯·¶Î§£¬°Ñµ±Ç°»î¶¯·¶Î§ËõÐ¡£¬±ÜÃâÔÚ»î¶¯·¶Î§±ßÔµÀ´»Ø»Î¡£
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ñµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ôµï¿½ï¿½ï¿½Ø»Î¡ï¿½
 	if (fanwei < nRange)//<1000
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei/10;//500
 	}
 
-	// ·¢ÏÖ³¬³öµ±Ç°»î¶¯·¶Î§£¬Íù»Ø×ß
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[indexid].m_CurrentActiveRadius < nRange)  //
 	{
 
@@ -2262,13 +2262,13 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nNpcCurlife=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay.nAttackNum=0;
 		   Player[CLIENT_PLAYER_INDEX].m_Autoplay._checkLoopTime=0;
-		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:¹ÖÎï³¬³ö»î¶¯·¶Î§,È¡Ïû¹¥»÷!");
+		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï³¬ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§,È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
         }
         if (Npc[indexid].m_nObjectIdx>0)
 		{
            KObject[Npc[indexid].m_nObjectIdx].m_AttackerDwid=Npc[indexid].m_dwID;
 		   KObject[Npc[indexid].m_nObjectIdx].m_IsHaveAttack=1;
-		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ÖúÊÖ:ÎïÆ·³¬³ö»î¶¯·¶Î§,Ö´ÐÐÈ¡ÏûÊ°È¡!");
+		   Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("ï¿½ï¿½ï¿½ï¿½:ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§,Ö´ï¿½ï¿½È¡ï¿½ï¿½Ê°È¡!");
 		   nPickState=PICCK_NONE;
 		}
 
@@ -2289,14 +2289,14 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»
 
         /*
            if (Npc[m_Index].m_nPeopleIdx>0 && Npc[Npc[m_Index].m_nPeopleIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Npc[Npc[m_Index].m_nPeopleIdx].m_IsHaveAttack==1)
-   {//Èç¹û¹¥»÷´ÎÊý
+   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      Npc[m_Index].m_nPeopleIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
 	 return;
    }
 
    if (Npc[m_Index].m_nObjectIdx>0 && Object[Npc[m_Index].m_nObjectIdx].m_AttackerDwid==Npc[m_Index].m_dwID && Object[Npc[m_Index].m_nObjectIdx].m_IsHaveAttack==1)
-   {//Èç¹û¹¥»÷´ÎÊý
+   {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      Npc[m_Index].m_nObjectIdx=0;
 	 //Npc[m_Index].m_nObjectIdx=0;
 	 return;
@@ -2311,14 +2311,14 @@ BOOL KNpcAI::KeepActiveCharacter(int fanwei,int indexid,int xx,int yy)  // ±£³Ö»
 		return TRUE;
 
 	}
-	else	// ÔÚµ±Ç°»î¶¯·¶Î§ÄÚ£¬»Ö¸´µ±Ç°»î¶¯·¶Î§´óÐ¡¡£
+	else	// ï¿½Úµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½
 	{
 		Npc[indexid].m_CurrentActiveRadius = fanwei;
 		return FALSE;
 	}
 }
 
-BOOL KNpcAI::AiCheckDistance(int nYMpsX ,int nYMpsY, int nDMpsX,int nDMpsY,int nDisten)
+int KNpcAI::AiCheckDistance(int nYMpsX ,int nYMpsY, int nDMpsX,int nDMpsY,int nDisten)
 {
   /* int nXcha=nYMpsX-nDMpsX;
    int nYcha=nYMpsY-nDMpsY;
@@ -2349,7 +2349,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 {
 	int nRangeX;
 	if (Npc[indexid].m_Kind==kind_player || Npc[indexid].m_Kind==kind_partner)
-	    nRangeX   = Npc[indexid].m_VisionRadius*6;  //ÊÓÒ°·¶Î§
+	    nRangeX   = Npc[indexid].m_VisionRadius*6;  //ï¿½ï¿½Ò°ï¿½ï¿½Î§
 	else
         nRangeX   = Npc[indexid].m_VisionRadius;
 
@@ -2366,16 +2366,16 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 //	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
 //	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
-	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
-	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ÚµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
+	for (int i = 0; i < nRangeX; ++i)	// i, jï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½-rangeï¿½ï¿½Ê¼ï¿½ï¿½Òªï¿½ï¿½Ö¤Nearest
 	{
 		for (int j = 0; j < nRangeY; ++j)
 		{
-			// È¥µô±ß½Ç¼¸¸ö¸ñ×Ó£¬±£Ö¤ÊÓÒ°ÊÇÍÖÔ²ÐÎ
+			// È¥ï¿½ï¿½ï¿½ß½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½
 			if ((i * i + j * j) > nRangeX * nRangeX)
 				continue;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	ÓÒÏÂ
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½
 			nRMx = nMapX + i;
 			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
@@ -2403,16 +2403,16 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC		ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
-			if (Npc[nRet].m_Hide.nTime > 0) //ÒþÉíµÄ
+			if (Npc[nRet].m_Hide.nTime > 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				nRet = 0;
 
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	 ×óÏÂ
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½	 ï¿½ï¿½ï¿½ï¿½
 			nRMx = nMapX - i;
 			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
@@ -2440,7 +2440,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2449,7 +2449,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	   ×óÉÏ
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½	   ï¿½ï¿½ï¿½ï¿½
 			nRMx = nMapX - i;
 			nRMy = nMapY - j;
 			nSearchRegion = nRegion;
@@ -2479,7 +2479,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2488,7 +2488,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨	  ÓÒÉÏ
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½	  ï¿½ï¿½ï¿½ï¿½
 			nRMx = nMapX + i;
 			nRMy = nMapY - j;
 			nSearchRegion = nRegion;
@@ -2516,7 +2516,7 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpcAuto(nRMx, nRMy, indexid, nRelation,nType,nDis);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2528,17 +2528,17 @@ int KNpcAI::GetNearestCharacter(int nRelation,int indexid,int nType,int nDis)
 	}
 	return 0;
 }
-//---------»ñÈ¡ÖÜÎ§NPCÁÐ±í----------------------------------------------------
+//---------ï¿½ï¿½È¡ï¿½ï¿½Î§NPCï¿½Ð±ï¿½----------------------------------------------------
 
 
 //----------------------------------------------------------------------------
 
-//²éÕÒ¸½½üÎïÆ·
+//ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 {
 	int nRangeX;
 	if (Npc[indexid].m_Kind==kind_player)
-		nRangeX = Npc[indexid].m_VisionRadius*6;  //ÊÓÒ°·¶Î§
+		nRangeX = Npc[indexid].m_VisionRadius*6;  //ï¿½ï¿½Ò°ï¿½ï¿½Î§
 	else
         nRangeX = Npc[indexid].m_VisionRadius;
 
@@ -2555,18 +2555,18 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 //	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
 //	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
-	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
-	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ÚµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
+	for (int i = 0; i < nRangeX; ++i)	// i, jï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½-rangeï¿½ï¿½Ê¼ï¿½ï¿½Òªï¿½ï¿½Ö¤Nearest
 	{
 		for (int j = 0; j < nRangeY; ++j)
 		{
-			// È¥µô±ß½Ç¼¸¸ö¸ñ×Ó£¬±£Ö¤ÊÓÒ°ÊÇÍÖÔ²ÐÎ
+			// È¥ï¿½ï¿½ï¿½ß½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½
 			if ((i * i + j * j) > nRangeX * nRangeX)
 				continue;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
-			nRMx = nMapX + i;   //ÍùÇ°ÏÂÄ¿±ê×ø±ê
-			nRMy = nMapY + j;   //Ä¿±ê×ø±ê
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
+			nRMx = nMapX + i;   //ï¿½ï¿½Ç°ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			nRMy = nMapY + j;   //Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			nSearchRegion = nRegion;
 
 			if (nRMx < 0)
@@ -2594,7 +2594,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC		·µ»ØNPCË÷Òý
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC		ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
@@ -2603,8 +2603,8 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 				return nRet;
 			}
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
-			nRMx = nMapX - i;  //Íù»ØÏÂµÄ×ø±ê
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
+			nRMx = nMapX - i;  //ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
 			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
 			if (nRMx < 0)
@@ -2631,7 +2631,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
@@ -2640,9 +2640,9 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 				return nRet;
 			}
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX - i;
-			nRMy = nMapY - j;  //ÍøºóÉÏµÄ×ø±ê
+			nRMy = nMapY - j;  //ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½
 			nSearchRegion = nRegion;
 			if (nRMx < 0)
 			{
@@ -2668,7 +2668,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
@@ -2677,8 +2677,8 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 				return nRet;
 			}
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
-			nRMx = nMapX + i;// ÍùÇ°ÉÏµÄ×ø±ê
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
+			nRMx = nMapX + i;// ï¿½ï¿½Ç°ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½
 			nRMy = nMapY - j;
 			nSearchRegion = nRegion;
 			if (nRMx < 0)
@@ -2705,7 +2705,7 @@ int KNpcAI::GetNearestObject(int indexid,void *pData,int *CurState)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindObjectAuto(nRMx, nRMy,indexid,pData,&m_CurState);
 
 			if (nRet > 0)
@@ -2732,16 +2732,16 @@ int KNpcAI::GetNearestNpc(int nRelation)
 	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
 	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
-	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
-	for (int i = 0; i < nRangeX; ++i)	// i, jÓÉ0¿ªÊ¼¶ø²»ÊÇ´Ó-range¿ªÊ¼ÊÇÒª±£Ö¤Nearest
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ÚµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
+	for (int i = 0; i < nRangeX; ++i)	// i, jï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½-rangeï¿½ï¿½Ê¼ï¿½ï¿½Òªï¿½ï¿½Ö¤Nearest
 	{
 		for (int j = 0; j < nRangeY; ++j)
 		{
-			// È¥µô±ß½Ç¼¸¸ö¸ñ×Ó£¬±£Ö¤ÊÓÒ°ÊÇÍÖÔ²ÐÎ
+			// È¥ï¿½ï¿½ï¿½ß½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½
 			if ((i * i + j * j) > nRangeX * nRangeX)
 				continue;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX + i;
 			nRMy = nMapY + j;
 
@@ -2772,7 +2772,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2781,7 +2781,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX - i;
 			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
@@ -2809,7 +2809,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2818,7 +2818,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX - i;
 			nRMy = nMapY - j;
 			nSearchRegion = nRegion;
@@ -2846,7 +2846,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2855,7 +2855,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			if (nRet > 0)
 				return nRet;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX + i;
 			nRMy = nMapY - j;
 			nSearchRegion = nRegion;
@@ -2883,7 +2883,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			nRet = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 
 			if (Npc[nRet].m_Hide.nTime > 0)
@@ -2897,7 +2897,7 @@ int KNpcAI::GetNearestNpc(int nRelation)
 }
 
 // flying add this
-// ²éÕÒÀëÄ³¸öNPC×î½üµÄÍæ¼Ò
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KNpcAI::IsPlayerCome()
 {
 	int nResult = 0;
@@ -2912,10 +2912,10 @@ int KNpcAI::IsPlayerCome()
 	nDistance = NpcSet.GetDistance(nPlayer, m_nIndex);
 
 	if ( nDistance == 0) nDistance = 1;
-	// ¼¦¿´µÄµ½µÄÍæ¼Ò
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nDistance < Npc[m_nIndex].m_VisionRadius)
 	{
-		// ·Ö±ð´¦Àí×ßºÍÅÜ
+		// ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½ï¿½
 		if (Player[CLIENT_PLAYER_INDEX].m_RunStatus || Npc[m_nIndex].m_CurrentVisionRadius > nDistance * 4)
 		{
 			nResult = nPlayer;
@@ -2941,16 +2941,16 @@ int KNpcAI::GetNpcNumber(int nRelation)
 	nRangeX = nRangeX / SubWorld[nSubWorld].m_nCellWidth;
 	nRangeY = nRangeY / SubWorld[nSubWorld].m_nCellHeight;
 
-	// ¼ì²éÊÓÒ°·¶Î§ÄÚµÄ¸ñ×ÓÀïµÄNPC
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ÚµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 	for (int i = -nRangeX; i < nRangeX; ++i)
 	{
 		for (int j = -nRangeY; j < nRangeY; ++j)
 		{
-			// È¥µô±ß½Ç¼¸¸ö¸ñ×Ó£¬±£Ö¤ÊÓÒ°ÊÇÍÖÔ²ÐÎ
+			// È¥ï¿½ï¿½ï¿½ß½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½
 			if ((i * i + j * j) > nRangeX * nRangeX)
 				continue;
 
-			// È·¶¨Ä¿±ê¸ñ×ÓÊµ¼ÊµÄREGIONºÍ×ø±êÈ·¶¨
+			// È·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Êµï¿½REGIONï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 			nRMx = nMapX + i;
 			nRMy = nMapY + j;
 			nSearchRegion = nRegion;
@@ -2982,7 +2982,7 @@ int KNpcAI::GetNpcNumber(int nRelation)
 			}
 			if (nSearchRegion == -1)
 				continue;
-			// ´ÓREGIONµÄNPCÁÐ±íÖÐ²éÕÒÂú×ãÌõ¼þµÄNPC
+			// ï¿½ï¿½REGIONï¿½ï¿½NPCï¿½Ð±ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 			int nNpcIdx = SubWorld[nSubWorld].m_Region[nSearchRegion].FindNpc(nRMx, nRMy, m_nIndex, nRelation);
 			if (nNpcIdx > 0)
 				nRet++;
@@ -2997,7 +2997,7 @@ void KNpcAI::KeepAttackRange(int nEnemy, int nRange)
 
 	Npc[m_nIndex].GetMpsPos(&nX1, &nY1,&nMap1);
 	Npc[nEnemy].GetMpsPos(&nX2, &nY2,&nMap2);
-	nDir = g_GetDirIndex(nX1, nY1, nX2, nY2);//»ñÈ¡64·½Ïò ÖÐÊÇÄÄ¸ö±àºÅ
+	nDir = g_GetDirIndex(nX1, nY1, nX2, nY2);//ï¿½ï¿½È¡64ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½
 
 	if (nDir >= MaxMissleDir)
 		nDir -= MaxMissleDir;
@@ -3007,13 +3007,13 @@ void KNpcAI::KeepAttackRange(int nEnemy, int nRange)
 
 	Npc[m_nIndex].SendSerCommand(do_walk, nWantX, nWantY);
 }
-//ÑºïÚ¸úËæ
+//Ñºï¿½Ú¸ï¿½ï¿½ï¿½
 void KNpcAI::FollowChargedart(int i) //
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
 
-	int distance = NpcSet.GetDistance(m_nIndex, i);  //»ñÈ¡³¡¾°µÄ¾àÀë
+	int distance = NpcSet.GetDistance(m_nIndex, i);  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 
 	int nDesX, nDesY,nDmap;
 
@@ -3035,13 +3035,13 @@ void KNpcAI::FollowChargedart(int i) //
 		}
 }
 
-//Í¬°é¸úËæ
+//Í¬ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::FollowCompanion(int i) //
 {
 	if ( Npc[i].m_RegionIndex < 0 )
 		return;
 
-	int distance = NpcSet.GetDistance(m_nIndex, i);  //»ñÈ¡³¡¾°µÄ¾àÀë
+	int distance = NpcSet.GetDistance(m_nIndex, i);  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 
 	int nDesX, nDesY,nDmap;
 
@@ -3081,14 +3081,14 @@ void KNpcAI::FollowAttack(int i)
 //		return;
 //	}
 
-	if (distance <= Npc[m_nIndex].m_CurrentAttackRadius && InEyeshot(i)) //È¡ÏûÊÓÒ°·¶Î§ÏÞÖÆ
+	if (distance <= Npc[m_nIndex].m_CurrentAttackRadius && InEyeshot(i)) //È¡ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
 	{
 		Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, -1, i);
 		return;
 	}
 	int x, y,nMap;
 	Npc[i].GetMpsPos(&x, &y,&nMap);
-	Npc[m_nIndex].SendSerCommand(do_walk, x, y);  //×ßÏòµÐÈË
+	Npc[m_nIndex].SendSerCommand(do_walk, x, y);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void KNpcAI::FollowAttackCompanion(int i,int juli)
@@ -3100,24 +3100,24 @@ void KNpcAI::FollowAttackCompanion(int i,int juli)
 
 	if ( distance == 0)
 		distance = 1;
-	if (distance <= juli && distance<= Npc[m_nIndex].m_CurrentAttackRadius) //È¡ÏûÊÓÒ°·¶Î§ÏÞÖÆ
+	if (distance <= juli && distance<= Npc[m_nIndex].m_CurrentAttackRadius) //È¡ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
 	{
 		Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, -1, i);
 		return;
 	}
 //	int x, y,nMap;
 //	Npc[i].GetMpsPos(&x, &y,&nMap);
-//	Npc[m_nIndex].SendCommand(do_run, x, y);  //×ßÏòµÐÈË
+//	Npc[m_nIndex].SendCommand(do_run, x, y);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
-//ÊÓÒ°·¶Î§
-BOOL KNpcAI::InEyeshot(int nIdx)
+//ï¿½ï¿½Ò°ï¿½ï¿½Î§
+int KNpcAI::InEyeshot(int nIdx)
 {
 	int distance = NpcSet.GetDistance(nIdx, m_nIndex);
 
 	return (Npc[m_nIndex].m_VisionRadius > distance);
 }
 
-//¿Í»§¶ËµÄËæÒâ×ß¶¯ ÌÓÀë
+//ï¿½Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::CommonActionWithPlayer()
 {
 	int nClientIndex =Player[CLIENT_PLAYER_INDEX].m_nIndex;
@@ -3154,7 +3154,7 @@ void KNpcAI::CommonActionWithPlayer()
 
 void KNpcAI::CommonAction()
 {
-	// Èç¹ûÊÇ¶Ô»°ÀàµÄNPC£¬¾ÍÔ­µØ²»¶¯
+	// ï¿½ï¿½ï¿½ï¿½Ç¶Ô»ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ø²ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_Kind == kind_dialoger)
 	{
 		Npc[m_nIndex].SendSerCommand(do_stand,0,0,0);
@@ -3187,7 +3187,7 @@ void KNpcAI::CommonAction()
 
 void KNpcAI::CommonActionCompanion(int fanwei)
 {
-	// Èç¹ûÊÇ¶Ô»°ÀàµÄNPC£¬¾ÍÔ­µØ²»¶¯
+	// ï¿½ï¿½ï¿½ï¿½Ç¶Ô»ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ø²ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_Kind == kind_dialoger)
 	{
 		Npc[m_nIndex].SendSerCommand(do_stand);
@@ -3210,7 +3210,7 @@ void KNpcAI::CommonActionCompanion(int fanwei)
 
 void KNpcAI::ReMoveCommonAction(int nNpcIdx)
 {
-	// Èç¹ûÊÇ¶Ô»°ÀàµÄNPC£¬¾ÍÔ­µØ²»¶¯
+	// ï¿½ï¿½ï¿½ï¿½Ç¶Ô»ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½Ô­ï¿½Ø²ï¿½ï¿½ï¿½
 	if (Npc[nNpcIdx].m_Kind == kind_dialoger)
 	{
 		Npc[nNpcIdx].SendSerCommand(do_stand);
@@ -3237,33 +3237,33 @@ void KNpcAI::ReMoveCommonAction(int nNpcIdx)
 }
 
 
-BOOL KNpcAI::KeepActiveRange()
+int KNpcAI::KeepActiveRange()
 {
 	int x, y,nMap;
 
 	Npc[m_nIndex].GetMpsPos(&x, &y,&nMap);
 	int	nRange = g_GetDistance(Npc[m_nIndex].m_OriginX, Npc[m_nIndex].m_OriginY, x, y);
 
-	// ·¢ÏÖ³¬³ö»î¶¯·¶Î§£¬°Ñµ±Ç°»î¶¯·¶Î§ËõÐ¡£¬±ÜÃâÔÚ»î¶¯·¶Î§±ßÔµÀ´»Ø»Î¡£
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ñµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ôµï¿½ï¿½ï¿½Ø»Î¡ï¿½
 	if (Npc[m_nIndex].m_ActiveRadius < nRange)
 	{
 		Npc[m_nIndex].m_CurrentActiveRadius = Npc[m_nIndex].m_ActiveRadius / 2;
 	}
 
-	// ·¢ÏÖ³¬³öµ±Ç°»î¶¯·¶Î§£¬Íù»Ø×ß
+	// ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_CurrentActiveRadius < nRange)
 	{
 		Npc[m_nIndex].SendSerCommand(do_walk, Npc[m_nIndex].m_OriginX, Npc[m_nIndex].m_OriginY);
 		return TRUE;
 	}
-	else	// ÔÚµ±Ç°»î¶¯·¶Î§ÄÚ£¬»Ö¸´µ±Ç°»î¶¯·¶Î§´óÐ¡¡£
+	else	// ï¿½Úµï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç°ï¿½î¶¯ï¿½ï¿½Î§ï¿½ï¿½Ð¡ï¿½ï¿½
 	{
 		Npc[m_nIndex].m_CurrentActiveRadius = Npc[m_nIndex].m_ActiveRadius;
 		return FALSE;
 	}
 }
 
-// 15/16 AiMode NPCµÄÌÓÒÝ¶¯×÷
+// 15/16 AiMode NPCï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½
 int KNpcAI::DoShowFlee(int nIdx)
 {
 	int nResult  = false;
@@ -3311,7 +3311,7 @@ void KNpcAI::FleeEnemy(int nEnemyIdx)
 
 }
  */
-// ÌÓÀëNpc[nIdx]
+// ï¿½ï¿½ï¿½ï¿½Npc[nIdx]
 void KNpcAI::Flee(int nIdx)
 {
 	int x1, y1,nMap1, x2, y2,nMap2;
@@ -3326,10 +3326,10 @@ void KNpcAI::Flee(int nIdx)
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÑºïÚÖ÷¶¯Àà1
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1¡¢2¡¢3¡¢4] ËÄÖÖ¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ1 2 3 4
-//	m_AiParam[5¡¢6] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½4] ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½1 2 3 4
+//	m_AiParam[5ï¿½ï¿½6] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessChargedart()
 {
@@ -3349,12 +3349,12 @@ void	KNpcAI::ProcessChargedart()
 	if (nNpcID>0)
 	{
 		Npc[m_nIndex].m_GameliveTime = -1;
-		FollowChargedart(nNpcID);  //¸úËæ
+		FollowChargedart(nNpcID);  //ï¿½ï¿½ï¿½ï¿½
 	}
-    else if (nNpcID<=0) ////Ö÷½ÇÍË³öÓÎÏ·ÅÑ±ä---ËÀÍö»òÏÂÏß²»ÅÑ±ä
+    else if (nNpcID<=0) ////ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ï·ï¿½Ñ±ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½Ñ±ï¿½
 	{
 		    if (Npc[m_nIndex].m_GameliveTime==-1)
-		         Npc[m_nIndex].m_GameliveTime = 120;  //¸øÁ½·ÖÖÓµÈ´ý È»ºóÏú»Ù
+		         Npc[m_nIndex].m_GameliveTime = 120;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÓµÈ´ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                return;
 		    Npc[m_nIndex].GetMpsPos(&nDesX, &nDesY,&nMap);
 		    Npc[m_nIndex].m_OriginX=nDesX;
@@ -3364,17 +3364,17 @@ void	KNpcAI::ProcessChargedart()
 			Npc[m_nIndex].m_Camp=5;
 			Npc[m_nIndex].m_IsRevive=0;
 			Npc[m_nIndex].m_Kind=kind_normal;//kind_mouse;
-            ZeroMemory(Npc[m_nIndex].Name,32); // ÇåÁã
-			strcat(Npc[m_nIndex].Name,"ÅÑ±äµÄ(ïÚ³µ)");
+            ZeroMemory(Npc[m_nIndex].Name,32); // ï¿½ï¿½ï¿½ï¿½
+			strcat(Npc[m_nIndex].Name,"ï¿½Ñ±ï¿½ï¿½(ï¿½Ú³ï¿½)");
   	}
 	}
-/*////////////////////»ñÈ¡Íæ¼ÒµÄÈÎÎñºÅ¶Ô±È////////////////////////
+/*////////////////////ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Å¶Ô±ï¿½////////////////////////
     int nSub=Npc[m_nIndex].m_SubWorldIndex;
     int nReg=Npc[m_nIndex].m_RegionIndex;
 	int nRes=0;
     KIndexNode *pNode=NULL;
 
-	pNode=(KIndexNode*)SubWorld[nSub].m_Region[nReg].m_NpcList.GetHead();//Ë¢¹Ö½Úµã
+	pNode=(KIndexNode*)SubWorld[nSub].m_Region[nReg].m_NpcList.GetHead();//Ë¢ï¿½Ö½Úµï¿½
           while (pNode)
 		  {
 			  if (pNode->m_nIndex==Player[CLIENT_PLAYER_INDEX].m_cTask.GetSaveVal(170)&& Npc[pNode->m_nIndex].m_NpcSettingIdx==0)
@@ -3386,55 +3386,55 @@ void	KNpcAI::ProcessChargedart()
 		  }
 *//////////////////////////////////////////////////////////////////
 //	int *pAIParam = Npc[m_nIndex].m_AiParam;
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	//if (KeepActiveRange())
 	//	return;
 
 
 	/*
      char isname[32];
-     sprintf(isname,"%sµÄ[ïÚ³µ]",Npc[nEnemyIdx].Name);
+     sprintf(isname,"%sï¿½ï¿½[ï¿½Ú³ï¿½]",Npc[nEnemyIdx].Name);
 	if (Npc[m_nIndex].Name!=isname)
 	{
      Npc[m_nIndex].m_nPeopleIdx=0;
      return;
 	}
 
-	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
+	// ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx) )
 	{
-		nEnemyIdx = GetNearestNpc(relation_enemy); //»ñÈ¡¸½½üNPCµÄË÷Òý±àºÅ
+		nEnemyIdx = GetNearestNpc(relation_enemy); //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Npc[m_nIndex].m_nPeopleIdx = nEnemyIdx;
 	}
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[5])	// ´ý»ú
+		if (nRand < pAIParam[5])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²Âß
+		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[1])
@@ -3469,7 +3469,7 @@ void	KNpcAI::ProcessChargedart()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -3477,10 +3477,10 @@ void	KNpcAI::ProcessChargedart()
 //FollowYabiao(nEnemyIdx);
 }
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÍ¬°éÖ÷¶¯Àà1
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1¡¢2¡¢3¡¢4] ËÄÖÖ¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ1 2 3 4
-//	m_AiParam[5¡¢6] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½4] ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½1 2 3 4
+//	m_AiParam[5ï¿½ï¿½6] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessCompanion()
 {
@@ -3491,7 +3491,7 @@ void	KNpcAI::ProcessCompanion()
     if (Npc[m_nIndex].m_btRankFFId==99)
 	{
 		Npc[m_nIndex].GetstrInfo(STR_GUISHU_NAME,nstrName);
-		int  nEnemyIdx  = GetNearestCharacter(relation_enemy,m_nIndex);   //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+		int  nEnemyIdx  = GetNearestCharacter(relation_enemy,m_nIndex);   //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 		gameAutoplaerInfo nAutoinfo;
 		nAutoinfo.isopenmoney      = 1;
 		nAutoinfo.insopenzhuang    = 0;
@@ -3499,9 +3499,9 @@ void	KNpcAI::ProcessCompanion()
 		nAutoinfo.isopentuzhi      = 0;
 		nAutoinfo.isopendaoju      = 0;
 		int  nCurState = 0;
-        int  nObjectIdx = GetNearestObject(m_nIndex,(BYTE*)&nAutoinfo,&nCurState);      //»ñÈ¡µØÉÏÖÜÎ§ÎïÆ·µÄË÷Òý
+        int  nObjectIdx = GetNearestObject(m_nIndex,(BYTE*)&nAutoinfo,&nCurState);      //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		nNpcID = NpcSet.SearchNameID(Npc[m_nIndex].m_IsRevive);         //²éÕÒÃû×ÖµÄ×ª»»Âë  ==Ö÷ÈËµÄ Ë÷Òý
+		nNpcID = NpcSet.SearchNameID(Npc[m_nIndex].m_IsRevive);         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½  ==ï¿½ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½ï¿½
 		nPepID = PlayerSet.FindNameID(nstrName);      //Npc[nNpcID].m_nsPlayerIdx;
 		//	g_FileName2Id(Npc[m_nIndex].m_GuishuName);
 		int nNpcMap,nNpcX,nNpcY,nPlayerMap,nPlayerX,nPlayerY;
@@ -3510,7 +3510,7 @@ void	KNpcAI::ProcessCompanion()
 		{
             int mPlayerSubWorldID,nNpcSubWorldID,distance;
 
-            Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;  //ÉèÖÃÖ÷ÈËÒÑ¾­ÓÐÍ¬°éÁË£¡
+            Npc[Player[nPepID].m_nIndex].m_TongBanNum = Npc[m_nIndex].m_dwID;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ë£ï¿½
 
 			if (Npc[m_nIndex].m_TempliveTime>0)
 			{
@@ -3523,10 +3523,10 @@ void	KNpcAI::ProcessCompanion()
 
 		    mPlayerSubWorldID = SubWorld[Npc[nNpcID].m_SubWorldIndex].m_SubWorldID;
             nNpcSubWorldID    = SubWorld[Npc[m_nIndex].m_SubWorldIndex].m_SubWorldID;
-            distance          = NpcSet.GetDistance(nNpcID, m_nIndex);                          //ÓëÖ÷ÈËµÄ¾àÀë
+            distance          = NpcSet.GetDistance(nNpcID, m_nIndex);                          //ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ¾ï¿½ï¿½ï¿½
 
 			if (nNpcSubWorldID!=mPlayerSubWorldID)
-			{//Èç¹û²»Í¬µØÍ¼ ¾Í·É°É
+			{//ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Í¼ ï¿½Í·É°ï¿½
 				  return;
 			}
 			else
@@ -3542,8 +3542,8 @@ void	KNpcAI::ProcessCompanion()
 				Npc[m_nIndex].m_nPeopleIdx=0;
 				int x, y;
 				KObject[nObjectIdx].GetMpsPos(&x, &y);
-				Npc[m_nIndex].SendSerCommand(do_run, x, y);  //ÅÜÏòÇ®
-			//	SendClientCmdRun(x, y); //ÅÜÏòÇ®
+				Npc[m_nIndex].SendSerCommand(do_run, x, y);  //ï¿½ï¿½ï¿½ï¿½Ç®
+			//	SendClientCmdRun(x, y); //ï¿½ï¿½ï¿½ï¿½Ç®
 	            Player[nPepID].PickUpMoney(nObjectIdx,m_nIndex);
 				return;
 			}
@@ -3552,7 +3552,7 @@ void	KNpcAI::ProcessCompanion()
 				Npc[m_nIndex].m_nObjectIdx=0;
 			}
 
-			if (Npc[nNpcID].m_FightMode==0)  //Ö÷ÈËÎª·ÇÕ½¶·Ä£Ê½
+			if (Npc[nNpcID].m_FightMode==0)  //ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Õ½ï¿½ï¿½Ä£Ê½
 			{
 				Npc[m_nIndex].m_nPeopleIdx=0;
 				nEnemyIdx=0;
@@ -3560,7 +3560,7 @@ void	KNpcAI::ProcessCompanion()
 				return;
 			}
 
-			    //int  Zdistance = NpcSet.GetDistance(nNpcID, m_nIndex);  //ÓëÖ÷ÈËµÄ¾àÀë
+			    //int  Zdistance = NpcSet.GetDistance(nNpcID, m_nIndex);  //ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ¾ï¿½ï¿½ï¿½
 
 			    if (distance>400)
 				{
@@ -3569,51 +3569,51 @@ void	KNpcAI::ProcessCompanion()
 				  FollowCompanion(nNpcID);
 			  	  return;
 				}
-				 //NPCËÀÍöÒ²²»¹¥»÷
+				 //NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				 if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive)
 				 {
 					 Npc[m_nIndex].m_nPeopleIdx = 0;
 					 nEnemyIdx=0;
 				 }
-				 //¼ì²âÍ¬°éÀàµÄ¹¥»÷
+				 //ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 				 if (Npc[nEnemyIdx].m_Kind==kind_partner)
-				 {//Èç¹ûµÐÈËÊÇÍ¬°é
+				 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
 					 Npc[nEnemyIdx].GetstrInfo(STR_GUISHU_NAME,nstrName);
-					 int nEnemyPepID=PlayerSet.FindNameID(nstrName);  //µÐÈËÍ¬°éµÄÖ÷ÈË
+					 int nEnemyPepID=PlayerSet.FindNameID(nstrName);  //ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 					 if (Player[nEnemyPepID].m_cPK.GetNormalPKState()==0 &&
 						 Npc[nEnemyIdx].m_FightMode==0)
-					 {//¼ì²âÖ÷ÈËµÄ×´Ì¬ ·ÇÕ½¶·Ä£Ê½£¬Ã»¿ªPK  ²»¹¥»÷
+					 {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½×´Ì¬ ï¿½ï¿½Õ½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ã»ï¿½ï¿½PK  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						 Npc[m_nIndex].m_nPeopleIdx = 0;
 					     nEnemyIdx=0;
 					 }
 					 else if (Player[nEnemyPepID].m_cPK.GetNormalPKState()==0 &&
 						 Npc[nEnemyIdx].m_FightMode==1)
-					 {//Õ½¶·Ä£Ê½ µ«Ã»¿ªPK ²»¹¥»÷
+					 {//Õ½ï¿½ï¿½Ä£Ê½ ï¿½ï¿½Ã»ï¿½ï¿½PK ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						 Npc[m_nIndex].m_nPeopleIdx = 0;
 						 nEnemyIdx=0;
 					 }
 					 else if (Npc[nEnemyIdx].m_FightMode==0)
-					 {//Õ½¶·Ä£Ê½¹Ø±Õ ²»¹¥»÷
+					 {//Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						 Npc[m_nIndex].m_nPeopleIdx = 0;
 						 nEnemyIdx=0;
 					 }
 
 				 }
                else if (Npc[nEnemyIdx].m_Kind==kind_player)
-			   {// Èç¹ûµÐÈËÊÇÍæ¼Ò
+			   {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				 if (Npc[nEnemyIdx].m_FightMode==0)
-				 {///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+				 {///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 					 Npc[m_nIndex].m_nPeopleIdx = 0;
 					 nEnemyIdx=0;
 				 }
 				 else if (Player[Npc[nEnemyIdx].GetNpcPepoleID()].m_cPK.GetNormalPKState()==0)
-				 {///pkÄ£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+				 {///pkÄ£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 					 Npc[m_nIndex].m_nPeopleIdx = 0;
 					 nEnemyIdx=0;
 				 }
 				 else if (Npc[nEnemyIdx].m_CurrentCamp ==Npc[Player[nPepID].m_nIndex].m_CurrentCamp)
-				 {//µ±Ç°ÕóÓªÏàÍ¬ ¾Í²»¹¥»÷ÁË
+				 {//ï¿½ï¿½Ç°ï¿½ï¿½Óªï¿½ï¿½Í¬ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					 Npc[m_nIndex].m_nPeopleIdx = 0;
 					 nEnemyIdx=0;
 				 }
@@ -3621,10 +3621,10 @@ void	KNpcAI::ProcessCompanion()
 
 			if (nEnemyIdx>0)
 			{
-			  int  Ddistance = NpcSet.GetDistance(nEnemyIdx, m_nIndex);  //ÓëµÐÈËµÄ¾àÀë
+			  int  Ddistance = NpcSet.GetDistance(nEnemyIdx, m_nIndex);  //ï¿½ï¿½ï¿½ï¿½ËµÄ¾ï¿½ï¿½ï¿½
 
 			  if (Ddistance>400)
-			  {//´óÓÚÕâ¸ö¾àÀë¾Í²»¹¥»÷ÁË
+			  {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			     nEnemyIdx=0;
 				 Npc[m_nIndex].m_nPeopleIdx = 0;
 				 FollowCompanion(nNpcID);
@@ -3641,11 +3641,11 @@ void	KNpcAI::ProcessCompanion()
                     CommonActionCompanion(nNpcID);
 				     return;
 			  }
-                 FollowAttackCompanion(nEnemyIdx,400);   //¹¥»÷µÐÈË
+                 FollowAttackCompanion(nEnemyIdx,400);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
             else
-			{ // ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
-	         nEnemyIdx = GetNearestCharacter(relation_enemy,m_nIndex); //»ñÈ¡ÖÜÎ§µÐ¶ÔµÄNPC±àºÅ
+			{ // ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
+	         nEnemyIdx = GetNearestCharacter(relation_enemy,m_nIndex); //ï¿½ï¿½È¡ï¿½ï¿½Î§ï¿½Ð¶Ôµï¿½NPCï¿½ï¿½ï¿½
 	         Npc[nNpcID].GetMpsPos(&nDesX, &nDesY,&nMap);
 	         Npc[m_nIndex].m_OriginX=nDesX;
 	         Npc[m_nIndex].m_OriginY=nDesY;
@@ -3653,12 +3653,12 @@ void	KNpcAI::ProcessCompanion()
 			 return;
 			}
 		}
-		else if (nNpcID==0) //Ö÷½ÇÍË³öÓÎÏ·ÅÑ±ä---ËÀÍö»òÏÂÏß²»ÅÑ±ä
+		else if (nNpcID==0) //ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ï·ï¿½Ñ±ï¿½---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½Ñ±ï¿½
 		{
 			if (Npc[m_nIndex].m_GameliveTime>120)
 			{
               Npc[m_nIndex].m_TempliveTime = Npc[m_nIndex].m_GameliveTime;
-			  Npc[m_nIndex].m_GameliveTime = 120;  //¸øÁ½·ÖÖÓµÈ´ý È»ºóÏú»Ù
+			  Npc[m_nIndex].m_GameliveTime = 120;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÓµÈ´ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			}
 		    return;
@@ -3671,14 +3671,14 @@ void	KNpcAI::ProcessCompanion()
 			Npc[m_nIndex].m_Camp     = 5;
 			Npc[m_nIndex].m_Kind     = kind_normal;//kind_mouse;
 			Npc[m_nIndex].m_IsRevive = 0;
-			Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
+			Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
 			Npc[m_nIndex].m_GameliveTime = 60;
 			//strcpy(Npc[m_nIndex].ActionScript, "\\script\\deadth\\tongyong.lua");
 		    Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\tongyong.lua");
-            ZeroMemory(Npc[m_nIndex].Name,sizeof(Npc[m_nIndex].Name)); // ÇåÁã
-			//ZeroMemory(Npc[m_nIndex].m_GuishuName,sizeof(Npc[m_nIndex].m_GuishuName)); // ¹éÊôÇåÁã
+            ZeroMemory(Npc[m_nIndex].Name,sizeof(Npc[m_nIndex].Name)); // ï¿½ï¿½ï¿½ï¿½
+			//ZeroMemory(Npc[m_nIndex].m_GuishuName,sizeof(Npc[m_nIndex].m_GuishuName)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Npc[m_nIndex].ClearstrInfo(STR_GUISHU_NAME);
-			strcat(Npc[m_nIndex].Name,"ÅÑ±äµÄ(³èÎï)");
+			strcat(Npc[m_nIndex].Name,"ï¿½Ñ±ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)");
 
 			return;
 		}
@@ -3687,15 +3687,15 @@ void	KNpcAI::ProcessCompanion()
 
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÖ¸¶¨Â·Ïßai ×Ô¶¯¹¥»÷
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1¡¢2¡¢3¡¢4] ËÄÖÖ¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ1 2 3 4
-//	m_AiParam[5¡¢6] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½Ö¸ï¿½ï¿½Â·ï¿½ï¿½ai ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½4] ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½1 2 3 4
+//	m_AiParam[5ï¿½ï¿½6] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //---------/---------------------------------------------------------------------
 void	KNpcAI::ProcessLuXianAi()
 {
 	if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
             g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 			g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -3710,25 +3710,25 @@ void	KNpcAI::ProcessLuXianAi()
 	}
 
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
-	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx))  //²»ÔÚÊÓÒ°·¶Î§ÄÚ
+	// ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½
 	{
 		nEnemyIdx = GetNearestNpc(relation_enemy);
 		Npc[m_nIndex].m_nPeopleIdx = nEnemyIdx;
 	}
-//NPCËÀÍöÒ²²»¹¥»÷
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+//NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
@@ -3739,42 +3739,42 @@ void	KNpcAI::ProcessLuXianAi()
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 		   CommonAction();
 		}
 		return;
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1]) //10
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[5])	// ´ý»ú
+		if (nRand < pAIParam[5])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²Âß
+		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -3786,11 +3786,11 @@ void	KNpcAI::ProcessLuXianAi()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[1])
@@ -3825,7 +3825,7 @@ void	KNpcAI::ProcessLuXianAi()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -3834,15 +3834,15 @@ void	KNpcAI::ProcessLuXianAi()
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨Ö÷¶¯Àà1
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1¡¢2¡¢3¡¢4] ËÄÖÖ¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ1 2 3 4
-//	m_AiParam[5¡¢6] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½4] ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½1 2 3 4
+//	m_AiParam[5ï¿½ï¿½6] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //---------/---------------------------------------------------------------------
 void	KNpcAI::ProcessAIType01()
 {
 	if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
             g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 			g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -3865,7 +3865,7 @@ void	KNpcAI::ProcessAIType01()
 			 }
 
 		     if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			 {  //¿ªÊ¼ÅÑ±ä
+			 {  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -3878,16 +3878,16 @@ void	KNpcAI::ProcessAIType01()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-		        //strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+		        //strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -3898,49 +3898,49 @@ void	KNpcAI::ProcessAIType01()
 	}
 
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
-	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx))  //²»ÔÚÊÓÒ°·¶Î§ÄÚ
+	// ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx))  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½
 	{
 		nEnemyIdx = GetNearestNpc(relation_enemy);
 		Npc[m_nIndex].m_nPeopleIdx = nEnemyIdx;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-//NPCËÀÍöÒ²²»¹¥»÷
+//NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -3951,23 +3951,23 @@ void	KNpcAI::ProcessAIType01()
 
 		}
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -3976,25 +3976,25 @@ void	KNpcAI::ProcessAIType01()
 		return;
 	}
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 		   CommonAction();
 		}
 		return;
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1]) //10
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[5])	// ´ý»ú
+		if (nRand < pAIParam[5])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²Âß
+		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -4008,11 +4008,11 @@ void	KNpcAI::ProcessAIType01()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[1])
@@ -4047,7 +4047,7 @@ void	KNpcAI::ProcessAIType01()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -4057,19 +4057,19 @@ void	KNpcAI::ProcessAIType01()
 
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨Ö÷¶¯Àà2
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1] Ê£ÓàÉúÃüµÍÓÚÕâ¸ö°Ù·Ö±ÈµÄÊ±ºòÖ´ÐÐÏàÓ¦´¦Àí
-//	m_AiParam[2] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖµÄÊ±ºòÊÇ·ñÖ´ÐÐÏàÓ¦´¦ÀíµÄ¸ÅÂÊ
-//	m_AiParam[3] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖ²¢¾ö¶¨ÒªÖ´ÐÐÏàÓ¦´¦Àí£¬Ê¹ÓÃ»Ø¸´¼¼ÄÜµÄ¸ÅÂÊ ¶ÔÓ¦SkillListÀïÃæµÄ¼¼ÄÜ 1
-//	m_AiParam[4¡¢5¡¢6] ÈýÖÖ¹¥»÷¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ 2 3 4
-//	m_AiParam[7¡¢8] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1] Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±Èµï¿½Ê±ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+//	m_AiParam[2] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+//	m_AiParam[3] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»Ø¸ï¿½ï¿½ï¿½ï¿½ÜµÄ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ó¦SkillListï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 1
+//	m_AiParam[4ï¿½ï¿½5ï¿½ï¿½6] ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 2 3 4
+//	m_AiParam[7ï¿½ï¿½8] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessAIType02()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
 	if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
 		g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -4089,7 +4089,7 @@ void	KNpcAI::ProcessAIType02()
 				return;
 			 }
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			{  //¿ªÊ¼ÅÑ±ä
+			{  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -4101,16 +4101,16 @@ void	KNpcAI::ProcessAIType02()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4121,23 +4121,23 @@ void	KNpcAI::ProcessAIType02()
 	}
 
 
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
+	// ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx) )
 	{
 		nEnemyIdx = GetNearestNpc(relation_enemy);
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
@@ -4149,10 +4149,10 @@ void	KNpcAI::ProcessAIType02()
 	}
 
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4163,24 +4163,24 @@ void	KNpcAI::ProcessAIType02()
 
 		}
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
 
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -4189,12 +4189,12 @@ void	KNpcAI::ProcessAIType02()
 		return;
 	}
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
@@ -4202,19 +4202,19 @@ void	KNpcAI::ProcessAIType02()
 	if  (Npc[m_nIndex].m_CurrentLifeMax<=0)
 		Npc[m_nIndex].m_CurrentLifeMax = 100;
 
-	// ¼ì²âÊ£ÓàÉúÃüÊÇ·ñ·ûºÏÌõ¼þ£¬ÉúÃüÌ«ÉÙÒ»¶¨¸ÅÂÊÊ¹ÓÃ²¹Ñª¼¼ÄÜ»òÌÓÅÜ
+	// ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax < pAIParam[1])
 	{
-		if (g_RandPercent(pAIParam[2]))	// ÊÇ·ñÊ¹ÓÃ²¹Ñª¼¼ÄÜ»òÌÓÅÜ
+		if (g_RandPercent(pAIParam[2]))	// ï¿½Ç·ï¿½Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			if (Npc[m_nIndex].m_AiAddLifeTime < pAIParam[9] && g_RandPercent(pAIParam[3]))	// Ê¹ÓÃ²¹Ñª¼¼ÄÜ
+			if (Npc[m_nIndex].m_AiAddLifeTime < pAIParam[9] && g_RandPercent(pAIParam[3]))	// Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½ï¿½
 			{
 				Npc[m_nIndex].SetActiveSkill(1);
 				Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, -1, m_nIndex);
 				Npc[m_nIndex].m_AiAddLifeTime++;
 				return;
 			}
-			else	// ÌÓÅÜ
+			else	// ï¿½ï¿½ï¿½ï¿½
 			{
 				Flee(nEnemyIdx);
 				return;
@@ -4222,14 +4222,14 @@ void	KNpcAI::ProcessAIType02()
 		}
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[7])	// ´ý»ú
+		if (nRand < pAIParam[7])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²Âß
+		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -4241,11 +4241,11 @@ void	KNpcAI::ProcessAIType02()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[4])
@@ -4272,7 +4272,7 @@ void	KNpcAI::ProcessAIType02()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -4280,19 +4280,19 @@ void	KNpcAI::ProcessAIType02()
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨Ö÷¶¯Àà3
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1] Ê£ÓàÉúÃüµÍÓÚÕâ¸ö°Ù·Ö±ÈµÄÊ±ºòÖ´ÐÐÏàÓ¦´¦Àí
-//	m_AiParam[2] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖµÄÊ±ºòÊÇ·ñÖ´ÐÐÏàÓ¦´¦ÀíµÄ¸ÅÂÊ
-//	m_AiParam[3] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖ²¢¾ö¶¨ÒªÖ´ÐÐÏàÓ¦´¦Àí£¬Ê¹ÓÃ¹¥»÷¼¼ÄÜµÄ¸ÅÂÊ ¶ÔÓ¦SkillListÀïÃæµÄ¼¼ÄÜ 1
-//	m_AiParam[4¡¢5¡¢6] ÈýÖÖ¹¥»÷¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ 2 3 4
-//	m_AiParam[7¡¢8] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1] Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±Èµï¿½Ê±ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+//	m_AiParam[2] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+//	m_AiParam[3] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ó¦SkillListï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 1
+//	m_AiParam[4ï¿½ï¿½5ï¿½ï¿½6] ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 2 3 4
+//	m_AiParam[7ï¿½ï¿½8] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessAIType03()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
 	if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
 		g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -4314,7 +4314,7 @@ void	KNpcAI::ProcessAIType03()
 			 }
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			{  //¿ªÊ¼ÅÑ±ä
+			{  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -4327,16 +4327,16 @@ void	KNpcAI::ProcessAIType03()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 				Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
 
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4347,24 +4347,24 @@ void	KNpcAI::ProcessAIType03()
 	}
 
 
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	// Èç¹ûÔ­±¾Ã»ÓÐËø¶¨µÐÈË»òÕßÕâ¸öµÐÈËÅÜÌ«Ô¶£¬ÖØÐÂËø¶¨µÐÈË
+	// ï¿½ï¿½ï¿½Ô­ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (nEnemyIdx <= 0 || Npc[nEnemyIdx].m_dwID <= 0 || !InEyeshot(nEnemyIdx) )
 	{
 		nEnemyIdx = GetNearestNpc(relation_enemy);
 
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
@@ -4374,22 +4374,22 @@ void	KNpcAI::ProcessAIType03()
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4400,23 +4400,23 @@ void	KNpcAI::ProcessAIType03()
 
 		}
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -4425,30 +4425,30 @@ void	KNpcAI::ProcessAIType03()
 		return;
 	}
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 	if  (Npc[m_nIndex].m_CurrentLifeMax<=0)
 		Npc[m_nIndex].m_CurrentLifeMax = 100;
-	// ¼ì²âÊ£ÓàÉúÃüÊÇ·ñ·ûºÏÌõ¼þ£¬ÉúÃüÌ«ÉÙÒ»¶¨¸ÅÂÊÊ¹ÓÃ¹¥»÷¼¼ÄÜ»òÌÓÅÜ
+	// ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax < pAIParam[1])
 	{
-		if (g_RandPercent(pAIParam[2]))	// ÊÇ·ñÊ¹ÓÃ¹¥»÷¼¼ÄÜ»òÌÓÅÜ
+		if (g_RandPercent(pAIParam[2]))	// ï¿½Ç·ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			if (g_RandPercent(pAIParam[3]))	// Ê¹ÓÃ¹¥»÷¼¼ÄÜ
+			if (g_RandPercent(pAIParam[3]))	// Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				Npc[m_nIndex].SetActiveSkill(1);
 				FollowAttack(nEnemyIdx);
 				return;
 			}
-			else	// ÌÓÅÜ
+			else	// ï¿½ï¿½ï¿½ï¿½
 			{
 				Flee(nEnemyIdx);
 				return;
@@ -4456,14 +4456,14 @@ void	KNpcAI::ProcessAIType03()
 		}
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[7])	// ´ý»ú
+		if (nRand < pAIParam[7])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²Âß
+		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -4475,11 +4475,11 @@ void	KNpcAI::ProcessAIType03()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[4])
@@ -4506,7 +4506,7 @@ void	KNpcAI::ProcessAIType03()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -4514,17 +4514,17 @@ void	KNpcAI::ProcessAIType03()
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨±»¶¯Àà1
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1¡¢2¡¢3¡¢4] ËÄÖÖ¹¥»÷¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ 1 2 3 4
-//	m_AiParam[5¡¢6] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½4] ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 1 2 3 4
+//	m_AiParam[5ï¿½ï¿½6] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessAIType04()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
 
     if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
 		g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -4547,7 +4547,7 @@ void	KNpcAI::ProcessAIType04()
 			 }
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			{  //¿ªÊ¼ÅÑ±ä
+			{  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -4560,15 +4560,15 @@ void	KNpcAI::ProcessAIType04()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4582,27 +4582,27 @@ void	KNpcAI::ProcessAIType04()
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
 
-	//NPCËÀÍöÒ²²»¹¥»÷
+	//NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		 nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4613,23 +4613,23 @@ void	KNpcAI::ProcessAIType04()
 
 		}
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -4638,29 +4638,29 @@ void	KNpcAI::ProcessAIType04()
 		return;
 	}
 
-	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
+	// ï¿½Ç·ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[5])	// ´ý»ú
+		if (nRand < pAIParam[5])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²Âß
+		if (nRand < pAIParam[5] + pAIParam[6])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -4672,11 +4672,11 @@ void	KNpcAI::ProcessAIType04()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[1])
@@ -4711,7 +4711,7 @@ void	KNpcAI::ProcessAIType04()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -4719,20 +4719,20 @@ void	KNpcAI::ProcessAIType04()
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨±»¶¯Àà2
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1] Ê£ÓàÉúÃüµÍÓÚÕâ¸ö°Ù·Ö±ÈµÄÊ±ºòÖ´ÐÐÏàÓ¦´¦Àí
-//	m_AiParam[2] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖµÄÊ±ºòÊÇ·ñÖ´ÐÐÏàÓ¦´¦ÀíµÄ¸ÅÂÊ
-//	m_AiParam[3] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖ²¢¾ö¶¨ÒªÖ´ÐÐÏàÓ¦´¦Àí£¬Ê¹ÓÃ»Ø¸´¼¼ÄÜµÄ¸ÅÂÊ ¶ÔÓ¦SkillListÀïÃæµÄ¼¼ÄÜ 1
-//	m_AiParam[4¡¢5¡¢6] ÈýÖÖ¹¥»÷¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ 2 3 4
-//	m_AiParam[7¡¢8] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1] Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±Èµï¿½Ê±ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+//	m_AiParam[2] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+//	m_AiParam[3] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»Ø¸ï¿½ï¿½ï¿½ï¿½ÜµÄ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ó¦SkillListï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 1
+//	m_AiParam[4ï¿½ï¿½5ï¿½ï¿½6] ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 2 3 4
+//	m_AiParam[7ï¿½ï¿½8] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessAIType05()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
 
     if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
 		g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -4754,7 +4754,7 @@ void	KNpcAI::ProcessAIType05()
 			 }
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			{  //¿ªÊ¼ÅÑ±ä
+			{  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -4767,15 +4767,15 @@ void	KNpcAI::ProcessAIType05()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -4787,38 +4787,38 @@ void	KNpcAI::ProcessAIType05()
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
-	//NPCËÀÍöÒ²²»¹¥»÷
+	//NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		 nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -4829,24 +4829,24 @@ void	KNpcAI::ProcessAIType05()
 
 		}
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -4855,35 +4855,35 @@ void	KNpcAI::ProcessAIType05()
 		return;
 	}
 
-	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
+	// ï¿½Ç·ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 	if  (Npc[m_nIndex].m_CurrentLifeMax<=0)
 		Npc[m_nIndex].m_CurrentLifeMax = 100;
-	// ¼ì²âÊ£ÓàÉúÃüÊÇ·ñ·ûºÏÌõ¼þ£¬ÉúÃüÌ«ÉÙÒ»¶¨¸ÅÂÊÊ¹ÓÃ²¹Ñª¼¼ÄÜ»òÌÓÅÜ
+	// ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax < pAIParam[1])
 	{
-		if (g_RandPercent(pAIParam[2]))	// ÊÇ·ñÊ¹ÓÃ²¹Ñª¼¼ÄÜ»òÌÓÅÜ
+		if (g_RandPercent(pAIParam[2]))	// ï¿½Ç·ï¿½Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			if (Npc[m_nIndex].m_AiAddLifeTime < pAIParam[9] && g_RandPercent(pAIParam[3]))	// Ê¹ÓÃ²¹Ñª¼¼ÄÜ
+			if (Npc[m_nIndex].m_AiAddLifeTime < pAIParam[9] && g_RandPercent(pAIParam[3]))	// Ê¹ï¿½Ã²ï¿½Ñªï¿½ï¿½ï¿½ï¿½
 			{
 				Npc[m_nIndex].m_AiAddLifeTime++;
 				Npc[m_nIndex].SetActiveSkill(1);
 				Npc[m_nIndex].SendSerCommand(do_skill, Npc[m_nIndex].m_ActiveSkillID, -1, m_nIndex);
 				return;
 			}
-			else	// ÌÓÅÜ
+			else	// ï¿½ï¿½ï¿½ï¿½
 			{
 				Flee(nEnemyIdx);
 				return;
@@ -4891,14 +4891,14 @@ void	KNpcAI::ProcessAIType05()
 		}
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[7])	// ´ý»ú  ¡¶0
+		if (nRand < pAIParam[7])	// ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½0
 			return;
-		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²Âß  Ð¡ÓÚ10
+		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²ï¿½ï¿½  Ð¡ï¿½ï¿½10
 		{
 			CommonAction();
 			return;
@@ -4910,11 +4910,11 @@ void	KNpcAI::ProcessAIType05()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[4])
@@ -4941,7 +4941,7 @@ void	KNpcAI::ProcessAIType05()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -4949,20 +4949,20 @@ void	KNpcAI::ProcessAIType05()
 }
 
 //------------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÆÕÍ¨±»¶¯Àà3
-//	m_AiParam[0] ÎÞµÐÈËÊ±ºòµÄÑ²Âß¸ÅÂÊ
-//	m_AiParam[1] Ê£ÓàÉúÃüµÍÓÚÕâ¸ö°Ù·Ö±ÈµÄÊ±ºòÖ´ÐÐÏàÓ¦´¦Àí
-//	m_AiParam[2] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖµÄÊ±ºòÊÇ·ñÖ´ÐÐÏàÓ¦´¦ÀíµÄ¸ÅÂÊ
-//	m_AiParam[3] ÔÚm_AiParam[1]µÄÇé¿ö³öÏÖ²¢¾ö¶¨ÒªÖ´ÐÐÏàÓ¦´¦Àí£¬Ê¹ÓÃ¹¥»÷¼¼ÄÜµÄ¸ÅÂÊ ¶ÔÓ¦SkillListÀïÃæµÄ¼¼ÄÜ 1
-//	m_AiParam[4¡¢5¡¢6] ÈýÖÖ¹¥»÷¼¼ÄÜµÄÊ¹ÓÃ¸ÅÂÊ£¬·Ö±ð¶ÔÓ¦SkillListÀïµÄ¼¼ÄÜ 2 3 4
-//	m_AiParam[7¡¢8] ¿´¼ûµÐÈËµ«±È½ÏÔ¶Ê±£¬´ý»ú¡¢Ñ²ÂßµÄ¸ÅÂÊ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+//	m_AiParam[0] ï¿½Þµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
+//	m_AiParam[1] Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±Èµï¿½Ê±ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+//	m_AiParam[2] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+//	m_AiParam[3] ï¿½ï¿½m_AiParam[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ó¦SkillListï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 1
+//	m_AiParam[4ï¿½ï¿½5ï¿½ï¿½6] ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½Ê¹ï¿½Ã¸ï¿½ï¿½Ê£ï¿½ï¿½Ö±ï¿½ï¿½Ó¦SkillListï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ 2 3 4
+//	m_AiParam[7ï¿½ï¿½8] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È½ï¿½Ô¶Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ßµÄ¸ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 void	KNpcAI::ProcessAIType06()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
 
     if (Npc[m_nIndex].m_ZhuaVal > 0)
-	{//ÕýÔÚ±»×¥²¶
+	{//ï¿½ï¿½ï¿½Ú±ï¿½×¥ï¿½ï¿½
 		int nZhuaRank=0,nLiveTime=0,nPepID=0;;
 		g_GameSetTing.GetInteger("SYSTEM","ZhuaBuRank",0,&nZhuaRank);
 		g_GameSetTing.GetInteger("SYSTEM","LifeTime",0,&nLiveTime);
@@ -4984,7 +4984,7 @@ void	KNpcAI::ProcessAIType06()
 			 }
 
 			if (Npc[m_nIndex].m_ZhuaVal > Npc[m_nIndex].m_Level*nZhuaRank)
-			{  //¿ªÊ¼ÅÑ±ä
+			{  //ï¿½ï¿½Ê¼ï¿½Ñ±ï¿½
 
                 if (Npc[Player[nPepID].m_nIndex].m_TongBanNum > 0)
 				{
@@ -4997,15 +4997,15 @@ void	KNpcAI::ProcessAIType06()
 				Npc[m_nIndex].m_Camp       = Npc[Player[nPepID].m_nIndex].m_Camp;
 				Npc[m_nIndex].m_btRankFFId = 99;
 				Npc[m_nIndex].m_GuiShuDwid = Npc[Player[nPepID].m_nIndex].m_dwID;
-				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // Ãû×ÖµÄ×ª»»Âë
+				Npc[m_nIndex].m_IsRevive   = g_FileName2Id(Npc[Player[nPepID].m_nIndex].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 				Npc[m_nIndex].m_Kind       = kind_partner;
-				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");  //Éè¶¨ËÀÍö½Å±¾
-				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
-				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬°éËÀÍö\\tongyong.lua");
+				Npc[m_nIndex].m_ActionScriptID = g_CheckFileExist("\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");  //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+				//strcpy(Npc[m_nIndex].ActionScript,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
+				Npc[m_nIndex].SetstrInfo(STR_ACTION_SCRIPT,"\\script\\deadth\\Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\tongyong.lua");
 				//sprintf(Npc[m_nIndex].m_GuishuName,"%s",Npc[Player[nPepID].m_nIndex].Name);
 				//char nstrName[64]={0};
 		        Npc[m_nIndex].SetstrInfo(STR_GUISHU_NAME,Npc[Player[nPepID].m_nIndex].Name);
-				sprintf(Npc[m_nIndex].Name,"³èÎï");
+				sprintf(Npc[m_nIndex].Name,"ï¿½ï¿½ï¿½ï¿½");
 				Npc[m_nIndex].m_ZhuaVal    = 0;
 				Npc[m_nIndex].m_GameliveTime   = nLiveTime;
 				Npc[m_nIndex].m_bClientOnly = FALSE;
@@ -5017,27 +5017,27 @@ void	KNpcAI::ProcessAIType06()
 
 	int nEnemyIdx = Npc[m_nIndex].m_nPeopleIdx;
 
-	//NPCËÀÍöÒ²²»¹¥»÷
+	//NPCï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[nEnemyIdx].m_Doing == do_death || Npc[nEnemyIdx].m_Doing == do_revive || Npc[nEnemyIdx].m_Hide.nTime >0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		 nEnemyIdx=0;
 	}
-	// ÖÜÎ§Ã»ÓÐµÐÈË£¬Ò»¶¨¸ÅÂÊ´ý»ú/Ñ²Âß
+	// ï¿½ï¿½Î§Ã»ï¿½Ðµï¿½ï¿½Ë£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 	if (Npc[m_nIndex].m_cGold.GetGoldType()>0 && Npc[m_nIndex].m_cGold.GetGoldType()<5)
-	{//×Ô¼ºÊÇ»Æ½ð¹ÖÎï
+	{//ï¿½Ô¼ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
 
 		if (Npc[nEnemyIdx].m_Kind==kind_player &&  Npc[nEnemyIdx].m_AutoplayId == 1)
-		{//¹Ò»úÖÐµÄ
+		{//ï¿½Ò»ï¿½ï¿½Ðµï¿½
 			int nPlaidx=0;
 			nPlaidx=CLIENT_PLAYER_INDEX;
 		  if (Player[nPlaidx].m_Autoplay.nIsNoBlue==1)
@@ -5047,13 +5047,13 @@ void	KNpcAI::ProcessAIType06()
 		  }
 		}
 	}
-///Õ½¶·Ä£Ê½¹Ø±Õ ¾Í²»¹¥»÷ÁË£¡
+///Õ½ï¿½ï¿½Ä£Ê½ï¿½Ø±ï¿½ ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
 	if (Npc[nEnemyIdx].m_Kind==kind_player && Npc[nEnemyIdx].m_FightMode==0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
 		nEnemyIdx=0;
 	}
-//¿Ö¾å×´Ì¬ ²»ÄÜ¹¥»÷ÈËÁË
+//ï¿½Ö¾ï¿½×´Ì¬ ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if  (Npc[m_nIndex].m_randmove.nTime>0)
 	{
 		Npc[m_nIndex].m_nPeopleIdx = 0;
@@ -5062,34 +5062,34 @@ void	KNpcAI::ProcessAIType06()
 		return;
 	}
 
-	// ÊÇ·ñÊÜµ½¹¥»÷£¬·ñ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß
+	// ï¿½Ç·ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½
 	if (nEnemyIdx <= 0)
 	{
-		// pAIParam[0]:Ñ²Âß¸ÅÂÊ
+		// pAIParam[0]:Ñ²ï¿½ß¸ï¿½ï¿½ï¿½
 		if (pAIParam[0] > 0 && g_RandPercent(pAIParam[0]))
-		{	// Ñ²Âß
+		{	// Ñ²ï¿½ï¿½
 			CommonAction();
 		}
 		return;
 	}
 
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 	if  (Npc[m_nIndex].m_CurrentLifeMax<=0)
 		Npc[m_nIndex].m_CurrentLifeMax = 100;
-	// ¼ì²âÊ£ÓàÉúÃüÊÇ·ñ·ûºÏÌõ¼þ£¬ÉúÃüÌ«ÉÙÒ»¶¨¸ÅÂÊÊ¹ÓÃ¹¥»÷¼¼ÄÜ»òÌÓÅÜ
+	// ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Npc[m_nIndex].m_CurrentLife * 100 / Npc[m_nIndex].m_CurrentLifeMax < pAIParam[1])
 	{
-		if (g_RandPercent(pAIParam[2]))	// ÊÇ·ñÊ¹ÓÃ¹¥»÷¼¼ÄÜ»òÌÓÅÜ
+		if (g_RandPercent(pAIParam[2]))	// ï¿½Ç·ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			if (g_RandPercent(pAIParam[3]))	// Ê¹ÓÃ¹¥»÷¼¼ÄÜ
+			if (g_RandPercent(pAIParam[3]))	// Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				Npc[m_nIndex].SetActiveSkill(1);
-				FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+				FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 				return;
 			}
-			else	// ÌÓÅÜ
+			else	// ï¿½ï¿½ï¿½ï¿½
 			{
 				Flee(nEnemyIdx);
 				return;
@@ -5097,14 +5097,14 @@ void	KNpcAI::ProcessAIType06()
 		}
 	}
 
-	// Èç¹ûµÐÈËÔÚËùÓÐ¼¼ÄÜ¹¥»÷·¶Î§Ö®Íâ£¬Ò»¶¨¸ÅÂÊÑ¡Ôñ´ý»ú/Ñ²Âß/ÏòµÐÈË¿¿½ü
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½/Ñ²ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 	if (KNpcSet::GetDistanceSquare(m_nIndex, nEnemyIdx) > pAIParam[MAX_AI_PARAM - 1])
 	{
 		int		nRand;
 		nRand = g_Random(100);
-		if (nRand < pAIParam[7])	// ´ý»ú
+		if (nRand < pAIParam[7])	// ï¿½ï¿½ï¿½ï¿½
 			return;
-		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²Âß
+		if (nRand < pAIParam[7] + pAIParam[8])	// Ñ²ï¿½ï¿½
 		{
 			CommonAction();
 			return;
@@ -5116,11 +5116,11 @@ void	KNpcAI::ProcessAIType06()
 			CommonAction();
 			return;
 		}
-		FollowAttack(nEnemyIdx);	// ÏòµÐÈË¿¿½ü
+		FollowAttack(nEnemyIdx);	// ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½
 		return;
 	}
 
-	// µÐÈËÔÚ×î´ó¼¼ÄÜ¹¥»÷·¶Î§Ö®ÄÚ£¬Ñ¡ÔñÒ»ÖÖ¼¼ÄÜ¹¥»÷
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ö®ï¿½Ú£ï¿½Ñ¡ï¿½ï¿½Ò»ï¿½Ö¼ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 	int		nRand;
 	nRand = g_Random(100);
 	if (nRand < pAIParam[4])
@@ -5147,7 +5147,7 @@ void	KNpcAI::ProcessAIType06()
 			return;
 		}
 	}
-	else	// ´ý»ú
+	else	// ï¿½ï¿½ï¿½ï¿½
 	{
 		return;
 	}
@@ -5155,11 +5155,11 @@ void	KNpcAI::ProcessAIType06()
 }
 
 /*
-// Ò»°ãÖ÷¶¯ÐÍ
+// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType1()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
-	// ÊÇ·ñÒÑ³¬¹ý»î¶¯°ë¾¶
+	// ï¿½Ç·ï¿½ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ë¾¶
 	if (KeepActiveRange())
 		return;
 
@@ -5237,7 +5237,7 @@ void KNpcAI::ProcessAIType1()
 */
 
 /*
-// Ò»°ã±»¶¯ÐÍ
+// Ò»ï¿½ã±»ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType2()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5311,7 +5311,7 @@ void KNpcAI::ProcessAIType2()
 */
 
 /*
-// Ò»°ãÌÓÅÜÐÍ
+// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType3()
 {
 	int* pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5393,7 +5393,7 @@ void KNpcAI::ProcessAIType3()
 */
 
 /*
-// ÌÓÅÜ¼ÓÇ¿ÐÍ
+// ï¿½ï¿½ï¿½Ü¼ï¿½Ç¿ï¿½ï¿½
 void KNpcAI::ProcessAIType4()
 {
 	int*	pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5453,7 +5453,7 @@ void KNpcAI::ProcessAIType4()
 */
 
 /*
-//	ÈË¶à¾ÍÅÜÐÍ
+//	ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType5()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5505,7 +5505,7 @@ void KNpcAI::ProcessAIType5()
 */
 
 /*
-//	³ÉÈº½á¶ÓÐÍ
+//	ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType6()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5556,7 +5556,7 @@ void KNpcAI::ProcessAIType6()
 */
 
 /*
-// °¤´ò¾Û¶ÑÐÍ
+// ï¿½ï¿½ï¿½ï¿½Û¶ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType7()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5613,7 +5613,7 @@ void KNpcAI::ProcessAIType7()
 */
 
 /*
-//	Ö÷¶¯ËÍËÀÐÍ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType8()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5665,7 +5665,7 @@ void KNpcAI::ProcessAIType8()
 */
 
 /*
-//	Ô½Õ½Ô½ÓÂÐÍ
+//	Ô½Õ½Ô½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType9()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;
@@ -5712,7 +5712,7 @@ void KNpcAI::ProcessAIType9()
 */
 
 /*
-//	ÌÓÅÜ²»µôÐÍ
+//	ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcAI::ProcessAIType10()
 {
 	int *pAIParam = Npc[m_nIndex].m_AiParam;

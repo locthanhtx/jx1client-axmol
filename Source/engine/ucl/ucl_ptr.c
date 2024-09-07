@@ -68,7 +68,7 @@ __ucl_align_gap(const ucl_voidp ptr, ucl_uint size)
     n = (((p + s) / size) * size) - p;
 #endif
 
-    assert((int32_t)n >= 0);
+    assert((int)n >= 0);
     assert(n <= s);
 
     return (unsigned)n;

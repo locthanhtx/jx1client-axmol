@@ -46,7 +46,7 @@ KuiTongInfo::~KuiTongInfo()
 }
 
 //����ȷ��������
-KuiTongInfo * KuiTongInfo::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiTongInfo* KuiTongInfo::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiTongInfo * popLayer = KuiTongInfo::create();
 	popLayer->addDialogData();

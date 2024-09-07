@@ -15,17 +15,17 @@ extern KLuaScript g_ScriptSet[MAX_SCRIPT_IN_SET];
 /*
 class KSortScriptNode
 {
-	DWORD m_dwScriptIndex;
-	DWORD m_dwScriptID;
+	unsigned long m_dwScriptIndex;
+	unsigned long m_dwScriptID;
 public:
 
 
 
-	DWORD GetScriptIndex(){return m_dwScriptIndex;};
-	DWORD GetScriptID(){return m_dwScriptID;};
+	unsigned long GetScriptIndex(){return m_dwScriptIndex;};
+	unsigned long GetScriptID(){return m_dwScriptID;};
 
-	void SetScriptIndex(DWORD dwScriptIndex){m_dwScriptIndex = dwScriptIndex;};
-	void SetScriptID(DWORD dwScriptID){m_dwScriptID = dwScriptID;};
+	void SetScriptIndex(unsigned long dwScriptIndex){m_dwScriptIndex = dwScriptIndex;};
+	void SetScriptID(unsigned long dwScriptID){m_dwScriptID = dwScriptID;};
 	const KScript * GetScript()
 	{
 		if (m_dwScriptIndex >= 0 && m_dwScriptIndex <MAX_SCRIPT_IN_SET)
@@ -38,8 +38,8 @@ public:
 typedef	BinSTree<KSortScriptNode> KScriptBinTree;
 extern KScriptBinTree g_ScriptBinTree;
 */
-extern unsigned int g_IniScriptEngine(char * nScriptDir,BOOL nIsSer=TRUE,BOOL nIsClear=TRUE);
-extern const KScript * g_GetScript(DWORD dwScriptId);//
+extern unsigned int g_IniScriptEngine(const char* nScriptDir, int nIsSer = TRUE, int nIsClear = TRUE);
+extern const KScript * g_GetScript(unsigned long dwScriptId);//
 extern const KScript * g_GetScript(const char * szRelativeScriptFile);
 extern int ReLoadScript(const char * szRelativePathScript);
 extern unsigned int  ReLoadAllScript();

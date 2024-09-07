@@ -10,7 +10,7 @@ public:
     KScriptCache();
     ~KScriptCache();
 
-	virtual BOOL LoadNode(KCacheNode* lpNode);
+	virtual int LoadNode(KCacheNode* lpNode);
 	virtual void FreeNode(KCacheNode* lpNode);
 };
 

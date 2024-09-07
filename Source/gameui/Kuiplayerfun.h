@@ -61,14 +61,14 @@ struct KChannelResourceInfo
 	char cShortTitle[MAX_CHANNELRESOURCE][32];
 	KRColor uTextColor;
 	KRColor uTextBorderColor;
-	WORD nMenuPicIndex;
-	WORD nMenuPicHeight;
+	unsigned short nMenuPicIndex;
+	unsigned short nMenuPicHeight;
 	char cMenuText[32];
-	WORD nMenuDeactivatePicIndex;
-	WORD nMenuDeactivatePicHeight;
+	unsigned short nMenuDeactivatePicIndex;
+	unsigned short nMenuDeactivatePicHeight;
 	char cMenuDeactivateText[32];
 	KRColor uMenuBkColor;
-	WORD nTextPicIndex;
+	unsigned short nTextPicIndex;
 	char cFormatName[32];	        //����Ƶ������
 	int nNeverClose;
 	char szSoundFileName[80];
@@ -79,7 +79,7 @@ struct KChannelResourceInfo
 
 struct KChannelActivateInfo
 {
-	DWORD nChannelID;               //Ƶ��ID
+	unsigned long nChannelID;               //Ƶ��ID
 	BYTE cost;
 	bool bSubscribe;
 	int ResourceIndex;	            //-1��ʾ����Դ
@@ -93,23 +93,23 @@ struct KMSN_ChannelInfo
 {
 	KRColor uTextColorSelf;
 	KRColor uTextBorderColorSelf;
-	WORD nSelfTextPicIndex;
+	unsigned short nSelfTextPicIndex;
 	KRColor uTextBKColorSelf;
 
 	KRColor uTextFriendColor;
 	KRColor uTextBorderFriendColor;
-	WORD nFriendMenuPicIndex;
-	WORD nFriendMenuPicHeight;
+	unsigned short nFriendMenuPicIndex;
+	unsigned short nFriendMenuPicHeight;
 	KRColor uFriendMenuBkColor;
-	WORD nFriendTextPicIndex;
+	unsigned short nFriendTextPicIndex;
 	char szFriendSoundFileName[80];
 
 	KRColor uTextColorUnknown;
 	KRColor uTextBorderColorUnknown;
-	WORD nStrangerMenuPicIndex;
-	WORD nStrangerMenuPicHeight;
+	unsigned short nStrangerMenuPicIndex;
+	unsigned short nStrangerMenuPicHeight;
 	KRColor uStrangerMenuBkColor;
-	WORD nStrangerTextPicIndex;
+	unsigned short nStrangerTextPicIndex;
 };
 struct KPlayer_Chat_Tab
 {
@@ -139,23 +139,23 @@ public:
 	void	QueryAllChannel();
 	void	ReplaceChannelName(char* szDest, size_t nDestSize, char* szSrc);
 	int	    ReleaseActivateChannelAll();
-	void	OpenChannel(char* channelName, DWORD nChannelID, BYTE cost);
-	int	    PushChannelData(DWORD dwID, const char* Buffer, int nLen);
-	int	    GetChannelData(DWORD& dwID, BYTE& cost, char*& Buffer, int& nLen,int& nIiemDwIdx);
-	int   	PopChannelData(DWORD dwID);
+	void	OpenChannel(char* channelName, unsigned long nChannelID, BYTE cost);
+	int	    PushChannelData(unsigned long dwID, const char* Buffer, int nLen);
+	int	    GetChannelData(unsigned long& dwID, BYTE& cost, char*& Buffer, int& nLen,int& nIiemDwIdx);
+	int   	PopChannelData(unsigned long dwID);
 	void    _removeDelegate(bool isThis);
-	DWORD   GetChannelCount(); // ȡ��Ƶ��������
-	int	    GetChannelIndex(DWORD dwID);
+	unsigned long   GetChannelCount(); // ȡ��Ƶ��������
+	int	    GetChannelIndex(unsigned long dwID);
 	int	    GetChannelIndex(char* channelName);
 	bool    IsChannelType(int nChannelIndex, SelfChannel type);
 	char*   GetChannelTitle(int nChannelIndex);
-	DWORD   GetChannelID(int nChannelIndex);
+	unsigned long   GetChannelID(int nChannelIndex);
 	int     GetChannelResourceIndex(int nChannelIndex);
 	int     CheckChannel(int nChannelIndex, bool b);
 	bool    GetChannelSubscribe(int nChannelIndex);
-	int		NewChannelMessageArrival(DWORD nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,DWORD nItemDwidx=0,char *scrSendName=NULL,int nPackage=-1);
-	void    ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned short nMsgLength,DWORD nItemDwidx,bool isClient=false);
-	int	    FindActivateChannelIndex(DWORD nChannelID);
+	int		NewChannelMessageArrival(unsigned long nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,unsigned long nItemDwidx=0,char *scrSendName=NULL,int nPackage=-1);
+	void    ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned short nMsgLength,unsigned long nItemDwidx,bool isClient=false);
+	int	    FindActivateChannelIndex(unsigned long nChannelID);
 
 	void    setCanMove(bool ver){__isCanMove =ver;};
 private:
@@ -252,11 +252,11 @@ private:
 	int	FindActivateChannelResourceIndex(char* cTitle);
 	int	FindChannelResourceIndex(char* cTitle);
 	int	FindActivateChannelIndexByKey(char* cKey);
-	BYTE FindActivateChannelCost(DWORD nChannelID);
+	BYTE FindActivateChannelCost(unsigned long nChannelID);
 	void SendQueryChannelID(int nChannelResourceIndex);
 	void SendChannelSubscribe(int nChannelIndex, bool b);
 	int	 AddActivateChannel(const KChannelActivateInfo& Item);	//��������Item��Index
-	int	 FindActivateChannelIndexById(DWORD nChannelID);
+	int	 FindActivateChannelIndexById(unsigned long nChannelID);
 	int	 FindActivateChannelIndex(char* cTitle);
 
 	void addchatmsg(char * typeName,char * sendName,char * contentt,ListView*listView,int nKind,int nColor=0,unsigned int nItemDwidx=0,char*scrSendName=NULL,int nPackage=0);

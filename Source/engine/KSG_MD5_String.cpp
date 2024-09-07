@@ -13,12 +13,12 @@
 #include "KSG_MD5_String.h"
 #include <string.h>
 
-int32_t KSG_StringToMD5String(char szDestMD5String[64], const char cszSrcString[])
+int KSG_StringToMD5String(char szDestMD5String[64], const char cszSrcString[])
 {
-    int32_t nResult = false;
+    int nResult = false;
     md5_state_t md5_state;
     unsigned char MD5Value[16];
-    int32_t nSrcStringLen = 0;
+    int nSrcStringLen = 0;
 
     if (!szDestMD5String)
         goto Exit0;

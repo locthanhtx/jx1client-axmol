@@ -42,10 +42,10 @@
 
 #pragma off (unreferenced);
 #if 0 && defined(WINVER)
-BOOL FAR PASCAL LibMain ( HANDLE hInstance, WORD wDataSegment,
-                          WORD wHeapSize, LPSTR lpszCmdLine )
+int FAR PASCAL LibMain ( HANDLE hInstance, unsigned short wDataSegment,
+                          unsigned short wHeapSize, char* lpszCmdLine )
 #else
-int32_t __far __pascal LibMain ( int32_t a, short b, short c, int32_t d )
+int __far __pascal LibMain ( int a, short b, short c, int d )
 #endif
 #pragma on (unreferenced);
 {

@@ -18,18 +18,18 @@ private:
 	struct KChunkHeader
 	{
 		KNode node;// node for link
-		int32_t block_num;// Block number
-		int32_t block_size;// Block size
+		int block_num;// Block number
+		int block_size;// Block size
 	};
 	struct KBlockHeader
 	{
 		void* next;// next block
-		int32_t size;// block size
-		int32_t magic;// header magic code
+		int size;// block size
+		int magic;// header magic code
 	};
 	struct KBlockTailer
 	{
-		int32_t magic;// tail magic code
+		int magic;// tail magic code
 	};
     enum
 	{
@@ -42,16 +42,16 @@ private:
     };
     KList m_chunks;
     void* m_blocks[NUM_BLOCK];
-    int32_t m_block_size[NUM_BLOCK];
-    void* NewChunk(int32_t block_size, int32_t block_num);
+    int m_block_size[NUM_BLOCK];
+    void* NewChunk(int block_size, int block_num);
     void FreeChunk(KChunkHeader *ch);
 	void InitBlock();
 	void CheckLeak();
 public:
     KMemManager();
     ~KMemManager();
-    void* Malloc(int32_t size);// ������ڴ棨���ó�ʼ����
-    void* Calloc(int32_t size);// ������ڴ棨�����ʼ����
+    void* Malloc(int size);// ������ڴ棨���ó�ʼ����
+    void* Calloc(int size);// ������ڴ棨�����ʼ����
     void Free(void* p);
 };
 extern  KMemManager g_MemManager;

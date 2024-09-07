@@ -32,7 +32,7 @@ KSubWorldSet::KSubWorldSet()
 
 ////////////////////////////////////��ͼִ�нű�//////////////////////////////////////
 
-BOOL KSubWorldSet::SubExecuteScriptA(char * ScriptFileName, char * szFunName, int nParam,char * szCanshu)
+int KSubWorldSet::SubExecuteScriptA(char * ScriptFileName, char * szFunName, int nParam,char * szCanshu)
 {//g_FileName2Id(ScriptFileName)
 	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
 	char nNewScriptName[128]={0};
@@ -41,7 +41,7 @@ BOOL KSubWorldSet::SubExecuteScriptA(char * ScriptFileName, char * szFunName, in
 	return SubExecuteScriptB(nNewScriptName, szFunName, nParam,szCanshu);
 }
 
-BOOL KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int nParam,char * szCanshu)
+int KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int nParam,char * szCanshu)
 {
 	KSubWorld nIndex;
 
@@ -98,7 +98,7 @@ BOOL KSubWorldSet::SubExecuteScriptB(char* dwScriptIdA,  char * szFunName, int n
 	return TRUE;
 }
 
-BOOL	KSubWorldSet::SubExecuteScript(DWORD dwScriptId, char * szFunName, char *  szParams,char * snParams,int inParams,int njb,int njxb )
+int	KSubWorldSet::SubExecuteScript(unsigned long dwScriptId, char * szFunName, char *  szParams,char * snParams,int inParams,int njb,int njxb )
 {
 	KSubWorld nIndex;
 	KNpc   m_Index;
@@ -159,10 +159,10 @@ BOOL	KSubWorldSet::SubExecuteScript(DWORD dwScriptId, char * szFunName, char *  
 	return TRUE;
 }
 
-BOOL	KSubWorldSet::SubExecuteScript(char * ScriptFileName, char * szFunName, char *  szParams,char *  snParams, int inParams,int njb,int njxb)
+int	KSubWorldSet::SubExecuteScript(char * ScriptFileName, char * szFunName, char *  szParams,char *  snParams, int inParams,int njb,int njxb)
 {
 	if (!ScriptFileName || !ScriptFileName[0] || !szFunName  || !szFunName[0]) return FALSE;
-	DWORD dwScriptId = g_CheckFileExist(ScriptFileName);
+	unsigned long dwScriptId = g_CheckFileExist(ScriptFileName);
 
 	KLuaScript * pScript = (KLuaScript* )g_GetScript(dwScriptId);
 	if (pScript==NULL)
@@ -175,11 +175,11 @@ BOOL	KSubWorldSet::SubExecuteScript(char * ScriptFileName, char * szFunName, cha
 	return SubExecuteScript(dwScriptId, szFunName, szParams,snParams,inParams,njb,njxb);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-int KSubWorldSet::SearchWorld(DWORD dwID)
+int KSubWorldSet::SearchWorld(unsigned long dwID)
 {
 	for (int i = 0; i < MAX_SUBWORLD; ++i)
 	{
-		if ((DWORD)SubWorld[i].m_SubWorldID == dwID)
+		if ((unsigned long)SubWorld[i].m_SubWorldID == dwID)
 			return i;
 	}
 	return -1;
@@ -190,14 +190,14 @@ int KSubWorldSet::SearchWorldRows(int dwID)
 //	for (int i = 0; i < MAX_SUBWORLD; ++i)
 //	{
 	if (dwID<MAX_SUBWORLD)
-		return (DWORD)SubWorld[dwID].m_SubWorldID;
+		return (unsigned long)SubWorld[dwID].m_SubWorldID;
 //	}
 	return -1;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 //static CLogFile gs_LogFile;
 /*
-BOOL KSubWorldSet::LoadSerMaps(LPSTR szFileName)
+int KSubWorldSet::LoadSerMaps(char* szFileName)
 {
    KIniFile IniFile;
    char szKeyName[32];
@@ -265,7 +265,7 @@ void KSubWorldSet::MessageLoop()
 	}
 }
 
-BOOL KSubWorldSet::SendMessage(int nSubWorldID, DWORD dwMsgType, int nParam1, int nParam2, int nParam3)
+int KSubWorldSet::SendMessage(int nSubWorldID, unsigned long dwMsgType, int nParam1, int nParam2, int nParam3)
 {
 	/*KWorldMsgNode *pNode = NULL;
 

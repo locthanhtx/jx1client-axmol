@@ -92,10 +92,10 @@ typedef union
     unsigned char   a_uchar;
     short           a_short;
     unsigned short  a_ushort;
-    int32_t             a_int;
-    uint32_t    a_uint;
-    int32_t            a_long;
-    uint32_t   a_ulong;
+    int             a_int;
+    unsigned int    a_uint;
+    int            a_long;
+    unsigned int   a_ulong;
     ucl_int         a_ucl_int;
     ucl_uint        a_ucl_uint;
     ucl_int32       a_ucl_int32;

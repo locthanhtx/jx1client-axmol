@@ -83,8 +83,8 @@ bool      nisgetinfo=false;
 #endif
 KPakList g_pcPakList;
 Kgetinidata _getinidata;
-BOOL g_bUISelIntelActiveWithServer = FALSE;//��ǰѡ����Ƿ���������˽���
-BOOL g_bUISpeakActiveWithServer = FALSE;
+int g_bUISelIntelActiveWithServer = FALSE;//��ǰѡ����Ƿ���������˽���
+int g_bUISpeakActiveWithServer = FALSE;
 int	 g_bUISelLastSelCount = 0;
 
 CGameClient *nAcclient;     //�ʺ�����

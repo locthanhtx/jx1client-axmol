@@ -19,20 +19,20 @@ class KMemStack
 {
 private:
 	PBYTE		m_pStack[MAX_CHUNK];
-	int32_t			m_nStackTop;
-	int32_t 		m_nStackEnd;
-	int32_t			m_nChunkTop;
-	int32_t			m_nChunkSize;
+	int			m_nStackTop;
+	int 		m_nStackEnd;
+	int			m_nChunkTop;
+	int			m_nChunkSize;
 public:
 	KMemStack();
 	~KMemStack();
-	void		Init(int32_t nChunkSize = 65536);
-	PVOID		Push(int32_t nSize);
-	void		Free(LPVOID pMem);
-	BOOL		AllocNewChunk();
+	void		Init(int nChunkSize = 65536);
+	PVOID		Push(int nSize);
+	void		Free(void* pMem);
+	int		AllocNewChunk();
 	void		FreeAllChunks();
-	int32_t			GetChunkSize();
-	int32_t			GetStackSize();
+	int			GetChunkSize();
+	int			GetStackSize();
 };
 //---------------------------------------------------------------------------
 #endif

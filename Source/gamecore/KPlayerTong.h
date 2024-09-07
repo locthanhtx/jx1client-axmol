@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTong.h
 // Date:	2003.08.12
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KPlayerTong Class
 //---------------------------------------------------------------------------
 
@@ -12,13 +12,13 @@
 
 struct AttAckInfo
 {
-	std::string m_szMapName; //µØÃû³ÆÍ¼
-	int 	m_idx;			 //Ë÷Òý
-	int 	m_mapidx;		 //±àºÅ
-	std::string	m_Tongmaster;//Õ¼Áì°ï»áÃû
-	std::string	m_Mastername;//³ÇÖ÷
-	int     m_levle;		 //³ÇÊÐµÈ¼¶
-	int     m_shushou;		 //³ÇÊÐË°ÊÕ	
+	std::string m_szMapName; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
+	int 	m_idx;			 //ï¿½ï¿½ï¿½ï¿½
+	int 	m_mapidx;		 //ï¿½ï¿½ï¿½
+	std::string	m_Tongmaster;//Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::string	m_Mastername;//ï¿½ï¿½ï¿½ï¿½
+	int     m_levle;		 //ï¿½ï¿½ï¿½ÐµÈ¼ï¿½
+	int     m_shushou;		 //ï¿½ï¿½ï¿½ï¿½Ë°ï¿½ï¿½
 };
 
 
@@ -28,116 +28,116 @@ class KPlayerTong
 private:
 	int			m_nPlayerIndex;
 	int			m_nFigure;		//Ö°Î»
-	DWORD		m_dwTongNameID; //°ï»áÃû
+	unsigned long		m_dwTongNameID; //ï¿½ï¿½ï¿½ï¿½ï¿½
 	char		m_szTitle[32];
-	int			m_nApplyTo;     //ÊÇ·ñÉêÇëÁË¼ÓÈë°ï»á ÉÏÏßÏÂÏß¹éÁã ²»´æµµ!
+	int			m_nApplyTo;     //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æµµ!
 
 public:
-	int			m_nFlag;           //ÊÇ·ñÈë°ïÁË
-	int         m_nLevel;          //°ï»áµÈ¼¶
+	int			m_nFlag;           //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int         m_nLevel;          //ï¿½ï¿½ï¿½È¼ï¿½
 	int			m_nCamp;
 	int         m_AttackState;
 	int         m_AttackCamp;
-	int         m_AttackTime;				        
-	int         m_nDeathCount;	   //ËÀÍöµÄ´ÎÊý
-	int         m_nDDeathCount;	   //ËÀÍöµÄ´ÎÊý
+	int         m_AttackTime;
+	int         m_nDeathCount;	   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+	int         m_nDDeathCount;	   //ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
 
-	int         m_nAttackNum;	                            // ²ÎÕ½³¡Êý
-	int         m_nWinNum;								// Ê¤Àû³¡Êý
+	int         m_nAttackNum;	                            // ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½
+	int         m_nWinNum;								// Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int         m_nLoseNum;
 
-	char        m_AttackName[32];  //¶ÔÕ½µÄ°ï»á
-	char		m_BMasterName[32]; //°ïÖ÷Ãû
-	//char		m_szMasterName[32];//°ïÖ÷Ãû
-	char		m_szName[32];      //°ï»áÃû
-	DWORD		m_nMoney;
+	char        m_AttackName[32];  //ï¿½ï¿½Õ½ï¿½Ä°ï¿½ï¿½
+	char		m_BMasterName[32]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//char		m_szMasterName[32];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	char		m_szName[32];      //ï¿½ï¿½ï¿½ï¿½ï¿½
+	unsigned long		m_nMoney;
 	int         ActiveLoop;
-	int         m_Mapid;           //°ï»áµØÍ¼µÄ±àºÅ
+	int         m_Mapid;           //ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä±ï¿½ï¿½
 	int         m_CurRenShu;
 private:
-	BOOL		CheckAcceptAddApplyCondition();	// ÅÐ¶ÏÊÇ·ñ¿ÉÒÔ×ª·¢±ðÈËµÄ¼ÓÈë°ï»áÉêÇë
+	int		CheckAcceptAddApplyCondition();	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int         CheckAcceptLevel(char *nTongName,int nPlayerLevel);
 
 public:
-	// ³õÊ¼»¯
+	// ï¿½ï¿½Ê¼ï¿½ï¿½
 	void		Init(int nPlayerIdx);
 	void		Clear();
 	void		GetTongName(char *lpszGetName);
-	DWORD		GetTongNameID();
-	void		SetTongNameID(DWORD dwID) { m_dwTongNameID = dwID; };
-	int			CheckIn() {return m_nFlag;};      //ÊÇ·ñ¼ÓÈë°ïÅÉ
+	unsigned long		GetTongNameID();
+	void		SetTongNameID(unsigned long dwID) { m_dwTongNameID = dwID; };
+	int			CheckIn() {return m_nFlag;};      //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int			GetCamp() {return m_nCamp;};
-	int			GetFigure() {return m_nFigure;};  //»ñÈ¡Ö°Î»
+	int			GetFigure() {return m_nFigure;};  //ï¿½ï¿½È¡Ö°Î»
 	void	    Active();
 	//AttAckInfo  AttAck[7];
 	typedef std::map<INT, AttAckInfo> _AttAckInfo;                 //SkillId,Echance
 	_AttAckInfo nAttAckInfo;
 
-	// ÊÇ·ñÓÐÈ¨Á¦²éÑ¯¶Ó³¤ÐÅÏ¢
-	BOOL		CanGetManagerInfo(DWORD dwTongNameID);
-	// ÊÇ·ñÓÐÈ¨Á¦²éÑ¯°ïÖÚÐÅÏ¢
-	BOOL		CanGetMemberInfo(DWORD dwTongNameID);
+	// ï¿½Ç·ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Ó³ï¿½ï¿½ï¿½Ï¢
+	int		CanGetManagerInfo(unsigned long dwTongNameID);
+	// ï¿½Ç·ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	int		CanGetMemberInfo(unsigned long dwTongNameID);
 
 #ifndef _SERVER
 
 	void        SetTongLevel(char *lpszTongName,int nLevel);
 	void        SetTongMap(char *lpszTongName,int nMap);
-	void		SetTongCredit(char *lpszTongName,int nCredit);        //½¨Éè×Ê½ð
-	void		SetTongMasterTitle(char *lpszTongName,char *nTitle);  //°ïÖ÷³ÆºÅ
-	void		SetTongDirectorTitle(char *lpszTongName,char *nTitle);//³¤ÀÏ³ÆºÅ
-	void		SetTongManagerTitle(char *lpszTongName,char *nTitle); //¶Ó³¤³ÆºÅ
-	void		SetTongNormalTitle(char *lpszTongName,char *nTitle);  //°ïÖÚ³ÆºÅ
+	void		SetTongCredit(char *lpszTongName,int nCredit);        //ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½
+	void		SetTongMasterTitle(char *lpszTongName,char *nTitle);  //ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½
+	void		SetTongDirectorTitle(char *lpszTongName,char *nTitle);//ï¿½ï¿½ï¿½Ï³Æºï¿½
+	void		SetTongManagerTitle(char *lpszTongName,char *nTitle); //ï¿½Ó³ï¿½ï¿½Æºï¿½
+	void		SetTongNormalTitle(char *lpszTongName,char *nTitle);  //ï¿½ï¿½ï¿½Ú³Æºï¿½
 
 	void        SetTong(char *lpszTongName,int nMap);
 
-	// ·¢Æð°ï»áÐûÕ½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½
 	void        SendAttack(char *lpszTongName);
-	// ÉêÇë´´½¨°ï»á
-	BOOL		ApplyCreateTong(int nCamp, char *lpszTongName);
-	// µÃµ½·þÎñÆ÷Í¨Öª´´½¨°ï»á
+	// ï¿½ï¿½ï¿½ë´´ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		ApplyCreateTong(int nCamp, char *lpszTongName);
+	// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void		Create(TONG_CREATE_SYNC *psCreate);
-	// ÉêÇë¼ÓÈë°ï»á
-	BOOL		ApplyAddTong(DWORD dwNpcID);
-	// ÊÇ·ñ½ÓÊÜ³ÉÔ± bFlag == TRUE ½ÓÊÜ == FALSE ²»½ÓÊÜ
-	void		AcceptMember(int nPlayerIdx, DWORD dwNameID, BOOL bFlag);
-	// ¼ÓÈë°ï»á£¬³ÉÎªÆÕÍ¨°ïÖÚ
-	BOOL		AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *lpszMaster);
-	// ÉêÇëÈÎÃü
-	BOOL		ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int nNewPos, char *lpszName);
-	// ÉêÇëÌßÈË
-	BOOL		ApplyKick(int nCurFigure, int nCurPos, char *lpszName);
-	// ÉêÇë´«Î»
-	BOOL		ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName);
-	// ÉêÇëÀë¿ª°ï»á
-	BOOL		ApplyLeave();
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		ApplyAddTong(unsigned long dwNpcID);
+	// ï¿½Ç·ï¿½ï¿½ï¿½Ü³ï¿½Ô± bFlag == TRUE ï¿½ï¿½ï¿½ï¿½ == FALSE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		AcceptMember(int nPlayerIdx, unsigned long dwNameID, int bFlag);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½á£¬ï¿½ï¿½Îªï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
+	int		AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *lpszMaster);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int nNewPos, char *lpszName);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		ApplyKick(int nCurFigure, int nCurPos, char *lpszName);
+	// ï¿½ï¿½ï¿½ë´«Î»
+	int		ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½
+	int		ApplyLeave();
 
-	BOOL		ApplySaveMoney(DWORD nMoney);
+	int		ApplySaveMoney(unsigned long nMoney);
 
-	BOOL		ApplyGetMoney(DWORD nMoney);
+	int		ApplyGetMoney(unsigned long nMoney);
 
-	BOOL		ApplySndMoney(DWORD nMoney);
+	int		ApplySndMoney(unsigned long nMoney);
 
 	void        SetAttAckInfo(BYTE *Msg);
 
-	
 
 
-	/* ÉêÇë»ñµÃ°ï»áÐÅÏ¢		 const char * pMsg
-	if nInfoID == enumTONG_APPLY_INFO_ID_SELF ²»ÓÃ²ÎÊý
-	if nInfoID == enumTONG_APPLY_INFO_ID_MASTER nParam1 °ï»áÃûid
-	if nInfoID == enumTONG_APPLY_INFO_ID_DIRECTOR nParam1 °ï»áÃûid
-	if nInfoID == enumTONG_APPLY_INFO_ID_MANAGER nParam1 °ï»áÃûid nParam2 ´Ó¿ªÊ¼ÓÐÐ§µÚ¼¸¸ö nParam3 Á¬Ðø¼¸¸ö
-	if nInfoID == enumTONG_APPLY_INFO_ID_MEMBER nParam1 °ï»áÃûid nParam2 ´Ó¿ªÊ¼ÓÐÐ§µÚ¼¸¸ö nParam3 Á¬Ðø¼¸¸ö
-	if nInfoID == enumTONG_APPLY_INFO_ID_ONE lpszName ÈËÃû
+
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ï¢		 const char * pMsg
+	if nInfoID == enumTONG_APPLY_INFO_ID_SELF ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
+	if nInfoID == enumTONG_APPLY_INFO_ID_MASTER nParam1 ï¿½ï¿½ï¿½ï¿½ï¿½id
+	if nInfoID == enumTONG_APPLY_INFO_ID_DIRECTOR nParam1 ï¿½ï¿½ï¿½ï¿½ï¿½id
+	if nInfoID == enumTONG_APPLY_INFO_ID_MANAGER nParam1 ï¿½ï¿½ï¿½ï¿½ï¿½id nParam2 ï¿½Ó¿ï¿½Ê¼ï¿½ï¿½Ð§ï¿½Ú¼ï¿½ï¿½ï¿½ nParam3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if nInfoID == enumTONG_APPLY_INFO_ID_MEMBER nParam1 ï¿½ï¿½ï¿½ï¿½ï¿½id nParam2 ï¿½Ó¿ï¿½Ê¼ï¿½ï¿½Ð§ï¿½Ú¼ï¿½ï¿½ï¿½ nParam3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if nInfoID == enumTONG_APPLY_INFO_ID_ONE lpszName ï¿½ï¿½ï¿½ï¿½
 	if nInfoID == enumTONG_APPLY_INFO_ID_TONG_HEAD nParam1 NpcIndex
 	*/
-	BOOL		ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, char *lpszName = NULL);
-	// Éè¶¨×ÔÉí°ï»áÐÅÏ¢
+	int		ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, char *lpszName = NULL);
+	// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	void		SetSelfInfo(TONG_SELF_INFO_SYNC *pInfo);
-	
+
 	void        OpenCreateInterface();
 
-	void		ChangeMoney(DWORD dwMoney) {m_nMoney = dwMoney;};
+	void		ChangeMoney(unsigned long dwMoney) {m_nMoney = dwMoney;};
 
 	void        SetAttAckCityInfo(BYTE *Msg);
 #endif

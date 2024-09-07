@@ -1,5 +1,5 @@
 // ***************************************************************************************
-// ³¡¾°µØÍ¼£¨¿Í»§¶Ë°æ£©
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë°æ£©
 // Copyright : Kingsoft 2002
 // Author    : wooy(wu yue)
 // CreateTime: 2002-11-11
@@ -25,35 +25,35 @@
 
 struct KUiImageRef : public KRUImage
 {
-	int			nNumFrames;		//Í¼ÐÎ¶ÔÏóµÄÍ¼ÐÎÖ¡ÊýÄ¿
-	int			nInterval;		//Ö¡¼ä¸ô
-	int			nFlipTime;		//µ±Ç°Ö¡ÇÐ»»³öÀ´µÄÊ±¼ä
-	int         nDirs;          //×Ü·½ÏòÊý
+	int			nNumFrames;		//Í¼ï¿½Î¶ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ö¡ï¿½ï¿½Ä¿
+	int			nInterval;		//Ö¡ï¿½ï¿½ï¿½
+	int			nFlipTime;		//ï¿½ï¿½Ç°Ö¡ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	int         nDirs;          //ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 
-// »·¾³¹âÊý×éË÷Òý
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /*
-×Ó£º£¨23£º00£­1£º00£©RGB1
-³ó£º£¨1£º00£­3£º00£©RGB1£­RGB2
-Òú£º£¨3£º00£­5£º00£©RGB2
-Ã®£º£¨5£º00£­7£º00£©RGB2£­RGB3
-³½£º£¨7£º00£­9£º00£©RGB3£­RGB4
-ËÈ£º£¨9£º00£­11£º00£©RGB4£­RGB5
-Îç£º£¨11£º00£­13£º00£©RGB5
-Î´£º£¨13£º00£­15£º00£©RGB5£­RGB4
-Éê£º£¨15£º00£­17£º00£©RGB4£­RGB6
-ÓÏ£º£¨17£º00£­19£º00£©RGB6£­RGB7
-Ðç£º£¨19£º00£­21£º00£©RGB7£­RGB1
-º¥£º£¨21£º00£­23£º00£©RGB1
+ï¿½Ó£ï¿½ï¿½ï¿½23ï¿½ï¿½00ï¿½ï¿½1ï¿½ï¿½00ï¿½ï¿½RGB1
+ï¿½ó£º£ï¿½1ï¿½ï¿½00ï¿½ï¿½3ï¿½ï¿½00ï¿½ï¿½RGB1ï¿½ï¿½RGB2
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½00ï¿½ï¿½5ï¿½ï¿½00ï¿½ï¿½RGB2
+Ã®ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½00ï¿½ï¿½7ï¿½ï¿½00ï¿½ï¿½RGB2ï¿½ï¿½RGB3
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½00ï¿½ï¿½9ï¿½ï¿½00ï¿½ï¿½RGB3ï¿½ï¿½RGB4
+ï¿½È£ï¿½ï¿½ï¿½9ï¿½ï¿½00ï¿½ï¿½11ï¿½ï¿½00ï¿½ï¿½RGB4ï¿½ï¿½RGB5
+ï¿½ç£ºï¿½ï¿½11ï¿½ï¿½00ï¿½ï¿½13ï¿½ï¿½00ï¿½ï¿½RGB5
+Î´ï¿½ï¿½ï¿½ï¿½13ï¿½ï¿½00ï¿½ï¿½15ï¿½ï¿½00ï¿½ï¿½RGB5ï¿½ï¿½RGB4
+ï¿½ê£ºï¿½ï¿½15ï¿½ï¿½00ï¿½ï¿½17ï¿½ï¿½00ï¿½ï¿½RGB4ï¿½ï¿½RGB6
+ï¿½Ï£ï¿½ï¿½ï¿½17ï¿½ï¿½00ï¿½ï¿½19ï¿½ï¿½00ï¿½ï¿½RGB6ï¿½ï¿½RGB7
+ï¿½ç£ºï¿½ï¿½19ï¿½ï¿½00ï¿½ï¿½21ï¿½ï¿½00ï¿½ï¿½RGB7ï¿½ï¿½RGB1
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½21ï¿½ï¿½00ï¿½ï¿½23ï¿½ï¿½00ï¿½ï¿½RGB1
 */
-#define ENVLIGHT_MIDNIGHT	0	//RGB1£ºÎçÒ¹µÄºÚ°µ
-#define ENVLIGHT_DAWN		1	//RGB2£ºÌìÁÁÇ°ÓÐÐ©·¢À¶µÄºÚ°µ
-#define ENVLIGHT_MORNING	2	//RGB3£ºÌ«Ñô¸Õ³öÀ´Ê±µÄÁÁ¶È
-#define ENVLIGHT_FORENOON	3	//RGB4£ºµØÍ¼µÄÕý³£ÁÁ¶È
-#define ENVLIGHT_NOON		4	//RGB5£ºÕýÎçµÄ¸ßÁÁ
-#define ENVLIGHT_DUSK		5	//RGB6£ºÌ«ÑôÂäÉ½µÄÍíÏ¼ÁÁ¶È
-#define ENVLIGHT_EVENING	6	//RGB7£º°øÍí»ÒÃÉÃÉµÄÁÁ¶È
+#define ENVLIGHT_MIDNIGHT	0	//RGB1ï¿½ï¿½ï¿½ï¿½Ò¹ï¿½ÄºÚ°ï¿½
+#define ENVLIGHT_DAWN		1	//RGB2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ÄºÚ°ï¿½
+#define ENVLIGHT_MORNING	2	//RGB3ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ENVLIGHT_FORENOON	3	//RGB4ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define ENVLIGHT_NOON		4	//RGB5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+#define ENVLIGHT_DUSK		5	//RGB6ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½
+#define ENVLIGHT_EVENING	6	//RGB7ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½
 
 #define MAX_BACKGROUND_IMAGE 3
 #define MAX_CLOUD_IMAGE		6
@@ -72,20 +72,20 @@ private:
 	KLColor m_cLight[7];
 public:
 	EnvironmentLight();
-	// ÉèÖÃµÚnIdx¸öÑÕÉ«
+	// ï¿½ï¿½ï¿½Ãµï¿½nIdxï¿½ï¿½ï¿½ï¿½É«
 	void SetLight(const KLColor &cLight, int nIdx);
-	// ÉèÖÃµÚnIdx¸öÑÕÉ«
+	// ï¿½ï¿½ï¿½Ãµï¿½nIdxï¿½ï¿½ï¿½ï¿½É«
 	void SetLight(BYTE r, BYTE g, BYTE b, int nIdx);
-	// ÉèÖÃËùÓÐ7¸öÑÕÉ«
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½ï¿½ï¿½É«
 	void SetLight(KLColor *pLight);
-	// È¡µÃ¾àÒ»Ìì¿ªÊ¼nMinutes·ÖÖÓÊ±µÄ»·¾³¹âÑÕÉ«
-	DWORD GetEnvironmentLight(int nMinutes);
+	// È¡ï¿½Ã¾ï¿½Ò»ï¿½ì¿ªÊ¼nMinutesï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+	unsigned long GetEnvironmentLight(int nMinutes);
 };
 
 //================================================================
-//	³¡¾°ÖÐÒ»¸öÇøÓò±»¼ÓÔØÍê±ÏºóµÄ»Øµ÷º¯ÊýµÄº¯ÊýÔ­ÐÍ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ò±»¼ï¿½ï¿½ï¿½ï¿½ï¿½Ïºï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½Ô­ï¿½ï¿½
 //================================================================
-//	²ÎÊý: nRegionH, nRegionV ·Ö±ðÎª¼ÓÔØÍê±ÏµÄÇøÓòµÄºáÏòÓë×ÝÏòË÷Òý
+//	ï¿½ï¿½ï¿½ï¿½: nRegionH, nRegionV ï¿½Ö±ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef void (*funScenePlaceRegionLoadedCallback)(int nRegionH, int nRegionV);
 
 //class KWeather;
@@ -120,7 +120,7 @@ typedef struct _KPrevLoadFileNameAndFrameAndFrame
 
 //##ModelId=3DB8F8B40128
 //##Documentation
-//## ³¡¾°µÄÒ»¸öµØÍ¼¡£
+//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 #ifdef WIN32
 class KScenePlaceC
 #else
@@ -130,8 +130,8 @@ class KScenePlaceC : protected CThread
   public:
 	//##ModelId=3DBE3B53008C
 	//##Documentation
-	//## ¹¹Ôìº¯Êý¡£
-	//## º¯ÊýÌåÒ»¶¨°üº¬´ËÓï¾äm_szPlaceRootPath[0] = 0
+	//## ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½m_szPlaceRootPath[0] = 0
 	KScenePlaceC();
 
 	//##ModelId=3DD17A770383
@@ -141,7 +141,7 @@ class KScenePlaceC : protected CThread
 
 	//##ModelId=3DCAA6A703DB
 	//##Documentation
-	//## ³õÊ¼»¯
+	//## ï¿½ï¿½Ê¼ï¿½ï¿½
 #ifndef WIN32
 	using CThread::Start;
 	void StartUp();
@@ -152,70 +152,70 @@ class KScenePlaceC : protected CThread
 
 	//##ModelId=3DCD58AC00BC
 	//##Documentation
-	//## ½áÊø¶ÔÏó¹¦ÄÜ¡£ÊÍ·Å¶ÔÏóµÄÈ«²¿Êý¾ÝÓë¶¯Ì¬¹¹ÔìµÄ×ÊÔ´¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½Í·Å¶ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¶¯Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½
 	void Terminate();
 
 	//##ModelId=3DCAA64C01DA
 	//##Documentation
-	//## ¸ü»»/¼ÓÔØÖ¸¶¨µÄ³¡¾°µØÍ¼¡£
+	//## ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 	bool OpenPlace(
 		//##Documentation
-		//## ³¡¾°µØÍ¼Ë÷Òý
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 		int nPlaceIndex);
 
 	//##ModelId=3DCAAE3703A6
 	//##Documentation
-	//## ¹Ø±Õ³¡¾°µØÍ¼¡£
+	//## ï¿½Ø±Õ³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 	void ClosePlace();
 
 	//##ModelId=3DCD7F0A0071
 	//##Documentation
-	//## »æÖÆ³¡¾°
+	//## ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½
 	void Paint();
 
 	BOOL GetMapNextMovePos();
-     
+
 	//##ModelId=3DBCE7B70358
 	//##Documentation
-	//## ÉèÖÃ³¡¾°µØÍ¼µÄ½¹µã
+	//## ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä½ï¿½ï¿½ï¿½
 	void SetFocusPosition(
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄx·ÖÁ¿
-		int nX, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½
+		int nX,
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄy·ÖÁ¿
-		int nY, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+		int nY,
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄz·ÖÁ¿
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½
 		int nZ,
 		bool isClearAll=false);
 
 	void GetFocusPosition(
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄx·ÖÁ¿
-		int& nX, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½
+		int& nX,
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄy·ÖÁ¿
-		int& nY, 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+		int& nY,
 		//##Documentation
-		//## ³¡¾°½¹µã×ø±êµÄz·ÖÁ¿
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½
 		int& nZ);
 
-//----¹ØÓÚ²»Á¥ÊôÓÚ³¡¾°µØÍ¼µÄ¶ÔÏóÓë³¡¾°¹ØÏµµÄ²Ù×÷----
+//----ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ë³¡ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ä²ï¿½ï¿½ï¿½----
 
 	//##ModelId=3DCAA6B90196
 	//##Documentation
-	//## Ìí¼ÓÔËÐÐÊ±¶ÔÏó(´æÔÚÓÚ³¡¾°ÖÐµ«ÊÇ²»Á¥ÊôÓÚ³¡¾°µØÍ¼µÄ¶ÔÏó)µ½³¡¾°ÖÐ¡£
-	//## ·µ»ØÌí¼Ó¶ÔÏóÌí¼Óµ½³¡¾°ÖÐ»ñµÃµÄ±ê¼Ç¡£Èç¹û·µ»Ø0Öµ±íÊ¾Ìí¼Ó¶ÔÏóÊ§°Ü¡£»òÕß¶ÔÏóÃ»ÓÐ²»ÔÚ³¡¾°ÂäÔÚ³¡¾°µ±Ç°µÄ´¦ÀíÇøÓòÖÐ£¬Ìí¼Ó²Ù×÷±»ºöÂÔ¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¶ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ÃµÄ±ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0Öµï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Ê§ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½Ã»ï¿½Ð²ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½
 	unsigned int AddObject(
 		//##Documentation
-		//## Òª¼ÓÈëµÄ¶ÔÏóÀàÊô¡£
-		unsigned int uGenre, 
+		//## Òªï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		unsigned int uGenre,
 		//##Documentation
-		//## Òª¼ÓÈëµÄ¶ÔÏóµÄid
-		int nId, 
+		//## Òªï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½id
+		int nId,
 		//##Documentation
-		//## ¼ÓÈëµÄÎ»ÖÃ×ø±ê¡£
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ê¡£
 		int x, int y, int z,
 		int eLayerParam = IPOT_RL_OBJECT);
 
@@ -225,100 +225,100 @@ class KScenePlaceC : protected CThread
 
 	//##ModelId=3DCAA7000085
 	//##Documentation
-	//## ÒÆ¶¯´æÔÚÓÚ³¡¾°ÖÐµ«ÊÇ²»Á¥ÊôÓÚ³¡¾°µØÍ¼µÄ¶ÔÏóÔÚ³¡¾°ÖÐµÄÎ»ÖÃ¡£
-	//## Èç¹û¶ÔÏóÒÆ¶¯³É¹¦Ôò·µ»Ø¶ÔÏóÔÚ³¡¾°µØÍ¼ÖÐµÄ±ê¼ÇÊýÖµ£¬Îª·Ç0Öµ£»Èç¹ûÊ§°ÜÔò·µ»Ø0£»Èç¹û¶ÔÏóÒÆ³öÁË³¡¾°µ±Ç°´¦ÀíµÄÇøÓòÒ²·µ»Ø0¡£
+	//## ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½Ã¡ï¿½
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½É¹ï¿½ï¿½ò·µ»Ø¶ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ÐµÄ±ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Îªï¿½ï¿½0Öµï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ò·µ»ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
 	unsigned int MoveObject(
 		//##Documentation
-		//## ÒªÒÆ¶¯µÄ¶ÔÏóÀàÊô¡£
-		unsigned int uGenre, 
+		//## Òªï¿½Æ¶ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		unsigned int uGenre,
 		//##Documentation
-		//## ÒªÒÆ¶¯µÄ¶ÔÏóµÄid
-		int nId, 
+		//## Òªï¿½Æ¶ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½id
+		int nId,
 		//##Documentation
-		//## ¶ÔÏóµÄÄ¿µÄ×ø±ê¡£
-		int x, int y, int z, 		 
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ê¡£
+		int x, int y, int z,
 		//##Documentation
-		//## ÒÆ¶¯Ç°¶ÔÏóÔÚ³¡¾°ÖÐµÄ±ê¼ÇÊýÖµ¡£Èç¹û¶ÔÏóÊÇÐÂ¼ÓÈë£¬Ôò´«Èë0Öµ¡£
+		//## ï¿½Æ¶ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ÐµÄ±ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½0Öµï¿½ï¿½
 		unsigned int& uRtoid,
 		int eLayerParam = IPOT_RL_OBJECT);
 
 	//##ModelId=3DCAA70603E3
 	//##Documentation
-	//## È¥³ý´æÔÚÓÚ³¡¾°ÖÐµ«ÊÇ²»Á¥ÊôÓÚ³¡¾°µØÍ¼µÄ¶ÔÏó
+	//## È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¶ï¿½ï¿½ï¿½
 	void RemoveObject(
 		//##Documentation
-		//## ÒªÈ¥³ýµÄ¶ÔÏóÀàÊô¡£
-		unsigned int uGenre, 
+		//## ÒªÈ¥ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		unsigned int uGenre,
 		//##Documentation
-		//## ÒªÈ¥³ýµÄ¶ÔÏóµÄid
-		int nId, 
+		//## ÒªÈ¥ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½id
+		int nId,
 		//##Documentation
-		//## ¶ÔÏó±»Çå³ýÇ°ÔÚ³¡¾°ÖÐµÄ±ê¼ÇÊýÖµ¡£
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ÐµÄ±ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
 		unsigned int& uRtoid);
 
 	void Breathe();
-	
+
 	void SetRepresentAreaSize(int nWidth, int nHeight);
 
 	void ProjectDistToSpaceDist(int& nXDistance, int& nYDistance);
 
-	//ÊÓÍ¼/»æÍ¼Éè±¸×ø±ê ×ª»¯Îª¿Õ¼ä×ø±ê
+	//ï¿½ï¿½Í¼/ï¿½ï¿½Í¼ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ ×ªï¿½ï¿½Îªï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	void ViewPortCoordToSpaceCoord(
-		int& nX,	//´«Èë£ºÊÓÍ¼/»æÍ¼Éè±¸×ø±êµÄxÁ¿£¬´«³ö£º¿Õ¼ä×ø±êµÄxÁ¿
-		int& nY,	//´«Èë£ºÊÓÍ¼/»æÍ¼Éè±¸×ø±êµÄyÁ¿£¬´«³ö£º¿Õ¼ä×ø±êµÄyÁ¿
-		int  nZ		//£¨ÆÚÍû£©µÃµ½µÄ¿Õ¼ä×ø±êµÄzÁ¿
+		int& nX,	//ï¿½ï¿½ï¿½ë£ºï¿½ï¿½Í¼/ï¿½ï¿½Í¼ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½
+		int& nY,	//ï¿½ï¿½ï¿½ë£ºï¿½ï¿½Í¼/ï¿½ï¿½Í¼ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½
+		int  nZ		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ä¿Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½
 		);
-	
+
 	void GetRegionLeftTopPos(int nRegionX, int nRegionY, int& nLeft, int& nTop);
-	
+
 	long GetObstacleInfo(int nX, int nY);
 	long GetObstacleInfoMin(int nX, int nY, int nOffX, int nOffY);
 
 	void RepresentShellReset();
 
 	POINT GetFocusRegion(){return m_FocusRegion;};
-	//ÉèÖÃ³¡¾°ÖÐÒ»¸öÇøÓò±»¼ÓÔØÍê±ÏºóµÄ»Øµ÷º¯Êý
+	//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ò±»¼ï¿½ï¿½ï¿½ï¿½ï¿½Ïºï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	void	SetRegionLoadedCallback(funScenePlaceRegionLoadedCallback pfunCallback);
-	
+
 	void	SetHightLightSpecialObject(int nRegionX, int nRegionY, int nBioIndex);
 	void	UnsetHightLightSpecialObject();
 	void    GetSceneFocus(int& nId, int& nX, int& nY);
-	void	GetSceneNameAndFocus(char* pszName, int& nId, 
+	void	GetSceneNameAndFocus(char* pszName, int& nId,
 		                          int& nX, int& nY,
 								  char* pszType/*,char* pWarMaster,
 								  char* pWarTong,int& pWarShui,
 								  int& pWarZhi,int& pIsWarCity*/);
-	// ÉèÖÃ»·¾³¹âµÄÑÕÉ«ºÍÁÁ¶È
-	void SetAmbient(DWORD dwAmbient);
-	void SetCurrentTime(DWORD dwCurrentTime);
-	// ÉèÖÃ24Ð¡Ê±»·¾³¹â±ä»¯Êý×éµÄµÚidx¸öµ¥Ôª£¬idxÈ¡Öµ0£­6
+	// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void SetAmbient(unsigned long dwAmbient);
+	void SetCurrentTime(unsigned long dwCurrentTime);
+	// ï¿½ï¿½ï¿½ï¿½24Ð¡Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½Äµï¿½idxï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½idxÈ¡Öµ0ï¿½ï¿½6
 	void SetEnvironmentLight(int idx, BYTE r, BYTE g, BYTE b);
 
-	// ÉèÖÃÊÇ·ñ´¦ÀíµØÍ¼ÄÚ½¨¹âÔ´£¬ÓÃÓÚ±íÏÖ°×ÌìºÍÍíÉÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ú½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void EnableBioLights(bool bEnable);
-	// ÉèÖÃÊÇ·ñ´¦Àí¶¯Ì¬¹âÕÕ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
 	void EnableDynamicLights(bool bEnable);
-	
+
 	void ChangeWeather(int nWeatherID);
 
-	//»ñÈ¡³¡¾°µÄÐ¡µØÍ¼ÐÅÏ¢
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
 	int GetMapInfo(KSceneMapInfo* pInfo);
-	//ÉèÖÃµØÍ¼²ÎÊý
+	//ï¿½ï¿½ï¿½Ãµï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	void SetMapParam(unsigned int uShowElems, int nSize);
-	//ÉèÖÃ³¡¾°µÄµØÍ¼µÄ½¹µã(µ¥Î»:³¡¾°×ø±ê)
+	//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Äµï¿½Í¼ï¿½Ä½ï¿½ï¿½ï¿½(ï¿½ï¿½Î»:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	void SetMapFocusPositionOffset(int nOffsetX, int nOffsetY);
-	//Ð¡µØÍ¼»æÖÆ
+	//Ð¡ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	void  PaintMap(int nX, int nY);
-	//ÉèÖÃÊÇ·ñ¸úËæµØÍ¼µÄÒÆ¶¯¶øÒÆ¶¯
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 	void FollowMapMove(int nbEnable);
-	void DrawGreenLine(int nX, int nY, BOOL bSearch); // »­»ÆÏß	
-	void DelGreenLine();//È¡Ïû»­»ÆÏß
+	void DrawGreenLine(int nX, int nY, BOOL bSearch); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void DelGreenLine();//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void GetMapSizePosInfo(int uParam);
 	void FindPos(int nX, int nY, BOOL bSearch);
 	void EnableWeather(int nbEnable);
 
 
-	//--------------ºóÀ´¼ÓµÄ
+	//--------------ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
 	//////////////////////////////////////////////////////////////////////////
 	bool	m_bBGImg;
 	int		m_nBGNum;
@@ -329,7 +329,7 @@ class KScenePlaceC : protected CThread
 	bool	m_bBCImg;
 	int		m_nBCNum;
 	RECT	BCArea;
-	
+
 	//void LoadSymbol(int nSubWorldID);
 	//bool bFlagMode;
 	//bool bPaintMode;
@@ -341,10 +341,10 @@ class KScenePlaceC : protected CThread
 	void PaintOverCloud();
 	void PaintBackGroundCloud();
 	//////////////////////////////////////////////////////////////////////////
-	//ÉèÖÃÊÇ·ñÇå³þ²¿·ÖµØÍ¼
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Í¼
 	void SetClearMap(bool inOpen){m_IsClearMap = inOpen;};
 	bool GetClearMap(){return m_IsClearMap;};
-	
+
 	void ClearProcessArea();
 	int  getObjsAboveCount(){return m_nNumObjsAbove;};
 
@@ -354,31 +354,31 @@ private:
 
 	//##ModelId=3DCE68BB0238
 	//##Documentation
-	//## ¸Ä±ä¼ÓÔØ·¶Î§¡£
+	//## ï¿½Ä±ï¿½ï¿½ï¿½Ø·ï¿½Î§ï¿½ï¿½
 	void ChangeLoadArea();
 	//##ModelId=3DBF946D0053
 	//##Documentation
-	//## ÏÈ¶ÔÈ«²¿Àë¿ª´¦Àí·¶Î§µÄÇøÓò¶ÔÏó£¬µ÷ÓÃFreePrerender·½·¨£¬ÊÍ·ÅÕâÐ©ÇøÓò¶ÔÏóÔ¤äÖÈ¾ºÃµÄ´óÕÅµØ±íÍ¼£¬È»ºóÉèÖÃÔ¤´¦ÀíÐÅºÅ¡£
+	//## ï¿½È¶ï¿½È«ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬µï¿½ï¿½ï¿½FreePrerenderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½È¾ï¿½ÃµÄ´ï¿½ï¿½ÅµØ±ï¿½Í¼ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ¡ï¿½
 	void ChangeProcessArea(bool isClearAll=false);
 	//##ModelId=3DBFA1460230
 	//##Documentation
-	//## ³¡¾°´¦Àí·¶Î§ÄÚµÄÇøÓò¶ÔÏóµÄÔ¤´¦Àí¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Preprocess();
 
 	//##ModelId=3DCCBD7B0239
 	//##Documentation
-	//## Çå³ý/ÊÍ·ÅÔ¤´¦Àí²úÉúµÄÊý¾ÝÓëÐÅÏ¢¡£
+	//## ï¿½ï¿½ï¿½/ï¿½Í·ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 	void ClearPreprocess(int bIncludeRto);
 
 	//##ModelId=3DBDBC7200B4
 	//##Documentation
-	//## ÉèÖÃÐÂµÄÒª¼ÓÔØµÄÇøÓò¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Òªï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	void SetRegionsToLoad();
 
 	//##ModelId=3DCB6BC90345
 	//##Documentation
-	//## ¼ÓÔØÇøÓòÊý¾ÝµÄ¹ý³Ì£¬¾ßÌåÄÚÈÝ¼û»î¶¯Í¼£º
-	//## Use Case View/³¡¾°/¿Í»§¶Ë/³¡¾°µØÍ¼¼ÓÔØ/State/Activity Model/¼ÓÔØÇøÓòµÄ»úÖÆ ÖÐ×ÓÏß³Ì¿Õ¼äµÄÖ´ÐÐÄÚÈÝ
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¹ï¿½ï¿½Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½î¶¯Í¼ï¿½ï¿½
+	//## Use Case View/ï¿½ï¿½ï¿½ï¿½/ï¿½Í»ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½/State/Activity Model/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì¿Õ¼ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void LoadProcess();
 
 #ifndef WIN32
@@ -386,17 +386,17 @@ private:
 #endif
 	//##ModelId=3DCCD131018C
 	//##Documentation
-	//## ¼ÓÔØÏß³ÌµÄÖ´ÐÐÈë¿Úº¯Êý¡£
-	//## ÒÔpParam×÷ÎªKScenePlaceC¶ÔÏóµÄÖ¸Õë£¬µ÷ÓÃËüµÄLoadAndPreprocess·½·¨¡£
-	//## ·µ»ØÖµ¹Ì¶¨Îª0¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½Ö´ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½
+	//## ï¿½ï¿½pParamï¿½ï¿½ÎªKScenePlaceCï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LoadAndPreprocessï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//## ï¿½ï¿½ï¿½ï¿½Öµï¿½Ì¶ï¿½Îª0ï¿½ï¿½
 #ifdef WIN32
-	static DWORD WINAPI  LoadThreadEntrance(void* pParam); //WINAPI 
+	static unsigned long WINAPI  LoadThreadEntrance(void* pParam); //WINAPI
 #endif
 
 	void PrerenderGround(bool bForce);
 
 	void ARegionLoaded(KScenePlaceRegionC* pRegion);
-	
+
 	KRUImage* GetFreeGroundImage();
 
 	KScenePlaceRegionC*	GetLoadedRegion(int h, int v);
@@ -404,100 +404,100 @@ private:
 	void SetLoadingStatus(bool bLoading);
 
     void PreLoadProcess();
-	
+
 private:
 
 	//##ModelId=3DCAC1D103D7
 	//##Documentation
-	//## KScenePlaceCÔËÐÐ²ÎÊý
-	enum SP_WORKING_PARAM { 
+	//## KScenePlaceCï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
+	enum SP_WORKING_PARAM {
 		//##Documentation
-		//## (¶¯Ì¬)¼ÓÔØ·¶Î§£¬×Ý/ºáÏòÔÚÖÐÐÄÇøÓòËÄ²à»¹ÒªÑÓÉì³öµÄ·¶Î§¡£(µ¥Î»£ºÇøÓò)
-		//## ÆäÈ¡ÖµÀ´×Ô(¼ÓÔØ·¶Î§×Ý/ºáÏò¿çÔ½µÄÇøÓòµÄÊýÄ¿-1)/2
+		//## (ï¿½ï¿½Ì¬)ï¿½ï¿½ï¿½Ø·ï¿½Î§ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²à»¹Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½(ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+		//## ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ø·ï¿½Î§ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿-1)/2
 		SPWP_LOAD_EXTEND_RANGE = 3,
 		//##Documentation
-		//## ×î¶à¼ÓÔØµÄÇøÓòµÄÊýÄ¿
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		SPWP_MAX_NUM_REGIONS = 49,  //49
 		//##Documentation
-		//## ×î¶àÄÜ¹»½øÈë´¦Àí·¶Î§µÄÇøÓòµÄÊýÄ¿
+		//## ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ë´¦ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		SPWP_NUM_REGIONS_IN_PROCESS_AREA = 9,
 		//##Documentation
-		//## ½¹µãÒÆ¶¯ºáÏò»òÕß×ÝÏò¿çÔ½¶àÉÙ¸öÇøÓòÖ®ºóÖØÉè¶¯Ì¬¼ÓÔØ·¶Î§
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½è¶¯Ì¬ï¿½ï¿½ï¿½Ø·ï¿½Î§
 		SPWP_TRIGGER_RANGE = 2,  //2
-		//## ½¹µãÒÆ¶¯ºáÏò»òÕß×ÝÏòÍ»È»¿çÔ½¶àÉÙ¸öÇøÓò»á´¥¶¯½øÈë¼ÓÔØÖÐ×´Ì¬
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»È»ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½á´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 		SPWP_TRIGGER_LOADING_RANGE = 4, //4
 		//##Documentation
-		//## ´¦ÀíµÄ¿ç¶È
+		//## ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		SPWP_PROCESS_RANGE = 3,
 		//##Documentation
-		//## ±íÊ¾Ò»¸öÒ£Ô¶µÄ×ø±êÖµ£¬Ô¶ÀëÓÐÐ§µÄ×ø±ê·¶Î§¡£
+		//## ï¿½ï¿½Ê¾Ò»ï¿½ï¿½Ò£Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ê·¶Î§ï¿½ï¿½
 	    SPWP_FARAWAY_COORD = -2147476129,
 
 		SPWP_REPRESENT_RECT_WINDAGE_X = 140,
 		SPWP_REPRESENT_RECT_WINDAGE_T = 90,
 		SPWP_REPRESENT_RECT_WINDAGE_B = 150,
 		//##Documentation
-		//##ÄÜ´¥·¢Ô¤ÏÈ´¦ÀíÓëÔ¤äÖÈ¾µÄÒÑ¼ÓÔØÇøÓòÊ÷Ä¿
+		//##ï¿½Ü´ï¿½ï¿½ï¿½Ô¤ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		SPWP_PROCESS_PRERENDER_REGION_COUNTER_TRIGGER = 25,
 		//##Documentation
-		//##ÎÞ¼ÓÁ¿ÏÔÊ¾µÄ¶ÔÏóµÄ±êÖ¾
+		//##ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ä¶ï¿½ï¿½ï¿½Ä±ï¿½Ö¾
 		SPWP_NO_HL_SPECAIL_OBJECT = -1,
 		//##Documentation
-		//##ÇÐ»»µØÍ¼¼ÓÔØµÄ³¬Ê±Ê±ÏÞ(µ¥Î»£ººÁÃë)
+		//##ï¿½Ð»ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ØµÄ³ï¿½Ê±Ê±ï¿½ï¿½(ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         SPWP_SWITCH_SCENE_TIMEOUT = 30000,
 		//##Documentation
-		//##rto¶ÔÏóµÄ´óÔ¼Ò»°ë¿í/¸ß¶È
+		//##rtoï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ô¼Ò»ï¿½ï¿½ï¿½/ï¿½ß¶ï¿½
         SPWP_RTO_HALF_RANGE = 80,
-		//Ã»ÓÐ³¡¾°
+		//Ã»ï¿½Ð³ï¿½ï¿½ï¿½
 		SPWP_NO_SCENE = -1,
 	};
 
 private:
 
-	//³¡¾°ÖÐÒ»¸öÇøÓò±»¼ÓÔØÍê±ÏºóµÄ»Øµ÷º¯ÊýµÄÖ¸Õë¡£
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ò±»¼ï¿½ï¿½ï¿½ï¿½ï¿½Ïºï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë¡£
 	funScenePlaceRegionLoadedCallback m_pfunRegionLoadedCallback;
 
 	//##ModelId=3DD2CA84021C
 	//##Documentation
-	//## ±êÖ¾¶ÔÏóÊÇ·ñÒÑ¾­³É¹¦Ö´µØ±»³õÊ¼»¯ÁË¡£
+	//## ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½É¹ï¿½Ö´ï¿½Ø±ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ë¡ï¿½
 	bool	m_bInited;
 
-	//## ÕýÔÚ¼ÓÔØÖÐ
+	//## ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool	m_bLoading;
 
 	bool	m_bEnableWeather;
 
-	//ÊÇ·ñ¸úËæµØÍ¼µÄÒÆ¶¯¶øÒÆ¶¯
+	//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 	bool	m_bFollowWithMap;
 
-	//Ô­Ê¼µÄ½¹µã×ø±ê£¬´ËÖµÖ»ÔÚm_bFollowWithMapÎªÕæÖµÊ±ÓÐÐ§
+	//Ô­Ê¼ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ÖµÖ»ï¿½ï¿½m_bFollowWithMapÎªï¿½ï¿½ÖµÊ±ï¿½ï¿½Ð§
 	POINT	m_OrigFocusPosition;
 
-	//µØÍ¼½¹µã×ø±êµÄÆ«ÒÆ
+	//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
 	POINT	m_MapFocusOffset;
 
 	//##ModelId=3DCE5BF203D6
 	//##Documentation
-	//## ½¹µã×ø±ê,´ËµãÔÚz=0Æ½ÃæÉÏ¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ëµï¿½ï¿½ï¿½z=0Æ½ï¿½ï¿½ï¿½Ï¡ï¿½
 	POINT m_FocusPosition;
 
 	//##ModelId=3DCD42F60221
 	//##Documentation
-	//## ½¹µãËùÔÚµÄÇøÓòµÄÇøÓò×ÝºáË÷Òý×ø±ê
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	POINT m_FocusRegion;
 
 	//##ModelId=3DD3B98002E1
 	//##Documentation
-	//## µ±Ç°µÄ½¹µãËùÔÚµÄÇøÓòµÄË÷ÒýÓë¾ÉµÄ½¹µãËùÔÚµÄÇøÓòµÄË÷ÒýÖµ¼ÓµÄ²îÖµ¡£
-	//## ôßÀÛ¼Æ½¹µãÒÆ¶¯×ÝÏòÓëºáÏò¿çÔ½'ÇøÓò'µÄÊýÄ¿¡£
+	//## ï¿½ï¿½Ç°ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ÓµÄ²ï¿½Öµï¿½ï¿½
+	//## ï¿½ï¿½ï¿½Û¼Æ½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½'ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	SIZE m_FocusMoveOffset;
 
 	//##ModelId=3DCB792F02D7
 	//##Documentation
-	//## ´¥·¢¼ÓÔØÇøÓòµÄÐÅºÅ£¨¼ò³Æ¼ÓÔØÐÅºÅ£©
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½
 #ifdef WIN32
 	HANDLE m_hLoadRegionEvent;
-	//## ÇÐ»»µØÍ¼¼ÓÔØ½áÊøµÄÐÅºÅ
+	//## ï¿½Ð»ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
 	HANDLE m_hSwitchLoadFinishedEvent;
 #else
 	CEvent *CreateEvent(bool bManualReset, bool bInitialState);
@@ -511,32 +511,32 @@ private:
 #endif
 	//##ModelId=3DCD478001BA
 	//##Documentation
-	//## ´¥·¢Ô¤´¦Àí¼ÆËãµÄÐÅºÅ(¼ò³ÆÔ¤´¦ÀíÐÅºÅ)
+	//## ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½(ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½)
 	int	m_bPreprocessEvent;
 
 	//##ModelId=3DCB83F30160
 	//##Documentation
-	//## ¾ÅÇøÓòÊý¾Ý´¦Àí/Óû´¦ÀíÁÙ½çÇø¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CRITICAL_SECTION m_ProcessCritical;
 
 	//##ModelId=3DCAB77A01E9
 	//##Documentation
-	//## ¼ÓÔØ³¡¾°ÇøÓòÐÞ¸Ä¹Ø¼üÊý¾ÝµÄÁÙ½çÇø¶ÔÏó¡£
+	//## ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä¹Ø¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CRITICAL_SECTION m_LoadCritical;
 
 	//##ModelId=3DCB84480342
 	//##Documentation
-	//## ·ÃÎÊm_RegionListAdjustCriticalµÄÁÙ½çÇø¡£
+	//## ï¿½ï¿½ï¿½ï¿½m_RegionListAdjustCriticalï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CRITICAL_SECTION m_RegionListAdjustCritical;
 
 
 	//##ModelId=3DB907ED02B7
 	//##Documentation
-	//## £¨¹Ì¶¨£©Ò»¶¨ÊýÄ¿µÄRegion¶ÔÏóÊµÀý¡£
+	//## ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
 	KScenePlaceRegionC m_RegionObjs[SPWP_MAX_NUM_REGIONS];
 
-	//------------------------ ºóÀ´¼ÓµÄ
-	//KUiImageRef sss; 
+	//------------------------ ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½
+	//KUiImageRef sss;
 	KUiImageRef m_pBGImg[MAX_BACKGROUND_IMAGE];
 	KUiImageRef m_pBCImg[MAX_CLOUD_IMAGE];
 	KUiImageRef m_pOCImg[MAX_CLOUD_IMAGE];
@@ -544,7 +544,7 @@ private:
 
 	//##ModelId=3DDBC73803A4
 	//##Documentation
-	//## ½øÈë´¦Àí·¶Î§µÄÒÔ¼ÓÔØÇøÓòµÄÖ¸Õë¡£
+	//## ï¿½ï¿½ï¿½ë´¦ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë¡£
 	KScenePlaceRegionC* m_pInProcessAreaRegions[SPWP_NUM_REGIONS_IN_PROCESS_AREA];
 
 	KRUImage	m_RegionGroundImages[SPWP_NUM_REGIONS_IN_PROCESS_AREA];
@@ -552,39 +552,39 @@ private:
 
 	//##ModelId=3DCAB33A01CE
 	//##Documentation
-	//## ³¡¾°µØÍ¼ÎÄ¼þµÄ¸ùÄ¿Â¼£¨ôß³¡¾°µØÍ¼¸ùÎÄ¼þËùÔÚµÄÄ¿Â¼£©¡£
-	//## KScenePlaceC½èÖúm_szPlaceRootPath[0]ÊÇ·ñÎª0À´×÷ÎªÊÇ·ñ´ò¿ª³¡¾°µØÍ¼µÄÅÐ¶ÏÒÀ¾Ý¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¼ï¿½ï¿½Ä¸ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Úµï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½
+	//## KScenePlaceCï¿½ï¿½ï¿½ï¿½m_szPlaceRootPath[0]ï¿½Ç·ï¿½Îª0ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç·ï¿½ò¿ª³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
 	char m_szPlaceRootPath[256];
 
 	char m_szSceneName[128];
 
 	int	 m_nSceneId;
 
-	char m_szMapType[32];  //³¡¾°ÀàÐÍ
+	char m_szMapType[32];  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//##ModelId=3DD2E1410028
 	//##Documentation
-	//## m_pRegionsÁÐ±íµÄË÷Òý£¬Èç¹ûm_nFirstToLoadIndexµÄÖµÔÚÓÐÐ§·¶Î§ÄÚ£¬Ôò±íÊ¾m_pRegionsÁÐ±íÓÚm_nFirstToLoadIndexË÷ÒýÖ®Ç°µÄÔªËØÎªÒÑ¾­¼ÓÔØÁËËùÐèÊý¾ÝµÄÇøÓò¶ÔÏóµÄÖ¸Õë£¬Ê£ÓÚµÄÔªËØÎª´ý¼ÓÔØÊý¾ÝµÄÇøÓò¶ÔÏóµÄÖ¸Õë¡£Èç¹ûm_nFirstToLoadIndexµÄÖµ²»ÔÚÓÐÐ§·¶Î§ÄÚÔò±íÊ¾ÁÐ±íÖÐÈ«²¿Ö¸ÕëËù±íÊöµÄÇøÓò¶ÔÏó¶¼ÒÑ¾­¼ÓÔØÁËËùÐèµÄÊý¾Ý¡£
+	//## m_pRegionsï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½m_nFirstToLoadIndexï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Î§ï¿½Ú£ï¿½ï¿½ï¿½ï¿½Ê¾m_pRegionsï¿½Ð±ï¿½ï¿½ï¿½m_nFirstToLoadIndexï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ôªï¿½ï¿½Îªï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬Ê£ï¿½Úµï¿½Ôªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë¡£ï¿½ï¿½ï¿½m_nFirstToLoadIndexï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ð±ï¿½ï¿½ï¿½È«ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
 	int m_nFirstToLoadIndex;
 
 	//##ModelId=3DD2E1410064
 	//##Documentation
-	//## ÇøÓò¶ÔÏóÖ¸ÕëÁÐ±í¡£
-	//## ÁÐ±íÖÐµÄÃ¿¸öÔªËØÄÚÈÝ¶¼ÊÇÒ»¸öÇøÓò¶ÔÏóµÄÖ¸Õë£¬ÕâÐ©Ö¸Õë·Ö±ð¾ÍÊÇÖ¸Ïòm_RegionObjsÖÐµÄÒ»¸öÔªËØ£¬ÊÇÒ»Ò»¶ÔÓ¦µÄ¹ØÏµ¡£ÇøÓò¶ÔÏóÖ¸ÕëÁÐ±íÖÐ¸öÔªËØµÄË³Ðò»á¸ù¾ÝÔËËã·¢Éú±ä»¯¡£
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
+	//## ï¿½Ð±ï¿½ï¿½Ðµï¿½Ã¿ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½Ð©Ö¸ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½m_RegionObjsï¿½Ðµï¿½Ò»ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½Ò»Ò»ï¿½ï¿½Ó¦ï¿½Ä¹ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð¸ï¿½Ôªï¿½Øµï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¢ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½
 	KScenePlaceRegionC* m_pRegions[SPWP_MAX_NUM_REGIONS];
 
 	//##ModelId=3DD3A6140179
 	//##Documentation
-	//## Ö´ÐÐ¼ÓÔØÇøÓòÊý¾ÝÓëÔ¤´¦ÀíµÄÏß³ÌµÄ¾ä±ú¡£
+	//## Ö´ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ÌµÄ¾ï¿½ï¿½ï¿½ï¿½
 	HANDLE m_hLoadAndPreprocessThread;
 
 	//##ModelId=3DD960150394
 	//##Documentation
-	//## ´¦ÓÚ´¦Àí·¶Î§ÄÚµÄ²¿·Ö¶ÔÏóµÄ¼¯ºÏ¡£
+	//## ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ÚµÄ²ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï¡ï¿½
 	KIpoTree m_ObjectsTree;
 
 	RECT m_RepresentArea;
 	SIZE m_RepresentExactHalfSize;
-	
+
 	long m_bRenderGround;
 
 	int		m_nHLSpecialObjectRegionX, m_nHLSpecialObjectRegionY;
@@ -593,34 +593,34 @@ private:
 	KBuildinObj**	m_pObjsAbove;
 	unsigned int	m_nNumObjsAbove;
 
-	// µ±Ç°Ê±¼ä£¬Ò»Ìì¿ªÊ¼µÄ·ÖÖÓÊý
+	// ï¿½ï¿½Ç°Ê±ï¿½ä£¬Ò»ï¿½ì¿ªÊ¼ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
 	int m_nCurrentTime;
 
-	// ´¦Àí»·¾³¹âµÄ¶ÔÏó
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
 	EnvironmentLight m_EnLight;
-	// ÌìÆø¶ÔÏóÖ¸Õë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 //	KWeather *m_pWeather;
-	//Ð¡µØÍ¼
+	//Ð¡ï¿½ï¿½Í¼
 	KScenePlaceMapC	m_Map;
 
-	//ÕÏ°­Ð¡µØÍ¼
+	//ï¿½Ï°ï¿½Ð¡ï¿½ï¿½Í¼
 	//KLittleMap	m_LittleMap;
 
 private:
 	//##ModelId=3DDB39BA029B
 	//##Documentation
-	//## ¼ÆËã¼ÓÔØÇøÓòµÄÓÅÏÈ´ÎÐòµÄ±í
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ä±ï¿½
 	static int m_PRIIdxTable[SPWP_MAX_NUM_REGIONS];
 
 	//##ModelId=3DDB39150334
 	//##Documentation
-	//## ¼ÆËã¼ÓÔØ·¶Î§ÄÚ³¡¾°ÇøÓòµÄË÷Òý×ø±êÓÃµÄ±í
+	//## ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½Î§ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ±ï¿½
 	static POINT m_RangePosTable[SPWP_MAX_NUM_REGIONS];
 
-	// ¸ù¾ÝÍæ¼ÒÇ°½øµÄ·½Ïò£¬ÐèÒª¼ÓÔØµÄÏà¶ÔÍæ¼Òµ±Ç°RegionµÄÆ«ÒÆ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½Ç°Regionï¿½ï¿½Æ«ï¿½ï¿½
     static const KPrevLoadPosItem m_PrevLoadPosOffset[3][3];
 
-	// ¸ù¾ÝÍæ¼ÒÇ°½øµÄ·½Ïò£¬ÐèÒª¼ÓÔØµÄRegion
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Øµï¿½Region
     KPrevLoadPosItem    m_PreLoadPosItem;
 
     int                 m_nPrevLoadFileCount;

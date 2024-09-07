@@ -140,7 +140,7 @@
 #include "getbit.h"
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_decompress_8          ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )
@@ -151,7 +151,7 @@ ucl_nrv2d_decompress_8          ( const ucl_bytep src, ucl_uint  src_len,
 }
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_decompress_le16       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )
@@ -162,7 +162,7 @@ ucl_nrv2d_decompress_le16       ( const ucl_bytep src, ucl_uint  src_len,
 }
 
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 ucl_nrv2d_decompress_le32       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem )

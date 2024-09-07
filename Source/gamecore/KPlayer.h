@@ -1,8 +1,8 @@
 #ifndef KPlayerH
-#define	KPlayerH
+#define KPlayerH
 
-//#include "KWorldMsg.h"
-//#include "KMessage.h"
+// #include "KWorldMsg.h"
+// #include "KMessage.h"
 
 #include "KInventory.h"
 /*
@@ -27,165 +27,162 @@
 #include "KPlayerReBorn.h"
 #include "KPlayerVip.h"
 #include "engine/KTabFileCtrl.h"
-#define		MAX_ANSWERNUM					16 //
-#define		PLAYER_LIFE_REPLENISH			0
-#define		PLAYER_MANA_REPLENISH			0
-#define		PLAYER_STAMINA_GAIN				1
-#define		PLAYER_STAMINA_LOSS				4
+#define MAX_ANSWERNUM              16  //
+#define PLAYER_LIFE_REPLENISH      0
+#define PLAYER_MANA_REPLENISH      0
+#define PLAYER_STAMINA_GAIN        1
+#define PLAYER_STAMINA_LOSS        4
 
-#define		STRENGTH_SET_DAMAGE_VALUE		5
-#define		DEXTERITY_SET_DAMAGE_VALUE		5
+#define STRENGTH_SET_DAMAGE_VALUE  5
+#define DEXTERITY_SET_DAMAGE_VALUE 5
 
-//#define		MAX_AVENGE_NUM					4
+// #define		MAX_AVENGE_NUM					4
 
-#define		BASE_FIRE_RESIST_MAX			150//275  //»ð·À×î´óÖµ
-#define		BASE_COLD_RESIST_MAX			150//     //±ù·À×î´óÖµ
-#define		BASE_POISON_RESIST_MAX			150//     //¶¾·À×î´óÖµ
-#define		BASE_LIGHT_RESIST_MAX			150//     //À×·À×î´óÖµ
-#define		BASE_PHYSICS_RESIST_MAX			150//     //ÆÕ·À×î´óÖµ
-#define		BASE_FANGYU_ALL_MAX			    75        //Ô­Ê¼Îå·ÀÓù
-#define		defPLAYER_SAVE_TIMEOUT			18*60*5   // ´æµµÊ±¼ä
+#define BASE_FIRE_RESIST_MAX    150          // 275  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+#define BASE_COLD_RESIST_MAX    150          //     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+#define BASE_POISON_RESIST_MAX  150          //     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+#define BASE_LIGHT_RESIST_MAX   150          //     //ï¿½×·ï¿½ï¿½ï¿½ï¿½Öµ
+#define BASE_PHYSICS_RESIST_MAX 150          //     //ï¿½Õ·ï¿½ï¿½ï¿½ï¿½Öµ
+#define BASE_FANGYU_ALL_MAX     75           // Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
+#define defPLAYER_SAVE_TIMEOUT  18 * 60 * 5  // ï¿½æµµÊ±ï¿½ï¿½
 
-
-enum UIInfo //½Å±¾Í¨ÖªÏÔÊ¾µÄ½çÃæÀàÐÍ
+enum UIInfo  // ï¿½Å±ï¿½Í¨Öªï¿½ï¿½Ê¾ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
-	UI_SELECTDIALOG,
-	UI_TRADEDIALOG,
-	UI_TALKDIALOG,
-	UI_NOTEINFO,
-	UI_MSGINFO,      //×ÔÓÒÏò×óÃ°³öÀ´µÄÐÅÏ¢
-	UI_NEWSINFO,     //¹ö¶¯ÐÂÎÅ
-	UI_PLAYMUSIC,
-	UI_OPENTONGUI,
+    UI_SELECTDIALOG,
+    UI_TRADEDIALOG,
+    UI_TALKDIALOG,
+    UI_NOTEINFO,
+    UI_MSGINFO,   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    UI_NEWSINFO,  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    UI_PLAYMUSIC,
+    UI_OPENTONGUI,
 };
 
-// ÖØÉúµãÎ»ÖÃÐÅÏ¢
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ï¢
 typedef struct PLAYER_REVIVAL_POS_DATA
 {
-	int				m_nSubWorldID;		// ÖØÉúµãµØÍ¼
-	int				m_ReviveID;			// ÖØÉúµãË÷Òý
-	int				m_nMpsX;			// ÖØÉúµãµØÍ¼Î»ÖÃ x
-	int				m_nMpsY;			// ÖØÉúµãµØÍ¼Î»ÖÃ y
+    int m_nSubWorldID;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
+    int m_ReviveID;     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nMpsX;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Î»ï¿½ï¿½ x
+    int m_nMpsY;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Î»ï¿½ï¿½ y
 } PLAYER_REVIVAL_POS;
 
 typedef struct
 {
-	int				m_nSubWorldId;		// ´«ËÍÃÅÊÀ½çID
-	int				m_nTime;			// ´«ËÍÃÅ±£³ÖÊ±¼ä
-	int				m_nMpsX;
-	int				m_nMpsY;
+    int m_nSubWorldId;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+    int m_nTime;        // ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    int m_nMpsX;
+    int m_nMpsY;
 } PLAYER_TOWNPORTAL_POS;
 
-typedef struct 
+typedef struct tPLAYER_EXCHANGE_POS
 {
-	UINT			m_dwMapID;
-	int				m_nX;
-	int				m_nY;
+    UINT m_dwMapID;
+    int m_nX;
+    int m_nY;
 } PLAYER_EXCHANGE_POS;
-
 
 struct KplayerTimeInfo
 {
-	  int nMapLetTime;
-	  int nExpLeftTime;
-	  int nLuckLeftTime;
-	  int nKangLeftTime;
-	  int nYaoLeftTime;
+    int nMapLetTime;
+    int nExpLeftTime;
+    int nLuckLeftTime;
+    int nKangLeftTime;
+    int nYaoLeftTime;
 };
 
-//Íæ¼ÒÀÏ»¢»ú½á¹¹ 
+// ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ï¿½á¹¹
 struct KplayerGuzi
 {
-	BOOL nIsOpen;
-	int  nTpye;
-	int  nYingL;
-	int  nJinBi;
-	int  nDianShu;
-	int  nBeiLv;
+    int nIsOpen;
+    int nTpye;
+    int nYingL;
+    int nJinBi;
+    int nDianShu;
+    int nBeiLv;
 };
-
 
 struct KplayerAuto
 {
-    struct	Kteam
-	{
-		BYTE	nIsHuiDa;
-		BYTE    nIsDuiZhang;
-		BYTE    nIsDuiYuan;
-	}; //×é¶ÓµÄ
+    struct Kteam
+    {
+        BYTE nIsHuiDa;
+        BYTE nIsDuiZhang;
+        BYTE nIsDuiYuan;
+    };  // ï¿½ï¿½Óµï¿½
 
-	struct	Kskill
-	{
-		BYTE	nIsOpen;
-		int     nsKillId;
-		int     nCostTime;
-		int     nsKillRows;
-		int     nsFactionTaskVal;
-		//int     nSkilloop;
-	};
+    struct Kskill
+    {
+        BYTE nIsOpen;
+        int nsKillId;
+        int nCostTime;
+        int nsKillRows;
+        int nsFactionTaskVal;
+        // int     nSkilloop;
+    };
 
-	struct	KLRskill
-	{
-		BYTE	nIsOpen;
-		int     nsLeftKillId;
-		int     nsRightKillId;
-		int     nCostTime;
-		int     nsKillRows;
-		int     nsFactionTaskVal;
-		int     nSkilloop;
-	};
-	int   nSkilloop;
-	DWORD nLocKnpcDw;
+    struct KLRskill
+    {
+        BYTE nIsOpen;
+        int nsLeftKillId;
+        int nsRightKillId;
+        int nCostTime;
+        int nsKillRows;
+        int nsFactionTaskVal;
+        int nSkilloop;
+    };
+    int nSkilloop;
+    unsigned long nLocKnpcDw;
     int nCurXpos;
-	int nCurYpos;
-	int nOldIndex;   //¿¨¹ÖµÄNPCµÄË÷Òý
-	int nHideNpc;
-	int nHidePlayer;
-	int nHideMiss;
-	int nAutoMoney;   //Ç®
-	int nAutoEques;   //×°±¸
-	int nAutoMoneyAndEques;
-	BYTE nShuXingNum; //ÊôÐÔÊýÁ¿
-	int nAutoTuPu;    //Í¼Æ×
-	BYTE nAutoTool;   //µÀ¾ß
-	BYTE nAutoOther;  //¼ì²â×°±¸Ãû×Ö
-	BYTE nIsAuToFenJie;
-	BOOL nIsYaBiao;
-	BYTE nCurNum;
-	BYTE nIsHaveDo;
-	BYTE nIsJiaoBen;  //ÊÇ·ñÂ¼ÖÆ½Å±¾
-	BYTE nAutoModel;
-	BYTE nCurStaus;  //µ±Ç°µÄ×´Ì¬
-	BYTE nIsOpenZiMu;//ÊÇ·ñ×Ô¶¯·Å½ø×ÓÄ¸´ü
-	BYTE nIsAutoSay; //ÊÇ·ñ×Ô¶¯·¢ÑÔ
-	BYTE nIsAutoNuQi;
-	BYTE nIsAutoUseItem;//×Ô¶¯Ê¹ÓÃÎïÆ·
-	BYTE nIsShowPath;   //ÊÇ·ñÏÔÊ¾Â·Ïß
-	BYTE nIsNoBlue;     //ÊÇ·ñ²»¹¥»÷À¶ÂÌ¹Ö
-	BYTE nIsNoYellow;   //ÊÇ·ñ²»¹¥»÷»Æ¹Ö
-	BYTE nIsNoRed;      //ÊÇ·ñ²»¹¥»÷ºì¹Ö
-	BOOL nIsFollow;     //ÊÇ·ñ¸úËæ¶Ó³¤
-	BOOL nIsFell;
-	int  nAttackNum;
-	int  _checkLoopTime;
+    int nCurYpos;
+    int nOldIndex;  // ï¿½ï¿½ï¿½Öµï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int nHideNpc;
+    int nHidePlayer;
+    int nHideMiss;
+    int nAutoMoney;  // Ç®
+    int nAutoEques;  // ×°ï¿½ï¿½
+    int nAutoMoneyAndEques;
+    BYTE nShuXingNum;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int nAutoTuPu;     // Í¼ï¿½ï¿½
+    BYTE nAutoTool;    // ï¿½ï¿½ï¿½ï¿½
+    BYTE nAutoOther;   // ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    BYTE nIsAuToFenJie;
+    int nIsYaBiao;
+    BYTE nCurNum;
+    BYTE nIsHaveDo;
+    BYTE nIsJiaoBen;  // ï¿½Ç·ï¿½Â¼ï¿½Æ½Å±ï¿½
+    BYTE nAutoModel;
+    BYTE nCurStaus;    // ï¿½ï¿½Ç°ï¿½ï¿½×´Ì¬
+    BYTE nIsOpenZiMu;  // ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½Å½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½
+    BYTE nIsAutoSay;   // ï¿½Ç·ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    BYTE nIsAutoNuQi;
+    BYTE nIsAutoUseItem;  // ï¿½Ô¶ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Æ·
+    BYTE nIsShowPath;     // ï¿½Ç·ï¿½ï¿½ï¿½Ê¾Â·ï¿½ï¿½
+    BYTE nIsNoBlue;       // ï¿½Ç·ñ²»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½
+    BYTE nIsNoYellow;     // ï¿½Ç·ñ²»¹ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½
+    BYTE nIsNoRed;        // ï¿½Ç·ñ²»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int nIsFollow;        // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ó³ï¿½
+    int nIsFell;
+    int nAttackNum;
+    int _checkLoopTime;
     Kteam nCteam;
-	int  nNpcCurlife;//±¸·ÝµÄNPCÉúÃü
-	int  nShiQuNum;
-	int  nVal;
-	int  nAutoTime;  //È¡Ïû¼ñÈ¡µÄÊ±¼ä ÑÓÊ±¶àÉÙÃëºó È¡Ïû¼ñÈ¡ »ò¹¥»÷
-	int  ngMoneyLoop;
-	int  ngItemLoop;
-	int  ngTuzhiLoop;
-	int  ngToolLoop;
-	int  ngAttackLoop;
-	Kskill  nAutoSkill[4];
-	KLRskill nAutoLRskill;
-	BOOL nIsReTurn;//ÊÇ·ñÕýÔÚ»Ø³Ç
-	BOOL nIsUseSkill;
-	int  nNpcDis;  //Ñ°¹Ö·¶Î§
-	int  nBackIndex;//±¸·ÝµÄ Ñ¡ÖÐNPCµÄ Ë÷Òý
-	int  nRunLoop;
-	int  nIsOpenPiick;
+    int nNpcCurlife;  // ï¿½ï¿½ï¿½Ýµï¿½NPCï¿½ï¿½ï¿½ï¿½
+    int nShiQuNum;
+    int nVal;
+    int nAutoTime;  // È¡ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¡ï¿½ï¿½ï¿½ï¿½È¡ ï¿½ò¹¥»ï¿½
+    int ngMoneyLoop;
+    int ngItemLoop;
+    int ngTuzhiLoop;
+    int ngToolLoop;
+    int ngAttackLoop;
+    Kskill nAutoSkill[4];
+    KLRskill nAutoLRskill;
+    int nIsReTurn;  // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ú»Ø³ï¿½
+    int nIsUseSkill;
+    int nNpcDis;     // Ñ°ï¿½Ö·ï¿½Î§
+    int nBackIndex;  // ï¿½ï¿½ï¿½Ýµï¿½ Ñ¡ï¿½ï¿½NPCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int nRunLoop;
+    int nIsOpenPiick;
 };
 
 class KIniFile;
@@ -193,331 +190,395 @@ class KIniFile;
 class KPlayer
 {
 private:
-	int				m_nLeftSkillID;
-	int             m_nLeftListidx;
-	int				m_nLeftSkillLevel;
-	int				m_nRightSkillID;
-	int             m_nRightListidx;
-	int				m_nRightSkillLevel;
+    int m_nLeftSkillID;
+    int m_nLeftListidx;
+    int m_nLeftSkillLevel;
+    int m_nRightSkillID;
+    int m_nRightListidx;
+    int m_nRightSkillLevel;
 
-	BOOL			m_MouseDown[2];
+    int m_MouseDown[2];
 
-	UINT			m_nExtPoint;				// »î¶¯µãÊý
+    UINT m_nExtPoint;  // ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
 
-	int				m_nPhysicsSkillID;		    //µ±Ç°Íæ¼ÒµÄÎïÀí¹¥»÷¼¼ÄÜ
-	int				m_nPeapleIdx;
-	int				m_nObjectIdx;
-	int				m_nPickObjectIdx;
-	int				m_nPlayerIndex;				// ±¾ÊµÀýÔÚ Player Êý×éÖÐµÄÎ»ÖÃ
-	//KCacheNode *	m_pLastScriptCacheNode;
-
-public:
-	UINT           m_GameLeftTime;
-	BOOL            m_Isinvalid;
-	int             m_nRoomFull;   //°ü¸¤ÊÇ·ñÂúÁË
-
-	int             m_IsTranse;                 //ÊÇ·ñ¿ç·þ
-	int             m_CurGsSerIdx;              //µ±Ç°·þÎñÆ÷
-    int             m_nImageNpcID;              // id npc SPR
-	int				m_RunStatus;				// ÊÇÅÜ»¹ÊÇ×ß
-	DWORD			m_dwNextLevelLeadExp;		// Í³ÂÊÁ¦ÏÂÒ»¼¶¾­ÑéÖµ
-	int				m_nSendMoveFrames;			// ÓÃÓÚ¿ØÖÆ¿Í»§¶ËÏò·þÎñÆ÷·¢ËÍÒÆ¶¯(×ß»òÅÜ)Ð­ÒéµÄÆµÂÊ£¬Ê¹Ö®²»ÄÜ·¢ËÍ´óÁ¿µÄÒÆ¶¯Ð­Òé£¬¼õÐ¡´ø¿íÑ¹Á¦
-	//char            szClienResult[256];       // ½Å±¾·µ»ØÖµÈ«¾Ö±äÁ¿
-	KTabFile    nPos,nYaBiao,nEquipItem,nCheckName;
-	KIniFile	m_FileDesc;//,nEquipItem,nToolItem,nCheckName;
-	KTabFile    nGuaSkill;
-	KTabFileCtrl nMapPos;
-
-	DWORD           m_ItemLinkDwid;            //µ±Ç°×°±¸Á´½ÓµÄÎïÆ·ID
-	TMissionLadderSelfInfo m_MissionData;
-	TMissionLadderInfo m_MissionRank[MISSION_STATNUM];
-
-	int             m_ExpTime;                  //  µ±Ç°ÁìÈ¡¾­ÑéÊ±¼ä
-	int             m_YinLiangTime;             //  µ±Ç°ÁìÈ¡ÒøÁ½Ê±¼ä
-	int             m_JinBiTime;                //  µ±Ç°ÁìÈ¡½ð±ÒÊ±¼ä
-	int             m_ExpPiontTime;             //  µ±Ç°ÁìÈ¡µã¿¨Ê±¼ä
-	KplayerAuto		m_Autoplay;					// Íæ¼ÒÈÎÎñÏµÍ³(±äÁ¿)
-	int				m_DebugMode;			    //µ÷ÊÔÄ£Ê½
-
-	int             m_nCurPinDao;  //ÁÙÊ±ÆµµÀ
-	enum
-	{
-		FF_CHAT = 0x01,
-	};
-	BYTE			m_nForbiddenFlag;			// ½ûÖ¹·¢ÑÔ±êÖ¾
-	KIndexNode		m_Node;
-	GUID			m_Guid;                     //ÍøÂçÐòºÅ
-	BOOL			m_bExchangeServer;          //ÊÇ·ñ¿ç·þ×´Ì¬
-
-	UINT			m_dwID;						// Íæ¼ÒµÄ32Î»ID
-	int				m_nIndex;					// Íæ¼ÒµÄNpc±àºÅ
-	int				m_nNetConnectIdx;			// µÚ¼¸¸öÍøÂçÁ¬½Ó
-	KItemList		m_ItemList;					// Íæ¼ÒµÄ×°±¸ÁÐ±í
-	BuySellInfo		m_BuyInfo;					// ½øÐÐµÄ½»Ò×ÁÐ±í
-	//NewBuySellInfo	m_NewBuyInfo;				// ½øÐÐµÄ½»Ò×ÁÐ±í
-	KPlayerMenuState	m_cMenuState;			// ÊÇ·ñ´¦ÓÚ½»Ò×»ò¶ÓÎé¿ª·Å×´Ì¬
-	KTrade			m_cTrade;					// ½»Ò×Ä£¿é
-	int				m_nAttributePoint;			// Î´·ÖÅäÊôÐÔµã
-	int				m_nSkillPoint;				// Î´·ÖÅä¼¼ÄÜµã
-	int 			m_nChestPW;		            //ÃÜÂë ÒÑ¾­¸ø ³ÇÊÐµØÍ¼ Ê¹ÓÃ
-	int				m_nStrength;				// Íæ¼ÒµÄ»ù±¾Á¦Á¿£¨¾ö¶¨»ù±¾ÉËº¦£©
-	int				m_nDexterity;				// Íæ¼ÒµÄ»ù±¾Ãô½Ý£¨¾ö¶¨ÃüÖÐ¡¢ÌåÁ¦£©
-	int				m_nVitality;				// Íæ¼ÒµÄ»ù±¾»îÁ¦£¨¾ö¶¨ÉúÃü¡¢ÌåÁ¦£©
-	int				m_nEngergy;					// Íæ¼ÒµÄ»ù±¾¾«Á¦£¨¾ö¶¨ÄÚÁ¦£©
-	int				m_nLucky;					// Íæ¼ÒµÄ»ù±¾ÔËÆø£¨Ó°ÏìµÃµ½×°±¸µÄºÃ»µ£©
-	BYTE			m_btChatSpecialChannel;		
-	int				m_nUpExp;                   // É±ËÀµÐÈË»ñµÃ¾­ÑéÔö¼Ó°Ù·Ö±È
-
-	int				m_nCurStrength;				// Íæ¼ÒµÄµ±Ç°Á¦Á¿£¨¾ö¶¨»ù±¾ÉËº¦£©   Á¦Á¿
-	int				m_nCurDexterity;			// Íæ¼ÒµÄµ±Ç°Ãô½Ý£¨¾ö¶¨ÃüÖÐ¡¢ÌåÁ¦£© Éí·¨
-	int				m_nCurVitality;				// Íæ¼ÒµÄµ±Ç°»îÁ¦£¨¾ö¶¨ÉúÃü¡¢ÌåÁ¦£© Íâ¹¦
-	int				m_nCurEngergy;				// Íæ¼ÒµÄµ±Ç°¾«Á¦£¨¾ö¶¨ÄÚÁ¦£©       ÄÚ¹¦
-	int				m_nCurLucky;				// Íæ¼ÒµÄµ±Ç°ÔËÆø£¨Ó°ÏìµÃµ½×°±¸µÄºÃ»µ£©
-	int				m_nTempLucky_p;				// ¼ÇÂ¼Íæ¼ÒµÄÁÙÊ±×°±¸µÄ×ÜÐÒÔË°Ù·Ö±È
-    BYTE	        m_nVipType;                 // »áÔ±µÄÀàÐÍ
-//	int             m_nZhonji;                  // µ±Ç°ÖØ»÷
-//	int             m_nDangge;                  // µ±Ç°µµ¸ñ
-
-	int 			m_nExp;						// µ±Ç°¾­ÑéÖµ(µ±Ç°µÈ¼¶ÔÚnpcÉíÉÏ)
-	int				m_nNextLevelExp;			// ÏÂÒ»¼¶¾­ÑéÖµ
-	BYTE			m_CUnlocked;                // ¿Í»§¶ËÊÇ·ñ½âÆÁ ÆÁÄ»
-
-	UINT			m_dwLeadExp;				// Í³ÂÊÁ¦¾­ÑéÖµ
-	UINT			m_dwLeadLevel;				// Í³ÂÊÁ¦µÈ¼¶
-	char			m_PlayerName[32];           // Íæ¼ÒµÄ½ÇÉ«Ãû×Ö
-	//char			m_PeiouName[32];            // ÅäÅ¼Ãû×Ö
-
-	KPlayerTeam		m_cTeam;					// Íæ¼ÒµÄ×é¶ÓÐÅÏ¢
-	KPlayerFaction	m_cFaction;					// Íæ¼ÒµÄÃÅÅÉÐÅÏ¢
-
-//	KPlayerChat		m_cChat;                    // Íæ¼ÒÍ·¶¥Ëµ»°ÏÔÊ¾
-
-	KPlayerTask		m_cTask;					// Íæ¼ÒÈÎÎñÏµÍ³(±äÁ¿)
-    
-//	KplayerGuzi		m_GuziGame;	                // Íæ¼ÒµÄÀÏ»¢»úÏµÍ³
-
-	KplayerTimeInfo m_MapTimeInfo;			    // ÐÒÔË²Ý ³¤Ð§Ò©´æµµ
-
-	KPlayerPK		m_cPK;						// PK¹ØÏµ´¦Àí
-	
-	KPlayerRepute	m_cRepute;					//ÉùÍû
-
-	KPlayerFuYuan	m_cFuYuan;					//¸£Ô´
-
-	KPlayerReBorn	m_cReBorn;					//×ªÉú
-
-	KPlayerVip	    m_cVip;					    //»áÔ±
-
-	KPlayerTong		m_cTong;					// ×Ô¼ºµÄ°ï»áÐÅÏ¢
-	
-	DWORD			m_dwDeathScriptId;			// ËÀÍö½Å±¾
-
-	char			m_szTaskAnswerCanshu[MAX_ANSWERNUM][32];  //Íæ¼Ò Ëù´øµÄ ½Å±¾²ÎÊý
-	char			m_szTaskAnswerFun[MAX_ANSWERNUM][32];
-	int				m_nAvailableAnswerNum;                    //µ±Ç°Ñ¡Ôñ½çÃæÏÂ£¬×î´ó»Ø´ðÊý¡£
-	int				m_nWorldStat;    // ÅÅÃû
-	int				m_nSectStat;     // °ï»áÅÅÃû
-	bool            m_isopenjuli;
-
-	DWORD			m_nGiveCallBackScript;
-	BYTE			m_nGiveCallBackNum;
+    int m_nPhysicsSkillID;  // ï¿½ï¿½Ç°ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nPeapleIdx;
+    int m_nObjectIdx;
+    int m_nPickObjectIdx;
+    int m_nPlayerIndex;  // ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
+                         // KCacheNode *	m_pLastScriptCacheNode;
 
 public:
-	KPlayer();
-	~KPlayer();
+    UINT m_GameLeftTime;
+    int m_Isinvalid;
+    int m_nRoomFull;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void			SetPlayerIndex(int nNo);					// Éè¶¨ m_nPlayerIndex
-	void			GetAboutPos(KMapPos *pMapPos);			    // »ñµÃÍæ¼Ò¸½½üÒ»¸ö¿ÕÎ»ÖÃ
-	void			GetNewAboutPos(KMapPos *pMapPos);
-	int				GetPlayerIndex();							// »ñµÃ±¾ÊµÀýÔÚ Player Êý×éÖÐµÄÎ»ÖÃ
-	UINT			GetPlayerID(){return m_dwID;};
-	void			GetFactionName(char *lpszName, int nSize);	// »ñµÃµ±Ç°ÃÅÅÉÃû³Æ not end
-	void			ChatFriendOnLine(DWORD dwID, int nFriendIdx);// »ñµÃÍ¨ÖªÄ³ºÃÓÑÉÏÏßÁË
-	BOOL			ExecuteScriptA(char * ScriptFileName, char * szFunName, int nParam = 0,char * szCanshu=NULL,BOOL nIsGive=TRUE); //NPC¶Ô»°¿òµ÷ÓÃ
-	BOOL			ExeNoBackScript(char * ScriptFileName, char * szFunName,int nKind = 0,int nParama = 0,int nParamb = 0,int nParamc = 0);
-	BOOL			ExecuteScriptC(char * ScriptFileName, char * szFunName, char * szParams=NULL,char * snParams=NULL,int inParam = 0,int njb=0,int njxb=0,int inval=0,int invala=0,BOOL nIsGive=TRUE);
-	BOOL			ExecuteScriptD(DWORD dwScriptId, char * szFunName, char *  szParams=NULL,char * snParams=NULL,int inParam = 0,int njb=0,int njxb=0,int inval=0,int invala=0,BOOL nIsGive=FALSE);
-	BOOL			ExecuteScriptB(DWORD dwScriptId,  char * szFunName, int nParam=0,char * szCanshu=NULL,BOOL nIsGive=TRUE);
-	BOOL			DoScript(char * ScriptCommand);				//Ö´ÐÐÄ³¸ö½Å±¾Ö¸Áî
-	BOOL			ExeItemScriptA(char * ScriptFileName, char * szFunName, char * szParams=NULL,char * snParams=NULL,int inParam = 0,int njb=0,int njxb=0,int inGenre=0,int inDetail=0,int inParticular=0,int inStackNum=0,int inItemX=0,int inItemY=0);
-	BOOL			ExeItemScript(DWORD dwScriptId, char * szFunName, char *  szParams=NULL,char * snParams=NULL,int inParam = 0,int njb=0,int njxb=0,int inGenre=0,int inDetail=0,int inParticular=0,int inStackNum=0,int inItemX=0,int inItemY=0);
-    void            myPrintLuaStackA(lua_State *L);  //µ÷ÊÔ
-	void			ChangeCurStrength(int nData);			// ¸Ä±äµ±Ç°Á¦Á¿(µ± nData Ð¡ÓÚ 0 Ê±£¬¼õÉÙ)
-	void			ChangeCurDexterity(int nData);			// ¸Ä±äµ±Ç°Ãô½Ý(µ± nData Ð¡ÓÚ 0 Ê±£¬¼õÉÙ)
-	void			ChangeCurVitality(int nData);			// ¸Ä±äµ±Ç°»îÁ¦(µ± nData Ð¡ÓÚ 0 Ê±£¬¼õÉÙ)
-	void			ChangeCurEngergy(int nData);			// ¸Ä±äµ±Ç°¾«Á¦(µ± nData Ð¡ÓÚ 0 Ê±£¬¼õÉÙ)
-//	BOOL			ExecuteScriptC(char * ScriptFileName);
-	void			Release();
-	void			Active();								// Íæ¼ÒÃ¿´ÎÓÎÏ·Ñ­»·¶¼ÐèÒª´¦ÀíµÄ¶«Î÷
-//	void			ProcessMsg(KWorldMsgNode *lpMsg);		// ´¦ÀíÊÀ½çÏûÏ¢£¬×ªÎªNPCÃüÁî
-    void            ReSkillEnhance();
-	LPSTR			GetPlayerName() { return m_PlayerName; };
+    int m_IsTranse;                      // ï¿½Ç·ï¿½ï¿½ï¿½
+    int m_CurGsSerIdx;                   // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nImageNpcID;                   // id npc SPR
+    int m_RunStatus;                     // ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
+    unsigned long m_dwNextLevelLeadExp;  // Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    int m_nSendMoveFrames;  // ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Æ¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½(ï¿½ß»ï¿½ï¿½ï¿½)Ð­ï¿½ï¿½ï¿½Æµï¿½Ê£ï¿½Ê¹Ö®ï¿½ï¿½ï¿½Ü·ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ð­ï¿½é£¬ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
+    // char            szClienResult[256];       // ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÈ«ï¿½Ö±ï¿½ï¿½ï¿½
+    KTabFile nPos, nYaBiao, nEquipItem, nCheckName;
+    KIniFile m_FileDesc;  //,nEquipItem,nToolItem,nCheckName;
+    KTabFile nGuaSkill;
+    KTabFileCtrl nMapPos;
 
-	BOOL			NewPlayerGetBaseAttribute(int Series);	// ÐÂÍæ¼ÒµÇÂ½Ê±¸ù¾ÝÎåÐÐÊôÐÔ²úÉú Á¦Á¿ Ãô½Ý »îÁ¦ ¾«Á¦ ËÄÏîÊýÖµ
-	void			AddBaseLucky(int nData);				// Ôö¼Ó»ù±¾ÔËÆø
+    unsigned long m_ItemLinkDwid;  // ï¿½ï¿½Ç°×°ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Æ·ID
+    TMissionLadderSelfInfo m_MissionData;
+    TMissionLadderInfo m_MissionRank[MISSION_STATNUM];
 
-	void			DirectAddExp(int nExp);					// Ö±½ÓÔö¼Ó¾­ÑéÖµ£¬²»¿¼ÂÇÆäËûÒòËØ
-	void			LevelUp();								// ÉýÒ»¼¶
-	void			AddLeadExp(int nExp);					// Ôö¼ÓÍ³ÂÊÁ¦¾­Ñé
-	void			UpdataCurData(int nIsLoign=0,int nUnEquip=0);
-	void			ReCalcEquip();		    // ÖØÐÂ¼ÆËãÉíÉÏµÄ×°±¸
-	void			ReCalcState(int nIsLoign=0);							// ÖØÐÂ¼ÆËãÉíÉÏµÄ×´Ì¬
-	BOOL            CheckThisItem(int nSetings,char *nKey);
-	void			ChangePlayerCamp(int nCamp);			// ¸Ä±äÍæ¼ÒÕóÓª
-	void 			Revive(int nType);						// ÖØÉú	
-	void			GetEchoDamage(int* nMin, int* nMax, int nType);// »ñÈ¡½çÃæÐèÒªÏÔÊ¾µÄÉËº¦Öµ
-	BOOL			CheckTrading();
-	void			SetFirstDamage();   //ÉèÖÃ»ù±¾ÉËº¦
-	void			SetBaseAttackRating();
-	void			SetBaseDefence();
-	void			SetBaseResistData();
-	void			SetBaseSpeedAndRadius();
-	int				GetPhysicsSkillId(){return m_nPhysicsSkillID;};
-	void			SetPhysicsSkillId(int nPhysicsSkillID)
-	{
-		if (nPhysicsSkillID <= 0) return ;
-		ISkill * pISkill =  g_SkillManager.GetSkill(nPhysicsSkillID, 1);
-		if (!pISkill) 
-            return ;
-		
+    int m_ExpTime;           //  ï¿½ï¿½Ç°ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    int m_YinLiangTime;      //  ï¿½ï¿½Ç°ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    int m_JinBiTime;         //  ï¿½ï¿½Ç°ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    int m_ExpPiontTime;      //  ï¿½ï¿½Ç°ï¿½ï¿½È¡ï¿½ã¿¨Ê±ï¿½ï¿½
+    KplayerAuto m_Autoplay;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³(ï¿½ï¿½ï¿½ï¿½)
+    int m_DebugMode;         // ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+
+    int m_nCurPinDao;  // ï¿½ï¿½Ê±Æµï¿½ï¿½
+    enum
+    {
+        FF_CHAT = 0x01,
+    };
+    BYTE m_nForbiddenFlag;  // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ô±ï¿½Ö¾
+    KIndexNode m_Node;
+    GUID m_Guid;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_bExchangeServer;  // ï¿½Ç·ï¿½ï¿½ï¿½×´Ì¬
+
+    UINT m_dwID;            // ï¿½ï¿½Òµï¿½32Î»ID
+    int m_nIndex;           // ï¿½ï¿½Òµï¿½Npcï¿½ï¿½ï¿½
+    int m_nNetConnectIdx;   // ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    KItemList m_ItemList;   // ï¿½ï¿½Òµï¿½×°ï¿½ï¿½ï¿½Ð±ï¿½
+    BuySellInfo m_BuyInfo;  // ï¿½ï¿½ï¿½ÐµÄ½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    // NewBuySellInfo	m_NewBuyInfo;				// ï¿½ï¿½ï¿½ÐµÄ½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    KPlayerMenuState m_cMenuState;  // ï¿½Ç·ï¿½ï¿½Ú½ï¿½ï¿½×»ï¿½ï¿½ï¿½é¿ªï¿½ï¿½×´Ì¬
+    KTrade m_cTrade;                // ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+    int m_nAttributePoint;          // Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½
+    int m_nSkillPoint;              // Î´ï¿½ï¿½ï¿½ä¼¼ï¿½Üµï¿½
+    int m_nChestPW;                 // ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ðµï¿½Í¼ Ê¹ï¿½ï¿½
+    int m_nStrength;                // ï¿½ï¿½ÒµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½
+    int m_nDexterity;               // ï¿½ï¿½ÒµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nVitality;  // ï¿½ï¿½ÒµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nEngergy;   // ï¿½ï¿½ÒµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nLucky;     // ï¿½ï¿½ÒµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ãµï¿½×°ï¿½ï¿½ï¿½ÄºÃ»ï¿½ï¿½ï¿½
+    BYTE m_btChatSpecialChannel;
+    int m_nUpExp;  // É±ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Ù·Ö±ï¿½
+
+    int m_nCurStrength;   // ï¿½ï¿½ÒµÄµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½
+    int m_nCurDexterity;  // ï¿½ï¿½ÒµÄµï¿½Ç°ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int m_nCurVitality;   // ï¿½ï¿½ÒµÄµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½â¹¦
+    int m_nCurEngergy;    // ï¿½ï¿½ÒµÄµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½       ï¿½Ú¹ï¿½
+    int m_nCurLucky;      // ï¿½ï¿½ÒµÄµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ãµï¿½×°ï¿½ï¿½ï¿½ÄºÃ»ï¿½ï¿½ï¿½
+    int m_nTempLucky_p;   // ï¿½ï¿½Â¼ï¿½ï¿½Òµï¿½ï¿½ï¿½Ê±×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë°Ù·Ö±ï¿½
+    BYTE m_nVipType;      // ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                          //	int             m_nZhonji;                  // ï¿½ï¿½Ç°ï¿½Ø»ï¿½
+                          //	int             m_nDangge;                  // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+
+    int m_nExp;           // ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Öµ(ï¿½ï¿½Ç°ï¿½È¼ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½)
+    int m_nNextLevelExp;  // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    BYTE m_CUnlocked;     // ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä»
+
+    UINT m_dwLeadExp;       // Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    UINT m_dwLeadLevel;     // Í³ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+    char m_PlayerName[32];  // ï¿½ï¿½ÒµÄ½ï¿½É«ï¿½ï¿½ï¿½ï¿½
+    // char			m_PeiouName[32];            // ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½
+
+    KPlayerTeam m_cTeam;        // ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    KPlayerFaction m_cFaction;  // ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+
+    //	KPlayerChat		m_cChat;                    // ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Ê¾
+
+    KPlayerTask m_cTask;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³(ï¿½ï¿½ï¿½ï¿½)
+
+    //	KplayerGuzi		m_GuziGame;	                // ï¿½ï¿½Òµï¿½ï¿½Ï»ï¿½ï¿½ï¿½ÏµÍ³
+
+    KplayerTimeInfo m_MapTimeInfo;  // ï¿½ï¿½ï¿½Ë²ï¿½ ï¿½ï¿½Ð§Ò©ï¿½æµµ
+
+    KPlayerPK m_cPK;  // PKï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½
+
+    KPlayerRepute m_cRepute;  // ï¿½ï¿½ï¿½ï¿½
+
+    KPlayerFuYuan m_cFuYuan;  // ï¿½ï¿½Ô´
+
+    KPlayerReBorn m_cReBorn;  // ×ªï¿½ï¿½
+
+    KPlayerVip m_cVip;  // ï¿½ï¿½Ô±
+
+    KPlayerTong m_cTong;  // ï¿½Ô¼ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ï¿½Ï¢
+
+    unsigned long m_dwDeathScriptId;  // ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+
+    char m_szTaskAnswerCanshu[MAX_ANSWERNUM][32];  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
+    char m_szTaskAnswerFun[MAX_ANSWERNUM][32];
+    int m_nAvailableAnswerNum;  // ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½
+    int m_nWorldStat;           // ï¿½ï¿½ï¿½ï¿½
+    int m_nSectStat;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    bool m_isopenjuli;
+
+    unsigned long m_nGiveCallBackScript;
+    BYTE m_nGiveCallBackNum;
+
+public:
+    KPlayer();
+    ~KPlayer();
+
+    void SetPlayerIndex(int nNo);        // ï¿½è¶¨ m_nPlayerIndex
+    void GetAboutPos(KMapPos* pMapPos);  // ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    void GetNewAboutPos(KMapPos* pMapPos);
+    int GetPlayerIndex();  // ï¿½ï¿½Ã±ï¿½Êµï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½
+    UINT GetPlayerID() { return m_dwID; };
+    void GetFactionName(char* lpszName, int nSize);             // ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ not end
+    void ChatFriendOnLine(unsigned long dwID, int nFriendIdx);  // ï¿½ï¿½ï¿½Í¨ÖªÄ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ExecuteScriptA(char* ScriptFileName,
+                       char* szFunName,
+                       int nParam     = 0,
+                       char* szCanshu = NULL,
+                       int nIsGive    = TRUE);  // NPCï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ExeNoBackScript(char* ScriptFileName,
+                        char* szFunName,
+                        int nKind   = 0,
+                        int nParama = 0,
+                        int nParamb = 0,
+                        int nParamc = 0);
+    int ExecuteScriptC(char* ScriptFileName,
+                       const char* szFunName,
+                       const char* szParams = NULL,
+                       const char* snParams = NULL,
+                       int inParam          = 0,
+                       int njb              = 0,
+                       int njxb             = 0,
+                       int inval            = 0,
+                       int invala           = 0,
+                       int nIsGive          = TRUE);
+    int ExecuteScriptD(unsigned long dwScriptId,
+                       const char* szFunName,
+                       const char* szParams = NULL,
+                       const char* snParams = NULL,
+                       int inParam          = 0,
+                       int njb              = 0,
+                       int njxb             = 0,
+                       int inval            = 0,
+                       int invala           = 0,
+                       int nIsGive          = FALSE);
+    int ExecuteScriptB(unsigned long dwScriptId,
+                       char* szFunName,
+                       int nParam     = 0,
+                       char* szCanshu = NULL,
+                       int nIsGive    = TRUE);
+    int DoScript(char* ScriptCommand);  // Ö´ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Å±ï¿½Ö¸ï¿½ï¿½
+    int ExeItemScriptA(const char* ScriptFileName,
+                       const char* szFunName,
+                       char* szParams   = NULL,
+                       char* snParams   = NULL,
+                       int inParam      = 0,
+                       int njb          = 0,
+                       int njxb         = 0,
+                       int inGenre      = 0,
+                       int inDetail     = 0,
+                       int inParticular = 0,
+                       int inStackNum   = 0,
+                       int inItemX      = 0,
+                       int inItemY      = 0);
+    int ExeItemScript(unsigned long dwScriptId,
+                      const char* szFunName,
+                      char* szParams   = NULL,
+                      char* snParams   = NULL,
+                      int inParam      = 0,
+                      int njb          = 0,
+                      int njxb         = 0,
+                      int inGenre      = 0,
+                      int inDetail     = 0,
+                      int inParticular = 0,
+                      int inStackNum   = 0,
+                      int inItemX      = 0,
+                      int inItemY      = 0);
+    void myPrintLuaStackA(lua_State* L);  // ï¿½ï¿½ï¿½ï¿½
+    void ChangeCurStrength(int nData);    // ï¿½Ä±äµ±Ç°ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ nData Ð¡ï¿½ï¿½ 0 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    void ChangeCurDexterity(int nData);   // ï¿½Ä±äµ±Ç°ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ nData Ð¡ï¿½ï¿½ 0 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    void ChangeCurVitality(int nData);    // ï¿½Ä±äµ±Ç°ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ nData Ð¡ï¿½ï¿½ 0 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    void ChangeCurEngergy(int nData);     // ï¿½Ä±äµ±Ç°ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ nData Ð¡ï¿½ï¿½ 0 Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+                                          //	int			ExecuteScriptC(char * ScriptFileName);
+    void Release();
+    void Active();  // ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ï·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
+    //	void			ProcessMsg(KWorldMsgNode *lpMsg);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½×ªÎªNPCï¿½ï¿½ï¿½ï¿½
+    void ReSkillEnhance();
+    char* GetPlayerName() { return m_PlayerName; };
+
+    int NewPlayerGetBaseAttribute(int Series);  // ï¿½ï¿½ï¿½ï¿½Òµï¿½Â½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+    void AddBaseLucky(int nData);               // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+    void DirectAddExp(int nExp);  // Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void LevelUp();               // ï¿½ï¿½Ò»ï¿½ï¿½
+    void AddLeadExp(int nExp);    // ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void UpdataCurData(int nIsLoign = 0, int nUnEquip = 0);
+    void ReCalcEquip();                  // ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½×°ï¿½ï¿½
+    void ReCalcState(int nIsLoign = 0);  // ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½×´Ì¬
+    int CheckThisItem(int nSetings, char* nKey);
+    void ChangePlayerCamp(int nCamp);                     // ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óª
+    void Revive(int nType);                               // ï¿½ï¿½ï¿½ï¿½
+    void GetEchoDamage(int* nMin, int* nMax, int nType);  // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ëºï¿½Öµ
+    int CheckTrading();
+    void SetFirstDamage();  // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+    void SetBaseAttackRating();
+    void SetBaseDefence();
+    void SetBaseResistData();
+    void SetBaseSpeedAndRadius();
+    int GetPhysicsSkillId() { return m_nPhysicsSkillID; };
+    void SetPhysicsSkillId(int nPhysicsSkillID)
+    {
+        if (nPhysicsSkillID <= 0)
+            return;
+        ISkill* pISkill = g_SkillManager.GetSkill(nPhysicsSkillID, 1);
+        if (!pISkill)
+            return;
+
         if (nPhysicsSkillID > 0 && pISkill->IsPhysical())
-			m_nPhysicsSkillID = nPhysicsSkillID;
-	};
-	int				GetLeftSkill(){return m_nLeftSkillID;};
-	int			    GetLeftSkillListidx(){return m_nLeftListidx;};
-	int				GetRightSkill(){return m_nRightSkillID;};
-	int			    GetRightSkillListidx(){return m_nRightListidx;};
+            m_nPhysicsSkillID = nPhysicsSkillID;
+    };
+    int GetLeftSkill() { return m_nLeftSkillID; };
+    int GetLeftSkillListidx() { return m_nLeftListidx; };
+    int GetRightSkill() { return m_nRightSkillID; };
+    int GetRightSkillListidx() { return m_nRightListidx; };
 
-	void            SetExtGameTime(DWORD nPoint);
+    void SetExtGameTime(unsigned long nPoint);
 
-	int				GetTargetNpc() { return m_nPeapleIdx; };
-	int				GetTargetObj() { return m_nObjectIdx; };
-	void			SetTargetNpc(int n) { m_nPeapleIdx = n; };
-	void			SetTargetObj(int n) { m_nObjectIdx = n; };
-	void			FindSelectNpc(int x, int y, int nRelation);
-	void			FindSelectObject(int x, int y);
-	void			Walk(int nDir, int nSpeed);	
-	void			TurnLeft();
-	void			TurnRight();
-	void			TurnBack();
-	void			DrawSelectInfo();
-	BOOL			ConformIdx(int nIdx);	
-//	void			GetEchoDamage(int* nMin, int* nMax, int nType);// »ñÈ¡½çÃæÐèÒªÏÔÊ¾µÄÉËº¦Öµ
-	void			ProcessInputMsg(UINT uMsg, WPARAM wParam, LPARAM lParam);// ´¦Àí¼üÅÌÊó±êÏûÏ¢
-	void			RecvSyncData();								// ½ÓÊÕÍ¬²½Êý¾Ý
-    int             ClientExeItemScript(char *nScriptPath,char *nFunName,int nPaparm,int ninVal,char *nstrVala);
-	void			ApplyTeamInfo(DWORD dwNpcID);				// Ïò·þÎñÆ÷ÉêÇë²éÑ¯Ä³¸önpcËùÔÚ¶ÓÎéµÄÐÅÏ¢
-	void	        ApplyRoomInfo(int nIsFull);
-	void			ApplySelfTeamInfo();						// Ïò·þÎñÆ÷ÉêÇë²éÑ¯Íæ¼Ò×ÔÉíµÄ¶ÓÎéÇé¿ö
-	BOOL			ApplyCreateTeam();//char *lpszTeamName);		// Íæ¼ÒÏò·þÎñÆ÷ÉêÇë´´½¨¶ÓÎé
-	BOOL			ApplyTeamOpenClose(BOOL bFlag);				// ¶Ó³¤Ïò·þÎñÆ÷ÉêÇë¿ª·Å¡¢¹Ø±Õ¶ÓÎéÊÇ·ñÔÊÐí¼ÓÈë³ÉÔ±×´Ì¬
-	void			ApplyAddTeam(int nNpcIndex);				// Íæ¼ÒÏò·þÎñÆ÷ÉêÇë¼ÓÈëÄ³¸ö¶ÓÎé
-	void			AcceptTeamMember(DWORD dwNpcID);			// Íæ¼ÒÍ¨Öª·þÎñÆ÷½ÓÊÜÄ³¸önpcÎª¶ÓÎé³ÉÔ±
-	void			TeamDropApplyOne(DWORD dwNpcID);			// ¶Ó³¤É¾³ý¼ÓÈë¶ÓÎéÉêÇëÁÐ±íÖÐµÄÄ³¸önpc
-	void			LeaveTeam();								// Í¨Öª·þÎñÆ÷±¾Íæ¼ÒÀë¿ª¶ÓÎé
-	void			TeamKickMember(DWORD dwNpcID);				// ¶Ó³¤Í¨Öª·þÎñÆ÷Ìß³ýÄ³¸ö¶ÓÔ±
-	void			ApplyTeamChangeCaptain(DWORD dwNpcID);		// ¶Ó³¤Ïò·þÎñÆ÷ÉêÇë°Ñ×Ô¼ºµÄ¶Ó³¤Éí·Ý½»¸ø±ðµÄ¶ÓÔ±
-	void			ApplyTeamDismiss();							// ¶Ó³¤Ïò·þÎñÆ÷ÉêÇë½âÉ¢¶ÓÎé
-	void			ApplySetPK(BOOL bPK);						// Íæ¼ÒÏò·þÎñÆ÷ÉêÇë´ò¿ª¡¢¹Ø±Õpk¿ª¹Ø
-	void			ApplyFactionData();							// Íæ¼ÒÏò·þÎñÆ÷ÉêÇëÃÅÅÉÊý¾Ý
-	void			SendChat(KUiMsgParam *pMsg, char *lpszSentence);// ¿Í»§¶Ë·¢ËÍÁÄÌìÓï¾ä¸ø·þÎñÆ÷
-	void			ApplyAddBaseAttribute(int nAttribute, int nNo);// ¶Ó³¤Ïò·þÎñÆ÷ÉêÇëÔö¼ÓËÄÏîÊôÐÔÖÐÄ³Ò»ÏîµÄµãÊý(0=Strength 1=Dexterity 2=Vitality 3=Engergy)
-	BOOL			ApplyAddSkillLevel(int nSkillID, int nAddPoint);// Ïò·þÎñÆ÷ÉêÇëÄ³¸ö¼¼ÄÜÉý¼¶
-	BOOL			ApplyUseItem(int nItemID, ItemPos SrcPos);	// Ïò·þÎñÆ÷ÉêÇëÊ¹ÓÃÄ³¸öÎïÆ·£¨Êó±êÓÒ¼üµã»÷¸ÃÎïÆ·£©
-	BOOL	        AutoChangeItem(int nItemID, ItemPos SrcPos,ItemPos DestPos);
-	BOOL            ApplyAutoMoveItem(int nItemID, ItemPos SrcPos,int destPlace);
-	void	        PickUpItem(int nObjIndex,int rid);
-    void	        PickUpMoney(int nObjIndex,int rid);
-	void			PickUpObj(int nObjIndex);					// ¿Í»§¶ËÊó±êµã»÷obj¼ìÆðÄ³¸öÎïÆ·£¬Ïò·þÎñÆ÷·¢ÏûÏ¢
-	void			ObjMouseClick(int nObjIndex);				// ¿Í»§¶ËÊó±êµã»÷obj£¬Ïò·þÎñÆ÷·¢ÏûÏ¢
-	BOOL			MoveItem(ItemPos DownPos, ItemPos UpPos,int nIsComp=0);	// DownPos ²»ÄÜÊÇÊÖ£¬UpPos ±ØÐëÊÇÊÖ
-	void			MoveSkill(ItemPos DownPos, ItemPos UpPos);
-	int				ThrowAwayItem();
-	int	            AutoAwayItem(DWORD nItmeDwIdx,bool isAttack=true);  //---------------Íâ¹Ò¶ª¶«Î÷-------------------
-	void			ChatAddFriend(int nPlayerIdx);				// ¿Í»§¶ËÍ¨¹ý±ðÈËµÄÌí¼ÓÁÄÌìºÃÓÑµÄÉêÇë
-	void			ChatRefuseFriend(int nPlayerIdx);			// ¿Í»§¶Ë¾Ü¾ø±ðÈËµÄÌí¼ÓÁÄÌìºÃÓÑµÄÉêÇë
-	void			TradeApplyOpen(char *lpszSentence, int nLength);
-	void			TradeApplyClose();
-	void			TradeApplyStart(int nNpcIdx);
-	BOOL			TradeMoveMoney(int nMoney);					// ½»Ò×Ê±ÊäÈë×Ô¼ºµÄÇ®	
-	void			TradeDecision(int nDecision);				// if nDecision == 0 ÍÆ³ö½»Ò×  if nDecision == 1 È·¶¨½»Ò×  if nDecision == 2 È¡Ïû½»Ò×È·¶¨
-	void			TradeApplyLock(int nLockOrNot);				// ½»Ò×Ëø¶¨»òÈ¡ÏûËø¶¨
+    int GetTargetNpc() { return m_nPeapleIdx; };
+    int GetTargetObj() { return m_nObjectIdx; };
+    void SetTargetNpc(int n) { m_nPeapleIdx = n; };
+    void SetTargetObj(int n) { m_nObjectIdx = n; };
+    void FindSelectNpc(int x, int y, int nRelation);
+    void FindSelectObject(int x, int y);
+    void Walk(int nDir, int nSpeed);
+    void TurnLeft();
+    void TurnRight();
+    void TurnBack();
+    void DrawSelectInfo();
+    int ConformIdx(int nIdx);
+    //	void			GetEchoDamage(int* nMin, int* nMax, int nType);// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ëºï¿½Öµ
+    void ProcessInputMsg(UINT uMsg, WPARAM wParam, LPARAM lParam);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void RecvSyncData();                                            // ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ClientExeItemScript(const char* nScriptPath,
+                            const char* nFunName,
+                            int nPaparm,
+                            int ninVal,
+                            const char* nstrVala);
+    void ApplyTeamInfo(unsigned long dwNpcID);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Ä³ï¿½ï¿½npcï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void ApplyRoomInfo(int nIsFull);
+    void ApplySelfTeamInfo();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ApplyCreateTeam();     // char *lpszTeamName);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë´´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ApplyTeamOpenClose(int bFlag);  // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½Å¡ï¿½ï¿½Ø±Õ¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±×´Ì¬
+    void ApplyAddTeam(int nNpcIndex);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void AcceptTeamMember(unsigned long dwNpcID);  // ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½npcÎªï¿½ï¿½ï¿½ï¿½ï¿½Ô±
+    void TeamDropApplyOne(unsigned long dwNpcID);  // ï¿½Ó³ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ðµï¿½Ä³ï¿½ï¿½npc
+    void LeaveTeam();                              // Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½
+    void TeamKickMember(unsigned long dwNpcID);  // ï¿½Ó³ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ô±
+    void ApplyTeamChangeCaptain(unsigned long dwNpcID);  // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä¶Ó³ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½Ô±
+    void ApplyTeamDismiss();   // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½
+    void ApplySetPK(int bPK);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ª¡ï¿½ï¿½Ø±ï¿½pkï¿½ï¿½ï¿½ï¿½
+    void ApplyFactionData();   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void SendChat(KUiMsgParam* pMsg, char* lpszSentence);  // ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ApplyAddBaseAttribute(
+        int nAttribute,
+        int nNo);  // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½Äµï¿½ï¿½ï¿½(0=Strength 1=Dexterity 2=Vitality 3=Engergy)
+    int ApplyAddSkillLevel(int nSkillID, int nAddPoint);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int ApplyUseItem(int nItemID, ItemPos SrcPos);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
+    int AutoChangeItem(int nItemID, ItemPos SrcPos, ItemPos DestPos);
+    int ApplyAutoMoveItem(int nItemID, ItemPos SrcPos, int destPlace);
+    void PickUpItem(int nObjIndex, int rid);
+    void PickUpMoney(int nObjIndex, int rid);
+    void PickUpObj(int nObjIndex);  // ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½objï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void ObjMouseClick(int nObjIndex);  // ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½objï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    int MoveItem(ItemPos DownPos, ItemPos UpPos, int nIsComp = 0);  // DownPos ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½UpPos ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void MoveSkill(ItemPos DownPos, ItemPos UpPos);
+    int ThrowAwayItem();
+    int AutoAwayItem(unsigned long nItmeDwIdx, bool isAttack = true);  //---------------ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½-------------------
+    void ChatAddFriend(int nPlayerIdx);  // ï¿½Í»ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½
+    void ChatRefuseFriend(int nPlayerIdx);  // ï¿½Í»ï¿½ï¿½Ë¾Ü¾ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½
+    void TradeApplyOpen(char* lpszSentence, int nLength);
+    void TradeApplyClose();
+    void TradeApplyStart(int nNpcIdx);
+    int TradeMoveMoney(int nMoney);  // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ç®
+    void TradeDecision(
+        int nDecision);  // if nDecision == 0 ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½  if nDecision == 1 È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  if nDecision == 2 È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
+    void TradeApplyLock(int nLockOrNot);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void			SetChatCurChannel(int nChannelNo);			// Éè¶¨µ±Ç°ÁÄÌìÆµµÀ
-	void			TeamInviteAdd(DWORD dwNpcID);				// ÑûÇë¼ÓÈë¶ÓÎé
+    void SetChatCurChannel(int nChannelNo);     // ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½
+    void TeamInviteAdd(unsigned long dwNpcID);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void			SetLeftSkill(int nSkillID,BOOL nIsNoLogin=FALSE);
-	void			SetRightSkill(int nSkillID);
-	void	        SetShiquSkill(int nSkillID);
-	void			UpdateWeaponSkill();
-//	int				GetLeftSkill(){return m_nLeftSkillID;};
-//	int				GetRightSkill(){return m_nRightSkillID;};
-	void			SetDefaultImmedSkill();
-	void			s2cApplyAddTeam(BYTE* pProtocol);			// ÊÕµ½·þÎñÆ÷Í¨ÖªÓÐÈËÉêÇë¼ÓÈë¶ÓÎé
-	void			s2cTradeChangeState(BYTE* pMsg);
-	void			s2cTradeMoneySync(BYTE* pMsg);
-	void			s2cTradeDecision(BYTE* pMsg);				// ÊÕµ½·þÎñÆ÷Í¨Öª½»Ò×Íê³É»òÈ¡Ïû
-	void			SyncCurPlayer(BYTE* pMsg);
-	void			s2cLevelUp(BYTE* pMsg);
-	void			s2cGetCurAttribute(BYTE* pMsg);
-	void			s2cSetExp(int nExp);
-	void			s2cSyncMoney(BYTE* pMsg);
-	void			s2cSyncXu(BYTE* pMsg);
-	void			s2cTradeApplyStart(BYTE* pMsg);
-	void			CheckObject(int nIdx);
+    void SetLeftSkill(int nSkillID, int nIsNoLogin = FALSE);
+    void SetRightSkill(int nSkillID);
+    void SetShiquSkill(int nSkillID);
+    void UpdateWeaponSkill();
+    //	int				GetLeftSkill(){return m_nLeftSkillID;};
+    //	int				GetRightSkill(){return m_nRightSkillID;};
+    void SetDefaultImmedSkill();
+    void s2cApplyAddTeam(BYTE* pProtocol);  // ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void s2cTradeChangeState(BYTE* pMsg);
+    void s2cTradeMoneySync(BYTE* pMsg);
+    void s2cTradeDecision(BYTE* pMsg);  // ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½È¡ï¿½ï¿½
+    void SyncCurPlayer(BYTE* pMsg);
+    void s2cLevelUp(BYTE* pMsg);
+    void s2cGetCurAttribute(BYTE* pMsg);
+    void s2cSetExp(int nExp);
+    void s2cSyncMoney(BYTE* pMsg);
+    void s2cSyncXu(BYTE* pMsg);
+    void s2cTradeApplyStart(BYTE* pMsg);
+    void CheckObject(int nIdx);
 
-	UINT  			GetExtPoint();
+    UINT GetExtPoint();
+
 private:
-	void			CalcCurLucky();							// ¼ÆËãµ±Ç°ÔËÆø
-	void			LevelAddBaseLifeMax();					// µÈ¼¶ÉýÒ»¼¶ºóÔö¼Ó×î´óÉúÃüµã
-	void			LevelAddBaseManaMax();					// µÈ¼¶ÉýÒ»¼¶ºóÔö¼Ó×î´óÄÚÁ¦µã
-	void			LevelAddBaseStaminaMax();				// µÈ¼¶ÉýÒ»¼¶ºóÔö¼Ó×î´óÌåÁ¦µã
+    void CalcCurLucky();            // ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½ï¿½ï¿½
+    void LevelAddBaseLifeMax();     // ï¿½È¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void LevelAddBaseManaMax();     // ï¿½È¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void LevelAddBaseStaminaMax();  // ï¿½È¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void			SendFactionData();						// Ïò¿Í»§¶Ë·¢ËÍÃÅÅÉÊý¾Ý
+    void SendFactionData();  // ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	void			SyncCurrentBaseAttriibute(int type,int attribute,int curAttribute);	// ham moi
-	void			AddBaseStrength(int nData);				// Ôö¼Ó»ù±¾Á¦Á¿  ---Á¦Á¿
-	void			AddBaseDexterity(int nData);			// Ôö¼Ó»ù±¾Ãô½Ý  ---Éí·¨
-	void			AddBaseVitality(int nData);				// Ôö¼Ó»ù±¾»îÁ¦---Íâ¹¦
-	void			AddBaseEngergy(int nData);				// Ôö¼Ó»ù±¾¾«Á¦---ÄÚ¹¦
-	
-	void			ResetBaseStrength(int nData);			// Ôö¼Ó»ù±¾Á¦Á¿
-	void			ResetBaseDexterity(int nData);			// Ôö¼Ó»ù±¾Ãô½Ý
-	void			ResetBaseVitality(int nData);			// Ôö¼Ó»ù±¾»îÁ¦
-	void			ResetBaseEngergy(int nData);			// Ôö¼Ó»ù±¾¾«Á¦
-	
-	void			SetNpcPhysicsDamage();					// ÓÉµ±Ç°Á¦Á¿¼ÆËã¶ÔÓ¦npcµÄÎïÀíÉËº¦(PhysicsDamage)
-	void			SetNpcAttackRating();					// ÓÉµ±Ç°Ãô½Ý¼ÆËã¶ÔÓ¦npcµÄ¹¥»÷ÃüÖÐÂÊ(AttackRating)
-	void			SetNpcDefence();						// ÓÉµ±Ç°Ãô½Ý¼ÆËã¶ÔÓ¦npcµÄ·ÀÓùÁ¦
-//	void			SetNpcWalkSpeed();						// ÓÉµ±Ç°Ãô½Ý¼ÆËã¶ÔÓ¦npcµÄÐÐ×ßËÙ¶È
-//	void			SetNpcRunSpeed();						// ÓÉµ±Ç°Ãô½Ý¼ÆËã¶ÔÓ¦npcµÄÅÜ²½ËÙ¶È
-	void			ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton);
-	void			OnButtonUp(int x,int y,MOUSE_BUTTON nButton);				// ´¦ÀíÊó±ê¼üÌ§Æð
-	void			OnButtonDown(int x,int y,int Key,MOUSE_BUTTON nButton);		// ´¦ÀíÊó±ê¼ü°´ÏÂ
-	void			OnButtonMove(int x,int y,int Key,MOUSE_BUTTON nButton);		// ´¦ÀíÊó±ê¼ü°´ÏÂºóÒÆ¶¯
-	void			OnMouseMove(int x,int y);									// ´¦ÀíÊó±êÒÆ¶¯
-	int				NetCommandPlayerTalk(BYTE* pProtocol);
+    void SyncCurrentBaseAttriibute(int type, int attribute, int curAttribute);  // ham moi
+    void AddBaseStrength(int nData);   // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ---ï¿½ï¿½ï¿½ï¿½
+    void AddBaseDexterity(int nData);  // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ---ï¿½ï¿½ï¿½ï¿½
+    void AddBaseVitality(int nData);   // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---ï¿½â¹¦
+    void AddBaseEngergy(int nData);    // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---ï¿½Ú¹ï¿½
 
-	//Question:Îªµ¥»ú²âÊÔ°æÊ¹ÓÃ
-	//friend		    int LuaInitStandAloneGame(Lua_State * L);
+    void ResetBaseStrength(int nData);   // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ResetBaseDexterity(int nData);  // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ResetBaseVitality(int nData);   // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ResetBaseEngergy(int nData);    // ï¿½ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
+    void SetNpcPhysicsDamage();  // ï¿½Éµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½(PhysicsDamage)
+    void SetNpcAttackRating();   // ï¿½Éµï¿½Ç°ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ó¦npcï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(AttackRating)
+    void SetNpcDefence();        // ï¿½Éµï¿½Ç°ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ó¦npcï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
+                                 //	void			SetNpcWalkSpeed();						//
+    //ï¿½Éµï¿½Ç°ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ó¦npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ 	void			SetNpcRunSpeed(); // ï¿½Éµï¿½Ç°ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ó¦npcï¿½ï¿½ï¿½Ü²ï¿½ï¿½Ù¶ï¿½
+    void ProcessMouse(int x, int y, int Key, MOUSE_BUTTON nButton);
+    void OnButtonUp(int x, int y, MOUSE_BUTTON nButton);             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì§ï¿½ï¿½
+    void OnButtonDown(int x, int y, int Key, MOUSE_BUTTON nButton);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void OnButtonMove(int x, int y, int Key, MOUSE_BUTTON nButton);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âºï¿½ï¿½Æ¶ï¿½
+    void OnMouseMove(int x, int y);                                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+    int NetCommandPlayerTalk(BYTE* pProtocol);
 
-// ¶¹¶¹µÄ¶«Î÷
+    // Question:Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½Ê¹ï¿½ï¿½
+    // friend		    int LuaInitStandAloneGame(Lua_State * L);
+
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
 private:
-	void			S2CExecuteScript(char * ScriptName, char * szParam);
+    void S2CExecuteScript(char* ScriptName, char* szParam);
+
 public:
-	void			SetNpcDamageAttrib();
-	void			DoScriptAction(PLAYER_SCRIPTACTION_SYNC * pUIInfo); //Í¨Öª¸Ã¿Í»§¶ËÏÔÊ¾Ä³¸öUI½çÃæ
-	void			ProcessPlayerSelectFromUI(BYTE* pProtocol);			// ´¦Àíµ±Íæ¼Ò´ÓÑ¡Ôñ²Ëµ¥Ñ¡ÔñÄ³ÏîÊ±µÄ²Ù×÷
+    void SetNpcDamageAttrib();
+    void DoScriptAction(PLAYER_SCRIPTACTION_SYNC* pUIInfo);  // Í¨Öªï¿½Ã¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Ä³ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
+    void ProcessPlayerSelectFromUI(BYTE* pProtocol);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½Ñ¡ï¿½ï¿½Ëµï¿½Ñ¡ï¿½ï¿½Ä³ï¿½ï¿½Ê±ï¿½Ä²ï¿½ï¿½ï¿½
 
-	void			DialogNpc(int nIndex,BOOL nIsServer=TRUE);
-	void            OpenBaiTan(DWORD nIndwId);
-	void			OnSelectFromUI(PLAYER_SELECTUI_COMMAND * pSelectUI, UIInfo eUIInfo);//µ±Íæ¼Ò´ÓÑ¡Ôñ¿òÖÐÑ¡ÔñÄ³Ïîºó£¬½«Ïò·þÎñÆ÷·¢ËÍ			
-	void			OnScriptAction(PLAYER_SCRIPTACTION_SYNC * );
-
+    void DialogNpc(int nIndex, int nIsServer = TRUE);
+    void OpenBaiTan(unsigned long nIndwId);
+    void OnSelectFromUI(
+        PLAYER_SELECTUI_COMMAND* pSelectUI,
+        UIInfo eUIInfo);  // ï¿½ï¿½ï¿½ï¿½Ò´ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ä³ï¿½ï¿½ó£¬½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void OnScriptAction(PLAYER_SCRIPTACTION_SYNC*);
 };
 
-extern KPlayer	*Player;//Player[MAX_PLAYER];
+extern KPlayer* Player;  // Player[MAX_PLAYER];
 
-#endif //KPlayerH
-
+#endif  // KPlayerH

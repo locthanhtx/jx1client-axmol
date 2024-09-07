@@ -19,8 +19,8 @@ typedef struct tagNpcSkill
 	int		SkillLevel;         //��λ�õ�ʵ�ʵȼ�����װ�� ���ܵĸ���ֵ��
 	int		MaxTimes;
 	int		RemainTimes;
-	DWORD	NextCastTime;		//�´οɷ���ʱ����Сʱ��
-	DWORD	NextHorseCastTime;  //�´�����ɷ���ʱ����Сʱ��
+	unsigned long	NextCastTime;		//�´οɷ���ʱ����Сʱ��
+	unsigned long	NextHorseCastTime;  //�´�����ɷ���ʱ����Сʱ��
 	int		CurrentSkillLevel;  //��λ�õ�ǰ���ܵĵȼ������� װ�� ���ܵĵȼ�����ֵ��
 	int		mAddPoint;          //��λ�õĶ��⼼�ܵ� ��װ�� �Լ��ܵ� ����ֵ��
 	int		EnChance;           //���ܼӳɰٷֱ�
@@ -45,7 +45,7 @@ public:
 	KSkillList();
 	~KSkillList();
 	void		ReEnChance();
-	int	        CheckNoSkill(char *nKey,int nSkillidx);
+        int CheckNoSkill(const char* nKey, int nSkillidx);
 	int			Add(int nSkillID, int nLevel = 1, int nMaxTimes = 0, int RemainTimes = 0, int nAdd = 0,int nCurExpSkill=0,int nExpSkillPonit=0);//������Ӽ��� �� ʹ�ü��ܵ��õĺ���
 	int		    Remove(int nSkillID);
 	void        RemoveAllSkill();  //ɾ��ȫ������
@@ -58,7 +58,7 @@ public:
 			return m_Skills[ulSkillIdx].SkillId;
 	};
 
-	BOOL CheckHaveSkill(unsigned int ulSkillId) const
+	int CheckHaveSkill(unsigned int ulSkillId) const
 	{
 		for (int i=1;i<MAX_NPCSKILL;i++)
 		{
@@ -79,14 +79,14 @@ public:
 	void		SetSkillEnChance(int nId, int nEnChance);
 	void		AddCEnChance(int nId, int nEnChance);
 	void		SetSkillLevel(int nId, int nLevel);
-	BOOL		SetLevel(int nIndex, int nLevel);		// ��ĳ����ż�����Ϊĳһ��
+	int		SetLevel(int nIndex, int nLevel);		// ��ĳ����ż�����Ϊĳһ��
 	int			GetSkillSortList(KUiSkillData *);		// ��ý�ɫ��ǰ���м��������б�
 	int			GetSkillPosition(int nSkillId);         //��ü����ڼ��ܽ����λ��
 	int			GetLeftSkillSortList(KUiSkillData*);	// ��ý�ɫ��ǰ������������б�
 	int			GetRightSkillSortList(KUiSkillData*);	// ��ý�ɫ��ǰ�Ҽ����������б�
-//  int         Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit);
+//  int         Add(int nIdx, int nPlace, int nX, int nY, int bInit);
 
-	BOOL		IncreaseLevel(int nIdx, int nLvl, int Qeuip = FALSE,BOOL nIsClearExp=FALSE);//�����趨�������ݣ����������ű�����
+	int		IncreaseLevel(int nIdx, int nLvl, int Qeuip = FALSE,int nIsClearExp=FALSE);//�����趨�������ݣ����������ű�����
 	int			GetLevel(int nSkillID);
 	int         AddSkillExp(int nSkillID,int nCurExp=0,int nType=1);
 	int         GetCurSkillExp(int nSkillID);
@@ -100,9 +100,9 @@ public:
 	int         GetSkillExpByListidx(int nListidx);
 	void        SetSkillExpByListidx(int nListidx,int nExp);
 	int         IsSkillExpByListidx(int nListidx);
-	BOOL        SetSLevelByListidx(int nListidx, int nLevel,BOOL nKind=FALSE);
+	int        SetSLevelByListidx(int nListidx, int nLevel,int nKind=FALSE);
 
-	BOOL		SetSLevel(int nSkillID, int nLevel,BOOL nKind=FALSE);
+	int		SetSLevel(int nSkillID, int nLevel,int nKind=FALSE);
 	int			GetSkillIdxLevel(int nIdx)
 	{
 		if (nIdx <= 0) return 0;
@@ -115,18 +115,18 @@ public:
 	int			FindFree();
 
 	/*
-	BOOL		CanCast(int nSkillID, DWORD dwTime);   //���ʱ���� ���Ƿ��ܷ�����
-	void		SetNextCastTime(int nSkillID, DWORD dwTime);
-	void		SetHorseNextCastTime(int nSkillID, DWORD dwTime);
+	int		CanCast(int nSkillID, unsigned long dwTime);   //���ʱ���� ���Ƿ��ܷ�����
+	void		SetNextCastTime(int nSkillID, unsigned long dwTime);
+	void		SetHorseNextCastTime(int nSkillID, unsigned long dwTime);
 	int 		GetHorseNextCastTime(int nSkillID);
 	int		    GetNextCastTime(int nSkillID);
 	*/
-	BOOL		CanCast(int nSkillID, DWORD dwTime);   //���ʱ���� ���Ƿ��ܷ�����
-	BOOL        CanCastByIndex(int nSkListIndex, DWORD dwTime);
-	void		SetNextCastTime(int nSkillID, DWORD dwTime);
-	void		SetNextCastTimeByIndex(int nSkListIndex, DWORD dwTime);
-	void		SetHorseNextCastTime(int nSkillID, DWORD dwTime);
-	void		SetHorseNextCastTimeByIndex(int nSkListIndex, DWORD dwTime);
+	int		CanCast(int nSkillID, unsigned long dwTime);   //���ʱ���� ���Ƿ��ܷ�����
+	int        CanCastByIndex(int nSkListIndex, unsigned long dwTime);
+	void		SetNextCastTime(int nSkillID, unsigned long dwTime);
+	void		SetNextCastTimeByIndex(int nSkListIndex, unsigned long dwTime);
+	void		SetHorseNextCastTime(int nSkillID, unsigned long dwTime);
+	void		SetHorseNextCastTimeByIndex(int nSkListIndex, unsigned long dwTime);
 	int 		GetHorseNextCastTime(int nSkillID);
 	int         GetHorseNextCastTimeByIndex(int nSkListIndex);
 	int		    GetNextCastTime(int nSkillID);

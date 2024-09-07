@@ -1,7 +1,7 @@
 #ifndef	KWorldH
 #define	KWorldH
 
-#define	MAX_SUBWORLD	1  //¿Í»§¶ËµÄµØÍ¼ÏÞÖÆ
+#define	MAX_SUBWORLD	1  //ï¿½Í»ï¿½ï¿½ËµÄµï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 #include <map>
 #include <vector>
 
@@ -15,42 +15,42 @@
 
 class  KSubWorld
 {
-public:	
+public:
 	int			m_nIndex;
-	int			m_SubWorldID;        //µØÍ¼±àºÅ
-	int			m_SubWhereTeam;      //µ±Ç°µØÍ¼ÊôÓÚÄÇ¸ö¶ÓÎé±ÈÈüÓÃµÄ
-	BOOL        m_IsShowLoop;        //ÊÇ·ñÏÔÊ¾µØÍ¼ÐÅÏ¢
-	
-	int         m_WargKillNum;	     //¹¥·½ËÀÍöÈËÊý	 À¶
-	int         m_WarsKillNum;		 //ÊØ·½ËÀÍöÈËÊý	 ÂÌ
+	int			m_SubWorldID;        //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
+	int			m_SubWhereTeam;      //ï¿½ï¿½Ç°ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
+	int        m_IsShowLoop;        //ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Í¼ï¿½ï¿½Ï¢
 
-	BYTE        m_IsWhereCity;        //½ñÌìÊÇÄÄ¸ö³ÇÊÐ±»¹¥³Ç 1,2.....7 ÓÃÓÚÐ´Èë³ÇÕ½ÎÄ¼þ 
-    BYTE        m_WarIsWho;           //ÊôÓÚÄÄ·½µÄ »ò °ïÅÉµØÍ¼--¹²ÓÃ  1 Îª¹¥·½ 2 ÎªÊØ·½
-	int         m_ShuiShouType;       //Ë°ÊÕµÄÀàÐÍ  ÊÇÔö¼Ó »¹ÊÇ¼õÉÙ
+	int         m_WargKillNum;	     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	 ï¿½ï¿½
+	int         m_WarsKillNum;		 //ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	 ï¿½ï¿½
 
-    BYTE        m_IswarCity;          //ÊÇ·ñ±»Õ¼Áì
+	BYTE        m_IsWhereCity;        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ 1,2.....7 ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Õ½ï¿½Ä¼ï¿½
+    BYTE        m_WarIsWho;           //ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Éµï¿½Í¼--ï¿½ï¿½ï¿½ï¿½  1 Îªï¿½ï¿½ï¿½ï¿½ 2 Îªï¿½Ø·ï¿½
+	int         m_ShuiShouType;       //Ë°ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½
 
-	int         m_IsLuKey;	          //µØÍ¼µÄÐÒÔË±¶ÂÊ
-	int         m_IsJinYan;		      //µØÍ¼µÄ¾­Ñé±¶ÂÊ
-	int         m_IsJinQian;		  //µØÍ¼µÄÒøÁ½±¶ÂÊ
+    BYTE        m_IswarCity;          //ï¿½Ç·ï¿½Õ¼ï¿½ï¿½
 
-	int         m_WarCityManey; //³ÇÊÐ½¨Éè×Ê½ð
-	int         m_WarCityJB;    //½ð±Ò
-	int         m_WarCityGX;    //¹±Ï×
+	int         m_IsLuKey;	          //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ë±ï¿½ï¿½ï¿½
+	int         m_IsJinYan;		      //ï¿½ï¿½Í¼ï¿½Ä¾ï¿½ï¿½é±¶ï¿½ï¿½
+	int         m_IsJinQian;		  //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	int         m_WarCityManey; //ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½
+	int         m_WarCityJB;    //ï¿½ï¿½ï¿½
+	int         m_WarCityGX;    //ï¿½ï¿½ï¿½ï¿½
 	int         m_GuziGameStat;
-    
-	int         m_nWPKFlag;  //ÊÇ·ñÔÊÐíPK
-	int         m_nWFight;   //ÊÇ·ñÕ½¶·Ä£Ê½
-	int         m_nWcomp;    //¸ÃµØÍ¼µÄÕóÓª		 Npc[nNpcIndex].SetCurrentCamp(nValue);
-    int         m_nMapTime;  //ÄÜ¶ºÁôµÄÊ±¼ä
-    int         m_nSleepTime; //ÄÜÑÓÊ±µÄÊ±¼ä
 
-	int         m_nNpcZongNum;  //×Ü²¨Êý
-	int         m_nCurNpcNum;	//µ±Ç°²¨Êý
-	int         m_nCurNum;      //Ã¿²¨µÄ¹ÖÎïÊý
+	int         m_nWPKFlag;  //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½PK
+	int         m_nWFight;   //ï¿½Ç·ï¿½Õ½ï¿½ï¿½Ä£Ê½
+	int         m_nWcomp;    //ï¿½Ãµï¿½Í¼ï¿½ï¿½ï¿½ï¿½Óª		 Npc[nNpcIndex].SetCurrentCamp(nValue);
+    int         m_nMapTime;  //ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    int         m_nSleepTime; //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½
 
-	int         m_nPleyerZongNum;  //×ÜÈËÊý
-	int         m_nCurPleyerNum;   //µ±Ç°ÈËÊý
+	int         m_nNpcZongNum;  //ï¿½Ü²ï¿½ï¿½ï¿½
+	int         m_nCurNpcNum;	//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+	int         m_nCurNum;      //Ã¿ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	int         m_nPleyerZongNum;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int         m_nCurPleyerNum;   //ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 	KRegion     *m_Region;
 
 	int			m_ClientRegionIdx[MAX_REGION];
@@ -59,28 +59,28 @@ public:
 	int         m_nLeft;
 	int         m_nTop;
 
-int			m_nWorldRegionWidth;			//	µØÍ¼µÄÊµ¼Ê¿í¶È
-int			m_nWorldRegionHeight;			//  µØÍ¼µÄÊµ¼Ê¸ß¶È	
-int			m_nTotalRegion;					//	µØÍ¼µÄÊµ¼ÊÃæ»ý´óÐ¡
-int			m_nRegionWidth;					//	µØÍ¼ÖÐÃ¿¿éRegionµÄ¸ñ×Ó¿í¶È£¨¹Ì¶¨16£©
-int			m_nRegionHeight;				//	µØÍ¼ÖÐÃ¿¿éRegionµÄ¸ñ×Ó¸ß¶È£¨¹Ì¶¨32£©
-int			m_nCellWidth;					//	CellµÄÏñËØ¿í¶È£¨¹Ì¶¨32£©
-int			m_nCellHeight;					//	CellµÄÏñËØ¸ß¶È£¨¹Ì¶¨32£©
-int			m_nRegionBeginX;		        //  µØÍ¼µÄ¿ªÊ¼Î»ÖÃX LEFT		
-int			m_nRegionBeginY;                //  µØÍ¼µÄ¿ªÊ¼Î»ÖÃY TOP
-int	        m_nRegionEndX;                  //  µØÍ¼µÄ½áÊøÎ»ÖÃX Rigth
-int         m_nRegionEndY;                  //  µØÍ¼µÄ½áÊøÎ»ÖÃY Buttom
-int			m_nWeather;						//	ÌìÆø±ä»¯
-DWORD		m_dwCurrentTime;				//	µ±Ç°Ö¡
-//KWorldMsg	m_WorldMessage;					//	ÏûÏ¢
-KList		m_NoneRegionNpcList;			//	²»ÔÚµØÍ¼ÉÏµÄNPC
+int			m_nWorldRegionWidth;			//	ï¿½ï¿½Í¼ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½
+int			m_nWorldRegionHeight;			//  ï¿½ï¿½Í¼ï¿½ï¿½Êµï¿½Ê¸ß¶ï¿½
+int			m_nTotalRegion;					//	ï¿½ï¿½Í¼ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+int			m_nRegionWidth;					//	ï¿½ï¿½Í¼ï¿½ï¿½Ã¿ï¿½ï¿½Regionï¿½Ä¸ï¿½ï¿½Ó¿ï¿½ï¿½È£ï¿½ï¿½Ì¶ï¿½16ï¿½ï¿½
+int			m_nRegionHeight;				//	ï¿½ï¿½Í¼ï¿½ï¿½Ã¿ï¿½ï¿½Regionï¿½Ä¸ï¿½ï¿½Ó¸ß¶È£ï¿½ï¿½Ì¶ï¿½32ï¿½ï¿½
+int			m_nCellWidth;					//	Cellï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½È£ï¿½ï¿½Ì¶ï¿½32ï¿½ï¿½
+int			m_nCellHeight;					//	Cellï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ß¶È£ï¿½ï¿½Ì¶ï¿½32ï¿½ï¿½
+int			m_nRegionBeginX;		        //  ï¿½ï¿½Í¼ï¿½Ä¿ï¿½Ê¼Î»ï¿½ï¿½X LEFT
+int			m_nRegionBeginY;                //  ï¿½ï¿½Í¼ï¿½Ä¿ï¿½Ê¼Î»ï¿½ï¿½Y TOP
+int	        m_nRegionEndX;                  //  ï¿½ï¿½Í¼ï¿½Ä½ï¿½ï¿½ï¿½Î»ï¿½ï¿½X Rigth
+int         m_nRegionEndY;                  //  ï¿½ï¿½Í¼ï¿½Ä½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Y Buttom
+int			m_nWeather;						//	ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯
+unsigned long		m_dwCurrentTime;				//	ï¿½ï¿½Ç°Ö¡
+//KWorldMsg	m_WorldMessage;					//	ï¿½ï¿½Ï¢
+KList		m_NoneRegionNpcList;			//	ï¿½ï¿½ï¿½Úµï¿½Í¼ï¿½Ïµï¿½NPC
 
 typedef std::map<INT, std::string> _WorldMapInfo;                 //SkillId,Echance
 _WorldMapInfo nWorldMapInfo;
 
 private:
-	//	BYTE*		m_pNpcRef;							// Ã¿¸ö¸ñ×ÓÉÏµÄNPCÊýÄ¿
-	//  BYTE*		m_pObjRef;							// Ã¿¸ö¸ñ×ÓÉÏµÄOBJÊýÄ¿	
+	//	BYTE*		m_pNpcRef;							// Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½NPCï¿½ï¿½Ä¿
+	//  BYTE*		m_pObjRef;							// Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½OBJï¿½ï¿½Ä¿
 public:
 	KSubWorld();
 	~KSubWorld();
@@ -88,35 +88,35 @@ public:
 	void		GetFreeObjPos(POINT& pos);
 	void        GetFreePos(POINT& pos);
 	void        GetFreeNewObjPos(POINT& pos);
-	
-	BOOL		CanPutObj(POINT pos,int nModle=0,BOOL nIsCheckNpc=FALSE);
+
+	int		CanPutObj(POINT pos,int nModle=0,int nIsCheckNpc=FALSE);
 	void		ObjChangeRegion(int nSrcRegionIdx, int nDesRegionIdx, int nObjIdx);
 	void		MissleChangeRegion(int nSrcRegionIdx, int nDesRegionIdx, int nObjIdx);
 	void		AddPlayer(int nRegion, int nIdx);
 	void		RemovePlayer(int nRegion, int nIdx);
 	void		Close();
-	int			GetDistance(int nRx1, int nRy1, int nRx2, int nRy2);// ÏñËØ¼¶×ø±ê
+	int			GetDistance(int nRx1, int nRy1, int nRx2, int nRy2);// ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	void        LookAt(int nX, int nY, int nZ);
 	void        GetLocalPositionByMps(int& nX, int& nY, int nZ);
-	void        GetMpsByLocalPosition(int& nX, int& nY, int nZ);  //ÆÁÄ»×ø±ê×ª³ÉÏñËØ×ø±ê
-	void		NewMap2Mps(int nR, int nX, int nY, int nDx, int nDy, int *nRx, int *nRy);		// ¸ñ×Ó×ø±ê×ªÏñËØ×ø±ê
-	//static void Map2Mps(int nRx, int nRy, int nX, int nY, int nDx, int nDy, int *pnX, int *pnY);// ¸ñ×Ó×ø±ê×ªÏñËØ×ø±ê	
-	void		Mps2MapnRodom(int * nR, int * nX, int * nY, int *nDx, int * nDy,int *Rx,int*Ry,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1);	// ÏñËØ×ø±ê×ª¸ñ×Ó×ø±ê
-	void		Mps2Map(int Rx, int Ry, int * nR, int * nX, int * nY, int *nDx, int * nDy);	    // ÏñËØ×ø±ê×ª¸ñ×Ó×ø±ê
-	void		GetMps(int *nX, int *nY, int nSpeed, int nDir, int nMaxDir = 64);			    // È¡µÃÄ³·½ÏòÄ³ËÙ¶ÈÏÂÒ»µãµÄ×ø±ê
+	void        GetMpsByLocalPosition(int& nX, int& nY, int nZ);  //ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		NewMap2Mps(int nR, int nX, int nY, int nDx, int nDy, int *nRx, int *nRy);		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//static void Map2Mps(int nRx, int nRy, int nX, int nY, int nDx, int nDy, int *pnX, int *pnY);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		Mps2MapnRodom(int * nR, int * nX, int * nY, int *nDx, int * nDy,int *Rx,int*Ry,int nOffwminx=1,int nOffwmaxx=1,int nOffhminy=1,int nOffhmaxy=1);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		Mps2Map(int Rx, int Ry, int * nR, int * nX, int * nY, int *nDx, int * nDy);	    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void		GetMps(int *nX, int *nY, int nSpeed, int nDir, int nMaxDir = 64);			    // È¡ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ù¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BYTE		TestBarrier(int nMpsX, int nMpsY);
-	BYTE		TestBarrier(int nRegion, int nMapX, int nMapY, int nDx, int nDy, int nChangeX, int nChangeY);	// ¼ì²âÏÂÒ»µãÊÇ·ñÎªÕÏ°­
-	BYTE		TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int nDy, int nChangeX, int nChangeY);	// ¼ì²âÏÂÒ»µãÊÇ·ñÎªÕÏ°­
-	BYTE		GetBarrier(int nMpsX, int nMpsY);											// È¡µÃÄ³µãµÄÕÏ°­ÐÅÏ¢
-	DWORD		GetTrap(int nMpsX, int nMpsY);
-	BOOL		SetTrap(int nMpsX, int nMpsY,int nCellNum=1,DWORD uTrapScriptId=0);
+	BYTE		TestBarrier(int nRegion, int nMapX, int nMapY, int nDx, int nDy, int nChangeX, int nChangeY);	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½Ï°ï¿½
+	BYTE		TestBarrierMin(int nRegion, int nMapX, int nMapY, int nDx, int nDy, int nChangeX, int nChangeY);	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½Ï°ï¿½
+	BYTE		GetBarrier(int nMpsX, int nMpsY);											// È¡ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Ï¢
+	unsigned long		GetTrap(int nMpsX, int nMpsY);
+	int		SetTrap(int nMpsX, int nMpsY,int nCellNum=1,unsigned long uTrapScriptId=0);
 	void		MessageLoop();
-	int			FindRegion(int RegionID);													// ÕÒµ½Ä³IDµÄRegionµÄË÷Òý
+	int			FindRegion(int RegionID);													// ï¿½Òµï¿½Ä³IDï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int			FindFreeRegion(int nX = 0, int nY = 0);
 	void		RemoveNpc(int nIdx);
-	void        SetFocusPosition(int nX, int nY, int nZ);	  //ÉèÖÃ½¹µã×ø±ê
-	//¿Í»§¶Ë
-	BOOL		LoadMapC(int nIdx, int nRegion,bool isClearAll=false);
+	void        SetFocusPosition(int nX, int nY, int nZ);	  //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½Í»ï¿½ï¿½ï¿½
+	int		LoadMapC(int nIdx, int nRegion,bool isClearAll=false);
 	void		NpcChangeRegion(int nSrcRegionIdx, int nDesRegionIdx, int nNpcIdx,bool isClearAll=false);
 	void		Paint();
 	void		Mps2Screen(int *Rx, int *Ry);
@@ -126,7 +126,7 @@ public:
 private:
 	void		LoadTrap();
 	//void		ProcessMsg(KWorldMsgNode *pMsg);
-	void		LoadCell();	
+	void		LoadCell();
 };
 
 extern  KSubWorld	*SubWorld;//SubWorld[MAX_SUBWORLD];

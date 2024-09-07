@@ -101,7 +101,7 @@ bool KuiChatList::init()
 }
 
 
-void KuiChatList::addmsg(char * sendName,char * contentt,int nKind,int nColor,int nPackage)
+void KuiChatList::addmsg(const char* sendName, char* contentt, int nKind, int nColor, int nPackage)
 {
 	if  (!listView) return;
 
@@ -236,7 +236,7 @@ void KuiChatList::addmsg(char * sendName,char * contentt,int nKind,int nColor,in
 }
 
 //信息到达 开始分类信息
-int KuiChatList::NewChannelMessageArrival(DWORD nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,DWORD nItemDwidx,char *scrSendName,int nPackage)
+int KuiChatList::NewChannelMessageArrival(unsigned long nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,unsigned long nItemDwidx,char *scrSendName,int nPackage)
 {
 	if  (!nPlayerFun) return false;
 	int nChannelIndex =nPlayerFun->FindActivateChannelIndex(nChannelID);

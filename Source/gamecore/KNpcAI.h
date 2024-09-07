@@ -6,9 +6,9 @@
 //#include "KBasPropTbl.h"
 //#include "KMagicAttrib.h"
 
-enum AutoPickUp  //½Å±¾Í¨ÖªÏÔÊ¾µÄ½çÃæÀàÐÍ
+enum AutoPickUp  //ï¿½Å±ï¿½Í¨Öªï¿½ï¿½Ê¾ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
-	PICCK_NONE,	 //¿ÕÏÐ
+	PICCK_NONE,	 //ï¿½ï¿½ï¿½ï¿½
 	PICCK_MONEY,
     PICCK_ITEM,
 	PICCK_ITEM_MONEY,
@@ -20,26 +20,26 @@ class	KNpcAI
 {
 public:
 	int				 m_nIndex;
-	BOOL			 m_bActivate;
+	int			 m_bActivate;
 private:
 public:
 	KNpcAI();
 	~KNpcAI();
 	void			 Activate(int nIndex);
 	void			 Enable(){ m_bActivate = TRUE; }
-	void			 Disable(){ m_bActivate = FALSE; }	
+	void			 Disable(){ m_bActivate = FALSE; }
 
     void			 FollowCharacter(int m_Index,int fanwei,int juli,int nActiveNum=3);
-	void             mainSkillattack(int m_Index,int m_Kind=0);  //¹¥»÷°´Å¥
-	void             mainPickItem(int m_Index);  //¹¥»÷°´Å¥
+	void             mainSkillattack(int m_Index,int m_Kind=0);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
+	void             mainPickItem(int m_Index);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 	void             Setscpos(int m_nIndex,int x=0,int y=0);
 	void			 MoveYaBiao(int m_Index);
 	//KNpcFindPath	 ai_PathFinder;
 	void             setPickStateNone(){nPickState = PICCK_NONE;};
-	
+
 private:
 	int          	 GetNearestCharacter(int nRelation,int indexid,int nType=0,int nDis=0);
-	BOOL             AiCheckDistance(int nYMpsX=0 ,int nYMpsY=0, int nDMpsX=0,int nDMpsY=0,int nDisten=0);
+	int             AiCheckDistance(int nYMpsX=0 ,int nYMpsY=0, int nDMpsX=0,int nDMpsY=0,int nDisten=0);
 	void             ReMoveCommonAction(int nNpcIdx);
 
 
@@ -47,8 +47,8 @@ private:
 	void             GotoWhere(int x, int y, int mode);
 
 	void             SetCurpos(int m_nIndex,int x,int y);
-	BOOL             KeepActiveCharacter(int fanwei,int indexid,int xx,int yy) ;
-	BOOL             KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy);
+	int             KeepActiveCharacter(int fanwei,int indexid,int xx,int yy) ;
+	int             KeepActiveJiaoBen(int fanwei,int indexid,int xx,int yy);
 	void			 FollowAttackCharacter(int i,int r,int l,int nActiveNum);
 	void			 KeepAttackCharacter(int nEnemy, int nRange,int r);
 	AutoPickUp       nPickState;
@@ -62,17 +62,17 @@ private:
 	void			FollowPeople(int nIdx);
 	void			FollowObject(int nIdx);
 
-	void	        ProcessChargedart();    // ÑºïÚAI
-	void	        ProcessCompanion();     // Í¬°éÀàAI
-	void	        ProcessLuXianAi();      // Ö¸¶¨Â·ÏßAI
+	void	        ProcessChargedart();    // Ñºï¿½ï¿½AI
+	void	        ProcessCompanion();     // Í¬ï¿½ï¿½ï¿½ï¿½AI
+	void	        ProcessLuXianAi();      // Ö¸ï¿½ï¿½Â·ï¿½ï¿½AI
 
-	//void			FleeEnemy(int nEnemyIdx);  //ÌÓÀëµÐÈË
-	void			ProcessAIType01();		// ÆÕÍ¨Ö÷¶¯Àà1
-	void			ProcessAIType02();		// ÆÕÍ¨Ö÷¶¯Àà2
-	void			ProcessAIType03();		// ÆÕÍ¨Ö÷¶¯Àà3
-	void			ProcessAIType04();		// ÆÕÍ¨±»¶¯Àà1
-	void			ProcessAIType05();		// ÆÕÍ¨±»¶¯Àà2
-	void			ProcessAIType06();		// ÆÕÍ¨±»¶¯Àà3
+	//void			FleeEnemy(int nEnemyIdx);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	void			ProcessAIType01();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	void			ProcessAIType02();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	void			ProcessAIType03();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	void			ProcessAIType04();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	void			ProcessAIType05();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	void			ProcessAIType06();		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
 
 	void			TriggerObjectTrap();
 	void			TriggerMapTrap();
@@ -80,18 +80,18 @@ private:
 	void			FollowAttackCompanion(int nIdx,int juli);
     void            FollowChargedart(int nIdx);
     void            FollowCompanion(int nIdx);
-	BOOL			InEyeshot(int nIdx);
-	BOOL			InEyeshota(int nIdx,int r);
+	int			InEyeshot(int nIdx);
+	int			InEyeshota(int nIdx,int r);
 	void			CommonAction();
 	void			CommonActionWithPlayer();
 	void			CommonActionCompanion(int fanwei);
-	BOOL			KeepActiveRange();
+	int			KeepActiveRange();
 	void			KeepAttackRange(int nEnemy, int nRange);
-	void			Flee(int nIdx);  //ÌÓÀëµÐÈË
+	void			Flee(int nIdx);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	friend class KNpc;
-	// ×°ÊÎÐÔÖÊNPCÔË¶¯º¯ÊýÏµÁÐ 
+	// ×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½
 	// flying add these on Jun.4.2003
-	// ËùÓÐ×°ÊÎÐÔNPCÔË¶¯´¦ÀíÈë¿Ú£¬ÓÉActivate(int)ÄÚ²¿µ÷ÓÃ
+	// ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½NPCï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Activate(int)ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
 	int				ProcessShowNpc();
 	int  			ShowNpcType11();
 	int				ShowNpcType12();
@@ -102,12 +102,12 @@ private:
 	int				ShowNpcType17();
 	int             GetNpcMoveOffset(int nDir, int nDistance, int *pnX, int *pnY);
 
-	// ÅÐ¶ÏÊÇ·ñ³¬³ö·¶Î§
-	//BOOL KeepActiveShowRange();
-	// 16/17 AiMode NPCµÄÌÓÒÝ¶¯×÷
+	// ï¿½Ð¶ï¿½ï¿½Ç·ñ³¬³ï¿½ï¿½ï¿½Î§
+	//int KeepActiveShowRange();
+	// 16/17 AiMode NPCï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½
 	int				DoShowFlee(int nIdx);
-	// ÅÐ¶ÏÊÇ·ñÕâ¸öÖ¡ÄÚ¿ÉÒÔ¸ø¸ÃNPCÏÂÖ¸Áî
-	BOOL			CanShowNpc();
+	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½Ú¿ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½NPCï¿½ï¿½Ö¸ï¿½ï¿½
+	int			CanShowNpc();
 	// flying add the function to get nearest player.
 	int			IsPlayerCome();
 };
@@ -128,9 +128,9 @@ inline int KNpcAI::GetNpcMoveOffset(int nDir, int nDistance, int *pnX, int *pnY)
     return true;
 }
 
-inline BOOL KNpcAI::CanShowNpc()
+inline int KNpcAI::CanShowNpc()
 {
-	BOOL bResult = TRUE;
+	int bResult = TRUE;
 	if (Npc[m_nIndex].m_AiParam[5] < Npc[m_nIndex].m_AiParam[4])
 		bResult = FALSE;
 	Npc[m_nIndex].m_AiParam[5]++;

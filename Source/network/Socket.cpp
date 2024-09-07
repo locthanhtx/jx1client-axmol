@@ -79,14 +79,14 @@ void CSocket::AbortiveClose()
 	Close();
 }
 
-void CSocket::Shutdown( int32_t how )
+void CSocket::Shutdown( int how )
 {
 	if (0!= ::shutdown(m_socket,how))
 	{
 	}
 }
 
-void CSocket::Listen( int32_t backlog )
+void CSocket::Listen( int backlog )
 {
 	if ( SOCKET_ERROR == listen( m_socket, backlog ) )
 	{
@@ -102,7 +102,7 @@ void CSocket::Bind( const SOCKADDR_IN &address )
 	}
 }
 
-void CSocket::Bind( const struct sockaddr &address, uint32_t addressLength )
+void CSocket::Bind( const struct sockaddr &address, unsigned int addressLength )
 {
 	if ( SOCKET_ERROR == ::bind( m_socket,
 			const_cast< struct sockaddr * >( &address ),
@@ -117,7 +117,7 @@ bool CSocket::Connect_(const std::string ip, unsigned short port)
 	svraddr.sin_family = AF_INET;
 	svraddr.sin_addr.s_addr = inet_addr(ip.c_str());
 	svraddr.sin_port = htons(port);
-	int32_t ret =::connect(m_socket,(struct sockaddr*)&svraddr, sizeof(svraddr));
+	int ret =::connect(m_socket,(struct sockaddr*)&svraddr, sizeof(svraddr));
 	if (ret == SOCKET_ERROR) {
 //#ifndef WIN32
 		//close(m_socket);
@@ -144,7 +144,7 @@ void CSocket::Connect(const SOCKADDR_IN &address )
 	//messageBox("connect suss..","connect");
 }
 
-void CSocket::Connect( const struct sockaddr &address, uint32_t addressLength )
+void CSocket::Connect( const struct sockaddr &address, unsigned int addressLength )
 {
 	if ( SOCKET_ERROR ==::connect( m_socket,
 		const_cast<struct sockaddr *>(&address ),
@@ -160,7 +160,7 @@ void CSocket::Connect( const struct sockaddr &address, uint32_t addressLength )
  * CSocket::InternetAddress
  */
 
-CSocket::InternetAddress::InternetAddress( uint32_t address, unsigned short port )
+CSocket::InternetAddress::InternetAddress( unsigned int address, unsigned short port )
 {
 	/*
 	 * member 'sockaddr_in::sin_zero not initialised

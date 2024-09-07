@@ -51,11 +51,11 @@ KCache::~KCache()
 }
 //---------------------------------------------------------------------------
 // ����:	Init
-// ����:	
-// ����:	
+// ����:
+// ����:
 // ����:	void
 //---------------------------------------------------------------------------
-void KCache::Init(int32_t nMaxNode)
+void KCache::Init(int nMaxNode)
 {
 	m_nMaxNode = nMaxNode;
 	m_nLimitNode = m_nMaxNode;
@@ -63,15 +63,15 @@ void KCache::Init(int32_t nMaxNode)
 }
 //---------------------------------------------------------------------------
 // ����:	NewNode
-// ����:	
-// ����:	
-// ����:	
+// ����:
+// ����:
+// ����:
 //---------------------------------------------------------------------------
 KCacheNode* KCache::NewNode(char* lpName)
 {
 	//Ѱ����ͬ�Ľڵ�
 	KCacheNode* lpNode = (KCacheNode*)m_HashList.Find(lpName);
-	
+
 	//���������
 	if (NULL == lpNode)
 	{
@@ -86,7 +86,7 @@ KCacheNode* KCache::NewNode(char* lpName)
 			lpNode->m_Ref = 1;
 		}
 		else
-		{	
+		{
 			//�Ѿ��ﵽ���ڵ������鿴�Ƿ��������㣬�У��Ͱ�����õ�һ��
 			//�ڵ��Ϊ��ǰ�ڵ㣬�������ƶ�����ǰ�棬������������ڵ���
 			lpNode = (KCacheNode *)m_HashList.GetTail();
@@ -114,9 +114,9 @@ KCacheNode* KCache::NewNode(char* lpName)
 }
 //---------------------------------------------------------------------------
 // ����:	GetNode
-// ����:	
-// ����:	
-// ����:	
+// ����:
+// ����:
+// ����:
 //---------------------------------------------------------------------------
 KCacheNode* KCache::GetNode(char* lpName, KCacheNode* lpNode)
 {
@@ -136,14 +136,14 @@ KCacheNode* KCache::GetNode(char* lpName, KCacheNode* lpNode)
 }
 //---------------------------------------------------------------------------
 // ����:	Prepare
-// ����:	
-// ����:	
-// ����:	
+// ����:
+// ����:
+// ����:
 //---------------------------------------------------------------------------
 void KCache::Prepare()
 {
 	// �ͷŵ����趨��С��������ڱ���ʹ�����ò��ϵĽڵ�����
-	int32_t	i = m_nMaxNode;
+	int	i = m_nMaxNode;
 	KCacheNode* lpOldNode = NULL;
 	KCacheNode* lpNode = (KCacheNode *)m_HashList.GetTail();
 
@@ -169,7 +169,7 @@ void	KCache::ClearNode(char * lpName)
 	if (NULL == lpName || NULL == lpName[0]) return;
 	//Ѱ�Ҹýڵ�
 	KCacheNode* lpNode = (KCacheNode*)m_HashList.Find(lpName);
-	
+
 	//�������,�����!
 	if (NULL != lpNode)
 	{

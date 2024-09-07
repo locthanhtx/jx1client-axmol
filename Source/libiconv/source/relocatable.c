@@ -300,8 +300,8 @@ static char *shared_library_fullname;
 
 /* Determine the full pathname of the shared library when it is loaded.  */
 
-BOOL WINAPI
-DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
+int WINAPI
+DllMain (HINSTANCE module_handle, unsigned long event, void* reserved)
 {
   (void) reserved;
 

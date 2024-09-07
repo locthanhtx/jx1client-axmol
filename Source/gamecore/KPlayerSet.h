@@ -41,7 +41,7 @@ private:
 	int		m_nPhysicsResistPerLevel[MAX_SERIES];	// ÿ��ϵ������������
 public:
 	KLevelAdd();
-	BOOL		Init();
+	int		Init();
 	int			GetLevelExp(int nLevel);
 	int			GetLifePerLevel(int nSeries);
 	int			GetStaminaPerLevel(int nSeries);
@@ -68,7 +68,7 @@ public:
 	}m_sPerLevel[MAX_LEAD_LEVEL];
 public:
 	KTeamLeadExp();
-	BOOL		Init();									// ��ʼ��
+	int		Init();									// ��ʼ��
 	int			GetLevel(unsigned int dwExp, int nCurLeadLevel = 0);// ���뾭���õȼ��� (������뵱ǰ�ȼ������Լӿ������ٶ�)
 	int			GetMemNumFromExp(unsigned int dwExp);			// ���뾭���ÿɴ���Ա��
 	int			GetMemNumFromLevel(int nLevel);			// ����ȼ���ÿɴ���Ա��
@@ -85,7 +85,7 @@ public:
 	int			m_nLucky[series_num];
 public:
 	KNewPlayerAttribute();
-	BOOL		Init();
+	int		Init();
 };
 
 class KPlayerSet
@@ -103,7 +103,7 @@ public:
 
 public:
 	KPlayerSet();
-	BOOL	Init();
+	int	Init();
 	int		FindSame(unsigned int dwID);
 	int     FindNameID(char *szName);  //����������
 	int     FindByTongName(char * szTongName);  //����������

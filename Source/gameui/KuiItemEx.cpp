@@ -57,7 +57,7 @@ KuiItemEx::~KuiItemEx()
 }
 
 //����ȷ��������
-KuiItemEx * KuiItemEx::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiItemEx* KuiItemEx::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiItemEx * popLayer = KuiItemEx::create();
 	//popLayer->setTitle(title);

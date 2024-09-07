@@ -68,25 +68,25 @@
 /*#ifndef WIN32
 typedef struct  _SYSTEMTIME
 {
-    WORD wYear;
-    WORD wMonth;
-    WORD wDayOfWeek;
-    WORD wDay;
-    WORD wHour;
-    WORD wMinute;
-    WORD wSecond;
-    WORD wMilliseconds;
+    unsigned short wYear;
+    unsigned short wMonth;
+    unsigned short wDayOfWeek;
+    unsigned short wDay;
+    unsigned short wHour;
+    unsigned short wMinute;
+    unsigned short wSecond;
+    unsigned short wMilliseconds;
 }	SYSTEMTIME;
 typedef struct  _FILETIME
 {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
 }	FILETIME;
 #endif*/
 
 #ifdef WIN32
-inline const char* _ip2a(DWORD ip) { in_addr ia; ia.s_addr = ip; return inet_ntoa(ia); }
-inline DWORD _a2ip(const char* cp) { return inet_addr(cp); }
+inline const char* _ip2a(unsigned long ip) { in_addr ia; ia.s_addr = ip; return inet_ntoa(ia); }
+inline unsigned long _a2ip(const char* cp) { return inet_addr(cp); }
 #endif
 
 KTabFile        g_MineItemTab;
@@ -302,7 +302,7 @@ lab_subworldid2idx:
 int LuaSetOrAddTrap(Lua_State * L)
 {
     int nMapIdx,nXpos,nYpos,nCellNum,nReg=0;
-	DWORD nScriptidx;
+	unsigned long nScriptidx;
 	      nMapIdx = (int)Lua_ValueToNumber(L,1);
 		  nXpos = (int)Lua_ValueToNumber(L,2);
 		  nYpos = (int)Lua_ValueToNumber(L,3);
@@ -458,7 +458,7 @@ int LuaSayUI(Lua_State * L)
 	else
 		return 0;
 
-	BOOL bStringTab = FALSE;//��ʶ��������ѡ�����ݴ����һ�������У���������ַ�����
+	int bStringTab = FALSE;//��ʶ��������ѡ�����ݴ����һ�������У���������ַ�����
 
 	if (Lua_IsString(L,3))
 		bStringTab = FALSE;
@@ -1089,7 +1089,7 @@ int LuaSayNew(Lua_State * L)
 	else
 		return 0;
 
-	BOOL bStringTab = FALSE;//��ʶ��������ѡ�����ݴ����һ�������У���������ַ�����
+	int bStringTab = FALSE;//��ʶ��������ѡ�����ݴ����һ�������У���������ַ�����
 
 	if (Lua_IsString(L,3)) //�����������ַ��� ���ؼ�
 		bStringTab = FALSE;
@@ -1518,11 +1518,11 @@ int LuaAddGlobalTimeNews(Lua_State * L)
 	SYSTEMTIME LocalTime ;
 	memset(&LocalTime, 0, sizeof(SYSTEMTIME));
 
-	LocalTime.wYear = (WORD)Lua_ValueToNumber(L,2);
-	LocalTime.wMonth =(WORD)Lua_ValueToNumber(L,3);
-	LocalTime.wDay = (WORD)Lua_ValueToNumber(L, 4);
-	LocalTime.wHour = (WORD)Lua_ValueToNumber(L,5);
-	LocalTime.wMinute = (WORD)Lua_ValueToNumber(L,6);
+	LocalTime.wYear = (unsigned short)Lua_ValueToNumber(L,2);
+	LocalTime.wMonth =(unsigned short)Lua_ValueToNumber(L,3);
+	LocalTime.wDay = (unsigned short)Lua_ValueToNumber(L, 4);
+	LocalTime.wHour = (unsigned short)Lua_ValueToNumber(L,5);
+	LocalTime.wMinute = (unsigned short)Lua_ValueToNumber(L,6);
 	FILETIME ft;
 	FILETIME sysft;
 #ifdef WIN32
@@ -1577,11 +1577,11 @@ int LuaAddLocalTimeNews(Lua_State * L)
 	SYSTEMTIME LocalTime ;
 	memset(&LocalTime, 0, sizeof(SYSTEMTIME));
 
-	LocalTime.wYear = (WORD)Lua_ValueToNumber(L,2);
-	LocalTime.wMonth =(WORD)Lua_ValueToNumber(L,3);
-	LocalTime.wDay = (WORD)Lua_ValueToNumber(L, 4);
-	LocalTime.wHour = (WORD)Lua_ValueToNumber(L,5);
-	LocalTime.wMinute = (WORD)Lua_ValueToNumber(L,6);
+	LocalTime.wYear = (unsigned short)Lua_ValueToNumber(L,2);
+	LocalTime.wMonth =(unsigned short)Lua_ValueToNumber(L,3);
+	LocalTime.wDay = (unsigned short)Lua_ValueToNumber(L, 4);
+	LocalTime.wHour = (unsigned short)Lua_ValueToNumber(L,5);
+	LocalTime.wMinute = (unsigned short)Lua_ValueToNumber(L,6);
 	FILETIME ft;
 	FILETIME sysft;
 #ifdef WIN32
@@ -1853,13 +1853,13 @@ int LuaIncludeFile(Lua_State * L)
 		if (!pFileName)
 			return 0;
 		/*g_StrLower(pFileName);   //��дתСд  g_StrLower
-		DWORD dwScriptId = g_FileName2Id(pFileName);
+		unsigned long dwScriptId = g_FileName2Id(pFileName);
 			 pScript = (KLuaScript* )g_GetScript(dwScriptId);
 		*/
 		//Lua_CompileFile();       //���ذ����ļ� �ͻ���
 		 // char nMsg[128]={0};
           KPakFile	File;
-          DWORD		Size;
+          unsigned long		Size;
 	      if (!File.Open(pFileName))
 		  {
 		    // sprintf(nMsg,"��%sʧ��",pFileName);

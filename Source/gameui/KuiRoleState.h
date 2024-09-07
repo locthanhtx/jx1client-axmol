@@ -27,7 +27,9 @@ public:
 	//����
 	CREATE_FUNC(KuiRoleState);
 
-	static KuiRoleState * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiRoleState* create(const char* title,
+                                    Ref* callbackListener,
+                                    const std::function<void(ax::Node*)>& callfun);
 
 	virtual void update(float delta);
 //	virtual void draw();

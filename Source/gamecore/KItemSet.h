@@ -6,16 +6,16 @@
 #define		IN
 #define		OUT
 class	KItem;
-//Ä¥ËðÖÖÀà
+//Ä¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum enumAbrade
 {
-	    enumAbradeAttack = 0,  //¹¥»÷Ä¥Ëð
-		enumAbradeDefend,      //¸ø¹¥»÷Ê±ºòÄ¥Ëð
-		enumAbradeMove,        //ÒÆ¶¯Ä¥Ëð
-		enumAbradeEquip,       //»»×°Ä¥Ëð
+	    enumAbradeAttack = 0,  //ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½
+		enumAbradeDefend,      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä¥ï¿½ï¿½
+		enumAbradeMove,        //ï¿½Æ¶ï¿½Ä¥ï¿½ï¿½
+		enumAbradeEquip,       //ï¿½ï¿½×°Ä¥ï¿½ï¿½
 		enumAbradeNum,
 };
-// Íæ¼ÒÖ®¼ä½»Ò×½øÐÐÊ±£¬ÓÃÓÚÅÐ¶ÏÍæ¼ÒÎïÆ·À¸ÄÜ·ñ·ÅÏÂÂò½øµÄÎïÆ·
+// ï¿½ï¿½ï¿½Ö®ï¿½ä½»ï¿½×½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 typedef struct
 {
 	int		m_nIdx;
@@ -35,26 +35,26 @@ typedef struct
 class KItemSet
 {
 private:
-	DWORD			m_dwIDCreator;		        //  IDÉú³ÉÆ÷£¬ÓÃÓÚ¿Í»§¶ËÓë·þÎñÆ÷¶ËµÄ½»Á÷
-	KLinkArray		m_FreeIdxItemSet;			//	¿ÉÓÃ±í
-	KLinkArray		m_UseIdxItemSet;			//	ÒÑÓÃ±í
-	
+	unsigned long			m_dwIDCreator;		        //  IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄ½ï¿½ï¿½ï¿½
+	KLinkArray		m_FreeIdxItemSet;			//	ï¿½ï¿½ï¿½Ã±ï¿½
+	KLinkArray		m_UseIdxItemSet;			//	ï¿½ï¿½ï¿½Ã±ï¿½
+
 public:
-	int				m_nItemAbradeRate[enumAbradeNum][itempart_num];   //Ä¥Ëð¸ÅÂÊ
-	REPAIR_ITEM_PARAM	m_sRepairParam;	
+	int				m_nItemAbradeRate[enumAbradeNum][itempart_num];   //Ä¥ï¿½ï¿½ï¿½ï¿½ï¿½
+	REPAIR_ITEM_PARAM	m_sRepairParam;
 public:
 	KItemSet();
 	~KItemSet();
 	void			Init();
 	int				GetItemCount(IN int nItemGenre = -1);
-	int				SearchID(IN DWORD dwID);
+	int				SearchID(IN unsigned long dwID);
 	int				Add(KItem* pItem);
 	int				AddOther(IN int nItemGenre, IN int nSeries, IN int nLevel=1, IN int nLuck=0, IN int nDetail = -1, \
 		                               IN int nParticular = -1, IN int* pnMagicLevel = NULL, IN int nVersion = 0,\
 							IN UINT nRandomSeed = 0,IN int nStackNum = 1, IN int nEnChance = 0,IN int nPoint = 0, \
 						  IN int nYear = 0, IN int nMonth = 0, IN int nDay = 0, IN int nHour = 0,IN int nMin = 0,\
 						                                        IN int nRongpiont=0,IN int* pnRMagicLevel = NULL,\
-						                        IN int* pnJBLevel = NULL,IN int* pnBsLevel=NULL,IN int IsWhere=0,IN int nIsLogin=FALSE); //À¶×° ÒÔ¼° À¶×°ÈÛÁ¶
+						                        IN int* pnJBLevel = NULL,IN int* pnBsLevel=NULL,IN int IsWhere=0,IN int nIsLogin=FALSE); //ï¿½ï¿½×° ï¿½Ô¼ï¿½ ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
 	int				AddCilentItem(IN int nItemGenre, IN int nSeries, IN int nLevel=1, IN int nLuck=0, IN int nDetail = -1,\
 		                                    IN int nParticular = -1, IN int* pnMagicLevel = NULL, IN int nVersion = 0, \
 											       IN UINT nRandomSeed = 0,IN int nStackNum = 1, IN int nEnChance = 0,\
@@ -62,22 +62,22 @@ public:
 									                 IN int nMin = 0,IN int nRongpiont=0,IN int* pnRMagicLevel = NULL, \
 									       IN int* pnJBLevel = NULL,IN int* pnMagType = NULL,IN int* pnMagVala = NULL,\
 									                      IN int* pnMagValb = NULL,IN int* pnMagValc = NULL,IN int=0);
-	
+
 	int				AddGold(IN int nId , IN int* pnMagicLevel = NULL , IN int nSeries = 0, IN int nEnChance = 0,\
 		                    IN int nRongpiont=0,IN int nYear = 0, IN int nMonth = 0, IN int nDay = 0, IN int nHour = 0,\
 							IN int nMin = 0,IN int* pnRMagicLevel = NULL,IN int* pnBMagicLevel=NULL, IN int nLevel=1,\
-							IN int nLuck=1, IN int nDetailType = -1, IN int nParticular = -1,IN int nStackNum = 1,IN int nVersion = 0,IN int nIsPlatina=0,IN BOOL nIsLogin=FALSE,IN UINT nRandomSeed = 0);//»Æ½ðµÄ
+							IN int nLuck=1, IN int nDetailType = -1, IN int nParticular = -1,IN int nStackNum = 1,IN int nVersion = 0,IN int nIsPlatina=0,IN int nIsLogin=FALSE,IN UINT nRandomSeed = 0);//ï¿½Æ½ï¿½ï¿½
 	int				AddRondomGold(IN int nId , IN int* pnMagicLevel = NULL , IN int nSeries = 0, IN int nEnChance = 0,\
 		                    IN int nRongpiont=0,IN int nYear = 0, IN int nMonth = 0, IN int nDay = 0, IN int nHour = 0,\
 		                    IN int nMin = 0,IN int* pnRMagicLevel = NULL, IN int nLevel=1,\
-		                    IN int nLuck=1, IN int nDetailType = -1, IN int nParticular = -1,IN int nStackNum = 1,IN int nVersion = 0,IN int nIsPlatina=0,IN BOOL nIsLogin=FALSE,IN UINT nRandomSeed = 0);//»Æ½ðµÄ
+		                    IN int nLuck=1, IN int nDetailType = -1, IN int nParticular = -1,IN int nStackNum = 1,IN int nVersion = 0,IN int nIsPlatina=0,IN int nIsLogin=FALSE,IN UINT nRandomSeed = 0);//ï¿½Æ½ï¿½ï¿½
 
     int             AddRong(IN int Goidid, IN int nSeries, IN int nLevel=1, IN int nLuck=0, IN int nDetailType = -1,\
 		                      IN int nParticular = -1, IN int* pnMagicLevel = NULL, IN int* rnMagicLevel = NULL,\
 					 int* BnMagicLevel = NULL,IN int nVersion = 0, IN UINT nRandomSeed = 0,IN int nStackNum = 1, \
 							    IN int nEnChance = 0,IN int nRongID = 0, IN int nPoint = 0,IN int mIsDaZhao = 0, \
 							IN KMagicAttrib *nItemMag=NULL,IN int nYear = 0, IN int nMonth = 0, IN int nDay = 0,\
-							IN int nHour = 0, IN int nMin = 0,IN int IsWhere=0,BOOL nIsLoggin=FALSE);
+							IN int nHour = 0, IN int nMin = 0,IN int IsWhere=0,int nIsLoggin=FALSE);
 	void			Remove(IN int nIdx);
 	int				GetAbradeRange(IN int nType, IN int nPart);
 private:

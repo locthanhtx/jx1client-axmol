@@ -17,7 +17,7 @@ KLuaScript g_ScriptSet[MAX_SCRIPT_IN_SET];   //�ű���������
 //KScriptBinTree g_ScriptBinTree;
 unsigned int   nCurrentScriptNum;
 
-void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir);
+void LoadScriptInDirectory(char* lpszRootDir, const char* lpszSubDir);
 //���ز�������
 /*int	operator<(KSortScriptNode ScriptLeft, KSortScriptNode ScriptRight)
 {
@@ -32,7 +32,7 @@ int operator==(KSortScriptNode ScriptLeft, KSortScriptNode ScriptRight)
 //-------------�µ�----------------------------------------------
 #include <algorithm>
 
-class KLuaScriptRateMap : public std::map<DWORD, KLuaScript *>
+class KLuaScriptRateMap : public std::map<unsigned long, KLuaScript *>
 {
 private:
 	static VOID _FreeNode(value_type &cValue)
@@ -58,7 +58,7 @@ public:
 static KLuaScriptRateMap g_ScriptRateMap;	// Ϊ�˱�֤�ڴ����İ�ȫ���ñ������ٶ���
 
 
-const KScript * g_GetScript(DWORD dwScriptId)
+const KScript * g_GetScript(unsigned long dwScriptId)
 {//�Ѿ����ؽű� ����ջ�еĽڵ�
 	//KSortScriptNode ScriptNode;
 	 //               ScriptNode.SetScriptID(dwScriptId);
@@ -77,7 +77,7 @@ const KScript * g_GetScript(DWORD dwScriptId)
 
 const KScript * g_GetScript(const char * szRelativeScriptFile)
 {
-	DWORD dwScriptId = g_CheckFileExist((LPSTR)szRelativeScriptFile);
+	unsigned long dwScriptId = g_CheckFileExist((char*)szRelativeScriptFile);
 	return g_GetScript(dwScriptId);
 }
 ///////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ static void KSceGetFliePath(char* nName,char * nPath,int nMaxRows)
 	nScirptFile.Clear();
 }
 //���ؽű������ļ�������Ϊ���Ŀ¼
-static BOOL LoadScriptToSortListA(char * szRelativeFile)
+static int LoadScriptToSortListA(char * szRelativeFile)
 {
 	if (!szRelativeFile || !szRelativeFile[0]) return FALSE;
 	//KSortScriptNode ScriptNode ;
@@ -168,7 +168,7 @@ static BOOL LoadScriptToSortListA(char * szRelativeFile)
 }
 
 //��szFilePathĿ¼�µ����нű��ļ����ؽ�ScriptBinTree��������
-static unsigned int LoadAllScript(char * szFilePath,BOOL nIsSer)
+static unsigned int LoadAllScript(const char* szFilePath, int nIsSer)
 {
 	g_SetFilePath("\\");
 
@@ -215,7 +215,7 @@ static unsigned int LoadAllScript(char * szFilePath,BOOL nIsSer)
 	return nCurrentScriptNum;
 }
 
-unsigned int g_IniScriptEngine(char * nScriptDir,BOOL nIsSer,BOOL nIsClear)
+unsigned int g_IniScriptEngine(const char * nScriptDir,int nIsSer,int nIsClear)
 {
 	//g_szCurScriptDir[0] = 0;
 	if (nIsClear)
@@ -229,7 +229,7 @@ unsigned int g_IniScriptEngine(char * nScriptDir,BOOL nIsSer,BOOL nIsClear)
 }
 
 //���ؽű������ļ�������Ϊʵ��Ŀ¼
-static BOOL LoadScriptToSortList(char * szFileName)
+static int LoadScriptToSortList(char * szFileName)
 {
 	if (!szFileName || !szFileName[0]) return FALSE;
 	if (nCurrentScriptNum>= MAX_SCRIPT_IN_SET)
@@ -264,7 +264,7 @@ static BOOL LoadScriptToSortList(char * szFileName)
 }
 
 
-void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
+void LoadScriptInDirectory(char* lpszRootDir, const char* lpszSubDir)
 {
 	int				nFlag;
 	char			szRealDir[MAX_PATH];
@@ -374,7 +374,7 @@ void	LoadScriptInDirectory(LPSTR lpszRootDir, LPSTR lpszSubDir)
 #endif
 }
 
-void UnLoadScript(DWORD dwScriptID)
+void UnLoadScript(unsigned long dwScriptID)
 {
 	/*KSortScriptNode ScriptNode;
 	ScriptNode.SetScriptID(dwScriptID);

@@ -32,8 +32,8 @@ public:
 	static void Replease();
 
 	bool DownLoadFile(std::string nfullPath,std::string filename,bool reload=false);
-	int32_t getLocalFileLenth(const char* filename);
-	static int32_t progressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded);
+	int getLocalFileLenth(const char* filename);
+	static int progressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded);
 	static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userdata);
 	double getDownloadFileLenth(const char *url);
 	static size_t save_header(void *ptr, size_t size, size_t nmemb, void *data);
@@ -45,13 +45,13 @@ public:
 	void  setdownloadUrl(std::string strurl){m_downloadUrl=strurl;};
 	std::string getdownloadUrl(){return m_downloadUrl; };
 
-	int32_t   getDownState(){return m_DownState;}
+	int   getDownState(){return m_DownState;}
 
 private:
 	float  curpercent; //��ǰ�İٷֱ�
 	std::string m_downloadUrl;
 	std::string m_WritablePath;
-	int32_t    m_DownState;
+	int    m_DownState;
 	//CURL *_curl;
 };
 //-------------------------------------------------------------------------

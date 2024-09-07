@@ -174,7 +174,7 @@ void	KMapMusic::Init()
 //	���ܣ���Ϸ�������ֲ���
 //	������nMapID ��ͼid    nGameTime ��Ϸʱ��(0 -- 1440)
 //---------------------------------------------------------------------------
-void	KMapMusic::Play(int nMapID, int nGameTime, BOOL bFightMode)
+void	KMapMusic::Play(int nMapID, int nGameTime, int bFightMode)
 {
 	if (m_nState == enumMUSIC_STATE_STOP)
 		return;
@@ -435,7 +435,7 @@ void	KMapMusic::SetWeatherVolume(int nVolume)
 //---------------------------------------------------------------------------
 //	���ܣ�������Ϸ���������趨�򿪵�ʱ�򣬲�������
 //---------------------------------------------------------------------------
-void	KMapMusic::Start(int nMapID, int nGameTime, BOOL bFightMode)
+void	KMapMusic::Start(int nMapID, int nGameTime, int bFightMode)
 {
 	this->m_nCurMapID = -1;
 	m_nState = enumMUSIC_STATE_AUTO;

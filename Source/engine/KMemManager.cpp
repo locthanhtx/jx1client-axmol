@@ -18,7 +18,7 @@
 //---------------------------------------------------------------------------
 KMemManager::KMemManager()
 {
-    int32_t i;
+    int i;
     for (i = 0; i<NUM_BLOCK; i++)
         m_block_size[i] = (1<<(i + MIN_BLOCK)); //��Ĵ�С
 	g_MemZero(m_blocks, sizeof(m_blocks));
@@ -34,7 +34,7 @@ KMemManager::~KMemManager()
     KChunkHeader* ch;
 	KBlockHeader* bh;
 	char* bp;
-	int32_t i;
+	int i;
 	// ����ڴ�й©
     while (ch = (KChunkHeader *)m_chunks.GetHead())
 	{
@@ -55,12 +55,12 @@ KMemManager::~KMemManager()
 // ����:	block size, block number
 // ����:	block header
 //---------------------------------------------------------------------------
-void* KMemManager::NewChunk(int32_t block_size, int32_t block_num)
+void* KMemManager::NewChunk(int block_size, int block_num)
 {
 	// ��Ĵ�СҪ���Ͽ�ͷ�Ϳ�β
     block_size = block_size + sizeof(KBlockHeader) + sizeof(KBlockTailer);
 	// chunk�Ĵ�СҪ����chunk header
-    int32_t chunk_size = sizeof(KChunkHeader) + (block_size * block_num);
+    int chunk_size = sizeof(KChunkHeader) + (block_size * block_num);
     // ����һ����ڴ�
 	char* c = (char*)g_MemAlloc(chunk_size);
     if (c)
@@ -108,7 +108,7 @@ void KMemManager::FreeChunk(KChunkHeader *ch)
 // ����:	size in bytes
 // ����:	void*
 //---------------------------------------------------------------------------
-void* KMemManager::Malloc(int32_t size)
+void* KMemManager::Malloc(int size)
 {
     char* p = NULL;
 
@@ -129,7 +129,7 @@ void* KMemManager::Malloc(int32_t size)
 	else
 	{
         // ��һ����С���ʵ�chunk
-        int32_t i, mask;
+        int i, mask;
         for (i=0; i<NUM_BLOCK-1; i++)
 		{
             mask = ~(m_block_size[i]-1);
@@ -159,7 +159,7 @@ void* KMemManager::Malloc(int32_t size)
 // ����:	size in bytes
 // ����:	void*
 //---------------------------------------------------------------------------
-void* KMemManager::Calloc(int32_t size)
+void* KMemManager::Calloc(int size)
 {
 	void* p = Malloc(size);
 	g_MemZero(p, size);
@@ -196,7 +196,7 @@ void KMemManager::Free(void* p)
     }
 	else
 	{
-        int32_t i = (intptr_t)bh->next;
+        int i = (intptr_t)bh->next;
         KBlockHeader* next = (KBlockHeader *)m_blocks[i];
         m_blocks[i] = bh;
         bh->next = next;

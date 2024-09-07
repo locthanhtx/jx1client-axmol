@@ -87,7 +87,7 @@ void	KPlayerTong::Clear()
 //-------------------------------------------------------------------------
 //	���ܣ����봴�����
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
+int	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
 {
 	defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_CREATE].c_str(),1);
 	// ���������
@@ -161,7 +161,7 @@ BOOL	KPlayerTong::ApplyCreateTong(int nCamp, char *lpszTongName)
 //-------------------------------------------------------------------------
 //	���ܣ����������
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyAddTong(DWORD dwNpcID)
+int	KPlayerTong::ApplyAddTong(unsigned long dwNpcID)
 {
 	defFuncShowNormalMsg(strCoreInfo[MSG_TONG_APPLY_ADD].c_str(),1);
 	// �Ѿ��ǰ���Ա
@@ -335,7 +335,7 @@ void	KPlayerTong::SetTongNormalTitle(char *lpszTongName,char *nTitle)  //���
 //-------------------------------------------------------------------------
 //	���ܣ��Ƿ���ܳ�Ա bFlag == TRUE ���� == FALSE ������
 //-------------------------------------------------------------------------
-void	KPlayerTong::AcceptMember(int nPlayerIdx, DWORD dwNameID, BOOL bFlag)
+void	KPlayerTong::AcceptMember(int nPlayerIdx, unsigned long dwNameID, int bFlag)
 {
 	if (nPlayerIdx <= 0)
 		return;
@@ -369,7 +369,7 @@ void	KPlayerTong::GetTongName(char *lpszGetName)
 //-------------------------------------------------------------------------
 //	���ܣ������ᣬ��Ϊ��ͨ����
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *lpszMaster)
+int	KPlayerTong::AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *lpszMaster)
 {
 	if (!lpszTongName || !lpszTongName[0]/* || strlen(lpszTongName) > defTONG_NAME_MAX_LENGTH*/)
 		return FALSE;
@@ -402,7 +402,7 @@ BOOL	KPlayerTong::AddTong(int nCamp, char *lpszTongName, char *lpszTitle, char *
 //-------------------------------------------------------------------------
 //	���ܣ���������
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int nNewPos, char *lpszName)
+int	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int nNewPos, char *lpszName)
 {
 	if (!lpszName)
 		return FALSE;
@@ -475,7 +475,7 @@ BOOL	KPlayerTong::ApplyInstate(int nCurFigure, int nCurPos, int nNewFigure, int 
 //-------------------------------------------------------------------------
 //	���ܣ���������
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
+int	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
 {
 	if (!lpszName || !lpszName[0] || strlen(lpszName) >= 32)
 		return FALSE;
@@ -520,7 +520,7 @@ BOOL	KPlayerTong::ApplyKick(int nCurFigure, int nCurPos, char *lpszName)
 //-------------------------------------------------------------------------
 //	���ܣ����봫λ
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName)
+int	KPlayerTong::ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName)
 {
 	if (!lpszName || !lpszName[0] || strlen(lpszName) >= 32)
 		return FALSE;
@@ -546,7 +546,7 @@ BOOL	KPlayerTong::ApplyChangeMaster(int nCurFigure, int nPos, char *lpszName)
 //-------------------------------------------------------------------------
 //	���ܣ������뿪��� �Ѱ�
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyLeave()
+int	KPlayerTong::ApplyLeave()
 {
 	if (!m_nFlag)
 		return FALSE;
@@ -579,7 +579,7 @@ BOOL	KPlayerTong::ApplyLeave()
 //-------------------------------------------------------------------------
 //	���ܣ������ð����Ϣ
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, char *lpszName/*=NULL*/)
+int	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, char *lpszName/*=NULL*/)
 {
 	if (nInfoID < 0 || nInfoID >= enumTONG_APPLY_INFO_ID_NUM)
 		return FALSE;
@@ -662,7 +662,7 @@ BOOL	KPlayerTong::ApplyInfo(int nInfoID, int nParam1, int nParam2, int nParam3, 
 	return TRUE;
 }
 
-DWORD	KPlayerTong::GetTongNameID()
+unsigned long	KPlayerTong::GetTongNameID()
 {
 ///	return (m_nFlag ? m_dwTongNameID : 0);
 	return m_dwTongNameID;
@@ -674,7 +674,7 @@ DWORD	KPlayerTong::GetTongNameID()
 //-------------------------------------------------------------------------
 //	���ܣ��Ƿ���Ȩ����ѯ�ӳ���Ϣ
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::CanGetManagerInfo(DWORD dwTongNameID)
+int	KPlayerTong::CanGetManagerInfo(unsigned long dwTongNameID)
 {
 	if (!m_nFlag)
 		return FALSE;
@@ -688,7 +688,7 @@ BOOL	KPlayerTong::CanGetManagerInfo(DWORD dwTongNameID)
 //-------------------------------------------------------------------------
 //	���ܣ��Ƿ���Ȩ����ѯ������Ϣ
 //-------------------------------------------------------------------------
-BOOL	KPlayerTong::CanGetMemberInfo(DWORD dwTongNameID)
+int	KPlayerTong::CanGetMemberInfo(unsigned long dwTongNameID)
 {
 	if (!m_nFlag)
 		return FALSE;
@@ -763,7 +763,7 @@ void    KPlayerTong::OpenCreateInterface()
 	CoreDataChanged(GDCNI_OPEN_TONG_CREATE_SHEET, 1, 0);
 }
 //�ﻧ��Ǯ
-BOOL KPlayerTong::ApplySaveMoney(DWORD nMoney)
+int KPlayerTong::ApplySaveMoney(unsigned long nMoney)
 {
 	if (!m_nFlag)
 		return FALSE;
@@ -795,7 +795,7 @@ BOOL KPlayerTong::ApplySaveMoney(DWORD nMoney)
 	return TRUE;
 }
 //���ȡǮ
-BOOL KPlayerTong::ApplyGetMoney(DWORD nMoney)
+int KPlayerTong::ApplyGetMoney(unsigned long nMoney)
 {
 	if (!m_nFlag)
 		return FALSE;
@@ -899,7 +899,7 @@ void    KPlayerTong::SetAttAckInfo(BYTE *Msg)
 }
 
 //��ᷢǮ
-BOOL KPlayerTong::ApplySndMoney(DWORD nMoney)
+int KPlayerTong::ApplySndMoney(unsigned long nMoney)
 {
 	if (!m_nFlag)
 		return FALSE;

@@ -45,7 +45,7 @@ struct KTP_CTRL
 union KERColor
 {
 	struct {unsigned char b, g, r, a; } Color_b;
-	uint32_t	Color_dw;
+	unsigned int	Color_dw;
 };
 
 #define MAX_SYSTEM_INLINE_PICTURES	500 	//系统预留的嵌入式图片个数  4096
@@ -53,13 +53,13 @@ union KERColor
 struct IInlinePicEngineSink
 {
 	//lấy kích thước ảnh
-	virtual int32_t GetPicSize(unsigned short wIndex, int32_t& cx, int32_t& cy) = 0;
+	virtual int GetPicSize(unsigned short wIndex, int& cx, int& cy) = 0;
 	//Vẽ ảnh
-	virtual int32_t DrawPic(unsigned short wIndex, int32_t x, int32_t y) = 0;
-	//Tự động tải hình ảnh và nhận được WORD, tức là chỉ mục của hình ảnh
-	virtual int32_t AddCustomInlinePic(unsigned short& wIndex, const char* szSprPathName) = 0;
+	virtual int DrawPic(unsigned short wIndex, int x, int y) = 0;
+	//Tự động tải hình ảnh và nhận được unsigned short, tức là chỉ mục của hình ảnh
+	virtual int AddCustomInlinePic(unsigned short& wIndex, const char* szSprPathName) = 0;
 	//Tự động dỡ hình ảnh
-	virtual int32_t RemoveCustomInlinePic(unsigned short wIndex) = 0;
+	virtual int RemoveCustomInlinePic(unsigned short wIndex) = 0;
 };
 
 //接口 IInlinePicEngineSink 由应用层实现并挂接进 Engine 模块 [wxb 2003-6-19]
@@ -68,52 +68,52 @@ struct IInlinePicEngineSink
 // UnAdviseEngine(IInlinePicEngineSink*);
 extern "C"
 {
-	int32_t EGetBit(int32_t nIntValue,int32_t nBitNumber);
-	int32_t ESetBit(int32_t nIntValue,int32_t nBitNumber,int32_t nBitValue);
-	int32_t EGetByte(int32_t nIntValue,int32_t nByteNumber);
-	int32_t ESetByte(int32_t nIntValue,int32_t nByteNumber,int32_t nByteValue);
-	int32_t FilterTextColor(char* pMsgBuff, unsigned short nMsgLength);
-	uint32_t TGetColor(const char* pColor);
-	const char* TGetColorStr(uint32_t nColor);
+	int EGetBit(int nIntValue,int nBitNumber);
+	int ESetBit(int nIntValue,int nBitNumber,int nBitValue);
+	int EGetByte(int nIntValue,int nByteNumber);
+	int ESetByte(int nIntValue,int nByteNumber,int nByteValue);
+	int FilterTextColor(char* pMsgBuff, unsigned short nMsgLength);
+	unsigned int TGetColor(const char* pColor);
+	const char* TGetColorStr(unsigned int nColor);
 	void TReplaceText(char* pBuffer, const char* pszKey, const char* pszText);
 	//Nhận ký tự hiển thị tiếp theo của dòng này
-	const char* TGetSecondVisibleCharacterThisLine(const char* pCharacter, int32_t nPos, int32_t nLen);
+	const char* TGetSecondVisibleCharacterThisLine(const char* pCharacter, int nPos, int nLen);
 	//Phát hiện một ký tự có phải là ký tự không được phép đặt ở đầu dòng hay không, nếu không phải là ký tự bị hạn chế thì trả về 0, ngược lại thì trả về số phần con mà ký tự đó chiếm
-	int32_t TIsCharacterNotAlowAtLineHead(const char* pCharacter);
+	int TIsCharacterNotAlowAtLineHead(const char* pCharacter);
 	//Nếu độ dài chuỗi ban đầu (bao gồm cả dấu chấm hết) vượt quá giới hạn, nó sẽ bị cắt bớt và có hậu tố là ..
-	const char* TGetLimitLenString(const char* pOrigString, int32_t nOrigLen, char* pLimitLenString, int32_t nLimitLen);
+	const char* TGetLimitLenString(const char* pOrigString, int nOrigLen, char* pLimitLenString, int nLimitLen);
 	//Nếu độ dài chuỗi ban đầu (bao gồm cả ký tự điều khiển) (bao gồm cả ký tự kết thúc) vượt quá độ dài giới hạn, nó sẽ bị cắt bớt và có hậu tố là ..
-	const char* TGetLimitLenEncodedString(const char* pOrigString, int32_t nOrigLen, int32_t nFontSize,
-		int32_t nWrapCharaNum, char* pLimitLenString, int32_t& nShortLen, int32_t nLineLimit, int32_t bPicPackInSingleLine = false);
+	const char* TGetLimitLenEncodedString(const char* pOrigString, int nOrigLen, int nFontSize,
+		int nWrapCharaNum, char* pLimitLenString, int& nShortLen, int nLineLimit, int bPicPackInSingleLine = false);
 	//Tìm nơi thích hợp để tách một chuỗi
-	int32_t	TSplitString(const char* pString, int32_t nDesirePos, int32_t bLess);
+	int	TSplitString(const char* pString, int nDesirePos, int bLess);
 	//Tìm vị trí thích hợp để tách chuỗi trong chuỗi được mã hóa
-	int32_t	TSplitEncodedString(const char* pString, int32_t nCount, int32_t nDesirePos, int32_t bLess);
+	int	TSplitEncodedString(const char* pString, int nCount, int nDesirePos, int bLess);
 	//获得指定行的开始位置
-	int32_t TGetEncodeStringLineHeadPos(const char* pBuffer, int32_t nCount, int32_t nLine, int32_t nWrapCharaNum, int32_t nFontSize, int32_t bPicPackInSingleLine = false);
+	int TGetEncodeStringLineHeadPos(const char* pBuffer, int nCount, int nLine, int nWrapCharaNum, int nFontSize, int bPicPackInSingleLine = false);
 	//Chuyển đổi các thẻ điều khiển trong chuỗi văn bản, loại bỏ các ký tự không hợp lệ và rút ngắn độ dài lưu trữ của chuỗi văn bản
-	int32_t	TEncodeText(char* pBuffer, int32_t nCount);
-	int32_t	TEncodeText_(char* pBuffer, int32_t nCount);
-	int32_t	_TEncodeText(char* pBuffer, int32_t nCount);
+	int	TEncodeText(char* pBuffer, int nCount);
+	int	TEncodeText_(char* pBuffer, int nCount);
+	int	_TEncodeText(char* pBuffer, int nCount);
  //   void DelChar(char *inStr,char delchar,char *outStr);
-	//int32_t	TEGetTextString(char* pBuffer,char * nYStr,char * nDStr,int32_t nCount,char* nFHBuffer);
+	//int	TEGetTextString(char* pBuffer,char * nYStr,char * nDStr,int nCount,char* nFHBuffer);
 	//Chuyển đổi các thẻ điều khiển trong chuỗi văn bản, loại bỏ các ký tự không hợp lệ và rút ngắn độ dài lưu trữ của chuỗi văn bản
-	int32_t TFilterEncodedText(char* pBuffer, int32_t nCount);
+	int TFilterEncodedText(char* pBuffer, int nCount);
 	//Xóa các ký hiệu điều khiển khỏi văn bản được mã hóa
-	int32_t	TRemoveCtrlInEncodedText(char* pBuffer, int32_t nCount);
+	int	TRemoveCtrlInEncodedText(char* pBuffer, int nCount);
 	//Nhận số dòng và độ rộng dòng tối đa của văn bản được mã hóa
-	int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nWrapCharaNum, int32_t& nMaxLineLen, int32_t nFontSize, int32_t nSkipLine = 0, int32_t nLineLimit = 0, int32_t bPicSingleLine = false);
+	int	TGetEncodedTextLineCount(const char* pBuffer, int nCount, int nWrapCharaNum, int& nMaxLineLen, int nFontSize, int nSkipLine = 0, int nLineLimit = 0, int bPicSingleLine = false);
 	//Đối với văn bản được mã hóa, hãy bắt đầu từ vị trí được chỉ định để tìm vị trí của ký hiệu điều khiển được chỉ định và trả về -1 để cho biết rằng không tìm thấy
-	int32_t	TFindSpecialCtrlInEncodedText(const char* pBuffer, int32_t nCount, int32_t nStartPos, char cControl);
+	int	TFindSpecialCtrlInEncodedText(const char* pBuffer, int nCount, int nStartPos, char cControl);
 	//Loại bỏ loại ký tự điều khiển được chỉ định khỏi văn bản được mã hóa
-	int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cControl);
+	int	TClearSpecialCtrlInEncodedText(char* pBuffer, int nCount, char cControl);
 	//Đối với văn bản được mã hóa, hãy chỉ định vị trí trong bộ đệm của độ dài đầu ra
-	int32_t TGetEncodedTextOutputLenPos(const char* pBuffer, int32_t nCount, int32_t& nLen, bool bLess, int32_t nFontSize);
+	int TGetEncodedTextOutputLenPos(const char* pBuffer, int nCount, int& nLen, bool bLess, int nFontSize);
 	//Đối với văn bản được mã hóa, ký tự điều khiển trong bộ đệm phía trước được chỉ định có ảnh hưởng đến kết quả đầu ra tiếp theo
-	int32_t TGetEncodedTextEffectCtrls(const char* pBuffer, int32_t nSkipCount, KTP_CTRL& Ctrl0, KTP_CTRL& Ctrl1);
+	int TGetEncodedTextEffectCtrls(const char* pBuffer, int nSkipCount, KTP_CTRL& Ctrl0, KTP_CTRL& Ctrl1);
 
-	int32_t AdviseEngine(IInlinePicEngineSink*);
-	int32_t UnAdviseEngine(IInlinePicEngineSink*);
+	int AdviseEngine(IInlinePicEngineSink*);
+	int UnAdviseEngine(IInlinePicEngineSink*);
 
 }
 #endif

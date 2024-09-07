@@ -2,12 +2,12 @@
 // FileName			:	KMissleRes.h
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-7-8 16:21:51
-// FileDescription	:	
-¸ÃÀàÖ÷ÒªµÄ¹¦ÄÜÊÇ
-Ò»¡¢Î¬»¤×Óµ¯µÄ×ÊÔ´£¬°üÀ¨Í¼Ïñ¡¢ÉùÒôµÈ×ÊÔ´µÄ¼ÓÔØ¡¢É¾³ý
-¶þ¡¢Î¬»¤×Óµ¯µÄ»»Ö¡¡¢ÌøÖ¡£¬Í¬²½ÎÊÌâ
-Èý¡¢´¦Àí×Óµ¯µÄÍ¼ÏñÏÔÊ¾¡¢ÉùÒô²¥·ÅµÈÎÊÌâ
-// Revision Count	:	
+// FileDescription	:
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+Ò»ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½Ø¡ï¿½É¾ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Óµï¿½ï¿½Ä»ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½
+// Revision Count	:
 *******************************************************************************/
 
 #ifndef __KMISSLERES_H__
@@ -29,11 +29,11 @@ public:
 
 typedef struct
 {
-	char	AnimFileName[128];							// Í¼Ïñspr ÎÄ¼þÃû
+	char	AnimFileName[128];							// Í¼ï¿½ï¿½spr ï¿½Ä¼ï¿½ï¿½ï¿½
 	int		nTotalFrame;
 	int		nInterval;
 	int		nDir;
-	char	SndFileName[128];							// ÉùÒôwav ÎÄ¼þÃû
+	char	SndFileName[128];							// ï¿½ï¿½ï¿½ï¿½wav ï¿½Ä¼ï¿½ï¿½ï¿½
 } TMissleRes;
 
 
@@ -42,30 +42,30 @@ class KMissleRes
 public:
 	KMissleRes(	);
 	~KMissleRes();
-	KList		m_SkillSpecialList;		//	×Óµ¯¸½¼ÓÐ§¹ûÁÐ±í
+	KList		m_SkillSpecialList;		//	ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ð±ï¿½
 
-	BOOL		m_bHaveEnd;
-	BOOL		m_bLoopAnim;											//ÊÇ·ñÑ­»·²¥·Å¶¯»­
-	TMissleRes	m_MissleRes[MAX_MISSLE_STATUS * 2];							//¼¸ÖÖ×´Ì¬ÏÂµÄ×ÊÔ´Çé¿ö	
+	int		m_bHaveEnd;
+	int		m_bLoopAnim;											//ï¿½Ç·ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
+	TMissleRes	m_MissleRes[MAX_MISSLE_STATUS * 2];							//ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Âµï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 	KCacheNode  * m_pSndNode ;
 	int			m_nLastSndIndex;
 	int			m_nMissleId;
 	KList		m_ShadowList;
-	int			m_nMaxShadowNum;		//	×î´ó±£ÁôµÄ²ÐÓ°Á¿
-	BOOL		m_bNeedShadow;
+	int			m_nMaxShadowNum;		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Ó°ï¿½ï¿½
+	int		m_bNeedShadow;
 	int			m_nLastShadowLifeTime;
-	//int			m_nLifePerFrame;		//	Ã¿Ö¡²¥·ÅÊ±¼ä
-	
-	BOOL		m_bSubLoop;
-	int			m_nSubStart;			//	×ÓÑ­»·µÄÆðÊ¼Ö¡
-	int			m_nSubStop;			//	×ÓÑ­»·µÄ½áÊøÖ¡
+	//int			m_nLifePerFrame;		//	Ã¿Ö¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+
+	int		m_bSubLoop;
+	int			m_nSubStart;			//	ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Ö¡
+	int			m_nSubStop;			//	ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½Ö¡
 	KRUImage	m_RUImage[MAX_MISSLE_STATUS];			//	Í¼
 	//int			m_SceneID;
 #ifdef TOOLVERSION
 	KCacheNode * m_pSprNode;
 #endif
 public:
-	BOOL		Init();
+	int		Init();
 	void		Remove();
 	void		Clear();
 	void		LoadResource(int nStatus, char * MissleImage, char * MissleSound);
@@ -74,13 +74,13 @@ public:
 	int			GetSndVolume(int nVol);
 	void		StopSound();
 	void		NextFrame();
-	BOOL		SpecialMovieIsAllEnd()
-	{	
+	int		SpecialMovieIsAllEnd()
+	{
 		if (m_SkillSpecialList.GetHead())
 		{
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	};
 };

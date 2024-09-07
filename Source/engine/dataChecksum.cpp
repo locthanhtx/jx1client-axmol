@@ -11,40 +11,30 @@ static char THIS_FILE[]=__FILE__;
 #endif
 */
 //ѭ������
-char dataChecksum::__rol(char c, uint32_t count)
-{  
-	uint32_t bitcount = (uint32_t)(sizeof(c) * 8);   //�ܵļ���λ�� 1�ֽ�=8λ��
-	count = (uint32_t)(count % bitcount);                 //ȡ����
-	return (c << count) | (c >> (bitcount - count));  
+char dataChecksum::__rol(char c, unsigned int count)
+{
+	unsigned int bitcount = (unsigned int)(sizeof(c) * 8);   //�ܵļ���λ�� 1�ֽ�=8λ��
+	count = (unsigned int)(count % bitcount);                 //ȡ����
+	return (c << count) | (c >> (bitcount - count));
 }
 
-int32_t dataChecksum::pgChar2Int(char b)
+int dataChecksum::pgChar2Int(char b)
 {
-#ifdef WIN32
-	char i = 0;
-	__asm{
-		mov al, b
-		xor al, PG_PKEYMASK
-		rol al, PG_PKEYOFF
-		mov i, al
-		and i, 0x1f
-	      }
-	return i;
-#else
+
 	char i = b^PG_PKEYMASK;//xor al, 151; PG_PKEYMASK151 0x97
 	i=__rol(i,PG_PKEYOFF);
 	i=i&0x1F;
-	return i; 
-#endif
+	return i;
+
 }
 /*
-char dataChecksum::pgInt2Char(char i, DWORD dwTickCount)
+char dataChecksum::pgInt2Char(char i, unsigned long dwTickCount)
 {
 	char b;
 //	ASSERT(i >= 0 && i <= PG_RESULTLENSTD - 2);
   if (i >= 0 && i <= PG_RESULTLENSTD - 2)
   {
-	int32_t index,nSize;
+	int index,nSize;
 	for (index = dwTickCount % PG_CHARCOUNT, nSize = index + PG_CHARCOUNT; index < nSize; index++)
 	{
 		b = index % PG_CHARCOUNT + PG_MINCHAR;
@@ -62,9 +52,9 @@ char dataChecksum::pgInt2Char(char i, DWORD dwTickCount)
 	return (char)0xFF;
 }
 */
-int32_t dataChecksum::pgStrLen(const char* sz)
+int dataChecksum::pgStrLen(const char* sz)
 {
-	int32_t i = 0;
+	int i = 0;
 	while (sz[i])
 		i++;
 	return i;
@@ -84,9 +74,9 @@ void dataChecksum::pgSwapChars(char* sz)
 	PG_SWAP(15, 18);
 }
 /*
-int32_t dataChecksum::pgEncrypt(char* szKey, int32_t nKeyLen, char* szBuffer, const char* szPass, int32_t nStrLen)
+int dataChecksum::pgEncrypt(char* szKey, int nKeyLen, char* szBuffer, const char* szPass, int nStrLen)
 {
-	int32_t i, c, cc;
+	int i, c, cc;
 	for (i = 0; i < nStrLen; i++)
 	{
 		cc = szKey[i % nKeyLen];
@@ -94,7 +84,7 @@ int32_t dataChecksum::pgEncrypt(char* szKey, int32_t nKeyLen, char* szBuffer, co
 		c = (((c - PG_MINCHAR ) + (cc - PG_MINCHAR)) % PG_CHARCOUNT) + PG_MINCHAR;
 		if (PG_INVALIDCHAR(c))
 		{
-			int32_t nDead = 0;
+			int nDead = 0;
 			do {
 				c++;
 				if (c > PG_MAXCHAR)
@@ -114,9 +104,9 @@ int32_t dataChecksum::pgEncrypt(char* szKey, int32_t nKeyLen, char* szBuffer, co
 	return 1;
 }
 */
-void dataChecksum::pgDecrypt(char* szKey, int32_t nKeyLen, char* szBuffer, const char* szEnc, int32_t nStrLen)
+void dataChecksum::pgDecrypt(char* szKey, int nKeyLen, char* szBuffer, const char* szEnc, int nStrLen)
 {
-	int32_t i, c, cc;
+	int i, c, cc;
 	for (i = 0; i < nStrLen; i++)
 	{
 		cc = szKey[i % nKeyLen];
@@ -126,10 +116,10 @@ void dataChecksum::pgDecrypt(char* szKey, int32_t nKeyLen, char* szBuffer, const
 	szBuffer[i] = 0;
 }
 /*
-int32_t dataChecksum::pgSameString(const char* s1, const char* s2)
+int dataChecksum::pgSameString(const char* s1, const char* s2)
 {
 	char c1, c2;
-	int32_t i;
+	int i;
 	for (i = 0; (c1 = s1[i]) && (c2 = s2[i]); i++)
 	{
 		if (c1 != c2)
@@ -141,9 +131,9 @@ int32_t dataChecksum::pgSameString(const char* s1, const char* s2)
 }
 */
 //���ܣ��ɹ����� 1, ʧ�ܷ��� 0
-int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
+int dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 {
-	int32_t nLen = pgStrLen(szEncrypted), nPKLen = 0, i = 0;
+	int nLen = pgStrLen(szEncrypted), nPKLen = 0, i = 0;
 	char szBuffer[PG_RESULTLENSTD + 1];
 	if (nLen != PG_RESULTLENSTD)
 		return 0;
@@ -167,21 +157,21 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 
 
 //���ܣ��ɹ����� 1, ʧ�ܷ��� 0
-/*int32_t dataChecksum::pgEncrypt_(char* szResult, const char* szPass, DWORD dwTickCount, int32_t& nLevel)
+/*int dataChecksum::pgEncrypt_(char* szResult, const char* szPass, unsigned long dwTickCount, int& nLevel)
 {
 	nLevel++;
 	if (nLevel > 32)
 		return 0;
 
-	int32_t nPrimeNumberList[PG_RESULTLENSTD] = {//�����������б�
+	int nPrimeNumberList[PG_RESULTLENSTD] = {//�����������б�
 		1153,	1789,	2797,	3023,	3491,	3617,	4519,	4547,
 		5261,	5939,	6449,	7307,	8053,	9221,	9719,	9851,
 		313,	659,	1229,	1847,	2459,	3121,	3793,	4483,
 		5179,	6121,	6833,	7333,	7829,	8353,	9323,	9929,
 	};
 
-	int32_t nLen = pgStrLen(szPass), nPKeyLen = 0, i = 0;
-	int32_t nFlagEncryptOK = 0;
+	int nLen = pgStrLen(szPass), nPKeyLen = 0, i = 0;
+	int nFlagEncryptOK = 0;
 	if (nLen > PG_MAXPASSWORDLEN)
 		return 0;
 	for (i = 0; i < nLen; i++)
@@ -199,7 +189,7 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 	//public key
 	for (i = 0; i < nPKeyLen; i++)
 	{
-		DWORD dwRandom = dwTickCount + nPrimeNumberList[i];
+		unsigned long dwRandom = dwTickCount + nPrimeNumberList[i];
 		char c = (char)((dwRandom % PG_CHARCOUNT) + PG_MINCHAR);
 		if (PG_INVALIDCHAR(c))
 			c = (char)((dwRandom & 1) ? 'a' + (dwRandom % 26) : 'A' + (dwRandom % 26));
@@ -207,13 +197,13 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 	}
 
 	szResult[nPKeyLen + 1] = pgInt2Char(nLen, dwTickCount);
-	
+
 	nFlagEncryptOK = pgEncrypt(szResult + 1, nPKeyLen, szResult + nPKeyLen + 2, szPass, nLen);
 
 	//fill
 	for (i = 0; i < PG_RESULTLENSTD - 2 - nPKeyLen - nLen; i++)
 	{
-		DWORD dwRandom = (dwTickCount + nPrimeNumberList[PG_RESULTLENSTD - i - 1]);
+		unsigned long dwRandom = (dwTickCount + nPrimeNumberList[PG_RESULTLENSTD - i - 1]);
 		char c = (char)((dwRandom % PG_CHARCOUNT) + PG_MINCHAR);
 		if (PG_INVALIDCHAR(c))
 			c = (char)((dwRandom & 1) ? 'a' + (dwRandom % 26) : 'A' + (dwRandom % 26));
@@ -224,8 +214,8 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 	szResult[PG_RESULTLENSTD] = 0;
 
 	char szPassCheck[PG_RESULTLENSTD + 1];
-	int32_t nFlagDecryptOK = 0;
-	int32_t nDead = 0;
+	int nFlagDecryptOK = 0;
+	int nDead = 0;
 
 	//recheck password
 	if (nFlagEncryptOK)
@@ -237,9 +227,9 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 }
 */
 //����
-/*int32_t dataChecksum::SimplyEncrypt(char* szResult, const char* szPass)
+/*int dataChecksum::SimplyEncrypt(char* szResult, const char* szPass)
 {
-	DWORD dwTickCount =0;
+	unsigned long dwTickCount =0;
 #ifdef WIN32
 	dwTickCount = ::GetTickCount();  //��ȡ����ʱ��
 #else
@@ -247,6 +237,6 @@ int32_t dataChecksum::SimplyDecrypt(char* szPass, const char* szEncrypted)
 	gettimeofday(&m_pStartUpdate,NULL);
 	dwTickCount = m_pStartUpdate.tv_sec*1000+m_pStartUpdate.tv_usec/1000;
 #endif
-	int32_t nLevel = 0;
+	int nLevel = 0;
 	return pgEncrypt_(szResult, szPass, dwTickCount, nLevel);
 }*/

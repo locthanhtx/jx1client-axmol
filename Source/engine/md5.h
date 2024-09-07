@@ -52,7 +52,7 @@
  */
 
 typedef unsigned char md5_byte_t; /* 8-bit byte */
-typedef uint32_t md5_word_t; /* 32-bit word */
+typedef unsigned int md5_word_t; /* 32-bit word */
 
 /* Define the state of the MD5 Algorithm. */
 typedef struct md5_state_s {
@@ -70,9 +70,9 @@ void md5_init(md5_state_t *pms);
 
 /* Append a string to the message. */
 #ifdef P3
-void md5_append(P3(md5_state_t *pms, const md5_byte_t *data, int32_t nbytes));
+void md5_append(P3(md5_state_t *pms, const md5_byte_t *data, int nbytes));
 #else
-void md5_append(md5_state_t *pms, const md5_byte_t *data, int32_t nbytes);
+void md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes);
 #endif
 
 /* Finish the message and return the digest. */

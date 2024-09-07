@@ -24,7 +24,7 @@
 #include "cocos2d.h"
 #ifdef WIN32
 #include <winsock.h>
-//typedef int32_t  socklen_t;
+//typedef int  socklen_t;
 #else
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -49,7 +49,7 @@
 #include <fcntl.h>
 #include <unistd.h>*/
 #endif
-//typedef int32_t   SOCKET;
+//typedef int   SOCKET;
 USING_NS_AX;
 /*
  * namespace OnlineGameLib::Win32
@@ -74,15 +74,15 @@ public:
 	void Close();
 	void AbortiveClose();
 
-	void Shutdown( int32_t how );
+	void Shutdown( int how );
 
-	void Listen( int32_t backlog );
+	void Listen( int backlog );
 
 	void Bind( const SOCKADDR_IN &address );
-	void Bind( const struct sockaddr &address, uint32_t addressLength );
+	void Bind( const struct sockaddr &address, unsigned int addressLength );
 
 	void Connect( const SOCKADDR_IN &address );
-	void Connect( const struct sockaddr &address, uint32_t addressLength );
+	void Connect( const struct sockaddr &address, unsigned int addressLength );
 	// Connect socket
 	bool Connect_(const std::string ip, unsigned short port);
 
@@ -105,7 +105,7 @@ class CSocket::InternetAddress : public SOCKADDR_IN
 {
 public:
 
-	InternetAddress( uint32_t address, unsigned short port );
+	InternetAddress( unsigned int address, unsigned short port );
 	InternetAddress( const std::string &addressToConnectServer,
 				unsigned short port );
 };

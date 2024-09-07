@@ -33,11 +33,11 @@ KSelfBreathLight::KSelfBreathLight()
 void KSelfBreathLight::Breath()
 {
 	return;
-	//DWORD dwCurTime = timeGetTime();
+	//unsigned long dwCurTime = timeGetTime();
 	timeval *m_pStartUpdate = NULL;
 	gettimeofday(m_pStartUpdate,NULL);
-	DWORD dwCurTime = m_pStartUpdate->tv_usec/1000;
-	
+	unsigned long dwCurTime = m_pStartUpdate->tv_usec/1000;
+
 	fRadius += (dwCurTime - dwLastBreathTime) / fCycle * (fMaxRange - fMinRange) * nDir * 2;
 	if(nDir == 1 && fRadius > fMaxRange)
 	{
@@ -117,7 +117,7 @@ void KIpoTree::Paint(RECT* pRepresentArea, IPOT_RENDER_LAYER eLayer)
 		// ���ñ���ģ��Ĺ�����Ϣ
 //		g_pRepresent->SetLightInfo(m_nLeftTopX, m_nLeftTopY, (unsigned int*)pLightingArray);
 	}
-	
+
 	if (eLayer == IPOT_RL_OBJECT)
 	{
 		if (m_pMainBranch)
@@ -152,7 +152,7 @@ void KIpoTree::Clear()
 	}
 	m_DefaultBranch.Clear();
 	RemoveRtoGroupWithPermanentLeaf();
-	
+
 	//clear all dyna light
 	/*list<KLightBase*>::iterator i;
 	for (i = m_LightList.begin(); i != m_LightList.end(); i++)
@@ -307,7 +307,7 @@ void KIpoTree::AddLeafPoint(KIpotLeaf* pLeaf)
 								n = m_nCurrentTime - 960;
 								pLight->m_nRadius = MAIN_PLAYER_LIGHT_RADIUS;
 							}
-							
+
 							if(n > 360)
 								n = 360;
 							float f = n / 360.0f;
@@ -327,7 +327,7 @@ void KIpoTree::AddLeafPoint(KIpotLeaf* pLeaf)
 					//pLight->m_dwColor = 0xff808080;
 					break;
 				}
-				
+
 				/*if (pRtoLeaf->uGenre == CGOG_NPC && Npc[pRtoLeaf->nId].IsPlayer())
 				{//����Լ�
 					pLight->m_dwColor = 0xffffffff;
@@ -449,7 +449,7 @@ void KIpoTree::StrewRtoLeafs(RECT& KeepRtoArea)
 		}
 		else
 		{
-			PluckRto(pRto);				
+			PluckRto(pRto);
 		}
 	}
 
@@ -491,7 +491,7 @@ void KIpoTree::ObjectsCallback(void* p, KIpotLeaf* pLeaf)
 	if((pBio->Props & SPBIO_P_BLOCK_LIGHT_MASK) == SPBIO_P_BLOCK_LIGHT_BOTTOM)
 	{
 		// ���߶δ����ڵ�
-		pTree->FillLineObstacle(pObj->oPosition.x - pTree->m_nLeftTopX, pObj->oPosition.y - pTree->m_nLeftTopY, 
+		pTree->FillLineObstacle(pObj->oPosition.x - pTree->m_nLeftTopX, pObj->oPosition.y - pTree->m_nLeftTopY,
 								pObj->oEndPos.x - pTree->m_nLeftTopX, pObj->oEndPos.y - pTree->m_nLeftTopY, nObstacleID);
 	}
 	else if((pBio->Props & SPBIO_P_BLOCK_LIGHT_MASK) == SPBIO_P_BLOCK_LIGHT_CIRCLE)
@@ -726,7 +726,7 @@ void KIpoTree::RenderLightMap()
 				gy = nLightGridY - r;
 				for(j=0; j<(r * 2 + 1); j++)
 				{
-					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 								(y - nLightPosY)) / pLight->m_nRadius;
 					if(f > 1.0f)
 						f = 1.0f;
@@ -751,7 +751,7 @@ void KIpoTree::RenderLightMap()
 				gy = nLightGridY + r;
 				for(j=0; j<(r * 2 + 1); j++)
 				{
-					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 								(y - nLightPosY)) / pLight->m_nRadius;
 					if(f > 1.0f)
 						f = 1.0f;
@@ -773,7 +773,7 @@ void KIpoTree::RenderLightMap()
 				gy = nLightGridY - (r - 1);
 				for(j=0; j<(r * 2 - 1); j++)
 				{
-					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 								(y - nLightPosY)) / pLight->m_nRadius;
 					if(f > 1.0f)
 						f = 1.0f;
@@ -795,7 +795,7 @@ void KIpoTree::RenderLightMap()
 				gy = nLightGridY - (r - 1);
 				for(j=0; j<(r * 2 - 1); j++)
 				{
-					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 								(y - nLightPosY)) / pLight->m_nRadius;
 					if(f > 1.0f)
 						f = 1.0f;
@@ -834,7 +834,7 @@ void KIpoTree::RenderLightMap()
 	KLColor ptp[LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT];
 
 	// ����������չ���ͼ
-	DWORD dwR, dwG, dwB;
+	unsigned long dwR, dwG, dwB;
 	dwR = (m_dwAmbient & 0x00ff0000) >>16;
 	dwG = (m_dwAmbient & 0x0000ff00) >>8;
 	dwB = m_dwAmbient & 0x000000ff;
@@ -857,7 +857,7 @@ void KIpoTree::RenderLightMap()
 		// ��Դ�ĸ�������
 		int nLightGridX = nLightPosX / LIGHTING_GRID_SIZEX;
 		int nLightGridY = nLightPosY / LIGHTING_GRID_SIZEY;
-		if(nLightGridX < 0 || nLightGridX >= LIGHTING_GRID_WIDTH || 
+		if(nLightGridX < 0 || nLightGridX >= LIGHTING_GRID_WIDTH ||
 			nLightGridY < 0 || nLightGridY >= LIGHTING_GRID_HEIGHT)
 			continue;
 		// ��Դ���ڸ������ĵ�����
@@ -888,7 +888,7 @@ void KIpoTree::RenderLightMap()
 			{
 				if(CanLighting(x, y, nLightPosX, nLightPosY))
 				{
-					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 							(y - nLightPosY)) / pLight->m_nRadius);
 					if(f > 1.0f)
 						f = 1.0f;
@@ -915,7 +915,7 @@ void KIpoTree::RenderLightMap()
 			{
 				if(CanLighting(x, y, nLightPosX, nLightPosY))
 				{
-					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 							(y - nLightPosY)) / pLight->m_nRadius);
 					if(f > 1.0f)
 						f = 1.0f;
@@ -939,7 +939,7 @@ void KIpoTree::RenderLightMap()
 			{
 				if(CanLighting(x, y, nLightPosX, nLightPosY))
 				{
-					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 							(y - nLightPosY)) / pLight->m_nRadius);
 					if(f > 1.0f)
 						f = 1.0f;
@@ -963,7 +963,7 @@ void KIpoTree::RenderLightMap()
 			{
 				if(CanLighting(x, y, nLightPosX, nLightPosY))
 				{
-					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) * 
+					float f = (float)(sqrt((x - nLightPosX) * (x - nLightPosX) + (y - nLightPosY) *
 							(y - nLightPosY)) / pLight->m_nRadius);
 					if(f > 1.0f)
 						f = 1.0f;
@@ -1026,12 +1026,12 @@ void KIpoTree::RenderLightMap()
 	m_dwAmbient = 0xff101010;
 
 	// ����������չ���ͼ
-	DWORD dwR, dwG, dwB;
+	unsigned long dwR, dwG, dwB;
 	dwR = (m_dwAmbient & 0x00ff0000) >>16;
 	dwG = (m_dwAmbient & 0x0000ff00) >>8;
 	dwB = m_dwAmbient & 0x000000ff;
     KLColor *pTempColor = pLColor;
-    
+
     // ���ÿһ����ɫ������2���ֽ�,���Կ��Ƕ�һ����,Ȼ����һ��MMX�ļĴ������
     // ����8���ֽ�
 	for(j=0; j < LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT / 4; j++)
@@ -1051,7 +1051,7 @@ void KIpoTree::RenderLightMap()
 			pTempColor[1].b = dwB;
 			pTempColor[2].b = dwB;
 			pTempColor[3].b = dwB;
-            
+
             pTempColor += 4;
 	}
 
@@ -1067,7 +1067,7 @@ void KIpoTree::RenderLightMap()
 		// ��Դ�ĸ�������
 		int nLightGridX = nLightPosX / LIGHTING_GRID_SIZEX;
 		int nLightGridY = nLightPosY / LIGHTING_GRID_SIZEY;
-		if(nLightGridX < 0 || nLightGridX >= LIGHTING_GRID_WIDTH || 
+		if(nLightGridX < 0 || nLightGridX >= LIGHTING_GRID_WIDTH ||
 			nLightGridY < 0 || nLightGridY >= LIGHTING_GRID_HEIGHT)
 			continue;
 
@@ -1091,7 +1091,7 @@ void KIpoTree::RenderLightMap()
         unsigned int uDistance65536 = 0;
         KLColor *pCurPos = NULL;
 
-		
+
 		gy = nLightGridY - (nGridRadius - 1);
 		// �����ĵ�������չ�������ǿ��
 		for(int r = 0; r < nGridRadius; r++)
@@ -1111,18 +1111,18 @@ void KIpoTree::RenderLightMap()
 					{
 						//float f = 65536.0 - ((float)(
 						//    (
-						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) + 
+						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) +
 						//        ((float)(y - nLightPosY)) * ((float)(y - nLightPosY))
-						//    ) * 
+						//    ) *
 						//    fLightRadiusDenom *
 						//    65536.0
 						//));
 						float f = 65536.0 - ((float)(
 							sqrt(
-								double((x - nLightPosX)) * (x - nLightPosX) + 
+								double((x - nLightPosX)) * (x - nLightPosX) +
 								(y - nLightPosY) * (y - nLightPosY)
-							) * 
-							fLightRadiusDenom * 
+							) *
+							fLightRadiusDenom *
 							65536.0
 						));
 
@@ -1163,18 +1163,18 @@ void KIpoTree::RenderLightMap()
 					{
 						//float f = 65536.0 - ((float)(
 						//    (
-						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) + 
+						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) +
 						//        ((float)(y - nLightPosY)) * ((float)(y - nLightPosY))
-						//    ) * 
+						//    ) *
 						//    fLightRadiusDenom *
 						//    65536.0
 						//));
 						float f = 65536.0 - ((float)(
 							sqrt(
-								double((x - nLightPosX)) * (x - nLightPosX) + 
+								double((x - nLightPosX)) * (x - nLightPosX) +
 								(y - nLightPosY) * (y - nLightPosY)
-							) * 
-							fLightRadiusDenom * 
+							) *
+							fLightRadiusDenom *
 							65536.0
 						));
 
@@ -1212,18 +1212,18 @@ void KIpoTree::RenderLightMap()
 					{
 						//float f = 65536.0 - ((float)(
 						//    (
-						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) + 
+						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) +
 						//        ((float)(y - nLightPosY)) * ((float)(y - nLightPosY))
-						//    ) * 
+						//    ) *
 						//    fLightRadiusDenom *
 						//    65536.0
 						//));
 						float f = 65536.0 - ((float)(
 							sqrt(
-								double((x - nLightPosX)) * (x - nLightPosX) + 
+								double((x - nLightPosX)) * (x - nLightPosX) +
 								(y - nLightPosY) * (y - nLightPosY)
-							) * 
-							fLightRadiusDenom * 
+							) *
+							fLightRadiusDenom *
 							65536.0
 						));
 
@@ -1246,7 +1246,7 @@ void KIpoTree::RenderLightMap()
 				}
 			}
 
-			
+
 			gx = nLightGridX + r;
 			gy = nLightGridY - (r - 1);
 			if (!
@@ -1262,18 +1262,18 @@ void KIpoTree::RenderLightMap()
 					{
 						//float f = 65536.0 - ((float)(
 						//    (
-						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) + 
+						//        ((float)(x - nLightPosX)) * ((float)(x - nLightPosX)) +
 						//        ((float)(y - nLightPosY)) * ((float)(y - nLightPosY))
-						//    ) * 
+						//    ) *
 						//    fLightRadiusDenom *
 						//    65536.0
 						//));
 						float f = 65536.0 - ((float)(
 							sqrt(
-								double((x - nLightPosX)) * (x - nLightPosX) + 
+								double((x - nLightPosX)) * (x - nLightPosX) +
 								(y - nLightPosY) * (y - nLightPosY)
-							) * 
-							fLightRadiusDenom * 
+							) *
+							fLightRadiusDenom *
 							65536.0
 						));
 
@@ -1300,13 +1300,13 @@ void KIpoTree::RenderLightMap()
 
     //memcpy(ptp, pLColor, sizeof(ptp));
 
-    
+
 	// �Թ���ͼ���й��ˣ�ʹ��Ӱ����ƽ��
-    
+
 
 	int m;
     int n;
-    DWORD   *pdwLight;
+    unsigned long   *pdwLight;
     KLColor *pO, *pL, *pR, *pU, *pD, *pDest;
     int nIdx = 1 * LIGHTING_GRID_WIDTH + 1;
 	for(m=1; m<LIGHTING_GRID_HEIGHT-1;m++)
@@ -1329,7 +1329,7 @@ void KIpoTree::RenderLightMap()
 			//pDest->r = (pO->r + (pR->r + pL->r) / 2 + pU->r + pD->r) / 4;
 			//pDest->g = (pO->g + (pR->g + pL->g) / 2 + pU->g + pD->g) / 4;
 			//pDest->b = (pO->b + (pR->b + pL->b) / 2 + pU->b + pD->b) / 4;
-			
+
             pDest->r = (pO->r + pL->r + pU->r + pD->r) / 4;
 		    pDest->g = (pO->g + pL->g + pU->g + pD->g) / 4;
 			pDest->b = (pO->b + pL->b + pU->b + pD->b) / 4;
@@ -1348,7 +1348,7 @@ void KIpoTree::RenderLightMap()
 		}
 		nIdx += LIGHTING_GRID_WIDTH;
 	}
-    
+
 
 	// ��r��g��b��ֵ������0xff֮�ڣ���ֹɫ�ʴ���
 //	for(j = 0; j < LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT; j++)
@@ -1360,7 +1360,7 @@ void KIpoTree::RenderLightMap()
 //
 //		//if(ptp[j].r > 0xff)
 //		//	ptp[j].r = 0xff;
-//        
+//
 //		//if(ptp[j].g > 0xff)
 //		//	ptp[j].g = 0xff;
 //		//if(ptp[j].b > 0xff)

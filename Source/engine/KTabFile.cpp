@@ -41,7 +41,7 @@ KTabFile::~KTabFile()
 	Clear();
 }
 
-bool  KTabFile::CreatFile(char * FileName)
+bool  KTabFile::CreatFile(const char* FileName)
 {
 	if  (!FileName) return false;
 	KFile cFile;
@@ -59,11 +59,11 @@ bool  KTabFile::CreatFile(char * FileName)
 // ����:	true		�ɹ�
 //			false		ʧ��
 //---------------------------------------------------------------------------
-BOOL KTabFile::Load(char * FileName/*,char * mMemKey*/)
+int KTabFile::Load(const char* FileName/*,const char* mMemKey*/)
 {
 
 	KPakFile	File;
-	//uint32_t		dwSize;
+	//unsigned int		dwSize;
 	void *		Buffer;
 
 	// check file name
@@ -113,7 +113,7 @@ BOOL KTabFile::Load(char * FileName/*,char * mMemKey*/)
 //---------------------------------------------------------------------------
 void KTabFile::CreateTabOffset()
 {
-	int32_t		nWidth, nHeight, nOffset, nSize;
+	int		nWidth, nHeight, nOffset, nSize;
 	unsigned char	*Buffer;
 	TABOFFSET *TabBuffer;
 
@@ -121,7 +121,7 @@ void KTabFile::CreateTabOffset()
 	nHeight	= 1;
 	nOffset = 0;
 
-	Buffer	= (unsigned char *)m_Memory.GetMemPtr();	//��ȡ�ڴ�ָ��
+	Buffer	= (unsigned char*)m_Memory.GetMemPtr();	//��ȡ�ڴ�ָ��
 	nSize	= m_Memory.GetMemLen();
 
 	// ����һ�о����ж�����
@@ -169,13 +169,13 @@ void KTabFile::CreateTabOffset()
 	m_Height	= nHeight;
 
 	TabBuffer = (TABOFFSET *)m_OffsetTable.Alloc(m_Width * m_Height * sizeof (TABOFFSET));
-	Buffer = (unsigned char *)m_Memory.GetMemPtr();
+	Buffer = (unsigned char*)m_Memory.GetMemPtr();
 
 	nOffset = 0;
-	int32_t nLength;
-	for (int32_t i = 0; i < nHeight; ++i)
+	int nLength;
+	for (int i = 0; i < nHeight; ++i)
 	{
-		for (int32_t j = 0; j < nWidth; ++j)
+		for (int j = 0; j < nWidth; ++j)
 		{
 			TabBuffer->dwOffset = nOffset;
 			nLength = 0;
@@ -191,7 +191,7 @@ void KTabFile::CreateTabOffset()
 			TabBuffer++;
 			if (*(Buffer - 1) == 0x0a || *(Buffer - 1) == 0x0d)	//	�����Ѿ������ˣ���Ȼ����û��nWidth //for linux modified [wxb 2003-7-29]
 			{
-				for (int32_t k = j+1; k < nWidth; ++k)
+				for (int k = j+1; k < nWidth; ++k)
 				{
 					TabBuffer->dwOffset = nOffset;
 					TabBuffer->dwLength = 0;
@@ -216,9 +216,9 @@ void KTabFile::CreateTabOffset()
 // ����:	szColumn
 // ����:	�ڼ���
 //---------------------------------------------------------------------------
-int32_t KTabFile::Str2Col(char * szColumn)
+int KTabFile::Str2Col(const char* szColumn)
 {
-	int32_t	nStrLen = g_StrLen(szColumn);
+	int	nStrLen = g_StrLen(szColumn);
 	char	szTemp[4];
 
 	g_StrCpy(szTemp, szColumn);
@@ -243,9 +243,9 @@ int32_t KTabFile::Str2Col(char * szColumn)
 //			dwSize			�����ַ�������󳤶�
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetString(int32_t nRow, char * szColumn, char * lpDefault, char * lpRString, uint32_t dwSize, BOOL bColumnLab)
+int KTabFile::GetString(int nRow, const char* szColumn, const char* lpDefault, char* lpRString, unsigned int dwSize, int bColumnLab)
 {
-	int32_t nColumn;
+	int nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
@@ -265,9 +265,9 @@ BOOL KTabFile::GetString(int32_t nRow, char * szColumn, char * lpDefault, char *
 //			dwSize			�����ַ�������󳤶�
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetString(char * szRow, int32_t szColumn, char * lpDefault, char * lpRString, uint32_t dwSize, BOOL bColumnLab)
+int KTabFile::GetString(const char* szRow, int szColumn, const char* lpDefault, char* lpRString, unsigned int dwSize, int bColumnLab)
 {
-	int32_t nRow, nColumn;
+	int nRow, nColumn;
 
 	   nRow = FindRow(szRow);
 
@@ -291,9 +291,9 @@ BOOL KTabFile::GetString(char * szRow, int32_t szColumn, char * lpDefault, char 
 //			dwSize			�����ַ�������󳤶�
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetString(char * szRow, char * szColumn, char * lpDefault, char * lpRString, uint32_t dwSize)
+int KTabFile::GetString(const char* szRow, const char* szColumn, const char* lpDefault, char* lpRString, unsigned int dwSize)
 {
-	int32_t nRow, nColumn;
+	int nRow, nColumn;
 
 	nRow = FindRow(szRow);
 	nColumn = FindColumn(szColumn);
@@ -312,7 +312,7 @@ BOOL KTabFile::GetString(char * szRow, char * szColumn, char * lpDefault, char *
 //			dwSize			�����ַ�������󳤶�
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetString(int32_t nRow, int32_t nColumn, char * lpDefault, char * lpRString, uint32_t dwSize)
+int KTabFile::GetString(int nRow, int nColumn, const char* lpDefault, char* lpRString, unsigned int dwSize)
 {
 	if (GetValue(nRow - 1, nColumn - 1,  lpRString, dwSize))
 		return true;
@@ -328,10 +328,10 @@ BOOL KTabFile::GetString(int32_t nRow, int32_t nColumn, char * lpDefault, char *
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetInteger(int32_t nRow, char * szColumn, int32_t nDefault, int32_t *pnValue, BOOL bColumnLab)
+int KTabFile::GetInteger(int nRow, const char* szColumn, int nDefault, int *pnValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumn;
+	int		nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
@@ -357,10 +357,10 @@ BOOL KTabFile::GetInteger(int32_t nRow, char * szColumn, int32_t nDefault, int32
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetInteger6(int32_t nRow, char * szColumna,char * szColumnb,char * szColumnc,char * szColumnd,char * szColumne,char * szColumnf,  int32_t nDefault, int32_t *pnValue, BOOL bColumnLab)
+int KTabFile::GetInteger6(int nRow, const char* szColumna,const char* szColumnb,const char* szColumnc,const char* szColumnd,const char* szColumne,const char* szColumnf,  int nDefault, int *pnValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumna,nColumnb,nColumnc,nColumnd,nColumne,nColumnf;
+	int		nColumna,nColumnb,nColumnc,nColumnd,nColumne,nColumnf;
 	if (bColumnLab)
 	{
 		nColumna = FindColumn(szColumna);
@@ -457,10 +457,10 @@ BOOL KTabFile::GetInteger6(int32_t nRow, char * szColumna,char * szColumnb,char 
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char * szColumnc,int32_t nDefault, int32_t *pnValue, BOOL bColumnLab)
+int KTabFile::GetInteger3(int nRow, const char* szColumna,const char* szColumnb,const char* szColumnc,int nDefault, int *pnValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumna,nColumnb,nColumnc;
+	int		nColumna,nColumnb,nColumnc;
 	if (bColumnLab)
 	{
 		nColumna = FindColumn(szColumna);
@@ -517,9 +517,9 @@ BOOL KTabFile::GetInteger3(int32_t nRow, char * szColumna,char * szColumnb,char 
 
 
 //ͬ���ֶηָ���� |
-//void KTabFile::GetInt2(LPCSTR lpSection, LPCSTR lpKeyName, int32_t* pRect)
+//void KTabFile::GetInt2(const char* lpSection, const char* lpKeyName, int* pRect)
 
-void KTabFile::GetInt2(int32_t nRow, int32_t szColumn, int32_t *pRect)
+void KTabFile::GetInt2(int nRow, int szColumn, int *pRect)
 {
 	char  Buffer[256];
 
@@ -529,7 +529,7 @@ void KTabFile::GetInt2(int32_t nRow, int32_t szColumn, int32_t *pRect)
 	}
 }
 
-void KTabFile::GetInt15(int32_t nRow, int32_t szColumn, int32_t *pRect)
+void KTabFile::GetInt15(int nRow, int szColumn, int *pRect)
 {
 	char  Buffer[256];
 
@@ -539,18 +539,18 @@ void KTabFile::GetInt15(int32_t nRow, int32_t szColumn, int32_t *pRect)
 	}
 }
 
-void KTabFile::GetInt15s(int32_t nRow, char * szColumn, int32_t *pRect)
+void KTabFile::GetInt15s(int nRow, const char* szColumn, int *pRect)
 {
 	char  Buffer[256];
 
-	int32_t	nColumn = FindColumn(szColumn);
+	int	nColumn = FindColumn(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d", &pRect[0],&pRect[1],&pRect[2],&pRect[3],&pRect[4],&pRect[5],&pRect[6],&pRect[7],&pRect[8],&pRect[9],&pRect[10],&pRect[11],&pRect[12],&pRect[13],&pRect[14]);
 	}
 }
 
-void KTabFile::GetInt3(int32_t nRow, int32_t szColumn, int32_t *pRect)
+void KTabFile::GetInt3(int nRow, int szColumn, int *pRect)
 {
 	char  Buffer[256];
 
@@ -560,21 +560,21 @@ void KTabFile::GetInt3(int32_t nRow, int32_t szColumn, int32_t *pRect)
 	}
 }
 //------�ַ�����-----
-void KTabFile::GetInt2s(int32_t nRow, char * szColumn, int32_t *pRect)
+void KTabFile::GetInt2s(int nRow, const char* szColumn, int *pRect)
 {
 	char  Buffer[256];
 
-	int32_t	nColumn = FindColumn(szColumn);
+	int	nColumn = FindColumn(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d|%d", &pRect[0], &pRect[1]);
 	}
 }
 
-void KTabFile::GetInt3s(int32_t nRow, char * szColumn, int32_t *pRect)
+void KTabFile::GetInt3s(int nRow, const char* szColumn, int *pRect)
 {
 	char  Buffer[256];
-	int32_t	nColumn = FindColumn(szColumn);
+	int	nColumn = FindColumn(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
 		sscanf(Buffer, "%d|%d|%d", &pRect[0], &pRect[1], &pRect[2]);
@@ -589,9 +589,9 @@ void KTabFile::GetInt3s(int32_t nRow, char * szColumn, int32_t *pRect)
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetInteger(char * szRow, char * szColumn, int32_t nDefault, int32_t *pnValue)
+int KTabFile::GetInteger(const char* szRow, const char* szColumn, int nDefault, int *pnValue)
 {
-	int32_t		nRow, nColumn;
+	int		nRow, nColumn;
 	char	Buffer[64];
 
 	nRow = FindRow(szRow);
@@ -616,7 +616,7 @@ BOOL KTabFile::GetInteger(char * szRow, char * szColumn, int32_t nDefault, int32
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetInteger(int32_t nRow, int32_t nColumn, int32_t nDefault, int32_t *pnValue)
+int KTabFile::GetInteger(int nRow, int nColumn, int nDefault, int *pnValue)
 {
 	char	Buffer[64]={0};
 
@@ -632,10 +632,10 @@ BOOL KTabFile::GetInteger(int32_t nRow, int32_t nColumn, int32_t nDefault, int32
 	}
 }
 
-BOOL KTabFile::GetIntegerDW(int32_t nRow, char * szColumn, int32_t nDefault,uint32_t *pnValue, BOOL bColumnLab)
+int KTabFile::GetIntegerDW(int nRow, const char* szColumn, int nDefault,unsigned int *pnValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumn;
+	int		nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
@@ -652,17 +652,17 @@ BOOL KTabFile::GetIntegerDW(int32_t nRow, char * szColumn, int32_t nDefault,uint
 	}
 }
 
-BOOL KTabFile::GetDword(int32_t nRow, char * szColumn, uint32_t fDefault, uint32_t *pfValue, BOOL bColumnLab)
+int KTabFile::GetDword(int nRow, const char* szColumn, unsigned int fDefault, unsigned int *pfValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumn;
+	int		nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
 		nColumn = Str2Col(szColumn);
 	if (GetValue(nRow - 1, nColumn - 1, Buffer, sizeof(Buffer)))
 	{
-		*pfValue = (uint32_t)atof(Buffer);
+		*pfValue = (unsigned int)atof(Buffer);
 		return true;
 	}
 	else
@@ -682,10 +682,10 @@ BOOL KTabFile::GetDword(int32_t nRow, char * szColumn, uint32_t fDefault, uint32
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetDouble(int32_t nRow, char * szColumn, double fDefault, double *pfValue, BOOL bColumnLab)
+int KTabFile::GetDouble(int nRow, const char* szColumn, double fDefault, double *pfValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumn;
+	int		nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
@@ -711,10 +711,10 @@ BOOL KTabFile::GetDouble(int32_t nRow, char * szColumn, double fDefault, double 
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetFloat(int32_t nRow, char * szColumn, float fDefault, float *pfValue, BOOL bColumnLab)
+int KTabFile::GetFloat(int nRow, const char* szColumn, float fDefault, float *pfValue, int bColumnLab)
 {
 	char	Buffer[64];
-	int32_t		nColumn;
+	int		nColumn;
 	if (bColumnLab)
 		nColumn = FindColumn(szColumn);
 	else
@@ -739,9 +739,9 @@ BOOL KTabFile::GetFloat(int32_t nRow, char * szColumn, float fDefault, float *pf
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetFloat(char * szRow, char * szColumn, float fDefault, float *pfValue)
+int KTabFile::GetFloat(const char* szRow, const char* szColumn, float fDefault, float *pfValue)
 {
-	int32_t		nRow, nColumn;
+	int		nRow, nColumn;
 	char	Buffer[64];
 
 	nRow = FindRow(szRow);
@@ -766,7 +766,7 @@ BOOL KTabFile::GetFloat(char * szRow, char * szColumn, float fDefault, float *pf
 //			pnValue			����ֵ
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetFloat(int32_t nRow, int32_t nColumn, float fDefault, float *pfValue)
+int KTabFile::GetFloat(int nRow, int nColumn, float fDefault, float *pfValue)
 {
 	char	Buffer[64];
 
@@ -791,15 +791,15 @@ BOOL KTabFile::GetFloat(int32_t nRow, int32_t nColumn, float fDefault, float *pf
 //			dwSize			�����ַ�������󳤶�
 // ����:	�Ƿ�ɹ�
 //---------------------------------------------------------------------------
-BOOL KTabFile::GetValue(int32_t nRow, int32_t nColumn, char * lpRString, uint32_t dwSize)
+int KTabFile::GetValue(int nRow, int nColumn, char* lpRString, unsigned int dwSize)
 {
 	if (nRow >= m_Height || nColumn >= m_Width || nRow < 0 || nColumn < 0)
 		return false;
 
 	TABOFFSET	*TempOffset;
-	char *		Buffer;
+	const char*		Buffer;
 
-	Buffer = (char *)m_Memory.GetMemPtr();
+	Buffer = (const char*)m_Memory.GetMemPtr();
 	TempOffset = (TABOFFSET *)m_OffsetTable.GetMemPtr();
 	TempOffset += nRow * m_Width + nColumn;
 
@@ -847,12 +847,12 @@ void KTabFile::Clear()
 // ����:	FindRow
 // ����:	�����йؼ���
 // ����:	szRow���йؼ��֣�
-// ����:	int32_t
+// ����:	int
 //---------------------------------------------------------------------------
-int32_t KTabFile::FindRow(char * szRow)
+int KTabFile::FindRow(const char* szRow)
 {
 	char	szTemp[128];
-	for (int32_t i = 0; i < m_Height; ++i)	// ��1��ʼ��������һ�е��ֶ���
+	for (int i = 0; i < m_Height; ++i)	// ��1��ʼ��������һ�е��ֶ���
 	{
 		GetValue(i, 0, szTemp, g_StrLen(szRow));
         std::string str(szTemp);
@@ -867,12 +867,12 @@ int32_t KTabFile::FindRow(char * szRow)
 // ����:	FindColumn
 // ����:	�����йؼ���
 // ����:	szColumn���йؼ��֣�
-// ����:	int32_t
+// ����:	int
 //---------------------------------------------------------------------------
-int32_t KTabFile::FindColumn(char * szColumn)
+int KTabFile::FindColumn(const char* szColumn)
 {
 	char	szTemp[128];
-	for (int32_t i = 0; i < m_Width; ++i)	// ��1��ʼ��������һ�е��ֶ���
+	for (int i = 0; i < m_Width; ++i)	// ��1��ʼ��������һ�е��ֶ���
 	{
 		GetValue(0, i, szTemp, g_StrLen(szColumn));
 		if (g_StrCmp(szTemp, szColumn))
@@ -887,7 +887,7 @@ int32_t KTabFile::FindColumn(char * szColumn)
 // ����:	szColumn
 // ����:	�ڼ���
 //---------------------------------------------------------------------------
-void KTabFile::Col2Str(int32_t nCol, char * szColumn)
+void KTabFile::Col2Str(int nCol, char* szColumn)
 {
 
 	if (nCol < 26)

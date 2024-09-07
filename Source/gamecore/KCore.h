@@ -316,8 +316,8 @@ extern int m_bIsGameSevConnecting;
 extern int m_bIsPlayerInGame;
 extern int _clientlanguage;
 extern bool _clientNoNetWork;
-extern BOOL  g_bUISelIntelActiveWithServer;//��ǰѡ����Ƿ���������˽���
-extern BOOL  g_bUISpeakActiveWithServer;
+extern int  g_bUISelIntelActiveWithServer;//��ǰѡ����Ƿ���������˽���
+extern int  g_bUISpeakActiveWithServer;
 extern int   g_bUISelLastSelCount;
 extern int   nGameVersion;
 extern int   nExpSkillIdx;

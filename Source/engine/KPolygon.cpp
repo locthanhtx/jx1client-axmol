@@ -22,9 +22,9 @@ bool KPolygon::IsPointInPolygon(POINT pos)
 {
 	static POINT	pPos[defMaxVertex+1];
 	bool			bRet = true;
-	int32_t				nFlag[2];
-	int32_t				nResult;
-	int32_t	i;
+	int				nFlag[2];
+	int				nResult;
+	int	i;
 
 	for (i = 0; i < m_Polygon.nVertex; i++)
 	{
@@ -53,13 +53,13 @@ bool KPolygon::IsPointInPolygon(POINT pos)
 	return bRet;
 }
 
-bool KPolygon::IsPointInPolygon(int32_t x, int32_t y)
+bool KPolygon::IsPointInPolygon(int x, int y)
 {
 	static POINT	pPos[defMaxVertex+1];
 	bool			bRet = true;
-	int32_t				nFlag[2];
-	int32_t				nResult;
-	int32_t	i;
+	int				nFlag[2];
+	int				nResult;
+	int	i;
 
 	for (i = 0; i < m_Polygon.nVertex; i++)
 	{
@@ -89,11 +89,11 @@ bool KPolygon::IsPointInPolygon(int32_t x, int32_t y)
 }
 
 
-int32_t KPolygon::GetNearVertex(POINT pos)
+int KPolygon::GetNearVertex(POINT pos)
 {
-	int32_t i;
-	int32_t	nMin = 0x7fffffff;
-	int32_t	nIndex;
+	int i;
+	int	nMin = 0x7fffffff;
+	int	nIndex;
 
 	for (i = 0; i < m_Polygon.nVertex; i++)
 	{
@@ -106,7 +106,7 @@ int32_t KPolygon::GetNearVertex(POINT pos)
 	return nIndex;
 }
 
-bool KPolygon::GetIndexVertex(int32_t i, POINT* vertex)
+bool KPolygon::GetIndexVertex(int i, POINT* vertex)
 {
 	if (i >= m_Polygon.nVertex)
 		return false;
@@ -115,13 +115,13 @@ bool KPolygon::GetIndexVertex(int32_t i, POINT* vertex)
 	return true;
 }
 
-bool KPolygon::RemoveIndexVertex(int32_t index)
+bool KPolygon::RemoveIndexVertex(int index)
 {
 	if (m_Polygon.nVertex < 4)
 		return false;
 
 	m_Polygon.nVertex --;
-	for (int32_t i = index; i < defMaxVertex - 1; i++)
+	for (int i = index; i < defMaxVertex - 1; i++)
 	{
 		m_Polygon.Pos[i] = m_Polygon.Pos[i+1];
 	}
@@ -130,7 +130,7 @@ bool KPolygon::RemoveIndexVertex(int32_t index)
 
 bool KPolygon::AddPointToVertex(POINT pos)
 {
-	int32_t nPrevIndex, nNextIndex;
+	int nPrevIndex, nNextIndex;
 
 	if (m_Polygon.nVertex < 3)
 	{
@@ -144,11 +144,11 @@ bool KPolygon::AddPointToVertex(POINT pos)
 //-------------------------------------------------------------------
 	// Add Point to Polygon Last point First
 	POINT	pVector[2];
-	int32_t		nResult, nFlag[2];
+	int		nResult, nFlag[2];
 
 	m_Polygon.Pos[m_Polygon.nVertex] = pos;
 	nFlag[1] = 0;
-	for (int32_t i = 0; i < m_Polygon.nVertex + 1; i++)
+	for (int i = 0; i < m_Polygon.nVertex + 1; i++)
 	{
 		nPrevIndex = i - 1;
 		if (nPrevIndex < 0)
@@ -184,9 +184,9 @@ bool KPolygon::AddPointToVertex(POINT pos)
 	return true;
 }
 
-bool KPolygon::AddPointToVertex(int32_t x, int32_t y)
+bool KPolygon::AddPointToVertex(int x, int y)
 {
-	int32_t nPrevIndex, nNextIndex;
+	int nPrevIndex, nNextIndex;
 
 	if (m_Polygon.nVertex < 3)
 	{
@@ -201,12 +201,12 @@ bool KPolygon::AddPointToVertex(int32_t x, int32_t y)
 	//-------------------------------------------------------------------
 	// Add Point to Polygon Last point First
 	POINT	pVector[2];
-	int32_t		nResult, nFlag[2];
+	int		nResult, nFlag[2];
 
 	m_Polygon.Pos[m_Polygon.nVertex].x = x;
 	m_Polygon.Pos[m_Polygon.nVertex].y = y;
 	nFlag[1] = 0;
-	for (int32_t i = 0; i < m_Polygon.nVertex + 1; i++)
+	for (int i = 0; i < m_Polygon.nVertex + 1; i++)
 	{
 		nPrevIndex = i - 1;
 		if (nPrevIndex < 0)
@@ -243,16 +243,16 @@ bool KPolygon::AddPointToVertex(int32_t x, int32_t y)
 }
 
 
-void KPolygon::LoopVertex(int32_t nTurn)
+void KPolygon::LoopVertex(int nTurn)
 {
 	if (nTurn > m_Polygon.nVertex)
 		return;
 	if (nTurn < 0)
 		nTurn = m_Polygon.nVertex + nTurn;
-	int32_t	nNext;
+	int	nNext;
 	POINT	BackPos[defMaxVertex];
 	memcpy(BackPos, m_Polygon.Pos, sizeof(POINT) * defMaxVertex);
-	for (int32_t j = 0; j < m_Polygon.nVertex; j++)
+	for (int j = 0; j < m_Polygon.nVertex; j++)
 	{
 		nNext = j + nTurn;
 		if (nNext >= m_Polygon.nVertex)
@@ -271,7 +271,7 @@ void KPolygon::GetCenterPos(POINT *pos)
 {
 	pos->x = 0;
 	pos->y = 0;
-	for (int32_t i = 0; i < m_Polygon.nVertex; i++)
+	for (int i = 0; i < m_Polygon.nVertex; i++)
 	{
 		pos->x += m_Polygon.Pos[i].x;
 		pos->y += m_Polygon.Pos[i].y;
@@ -280,9 +280,9 @@ void KPolygon::GetCenterPos(POINT *pos)
 	pos->y /= m_Polygon.nVertex;
 }
 
-bool KPolygon::ShiftVertex(int32_t nDir, int32_t nDistance)
+bool KPolygon::ShiftVertex(int nDir, int nDistance)
 {
-	int32_t	i;
+	int	i;
 
 	switch(nDir)
 	{
@@ -345,12 +345,12 @@ bool KPolygon::ShiftVertex(int32_t nDir, int32_t nDistance)
 	return true;
 }
 
-int32_t KPolygon::GetLeftVertex()
+int KPolygon::GetLeftVertex()
 {
-	int32_t		nLeft = m_Polygon.Pos[0].x;
-	int32_t		nIdx = 0;
+	int		nLeft = m_Polygon.Pos[0].x;
+	int		nIdx = 0;
 
-	for (int32_t i = 1; i < m_Polygon.nVertex; i++)
+	for (int i = 1; i < m_Polygon.nVertex; i++)
 	{
 		if (m_Polygon.Pos[i].x < nLeft)
 		{
@@ -361,12 +361,12 @@ int32_t KPolygon::GetLeftVertex()
 	return nIdx;
 }
 
-int32_t KPolygon::GetRightVertex()
+int KPolygon::GetRightVertex()
 {
-	int32_t		nRight = m_Polygon.Pos[0].x;
-	int32_t		nIdx = 0;
+	int		nRight = m_Polygon.Pos[0].x;
+	int		nIdx = 0;
 
-	for (int32_t i = 1; i < m_Polygon.nVertex; i++)
+	for (int i = 1; i < m_Polygon.nVertex; i++)
 	{
 		if (m_Polygon.Pos[i].x > nRight)
 		{

@@ -30,7 +30,7 @@
 //#define SHOW_SKILL_MORE_INFO
 #define	 NPCINDEXOFOBJECT 0 //�����ħ��ʱ����Ӧ��Npc���
 const char * g_MagicID2String(int nAttrib);
-extern  const KScript * g_GetScript(DWORD dwScriptId);
+extern  const KScript * g_GetScript(unsigned long dwScriptId);
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ KNpcMissileList::~KNpcMissileList()
 }
 
 // ----------------------------------------------------------------------------
-BOOL KNpcMissileList::OnCreated(INT nIndex, INT nMaxCount)
+int KNpcMissileList::OnCreated(INT nIndex, INT nMaxCount)
 {
 	if (nMaxCount <= 0)
 	{
@@ -65,7 +65,7 @@ BOOL KNpcMissileList::OnCreated(INT nIndex, INT nMaxCount)
 }
 
 // ----------------------------------------------------------------------------
-BOOL KNpcMissileList::OnVanish(INT nIndex)
+int KNpcMissileList::OnVanish(INT nIndex)
 {
 	KIdxNode* pNode	= (KIdxNode*)m_listIndex.GetHead();
 	while (pNode)
@@ -86,7 +86,7 @@ BOOL KNpcMissileList::OnVanish(INT nIndex)
 }
 
 // ----------------------------------------------------------------------------
-BOOL KNpcMissileList::DelMissile(INT nCount)
+int KNpcMissileList::DelMissile(INT nCount)
 {
 	KIdxNode* pNode	= NULL;
 	while (nCount-- > 0)
@@ -202,7 +202,7 @@ inline int	KSkill::Param2PCoordinate(int nLauncher, int nParam1, int nParam2 , i
 	return nTargetId;
 }
 //�Ƿ���ʹ�ü���
-BOOL KSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2) const
+int KSkill::CanCastSkill(int nLauncher, int &nParam1, int &nParam2) const
 {
 	//�����ѵ�������������
 	if (m_bTargetSelf && nParam1 != -1)
@@ -255,7 +255,7 @@ relationisvalid:
 	/*	if (IsPhysical()) //�����������Ƿ�������ļ��������
 		{
 			int nWeapoinSkill = Npc[nLauncher].GetCurActiveWeaponSkill();
-			if ((DWORD)nWeapoinSkill != m_nId)
+			if ((unsigned long)nWeapoinSkill != m_nId)
 			{
 				return FALSE;
 			}
@@ -428,7 +428,7 @@ int KSkill::NewCanCastSkill(int nLauncher, int nParam1, int nParam2)
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL	KSkill::Cast(int nLauncher, int nParam1, int nParam2, int nWaitTime, eSkillLauncherType eLauncherType,int nMaxShangHai,int nIsEuq)  const
+int	KSkill::Cast(int nLauncher, int nParam1, int nParam2, int nWaitTime, eSkillLauncherType eLauncherType,int nMaxShangHai,int nIsEuq)  const
 {
 	//-----------------�ӿں�����ڵ㣬�������Ϸ���-------------------------------
     //if (!CanCastSkill(nLauncher,nParam1,nParam2))
@@ -648,7 +648,7 @@ void	KSkill::Vanish(KMissle * pMissle)  const
 	OnMissleEvent(Missle_VanishEvent, pMissle);
 }
 //�ӵ��¼�
-BOOL KSkill::OnMissleEvent(unsigned short usEvent, KMissle * pMissle)  const
+int KSkill::OnMissleEvent(unsigned short usEvent, KMissle * pMissle)  const
 {
 	if (!pMissle)
         return FALSE;
@@ -763,7 +763,7 @@ BOOL KSkill::OnMissleEvent(unsigned short usEvent, KMissle * pMissle)  const
 	if (!pOrdinSkill)
         return FALSE;
 
-	BOOL bRetCode = FALSE;
+	int bRetCode = FALSE;
 
     if (m_bByMissle)
 	{//�Ƿ����ӵ���������ӵ�
@@ -809,7 +809,7 @@ void	KSkill::Collidsion(KMissle * pMissle)  const
 	OnMissleEvent(Missle_CollideEvent, pMissle);
 }
 
-BOOL KSkill::__CastWall(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai ) const
+int KSkill::__CastWall(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai ) const
 {
 
 	int nRegionId		=	0;
@@ -889,7 +889,7 @@ BOOL KSkill::__CastWall(int nLauncher, int nParam1, int nParam2, int nWaitTime  
 }
 
 
-BOOL	KSkill::__CastLine(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai)	const
+int	KSkill::__CastLine(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai)	const
 {
 
 	int nRegionId		=	0;
@@ -1014,7 +1014,7 @@ BOOL	KSkill::__CastLine(int nLauncher, int nParam1, int nParam2, int nWaitTime  
 
 
 
-BOOL KSkill::__CastSpread(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
+int KSkill::__CastSpread(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
 {
 	int nRegionId		=	0;
 	int	nDesMapX		=	0;//��ͼ����
@@ -1138,7 +1138,7 @@ BOOL KSkill::__CastSpread(int nLauncher, int nParam1, int nParam2, int nWaitTime
 	return TRUE;
 }
 
-BOOL	KSkill::__CastCircle(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
+int	KSkill::__CastCircle(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
 {
 
 	int nRegionId		=	0;
@@ -1207,7 +1207,7 @@ BOOL	KSkill::__CastCircle(int nLauncher, int nParam1, int nParam2, int nWaitTime
 	return TRUE;
 }
 
-BOOL	KSkill::__CastZone(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai)	const
+int	KSkill::__CastZone(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai)	const
 {
 	int nRegionId		=	0;
 	int	nDesMapX		=	0;//��ͼ����
@@ -1273,7 +1273,7 @@ BOOL	KSkill::__CastZone(int nLauncher, int nParam1, int nParam2, int nWaitTime  
 }
 
 
-BOOL	KSkill::__CastFixed(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
+int	KSkill::__CastFixed(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
 {
 	int nRegionId		=	0;
 	int	nDesMapX		=	0;//��ͼ����
@@ -1350,7 +1350,7 @@ BOOL	KSkill::__CastFixed(int nLauncher, int nParam1, int nParam2, int nWaitTime 
    return TRUE;
 }
 
-BOOL	KSkill::__CastRound(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
+int	KSkill::__CastRound(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai) const
 {
 
 	int nRegionId		=	0;
@@ -1426,7 +1426,7 @@ BOOL	KSkill::__CastRound(int nLauncher, int nParam1, int nParam2, int nWaitTime 
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL	KSkill::CastMissles(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai )  const
+int	KSkill::CastMissles(int nLauncher, int nParam1, int nParam2, int nWaitTime  , eSkillLauncherType eLauncherType,int nMaxShangHai )  const
 {
 	if (nLauncher <= 0 || nLauncher>=MAX_NPC) return FALSE;
 
@@ -2640,14 +2640,14 @@ void	KSkill::CreateMissle(int nLauncher, int nChildSkillId, int nMissleIndex)  c
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL	KSkill::GetInfoFromTabFile(int nRow)
+int	KSkill::GetInfoFromTabFile(int nRow)
 {
-	KITabFile * pITabFile = &g_OrdinSkillsSetting;
+    KTabFile* pITabFile = &g_OrdinSkillsSetting;
 	return GetInfoFromTabFile(&g_OrdinSkillsSetting, nRow);
 }
 
 
-BOOL	KSkill::GetInfoFromTabFile(KITabFile *pSkillsSettingFile, int nRow)
+int	KSkill::GetInfoFromTabFile(KTabFile *pSkillsSettingFile, int nRow)
 {
 	if (!pSkillsSettingFile || nRow < 0) return FALSE;
 	//
@@ -2944,7 +2944,7 @@ int KSkill::GetSkillIdFromName(char * szSkillName)
 /*!*****************************************************************************
 // Function		: KSkill::CastInitiativeSkill
 // Purpose		: ������������
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nLauncher Ϊ�������ߵ�����
 // Argumant		: int nParam1
 // Argumant		: int nParam2  Ϊ�Է������� ���ܵ�Ŀ��
@@ -2952,7 +2952,7 @@ int KSkill::GetSkillIdFromName(char * szSkillName)
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL KSkill::CastInitiativeSkill(int nLauncher, int nParam1, int nParam2, int nWaitTime,int nMaxShangHai)  const
+int KSkill::CastInitiativeSkill(int nLauncher, int nParam1, int nParam2, int nWaitTime,int nMaxShangHai)  const
 {
 	return TRUE;
 }
@@ -2960,7 +2960,7 @@ BOOL KSkill::CastInitiativeSkill(int nLauncher, int nParam1, int nParam2, int nW
 /*!*****************************************************************************
 // Function		: KSkill::CastPassivitySkill
 // Purpose		: ��������
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nLauncher Ϊ�������ߵ�����
 // Argumant		: int nParam1
 // Argumant		: int nParam2  Ϊ�Է������� ���ܵ�Ŀ��
@@ -2968,7 +2968,7 @@ BOOL KSkill::CastInitiativeSkill(int nLauncher, int nParam1, int nParam2, int nW
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL KSkill::CastPassivitySkill(int nLauncher, int nParam1, int nParam2, int nWaitTime,int nIsEuq)  const
+int KSkill::CastPassivitySkill(int nLauncher, int nParam1, int nParam2, int nWaitTime,int nIsEuq)  const
 {
 	return TRUE;
 }
@@ -3007,7 +3007,7 @@ void KSkill::EnChanceSkill(int nLauncher)
 // Comments		:
 // Author		: RomanDou
 *****************************************************************************/
-BOOL	KSkill::ParseString2MagicAttrib(unsigned int ulLevel, char * szMagicAttribName, char * szValue)
+int	KSkill::ParseString2MagicAttrib(unsigned int ulLevel, char * szMagicAttribName, char * szValue)
 {
 	int nValue1 = 0;
 	int nValue2 = 0;
@@ -3371,10 +3371,10 @@ BOOL	KSkill::ParseString2MagicAttrib(unsigned int ulLevel, char * szMagicAttribN
 				magic_skill_startevent,         // �ӵ���ʼʱ
 				magic_skill_flyevent,		    // �ӵ�����ʱ
 
-				  BOOL				m_bFlyingEvent;			//	�Ƿ���Ҫ�ڷ��й�����Ϣ�����ǣ�������ػص�����
-				  BOOL				m_bStartEvent;			//	�Ƿ���Ҫ�ڼ��ܵ�һ��Activeʱ��������ػص�����
-				  BOOL				m_bCollideEvent;		//	�Ƿ���Ҫ���Ӽ���ħ����ײʱ��������ػص�����
-				  BOOL				m_bVanishedEvent;		//	�Ƿ���Ҫ���Ӽ�������ʱ��������صĻص�����
+				  int				m_bFlyingEvent;			//	�Ƿ���Ҫ�ڷ��й�����Ϣ�����ǣ�������ػص�����
+				  int				m_bStartEvent;			//	�Ƿ���Ҫ�ڼ��ܵ�һ��Activeʱ��������ػص�����
+				  int				m_bCollideEvent;		//	�Ƿ���Ҫ���Ӽ���ħ����ײʱ��������ػص�����
+				  int				m_bVanishedEvent;		//	�Ƿ���Ҫ���Ӽ�������ʱ��������صĻص�����
 
 				  int					m_nFlySkillId;			//	�� �����е���ؼ���
 				  int					m_nFlyEventTime;		//	ÿ����֡�ص�FlyEvent;
@@ -3854,7 +3854,7 @@ void KSkill::GetDescAboutLevel(char * pszMsg)
 
 }
 
-void KSkill::PlayPreCastSound(BOOL bIsFeMale, int nX, int nY)  const
+void KSkill::PlayPreCastSound(int bIsFeMale, int nX, int nY)  const
 {
 	/*char * pSoundFile = NULL;
 	if ( !bIsFeMale)
@@ -3877,18 +3877,18 @@ void KSkill::PlayPreCastSound(BOOL bIsFeMale, int nX, int nY)  const
 #endif
 
 //����״̬  �ͷ����ü���״̬Ч��
-BOOL KSkill::CastStateSkill( int nLauncher, int nParam1, int nParam2, int nWaitTime) const
+int KSkill::CastStateSkill( int nLauncher, int nParam1, int nParam2, int nWaitTime) const
 {	return TRUE;
 }
 
 //����״̬  �ͷ����ü���״̬Ч��
-BOOL KSkill::CastToolStateSkill( int nLauncher, int nParam1, int nParam2, int nWaitTime) const
+int KSkill::CastToolStateSkill( int nLauncher, int nParam1, int nParam2, int nWaitTime) const
 {
 	return TRUE;
 }
 
 //ʹ�ù�������,ͬ�����ͻ���ʹ�ü���
-BOOL KSkill::CastSkill( int nLauncher,int nSkillID,int nParam1, int nParam2,int nLevel,int nWaitTime ,int nMaxBei) const
+int KSkill::CastSkill( int nLauncher,int nSkillID,int nParam1, int nParam2,int nLevel,int nWaitTime ,int nMaxBei) const
 {
 	return TRUE;
 }

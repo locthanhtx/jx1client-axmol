@@ -10,10 +10,14 @@
 #define __INCLUDE_CRITICALSECTION_H__
 #include "cocos2d.h"
 USING_NS_AX;
-#include <pthread.h>
+#ifdef WIN32
+#    include <pthreadwin32.h>
+#else
+#    include <pthread.h>
+#endif
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
 #define CRITICAL_SECTION pthread_mutex_t
-#define BOOL int32_t
+#define int int
 #endif
 #pragma once
 //#include "Utils.h"
@@ -52,7 +56,7 @@ public:
 
 	~CCriticalSection();
 
-	BOOL TryEnter();
+	int TryEnter();
 
     void Enter();
 
@@ -110,13 +114,13 @@ inline CCriticalSection::~CCriticalSection()
 
 }
 
-inline BOOL CCriticalSection::TryEnter()
+inline int CCriticalSection::TryEnter()
 {
 	//return bool(::TryEnterCriticalSection(&m_crit));
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return BOOL(::TryEnterCriticalSection(&m_crit));
+	return int(::TryEnterCriticalSection(&m_crit));
 #else
-	return BOOL(pthread_mutex_trylock(&m_crit));
+	return int(pthread_mutex_trylock(&m_crit));
 #endif
 
 }

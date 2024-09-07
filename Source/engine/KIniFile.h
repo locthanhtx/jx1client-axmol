@@ -18,86 +18,86 @@ USING_NS_AX;
 //---------------------------------------------------------------------------
 /*typedef struct tagRECT
 {
-    int32_t    left;
-    int32_t    top;
-    int32_t    right;
-    int32_t    bottom;
+    int    left;
+    int    top;
+    int    right;
+    int    bottom;
 } RECT, *PRECT,*NPRECT,*LPRECT;*/
 //---------------------------------------------------------------------------
 typedef struct tagKeyNode {
-	uint32_t	dwID;
+	unsigned int	dwID;
 	char *			pKey;
 	char *			pValue;
 	tagKeyNode*		pNextNode;
 } KEYNODE;
 //---------------------------------------------------------------------------
 typedef struct tagSecNode {
-	uint32_t	dwID;
+	unsigned int	dwID;
 	char *			pSection;
 	tagKeyNode		pKeyNode;
 	tagSecNode*		pNextNode;
 } SECNODE;
 //---------------------------------------------------------------------------
- void g_SetIniCodec(int32_t nCodec);
+ void g_SetIniCodec(int nCodec);
 //---------------------------------------------------------------------------
 class  KIniFile
 {
 private:
 	SECNODE		m_Header;
-	int32_t		m_Offset;
+	int		m_Offset;
 	KMemStack	m_MemStack;
 
 	KMemClass	m_MemClass;
-	//uint32_t       dwFileIdx;
+	//unsigned int       dwFileIdx;
     //const char *    const char *   char * == char *
-	//void far *LPVOID
+	//void far *void*
 private:
-	void		CreateIniLink(void * Buffer,int32_t Size);
+	void		CreateIniLink(void * Buffer,int Size);
 	void		ReleaseIniLink();
-	uint32_t		String2Id(const char * pString);
-	BOOL		ReadLine(char * Buffer,int32_t Size);
-	BOOL		IsKeyChar(char ch);
+	unsigned int		String2Id(const char * pString);
+	int		ReadLine(char * Buffer,int Size);
+	int		IsKeyChar(char ch);
 	char * 		SplitKeyValue(char * pString);
-	BOOL		SetKeyValue(const char *  pSection,const char *  pKey,const char *  pValue);
-	BOOL		GetKeyValue(const char *  pSection,const char *  pKey,char *  pValue,uint32_t dwSize);
+	int		SetKeyValue(const char *  pSection,const char *  pKey,const char *  pValue);
+	int		GetKeyValue(const char *  pSection,const char *  pKey,char *  pValue,unsigned int dwSize);
 public:
 	KIniFile();
 	~KIniFile();
-	BOOL        Load(const char* FileName, BOOL nIsCreat=FALSE); //
-	BOOL		Save(const char * FileName);
-	BOOL		LoadPack(const char * FileName);
-	BOOL		SavePack(const char * FileName);
+	int        Load(const char* FileName, int nIsCreat=FALSE); //
+	int		Save(const char * FileName);
+	int		LoadPack(const char * FileName);
+	int		SavePack(const char * FileName);
 	void		Clear();
-	BOOL		IsSectionExist(char * lpSection);         //�Ƿ�����������
+	int		IsSectionExist(char * lpSection);         //�Ƿ�����������
 	void		EraseSection(char * lpSection);           //ɾ���������� ���������ͼ�ֵ
 	void		EraseKey(char * lpSection,char * lpKey); //ɾ��һ�������ͼ�ֵ
-	//uint32_t       GetFileDwIdx(){ return dwFileIdx;}
-	BOOL		GetString(
+	//unsigned int       GetFileDwIdx(){ return dwFileIdx;}
+	int		GetString(
 				const char *	lpSection,		// points to section name
 				const char *	lpKeyName,		// points to key name
 				const char *	lpDefault,		// points to default string
 				char *	lpRString,		// points to destination buffer
-				uint32_t	dwSize			// size of string buffer
+				unsigned int	dwSize			// size of string buffer
 				);
-	BOOL		GetInteger(
+	int		GetInteger(
 				const char *	lpSection,		// points to section name
 				const char *	lpKeyName,		// points to key name
-				int32_t		nDefault,		// default value
-				int32_t		*pnValue        // return value
+				int		nDefault,		// default value
+				int		*pnValue        // return value
 				);
 	void		GetInteger2(
 				const char *	lpSection,		// points to section name
 				const char *	lpKeyName,		// points to key name
-				int32_t		*pnValue1,		// value 1
-				int32_t		*pnValue2       // value 2
+				int		*pnValue1,		// value 1
+				int		*pnValue2       // value 2
 				);
-	BOOL		GetFloat(
+	int		GetFloat(
 				const char *	lpSection,		// points to section name
 				const char *	lpKeyName,		// points to key name
 				float	fDefault,		// default value
 				float	*pfValue        // return value
 				);
-	BOOL		GetDouble(
+	int		GetDouble(
 		        const char *	lpSection,		// points to section name
 		        const char *	lpKeyName,		// points to key name
 		        double	fDefault,		// default value
@@ -113,7 +113,7 @@ public:
 				const char *	lpSection,		// pointer to section name
 				const char *	lpKeyName,		// pointer to key name
 				void *	lpStruct,		// pointer to buffer that contains data to add
-				uint32_t 	dwSize			// size, in bytes, of the buffer
+				unsigned int 	dwSize			// size, in bytes, of the buffer
 				);
 	void		GetRect(
 				const char *	lpSection,
@@ -138,28 +138,28 @@ public:
 	void        GetInt5(
 		        const char * lpSection,
 				const char * lpKeyName,
-				int32_t* pRect
+				int* pRect
 				);
 	void        GetInt2(
 		        const char * lpSection,
 		        const char * lpKeyName,
-		        int32_t* pRect
+		        int* pRect
 				);
 	void        GetInt3(
 		        const char * lpSection,
 		        const char * lpKeyName,
-		        int32_t* pRect
+		        int* pRect
 				);
 	void        GetInt8(
 		        const char * lpSection,
 		        const char * lpKeyName,
-		        int32_t* pRect
+		        int* pRect
 		        );
 
 	void		GetBool(
 				const char *	lpSection,
 				const char *	lpKeyName,
-				BOOL	*pBool
+				int	*pBool
 				);
 	void		WriteString(
 				const char *	lpSection,		// pointer to section name
@@ -169,13 +169,13 @@ public:
 	void		WriteInteger(
 				const char *	lpSection,		// pointer to section name
 				const char *	lpKeyName,		// pointer to key name
-				int32_t	    Value			// value to write
+				int	    Value			// value to write
 				);
 	void		WriteInteger2(
 				const char *	lpSection,		// pointer to section name
 				const char *	lpKeyName,		// pointer to key name
-				int32_t	    Value1,			// value 1 to write
-				int32_t		Value2			// value 2 to write
+				int	    Value1,			// value 1 to write
+				int		Value2			// value 2 to write
 				);
 	void		WriteFloat(
 				const char *	lpSection,		// pointer to section name
@@ -192,11 +192,11 @@ public:
 				const char *	lpSection,		// pointer to section name
 				const char *	lpKeyName,		// pointer to key name
 				void *	lpStruct,		// pointer to buffer that contains data to add
-				uint32_t 	dwSize			// size, in bytes, of the buffer
+				unsigned int 	dwSize			// size, in bytes, of the buffer
 				);
-	BOOL		GetNextSection(const char * pSection, char * pNextSection);
-	BOOL		GetNextKey(const char * pSection, const char * pKey, char * pNextKey);
-	int32_t			GetSectionCount();
+	int		GetNextSection(const char * pSection, char * pNextSection);
+	int		GetNextKey(const char * pSection, const char * pKey, char * pNextKey);
+	int			GetSectionCount();
 
 };
 //---------------------------------------------------------------------------

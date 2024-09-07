@@ -43,7 +43,7 @@
 ************************************************************************/
 
 static ucl_bool schedule_insns_bug(void);   /* avoid inlining */
-static ucl_bool strength_reduce_bug(int32_t *); /* avoid inlining */
+static ucl_bool strength_reduce_bug(int *); /* avoid inlining */
 
 
 #if 0 || defined(UCL_DEBUG)
@@ -79,7 +79,7 @@ static ucl_bool __ucl_assert_fail(const char *s, unsigned line)
 
     ACCCHK_ASSERT_IS_SIGNED_T(ucl_int32)
     ACCCHK_ASSERT_IS_UNSIGNED_T(ucl_uint32)
-    ACCCHK_ASSERT((UCL_UINT32_C(1) << (int32_t)(8*sizeof(UCL_UINT32_C(1))-1)) > 0)
+    ACCCHK_ASSERT((UCL_UINT32_C(1) << (int)(8*sizeof(UCL_UINT32_C(1))-1)) > 0)
 
     ACCCHK_ASSERT_IS_UNSIGNED_T(ucl_uintptr_t)
     ACCCHK_ASSERT(sizeof(ucl_uintptr_t) >= sizeof(ucl_voidp))
@@ -95,24 +95,24 @@ static ucl_bool __ucl_assert_fail(const char *s, unsigned line)
 static ucl_bool ptr_check(void)
 {
     ucl_bool r = 1;
-    int32_t i;
+    int i;
     unsigned char _wrkmem[10 * sizeof(ucl_bytep) + sizeof(ucl_align_t)];
     ucl_bytep wrkmem;
     ucl_bytepp dict;
     unsigned char x[4 * sizeof(ucl_align_t)];
-    int32_t d;
+    int d;
     ucl_align_t a;
 
-    for (i = 0; i < (int32_t) sizeof(x); i++)
+    for (i = 0; i < (int) sizeof(x); i++)
         x[i] = UCL_BYTE(i);
 
     wrkmem = UCL_PTR_ALIGN_UP((ucl_bytep)_wrkmem, sizeof(ucl_align_t));
 
     dict = (ucl_bytepp) (ucl_voidp) wrkmem;
 
-    d = (int32_t) ((const ucl_bytep) dict - (const ucl_bytep) _wrkmem);
+    d = (int) ((const ucl_bytep) dict - (const ucl_bytep) _wrkmem);
     r &= __ucl_assert(d >= 0);
-    r &= __ucl_assert(d < (int32_t) sizeof(ucl_align_t));
+    r &= __ucl_assert(d < (int) sizeof(ucl_align_t));
 
     /* this may seem obvious, but some compilers incorrectly inline memset */
     memset(&a,0xff,sizeof(a));
@@ -177,11 +177,11 @@ static ucl_bool ptr_check(void)
 //
 ************************************************************************/
 
-UCL_PUBLIC(int32_t)
+UCL_PUBLIC(int)
 _ucl_config_check(void)
 {
     ucl_bool r = 1;
-    int32_t i;
+    int i;
     union {
         ucl_uint32 a;
         unsigned short b;
@@ -190,7 +190,7 @@ _ucl_config_check(void)
     } u;
 
     u.a = 0; u.b = 0;
-    for (i = 0; i < (int32_t) sizeof(u.x); i++)
+    for (i = 0; i < (int) sizeof(u.x); i++)
         u.x[i] = UCL_BYTE(i);
 
 #if defined(ACC_ENDIAN_BIG_ENDIAN) || defined(ACC_ENDIAN_LITTLE_ENDIAN)
@@ -272,12 +272,12 @@ _ucl_config_check(void)
     /* check for the gcc strength-reduce optimization bug */
     if (r == 1)
     {
-        static int32_t x[3];
+        static int x[3];
         static unsigned xn = 3;
         unsigned j;
 
         for (j = 0; j < xn; j++)
-            x[j] = (int32_t)j - 3;
+            x[j] = (int)j - 3;
         r &= __ucl_assert(!strength_reduce_bug(x));
     }
 
@@ -298,15 +298,15 @@ static ucl_bool schedule_insns_bug(void)
     /* for some reason checker complains about uninitialized memory access */
     return 0;
 #else
-    const int32_t clone[] = {1, 2, 0};
-    const int32_t *q;
+    const int clone[] = {1, 2, 0};
+    const int *q;
     q = clone;
     return (*q) ? 0 : 1;
 #endif
 }
 
 
-static ucl_bool strength_reduce_bug(int32_t *x)
+static ucl_bool strength_reduce_bug(int *x)
 {
 #if 1 && (ACC_CC_DMC || ACC_CC_SYMANTECC || ACC_CC_ZORTECHC)
     return 0;
@@ -320,13 +320,13 @@ static ucl_bool strength_reduce_bug(int32_t *x)
 //
 ************************************************************************/
 
-int32_t __ucl_init_done = 0;
+int __ucl_init_done = 0;
 
-UCL_PUBLIC(int32_t)
-__ucl_init2(ucl_uint32 v, int32_t s1, int32_t s2, int32_t s3, int32_t s4, int32_t s5,
-                          int32_t s6, int32_t s7, int32_t s8, int32_t s9)
+UCL_PUBLIC(int)
+__ucl_init2(ucl_uint32 v, int s1, int s2, int s3, int s4, int s5,
+                          int s6, int s7, int s8, int s9)
 {
-    int32_t r;
+    int r;
 
 #if (ACC_CC_MSC && ((_MSC_VER) < 700))
 #else
@@ -339,15 +339,15 @@ __ucl_init2(ucl_uint32 v, int32_t s1, int32_t s2, int32_t s3, int32_t s4, int32_
     if (v == 0)
         return UCL_E_ERROR;
 
-    r = (s1 == -1 || s1 == (int32_t) sizeof(short)) &&
-        (s2 == -1 || s2 == (int32_t) sizeof(int32_t)) &&
-        (s3 == -1 || s3 == (int32_t) sizeof(int32_t)) &&
-        (s4 == -1 || s4 == (int32_t) sizeof(ucl_uint32)) &&
-        (s5 == -1 || s5 == (int32_t) sizeof(ucl_uint)) &&
+    r = (s1 == -1 || s1 == (int) sizeof(short)) &&
+        (s2 == -1 || s2 == (int) sizeof(int)) &&
+        (s3 == -1 || s3 == (int) sizeof(int)) &&
+        (s4 == -1 || s4 == (int) sizeof(ucl_uint32)) &&
+        (s5 == -1 || s5 == (int) sizeof(ucl_uint)) &&
         (s6 == -1 || s6 > 0) &&
-        (s7 == -1 || s7 == (int32_t) sizeof(char *)) &&
-        (s8 == -1 || s8 == (int32_t) sizeof(ucl_voidp)) &&
-        (s9 == -1 || s9 == (int32_t) sizeof(ucl_compress_t));
+        (s7 == -1 || s7 == (int) sizeof(char *)) &&
+        (s8 == -1 || s8 == (int) sizeof(ucl_voidp)) &&
+        (s9 == -1 || s9 == (int) sizeof(ucl_compress_t));
     if (!r)
         return UCL_E_ERROR;
 

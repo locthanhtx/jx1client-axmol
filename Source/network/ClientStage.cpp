@@ -16,7 +16,7 @@ static inline unsigned _Rand()
     return gs_holdrand;
 }
 
-static inline void RandMemSet(int32_t nSize, unsigned char *pbyBuffer)
+static inline void RandMemSet(int nSize, unsigned char *pbyBuffer)
 {
     _ASSERT(nSize);
     _ASSERT(pbyBuffer);
@@ -30,11 +30,11 @@ static inline void RandMemSet(int32_t nSize, unsigned char *pbyBuffer)
 /*
  * class CGameClient
  */
-CGameClient::CGameClient(uint32_t maxFreeBuffers,
-		uint32_t maxFreeBuffers_Cache,
-		uint32_t bufferSize_Cache /*= 8192*/,
-		uint32_t bufferSize,/*= 1024*/
-		int32_t    mSocketNo)
+CGameClient::CGameClient(unsigned int maxFreeBuffers,
+		unsigned int maxFreeBuffers_Cache,
+		unsigned int bufferSize_Cache /*= 8192*/,
+		unsigned int bufferSize,/*= 1024*/
+		int    mSocketNo)
 		: CSocketClient(maxFreeBuffers,bufferSize,mSocketNo)
 		, m_theCacheAllocator(bufferSize_Cache, maxFreeBuffers_Cache) //��С,����������
 		, m_lRefCount(0)
@@ -69,7 +69,7 @@ bool CGameClient::Startup()
 	return hr;
 }
 
-bool CGameClient::Cleanup(int32_t isCleartheThread)
+bool CGameClient::Cleanup(int isCleartheThread)
 {
 	bool hr = false;
 
@@ -126,16 +126,16 @@ bool CGameClient::RegisterMsgFilter(
 }
 */
 
-int32_t CGameClient::SendMsg(const void *pBuffer, int32_t nSize)
+int CGameClient::SendMsg(const void *pBuffer, int nSize)
 {
 	return SendPackToServer((BYTE*)pBuffer, nSize);
 }
 
 bool CGameClient::SendPackToServer(
 				const void * const pData,
-				const uint32_t &datalength )
+				const unsigned int &datalength )
 {
-	static const uint32_t s_len_protocol = sizeof(WORD);//2�ֽ�
+	static const unsigned int s_len_protocol = sizeof(unsigned short);//2�ֽ�
 
 	if (!pData || 0 == datalength)
 	{
@@ -149,7 +149,7 @@ bool CGameClient::SendPackToServer(
 	/*
 	 * Add package header
 	 */
-	const uint32_t headlength = s_len_protocol + datalength;
+	const unsigned int headlength = s_len_protocol + datalength;
 	pBuffer->AddData(reinterpret_cast<const char *>(&headlength), s_len_protocol);//д���ͷ
 	//unsigned uOldKey = m_uClientKey;
 	//pBuffer->AddData(reinterpret_cast< const char* const>(pData), datalength);   //�ṹ������
@@ -171,7 +171,7 @@ bool CGameClient::SendPackToServer(
 	return isSend;
 }
 
-const void * CGameClient::GetPackFromServer(uint32_t &datalength)
+const void * CGameClient::GetPackFromServer(unsigned int &datalength)
 {
 	CCriticalSection::Owner locker(m_csReadAction);
 	m_pReadBuffer->Empty();
@@ -202,7 +202,7 @@ bool CGameClient::QueryInterface( void** ppv )
 	return true;
 }
 
-uint32_t CGameClient::AddRef()
+unsigned int CGameClient::AddRef()
 {
 #ifdef WIN32
 	return InterlockedIncrement(&m_lRefCount);
@@ -211,7 +211,7 @@ uint32_t CGameClient::AddRef()
 #endif
 }
 
-uint32_t CGameClient::Release()
+unsigned int CGameClient::Release()
 {
 #ifdef WIN32
 	if ( InterlockedDecrement(&m_lRefCount)>0)
@@ -227,9 +227,9 @@ uint32_t CGameClient::Release()
 
 void CGameClient::ProcessCommand(const CIOBuffer *pBuffer)
 {
-	static const uint32_t s_len_protocol = sizeof(unsigned short);//һ��Э��ĳ��� ͷ�����ֽ�
+	static const unsigned int s_len_protocol = sizeof(unsigned short);//һ��Э��ĳ��� ͷ�����ֽ�
 	const unsigned char *pPackData = pBuffer->GetBuffer();      //��ȡ���ݵ�ǰָ��
-	const uint32_t used              = pBuffer->GetUsed();        //��ȡ�Ѿ�ʹ�õĳ���
+	const unsigned int used              = pBuffer->GetUsed();        //��ȡ�Ѿ�ʹ�õĳ���
 	if ( used <= s_len_protocol )
 	{//���С�� 2�� ����û�������� ����
         return;
@@ -260,21 +260,21 @@ void CGameClient::ProcessCommand(const CIOBuffer *pBuffer)
 	Buff = NULL;
 }
 
-uint32_t CGameClient::GetMinimumMessageSize() const
+unsigned int CGameClient::GetMinimumMessageSize() const
 {
-	static uint32_t length = sizeof(WORD) + sizeof(BYTE);
+	static unsigned int length = sizeof(unsigned short) + sizeof(BYTE);
 	/*
      * The smallest possible command we accept is a byte onlye package
 	 */
 	return length;
 }
-//uint32_t GetMessageSize(const CIOBuffer *pBuffer) const;
-uint32_t CGameClient::GetMessageSize(const CIOBuffer *pBuffer) const
+//unsigned int GetMessageSize(const CIOBuffer *pBuffer) const;
+unsigned int CGameClient::GetMessageSize(const CIOBuffer *pBuffer) const
 {
 	const unsigned char *pData = pBuffer->GetBuffer();
-	const uint32_t used = pBuffer->GetUsed();
-	WORD wHeadLen = (WORD)(*(WORD *)(pData));
-	return (uint32_t)(wHeadLen);
+	const unsigned int used = pBuffer->GetUsed();
+	unsigned short wHeadLen = (unsigned short)(*(unsigned short *)(pData));
+	return (unsigned int)(wHeadLen);
 }
 
 CIOBuffer *CGameClient::ProcessDataStream(CIOBuffer *pBuffer)
@@ -282,10 +282,10 @@ CIOBuffer *CGameClient::ProcessDataStream(CIOBuffer *pBuffer)
 	if  (pBuffer==NULL)
 		return NULL;
 
-	const uint32_t used = pBuffer->GetUsed();
+	const unsigned int used = pBuffer->GetUsed();
 	if (used >= GetMinimumMessageSize())
 	{//����������� ��������ֽ����Ž���
-		const uint32_t messageSize = GetMessageSize(pBuffer);
+		const unsigned int messageSize = GetMessageSize(pBuffer);
 		if (messageSize == 0)
 		{//���Ϊ������
 			if (used == (pBuffer->GetSize() - 1))
@@ -347,7 +347,7 @@ void CGameClient::ReadCompleted(CIOBuffer *pBuffer)
 	try
 	{
 		const unsigned char *pPackData = pBuffer->GetBuffer();
-		uint32_t used = pBuffer->GetUsed();
+		unsigned int used = pBuffer->GetUsed();
 		if (used > 0)
 		{
 			CCriticalSection::Owner locker(m_csReadAction);
@@ -379,7 +379,7 @@ CClientFactory::~CClientFactory()
 
 }
 
-uint32_t CClientFactory::AddRef()
+unsigned int CClientFactory::AddRef()
 {
 #ifdef WIN32
 	return ::InterlockedIncrement(&m_lRefCount);
@@ -388,7 +388,7 @@ uint32_t CClientFactory::AddRef()
 #endif
 }
 
-uint32_t CClientFactory::Release()
+unsigned int CClientFactory::Release()
 {
 #ifdef WIN32
 	if ( ::InterlockedDecrement(&m_lRefCount)>0)

@@ -14,7 +14,7 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 	{
 		char * pLine;
 		pLine = (char *)pNode->m_pLineMem->GetMemPtr();
-		int32_t i = 0;
+		int i = 0;
    		while(pLine[i] != '\0')
 		{
 			if (pLine[i] == ' '|| pLine[i] == '\t')
@@ -22,24 +22,24 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 				i++;
 				continue;
 			}
-			
+
 			char * pIf;
 			char * pElseIf;
 			char * pElse;
 			char * pEnd;
-			
+
 			if ((pIf = strstr(pLine, "if") )== pLine + i)
 			{
 				//Ϊif����ͷ
 				if (*(pIf + 2) == '(' || *(pIf + 2) == ' ' || *(pIf+2) == '\t')
-				{ 
+				{
 				  char * pIfEnd;
-				
+
 				  //�Ƿ�Ϊ��һ����һ�е�if ���
 				  if (pIfEnd = strstr(pLine, "end"))
 				  {
 					//�ǵĻ�����������ɨ��
-					  if (*(pIfEnd - 1) == ')' ||  *(pIfEnd - 1) == ' '||*(pIfEnd - 1) == '\t') 
+					  if (*(pIfEnd - 1) == ')' ||  *(pIfEnd - 1) == ' '||*(pIfEnd - 1) == '\t')
 						break;
 				  }
 				  else
@@ -59,8 +59,8 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 
 				//Ϊelseif����ͷ
 				if (*(pElseIf + 6) == '(' || *(pElseIf + 6) == ' ' || *(pElseIf + 6) == '\t')
-				{ 
-				  
+				{
+
 						KStackNode * pStackNode = new KStackNode;
 						pStackNode->m_pLine = pNode;
 						pStackNode->nKey = KEYELSEIF;
@@ -75,8 +75,8 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 			{
 				//Ϊelseif����ͷ
 				if (*(pElse + 4) == '(' || *(pElse + 4) == ' ' || *(pElse + 4) == '\n'|| *(pElse + 4) == '\t')
-				{ 
-				  
+				{
+
 						KStackNode * pStackNode = new KStackNode;
 						pStackNode->m_pLine = pNode;
 						pStackNode->nKey = KEYELSE;
@@ -89,7 +89,7 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 			else if ((pEnd = strstr(pLine, "end")) == pLine + i)
 			{
 				if (*(pEnd + 3) == ';' || *(pEnd + 3) == ' ' || *(pEnd + 3) == 10 || *(pEnd + 3) == '\t')
-				{ 
+				{
 					KStackNode * pStackNode = NULL;
 					KStackNode * pEndStack = new KStackNode;
 					pEndStack->m_pLine = pNode;
@@ -115,8 +115,8 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 				}
 				else
 				{
-					int32_t num = UnitsList.GetNodeCount();
-					for(int32_t k = 0 ; k < num;++k)
+					int num = UnitsList.GetNodeCount();
+					for(int k = 0 ; k < num;++k)
 					UnitsList.RemoveHead();
 				}
 			}
@@ -124,7 +124,7 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 			{
 				break;
 			}
-		break;		
+		break;
 }
 		pNode = (KLineNode *)pNode->GetNext();
 	}
@@ -132,33 +132,33 @@ void KLubCmpl_Blocker::ScanIf(KLineNode * pFirstNode)
 
 
 
-BOOL KLubCmpl_Blocker::ExchangeCurLines()
+int KLubCmpl_Blocker::ExchangeCurLines()
 {
-	static int32_t nLabelNum = 0;
-	static int32_t nReturnLabelNum = 0;
-	int32_t nCount = 0;
+	static int nLabelNum = 0;
+	static int nReturnLabelNum = 0;
+	int nCount = 0;
 	char szNewLine[100];
 	nCount = UnitsList.GetNodeCount() ;
 	if (nCount== 0)
 		return FALSE;
-	int32_t i = 1;
+	int i = 1;
 	char szNewLabel[30];
 	char szNewReturnLabel[30];
 
-	//		if (s1) then 
+	//		if (s1) then
 	//		.....
 	//		....
 	//		end;
-	
+
 	KStackNode * pIfEndNode = (KStackNode *)UnitsList.GetTail();
-	int32_t nEndLabelNum = nCount + nLabelNum ;
-	
+	int nEndLabelNum = nCount + nLabelNum ;
+
 	//��ǰ�����ӦΪif end;
 	if (nCount == 2)
 	{
 			KStackNode * pNode = (KStackNode*)UnitsList.RemoveHead();
 			KStackNode * pEndNode = (KStackNode*)UnitsList.RemoveHead();
-			
+
 			KLineNode * pNewLine = new KLineNode;
 			KLineNode * pNewReturnLine = new KLineNode;
 			pNewLine->m_pLineMem = new KMemClass1;
@@ -172,10 +172,10 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 
 			pEndNode->m_pLine->InsertAfter((KNode*) pNewReturnLine);
 			m_Lines.AddTail((KNode*)pNewLine);
-			
+
 			sprintf(szNewLine, "%s Goto(\"AutoLabel%d\") end;\n", (char *)pNode->m_pLine->m_pLineMem->GetMemPtr(), nLabelNum );
 			szNewLine[pNode->m_pLine->m_pLineMem->GetMemLen() - 1] = ' ' ;
-			
+
 			KMemClass1 * pMem = new KMemClass1;
 			pMem->Alloc(strlen(szNewLine) +d);
 			strcpy((char *)pMem->GetMemPtr(), szNewLine);
@@ -207,28 +207,28 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 
 	nReturnLabelNum ++ ;
 	while(1)
-	{ 
+	{
 		if (i != nCount - 2)
 		{
 			KStackNode * pNode = (KStackNode*)UnitsList.GetHead();
-			
+
 			KLineNode * pNewLine = new KLineNode;
 			pNewLine->m_pLineMem = new KMemClass1;
-						
+
 			sprintf(szNewLabel, "\nLabel(\"AutoLabel%d\");\n", nLabelNum );
-			
+
 			char * Buf = (char *)pNewLine->m_pLineMem->Alloc(strlen(szNewLabel)+d);
 			strcpy(Buf,szNewLabel);
 			m_Lines.AddTail((KNode*)pNewLine);
-			
+
 			sprintf(szNewLine, "%s Goto(\"AutoLabel%d\") end;\n", (char *)pNode->m_pLine->m_pLineMem->GetMemPtr(), nLabelNum );
 			szNewLine[pNode->m_pLine->m_pLineMem->GetMemLen() - 1] = ' ' ;
 			g_StrRep(szNewLine,"elseif", "if");
-			
+
 			KMemClass1 * pMem = new KMemClass1;
 			pMem->Alloc(strlen(szNewLine)+1);
 			strcpy((char *)pMem->GetMemPtr(), szNewLine);
-			
+
 			// pNode->m_pLine->m_pLineMem->Free();
 			pNode->m_pLine->m_pLineMem = pMem;
 
@@ -268,7 +268,7 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 
 		 	if ((pElseIfNode->nKey != KEYELSEIF && pElseIfNode->nKey != KEYIF) ||pElseNode->nKey != KEYELSE || pEndNode->nKey != KEYEND)
 				return FALSE;
-			
+
 			KLineNode * pNewLine =			new KLineNode;
 			KLineNode * pNewElseLine =		new KLineNode;
 			KLineNode * pNewReturnLine =	new KLineNode;
@@ -280,7 +280,7 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 			sprintf(szNewReturnLabel, "\nLabel(\"ReturnLabel%d\");\n", nReturnLabelNum  );
 			sprintf(szNewLabel, "\nLabel(\"AutoLabel%d\");\n", nLabelNum );
 			sprintf(szNewElseLine, "\nLabel(\"AutoLabel%d\");\n", ++nLabelNum);
-			
+
 			char * Buf = (char *)pNewLine->m_pLineMem->Alloc(strlen(szNewLabel)+d);
 			strcpy(Buf,szNewLabel);
 
@@ -294,17 +294,17 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 
 			m_Lines.AddTail((KNode*)pNewLine);
 			m_Lines.AddTail((KNode*)pNewElseLine);
-			
+
 
 			sprintf(szNewLine, "%s Goto(\"AutoLabel%d\") else Goto(\"AutoLabel%d\") end;\n", (char *)pElseIfNode->m_pLine->m_pLineMem->GetMemPtr(), nLabelNum - 1, nLabelNum );
 			szNewLine[pElseIfNode->m_pLine->m_pLineMem->GetMemLen() - 1] = ' ' ;
 			g_StrRep(szNewLine,"elseif", "if");
 
-			
+
 			KMemClass1 * pMem = new KMemClass1;
 			pMem->Alloc(strlen(szNewLine)+d);
 			strcpy((char *)pMem->GetMemPtr(), szNewLine);
-			
+
 		//	delete pElseIfNode->m_pLine->m_pLineMem;
 			pElseIfNode->m_pLine->m_pLineMem = pMem;
 			//printf("1\n");
@@ -312,10 +312,10 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 			//getch();
 			pNewLine->m_pNext = pElseIfNode->m_pLine->GetNext();
 			pElseIfNode->m_pLine->GetNext()->m_pPrev = pNewLine;
-			
+
 			pElseNode->m_pLine->GetPrev()->m_pNext = pNewElseLine;
 			pNewElseLine->m_pPrev = pElseNode->m_pLine->GetPrev();
-			
+
 			pNewElseLine->m_pNext = pElseNode->m_pLine->GetNext();
 			pElseNode->m_pLine->GetNext()->m_pPrev = pNewElseLine;
 
@@ -330,23 +330,23 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 	//getch();
 			KLineNode * pGotoReturnNode1 = new KLineNode;
 			KLineNode * pGotoReturnNode2 = new KLineNode;
-			
+
 			char szGotoReturn[100];
 			sprintf(szGotoReturn, "Goto(\"ReturnLabel%d\");\n",  nReturnLabelNum  );
-			
+
 			pGotoReturnNode1->m_pLineMem = new KMemClass1;
 			pGotoReturnNode2->m_pLineMem = new KMemClass1;
 
 			char * Buff = (char * )pGotoReturnNode1->m_pLineMem->Alloc(strlen(szGotoReturn)+d);
 			strcpy(Buff, szGotoReturn);
-			
+
 			Buff = (char * )pGotoReturnNode2->m_pLineMem->Alloc(strlen(szGotoReturn)+d);
 			strcpy(Buff, szGotoReturn);
-			
-			
+
+
 			pNewElseLine->InsertBefore((KNode*) pGotoReturnNode1);
 			m_Lines.AddTail(pGotoReturnNode2);
-			
+
 			//pEndNode->m_pLine->Remove();
 			//pElseNode->m_pLine->Remove();
 			//pEndNode->m_pLine->Remove();
@@ -360,17 +360,17 @@ BOOL KLubCmpl_Blocker::ExchangeCurLines()
 	}
 }
 
-KLineNode * KLubCmpl_Blocker::Load(LPSTR FileName)
+KLineNode * KLubCmpl_Blocker::Load(char* FileName)
 {
 	KPakFile	File;
-	DWORD		dwSize;
+	unsigned long		dwSize;
 	PVOID		Buffer;
 	KLineNode * pFirstLine = NULL;
-	int32_t			nState = 0;
-	
+	int			nState = 0;
+
 	// check file name
 	if (FileName[0] == 0)		return NULL;
-	
+
 	if (!File.Open(FileName))
 	{
 //		g_DebugLog("Can't open tab file : %s", FileName);
@@ -383,10 +383,10 @@ KLineNode * KLubCmpl_Blocker::Load(LPSTR FileName)
 	Buffer = Memory.Alloc(dwSize);
 	File.Read(Buffer, dwSize);
 
-	DWORD nCurPos = 0;
+	unsigned long nCurPos = 0;
 	while(nCurPos < dwSize)
 	{
-	int32_t i = 0;
+	int i = 0;
 	 char szLine[100];
 	   while(nCurPos <= dwSize)
 	   {
@@ -394,20 +394,20 @@ KLineNode * KLubCmpl_Blocker::Load(LPSTR FileName)
 			break;
 	 	szLine[i++] = ((char*)Buffer)[nCurPos ++];
 	   }
-	
+
 	 szLine[i - 1]	= '\n';
 	 szLine[i]		= '\0';
 	 nCurPos		= nCurPos + 1;
-	 
-	 KLineNode * pLineNode = new KLineNode; 
+
+	 KLineNode * pLineNode = new KLineNode;
 	 KMemClass1 * pMem = new KMemClass1;
 	 pMem->Alloc(i);
 	 pLineNode->m_pLineMem = pMem;
 	 strcpy((char *)pLineNode->m_pLineMem->GetMemPtr(), szLine);
 	 if (strstr(szLine,"function main()"))  pFirstLine = pLineNode;
-	 
+
 	 if (strstr(szLine,"end;--main" ))  nState = 1;
-	 
+
 	 if (nState == 0)
 		 m_Lines.AddTail(pLineNode);
 	 else
@@ -418,7 +418,7 @@ KLineNode * KLubCmpl_Blocker::Load(LPSTR FileName)
 }
 
 
-void KLubCmpl_Blocker::PushKey(KStackNode * pStackNode)  
+void KLubCmpl_Blocker::PushKey(KStackNode * pStackNode)
 {
 //	g_DebugLog("Push (%d) %s", pStackNode->nKey, pStackNode->m_pLine->m_pLineMem->GetMemPtr());
 
@@ -432,47 +432,47 @@ KStackNode* KLubCmpl_Blocker::PopKey()
 }
 
 
-int32_t  KLubCmpl_Blocker::GetBuffer(KMemClass1 * &pMem)
+int  KLubCmpl_Blocker::GetBuffer(KMemClass1 * &pMem)
 {
-	LPSTR		DataBuf;
-	DWORD		dwLen = 0;
+	char*		DataBuf;
+	unsigned long		dwLen = 0;
 
 	KLineNode * pNode = (KLineNode *)m_Lines.GetHead();
-	
+
 	while(pNode)
 	{
 		dwLen += pNode->m_pLineMem->GetMemLen();
 		pNode = (KLineNode*)pNode->GetNext();
 	}
-	
+
 	pNode = (KLineNode *)m_RestLines.GetHead();
 	while(pNode)
 	{
 		dwLen += pNode->m_pLineMem->GetMemLen();
 		pNode = (KLineNode*)pNode->GetNext();
 	}
-	
+
 	if (dwLen == 0 ) return 0;
 	KMemClass1 *pFileMem = new KMemClass1;
-	DataBuf = (LPSTR)pFileMem->Alloc(dwLen*2);
+	DataBuf = (char*)pFileMem->Alloc(dwLen*2);
 	pNode = (KLineNode*)m_Lines.GetHead();
-	int32_t nANum = 0;
+	int nANum = 0;
 	while(pNode)
 	{
-		strcpy(DataBuf, (LPSTR)pNode->m_pLineMem->GetMemPtr() ); 
-		
+		strcpy(DataBuf, (char*)pNode->m_pLineMem->GetMemPtr() );
+
 		DataBuf += strlen(DataBuf)  ;
 		pNode = (KLineNode*)pNode->GetNext();
 	}
-	
+
 	pNode = (KLineNode *)m_RestLines.GetHead();
 	while(pNode)
 	{
-		strcpy(DataBuf, (LPSTR)pNode->m_pLineMem->GetMemPtr() ); 
+		strcpy(DataBuf, (char*)pNode->m_pLineMem->GetMemPtr() );
 		DataBuf += strlen(DataBuf)  ;
 		pNode = (KLineNode*)pNode->GetNext();
 	}
-	
+
 	nANum = DataBuf - (char*)pFileMem->GetMemPtr() + strlen(DataBuf);
 
 	pMem = pFileMem;
@@ -480,16 +480,16 @@ int32_t  KLubCmpl_Blocker::GetBuffer(KMemClass1 * &pMem)
 	return nANum;
 }
 
-BOOL	KLubCmpl_Blocker::Write(LPSTR szFileName)
+int	KLubCmpl_Blocker::Write(char* szFileName)
 {
 
 	KFile		File;
-	
+
 	if (szFileName[0] == 0)
 		return FALSE;
 
 	KMemClass1 * pMem = NULL;
-	int32_t len = GetBuffer(pMem);
+	int len = GetBuffer(pMem);
 	if (len == 0 ) return FALSE;
 
 	// create ini file
@@ -497,7 +497,7 @@ BOOL	KLubCmpl_Blocker::Write(LPSTR szFileName)
 		return FALSE;
 
 	// write ini file
-	
+
 	File.Write(pMem->GetMemPtr(), len);
 	File.Close();
 	delete pMem;
@@ -511,7 +511,7 @@ void KLubCmpl_Blocker::Print()
 	printf("\n---------------BEGIN--------------\n");
 	while(pNode)
 	{
-		printf("%s",(LPSTR)pNode->m_pLineMem->GetMemPtr());
+		printf("%s",(char*)pNode->m_pLineMem->GetMemPtr());
 		pNode = (KLineNode*)pNode->GetNext();
 	}
 	printf("\n---------------END--------------\n");

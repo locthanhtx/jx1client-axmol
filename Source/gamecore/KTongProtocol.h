@@ -219,13 +219,13 @@ struct EXTEND_PASSTOSOMEONE : EXTEND_HEADER
 {
 	UINT			nameid;
 	unsigned int	lnID;
-	WORD			datasize;
+	unsigned short			datasize;
 };
 
 struct EXTEND_PASSTOBEVY : EXTEND_HEADER
 {
-	WORD	datasize;
-	WORD	playercount;
+	unsigned short	datasize;
+	unsigned short	playercount;
 	//data
 	//tagPlusSrcInfo vector
 };
@@ -234,7 +234,7 @@ struct EXTEND_PASSTOBEVY : EXTEND_HEADER
 //��ᴴ��ʱ�ĽṹЭ�� ���Կͻ���
 struct STONG_CREATE_COMMAND : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwPlayerNameID;
 	UINT	m_dwParam;
 	BYTE	m_btCamp;
@@ -248,7 +248,7 @@ struct STONG_CREATE_COMMAND : EXTEND_HEADER
 //��ᴴ���ɹ�ʱ ���ظ��ͻ��˵�ͬ����Ϣ�ṹ
 struct STONG_CREATE_SUCCESS_SYNC : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwPlayerNameID;
 	UINT	m_dwParam;
 	BYTE	m_btCamp;
@@ -267,7 +267,7 @@ struct STONG_CREATE_FAIL_SYNC : EXTEND_HEADER
 
 struct STONG_ADD_MEMBER_COMMAND : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwPlayerNameID;
 	UINT	m_dwParam;
 	BYTE	m_btTongNameLength;
@@ -367,14 +367,14 @@ struct STONG_ONE_MEMBER_INFO
 //�����ս��Ϣͬ���ṹ
 struct STONG_ATTACKSTIME_SENDBACK : EXTEND_HEADER
 {
-	WORD	    m_wLength;
+	unsigned short	    m_wLength;
 	char 		m_szTime[64];
 };
 
 //�����ս��Ϣͬ���ṹ
 struct STONG_ATTACK_SENDBACK : EXTEND_HEADER
 {
-	WORD	    m_wLength;
+	unsigned short	    m_wLength;
 	UINT	    m_dwParam;
 	UINT	    m_dwNpcID;
 	char		m_szAttackName[defTONG_STR_LENGTH];		    // ��ս�����
@@ -383,7 +383,7 @@ struct STONG_ATTACK_SENDBACK : EXTEND_HEADER
 //�����ս��Ϣͬ���ṹ
 struct STONG_CITY_INFO_SYNC : EXTEND_HEADER
 {
-	WORD m_wLength;
+	unsigned short m_wLength;
     int	 m_WarCityCount;
 	STONG_WAR_CITY_INFO snWarInfo[7];                   //��ս��������Ϣ
 };
@@ -391,7 +391,7 @@ struct STONG_CITY_INFO_SYNC : EXTEND_HEADER
 //�����ս��Ϣͬ���ṹ
 struct STONG_ATTACK_INFO_SYNC : EXTEND_HEADER
 {
-	WORD	    m_wLength;
+	unsigned short	    m_wLength;
 	UINT	    m_dwParam;
 	UINT	    m_dwNpcID;
 	int         m_nTempCamp;                            // ������ʱ��Ӫ ��������ս��(��� �̰�)
@@ -410,7 +410,7 @@ struct STONG_ATTACK_INFO_SYNC : EXTEND_HEADER
 //���ͷ��Ϣͬ���ṹ
 struct STONG_HEAD_INFO_SYNC : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwParam;
 	UINT	m_dwNpcID;
 	UINT	m_dwMoney;
@@ -426,7 +426,7 @@ struct STONG_HEAD_INFO_SYNC : EXTEND_HEADER
 //�ӳ�ͬ����Ϣ�ṹ
 struct STONG_MANAGER_INFO_SYNC : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwParam;
 	UINT	m_dwMoney;
 	int		m_nCredit;
@@ -443,7 +443,7 @@ struct STONG_MANAGER_INFO_SYNC : EXTEND_HEADER
 //����ͬ����Ϣ
 struct STONG_MEMBER_INFO_SYNC : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwParam;
 	UINT	m_dwMoney;
 	int		m_nCredit;
@@ -463,7 +463,7 @@ struct STONG_MEMBER_INFO_SYNC : EXTEND_HEADER
 //����б���Ϣ
 struct STONG_LIST_INFO_SYNC : EXTEND_HEADER
 {
-	WORD	m_wLength;
+	unsigned short	m_wLength;
 	UINT	m_dwParam;
 	BYTE	m_btStartNo;      //��¼�ϴ�����Ŀ�ʼλ��
 	BYTE	m_btCurNum;       //��ǰ��¼������

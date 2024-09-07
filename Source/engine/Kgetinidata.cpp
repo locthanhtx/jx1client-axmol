@@ -56,7 +56,7 @@ Kgetinidata::Kgetinidata(void)
 // ����:	ѹ������������С����(in Bytes)
 // ע��:	�п���ѹ��������ݱ�Դ���ݶ�, ������Ҫ�õ��������������С����
 //---------------------------------------------------------------------------
-uint32_t Kgetinidata::GetLen(uint32_t dwDataLen)
+unsigned int Kgetinidata::GetLen(unsigned int dwDataLen)
 {
 	return (dwDataLen + dwDataLen / 10 + 1024);
 }
@@ -118,7 +118,7 @@ bool Kgetinidata::SaveBMPFile(const char *filename,  const stImageInfo& m_info)
 	return true;
 }
 */
-bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
+bool Kgetinidata::ReadFileData(char *nFileName,int nFrameIndex)
 {
 	//��Դ�ļ��е� spr
 	 /*if (m_ReadModel)
@@ -141,7 +141,7 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 			 }
 			 else
 			 {
-				 uint32_t nFrameSize = 0;
+				 unsigned int nFrameSize = 0;
 		       nFrameData = SprGetFrame(pSprHeader, nFrameIndex,nFrameSize); //��֡����
 			 }
 		 }
@@ -170,7 +170,7 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 		 m_pPal24  = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
 		 m_pOffset = pOffsTable;
 		 //m_pSprite = (LPBYTE)(m_pOffset + sizeof(SPROFFS) * pSprHeader->Frames);
-		 for(int32_t i=0;i<m_nColors;i++)
+		 for(int i=0;i<m_nColors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
 			 pPalette[i].Green = m_pPal24->Green;
@@ -216,7 +216,7 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 	// make color table
 	//m_Palette = new BYTE[m_nColors * sizeof(KPAL16)]; //�յ�ɫ��
 
-	for(int32_t i=0;i<m_nColors;i++)
+	for(int i=0;i<m_nColors;i++)
 	{
 		pPalette[i].Red   = m_pPal24->Red;
 		pPalette[i].Green = m_pPal24->Green;
@@ -229,9 +229,9 @@ bool Kgetinidata::ReadFileData(char *nFileName,int32_t nFrameIndex)
 }
 
 
-int32_t Kgetinidata::GetGreaterNear2Fold(int32_t d)
+int Kgetinidata::GetGreaterNear2Fold(int d)
 {
-	int32_t fd = 1;
+	int fd = 1;
 	while(d > fd)
 	{
 		fd <<= 1;
@@ -240,12 +240,12 @@ int32_t Kgetinidata::GetGreaterNear2Fold(int32_t d)
 }
 
 //free in data, return row reverted data.
-PBYTE Kgetinidata::RevertRowRGBA(PBYTE data, int32_t &width, int32_t &height)
+PBYTE Kgetinidata::RevertRowRGBA(PBYTE data, int &width, int &height)
 {
 	if(!data)return NULL;
-	int32_t nearW = GetGreaterNear2Fold(width);
-	int32_t nearH = GetGreaterNear2Fold(height);
-	int32_t size = nearW*nearH*4;
+	int nearW = GetGreaterNear2Fold(width);
+	int nearH = GetGreaterNear2Fold(height);
+	int size = nearW*nearH*4;
 	PBYTE toData = (PBYTE)malloc(size);
 	if(!toData)
 	{
@@ -253,12 +253,12 @@ PBYTE Kgetinidata::RevertRowRGBA(PBYTE data, int32_t &width, int32_t &height)
 		return NULL;
 	}
 	memset(toData, 0, size);
-	int32_t rowStep   = width*4;
-	int32_t toRowStep = nearW*4;
-	int32_t i = 0;
-	for(int32_t h = height - 1; h >=0; h--)
+	int rowStep   = width*4;
+	int toRowStep = nearW*4;
+	int i = 0;
+	for(int h = height - 1; h >=0; h--)
 	{
-		int32_t begin = h * width * 4;
+		int begin = h * width * 4;
 		memcpy(toData + i, data+begin, rowStep);
 		i += toRowStep;
 	}
@@ -279,10 +279,10 @@ Texture2D *Kgetinidata::getpicPath(char *picPath)
   char nSprFileKey[64]={0},m_szEntireMapFile[128];
   sprintf(m_szEntireMapFile, "%s", picPath);
   g_StrLower(m_szEntireMapFile);
-  DWORD nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
+  unsigned long nFielpahtdwid = g_FileName2Id(m_szEntireMapFile);
   sprintf(nSprFileKey,"%u-%d",nFielpahtdwid,0);
   nPicTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFileKey);
-  int32_t isHave = false;
+  int isHave = false;
 
   if  (nPicTexture)
 	  return nPicTexture;
@@ -312,7 +312,7 @@ Texture2D *Kgetinidata::getpicPath(char *picPath)
   return nPicTexture;
 }
 
-Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32_t *mCurwidth, int32_t *mCurheight,int32_t *mFrams,SPRFRAMSINFO *nSprInfo)
+Texture2D *Kgetinidata::getinidata_one(char *nFileName,int nFrameIndex,int *mCurwidth, int *mCurheight,int *mFrams,SPRFRAMSINFO *nSprInfo)
 {
 
 	if  (!nFileName || !nFileName[0])
@@ -325,11 +325,11 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	SPRHEAD*  pSprHeader = NULL;
 	SPRFRAME* pFrameData = NULL;
 	Texture2D* nTextureOld=NULL;
-	uint32_t nfleddwid = 0;
+	unsigned int nfleddwid = 0;
 	short nImagePosition   = -1;
-	int32_t bSingleFrameLoad = false; //�Ƿ����֡����
-	uint32_t nSingFrameSize = 0;
-	//int32_t nFarmIndex = 0;           //0Ϊ
+	int bSingleFrameLoad = false; //�Ƿ����֡����
+	unsigned int nSingFrameSize = 0;
+	//int nFarmIndex = 0;           //0Ϊ
 	//��ȡͼƬ����Ϣ
 	pSprHeader = (SPRHEAD*)m_ImageStore.GetImage(nFileName,nfleddwid,nImagePosition,nFrameIndex,ISI_T_SPR,(void*&)pFrameData,(void*&)pOffsTable,bSingleFrameLoad,nSingFrameSize);
 	if (pSprHeader == NULL || pFrameData==NULL)
@@ -359,17 +359,17 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	}
 	*mFrams             = pSprHeader->Frames;
 	char nSprFilePath[64]={0};
-	DWORD nFielpahtdwid = g_FileName2Id(nFileName);
+	unsigned long nFielpahtdwid = g_FileName2Id(nFileName);
 	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,nFrameIndex);
 	if (nTextureOld = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))
 	{//����д��� ��ֱ�ӷ�����
 		if(mCurwidth)
 		{
-			*mCurwidth =(int32_t)pFrameData->Width;//pSprHeader->Width;
+			*mCurwidth =(int)pFrameData->Width;//pSprHeader->Width;
 		}
 		if(mCurheight)
 		{
-			*mCurheight=(int32_t)pFrameData->Height;//pSprHeader->Height;
+			*mCurheight=(int)pFrameData->Height;//pSprHeader->Height;
 		}
 
 		return nTextureOld;
@@ -382,7 +382,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	{
 		 m_pPal24      = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
 		 //m_pOffset     = pOffsTable;
-		 for(int32_t i=0;i<pSprHeader->Colors;i++)
+		 for(int i=0;i<pSprHeader->Colors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
 			 pPalette[i].Green = m_pPal24->Green;
@@ -413,10 +413,10 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	}
 
 	BYTE *pSrc	      = pFrame->Sprite; //ԭͼѹ������ //m_pOffset[0].Length;
-	int32_t height       = pFrame->Height;
-	int32_t width        = pFrame->Width;
-	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ
-	uint32_t datalength = 0;
+	int height       = pFrame->Height;
+	int width        = pFrame->Width;
+	//unsigned short* mPalette  =(unsigned short*)m_Palette;//(unsigned short*)GetPalette();��ԭʼɫ Ϊ��24ɫ
+	unsigned int datalength = 0;
 
 	if (bSingleFrameLoad)
      //����֡
@@ -424,8 +424,8 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 	else
 	    datalength = pOffsTable[nFrameIndex].Length;
 
-	uint32_t curdecposition = 0;
-	int32_t decdatalen  = width * height*4;
+	unsigned int curdecposition = 0;
+	int decdatalen  = width * height*4;
 	 decdata = (unsigned char*)malloc((size_t)decdatalen);
 	if (!decdata)
 	{
@@ -433,7 +433,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 		return NULL;
 	}
 
-	for(int32_t datidx = 0; datidx < decdatalen;)
+	for(int datidx = 0; datidx < decdatalen;)
 	{
 		decdata[datidx++] = 0x00;
 		decdata[datidx++] = 0x00;
@@ -441,9 +441,9 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 		decdata[datidx++] = 0x00;
 	}
 	//��ʼ����
-	int32_t n=0,calpha;
+	int n=0,calpha;
 	unsigned char alpha;
-	uint32_t temppos = 0;
+	unsigned int temppos = 0;
 
 #ifndef WIN32
 	dataChecksum nappInfo;
@@ -460,9 +460,9 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 //		goto _Return;
 #endif
 
-	for(uint32_t i = 0; i < datalength - 8;)
+	for(unsigned int i = 0; i < datalength - 8;)
 	{
-		if(curdecposition > (uint32_t)decdatalen)
+		if(curdecposition > (unsigned int)decdatalen)
 		{
 			break;
 		}
@@ -489,7 +489,7 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 			alpha   = calpha;
 			for(unsigned char m = 0; m < temppos; m++)
 			{
-				int32_t nTemp = *pSrc++;
+				int nTemp = *pSrc++;
 				i++;
 				decdata[curdecposition++] = pPalette[nTemp].Red;
 				decdata[curdecposition++] = pPalette[nTemp].Green;
@@ -512,11 +512,11 @@ Texture2D *Kgetinidata::getinidata_one(char *nFileName,int32_t nFrameIndex,int32
 
 	if(mCurwidth)
 	{
-		*mCurwidth = (int32_t)width;
+		*mCurwidth = (int)width;
 	}
 	if(mCurheight)
 	{
-		*mCurheight = (int32_t)height;
+		*mCurheight = (int)height;
 	}
 
 	if  (decdata)
@@ -529,8 +529,8 @@ _Return:
 	return nTextureOld;//ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 }
 
-Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32_t *mCurwidth, int32_t *mCurheight,int32_t *mFrams)
-//void Kgetinidata::RenderToSprDecode(WORD* m_pDest, BYTE* m_pSrc, int32_t m_width, int32_t m_height, BYTE* m_pPalette,uint32_t nPitch,int32_t m_Mask32)
+Texture2D *Kgetinidata::getinidata_new(char *nFileName,int nFrameIndex,int *mCurwidth, int *mCurheight,int *mFrams)
+//void Kgetinidata::RenderToSprDecode(unsigned short* m_pDest, BYTE* m_pSrc, int m_width, int m_height, BYTE* m_pPalette,unsigned int nPitch,int m_Mask32)
 {
 	if  (!nFileName || !nFileName[0])
 		return NULL;
@@ -542,11 +542,11 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	SPRHEAD*  pSprHeader = NULL;
 	SPRFRAME* pFrameData = NULL;
 	Texture2D* nTextureOld=NULL;
-	uint32_t nfleddwid = 0;
+	unsigned int nfleddwid = 0;
 	short nImagePosition   = -1;
-	int32_t bSingleFrameLoad = false; //�Ƿ����֡����
-	uint32_t nSingFrameSize = 0;
-	int32_t nFarmIndex = 0;           //0Ϊ
+	int bSingleFrameLoad = false; //�Ƿ����֡����
+	unsigned int nSingFrameSize = 0;
+	int nFarmIndex = 0;           //0Ϊ
 	//��ȡͼƬ����Ϣ
 	pSprHeader = (SPRHEAD*)m_ImageStore.GetImage(nFileName,nfleddwid,nImagePosition,nFarmIndex,ISI_T_SPR,(void*&)pFrameData,(void*&)pOffsTable,bSingleFrameLoad,nSingFrameSize);
 	if (pSprHeader == NULL || pFrameData==NULL)
@@ -563,17 +563,17 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 
 	*mFrams = pSprHeader->Frames;
 	char nSprFilePath[64]={0};
-	DWORD nFielpahtdwid = g_FileName2Id(nFileName);
+	unsigned long nFielpahtdwid = g_FileName2Id(nFileName);
 	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 	if (nTextureOld = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath))
 	{//����д��� ��ֱ�ӷ�����
 		if(mCurwidth)
 		{
-			*mCurwidth =(WORD)pSprHeader->Width;
+			*mCurwidth =(unsigned short)pSprHeader->Width;
 		}
 		if(mCurheight)
 		{
-			*mCurheight=(WORD)pSprHeader->Height;
+			*mCurheight=(unsigned short)pSprHeader->Height;
 		}
 
 		return nTextureOld;
@@ -585,7 +585,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	{
 		 m_pPal24      = (KPAL24*)GET_SPR_PALETTE(pSprHeader);//(&pSprHeader[1]);
 		 //m_pOffset     = pOffsTable;
-		 for(int32_t i=0;i<pSprHeader->Colors;i++)
+		 for(int i=0;i<pSprHeader->Colors;i++)
 		 {
 			 pPalette[i].Red   = m_pPal24->Red;
 			 pPalette[i].Green = m_pPal24->Green;
@@ -613,7 +613,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 //		return NULL;
 #endif
 
- for (int32_t k=0;k<pSprHeader->Frames+1;k++)
+ for (int k=0;k<pSprHeader->Frames+1;k++)
  {//96
 	//nImagePosition = -1;
 
@@ -652,10 +652,10 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 		continue;
 
 	BYTE *pSrc	      = pFrame->Sprite; //ԭͼѹ������ //m_pOffset[0].Length;
-	int32_t height       = pFrame->Height;
-	int32_t width        = pFrame->Width;
-	//WORD* mPalette  =(WORD*)m_Palette;//(WORD*)GetPalette();��ԭʼɫ Ϊ��24ɫ
-	uint32_t datalength = 0;
+	int height       = pFrame->Height;
+	int width        = pFrame->Width;
+	//unsigned short* mPalette  =(unsigned short*)m_Palette;//(unsigned short*)GetPalette();��ԭʼɫ Ϊ��24ɫ
+	unsigned int datalength = 0;
 
 	if (bSingleFrameLoad)
      //����֡ ��1 ��ʼ û�е�0֡
@@ -663,8 +663,8 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 	else
 	    datalength = pOffsTable[k].Length;
 
-	uint32_t curdecposition = 0;
-	int32_t decdatalen  = width * height*4;
+	unsigned int curdecposition = 0;
+	int decdatalen  = width * height*4;
 	 decdata = (unsigned char*)malloc((size_t)decdatalen);
 	if (!decdata)
 	{
@@ -672,7 +672,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 		break;
 	}
 
-	for(int32_t datidx = 0; datidx < decdatalen;)
+	for(int datidx = 0; datidx < decdatalen;)
 	{
 		decdata[datidx++] = 0x00;
 		decdata[datidx++] = 0x00;
@@ -680,12 +680,12 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 		decdata[datidx++] = 0x00;
 	}
 	//��ʼ����
-	int32_t n=0,calpha;
+	int n=0,calpha;
 	unsigned char alpha;
-	uint32_t temppos = 0;
-	for(uint32_t i = 0; i < datalength - 8;)
+	unsigned int temppos = 0;
+	for(unsigned int i = 0; i < datalength - 8;)
 	{
-		if(curdecposition > (uint32_t)decdatalen)
+		if(curdecposition > (unsigned int)decdatalen)
 		{
 			break;
 		}
@@ -719,7 +719,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 					return NULL;
 				}*/
 				//file.read((char*)temp,1);
-				int32_t nTemp = *pSrc++;
+				int nTemp = *pSrc++;
 				//*pSrc++;
 				i++;
 				decdata[curdecposition++] = pPalette[nTemp].Red;
@@ -744,11 +744,11 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 
 	if(mCurwidth)
 	{
-		*mCurwidth = (int32_t)width;
+		*mCurwidth = (int)width;
 	}
 	if(mCurheight)
 	{
-		*mCurheight = (int32_t)height;
+		*mCurheight = (int)height;
 	}
 /*#ifndef WIN32
 	usleep(1000); //1����
@@ -763,16 +763,16 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 //SprReleaseFrame((SPRFRAME*)ImgObject.pFrames[nFrame].pFrameData);
 	//PBYTE rData = NULL;
 	/*if(decdata)
-	{//������ int32_t fcw, fch;
+	{//������ int fcw, fch;
 		rData = RevertRowRGBA(decdata,width,height); //�ó����յĸ߶ȿ��
 
 		if(mCurwidth)
 		{
-			*mCurwidth = (int32_t)width;
+			*mCurwidth = (int)width;
 		}
 		if(mCurheight)
 		{
-			*mCurheight = (int32_t)height;
+			*mCurheight = (int)height;
 		}
 	}*/
 	sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
@@ -798,7 +798,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 //			nCompressMethod		ѹ������
 // ����:	void
 //---------------------------------------------------------------------------
-/*void g_InitCodec(KCodec** ppCodec, int32_t nCompressMethod)
+/*void g_InitCodec(KCodec** ppCodec, int nCompressMethod)
 {
 	*ppCodec = NULL;
 
@@ -825,7 +825,7 @@ Texture2D *Kgetinidata::getinidata_new(char *nFileName,int32_t nFrameIndex,int32
 //			nCompressMethod		ѹ������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_FreeCodec(KCodec** ppCodec, int32_t nCompressMethod)
+void g_FreeCodec(KCodec** ppCodec, int nCompressMethod)
 {
 	if (*ppCodec == NULL)
 		return;

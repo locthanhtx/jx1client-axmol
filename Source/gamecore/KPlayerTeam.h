@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTeam.h
 // Date:	2002.01.06
-// Code:	╠ъЁгюквс
+// Code:	О©╫ъЁО©╫О©╫О©╫О©╫О©╫
 // Desc:	Team Class
 //---------------------------------------------------------------------------
 
@@ -12,74 +12,74 @@
 
 #include	"KPlayerDef.h"
 
-#define		MAX_TEAM  MAX_PLAYER //  
+#define		MAX_TEAM  MAX_PLAYER //
 
-class KTeamApplyList	// иЙгК╪схК╤снИуъап╠Мжп╣диЙгКхкпео╒
+class KTeamApplyList	// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╠О©╫О©╫п╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒
 {
 public:
-	DWORD	m_dwNpcID;			// иЙгКхк npc id
-	DWORD	m_dwTimer;			// иЙгКй╠╪Д╪фйЩфВ
-	int		m_nLevel;			// иЙгКхк╣х╪╤
-	char	m_szName[32];		// иЙгКхкпуцШ
+	unsigned long	m_dwNpcID;			// О©╫О©╫О©╫О©╫О©╫О©╫ npc id
+	unsigned long	m_dwTimer;			// О©╫О©╫О©╫О©╫й╠О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	int		m_nLevel;			// О©╫О©╫О©╫О©╫О©╫к╣х╪О©╫
+	char	m_szName[32];		// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 public:
 	KTeamApplyList() {Release();};
 	void	Release() {m_dwNpcID = 0; m_dwTimer = 0; m_nLevel = 0; m_szName[0] = 0;};
-};				// ©м╩╖╤к╠ё╢Фтз╤сЁ╓ player иМио╣д╤снИиЙгКхкап╠Мпео╒
+};				// О©╫м╩О©╫О©╫к╠О©╫О©╫О©╫О©╫з╤сЁО©╫ player О©╫О©╫О©╫о╣д╤О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╠О©╫О©╫О©╫о╒
 
-class KPlayerTeam	// ©м╩╖╤кмФ╪р╣двИ╤спео╒
+class KPlayerTeam	// О©╫м╩О©╫О©╫О©╫О©╫О©╫р╣О©╫О©╫О©╫О©╫О©╫О©╫о╒
 {
 public:
-	int		m_nFlag;			// ╠Йж╬йг╥Яря╬╜вИ╤с
-	int		m_nFigure;			// хГ╧Шря╬╜вИ╤сё╛player ╣диМ╥щё╨TEAM_CAPTAIN TEAM_MEMBER
+	int		m_nFlag;			// О©╫О©╫ж╬О©╫г╥О©╫О©╫я╬О©╫О©╫О©╫О©╫
+	int		m_nFigure;			// О©╫О©╫О©╫О©╫я╬О©╫О©╫О©╫сёО©╫player О©╫О©╫О©╫О©╫О©╫щёО©╫TEAM_CAPTAIN TEAM_MEMBER
 
-	int		m_nApplyCaptainID;	// иЙгК╪схК╣дд©╠Й╤снИ╣д╤сЁ╓╣д npc id
-	DWORD	m_dwApplyTimer;		// иЙгКй╠╪Д╪фйЩфВё╗иЙгК╤Ю╬цакё╛Ё╛╧Щй╠╪Дх║оШиЙгКё╘
-	BOOL	m_bAutoRefuseInviteFlag;// йг╥Явт╤╞╬э╬Ь╠Пхк╣д╪схК╤снИ╣дяШгК TRUE вт╤╞╬э╬Ь   FALSE йж╤╞
-	KTeamApplyList	m_sApplyList[MAX_TEAM_APPLY_LIST];	// хГ╧Шн╙╤сЁ╓ё╛╤снИ╣диЙгКхкап╠М
+	int		m_nApplyCaptainID;	// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫д©О©╫О©╫О©╫О©╫О©╫д╤сЁО©╫О©╫О©╫ npc id
+	unsigned long	m_dwApplyTimer;		// О©╫О©╫О©╫О©╫й╠О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫кёО©╫О©╫О©╫О©╫О©╫й╠О©╫О©╫х║О©╫О©╫О©╫О©╫О©╫Кё╘
+	int	m_bAutoRefuseInviteFlag;// О©╫г╥О©╫О©╫т╤О©╫О©╫э╬О©╫О©╫О©╫О©╫к╣д╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ TRUE О©╫т╤О©╫О©╫э╬О©╫   FALSE О©╫ж╤О©╫
+	KTeamApplyList	m_sApplyList[MAX_TEAM_APPLY_LIST];	// О©╫О©╫О©╫н╙О©╫сЁО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╠О©╫
 public:
 	KPlayerTeam();
 	void	Release();
 	void	ReleaseList();
-	BOOL	ApplyCreate();//char *lpszTeamName);			// иЙгК╢╢╫╗р╩ж╖╤снИ
-	void	InviteAdd(DWORD dwNpcID);						// яШгК╪схК╤снИ
-	void	ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite);	// йу╣╫яШгК
-	void	ReplyInvite(int nIdx, int nResult);				// ╩ь╦╢яШгК
-	void	SetAutoRefuseInvite(BOOL bFlag);				// иХ╤╗йг╥Явт╤╞╬э╬Ь╠Пхк╣д╪схК╤снИ╣дяШгК
-	BOOL	GetAutoRefuseState();							// ╩Я╣цйг╥Явт╤╞╬э╬Ь╠Пхк╣д╪схК╤снИ╣дяШгКв╢л╛
-	int		GetInfo(KUiPlayerTeam *pTeam);					// ╩Я╣цвтиМ╤снИпео╒ё╗╦Ь╫ГцФё╘
-	void	UpdateInterface();								// ╦Эпб╫ГцФотй╬
+	int	ApplyCreate();//char *lpszTeamName);			// О©╫О©╫О©╫К╢╢О©╫О©╫р╩ж╖О©╫О©╫О©╫О©╫
+	void	InviteAdd(unsigned long dwNpcID);						// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	void	ReceiveInvite(TEAM_INVITE_ADD_SYNC *pInvite);	// О©╫у╣О©╫О©╫О©╫О©╫О©╫
+	void	ReplyInvite(int nIdx, int nResult);				// О©╫ь╦О©╫О©╫О©╫О©╫О©╫
+	void	SetAutoRefuseInvite(int bFlag);				// О©╫Х╤╗О©╫г╥О©╫О©╫т╤О©╫О©╫э╬О©╫О©╫О©╫О©╫к╣д╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	int	GetAutoRefuseState();							// О©╫О©╫О©╫О©╫г╥О©╫О©╫т╤О©╫О©╫э╬О©╫О©╫О©╫О©╫к╣д╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛
+	int		GetInfo(KUiPlayerTeam *pTeam);					// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫О©╫О©╫О©╫О©╫Фё╘
+	void	UpdateInterface();								// О©╫О©╫О©╫б╫О©╫О©╫О©╫О©╫О©╫й╬
 	void    UpdateamUI();
-	void	DeleteOneFromApplyList(DWORD dwNpcID);			// ╢сиЙгКхкап╠Мжпи╬ЁЩдЁ╦ЖиЙгКхк
+	void	DeleteOneFromApplyList(unsigned long dwNpcID);			// О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╠О©╫О©╫О©╫и╬О©╫О©╫дЁО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 };
-// ╢к╤снИйг╥Ян╙©ум╗╧Щеп╤о╤сЁ╓ id ю╢╬Ж╤╗ё╛╣╠н╙ -1 й╠н╙©уё╗ц©╦Ж╤снИ╠ь╤╗спр╩╦Ж╤сЁ╓ё╘
+// О©╫к╤О©╫О©╫О©╫О©╫г╥О©╫н╙О©╫О©╫м╗О©╫О©╫О©╫п╤о╤сЁО©╫ id О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫н╙ -1 й╠н╙О©╫уёО©╫ц©О©╫О©╫О©╫О©╫О©╫О©╫ь╤О©╫О©╫О©╫р╩О©╫О©╫О©╫сЁО©╫О©╫О©╫
 class KTeam
 {
 private:
-	int		m_nIndex;									// ╠╬ Team тз g_Team жп╣дн╩жц
+	int		m_nIndex;									// О©╫О©╫ Team О©╫О©╫ g_Team О©╫п╣О©╫н╩О©╫О©╫
 public:
-	int		m_nState;									// ╤снИв╢л╛ё╨Team_S_Open Team_S_Close
-	int		m_nCaptain;									// ╤сЁ╓ id ё╛╥ЧнЯфВ╤ксц player index ё╛©м╩╖╤ксц npc dwid ё╛-1 н╙©у
-	int		m_nMember[MAX_TEAM_MEMBER];					// кЫсп╤ст╠ id ё╛╥ЧнЯфВ╤ксц player index ё╛©м╩╖╤ксц npc dwid ё╛-1 н╙©у
-	int		m_nMemNum;									// рясп╤ст╠йЩа©(╡╩╟Эю╗╤сЁ╓)
-	int		m_nMemLevel[MAX_TEAM_MEMBER + 1];			// ╤ст╠╣х╪╤ (╣зр╩╦Ж╤ст╠н╙╤сЁ╓) (╤ст╠иЩ╪╤╣дй╠╨Рр╙м╗ж╙кЫспфДкШ╤ст╠ not end)
-	char	m_szMemName[MAX_TEAM_MEMBER + 1][32];		// ╤ст╠цШвж (╣зр╩╦Ж╤ст╠н╙╤сЁ╓)
-	DWORD	m_nTeamServerID;							// ╤снИтз╥ЧнЯфВио╣дн╗р╩╠Йй╤
+	int		m_nState;									// О©╫О©╫О©╫О©╫в╢л╛О©╫О©╫Team_S_Open Team_S_Close
+	int		m_nCaptain;									// О©╫сЁО©╫ id О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ player index О©╫О©╫О©╫м╩О©╫О©╫О©╫О©╫О©╫ npc dwid О©╫О©╫-1 н╙О©╫О©╫
+	int		m_nMember[MAX_TEAM_MEMBER];					// О©╫О©╫О©╫п╤О©╫т╠ id О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ player index О©╫О©╫О©╫м╩О©╫О©╫О©╫О©╫О©╫ npc dwid О©╫О©╫-1 н╙О©╫О©╫
+	int		m_nMemNum;									// О©╫О©╫О©╫п╤О©╫т╠О©╫О©╫О©╫О©╫(О©╫О©╫О©╫О©╫О©╫О©╫О©╫сЁО©╫)
+	int		m_nMemLevel[MAX_TEAM_MEMBER + 1];			// О©╫О©╫т╠О©╫х╪О©╫ (О©╫О©╫р╩О©╫О©╫О©╫О©╫т╠н╙О©╫сЁО©╫) (О©╫О©╫т╠О©╫О©╫О©╫О©╫О©╫О©╫й╠О©╫О©╫р╙м╗ж╙О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╠ not end)
+	char	m_szMemName[MAX_TEAM_MEMBER + 1][32];		// О©╫О©╫т╠О©╫О©╫О©╫О©╫ (О©╫О©╫р╩О©╫О©╫О©╫О©╫т╠н╙О©╫сЁО©╫)
+	unsigned long	m_nTeamServerID;							// О©╫О©╫О©╫О©╫О©╫з╥О©╫О©╫О©╫О©╫О©╫О©╫о╣О©╫н╗р╩О©╫О©╫й╤
 
 public:
-	KTeam();											// ╧╧тЛ╨╞йЩ
-	void	Release();									// гЕ©у
-	void	SetIndex(int nIndex);						// иХ╤╗ Team тз g_Team жп╣дн╩жц
-	BOOL	SetTeamOpen();								// иХ╤╗╤снИв╢л╛ё╨╢Р©╙ё╗тйпМ╫сйэпбЁит╠ё╘
-	BOOL	SetTeamClose();								// иХ╤╗╤снИв╢л╛ё╨╧ь╠уё╗╡╩тйпМ╫сйэпбЁит╠ё╘
-	int		CalcCaptainPower();							// ╪фкЦ╤сЁ╓дэмЁк╖╤ст╠╣дхкйЩ
-	int		FindFree();									// я╟ур╤ст╠©ун╩
-	int		FindMemberID(DWORD dwNpcID);				// я╟ур╬ъспж╦╤╗npc id╣д╤ст╠ё╗╡╩╟Эю╗╤сЁ╓ё╘
+	KTeam();											// О©╫О©╫О©╫Л╨╞О©╫О©╫
+	void	Release();									// О©╫О©╫О©╫
+	void	SetIndex(int nIndex);						// О©╫Х╤╗ Team О©╫О©╫ g_Team О©╫п╣О©╫н╩О©╫О©╫
+	int	SetTeamOpen();								// О©╫Х╤╗О©╫О©╫О©╫О©╫в╢л╛О©╫О©╫О©╫Р©╙ёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫бЁО©╫т╠О©╫О©╫
+	int	SetTeamClose();								// О©╫Х╤╗О©╫О©╫О©╫О©╫в╢л╛О©╫О©╫О©╫ь╠уёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫бЁО©╫т╠О©╫О©╫
+	int		CalcCaptainPower();							// О©╫О©╫О©╫О©╫сЁО©╫О©╫О©╫мЁк╖О©╫О©╫т╠О©╫О©╫О©╫О©╫О©╫О©╫
+	int		FindFree();									// я╟О©╫р╤О©╫т╠О©╫О©╫н╩
+	int		FindMemberID(unsigned long dwNpcID);				// я╟О©╫р╬О©╫О©╫О©╫ж╦О©╫О©╫npc idО©╫д╤О©╫т╠О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫сЁО©╫О©╫О©╫
 
-	// ©м╩╖╤к╢╢╫╗р╩ж╖╤снИё╗©м╩╖╤кж╩©идэ╢Фтзр╩ж╖╤снИё╛йТсз╠╬╣ьмФ╪рё╘
-	void	CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLevel, DWORD nTeamServerID);
-	BOOL	AddMember(DWORD dwNpcID, int nLevel, char *lpszNpcName);// лМ╪ср╩╦Ж╤снИЁит╠
-	void	DeleteMember(DWORD dwNpcID);				// ©м╩╖╤ки╬ЁЩр╩╦Ж╤снИЁит╠
-	int		GetMemberInfo(KUiPlayerItem *pList, int nCount);	// йДЁЖ╤ст╠пео╒(╟╢╫ГцФ╣др╙гСё╛╦Ь╫ГцФ)
+	// О©╫м╩О©╫О©╫к╢О©╫О©╫О©╫р╩ж╖О©╫О©╫О©╫Иё╗О©╫м╩О©╫О©╫О©╫ж╩О©╫О©╫О©╫э╢О©╫О©╫О©╫р╩ж╖О©╫О©╫О©╫Иё╛О©╫О©╫О©╫з╠О©╫О©╫О©╫О©╫О©╫рёО©╫
+	void	CreateTeam(int nCaptainNpcID, char *lpszCaptainName, int nCaptainLevel, unsigned long nTeamServerID);
+	int	AddMember(unsigned long dwNpcID, int nLevel, char *lpszNpcName);// О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╠
+	void	DeleteMember(unsigned long dwNpcID);				// О©╫м╩О©╫О©╫О©╫и╬О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╠
+	int		GetMemberInfo(KUiPlayerItem *pList, int nCount);	// О©╫О©╫О©╫О©╫О©╫т╠О©╫О©╫о╒(О©╫О©╫О©╫О©╫О©╫О©╫О©╫р╙О©╫Сё╛╦О©╫О©╫О©╫О©╫О©╫)
 };
 
 extern	KTeam	g_Team[MAX_TEAM];

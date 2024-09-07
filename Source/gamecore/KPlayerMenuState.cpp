@@ -3,7 +3,7 @@
 //
 // File:	KPlayerMenuState.cpp
 // Date:	2002.12.10
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	PlayerMenuState Class
 //---------------------------------------------------------------------------
 
@@ -38,8 +38,8 @@ void	KPlayerMenuState::SetState(int nState)
 	m_nState = nState;
 }
 
-//³õÊ¼»¯ Íæ¼ÒÏµÍ³×´Ì¬ÎÄ¼þ
-BOOL	KPlayerMenuStateGraph::Init()
+//ï¿½ï¿½Ê¼ï¿½ï¿½ ï¿½ï¿½ï¿½ÏµÍ³×´Ì¬ï¿½Ä¼ï¿½
+int	KPlayerMenuStateGraph::Init()
 {
 	KTabFile	cFile;
 //	g_SetFilePath("\\");

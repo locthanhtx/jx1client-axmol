@@ -102,7 +102,7 @@ void	KLittleMap::Init(int nLeft, int nTop, int nRight, int nBottom)
 	this->m_pbyLoadFlag = (BYTE*)new BYTE[m_nMapWidth * m_nMapHeight];
 	memset(m_pbyLoadFlag, 0, sizeof(BYTE) * m_nMapWidth * m_nMapHeight);
 
-	this->m_ppbtBarrier = (BYTE**)new LPVOID[m_nMapWidth * m_nMapHeight];//�ж��ٸ�����
+	this->m_ppbtBarrier = (BYTE**)new void*[m_nMapWidth * m_nMapHeight];//�ж��ٸ�����
 	for (int i = 0; i < m_nMapWidth * m_nMapHeight; i++)
 	{
 		this->m_ppbtBarrier[i] = NULL;
@@ -120,7 +120,7 @@ void	KLittleMap::Init(int nLeft, int nTop, int nRight, int nBottom)
 		if (cColorIni.Load(defLITTLE_MAP_SET_FILE))
 		{
 			cColorIni.GetString("MapColor", "MapColor", "255,255,255", szTemp, sizeof(szTemp));
-            
+
             pcszTemp = szTemp;
             nR = KSG_StringGetInt(&pcszTemp, 255);
             KSG_StringSkipSymbol(&pcszTemp, ',');
@@ -375,7 +375,7 @@ void	KLittleMap::Draw(int nX, int nY)
 				continue;
 			if (m_bTeammateShowFlag &&
 				Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag &&
-				((DWORD)g_Team[0].m_nCaptain == Npc[nNpcIdx].m_dwID || g_Team[0].FindMemberID(Npc[nNpcIdx].m_dwID) >= 0))
+				((unsigned long)g_Team[0].m_nCaptain == Npc[nNpcIdx].m_dwID || g_Team[0].FindMemberID(Npc[nNpcIdx].m_dwID) >= 0))
 				continue;
 			nRx = LOWORD(Npc[nNpcIdx].m_dwRegionID);
 			nRy = HIWORD(Npc[nNpcIdx].m_dwRegionID);
@@ -399,7 +399,7 @@ void	KLittleMap::Draw(int nX, int nY)
 	if (Player[CLIENT_PLAYER_INDEX].m_cTeam.m_nFlag && m_bTeammateShowFlag)
 	{
 		// �ӳ�
-		if ((DWORD)g_Team[0].m_nCaptain != Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID)
+		if ((unsigned long)g_Team[0].m_nCaptain != Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID)
 		{
 			nNpcIdx = NpcSet.SearchID(g_Team[0].m_nCaptain);
 			if (nNpcIdx > 0 && Npc[nNpcIdx].m_RegionIndex != -1)
@@ -423,10 +423,10 @@ void	KLittleMap::Draw(int nX, int nY)
 			}
 		}
 		// ����
-		int32_t i;
+		int i;
 		for (i = 0; i < MAX_TEAM_MEMBER; i++)
 		{
-			if (g_Team[0].m_nMember[i] <= 0 || (DWORD)g_Team[0].m_nMember[i] == Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID)
+			if (g_Team[0].m_nMember[i] <= 0 || (unsigned long)g_Team[0].m_nMember[i] == Npc[Player[CLIENT_PLAYER_INDEX].m_nIndex].m_dwID)
 				continue;
 			nNpcIdx = NpcSet.SearchID(g_Team[0].m_nMember[i]);
 			if (nNpcIdx <= 0 || Npc[nNpcIdx].m_RegionIndex == -1)
@@ -470,7 +470,7 @@ void	KLittleMap::Draw(int nX, int nY)
 //---------------------------------------------------------------------------
 //	���ܣ�������ʾ����
 //---------------------------------------------------------------------------
-void	KLittleMap::SetTeammateShow(BOOL bFlag)
+void	KLittleMap::SetTeammateShow(int bFlag)
 {
 	this->m_bTeammateShowFlag = bFlag;
 }
@@ -478,7 +478,7 @@ void	KLittleMap::SetTeammateShow(BOOL bFlag)
 //---------------------------------------------------------------------------
 //	���ܣ����������ʾ����
 //---------------------------------------------------------------------------
-void	KLittleMap::SetPlayerShow(BOOL bFlag)
+void	KLittleMap::SetPlayerShow(int bFlag)
 {
 	this->m_bPlayerShowFlag = bFlag;
 }
@@ -486,7 +486,7 @@ void	KLittleMap::SetPlayerShow(BOOL bFlag)
 //---------------------------------------------------------------------------
 //	���ܣ�ս��npc��ʾ����
 //---------------------------------------------------------------------------
-void	KLittleMap::SetFightNpcShow(BOOL bFlag)
+void	KLittleMap::SetFightNpcShow(int bFlag)
 {
 	this->m_bFightNpcShowFlag = bFlag;
 }
@@ -494,7 +494,7 @@ void	KLittleMap::SetFightNpcShow(BOOL bFlag)
 //---------------------------------------------------------------------------
 //	���ܣ���ͨnpc��ʾ����
 //---------------------------------------------------------------------------
-void	KLittleMap::SetNormalNpcShow(BOOL bFlag)
+void	KLittleMap::SetNormalNpcShow(int bFlag)
 {
 	this->m_bNormalNpcShowFlag = bFlag;
 }

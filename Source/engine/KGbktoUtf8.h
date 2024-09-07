@@ -4,8 +4,8 @@
 #define UTEXT(str,need) gbk2utf8(str,need)
 #define G2U(str)   gbk2utf8(str,0)
 #define U2G(str)   utf2gbk(str)
-#include "platform/third_party/win32/iconv/iconv.h"
-#pragma comment(lib,"libiconv.lib")
+#include "./libiconv/include/iconv.h"
+// #pragma comment(lib,"libiconv.lib")
 #else //if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define UTEXT(str, need) gbk2utf8(str,need)
 #define G2U(str)   gbk2utf8(str,1)
@@ -16,9 +16,9 @@
 #include <string>
 using namespace std;
 
-static std::string gbk2utf8(const char *inbuf,int32_t need=0);
+static std::string gbk2utf8(const char *inbuf,int need=0);
 
-static int32_t code_convert(const char *from_charset, const char *to_charset,const char *inbuf, size_t inlen, char *outbuf, size_t outlen)
+static int code_convert(const char *from_charset, const char *to_charset,const char *inbuf, size_t inlen, char *outbuf, size_t outlen)
 {
 	iconv_t cd;
 	const char *temp = inbuf;
@@ -42,7 +42,7 @@ static std::string utf2gbk(const char *inbuf)
     size_t inlen = strlen(inbuf);  //size_t
 	char * outbuf = new char[inlen * 2 + 2];
 	//char outbuf[255]={0};gb2312
-	int32_t ret=-1;
+	int ret=-1;
 	if (ret = code_convert("utf-8","gb2312",inbuf,inlen,outbuf,inlen * 2 + 2)==0)
 	{
 		strRet = outbuf;
@@ -56,7 +56,7 @@ static std::string utf2gbk(const char *inbuf)
 }
 
 /*GB2312 to UTF8*/
-static std::string gbk2utf8(const char *inbuf,int32_t need)
+static std::string gbk2utf8(const char *inbuf,int need)
 {
 	std::string strRet="";
 
@@ -68,7 +68,7 @@ static std::string gbk2utf8(const char *inbuf,int32_t need)
 	//gb2312
     size_t inlen = strlen(inbuf);
 	char * outbuf = new char[inlen * 2 + 2];
-	int32_t ret=-1;
+	int ret=-1;
 	if (ret = code_convert("gb2312", "utf-8", inbuf, inlen,outbuf,inlen * 2 + 2) == 0)
 	{
 		strRet = outbuf;

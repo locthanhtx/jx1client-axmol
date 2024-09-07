@@ -54,8 +54,8 @@ public:
 	/*void PaintSymbol(int nX);
 	void LoadSymbol(int nSubWorldID);
 	void PaintFindPos(int nX, int nY, int nMpsX, int nMpsY);
-	void DirectFindPos(int nX, int nY, BOOL bSync, BOOL bPaintLine);
-	BOOL OnDirectMap(int nX, int nY);
+	void DirectFindPos(int nX, int nY, int bSync, int bPaintLine);
+	int OnDirectMap(int nX, int nY);
 	void DoDirectMap(int nX, int nY);
 	void AutoRunTo(int nX, int nY);	*/
 	//////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ public:
 
 	//��ȡ��ͼ���ǵķ�Χ,����ֵ��ʾ�Ƿ��е�ͼ
 	int	 GetMapRect(RECT* pRect);
-	void SetGreenLine(int nX, int nY, BOOL bSearch);
+	void SetGreenLine(int nX, int nY, int bSearch);
 	//void DrawGreenLine(int nX, int nY, int nX2, int nY2,const char* pString,int nLineNum=2); // ������
 	void DelGreenLine();//ȡ��������
 	void GetMapSizePos(KSceneMapSizePos* pInfo);
@@ -132,7 +132,7 @@ private:
 	int     m_bPicMapType;			//�˳����Ƿ�������ͼ��ʽ��С��ͼ
 	bool	m_bInited;				//�Ƿ�ִ�й���ʼ��
     int     bFlag;
-	BOOL    bSearch;
+	int    bSearch;
 	int     m_SubWorld;
 	RECT    m_MapPos;
 	POINT m_GreenLineDes;           //����Ŀ������

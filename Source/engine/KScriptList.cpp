@@ -9,9 +9,9 @@ KLuaScript* KScriptList::GetScript(Lua_State * L)
 	{
 		KScriptNode * pScriptNode;
 		pScriptNode = (KScriptNode *)pNode;
-		if (pScriptNode->pScript->m_LuaState == L)		
+		if (pScriptNode->pScript->m_LuaState == L)
 			return pScriptNode->pScript;
-		
+
 		pNode = pNode->GetNext();
 	}
 	return NULL;
@@ -22,16 +22,16 @@ void KScriptList::Activate()
 {
 	if (GetNodeCount() == 0)	return;
 	KNode * pNode = NULL;
-	
+
 	pNode = GetHead();
-	
+
 	while (pNode!=NULL)
 	{
 		KStepLuaScript * pScript;
 		KScriptNode * pScriptNode;
 		pScriptNode = (KScriptNode *)pNode;
 		pScript = (KStepLuaScript * )pScriptNode->pScript;
-	
+
 		if (pScript->Active())
 		{
 			KScriptNode *pDelNode = (KScriptNode*)pNode;
@@ -41,7 +41,7 @@ void KScriptList::Activate()
 			pDelNode=NULL;
 			continue;
 		}
-		//int32_t count =lua_getgccount(pScript->m_LuaState);// lua_gc(pScript->m_LuaState,LUA_GCCOUNT,0);
+		//int count =lua_getgccount(pScript->m_LuaState);// lua_gc(pScript->m_LuaState,LUA_GCCOUNT,0);
 		lua_setgcthreshold(pScript->m_LuaState, 200);
 		//lua_gc(pScript->m_LuaState,LUA_GCSTEP,200);
 		pNode = pNode->GetNext();
@@ -55,7 +55,7 @@ void KScriptList::SendMessage(char * szMessageName, char * szData)
 	if (this->GetNodeCount()== 0)
 		return;
 	pNode = this->GetHead();
-	
+
 	while (pNode!=NULL)
 	{
 		KStepLuaScript * pScript;

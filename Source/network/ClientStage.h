@@ -3,8 +3,8 @@
 	file base:	ClientStage
 	file ext:	h
 	author:		liupeng
-	
-	purpose:	
+
+	purpose:
 *********************************************************************/
 #ifndef __INCLUDE_CLIENTSTAGE_H__
 #define __INCLUDE_CLIENTSTAGE_H__
@@ -21,36 +21,36 @@ class CGameClient : public CSocketClient
 {
 public:
 	bool Startup();
-	bool Cleanup(int32_t isCleartheThread=false);
+	bool Cleanup(int isCleartheThread=false);
 	bool FsGameServerConnectTo(const char * const &pAddressToConnectServer,
 		unsigned short usPortToConnectServer);
 	//bool RegisterMsgFilter(void * lpParam,
 		//CALLBACK_CLIENT_EVENT pfnEventNotify);
 	//������Ϣ
-	int32_t	 SendMsg(const void *pBuffer, int32_t nSize);
+	int	 SendMsg(const void *pBuffer, int nSize);
 	bool SendPackToServer(const void * const pData,
-		const uint32_t &datalength);
-	const void * GetPackFromServer(uint32_t &datalength);
+		const unsigned int &datalength);
+	const void * GetPackFromServer(unsigned int &datalength);
 	bool Shutdown();
 	void setBufferEmpty();
 	/*
      *  IUnknown COM Interface Methods
      */
     bool QueryInterface(void** ppv);
-    uint32_t AddRef();
-    uint32_t Release();
+    unsigned int AddRef();
+    unsigned int Release();
 	bool getSocketStates(){return __SocketStates;};
 	void setSocketStates(bool ver){__SocketStates=ver;};
 public:
-	CGameClient( uint32_t maxFreeBuffers,
-		uint32_t maxFreeBuffers_Cache,
-		uint32_t bufferSize_Cache = 8192,
-		uint32_t bufferSize = 1024,
-		int32_t    mSocketNo=0);
+	CGameClient( unsigned int maxFreeBuffers,
+		unsigned int maxFreeBuffers_Cache,
+		unsigned int bufferSize_Cache = 8192,
+		unsigned int bufferSize = 1024,
+		int    mSocketNo=0);
 	virtual ~CGameClient();
-	uint32_t GetMessageSize(const CIOBuffer *pBuffer) const;
+	unsigned int GetMessageSize(const CIOBuffer *pBuffer) const;
 protected:
-	uint32_t GetMinimumMessageSize() const;
+	unsigned int GetMinimumMessageSize() const;
 
 	CIOBuffer *ProcessDataStream(CIOBuffer *pBuffer);
 	void ProcessCommand(const CIOBuffer *pBuffer);
@@ -62,7 +62,7 @@ private:
 	virtual void OnShutdownInitiated();
 	virtual void ReadCompleted(CIOBuffer *pBuffer);
 private:
-	int32_t m_lRefCount;
+	long m_lRefCount;
 	CIOBuffer::Allocator	m_theCacheAllocator;
 	void *					m_lpCallBackParam;
 	//CALLBACK_CLIENT_EVENT	m_pfnCallbackClientEvent;
@@ -85,17 +85,17 @@ public:
 	/*
      *  IUnknown COM Interface Methods
      */
-   uint32_t AddRef();
-   uint32_t Release();
+   unsigned int AddRef();
+   unsigned int Release();
    CGameClient *pObject;
 public:
 	CClientFactory();
 	virtual ~CClientFactory();
 private:
-	int32_t	m_lRefCount;
-	uint32_t m_bufferSize;
-	uint32_t m_MaxPlauerCount;
-	uint32_t m_nPrecision;
+	long	m_lRefCount;
+	unsigned int m_bufferSize;
+	unsigned int m_MaxPlauerCount;
+	unsigned int m_nPrecision;
 };
 
 #endif // __INCLUDE_CLIENTSTAGE_H__

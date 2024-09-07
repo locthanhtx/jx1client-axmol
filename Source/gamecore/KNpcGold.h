@@ -3,7 +3,7 @@
 //
 // File:	KNpcGold.h
 // Date:	2003.07.23
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KNpcGold Class
 //---------------------------------------------------------------------------
 
@@ -12,30 +12,30 @@
 
 #include "engine/KLuaScript.h"
 
-#define	defMAX_NPC_GOLD_TYEP	30  //À¶¹ÖNPCµÄÖÖÀàÏÞÖÆ
+#define	defMAX_NPC_GOLD_TYEP	30  //ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 class KNpcGold
 {
 	friend class KNpc;
 private:
 	int		m_nNpcIdx;
-	int		m_nIsGold;			// ÊÇ·ñÊÇ»Æ½ð¹ÖÎïÀà
-	int		m_nIsGolding;		// µ±Ç°ÊÇ·ñÊÇ»Æ½ð¹ÖÎï
-	int		m_nGoldType;		// Èç¹ûµ±Ç°ÊÇ»Æ½ð¹ÖÎï£¬±ä»¯µÄÀàÐÍ
+	int		m_nIsGold;			// ï¿½Ç·ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nIsGolding;		// ï¿½ï¿½Ç°ï¿½Ç·ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
+	int		m_nGoldType;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï£¬ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// ±¸·ÝµÄ npc Êý¾Ý
-	DWORD	m_dwSkill5ID;				// ¼¼ÄÜÃû×ª³ÉµÄid  SkillString2Id()
-	int		m_nSkill5Level;				// ¼¼ÄÜµÈ¼¶
-	int		m_nFireResist;				// »ð¿¹ÐÔ
-	int		m_nFireResistMax;			// »ð¿¹ÐÔ×î´óÖµ
-	int		m_nColdResist;				// ±ù¿¹ÐÔ
-	int		m_nColdResistMax;			// ±ù¿¹ÐÔ×î´óÖµ
-	int		m_nLightingResist;			// µç¿¹ÐÔ
-	int		m_nLightingResistMax;		// µç¿¹ÐÔ×î´óÖµ
-	int		m_nPoisonResist;			// ¶¾¿¹ÐÔ
-	int		m_nPoisonResistMax;			// ¶¾¿¹ÐÔ×î´óÖµ
-	int		m_nPhycicsResist;			// ÎïÀí¿¹ÐÔ
-	int		m_nPhycicsResistMax;		// ÎïÀí¿¹ÐÔ×î´óÖµ
+// ï¿½ï¿½ï¿½Ýµï¿½ npc ï¿½ï¿½ï¿½ï¿½
+	unsigned long	m_dwSkill5ID;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Éµï¿½id  SkillString2Id()
+	int		m_nSkill5Level;				// ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
+	int		m_nFireResist;				// ï¿½ï¿½ï¿½ï¿½
+	int		m_nFireResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nColdResist;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nColdResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nLightingResist;			// ï¿½ç¿¹ï¿½ï¿½
+	int		m_nLightingResistMax;		// ï¿½ç¿¹ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nPoisonResist;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nPoisonResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nPhycicsResist;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nPhycicsResistMax;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 //////////////////////////////////////////////////////
 	/*int		m_nAiMode;
 	int		m_nAiParam1;
@@ -59,19 +59,19 @@ private:
 	int		m_nFireMagicBase;
 	int		m_nLightingDamageBase;
 	int		m_nLightingMagicBase;
-	//char	m_nDeathScript[128]; //ËÀÍö½Å±¾
-	//char	m_nDropRate[128]; //±¬ÂÊ
+	//char	m_nDeathScript[128]; //ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+	//char	m_nDropRate[128]; //ï¿½ï¿½ï¿½ï¿½
 	//int   m_nRate;
 	*/
 	int     GetGoldNpcLevelDataFromScript(KLuaScript * pScript, char * szDataName, int nLevel, char * szParam,int nSeries);
 public:
 	void	Init(int nIdx);
-	void	SetGoldType(BOOL bFlag);	// Éè¶¨ÊÇ·ñÎª»Æ½ð¹ÖÎï
-	void	SetGoldTypeAndBackData();	// Éè¶¨ÀàÐÍÎª»Æ½ð¹ÖÎï£¬Í¬Ê±±¸·ÝÏàÓ¦Êý¾Ý
+	void	SetGoldType(int bFlag);	// ï¿½è¶¨ï¿½Ç·ï¿½Îªï¿½Æ½ï¿½ï¿½ï¿½ï¿½
+	void	SetGoldTypeAndBackData();	// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Îªï¿½Æ½ï¿½ï¿½ï¿½ï£¬Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 	void	SetBossTypeAndBackData(int nBoss);
-	void	RecoverBackData();			// »Ö¸´¾ÉÊý¾Ý£¬±ä³ÉÆÕÍ¨npc
-	void	RandChangeGold(BOOL bGold = 0,int BossType=0,int nSubWorld=0);			// °´Ò»¶¨¸ÅÂÊ±ä³É»Æ½ð¹ÖÎï
-	int		GetGoldType();				// »ñµÃµ±Ç°»Æ½ðÀàÐÍ£¬0 ·Ç»Æ½ð¹Ö
+	void	RecoverBackData();			// ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨npc
+	void	RandChangeGold(int bGold = 0,int BossType=0,int nSubWorld=0);			// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½É»Æ½ï¿½ï¿½ï¿½ï¿½
+	int		GetGoldType();				// ï¿½ï¿½Ãµï¿½Ç°ï¿½Æ½ï¿½ï¿½ï¿½ï¿½Í£ï¿½0 ï¿½Ç»Æ½ï¿½ï¿½
 	void	SetGoldCurrentType(int nType,int nSubWorld=0);
 	void	ClientClearState();
 
@@ -79,36 +79,36 @@ public:
 
 struct	KNpcGoldTemplateInfo
 {
-// °´ÕûÊý±¶±ä»¯£¬¿É·´Ïò»Ö¸´
-	int		m_nExp;						// ¾­Ñé
-	int		m_nLife;					// ÉúÃü
-	int		m_nLifeReplenish;			// »ØÑª
-	int		m_nAttackRating;			// ÃüÖÐ
-	int		m_nDefense;					// ·ÀÓù
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½Ö¸ï¿½
+	int		m_nExp;						// ï¿½ï¿½ï¿½ï¿½
+	int		m_nLife;					// ï¿½ï¿½ï¿½ï¿½
+	int		m_nLifeReplenish;			// ï¿½ï¿½Ñª
+	int		m_nAttackRating;			// ï¿½ï¿½ï¿½ï¿½
+	int		m_nDefense;					// ï¿½ï¿½ï¿½ï¿½
 	int		m_nMinDamage;
 	int		m_nMaxDamage;
 
-// ¼Ó¼Ó¼õ¼õµÄ¶«Î÷£¬¿É·´Ïò»Ö¸´
-	int		m_nTreasure;				// ×°±¸
+// ï¿½Ó¼Ó¼ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½Ö¸ï¿½
+	int		m_nTreasure;				// ×°ï¿½ï¿½
 	int		m_nWalkSpeed;
 	int		m_nRunSpeed;
 	int		m_nAttackSpeed;
 	int		m_nCastSpeed;
 
-// ÐèÒª±¸·ÝµÄ¶«Î÷£¬²»¿É·´Ïò»Ö¸´
-	int	    m_dwSkill5ID;				// ¼¼ÄÜÃû×ª³ÉµÄid  SkillString2Id()
-	//char	m_szSkill5Level[32];		// ¼¼ÄÜµÈ¼¶
-	int 	m_szSkill5Level;		    // ¼¼ÄÜµÈ¼¶
-	int		m_nFireResist;				// »ð¿¹ÐÔ
-	int		m_nFireResistMax;			// »ð¿¹ÐÔ×î´óÖµ
-	int		m_nColdResist;				// ±ù¿¹ÐÔ
-	int		m_nColdResistMax;			// ±ù¿¹ÐÔ×î´óÖµ
-	int		m_nLightingResist;			// µç¿¹ÐÔ
-	int		m_nLightingResistMax;		// µç¿¹ÐÔ×î´óÖµ
-	int		m_nPoisonResist;			// ¶¾¿¹ÐÔ
-	int		m_nPoisonResistMax;			// ¶¾¿¹ÐÔ×î´óÖµ
-	int		m_nPhycicsResist;			// ÎïÀí¿¹ÐÔ
-	int		m_nPhycicsResistMax;		// ÎïÀí¿¹ÐÔ×î´óÖµ
+// ï¿½ï¿½Òªï¿½ï¿½ï¿½ÝµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½Ö¸ï¿½
+	int	    m_dwSkill5ID;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Éµï¿½id  SkillString2Id()
+	//char	m_szSkill5Level[32];		// ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
+	int 	m_szSkill5Level;		    // ï¿½ï¿½ï¿½ÜµÈ¼ï¿½
+	int		m_nFireResist;				// ï¿½ï¿½ï¿½ï¿½
+	int		m_nFireResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nColdResist;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nColdResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nLightingResist;			// ï¿½ç¿¹ï¿½ï¿½
+	int		m_nLightingResistMax;		// ï¿½ç¿¹ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nPoisonResist;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nPoisonResistMax;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	int		m_nPhycicsResist;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nPhycicsResistMax;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 //////////////////////////////////////////////////////
 	/*int		m_nAiMode;
 	int		m_nAiParam1;
@@ -132,8 +132,8 @@ struct	KNpcGoldTemplateInfo
 	int		m_nFireMagicBase;
 	int		m_nLightingDamageBase;
 	int		m_nLightingMagicBase;
-	//char	m_nDeathScript[128]; //ËÀÍö½Å±¾
-	//char	m_nDropRate[128]; //±¬ÂÊ
+	//char	m_nDeathScript[128]; //ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
+	//char	m_nDropRate[128]; //ï¿½ï¿½ï¿½ï¿½
 	int     m_nRate;
 	*/
 };
@@ -143,10 +143,10 @@ class KNpcGoldTemplate
 	friend class KNpcSet;
 public:
 	KNpcGoldTemplateInfo m_sInfo[defMAX_NPC_GOLD_TYEP];
-	int	 m_nEffectTypeNum; //À¶¹ÖµÄ×î´óÖÖÀà
+	int	 m_nEffectTypeNum; //ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 public:
 	KNpcGoldTemplate();
-	BOOL	Init();
+	int	Init();
 };
 //extern 	KNpcGoldTemplateInfo *m_sInfo;
 #endif

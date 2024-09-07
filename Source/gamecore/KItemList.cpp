@@ -153,7 +153,7 @@ void KItemList::GetWeaponDamage(int* nMin, int* nMax)  //武器伤害
 // Comments		:
 // Author		: Spe   玩家增加装备调用的函数！同步装备
 *****************************************************************************/
-int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoDie,int StackNum,int nIsLoign) //目标容器增加物品
+int KItemList::Add(int nIdx, int nPlace, int nX, int nY, int bInit,int nIsAutoDie,int StackNum,int nIsLoign) //目标容器增加物品
 {
 	if (nIdx <= 0)
 	{
@@ -428,7 +428,7 @@ int KItemList::Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit,int nIsAutoD
 // Comments		: 删除容器中的物品。。。。
 // Author		: Spe
 *****************************************************************************/
-BOOL KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,BOOL nIsSave)
+int KItemList::Remove(int nGameIdx,int ndX,int ndY,int nModel,int nIsSave)
 {
 	if (!nGameIdx)
 		return FALSE;
@@ -745,7 +745,7 @@ int KItemList::FindSame(int nGameIdx)
 /*!*****************************************************************************
 // Function		: KItemList::Init
 // Purpose		: 初始化玩家装备列表
-// Return		: BOOL
+// Return		: int
 // Comments		:
 // Author		: Spe 初始化容器大小
 *****************************************************************************/
@@ -791,13 +791,13 @@ int KItemList::Init(int nPlayerIdx)
 /*!*****************************************************************************
 // Function		: KItemList::CanEquip
 // Purpose		:
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx
 // Argumant		: int nPlace
 // Comments		:
 // Author		: Spe----  是否可以装备这个同伴
 *****************************************************************************/
-BOOL KItemList::CanTonEquip(int nIdx, int nPlace)
+int KItemList::CanTonEquip(int nIdx, int nPlace)
 {
 	if (m_PlayerIdx <= 0 || nIdx <= 0 || nIdx >= MAX_ITEM || Item[nIdx].GetGenre() != item_equip)
 		return FALSE;
@@ -842,13 +842,13 @@ BOOL KItemList::CanTonEquip(int nIdx, int nPlace)
 /*!*****************************************************************************
 // Function		: KItemList::CanEquip
 // Purpose		:
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx
 // Argumant		: int nPlace
 // Comments		:
 // Author		: Spe----
 *****************************************************************************/
-BOOL KItemList::CanEquip(int nIdx, int nPlace)
+int KItemList::CanEquip(int nIdx, int nPlace)
 {
 	if (m_PlayerIdx <= 0 || nIdx <= 0 || nIdx >= MAX_ITEM || Item[nIdx].GetGenre() != item_equip)
 		return FALSE;
@@ -878,7 +878,7 @@ BOOL KItemList::CanEquip(int nIdx, int nPlace)
 	return TRUE;
 }
 
-BOOL KItemList::CanEquip(KItem* pItem, int nPlace /* = -1 */)
+int KItemList::CanEquip(KItem* pItem, int nPlace /* = -1 */)
 {
 	if (m_PlayerIdx <= 0 || !pItem)
 		return FALSE;
@@ -903,7 +903,7 @@ BOOL KItemList::CanEquip(KItem* pItem, int nPlace /* = -1 */)
 	return TRUE;
 }
 //需求属性 是否可以装备
-BOOL KItemList::EnoughAttrib(void* pAttrib,int nPlace,DWORD nDwIdx)
+int KItemList::EnoughAttrib(void* pAttrib,int nPlace,unsigned long nDwIdx)
 {
 	//SearchID
 	KMagicAttrib*	pData = (KMagicAttrib *)pAttrib;
@@ -1049,13 +1049,13 @@ BOOL KItemList::EnoughAttrib(void* pAttrib,int nPlace,DWORD nDwIdx)
 /*!*****************************************************************************
 // Function		: KItemList::Equip---同伴换装
 // Purpose		:
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx，游戏世界中的道具数组编号，要求一定是装备类道具
 // Argumant		: int nPlace，身上装备的位置，-1自动找位置
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-BOOL KItemList::TonEquip(int nIdx, int nPlace,int nIsLoign)
+int KItemList::TonEquip(int nIdx, int nPlace,int nIsLoign)
 {
    //人物的换装
 	if (m_PlayerIdx <= 0 || nIdx <= 0 || item_equip != Item[nIdx].GetGenre())
@@ -1167,13 +1167,13 @@ BOOL KItemList::TonEquip(int nIdx, int nPlace,int nIsLoign)
 /*!*****************************************************************************
 // Function		: KItemList::Equip---换装
 // Purpose		:
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx，游戏世界中的道具数组编号，要求一定是装备类道具
 // Argumant		: int nPlace，身上装备的位置，-1自动找位置
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-BOOL KItemList::Equip(int nIdx, int nPlace,int nIsLoign)
+int KItemList::Equip(int nIdx, int nPlace,int nIsLoign)
 {//人物的换装
 	int nNpcIdx = Player[m_PlayerIdx].m_nIndex;
 
@@ -1456,11 +1456,11 @@ void KItemList::ReSkillEnhance(int m_PlayerIdx,int nNpcIdx)
 // Purpose		: 装备影响其他装备-没有激活的属性 开关
 // Return		: void
 // Argumant		: int nEquipPlace
-// Argumant		: BOOL bEquipUp 是装上（TRUE）还是卸下（FALSE）
+// Argumant		: int bEquipUp 是装上（TRUE）还是卸下（FALSE）
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-void KItemList::InfectionNextEquip(int nEquipPlace,BOOL bEquip)
+void KItemList::InfectionNextEquip(int nEquipPlace,int bEquip)
 {
 	if (m_PlayerIdx <= 0)
 		return;
@@ -1486,7 +1486,7 @@ void KItemList::InfectionNextEquip(int nEquipPlace,BOOL bEquip)
 }
 //全身激活
 /*
-void KItemList::InAllNextEquip(int nEquipPlace,BOOL bEquip)
+void KItemList::InAllNextEquip(int nEquipPlace,int bEquip)
 {
 	if (m_PlayerIdx <= 0)
 		return;
@@ -1510,7 +1510,7 @@ void KItemList::InAllNextEquip(int nEquipPlace,BOOL bEquip)
 	}
 }
 */
-BOOL KItemList::RemoveItemBox(int nIdx , int nPos)
+int KItemList::RemoveItemBox(int nIdx , int nPos)
 {
     int i = 0;
 	if (m_PlayerIdx <= 0)
@@ -1548,13 +1548,13 @@ BOOL KItemList::RemoveItemBox(int nIdx , int nPos)
 /*!*****************************************************************************
 // Function		: KItemList::UnEquip
 // Purpose		: 移除同伴装备
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx 游戏世界中的道具数组索引
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
 
-BOOL KItemList::UnTonEquip(int nIdx, int nPos)
+int KItemList::UnTonEquip(int nIdx, int nPos)
 {
    	int i = 0,nTonNpcIdx=0;
 
@@ -1617,12 +1617,12 @@ BOOL KItemList::UnTonEquip(int nIdx, int nPos)
 /*!*****************************************************************************
 // Function		: KItemList::UnEquip
 // Purpose		: 移除装备
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx 游戏世界中的道具数组索引
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-BOOL KItemList::UnEquip(int nIdx, int nPos)
+int KItemList::UnEquip(int nIdx, int nPos)
 {
 	int i = 0;
 	if (m_PlayerIdx <= 0)
@@ -1787,13 +1787,13 @@ BOOL KItemList::UnEquip(int nIdx, int nPos)
 /*!*****************************************************************************
 // Function		: KItemList::UnTimeEquip  //移除时间到的属性
 // Purpose		: 移除装备
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx 游戏世界中的道具数组索引
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
 
-BOOL  KItemList::tempUnEquip(int nIdx,int nPos)
+int  KItemList::tempUnEquip(int nIdx,int nPos)
 {
 	int i = 0;
 	if (m_PlayerIdx <= 0)
@@ -1867,7 +1867,7 @@ BOOL  KItemList::tempUnEquip(int nIdx,int nPos)
 	return TRUE;
 }
 
-BOOL KItemList::TimeUnEquip(int nIdx, int nPos)
+int KItemList::TimeUnEquip(int nIdx, int nPos)
 {
 	int i = 0;
 	if (m_PlayerIdx <= 0)
@@ -2005,15 +2005,15 @@ int KItemList::GetEquipPlace(int nType)
 /*!*****************************************************************************
 // Function		: KItemList::Fit
 // Purpose		:
-// Return		: BOOL
+// Return		: int
 // Argumant		: int nIdx
 // Argumant		: int nPlace
 // Comments		:
 // Author		: Spe
 *****************************************************************************/
-BOOL KItemList::Fit(int nIdx, int nPlace)
+int KItemList::Fit(int nIdx, int nPlace)
 {
-	BOOL	bRet = FALSE;
+	int	bRet = FALSE;
 	//_ASSERT(Item[nIdx].GetGenre() == item_equip);
 	if (Item[nIdx].GetGenre() != item_equip) return false;
 
@@ -2080,9 +2080,9 @@ BOOL KItemList::Fit(int nIdx, int nPlace)
 	return bRet;
 }
 
-BOOL KItemList::Fit(KItem* pItem, int nPlace)
+int KItemList::Fit(KItem* pItem, int nPlace)
 {
-	BOOL	bRet = FALSE;
+	int	bRet = FALSE;
 	//_ASSERT(pItem->GetGenre() == item_equip);
 	if (pItem->GetGenre() != item_equip) return false;
 	switch(pItem->GetDetailType())
@@ -2183,7 +2183,7 @@ int KItemList::GetEquipEnhance(int nPlace)
 	return nRet;
 }
 //服务器端 吃药品 执行脚本  --右键执行脚本
-BOOL KItemList::EatMecidineS(int nIdx,int nx,int nY)
+int KItemList::EatMecidineS(int nIdx,int nx,int nY)
 {
 	if (m_PlayerIdx <= 0)
 		return FALSE;
@@ -2317,7 +2317,7 @@ int KItemList::UseItem(int nIdx,int cnx,int cny)
 				   nSplace = itempart_ring2;
 				 //开始检测包袱
 			}
-			DWORD nItemDwId=0;
+			unsigned long nItemDwId=0;
 			if (CanEquip(nIdx,nSplace)) //部位是否合适该装备
 			{//开始换装 和卸装备
 				//ClientShowMsg("<color=yellow>换装<color>:该装备满足换装条件");
@@ -2406,7 +2406,7 @@ int KItemList::GetFreePositionCount(int nWidth, int nHeight,int RoomKind)
 }
 //寻找空位置
 //#ifndef _SERVER
-BOOL KItemList::SearchPosition(int nWidth, int nHeight, ItemPos* pPos)
+int KItemList::SearchPosition(int nWidth, int nHeight, ItemPos* pPos)
 {
 	if (nWidth < 1 || nHeight < 1 || NULL == pPos)
 	{
@@ -2436,7 +2436,7 @@ BOOL KItemList::SearchPosition(int nWidth, int nHeight, ItemPos* pPos)
 }
 
 //自动换装
-void KItemList::AutoEquip(ItemPos SrcPos,ItemPos DesPos,DWORD nSrcItemDwIdx,int nEuqPlace,int nKind)
+void KItemList::AutoEquip(ItemPos SrcPos,ItemPos DesPos,unsigned long nSrcItemDwIdx,int nEuqPlace,int nKind)
 {
     if (!nSrcItemDwIdx)
 	   	return;
@@ -2612,7 +2612,7 @@ void KItemList::AutoEquip(ItemPos SrcPos,ItemPos DesPos,DWORD nSrcItemDwIdx,int 
 //#ifndef _SERVER
 
 //Check o trong trong hanh trang Kientm
-BOOL KItemList::SearchItemPositionKienTM(int nWidth, int nHeight,int posX,int posY,int roomType)
+int KItemList::SearchItemPositionKienTM(int nWidth, int nHeight,int posX,int posY,int roomType)
 {
 	if (nWidth < 1 || nHeight < 1 || posX < 0 || posY < 0)
 	{
@@ -2627,7 +2627,7 @@ BOOL KItemList::SearchItemPositionKienTM(int nWidth, int nHeight,int posX,int po
 	return TRUE;
 }
 
-BOOL KItemList::SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType)
+int KItemList::SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType)
 {
 	if (nWidth < 1 || nHeight < 1 || NULL == pPos)
 	{
@@ -2694,7 +2694,7 @@ int	KItemList::SearchID(int nID)
 		nIdx = m_UseIdxItemList.GetNext(nIdx);
 		if (!nIdx)
 			break;
-		if (Item[m_Items[nIdx].nIdx].GetID() == (DWORD)nID)
+		if (Item[m_Items[nIdx].nIdx].GetID() == (unsigned long)nID)
 			return m_Items[nIdx].nIdx;
 	}
 	return 0;
@@ -2711,7 +2711,7 @@ int	KItemList::SearchItemsIdx(int nDwid)
 		nItemIdx = m_UseIdxItemList.GetNext(nItemIdx);
 		if (!nItemIdx)
 			break;
-		if (Item[m_Items[nItemIdx].nIdx].GetID() == (DWORD)nDwid)
+		if (Item[m_Items[nItemIdx].nIdx].GetID() == (unsigned long)nDwid)
 			return nItemIdx;
 	}
 	return 0;
@@ -2772,7 +2772,7 @@ int KItemList::GetEquipmentXu()
 }
 
 
-BOOL KItemList::AddmServer(int nRoom, int nMi)
+int KItemList::AddmServer(int nRoom, int nMi)
 {
 	if (nRoom < 0 || nRoom >= room_num)
 		return FALSE;
@@ -2783,7 +2783,7 @@ BOOL KItemList::AddmServer(int nRoom, int nMi)
 	return TRUE;
 }
 //增加金币
-BOOL KItemList::AddxCliet(int nRoom, int ni)
+int KItemList::AddxCliet(int nRoom, int ni)
 {
 	if (nRoom < 0 || nRoom >= room_num)
 		return FALSE;
@@ -2793,7 +2793,7 @@ BOOL KItemList::AddxCliet(int nRoom, int ni)
 	return TRUE;
 }
 
-BOOL KItemList::CostMoney(int nMoney)
+int KItemList::CostMoney(int nMoney)
 {
 	if (nMoney > GetEquipmentMoney())
 		return FALSE;
@@ -2803,7 +2803,7 @@ BOOL KItemList::CostMoney(int nMoney)
 	return TRUE;
 }
 //减少金币
-BOOL KItemList::CostXu(int nXu)
+int KItemList::CostXu(int nXu)
 {
 	if (nXu > GetEquipmentXu())
 		return FALSE;
@@ -2814,7 +2814,7 @@ BOOL KItemList::CostXu(int nXu)
 	return TRUE;
 }
 
-BOOL KItemList::DecMoney(int nMoney)
+int KItemList::DecMoney(int nMoney)
 {
 	if (nMoney < 0)
 		return FALSE;
@@ -2835,7 +2835,7 @@ BOOL KItemList::DecMoney(int nMoney)
 	return TRUE;
 }
 /*
-BOOL KItemList::DecXu(int nXu)
+int KItemList::DecXu(int nXu)
 {
 	if (nXu < 0)
 		return FALSE;
@@ -4079,7 +4079,7 @@ void KItemList::ExchangeItem(ItemPos* SrcPos, ItemPos* DesPos,int nIsMianBam)
 }
 
 //多容器材料检测
-BOOL KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
+int KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
 {
 	  int nPartTyep[3],nReg=FALSE;
 	  ZeroMemory(nPartTyep,sizeof(nPartTyep));
@@ -4140,12 +4140,12 @@ BOOL KItemList::CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan)
 //---------------------------------------------------------------------
 //	功能：物品从一个地方直接移动到另一个地方，不经过鼠标这个中间过程
 //---------------------------------------------------------------------
-BOOL	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID)
+int	KItemList::AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID)
 {
 	//if (Player[this->m_PlayerIdx].CheckTrading())	// 如果正在交易
 	//	return FALSE;
 
-	BOOL bMove = FALSE;
+	int bMove = FALSE;
 	int	 nIdx=0, nListIdx=0,nItemIdx=0;
 	int  nSrcRoom=0,nDesRoom=0;
 	if (SrcPos.nPlace==pos_repositoryroom)
@@ -4648,7 +4648,7 @@ int KItemList::GetWeaponParticular()
 //--------------------------------------------------------------------------
 //	功能：判断一定长宽的物品能否放进物品栏 (为了服务器效率，本函数里面没有调用其他函数)
 //--------------------------------------------------------------------------
-BOOL	KItemList::CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int *pnY,int nRoomType)
+int	KItemList::CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int *pnY,int nRoomType)
 {
 	if (nWidth <= 0 || nHeight <= 0 || !pnX || !pnY)
 		return FALSE;
@@ -4710,7 +4710,7 @@ BOOL	KItemList::CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int 
 //------------------------------------------------------------------------------
 //	功能：在room_equipment中查找指定Genre和DetailType的物品，得到ItemIdx和位置
 //------------------------------------------------------------------------------
-BOOL	KItemList::FindSameDetailTypeInEquipment(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY)
+int	KItemList::FindSameDetailTypeInEquipment(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY)
 {
 	return m_Room[room_equipment].FindSameDetailType(nGenre, nDetail, pnIdx, pnX, pnY);
 }
@@ -4815,7 +4815,7 @@ int		KItemList::GetSameEquipmentItemNum(int nIdx)
 }
 
 //黄金套装激活
-BOOL KItemList::GetIfActive()
+int KItemList::GetIfActive()
 {
 	int nSet[9][2],bIfGet,nNum = 0;
 	ZeroMemory(nSet,sizeof(nSet));
@@ -5065,7 +5065,7 @@ for (int i = 0;i < MAX_PLAYER_ITEM;++i)
 }
 
 // mat na
-void KItemList::SetMaskLock( BOOL bFlag )
+void KItemList::SetMaskLock( int bFlag )
 {
 	m_nMaskLock = bFlag;
 }

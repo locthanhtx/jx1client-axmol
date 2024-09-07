@@ -16,7 +16,7 @@ class KCacheNode : public KStrNode
 {
 public:
 	PVOID	m_lpData;			//����ָ��
-	LONG	m_Ref;				//��֡�Ƿ�����
+	int	m_Ref;				//��֡�Ƿ�����
 public:
 	KCacheNode() {m_Ref = 0; m_lpData = NULL;};
 };
@@ -24,16 +24,16 @@ public:
 class  KCache
 {
 public:
-	LONG m_nMaxNode;			//������ڵ���
-	LONG m_nLimitNode;			//�趨�Ķ���ڵ���
+	int m_nMaxNode;			//������ڵ���
+	int m_nLimitNode;			//�趨�Ķ���ڵ���
 	KStrList m_HashList;		//�����ϣ����
 public:
 	KCache();
 	~KCache();
-	virtual void Init(int32_t nMaxNode=256);
+	virtual void Init(int nMaxNode=256);
 	virtual KCacheNode* NewNode(char* lpName);
 	virtual KCacheNode* GetNode(char* lpName, KCacheNode* lpNode);
-	virtual BOOL LoadNode(KCacheNode* lpNode){return FALSE;};
+	virtual int LoadNode(KCacheNode* lpNode){return FALSE;};
 	virtual void FreeNode(KCacheNode* lpNode){};
 	void	ClearNode(char * lpName);//���ĳ�����
 	void	Prepare();

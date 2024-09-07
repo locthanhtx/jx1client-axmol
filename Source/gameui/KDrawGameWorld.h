@@ -33,7 +33,7 @@ private:
 public:
 	KDrawGameWorld();
 	~KDrawGameWorld();
-	//BOOL	LoadSerMaps(LPSTR szFileName);
+	//int	LoadSerMaps(char* szFileName);
 };
 extern  KDrawGameWorld g_DrawGameWorld;
 #endif

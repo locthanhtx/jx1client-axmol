@@ -12,9 +12,9 @@
 //---------------------------------------------------------------------------
 //ENGINE_API unsigned __int64 g_Random(UINT nMax);
 //ENGINE_API  unsigned __int64 g_GetRandomSeed();
-void g_RandomSeed(uint32_t nSeed);
-uint32_t g_GetRandomSeed();
-uint32_t g_Random(uint32_t nMax);
+void g_RandomSeed(unsigned int nSeed);
+unsigned int g_GetRandomSeed();
+unsigned int g_Random(unsigned int nMax);
 
 //---------------------------------------------------------------------------
 #endif

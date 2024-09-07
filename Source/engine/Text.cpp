@@ -13,7 +13,7 @@
 #ifndef __linux
 #include <crtdbg.h>
 #else
-#define HRESULT	int32_t
+#define HRESULT	int
 #define S_OK 0
 #endif
 
@@ -25,7 +25,7 @@
 
 
 IInlinePicEngineSink* g_pIInlinePicSink = NULL;	//Ƕ��ʽͼƬ�Ĵ���ӿ�[wxb 2003-6-19]
-extern "C"  int32_t
+extern "C"  int
 AdviseEngine(IInlinePicEngineSink* pSink)
 {
 	//_ASSERT(NULL == g_pIInlinePicSink);	//һ�㲻��ҽ�����
@@ -37,7 +37,7 @@ AdviseEngine(IInlinePicEngineSink* pSink)
 	return 1;
 }
 
-extern "C"  int32_t
+extern "C"  int
 UnAdviseEngine(IInlinePicEngineSink* pSink)
 {
 	if (pSink == g_pIInlinePicSink)
@@ -68,10 +68,10 @@ unsigned char	s_NotAllowAtLineHead00Characters[NUM_CHARACTER_IN_00] =
 extern "C"
 void TReplaceText(char* pBuffer, const char* pszName1, const char* pszName2)
 {
-	int32_t nMsgLen=strlen(pBuffer);
-	int32_t nMsgLen1=strlen(pszName1);
-	int32_t nMsgLen2=strlen(pszName2);
-	int32_t i=0,j=0,pst=0;
+	int nMsgLen=strlen(pBuffer);
+	int nMsgLen1=strlen(pszName1);
+	int nMsgLen2=strlen(pszName2);
+	int i=0,j=0,pst=0;
 	while(pBuffer[i])
 	{
 		pst=i;
@@ -99,9 +99,9 @@ void TReplaceText(char* pBuffer, const char* pszName1, const char* pszName2)
 
 
 extern "C"
-int32_t EGetBit(int32_t nIntValue,int32_t nBitNumber)
+int EGetBit(int nIntValue,int nBitNumber)
 {
-	int32_t nBitValue = 0;
+	int nBitValue = 0;
 
 	if (nBitNumber >= 32 || nBitNumber <= 0)
 		return nIntValue;
@@ -112,7 +112,7 @@ int32_t EGetBit(int32_t nIntValue,int32_t nBitNumber)
 }
 
 extern "C"
-int32_t ESetBit(int32_t nIntValue,int32_t nBitNumber,int32_t nBitValue)
+int ESetBit(int nIntValue,int nBitNumber,int nBitValue)
 {
 
 	nBitValue = (nBitValue == 1);
@@ -126,7 +126,7 @@ int32_t ESetBit(int32_t nIntValue,int32_t nBitNumber,int32_t nBitValue)
 }
 
 extern "C"
-int32_t FilterTextColor(char* pMsgBuff, unsigned short nMsgLength)
+int FilterTextColor(char* pMsgBuff, unsigned short nMsgLength)
 {
 	nMsgLength = TClearSpecialCtrlInEncodedText(pMsgBuff, nMsgLength, KTC_ENTER);          //��ֹ�س�����
 	nMsgLength = TClearSpecialCtrlInEncodedText(pMsgBuff, nMsgLength, KTC_COLOR);          //��ֹ��ɫ����
@@ -140,7 +140,7 @@ int32_t FilterTextColor(char* pMsgBuff, unsigned short nMsgLength)
 }
 
 extern "C"
-int32_t  ESetByte(int32_t nIntValue,int32_t nByteNumber,int32_t nByteValue)
+int  ESetByte(int nIntValue,int nByteNumber,int nByteValue)
 {
 	unsigned char * pByte =	NULL;
 
@@ -156,9 +156,9 @@ int32_t  ESetByte(int32_t nIntValue,int32_t nByteNumber,int32_t nByteValue)
 	return nIntValue;
 }
 extern "C"
-int32_t  EGetByte(int32_t nIntValue,int32_t nByteNumber)
+int  EGetByte(int nIntValue,int nByteNumber)
 {
-	int32_t nByteValue = 0;
+	int nByteValue = 0;
 
 	if (nByteNumber > 4 || nByteNumber <= 0)
 		return nByteValue;
@@ -170,7 +170,7 @@ int32_t  EGetByte(int32_t nIntValue,int32_t nByteNumber)
 
 //ת�����ַ��� ��ɫ
 extern "C"
-const char* TGetColorStr(uint32_t nColor)
+const char* TGetColorStr(unsigned int nColor)
 {
 	static char szColor[12];
 	KERColor c;
@@ -182,16 +182,16 @@ const char* TGetColorStr(uint32_t nColor)
 }
 
 extern "C"
-uint32_t TGetColor(const char* pColor)
+unsigned int TGetColor(const char* pColor)
 {
 	if (pColor == NULL)
 		return false;
 
-	uint32_t Color = 0xFF000000;
+	unsigned int Color = 0xFF000000;
 
 	char Buf[16] = "";
-	int32_t  i = 0;
-	int32_t  n = 0;
+	int  i = 0;
+	int  n = 0;
 	while (pColor[i] != ',')
 	{
 		if (pColor[i] == 0 || n >= 15)
@@ -228,9 +228,9 @@ uint32_t TGetColor(const char* pColor)
 
 //���ĳ���ַ��Ƿ�Ϊ����������׵��ַ������������ַ��򷵻�0�����򷵻��ַ�ռ���ӽ���
 extern "C"
-int32_t TIsCharacterNotAlowAtLineHead(const char* pCharacter)
+int TIsCharacterNotAlowAtLineHead(const char* pCharacter)
 {
-	int32_t				i;
+	int				i;
 	unsigned char	cChar;
 	cChar = (unsigned char)(*pCharacter);
 	if (cChar == 0xa3)
@@ -264,7 +264,7 @@ int32_t TIsCharacterNotAlowAtLineHead(const char* pCharacter)
 
 //��ȡ���е��¸���ʾ�ַ�
 extern "C"
-const char* TGetSecondVisibleCharacterThisLine(const char* pCharacter, int32_t nPos, int32_t nLen)
+const char* TGetSecondVisibleCharacterThisLine(const char* pCharacter, int nPos, int nLen)
 {
 	if (pCharacter && nLen > 0)
 	{
@@ -305,9 +305,9 @@ const char* TGetSecondVisibleCharacterThisLine(const char* pCharacter, int32_t n
 //	ע�ͣ�Chinese GBK����汾�����ַ������ַ�ȫ����Ϊ��ʾ�ַ��������������ַ�
 //--------------------------------------------------------------------------
 extern "C"
-int32_t TSplitString(const char* pString, int32_t nDesirePos, int32_t bLess)
+int TSplitString(const char* pString, int nDesirePos, int bLess)
 {
-	int32_t	nPos = 0;
+	int	nPos = 0;
 	if (pString)
 	{
 		nDesirePos -= 2;
@@ -353,9 +353,9 @@ int32_t TSplitString(const char* pString, int32_t nDesirePos, int32_t bLess)
 //	ע�ͣ�Chinese GBK����汾�����ַ����пɰ����Ѿ�����Ŀ��Ʒ�
 //--------------------------------------------------------------------------
 extern "C"
-int32_t	TSplitEncodedString(const char* pString, int32_t nCount, int32_t nDesirePos, int32_t bLess)
+int	TSplitEncodedString(const char* pString, int nCount, int nDesirePos, int bLess)
 {
-	int32_t	nPos = 0;
+	int	nPos = 0;
 	if (pString)
 	{
 		if (nDesirePos <= nCount)
@@ -456,7 +456,7 @@ static	const KCtrlTable	s_CtrlTable[] =
 };
 */
 //���������Ŀ
-static	const int32_t	s_nCtrlCount = sizeof(s_CtrlTable)/sizeof(KCtrlTable);
+static	const int	s_nCtrlCount = sizeof(s_CtrlTable)/sizeof(KCtrlTable);
 
 //��ɫ�ṹ
 typedef struct _KColorTable
@@ -502,26 +502,26 @@ B=11
 */
 
 //��ɫ����Ŀ
-static	const int32_t	s_nColorCount = sizeof(s_ColorTable)/sizeof(KColorTable);
+static	const int	s_nColorCount = sizeof(s_ColorTable)/sizeof(KColorTable);
 
 //Ƕ��ͼƬ[wxb 2003-6-19]
 #define MAXPICTOKENLEN	16
 
 
-static bool TEncodeCtrl(char* pBuffer, int32_t nCount, int32_t& nReadPos, int32_t& nShortCount);
-static int32_t  TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen, char* pEncodedBuffer);
+static bool TEncodeCtrl(char* pBuffer, int nCount, int& nReadPos, int& nShortCount);
+static int  TEncodeCtrlc(int nCtrl, char* pParamBuffer, int nParamLen, char* pEncodedBuffer);
 
 
 
 
 extern "C"
-	int32_t	_TEncodeText(char* pBuffer, int32_t nCount)
+	int	_TEncodeText(char* pBuffer, int nCount)
 {
-	int32_t nShortCount = 0;
+	int nShortCount = 0;
 	if (pBuffer)
 	{
 		unsigned char	cCharacter;
-		int32_t		nReadPos = 0;
+		int		nReadPos = 0;
 		while(nReadPos < nCount)
 		{
 			cCharacter = pBuffer[nReadPos]; //�ֽ�
@@ -573,13 +573,13 @@ extern "C"
 //	���ܣ����ı����еĿ��Ʊ�ǽ���ת����ȥ����Ч�ַ��������ı����洢����
 //--------------------------------------------------------------------------
 extern "C"
-int32_t	TEncodeText_(char* pBuffer, int32_t nCount)
+int	TEncodeText_(char* pBuffer, int nCount)
 {
-	int32_t nShortCount = 0;
+	int nShortCount = 0;
 	if (pBuffer)
 	{
 		unsigned char	cCharacter;
-		int32_t		nReadPos = 0;
+		int		nReadPos = 0;
 		while(nReadPos < nCount)
 		{
 			cCharacter = pBuffer[nReadPos]; //�ֽ�
@@ -630,14 +630,14 @@ int32_t	TEncodeText_(char* pBuffer, int32_t nCount)
 //	���ܣ����ı����еĿ��Ʊ�ǽ���ת����ȥ����Ч�ַ��������ı����洢����
 //--------------------------------------------------------------------------
 extern "C"
-int32_t	TEncodeText(char* pBuffer, int32_t nCount)
+int	TEncodeText(char* pBuffer, int nCount)
 {
-	int32_t nShortCount = 0;
+	int nShortCount = 0;
 #ifdef WIN32
 	if (pBuffer)
 	{
 		unsigned char	cCharacter;
-		int32_t		nReadPos = 0;
+		int		nReadPos = 0;
 		while(nReadPos < nCount)
 		{/*
 		 if (c<=127) i+=0;
@@ -690,7 +690,7 @@ int32_t	TEncodeText(char* pBuffer, int32_t nCount)
 	if (pBuffer)
 	{
 		unsigned char	cCharacter;
-		int32_t		nReadPos = 0;
+		int		nReadPos = 0;
 		while(nReadPos < nCount)
 		{
 			cCharacter = pBuffer[nReadPos]; //�ֽ�
@@ -754,13 +754,13 @@ int32_t	TEncodeText(char* pBuffer, int32_t nCount)
 //	���ܣ����ı����еĿ��Ʊ�ǽ���ת����ȥ����Ч�ַ��������ı����洢����
 //--------------------------------------------------------------------------
 extern "C"
-int32_t TFilterEncodedText(char* pBuffer, int32_t nCount)
+int TFilterEncodedText(char* pBuffer, int nCount)
 {
-	int32_t nShortCount = 0;
+	int nShortCount = 0;
 	if (pBuffer)
 	{
 		unsigned char	cCharacter;
-		int32_t nReadPos = 0;
+		int nReadPos = 0;
 		while(nReadPos < nCount)
 		{
 			cCharacter = pBuffer[nReadPos];
@@ -788,7 +788,7 @@ int32_t TFilterEncodedText(char* pBuffer, int32_t nCount)
 			{
 				if (nReadPos + 4 < nCount)
 				{
-					*(int32_t*)(pBuffer + nShortCount) = *(int32_t*)(pBuffer + nReadPos);
+					*(int*)(pBuffer + nShortCount) = *(int*)(pBuffer + nReadPos);
 					nShortCount += 4;
 					nReadPos += 4;
 				}
@@ -800,7 +800,7 @@ int32_t TFilterEncodedText(char* pBuffer, int32_t nCount)
 			}
 			else if (cCharacter == KTC_INLINE_PIC)
 			{
-				if ((int32_t)(nReadPos + 1 + sizeof(unsigned short)) < nCount)   //
+				if ((int)(nReadPos + 1 + sizeof(unsigned short)) < nCount)   //
 				{
 					memcpy(pBuffer + nShortCount, pBuffer + nReadPos, 1 + sizeof(unsigned short));;
 					nShortCount += 1 + sizeof(unsigned short);
@@ -825,17 +825,17 @@ int32_t TFilterEncodedText(char* pBuffer, int32_t nCount)
 //--------------------------------------------------------------------------
 //	���ܣ�����ת�����Ʒ�
 //--------------------------------------------------------------------------
-static bool TEncodeCtrl(char* pBuffer, int32_t nCount, int32_t& nReadPos, int32_t& nShortCount)
+static bool TEncodeCtrl(char* pBuffer, int nCount, int& nReadPos, int& nShortCount)
 {
 
 	//_ASSERT(pBuffer != NULL && nReadPos < nCount && nShortCount < nCount && nShortCount <= nReadPos);
 	if  (pBuffer==NULL || nReadPos>= nCount || nShortCount>=nCount || nShortCount>nReadPos)
 	    return false;
 
-	int32_t nCtrlCodeSize, nEndPos, m_Ctrl;
+	int nCtrlCodeSize, nEndPos, m_Ctrl;
 
 	//Ѱ�ҽ�������'='��λ�û�'>'��λ��
-	int32_t nEqualPos = nReadPos + 1;
+	int nEqualPos = nReadPos + 1;
 	for (; nEqualPos < nCount && nEqualPos <= nReadPos + KTC_CTRL_CODE_MAX_LEN; nEqualPos++)
 		if (pBuffer[nEqualPos] == '>' || pBuffer[nEqualPos] == '=')  //�ҵ� ��������
 			break;	//�ҵ�������
@@ -884,7 +884,7 @@ NO_MATCHING_CTRL:
 //--------------------------------------------------------------------------
 //	���ܣ�ת�����洢������������Ʋ���
 //--------------------------------------------------------------------------
-static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen, char* pEncodedBuffer)
+static int TEncodeCtrlc(int nCtrl, char* pParamBuffer, int nParamLen, char* pEncodedBuffer)
 {
 	//_ASSERT(pEncodedBuffer && (nParamLen == 0 || pParamBuffer != NULL));
 	//if (pEncodedBuffer==NULL || (pParamBuffer==NULL && nParamLen!=0))
@@ -899,7 +899,7 @@ static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen
 	else
 		return 0;*/
 
-	int32_t nEncodedSize = 0;
+	int nEncodedSize = 0;
 	static char	Color[8];
 	static char	szPic[MAXPICTOKENLEN];
 	//static char	szPicPath[128];
@@ -915,7 +915,7 @@ static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen
 			memcpy(szPic, pParamBuffer, nParamLen);
 			szPic[nParamLen] = 0;
 			pEncodedBuffer[nEncodedSize] = KTC_INLINE_PIC;
-			*((unsigned short*)(pEncodedBuffer + nEncodedSize + 1)) = atoi(szPic); //char ת int32_t
+			*((unsigned short*)(pEncodedBuffer + nEncodedSize + 1)) = atoi(szPic); //char ת int
 			nEncodedSize += 1 + sizeof(unsigned short);
 		}
 		break;
@@ -947,7 +947,7 @@ static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen
 		{
 			memcpy(Color, pParamBuffer, nParamLen);
 			Color[nParamLen] = 0;
-			for (int32_t i = 0; i < s_nColorCount; ++i)
+			for (int i = 0; i < s_nColorCount; ++i)
 			{
 #ifndef __linux
 				if (stricmp(Color,s_ColorTable[i].Token) == 0)
@@ -974,7 +974,7 @@ static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen
 		{
 			memcpy(Color, pParamBuffer, nParamLen);
 			Color[nParamLen] = 0;
-			for (int32_t i = 0; i < s_nColorCount; ++i)
+			for (int i = 0; i < s_nColorCount; ++i)
 			{
 #ifndef __linux
 				if (stricmp(Color,s_ColorTable[i].Token) == 0)
@@ -998,11 +998,11 @@ static int32_t TEncodeCtrlc(int32_t nCtrl, char* pParamBuffer, int32_t nParamLen
 }
 
 extern "C"
-int32_t	TRemoveCtrlInEncodedText(char* pBuffer, int32_t nCount)
+int	TRemoveCtrlInEncodedText(char* pBuffer, int nCount)
 {
-	int32_t nLen = 0;
+	int nLen = 0;
 	nCount = TFilterEncodedText(pBuffer, nCount);
-	for (int32_t nPos = 0; nPos < nCount; nPos++)
+	for (int nPos = 0; nPos < nCount; nPos++)
 	{
 		char cCharacter = pBuffer[nPos];
 		if (cCharacter == KTC_COLOR || cCharacter == KTC_BORDER_COLOR)
@@ -1028,11 +1028,11 @@ int32_t	TRemoveCtrlInEncodedText(char* pBuffer, int32_t nCount)
 //		nNumLineLimit	�����ı���������������������Ŀ֮������ݱ����ԡ������ֵС�ڵ���0���ʾ�޴����ơ�
 //���أ��ı�������
 //extern "C"
-//int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nWrapCharaNum, int32_t& nMaxLineLen, int32_t nFontSize, int32_t nSkipLine = 0, int32_t nNumLineLimit = 0)
+//int	TGetEncodedTextLineCount(const char* pBuffer, int nCount, int nWrapCharaNum, int& nMaxLineLen, int nFontSize, int nSkipLine = 0, int nNumLineLimit = 0)
 extern "C"
-int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nWrapCharaNum, int32_t& nMaxLineLen, int32_t nFontSize, int32_t nSkipLine, int32_t nNumLineLimit,
-							 int32_t bPicSingleLine/* = FALSE*/)
-//int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nWrapCharaNum, int32_t& nMaxLineLen, int32_t nFontSize, int32_t nSkipLine = 0, int32_t nLineLimit = 0, int32_t bPicSingleLine = false);
+int	TGetEncodedTextLineCount(const char* pBuffer, int nCount, int nWrapCharaNum, int& nMaxLineLen, int nFontSize, int nSkipLine, int nNumLineLimit,
+							 int bPicSingleLine/* = FALSE*/)
+//int	TGetEncodedTextLineCount(const char* pBuffer, int nCount, int nWrapCharaNum, int& nMaxLineLen, int nFontSize, int nSkipLine = 0, int nLineLimit = 0, int bPicSingleLine = false);
 {
 	//��һ����ֵ��ó��� [wxb 2003-6-20]
 	//_ASSERT(nFontSize >= 4 && nFontSize < 64);
@@ -1050,8 +1050,8 @@ int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nW
 		nCount = strlen(pBuffer);
 
 	float fNumChars = 0;
-	int32_t nNumLine = 0;
-	int32_t nPos = 0;
+	int nNumLine = 0;
+	int nPos = 0;
 	unsigned char	cCode;
 
 	if (nWrapCharaNum <= 0)
@@ -1063,7 +1063,7 @@ int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nW
 
 	bool bNextLine = false;
 	float fNumNextLineChar = 0;
-	int32_t  nExtraLineForInlinePic = 0;
+	int  nExtraLineForInlinePic = 0;
 	while(nPos < nCount)
 	{
 		cCode = pBuffer[nPos];
@@ -1092,12 +1092,12 @@ int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nW
 			nPos += 1 + sizeof(unsigned short);
 			if (g_pIInlinePicSink)
 			{
-				int32_t nWidth, nHeight;
+				int nWidth, nHeight;
 				if (g_pIInlinePicSink->GetPicSize(wPicIndex, nWidth, nHeight))
 				{
 					if (nHeight > nFontSize)
 					{
-						int32_t nExtraLines = nHeight - nFontSize;
+						int nExtraLines = nHeight - nFontSize;
 						nExtraLines = nExtraLines / nFontSize + ((nExtraLines % nFontSize) ? 1 : 0);
 						if (nExtraLines > nExtraLineForInlinePic && !bPicSingleLine)
 							nExtraLineForInlinePic = nExtraLines;
@@ -1179,12 +1179,12 @@ int32_t	TGetEncodedTextLineCount(const char* pBuffer, int32_t nCount, int32_t nW
 		nNumLine += 1 + nExtraLineForInlinePic;
 	}
 
-	nMaxLineLen = (int32_t)(fMaxLineLen + (float)0.9999);	//��1
+	nMaxLineLen = (int)(fMaxLineLen + (float)0.9999);	//��1
 	return nNumLine;
 }
 
 //���ָ���еĿ�ʼλ��
-int32_t TGetEncodeStringLineHeadPos(const char* pBuffer, int32_t nCount, int32_t nLine, int32_t nWrapCharaNum, int32_t nFontSize, int32_t bPicSingleLine)
+int TGetEncodeStringLineHeadPos(const char* pBuffer, int nCount, int nLine, int nWrapCharaNum, int nFontSize, int bPicSingleLine)
 {
 	//��һ����ֵ��ó��� [wxb 2003-6-20]
 	//_ASSERT(nFontSize > 1 && nFontSize < 64);
@@ -1202,8 +1202,8 @@ int32_t TGetEncodeStringLineHeadPos(const char* pBuffer, int32_t nCount, int32_t
 		nCount = strlen(pBuffer);
 
 	float fNumChars = 0;
-	int32_t  nExtraLineForInlinePic = 0;
-	int32_t nPos = 0;
+	int  nExtraLineForInlinePic = 0;
+	int nPos = 0;
 	unsigned char	cCode;
 
 	if (nWrapCharaNum <= 0)
@@ -1239,12 +1239,12 @@ int32_t TGetEncodeStringLineHeadPos(const char* pBuffer, int32_t nCount, int32_t
 			nPos += 1 + sizeof(unsigned short);
 			if (g_pIInlinePicSink)
 			{
-				int32_t nWidth, nHeight;
+				int nWidth, nHeight;
 				if (g_pIInlinePicSink->GetPicSize(wPicIndex, nWidth, nHeight))
 				{
 					if (nHeight > nFontSize)
 					{
-						int32_t nExtraLines = nHeight - nFontSize;
+						int nExtraLines = nHeight - nFontSize;
 						nExtraLines = nExtraLines / nFontSize + ((nExtraLines % nFontSize) ? 1 : 0);
 						if (nExtraLines > nExtraLineForInlinePic && !bPicSingleLine)
 							nExtraLineForInlinePic = nExtraLines;
@@ -1318,8 +1318,8 @@ int32_t TGetEncodeStringLineHeadPos(const char* pBuffer, int32_t nCount, int32_t
 
 extern "C"
 //���ԭ(�������Ʒ�)�ַ������ȣ�������β���������޶��ĳ��ȣ���ض���������..��׺
-const char* TGetLimitLenEncodedString(const char* pOrigString, int32_t nOrigLen, int32_t nFontSize,
-	int32_t nWrapCharaNum, char* pLimitLenString, int32_t& nShortLen, int32_t nLineLimit, int32_t bPicPackInSingleLine/*=false*/)
+const char* TGetLimitLenEncodedString(const char* pOrigString, int nOrigLen, int nFontSize,
+	int nWrapCharaNum, char* pLimitLenString, int& nShortLen, int nLineLimit, int bPicPackInSingleLine/*=false*/)
 {
 	if (pOrigString == NULL || pLimitLenString == NULL ||
 		nOrigLen <= 0 || nShortLen < 2 || nLineLimit < 1 || nWrapCharaNum < 2)
@@ -1328,7 +1328,7 @@ const char* TGetLimitLenEncodedString(const char* pOrigString, int32_t nOrigLen,
 		return NULL;
 	}
 
-	int32_t nPreLineEndPos = 0, nFinalLineEndPos;
+	int nPreLineEndPos = 0, nFinalLineEndPos;
 	if (nLineLimit > 1)	//����ǰ�漸��
 	{
 		nPreLineEndPos = TGetEncodeStringLineHeadPos(pOrigString, nOrigLen, nLineLimit - 1, nWrapCharaNum, nFontSize, bPicPackInSingleLine);
@@ -1358,15 +1358,15 @@ const char* TGetLimitLenEncodedString(const char* pOrigString, int32_t nOrigLen,
 		return pLimitLenString;
 	}
 
-	int32_t nDesireLen = (nFinalLineEndPos <= nShortLen) ? nFinalLineEndPos - 2 : nShortLen - 2;
+	int nDesireLen = (nFinalLineEndPos <= nShortLen) ? nFinalLineEndPos - 2 : nShortLen - 2;
 
 	const char* pFinalLineHead = pOrigString + nPreLineEndPos;
-	int32_t nRemainCount = nOrigLen - nPreLineEndPos;
+	int nRemainCount = nOrigLen - nPreLineEndPos;
 	nDesireLen -= nPreLineEndPos;
 	while(true)
 	{
 		nShortLen = TSplitEncodedString(pFinalLineHead, nRemainCount, nDesireLen, true);
-		int32_t nMaxLineLen;
+		int nMaxLineLen;
 		TGetEncodedTextLineCount(pFinalLineHead, nShortLen, 0, nMaxLineLen, nFontSize, 0, 1, false);
 		if (nMaxLineLen <= nWrapCharaNum - 2)
 			break;
@@ -1391,7 +1391,7 @@ const char* TGetLimitLenEncodedString(const char* pOrigString, int32_t nOrigLen,
 //	ע�ͣ�Chinese GBK����汾�����ַ������ַ�ȫ����Ϊ��ʾ�ַ��������������ַ�
 //--------------------------------------------------------------------------
 extern "C"
-const char* TGetLimitLenString(const char* pOrigString, int32_t nOrigLen, char* pLimitLenString, int32_t nLimitLen)
+const char* TGetLimitLenString(const char* pOrigString, int nOrigLen, char* pLimitLenString, int nLimitLen)
 {
 	if (pOrigString && pLimitLenString && nLimitLen > 0)
 	{
@@ -1420,9 +1420,9 @@ const char* TGetLimitLenString(const char* pOrigString, int32_t nOrigLen, char* 
 
 //���Ѿ�������ı�����ָ��λ�ÿ�ʼ����ָ���Ŀ��Ʒ��ŵ�λ�ã�����-1��ʾδ�ҵ�
 extern "C"
-int32_t	TFindSpecialCtrlInEncodedText(const char* pBuffer, int32_t nCount, int32_t nStartPos, char cControl)
+int	TFindSpecialCtrlInEncodedText(const char* pBuffer, int nCount, int nStartPos, char cControl)
 {
-	int32_t nFindPos = -1;
+	int nFindPos = -1;
 	if (pBuffer)
 	{
 		while(nStartPos < nCount)
@@ -1456,16 +1456,16 @@ int32_t	TFindSpecialCtrlInEncodedText(const char* pBuffer, int32_t nCount, int32
 { "link",	4, KTC_LINK	},
 */
 extern "C"
-int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cControl)
+int	TClearSpecialCtrlInEncodedText(char* pBuffer, int nCount, char cControl)
 {
-	int32_t nFinalLen = 0;
-	int32_t nReadPos = 0;
+	int nFinalLen = 0;
+	int nReadPos = 0;
 #ifdef WIN32
 	if (pBuffer)
 	{
 		if ((unsigned char)(cControl) <= 0x80)
 		{
-			int32_t nMatchLen = 1;
+			int nMatchLen = 1;
 			if (cControl == KTC_COLOR || cControl == KTC_BORDER_COLOR)
 				nMatchLen = 4;
 			else if (cControl == KTC_INLINE_PIC)
@@ -1490,8 +1490,8 @@ int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cCont
 
 				else if (cCharacter == KTC_COLOR || cCharacter == KTC_BORDER_COLOR)
 				{
-					int32_t nTemp = *(int32_t*)(pBuffer + nReadPos);
-					*(int32_t*)(pBuffer + nFinalLen) = nTemp;
+					int nTemp = *(int*)(pBuffer + nReadPos);
+					*(int*)(pBuffer + nFinalLen) = nTemp;
 					nFinalLen += 4;
 					nReadPos += 4;
 				}
@@ -1513,7 +1513,7 @@ int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cCont
 	{
 		if ((unsigned char)(cControl) <= 0x80)
 		{//������Ʒ���������
-			int32_t nMatchLen = 1;
+			int nMatchLen = 1;
 			if (cControl == KTC_COLOR || cControl == KTC_BORDER_COLOR)
 				nMatchLen = 4;
 			else if (cControl == KTC_INLINE_PIC)
@@ -1536,8 +1536,8 @@ int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cCont
 				else if (cCharacter == KTC_COLOR || cCharacter == KTC_BORDER_COLOR)
 				{
 					//messageBox("color char","color char");
-					int32_t nTemp = *(int32_t*)(pBuffer + nReadPos);
-					*(int32_t*)(pBuffer + nFinalLen) = nTemp;
+					int nTemp = *(int*)(pBuffer + nReadPos);
+					*(int*)(pBuffer + nFinalLen) = nTemp;
 					nFinalLen += 4;
 					nReadPos += 4;
 				}
@@ -1559,9 +1559,9 @@ int32_t	TClearSpecialCtrlInEncodedText(char* pBuffer, int32_t nCount, char cCont
 }
 //���Ѿ�������ı���ָ��������ȵ��ڻ�������λ��
 extern "C"
-int32_t TGetEncodedTextOutputLenPos(const char* pBuffer, int32_t nCount, int32_t& nLen, bool bLess, int32_t nFontSize)
+int TGetEncodedTextOutputLenPos(const char* pBuffer, int nCount, int& nLen, bool bLess, int nFontSize)
 {
-	int32_t nIndex = 0, nLenTemp = 0;
+	int nIndex = 0, nLenTemp = 0;
 
 	//_ASSERT(nFontSize >= 4);
 	if (nFontSize < 4)
@@ -1571,8 +1571,8 @@ int32_t TGetEncodedTextOutputLenPos(const char* pBuffer, int32_t nCount, int32_t
 
     if (pBuffer)
 	{
-		int32_t nWidth, nHeight;
-		int32_t nByteCount = 0, nCurCharLen = 0;
+		int nWidth, nHeight;
+		int nByteCount = 0, nCurCharLen = 0;
 	    unsigned char cCharacter        = 0;
 
 		while(nLenTemp < nLen)
@@ -1642,9 +1642,9 @@ int32_t TGetEncodedTextOutputLenPos(const char* pBuffer, int32_t nCount, int32_t
 
 //���Ѿ�������ı���ָ����ǰ�λ������п��Ʒ����Ժ�����������Ч��Ӱ��
 extern "C"
-int32_t TGetEncodedTextEffectCtrls(const char* pBuffer, int32_t nSkipCount, KTP_CTRL& Ctrl0, KTP_CTRL& Ctrl1)
+int TGetEncodedTextEffectCtrls(const char* pBuffer, int nSkipCount, KTP_CTRL& Ctrl0, KTP_CTRL& Ctrl1)
 {
-	int32_t nIndex = 0;
+	int nIndex = 0;
 	Ctrl0.cCtrl = Ctrl1.cCtrl = KTC_INVALID;
 	if (pBuffer)
 	{
@@ -1657,13 +1657,13 @@ int32_t TGetEncodedTextEffectCtrls(const char* pBuffer, int32_t nSkipCount, KTP_
 			if (cCharacter == KTC_COLOR)
 			{
 				PreCtrl0  =  Ctrl0;
-				*(int32_t*)(&Ctrl0) = *(int32_t*)(pBuffer + nIndex);
+				*(int*)(&Ctrl0) = *(int*)(pBuffer + nIndex);
 				nIndex += 4;
 			}
 			else if (cCharacter == KTC_BORDER_COLOR)
 			{
 				PreCtrl1  =  Ctrl1;
-				*(int32_t*)(&Ctrl1) = *(int32_t*)(pBuffer + nIndex);
+				*(int*)(&Ctrl1) = *(int*)(pBuffer + nIndex);
 				nIndex += 4;
 			}
 			else if(cCharacter == KTC_COLOR_RESTORE)

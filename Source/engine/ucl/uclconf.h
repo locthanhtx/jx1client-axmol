@@ -188,14 +188,14 @@ extern "C" {
 /* Integral types with 32 bits or more */
 #if !defined(UCL_UINT32_MAX)
 #  if (UINT_MAX >= UCL_0xffffffffL)
-     typedef uint32_t       ucl_uint32;
-     typedef int32_t                ucl_int32;
+     typedef unsigned int       ucl_uint32;
+     typedef int                ucl_int32;
 #    define UCL_UINT32_MAX      UINT_MAX
 #    define UCL_INT32_MAX       INT_MAX
 #    define UCL_INT32_MIN       INT_MIN
 #  elif (ULONG_MAX >= UCL_0xffffffffL)
-     typedef uint32_t      ucl_uint32;
-     typedef int32_t               ucl_int32;
+     typedef unsigned int      ucl_uint32;
+     typedef int               ucl_int32;
 #    define UCL_UINT32_MAX      ULONG_MAX
 #    define UCL_INT32_MAX       LONG_MAX
 #    define UCL_INT32_MIN       LONG_MIN
@@ -207,14 +207,14 @@ extern "C" {
 /* ucl_uint is used like size_t */
 #if !defined(UCL_UINT_MAX)
 #  if (UINT_MAX >= UCL_0xffffffffL)
-     typedef uint32_t       ucl_uint;
-     typedef int32_t                ucl_int;
+     typedef unsigned int       ucl_uint;
+     typedef int                ucl_int;
 #    define UCL_UINT_MAX        UINT_MAX
 #    define UCL_INT_MAX         INT_MAX
 #    define UCL_INT_MIN         INT_MIN
 #  elif (ULONG_MAX >= UCL_0xffffffffL)
-     typedef uint32_t      ucl_uint;
-     typedef int32_t               ucl_int;
+     typedef unsigned int      ucl_uint;
+     typedef int               ucl_int;
 #    define UCL_UINT_MAX        ULONG_MAX
 #    define UCL_INT_MAX         LONG_MAX
 #    define UCL_INT_MIN         LONG_MIN
@@ -230,7 +230,7 @@ extern "C" {
 #  elif defined(UCL_OS_DOS16) || defined(UCL_OS_OS216) || defined(UCL_OS_WIN16)
 #    define __UCL_MMODEL_HUGE   1
 #    define __UCL_MMODEL        __huge
-#    define ucl_uintptr_t       uint32_t
+#    define ucl_uintptr_t       unsigned int
 #  else
 #    define __UCL_MMODEL
 #  endif
@@ -251,7 +251,7 @@ extern "C" {
 /* deprecated - use `ucl_bytep' instead of `ucl_byte *' */
 #define ucl_byte                unsigned char __UCL_MMODEL
 
-typedef int32_t ucl_bool;
+typedef int ucl_bool;
 
 
 /***********************************************************************
@@ -308,28 +308,28 @@ typedef int32_t ucl_bool;
 #endif
 
 /* function types */
-typedef int32_t
+typedef int
 (__UCL_CDECL *ucl_compress_t)   ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-typedef int32_t
+typedef int
 (__UCL_CDECL *ucl_decompress_t) ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-typedef int32_t
+typedef int
 (__UCL_CDECL *ucl_optimize_t)   (       ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-typedef int32_t
+typedef int
 (__UCL_CDECL *ucl_compress_dict_t)(const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem,
                                   const ucl_bytep dict, ucl_uint dict_len );
 
-typedef int32_t
+typedef int
 (__UCL_CDECL *ucl_decompress_dict_t)(const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem,
@@ -338,7 +338,7 @@ typedef int32_t
 /* a progress indicator callback function */
 typedef struct
 {
-    void (__UCL_CDECL *callback) (ucl_uint, ucl_uint, int32_t, ucl_voidp);
+    void (__UCL_CDECL *callback) (ucl_uint, ucl_uint, int, ucl_voidp);
     ucl_voidp user;
 }
 ucl_progress_callback_t;
@@ -374,11 +374,11 @@ ucl_progress_callback_t;
  * ucl_init() is a macro to allow checking that the library and the
  * compiler's view of various types are consistent.
  */
-#define ucl_init() __ucl_init2(UCL_VERSION,(int32_t)sizeof(short),(int32_t)sizeof(int32_t),\
-    (int32_t)sizeof(int32_t),(int32_t)sizeof(ucl_uint32),(int32_t)sizeof(ucl_uint),\
-    (int32_t)-1,(int32_t)sizeof(char *),(int32_t)sizeof(ucl_voidp),\
-    (int32_t)sizeof(ucl_compress_t))
-UCL_EXTERN(int32_t) __ucl_init2(ucl_uint32,int32_t,int32_t,int32_t,int32_t,int32_t,int32_t,int32_t,int32_t,int32_t);
+#define ucl_init() __ucl_init2(UCL_VERSION,(int)sizeof(short),(int)sizeof(int),\
+    (int)sizeof(int),(int)sizeof(ucl_uint32),(int)sizeof(ucl_uint),\
+    (int)-1,(int)sizeof(char *),(int)sizeof(ucl_voidp),\
+    (int)sizeof(ucl_compress_t))
+UCL_EXTERN(int) __ucl_init2(ucl_uint32,int,int,int,int,int,int,int,int,int);
 
 /* version functions (useful for shared libraries) */
 UCL_EXTERN(ucl_uint32) ucl_version(void);
@@ -388,14 +388,14 @@ UCL_EXTERN(const ucl_charp) _ucl_version_string(void);
 UCL_EXTERN(const ucl_charp) _ucl_version_date(void);
 
 /* string functions */
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_memcmp(const ucl_voidp _s1, const ucl_voidp _s2, ucl_uint _len);
 UCL_EXTERN(ucl_voidp)
 ucl_memcpy(ucl_voidp _dest, const ucl_voidp _src, ucl_uint _len);
 UCL_EXTERN(ucl_voidp)
 ucl_memmove(ucl_voidp _dest, const ucl_voidp _src, ucl_uint _len);
 UCL_EXTERN(ucl_voidp)
-ucl_memset(ucl_voidp _s, int32_t _c, ucl_uint _len);
+ucl_memset(ucl_voidp _s, int _c, ucl_uint _len);
 
 /* checksum functions */
 UCL_EXTERN(ucl_uint32)
@@ -420,8 +420,8 @@ UCL_EXTERN(void) ucl_free(ucl_voidp);
 
 
 /* misc. */
-UCL_EXTERN(ucl_bool) ucl_assert(int32_t _expr);
-UCL_EXTERN(int32_t) _ucl_config_check(void);
+UCL_EXTERN(ucl_bool) ucl_assert(int _expr);
+UCL_EXTERN(int) _ucl_config_check(void);
 typedef union { ucl_bytep p; ucl_uint u; } __ucl_pu_u;
 typedef union { ucl_bytep p; ucl_uint32 u32; } __ucl_pu32_u;
 

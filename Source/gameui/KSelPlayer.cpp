@@ -140,7 +140,7 @@ bool KSelPlayer::init()
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -169,7 +169,7 @@ bool KSelPlayer::init()
 	if (GameConfig)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -197,7 +197,7 @@ bool KSelPlayer::init()
 	if (Rep)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -225,7 +225,7 @@ bool KSelPlayer::init()
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -274,7 +274,7 @@ bool KSelPlayer::init()
 			this->addChild(ySprite,2,m_sprCount);
 			char nySprFilePath[64]={0};
 			Animation*animation = Animation::create();//创建一个动画
-			DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+			unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 			for (int i=0;i<nFrams;i++)
 			{
 				sprintf(nySprFilePath,"%u-%d",nFielpahtdwid,i);
@@ -315,10 +315,10 @@ bool KSelPlayer::init()
 			pMenu = Menu::create(pLoginItem,pGameConfigItem,pOpenRepItem,pCancelItem,NULL);
 				//pMenu->alignItemsInRows(1,2,3,4,NULL);     //四列一行
 				//pMenu->alignItemsVertically();             //竖排排列 alignItemsHorizontally
-			pMenu->alignItemsHorizontally();             //横排排列 默认间隔是kDefaultPadding=5  
-			pMenu->alignItemsHorizontallyWithPadding(5);//指定横间隔  
-				//pMenu->alignItemsVertically();             //默认间隔也是kDefaultPadding=5 
-				//pMenu->alignItemsInRows(3,2,1,NULL);   
+			pMenu->alignItemsHorizontally();             //横排排列 默认间隔是kDefaultPadding=5
+			pMenu->alignItemsHorizontallyWithPadding(5);//指定横间隔
+				//pMenu->alignItemsVertically();             //默认间隔也是kDefaultPadding=5
+				//pMenu->alignItemsInRows(3,2,1,NULL);
 				//pMenu->alignItemsVerticallyWithPadding(20);//指定间隔
 			pMenu->setPosition(ax::Vec2(246,40));//ax::Vec2::ZERO
 			m_sprCount ++;
@@ -393,7 +393,7 @@ bool KSelPlayer::init()
 					}
 					char nySprFilePath[64]={0};
 					Animation*animation = Animation::create();//创建一个动画
-					DWORD nFielpahtdwid = g_FileName2Id(szFileName);
+					unsigned long nFielpahtdwid = g_FileName2Id(szFileName);
 					int j;
 					for (j=0;j<nFrams;j++)
 					{
@@ -519,7 +519,7 @@ bool KSelPlayer::init()
 					}
 					char nySprFilePath[64]={0};
 					Animation*animation = Animation::create();//创建一个动画
-					DWORD nFielpahtdwid = g_FileName2Id(szFileName);
+					unsigned long nFielpahtdwid = g_FileName2Id(szFileName);
 					int j;
 					for (j=0;j<nFrams;j++)
 					{
@@ -640,7 +640,7 @@ bool KSelPlayer::init()
 					//Rect::
 					char nySprFilePath[64]={0};
 					Animation*animation = Animation::create();//创建一个动画
-					DWORD nFielpahtdwid = g_FileName2Id(szFileName);
+					unsigned long nFielpahtdwid = g_FileName2Id(szFileName);
 					int j;
 					for (j=0;j<nFrams;j++)
 					{
@@ -1004,9 +1004,9 @@ void KSelPlayer::ccTouchesBegan(const std::vector<ax::Touch*>&pTouches, Event *p
 	}
 	else
 	{
-		//延时0.25s执行（注意在这0.25s的延时过程中clicked已经为true），  
-		//如果在这个过程中再次click，那么就执行上面的双击事件处理了  
-		//否则，那么就执行下面的回调函数了，处理单击事件 
+		//延时0.25s执行（注意在这0.25s的延时过程中clicked已经为true），
+		//如果在这个过程中再次click，那么就执行上面的双击事件处理了
+		//否则，那么就执行下面的回调函数了，处理单击事件
 //		scheduleOnce(CC_SCHEDULE_SELECTOR(KSelPlayer::CheckClick),0.25f);
         scheduleOnce([=](float dt){
             this->CheckClick(dt);

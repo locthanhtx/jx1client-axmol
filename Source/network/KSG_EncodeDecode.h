@@ -12,11 +12,11 @@
 #define _KSG_ENCODEDECODE_H 1
 #include "cocos2d.h"
 USING_NS_AX;
-int32_t KSG_DecodeEncode(uint32_t uSize, unsigned char *pbyBuf, uint32_t *puKey);
-int32_t KSG_DecodeEncode_ASM(uint32_t uSize, unsigned char *pbyBuf, unsigned *puKey);
-int32_t KSG_DecodeEncode_New(uint32_t uSize, unsigned char *pbyBuf, uint32_t *puKey);
+int KSG_DecodeEncode(unsigned int uSize, unsigned char *pbyBuf, unsigned int *puKey);
+int KSG_DecodeEncode_ASM(unsigned int uSize, unsigned char *pbyBuf, unsigned *puKey);
+int KSG_DecodeEncode_New(unsigned int uSize, unsigned char *pbyBuf, unsigned int *puKey);
 
-inline int32_t KSG_DecodeBuf(uint32_t uSize, unsigned char *pbyBuf, unsigned *puKey)
+inline int KSG_DecodeBuf(unsigned int uSize, unsigned char *pbyBuf, unsigned *puKey)
 {
 	if (!uSize) return 1;
 	if (!pbyBuf) return 1;
@@ -30,7 +30,7 @@ inline int32_t KSG_DecodeBuf(uint32_t uSize, unsigned char *pbyBuf, unsigned *pu
 	//return 1;
 }
 
-inline int32_t KSG_EncodeBuf(uint32_t uSize, unsigned char *pbyBuf, unsigned *puKey)
+inline int KSG_EncodeBuf(unsigned int uSize, unsigned char *pbyBuf, unsigned *puKey)
 {
 	if (!uSize) return 1;
 	if (!pbyBuf) return 1;

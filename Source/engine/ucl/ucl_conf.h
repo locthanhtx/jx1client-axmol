@@ -179,7 +179,7 @@
 #  define UA_SET4(p)    (* (acc_uint32e_t *) (p))
 #elif 0 && (ACC_ARCH_M68K) && (ACC_CC_GNUC >= 0x020900ul)
    typedef struct { unsigned short v; } __ucl_ua2_t __attribute__((__aligned__(1)));
-   typedef struct { uint32_t v; }  __ucl_ua4_t __attribute__((__aligned__(1)));
+   typedef struct { unsigned int v; }  __ucl_ua4_t __attribute__((__aligned__(1)));
 #  define UA_GET2(p)    (((const __ucl_ua2_t *)(p))->v)
 #  define UA_SET2(p)    (((__ucl_ua2_t *)(p))->v)
 #  define UA_GET4(p)    (((const __ucl_ua4_t *)(p))->v)
@@ -191,7 +191,7 @@
 // some globals
 ************************************************************************/
 
-__UCL_EXTERN_C int32_t __ucl_init_done;
+__UCL_EXTERN_C int __ucl_init_done;
 UCL_EXTERN(const ucl_bytep) ucl_copyright(void);
 
 

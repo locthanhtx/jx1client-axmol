@@ -44,7 +44,7 @@ public:
 	void			LoadSkillLevelData(unsigned int  ulLevel, int nParam);
 	int				DoSkill(KNpc * pNpc, int nX, int nY);
 	int				OnSkill(KNpc * pNpc);
-	BOOL			CanCastSkill  (int nLauncher, int &nParam1, int &nParam2)  const ;
+	int			CanCastSkill  (int nLauncher, int &nParam1, int &nParam2)  const ;
 	int  			NewCanCastSkill  (int nLauncher, int nParam1, int nParam2);
 	int          	GetDelayPerCast(){return m_ulDelayPerCast;};
 	int				Cast(KPlayer * pLauncherPlayer, KPlayer * pTargetPlayer);
@@ -53,19 +53,19 @@ public:
 	int				GetAttackRadius() const{	return m_ulAttackRadius;};
 	int				ChangeAttackRadius(int nDis) { m_ulAttackRadius +=nDis;if (m_ulAttackRadius<30) m_ulAttackRadius=30;return m_ulAttackRadius;};
 	int				getBackAttackRadius(){return  m_ulAttackRadius;};
-	BOOL			m_bTargetEnemy;
-	BOOL			m_bTargetAlly;
-	BOOL			m_bTargetObj;
+	int			m_bTargetEnemy;
+	int			m_bTargetAlly;
+	int			m_bTargetObj;
 	char			m_szSkillName[50];
-	BOOL			m_bUseCostPercent;//ʹ�øü���ʱ������ֵ���ٷֱȼ���/���߾�����ֵ
+	int			m_bUseCostPercent;//ʹ�øü���ʱ������ֵ���ٷֱȼ���/���߾�����ֵ
 
-	BOOL			IsTargetOnly()const{return TRUE;};
-	BOOL			IsTargetEnemy()const{return TRUE;};
-	BOOL			IsTargetAlly()const{return TRUE;};
-	BOOL			IsTargetObj()const{return FALSE;};
-	BOOL			IsTargetOther()const{return FALSE;};
-	BOOL			IsTargetSelf()const{return FALSE;};
-	BOOL			LoadSetting(char * szSettingFile);
+	int			IsTargetOnly()const{return TRUE;};
+	int			IsTargetEnemy()const{return TRUE;};
+	int			IsTargetAlly()const{return TRUE;};
+	int			IsTargetObj()const{return FALSE;};
+	int			IsTargetOther()const{return FALSE;};
+	int			IsTargetSelf()const{return FALSE;};
+        int LoadSetting(const char* szSettingFile);
 
 	char			m_szSkillIcon[100];
 	KRUImage		m_RUIconImage;
@@ -84,7 +84,7 @@ public:
 	int				m_nCost;
 private:
 	int				m_nThiefStyle;
-	DWORD			m_dwParam1;
-	DWORD			m_dwParam2;
+	unsigned long			m_dwParam1;
+	unsigned long			m_dwParam2;
 };
 

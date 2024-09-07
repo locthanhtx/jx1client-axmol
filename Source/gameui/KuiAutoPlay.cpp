@@ -154,7 +154,7 @@ KuiAutoPlay::~KuiAutoPlay()
 }
 
 //创建确定弹出框
-KuiAutoPlay * KuiAutoPlay::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiAutoPlay * KuiAutoPlay::create(const char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
 {
 	if (!g_GameWorld) return NULL;
 	KuiAutoPlay * popLayer = KuiAutoPlay::create();

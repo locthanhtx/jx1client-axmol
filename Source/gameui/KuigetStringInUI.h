@@ -27,7 +27,15 @@ public:
 	virtual bool init();
 	//����
 	CREATE_FUNC(KuigetStringInUI);
-	static KuigetStringInUI * create(char* pszTitle,int nMinLen, int nMaxLen,const char* pszCallback,const char* pszError,int bNum,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun,int outKind=0);
+        static KuigetStringInUI* create(const char* pszTitle,
+                                        int nMinLen,
+                                        int nMaxLen,
+                                        const char* pszCallback,
+                                        const char* pszError,
+                                        int bNum,
+                                        Ref* callbackListener,
+                                        const std::function<void(ax::Node*)>& callfun,
+                                        int outKind = 0);
 
 	virtual void editBoxEditingDidBegin(EditBox* editBox);
 	virtual void editBoxEditingDidEnd(EditBox* editBox);
@@ -40,7 +48,7 @@ public:
 	bool    isOpen;
 private:
 	//���Ӽ���ͼ��
-	void addDialogData(char* pszTitle);
+    void addDialogData(const char* pszTitle);
 	//����ȷ��ȡ����ť,���������ò���󣬵��ò�ص�����
 	void setcoloseButton(Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
 	/*void editBoxEditingDidBegin(EditBox *editBox); //��ʼʱ�ĺ���

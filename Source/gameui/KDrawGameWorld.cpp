@@ -148,7 +148,7 @@ void KDrawGameWorld::DrawPrimitives(int nNpcIndex,int nPos, KRUImage* pPrimitive
 		Rect CCRectZero = ax::Rect(0,0,0,0);
 		char nSprFilePath[64]={0};
 		ZeroMemory(nSprFilePath,sizeof(nSprFilePath));
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,pPrimitives[nPos].nFrame);
 
 		switch(uGenre)

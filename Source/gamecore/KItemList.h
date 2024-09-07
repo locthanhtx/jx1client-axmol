@@ -42,22 +42,22 @@ private:
 	KLinkArray	m_UseIdxItemList;
 	int			m_nListCurIdx;									// ���� GetFirstItem �� GetNextItem
 	int         m_ItemCount;                                    // ��ҵ�������Ʒ������
-	BOOL		m_bActiveSet;                   //�Ƿ񼤻����ÿ���
-	BOOL		m_nMaskLock;	                //mat na
-	BOOL		m_bLockOperation;               //�Ƿ����ſͻ���
+	int		m_bActiveSet;                   //�Ƿ񼤻����ÿ���
+	int		m_nMaskLock;	                //mat na
+	int		m_bLockOperation;               //�Ƿ����ſͻ���
 public:
 	KInventory	m_Room[room_num];
 private:
 	int			FindFree();
 	int			FindSame(int nGameIdx);							// nGameIdxָ��Ϸ�����е�������ı��
 	int			GetEquipPlace(int nType);						// ȡ��ĳ����װ��Ӧ�÷ŵ�λ��
-	BOOL		Fit(int nIdx, int nPlace);						// ����Ƿ����װ����
-	BOOL		Fit(KItem* pItem, int nPlace);
+	int		Fit(int nIdx, int nPlace);						// ����Ƿ����װ����
+	int		Fit(KItem* pItem, int nPlace);
 	int			GetEquipEnhance(int nPlace);					// ȡ��װ���ļ�����������
 	int			GetActiveEquipPlace(int nPlace, int nCount);	// ȡ��nPlace��װ������ĵ�nCount��װ��λ��
-	void		InfectionNextEquip(int nPlace, BOOL bEquip = FALSE);
+	void		InfectionNextEquip(int nPlace, int bEquip = FALSE);
 	// ��room_equipment�в���ָ��Genre��DetailType����Ʒ���õ�ItemIdx��λ��
-	BOOL		FindSameDetailTypeInEquipment(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY);
+	int		FindSameDetailTypeInEquipment(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY);
 	friend	class KPlayer;
 
 public:
@@ -73,22 +73,22 @@ public:
 	int			GetWeaponType();								// ȡ�����������ͣ���������(equip_meleeweapon)����Զ������(equip_rangeweapon)
 	int			GetWeaponParticular();							// ȡ�������ľ������ͣ����ڼ��㲻ͬ���˺���ǿ
 	void		GetWeaponDamage(int* nMin, int* nMax);			// ȡ���������˺�
-	int			Add(int nIdx, int nPlace, int nX, int nY, BOOL bInit = FALSE,int nIsAutoDie=0,int StackNum=1,int nIsLoign=0);		// nIdxָ��Ϸ�����е�������ı��
-	BOOL		Remove(int nIdx,int ndX=0,int ndY=0,int nModel=0,BOOL nIsSave=TRUE);								// nIdxָ��Ϸ�����е�������ı��
+	int			Add(int nIdx, int nPlace, int nX, int nY, int bInit = FALSE,int nIsAutoDie=0,int StackNum=1,int nIsLoign=0);		// nIdxָ��Ϸ�����е�������ı��
+	int		Remove(int nIdx,int ndX=0,int ndY=0,int nModel=0,int nIsSave=TRUE);								// nIdxָ��Ϸ�����е�������ı��
 	void		RemoveAll();
-	BOOL		CanEquip(int nIdx, int nPlace = -1);			// nIdxָ��Ϸ�����е�������ı��
-	BOOL        CanTonEquip(int nIdx, int nPlace=-1);
-	BOOL		CanEquip(KItem* pItem, int nPlace = -1);
-	BOOL		EnoughAttrib(void* pData,int nPlace=-1, DWORD nDwIdx=0);
-	BOOL		Equip(int nIdx, int nPlace = -1,int nIsLoign=0);				// nIdxָ��Ϸ�����е�������ı��
-	BOOL		TonEquip(int nIdx, int nPlace = -1,int nIsLoign=0);
-	BOOL		UnEquip(int nIdx, int nPos = -1);				// nIdxָ��Ϸ�����е�������ı��
-	BOOL        UnTonEquip(int nIdx, int nPos=-1);              //�Ƴ�ͬ���װ��
-	BOOL        RemoveItemBox(int nIdx , int nPos=-1);
-	BOOL        TimeUnEquip(int nIdx,int nPos = -1);            // �Ƴ�ʱ�䵽��ĳװ������
-	BOOL        tempUnEquip(int nIdx,int nPos=-1);
+	int		CanEquip(int nIdx, int nPlace = -1);			// nIdxָ��Ϸ�����е�������ı��
+	int        CanTonEquip(int nIdx, int nPlace=-1);
+	int		CanEquip(KItem* pItem, int nPlace = -1);
+	int		EnoughAttrib(void* pData,int nPlace=-1, unsigned long nDwIdx=0);
+	int		Equip(int nIdx, int nPlace = -1,int nIsLoign=0);				// nIdxָ��Ϸ�����е�������ı��
+	int		TonEquip(int nIdx, int nPlace = -1,int nIsLoign=0);
+	int		UnEquip(int nIdx, int nPos = -1);				// nIdxָ��Ϸ�����е�������ı��
+	int        UnTonEquip(int nIdx, int nPos=-1);              //�Ƴ�ͬ���װ��
+	int        RemoveItemBox(int nIdx , int nPos=-1);
+	int        TimeUnEquip(int nIdx,int nPos = -1);            // �Ƴ�ʱ�䵽��ĳװ������
+	int        tempUnEquip(int nIdx,int nPos=-1);
 	void        ReSkillEnhance(int m_PlayerIdx,int nNpcIdx);
-	BOOL		EatMecidineS(int nIdx,int nx=0,int nY=0);							// nIdxָ��Ϸ�����е�������ı��
+	int		EatMecidineS(int nIdx,int nx=0,int nY=0);							// nIdxָ��Ϸ�����е�������ı��
 	PlayerItem*	GetFirstItem();
 	PlayerItem*	GetNextItem();
 	int			SearchID(int nID);
@@ -108,12 +108,12 @@ public:
 	int         TiLian(int nLindexID=0,int nBaoshiID=0,int nModel=0,int nWenGangPos=0);
 	int         BlueTiLian(int nLindexID=0,int nBaoshiID=0,int nModel=0,int nWenGangPos=0);
 	int         CilentAddItem(int nItemIdx=0);      // ��������
-    BOOL        CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan);
+    int        CheckItemType(int ItemClass,int Detail,int nPart,int IsMianBan);
 	int			GetMoneyAmount();					// �õ���Ʒ���ʹ��������Ǯ��
 	int			GetEquipmentMoney();				// �õ���Ʒ���ʹ������Ǯ��
-	BOOL		AddmServer(int nRoom, int nMi);
-	BOOL		CostMoney(int nMoney);
-	BOOL		DecMoney(int nMoney);
+	int		AddmServer(int nRoom, int nMi);
+	int		CostMoney(int nMoney);
+	int		DecMoney(int nMoney);
 	void		SetClient(int nMon1, int nMon2, int nMon3);
 	void		SetRoomMoney(int nRoom, int nMoney);
 	int			GetsMon(int nRoom) { return m_Room[nRoom].GetmServer(); }	// ȡ�ÿռ��Ǯ
@@ -123,9 +123,9 @@ public:
 	int			GetxLient(int nRoom) { return m_Room[nRoom].GetxCLient(); }
 	void		SetServer(int nXu);
 	void		SetRoomXu(int nRoom, int nXu);
-	BOOL		AddxCliet(int nRoom, int ni);
-	BOOL		CostXu(int nXu);
-	//BOOL		DecXu(int nXu);
+	int		AddxCliet(int nRoom, int ni);
+	int		CostXu(int nXu);
+	//int		DecXu(int nXu);
 	int			GetXuAmount();
 	int			GetEquipmentXu();
 	/////////////////////////////////               // ------------
@@ -153,27 +153,27 @@ public:
 	void		RecoverGive();
 	void		StartGive();
 
-	BOOL		GetIfActive();
-	BOOL		GetMaskLock() {return m_nMaskLock;};	// mat na
-	void		SetMaskLock(BOOL bFlag);// mat na
+	int		GetIfActive();
+	int		GetMaskLock() {return m_nMaskLock;};	// mat na
+	void		SetMaskLock(int bFlag);// mat na
 
-    BOOL		CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int *pnY,int nRoomType=0);// �ж�һ���������Ʒ�ܷ�Ž���Ʒ��
-	BOOL		SearchPosition(int nWidth, int nHeight, ItemPos* pPos);
+    int		CheckCanPlaceInEquipment(int nWidth, int nHeight, int *pnX, int *pnY,int nRoomType=0);// �ж�һ���������Ʒ�ܷ�Ž���Ʒ��
+	int		SearchPosition(int nWidth, int nHeight, ItemPos* pPos);
 	int         GetFreePositionCount(int nWidth, int nHeight,int RoomKind);
-	BOOL        SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType);
-	BOOL        SearchItemPositionKienTM(int nWidth, int nHeight, int posX,int posY,int roomType);
+	int        SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType);
+	int        SearchItemPositionKienTM(int nWidth, int nHeight, int posX,int posY,int roomType);
 
-    void		AutoEquip(ItemPos SrcPos,ItemPos DesPos,DWORD nSrcItemDwIdx,int nEuqPlace,int nKind=0);
+    void		AutoEquip(ItemPos SrcPos,ItemPos DesPos,unsigned long nSrcItemDwIdx,int nEuqPlace,int nKind=0);
     int         AutoChangeItem(int nIdx); //�Զ���������
 	int			UseItem(int nIdx,int cnx=0,int cny=0);					//nIdxָ��Ϸ�����е�������ı��
-	//BOOL		SearchPosition(int nWidth, int nHeight, ItemPos* pPos);
-	//BOOL        SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType);
-	BOOL		AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID=0);
+	//int		SearchPosition(int nWidth, int nHeight, ItemPos* pPos);
+	//int        SearchItemPosition(int nWidth, int nHeight, ItemPos* pPos,int roomType);
+	int		AutoMoveItem(ItemPos SrcPos,ItemPos DesPos,unsigned int nItemdwID=0);
 	void		MenuSetMouseItem();
 //	void		RemoveAllInOneRoom(int nRoom);
 	void		LockOperation();											// �����ͻ��˶�װ���Ĳ���
 	void		UnlockOperation();
-	BOOL		IsLockOperation() { return m_bLockOperation; };
+	int		IsLockOperation() { return m_bLockOperation; };
 	int			GetSameDetailItemNum(int nImmediatePos);
 	int	        GetImmediacyItemIndex(int nImmediatePos);
     int	        GetSameEquipmentItemNum(int nIdx);

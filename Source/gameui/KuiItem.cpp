@@ -69,7 +69,7 @@ KuiItem::~KuiItem()
 }
 
 //创建确定弹出框
-KuiItem * KuiItem::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiItem* KuiItem::create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun)
 {
 	KuiItem * popLayer = KuiItem::create();
 	//popLayer->setTitle(title);

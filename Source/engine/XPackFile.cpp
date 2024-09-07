@@ -15,10 +15,10 @@
 struct XPackFileHeader
 {
 	unsigned char cSignature[4];		//�ĸ��ֽڵ��ļ���ͷ��־���̶�Ϊ�ַ���'PACK'
-	uint32_t uCount;				//�ļ����ݵ���Ŀ��
-	uint32_t uIndexTableOffset;	//������ƫ����
-	uint32_t uDataOffset;			//���ݵ�ƫ����
-	uint32_t uCrc32;				//У���
+	unsigned int uCount;				//�ļ����ݵ���Ŀ��
+	unsigned int uIndexTableOffset;	//������ƫ����
+	unsigned int uDataOffset;			//���ݵ�ƫ����
+	unsigned int uCrc32;				//У���
 	unsigned char cReserved[12];		//�������ֽ�
 };
 
@@ -27,10 +27,10 @@ struct XPackFileHeader
 //Pack�ж�Ӧÿ�����ļ���������Ϣ��
 struct XPackIndexInfo
 {
-	uint32_t	uId;				//���ļ�id
-	uint32_t	uOffset;			//���ļ��ڰ��е�ƫ��λ��
-	int32_t			lSize;				//���ļ���ԭʼ��С
-	int32_t			lCompressSizeFlag;	//���ļ�ѹ����Ĵ�С��ѹ������
+	unsigned int	uId;				//���ļ�id
+	unsigned int	uOffset;			//���ļ��ڰ��е�ƫ��λ��
+	int			lSize;				//���ļ���ԭʼ��С
+	int			lCompressSizeFlag;	//���ļ�ѹ����Ĵ�С��ѹ������
 										//����ֽڱ�ʾѹ����������XPACK_METHOD
 										//�͵������ֽڱ�ʾ���ļ�ѹ����Ĵ�С
 };
@@ -49,12 +49,12 @@ enum XPACK_METHOD
 //pak���б����spr֡��Ϣ��
 struct XPackSprFrameInfo
 {
-	int32_t lCompressSize;
-	int32_t lSize;
+	int lCompressSize;
+	int lSize;
 } ;
 */
 XPackFile::XPackElemFileCache	XPackFile::ms_ElemFileCache[MAX_XPACKFILE_CACHE];
-int32_t								XPackFile::ms_nNumElemFileCache = 0;
+int								XPackFile::ms_nNumElemFileCache = 0;
 
 XPackFile::XPackFile()
 {
@@ -85,7 +85,7 @@ XPackFile::~XPackFile()
 //���ܣ��򿪰��ļ�
 //���أ��ɹ����
 //-------------------------------------------------
-bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
+bool XPackFile::Open(const char* pszPackFileName, int nSelfIndex)
 {
 	bool bResult = false;
 	Close();
@@ -116,7 +116,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		}
 
 		XPackFileHeader	Header;
-        int32_t size = sizeof(XPackFileHeader);
+        int size = sizeof(XPackFileHeader);
 	   // ZeroMemory(&Header,sizeof(XPackFileHeader));
 		memset(&Header,0,sizeof(XPackFileHeader));
 		size_t dwListSize, dwReaded=0;
@@ -133,7 +133,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		//--���ļ���������ݵĺϷ����ж�--
 
 		if (dwReaded != sizeof(Header) ||
-			*(int32_t*)(&Header.cSignature) != XPACKFILE_SIGNATURE_FLAG ||
+			*(int*)(&Header.cSignature) != XPACKFILE_SIGNATURE_FLAG ||
 			Header.uCount == 0 ||
 			Header.uIndexTableOffset < sizeof(XPackFileHeader) ||
 			Header.uIndexTableOffset >= m_uFileSize ||
@@ -149,7 +149,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		//printf("---PAK(%s)�����ڴ�: %u Mb,��%d���ļ�--\n",pszPackFileName,dwListSize/(1024*1024),Header.uCount);
 		//if (m_pIndexList == NULL ||
 		//	::SetFilePointer(m_hFile, Header.uIndexTableOffset, NULL, FILE_BEGIN) != Header.uIndexTableOffset)
-		int32_t  nCurOffset = 0;
+		int  nCurOffset = 0;
 		//if (m_pIndexList == NULL || (nCurOffset = fseek(m_hFile,Header.uIndexTableOffset,FILE_BEGIN)) != Header.uIndexTableOffset)
 		if (m_pIndexList == NULL)
 		{
@@ -185,7 +185,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 //���ܣ����°��ļ�
 //���أ��ɹ����
 //-------------------------------------------------
-/*bool XPackFile::OpenX(const char* pszPackFileName, int32_t nSelfIndex)
+/*bool XPackFile::OpenX(const char* pszPackFileName, int nSelfIndex)
 {
 	bool bResult = false;
 	Close();
@@ -200,7 +200,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 			break;
 		}
 		XPackFileHeaderX xHeader;
-		DWORD dwListSize, dwReaded;
+		unsigned long dwListSize, dwReaded;
 		//--��ȡ���ļ�ͷ--
 		if (::ReadFile(m_hFile, &xHeader, sizeof(xHeader), &dwReaded, NULL) == FALSE)
 		{
@@ -208,7 +208,7 @@ bool XPackFile::Open(const char* pszPackFileName, int32_t nSelfIndex)
 		}
 		//--���ļ���������ݵĺϷ����ж�--
 		if (dwReaded != sizeof(xHeader) ||
-			*(int32_t*)(&xHeader.cSignature) != XPACKFILE_SIGNATURE_FLAG ||
+			*(int*)(&xHeader.cSignature) != XPACKFILE_SIGNATURE_FLAG ||
 			xHeader.uCount == 0 ||
 			xHeader.SubHeader[0].uIndexTableOffset < sizeof(XPackFileHeaderX) ||
 			xHeader.SubHeader[0].uIndexTableOffset >= m_uFileSize ||
@@ -254,13 +254,13 @@ void XPackFile::Close()
 	if (m_pIndexList)
 	{
 		//----���cache�л��浽�ģ����ܣ��Ǵ˰��е����ļ�----
-		for (int32_t i = ms_nNumElemFileCache - 1; i >=0; i--)
+		for (int i = ms_nNumElemFileCache - 1; i >=0; i--)
 		{
 			if (ms_ElemFileCache[i].nPackIndex == m_nSelfIndex)
 			{
 				FreeElemCache(i);
 				ms_nNumElemFileCache --;
-				for (int32_t j = i; j < ms_nNumElemFileCache; ++j)
+				for (int j = i; j < ms_nNumElemFileCache; ++j)
 					ms_ElemFileCache[j] = ms_ElemFileCache[j + 1];
 			}
 		}
@@ -286,7 +286,7 @@ void XPackFile::Close()
 //���ܣ��ͷ�һ��cache��������
 //���أ��ɹ����
 //-------------------------------------------------
-void XPackFile::FreeElemCache(int32_t nCacheIndex)
+void XPackFile::FreeElemCache(int nCacheIndex)
 {
 	//_ASSERT(nCacheIndex >= 0 && nCacheIndex < ms_nNumElemFileCache);
 	if (nCacheIndex<0 || nCacheIndex >= ms_nNumElemFileCache) return;
@@ -305,10 +305,10 @@ void XPackFile::FreeElemCache(int32_t nCacheIndex)
 //���ܣ�ֱ�Ӷ�ȡ���ļ������е����ݵ�������
 //���أ��ɹ����
 //-------------------------------------------------
-bool XPackFile::DirectRead(void* pBuffer, uint32_t uOffset, uint32_t uSize) const
+bool XPackFile::DirectRead(void* pBuffer, unsigned int uOffset, unsigned int uSize) const
 {
 	bool bResult = false;
-	DWORD dwReaded = 0;
+	unsigned long dwReaded = 0;
 	//_ASSERT(pBuffer && m_hFile != INVALID_HANDLE_VALUE);
     if  (pBuffer==NULL || !m_hFile)
 		return bResult;
@@ -338,8 +338,8 @@ bool XPackFile::DirectRead(void* pBuffer, uint32_t uOffset, uint32_t uSize) cons
 //		uSize    --> �Ӱ���ֱ�Ӷ�ȡ�ã�ѹ�������ݵĴ�С
 //���أ��ɹ����
 //-------------------------------------------------
-bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
-	int32_t lCompressType, uint32_t uOffset, uint32_t uSize) const
+bool XPackFile::ExtractRead(void* pBuffer, unsigned int uExtractSize,
+	int lCompressType, unsigned int uOffset, unsigned int uSize) const
 {
 	if (!pBuffer)return false;
 	bool bResult = false;
@@ -359,14 +359,14 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 		{
 			if ((lCompressType == TYPE_UCL || lCompressType == TYPE_UCL_OLD/* || lCompressType == TYPE_BZIP2_OLD || lCompressType == TYPE_BZIP2*/) && DirectRead(pReadBuffer, uOffset, uSize))
 			{//0x01000000
-				uint32_t uDestLength = 0;
+				unsigned int uDestLength = 0;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_1((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 				bResult =  (uDestLength == uExtractSize);
 			}
 			else if ((/*lCompressType == TYPE_FRAGMENT || */lCompressType ==TYPE_FRAGMENT_OLD) && DirectRead(pReadBuffer, uOffset, uSize))
 			{//0x03000000
-				uint32_t uDestLength;
+				unsigned int uDestLength;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_2((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
@@ -374,7 +374,7 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 			}
 			else if ((/*lCompressType == TYPE_FRAGMENTA || */lCompressType == TYPE_FRAGMENTA_OLD)  && DirectRead(pReadBuffer, uOffset, uSize))
 			{//0x04000000
-				uint32_t uDestLength;
+				unsigned int uDestLength;
 				ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 				//ucl_nrv2e_decompress_8_3((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 				//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
@@ -384,7 +384,7 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 			{//�°�
 				if (DirectRead(pReadBuffer, uOffset, uSize))  //����ԭʼ����
 				{
-					uint32_t uDestLength;
+					unsigned int uDestLength;
 					//ucl_nrv2e_decompress_8_fs((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength);
 					//ucl_nrv2b_decompress_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
 					//ucl_nrv2b_decompress_safe_8((BYTE*)pReadBuffer, uSize, (BYTE*)pBuffer, &uDestLength, NULL);  //��ѹ��ȡ
@@ -402,43 +402,43 @@ bool XPackFile::ExtractRead(void* pBuffer, uint32_t uExtractSize,
 
 typedef char                int8;
 typedef short               int16;
-typedef int32_t	                int32;
+typedef int	                int32;
 typedef unsigned char       uint8;
 typedef unsigned short      uint16;
-typedef uint32_t        uint32;
+typedef unsigned int        uint32;
 //typedef unsigned __int64    uint64;
 
 #define _BYTE  uint8
 #define BYTEn(x, n)   (*((_BYTE*)&(x)+n))
 #define BYTE1(x)      BYTEn(x,  1)
 //
-int32_t  XPackFile::ucl_decompress_8_New(unsigned char * a1, uint32_t a2, unsigned char * a3, uint32_t *a4) const
-	//(_BYTE *a1, int32_t a2, int32_t a3, _DWORD *a4)
+int  XPackFile::ucl_decompress_8_New(unsigned char * a1, unsigned int a2, unsigned char * a3, unsigned int *a4) const
+	//(_BYTE *a1, int a2, int a3, _DWORD *a4)
 {
 	BYTE *v4; // ecx@1
-	int32_t v5; // eax@1
-	int32_t v6; // ebx@1
-	int32_t v7; // eax@4
-	int32_t v8; // edx@7
-	int32_t v9; // eax@9
-	int32_t v10; // eax@10
-	int32_t v11; // eax@13
-	uint32_t v12; // ebp@16
-	int32_t v13; // ebp@17
-	int32_t v14; // eax@20
-	int32_t v15; // eax@21
-	int32_t v16; // edx@22
-	int32_t v17; // eax@24
-	int32_t v18; // esi@25
-	int32_t v19; // esi@26
-	int32_t v20; // eax@28
-	int32_t v21; // edx@29
-	int32_t v22; // eax@32
-	int32_t v23; // edi@37
+	int v5; // eax@1
+	int v6; // ebx@1
+	int v7; // eax@4
+	int v8; // edx@7
+	int v9; // eax@9
+	int v10; // eax@10
+	int v11; // eax@13
+	unsigned int v12; // ebp@16
+	int v13; // ebp@17
+	int v14; // eax@20
+	int v15; // eax@21
+	int v16; // edx@22
+	int v17; // eax@24
+	int v18; // esi@25
+	int v19; // esi@26
+	int v20; // eax@28
+	int v21; // edx@29
+	int v22; // eax@32
+	int v23; // edi@37
 	BYTE *v24; // edi@37
-	int32_t v25; // ecx@40
-	int32_t result; // eax@41
-	int32_t v27; // [sp+10h] [bp-4h]@1
+	int v25; // ecx@40
+	int result; // eax@41
+	int v27; // [sp+10h] [bp-4h]@1
 
 	v4 = a1;
 	v5 = 0;
@@ -572,41 +572,41 @@ LABEL_19:
 	return result;
 }
 
-//int32_t __cdecl sub_10025D00(int32_t a1, uint32_t a2, int32_t a3, int32_t *a4)
-int32_t  XPackFile::ucl_nrv2e_decompress_8_2(unsigned char * a1, uint32_t a2, unsigned char *a3, uint32_t *a4) const
+//int __cdecl sub_10025D00(int a1, unsigned int a2, int a3, int *a4)
+int  XPackFile::ucl_nrv2e_decompress_8_2(unsigned char * a1, unsigned int a2, unsigned char *a3, unsigned int *a4) const
 {
 	BYTE *v4; // ebp@1
-	int32_t v5; // eax@1
-	uint32_t v6; // ecx@1
-	int32_t v7; // edi@1
-	int32_t v8; // eax@4
-	int32_t v9; // edx@7
-	int32_t v10; // eax@9
-	int32_t v11; // eax@10
-	int32_t v12; // esi@11
-	int32_t v13; // ebx@12
-	int32_t v14; // edx@13
-	int32_t v15; // eax@17
-	int32_t v16; // edx@20
-	int32_t v17; // edx@21
-	uint32_t v18; // eax@22
-	int32_t v19; // eax@26
-	int32_t v20; // edi@27
-	int32_t v21; // edi@28
-	int32_t v22; // eax@30
-	int32_t v23; // edx@31
-	int32_t v24; // eax@34
-	int32_t v25; // edi@37
+	int v5; // eax@1
+	unsigned int v6; // ecx@1
+	int v7; // edi@1
+	int v8; // eax@4
+	int v9; // edx@7
+	int v10; // eax@9
+	int v11; // eax@10
+	int v12; // esi@11
+	int v13; // ebx@12
+	int v14; // edx@13
+	int v15; // eax@17
+	int v16; // edx@20
+	int v17; // edx@21
+	unsigned int v18; // eax@22
+	int v19; // eax@26
+	int v20; // edi@27
+	int v21; // edi@28
+	int v22; // eax@30
+	int v23; // edx@31
+	int v24; // eax@34
+	int v25; // edi@37
 	BYTE *v26; // esi@37
-	int32_t v27; // ebp@37
+	int v27; // ebp@37
 	char v28; // bl@37
 	BYTE *v29; // esi@37
-	int32_t v30; // ST10_4@39
-	int32_t result; // eax@41
-	int32_t v32; // eax@42
-	int32_t v33; // [sp+10h] [bp-Ch]@7
-	uint32_t v34; // [sp+14h] [bp-8h]@19
-	int32_t v35; // [sp+18h] [bp-4h]@1
+	int v30; // ST10_4@39
+	int result; // eax@41
+	int v32; // eax@42
+	int v33; // [sp+10h] [bp-Ch]@7
+	unsigned int v34; // [sp+14h] [bp-8h]@19
+	int v35; // [sp+18h] [bp-4h]@1
 
 	v4 = a1;
 	v5 = 0;
@@ -658,7 +658,7 @@ int32_t  XPackFile::ucl_nrv2e_decompress_8_2(unsigned char * a1, uint32_t a2, un
 			if ( v13 & 0x7F )
 			{
 				v5 = 2 * v13;
-				v9 = (((uint32_t)(2 * v13) >> 8) & 1) + 2 * v12 - 2;
+				v9 = (((unsigned int)(2 * v13) >> 8) & 1) + 2 * v12 - 2;
 			}
 			else
 			{
@@ -757,36 +757,36 @@ LABEL_24:
 	}
 	return result;
 }
-//int32_t __cdecl ucl_nrv2e_decompress_8_3(int32_t a1, uint32_t a2, int32_t a3, int32_t *a4)
-int32_t  XPackFile::ucl_nrv2e_decompress_8_1(unsigned char * a1, uint32_t a2, unsigned char *a3, uint32_t *a4) const
+//int __cdecl ucl_nrv2e_decompress_8_3(int a1, unsigned int a2, int a3, int *a4)
+int  XPackFile::ucl_nrv2e_decompress_8_1(unsigned char * a1, unsigned int a2, unsigned char *a3, unsigned int *a4) const
 {
-	uint32_t v4; // ecx@1
-	int32_t v5; // eax@1
-	int32_t v6; // eax@4
-	int32_t v7; // esi@7
-	int32_t v8; // eax@9
-	int32_t v9; // eax@10
-	int32_t v10; // eax@13
-	uint32_t v11; // ebp@16
-	int32_t v12; // ebp@17
-	int32_t v13; // eax@20
-	int32_t v14; // eax@21
-	int32_t v15; // edx@22
-	int32_t v16; // eax@24
-	int32_t v17; // edi@25
-	int32_t v18; // edi@26
-	int32_t v19; // eax@28
-	int32_t v20; // edx@29
-	int32_t v21; // eax@32
-	int32_t v22; // edi@35
+	unsigned int v4; // ecx@1
+	int v5; // eax@1
+	int v6; // eax@4
+	int v7; // esi@7
+	int v8; // eax@9
+	int v9; // eax@10
+	int v10; // eax@13
+	unsigned int v11; // ebp@16
+	int v12; // ebp@17
+	int v13; // eax@20
+	int v14; // eax@21
+	int v15; // edx@22
+	int v16; // eax@24
+	int v17; // edi@25
+	int v18; // edi@26
+	int v19; // eax@28
+	int v20; // edx@29
+	int v21; // eax@32
+	int v22; // edi@35
 	BYTE *v23; // esi@35
-	int32_t v24; // edx@35
+	int v24; // edx@35
 	char v25; // bl@35
 	BYTE *v26; // esi@35
-	int32_t result; // eax@39
-	int32_t v28; // eax@40
-	int32_t v29; // [sp+10h] [bp-8h]@1
-	int32_t v30; // [sp+14h] [bp-4h]@1
+	int result; // eax@39
+	int v28; // eax@40
+	int v29; // [sp+10h] [bp-8h]@1
+	int v30; // [sp+14h] [bp-4h]@1
 
 	v4 = 0;
 	v5 = 0;
@@ -919,38 +919,38 @@ LABEL_19:
 	}
 	return result;
 }
-int32_t  XPackFile::ucl_nrv2e_decompress_8_3(unsigned char * a1, uint32_t a2, unsigned char *a3, uint32_t *a4) const
+int  XPackFile::ucl_nrv2e_decompress_8_3(unsigned char * a1, unsigned int a2, unsigned char *a3, unsigned int *a4) const
 {
-	int32_t v4; // eax@1
-	uint32_t v5; // ecx@1
-	int32_t v6; // ebp@1
-	int32_t v7; // eax@4
-	int32_t v8; // edx@7
-	int32_t v9; // eax@9
-	int32_t v10; // eax@10
-	int32_t v11; // esi@11
-	int32_t v12; // edx@12
-	int32_t v13; // edx@13
-	int32_t v14; // eax@17
-	uint32_t v15; // ebx@19
-	int32_t v16; // esi@20
-	int32_t v17; // eax@21
-	uint32_t v18; // eax@22
-	int32_t v19; // esi@26
-	int32_t v20; // edx@27
-	int32_t v21; // eax@30
-	int32_t v22; // esi@33
-	int32_t v23; // edx@34
-	int32_t v24; // eax@37
-	int32_t v25; // eax@38
-	int32_t v26; // eax@41
-	int32_t v27; // esi@44
+	int v4; // eax@1
+	unsigned int v5; // ecx@1
+	int v6; // ebp@1
+	int v7; // eax@4
+	int v8; // edx@7
+	int v9; // eax@9
+	int v10; // eax@10
+	int v11; // esi@11
+	int v12; // edx@12
+	int v13; // edx@13
+	int v14; // eax@17
+	unsigned int v15; // ebx@19
+	int v16; // esi@20
+	int v17; // eax@21
+	unsigned int v18; // eax@22
+	int v19; // esi@26
+	int v20; // edx@27
+	int v21; // eax@30
+	int v22; // esi@33
+	int v23; // edx@34
+	int v24; // eax@37
+	int v25; // eax@38
+	int v26; // eax@41
+	int v27; // esi@44
 	BYTE *v28; // edi@44
 	char v29; // bl@44
 	BYTE *v30; // edi@44
-	int32_t result; // eax@48
-	int32_t v32; // eax@49
-	int32_t v33; // [sp+10h] [bp-4h]@1
+	int result; // eax@48
+	int v32; // eax@49
+	int v33; // [sp+10h] [bp-4h]@1
 
 	v4 = 0;
 	v5 = 0;
@@ -1000,7 +1000,7 @@ int32_t  XPackFile::ucl_nrv2e_decompress_8_3(unsigned char * a1, uint32_t a2, un
 			if ( v12 & 0x7F )
 			{
 				v4 = 2 * v12;
-				v8 = (((uint32_t)(2 * v12) >> 8) & 0x100) + 2 * v11 - 2;
+				v8 = (((unsigned int)(2 * v12) >> 8) & 0x100) + 2 * v11 - 2;
 			}
 			else
 			{
@@ -1029,7 +1029,7 @@ LABEL_24:
 			if ( v12 & 0x7F )
 			{
 				v4 = 2 * v12;
-				v19 = (((uint32_t)(2 * v12) >> 8) & 0x100) + 1;
+				v19 = (((unsigned int)(2 * v12) >> 8) & 0x100) + 1;
 			}
 			else
 			{
@@ -1127,13 +1127,13 @@ LABEL_24:
 }
 
 //��ѹ����
-int32_t XPackFile::ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int32_t s_size,unsigned char * d_buf,uint32_t *d_size)  const
+int XPackFile::ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int s_size,unsigned char * d_buf,unsigned int *d_size)  const
 {
-	uint32_t ch=0;
-	uint32_t repeat_pri=1;		    //��һ�ε� REPEAT VALUE
-	uint32_t repeat_cur;			//���ε� REPEAT VALUE
-	uint32_t repeat_cnt;			// repeat count
-	uint32_t d_cnt=0;
+	unsigned int ch=0;
+	unsigned int repeat_pri=1;		    //��һ�ε� REPEAT VALUE
+	unsigned int repeat_cur;			//���ε� REPEAT VALUE
+	unsigned int repeat_cnt;			// repeat count
+	unsigned int d_cnt=0;
 	unsigned char * bak_s_buf;		    //���ݵ�����
 
 	bak_s_buf=s_buf;
@@ -1228,9 +1228,9 @@ int32_t XPackFile::ucl_nrv2e_decompress_8_fs(unsigned char * s_buf,int32_t s_siz
 //���ܣ����������в������ļ���(���ַ���)
 //���أ����ҵ��������������е�λ��(>=0)����δ�ҵ�����-1
 //-------------------------------------------------
-int32_t XPackFile::XFindElemFileA(uint32_t ulId) const
+int XPackFile::XFindElemFileA(unsigned int ulId) const
 {
-	int32_t nBegin, nEnd, nMid;
+	int nBegin, nEnd, nMid;
 	nBegin = 0;
 	nEnd = m_nElemFileCount - 1;
 	while (nBegin <= nEnd)
@@ -1252,7 +1252,7 @@ int32_t XPackFile::XFindElemFileA(uint32_t ulId) const
 //		ElemRef -->����ҵ����ڴ˽ṹ���������ļ��������Ϣ
 //���أ��Ƿ��ҵ�
 //-------------------------------------------------
-bool XPackFile::XFindElemFile(uint32_t uId, XPackElemFileRef& ElemRef)
+bool XPackFile::XFindElemFile(unsigned int uId, XPackElemFileRef& ElemRef)
 {
 	ElemRef.nElemIndex = -1;
 	if (uId)
@@ -1296,7 +1296,7 @@ bool XPackFile::XFindElemFile(uint32_t uId, XPackElemFileRef& ElemRef)
 //���������ļ��ڰ��ڵ�����
 //���أ��ɹ��򷵻ػ�������ָ�룬���򷵻ؿ�ָ��
 //-------------------------------------------------
-void* XPackFile::ReadElemFile(int32_t nElemIndex) const
+void* XPackFile::ReadElemFile(int nElemIndex) const
 {
 	//_ASSERT(nElemIndex >= 0 && nElemIndex < m_nElemFileCount);
 	if (nElemIndex<0 || nElemIndex >= m_nElemFileCount)
@@ -1316,9 +1316,9 @@ void* XPackFile::ReadElemFile(int32_t nElemIndex) const
 		   2���������ֻ������α���֮ǰ����ʾ�Ը���ȡ��������
 		      �������~0=1, ~1=0, �������0101 0101ȡ�������1010 1010
 		*/
-		int32_t lCompressType = m_pIndexList[nElemIndex].lCompressSizeFlag & TYPE_FILTER_OLD;
-		uint32_t uSize = m_pIndexList[nElemIndex].lCompressSizeFlag & (~TYPE_FILTER_OLD);
-		//uint32_t uSize = m_pIndexList[nElemIndex].lCompressSizeFlag & (~TYPE_FILTER_SIZE);
+		int lCompressType = m_pIndexList[nElemIndex].lCompressSizeFlag & TYPE_FILTER_OLD;
+		unsigned int uSize = m_pIndexList[nElemIndex].lCompressSizeFlag & (~TYPE_FILTER_OLD);
+		//unsigned int uSize = m_pIndexList[nElemIndex].lCompressSizeFlag & (~TYPE_FILTER_SIZE);
 
 		if (ExtractRead(pDataBuffer,
 				m_pIndexList[nElemIndex].lSize,
@@ -1340,7 +1340,7 @@ void* XPackFile::ReadElemFile(int32_t nElemIndex) const
 //		nDesireIndex --> ��cache�еĿ���λ��
 //���أ��ɹ��򷵻�cache�ڵ�����(>=0),ʧ���򷵻�-1
 //-------------------------------------------------
-int32_t XPackFile::FindElemFileInCache(uint32_t uId, int32_t nDesireIndex)
+int XPackFile::FindElemFileInCache(unsigned int uId, int nDesireIndex)
 {
 	if (nDesireIndex >= 0 && nDesireIndex < ms_nNumElemFileCache &&
 		uId == ms_ElemFileCache[nDesireIndex].uId)
@@ -1350,7 +1350,7 @@ int32_t XPackFile::FindElemFileInCache(uint32_t uId, int32_t nDesireIndex)
 	}
 
 	nDesireIndex = -1;
-	for (int32_t i = 0; i < ms_nNumElemFileCache; ++i)
+	for (int i = 0; i < ms_nNumElemFileCache; ++i)
 	{
 		if (uId == ms_ElemFileCache[i].uId)
 		{
@@ -1368,12 +1368,12 @@ int32_t XPackFile::FindElemFileInCache(uint32_t uId, int32_t nDesireIndex)
 //		nElemIndex --> ���ļ��ڰ��е�����
 //���أ���ӵ�cache������λ��
 //-------------------------------------------------
-int32_t XPackFile::AddElemFileToCache(void* pBuffer, int32_t nElemIndex)
+int XPackFile::AddElemFileToCache(void* pBuffer, int nElemIndex)
 {
 	//_ASSERT(pBuffer && nElemIndex >= 0 && nElemIndex < m_nElemFileCount);
 	if (!pBuffer || nElemIndex<0 || nElemIndex >= m_nElemFileCount) return 0;
 
-	int32_t nCacheIndex;
+	int nCacheIndex;
 	if (ms_nNumElemFileCache < MAX_XPACKFILE_CACHE)
 	{	//�ҵ�һ����λ��
 		nCacheIndex = ms_nNumElemFileCache++;
@@ -1383,7 +1383,7 @@ int32_t XPackFile::AddElemFileToCache(void* pBuffer, int32_t nElemIndex)
 		nCacheIndex = 0;
 		if (ms_ElemFileCache[0].uRefFlag)
 			ms_ElemFileCache[0].uRefFlag --;
-		for (int32_t i = 1; i < MAX_XPACKFILE_CACHE; ++i)
+		for (int i = 1; i < MAX_XPACKFILE_CACHE; ++i)
 		{
 			if (ms_ElemFileCache[i].uRefFlag)
 				ms_ElemFileCache[i].uRefFlag --;
@@ -1408,9 +1408,9 @@ int32_t XPackFile::AddElemFileToCache(void* pBuffer, int32_t nElemIndex)
 //		uSize --> Ҫ��ȡ�����ݵĳ���
 //���أ��ɹ���ȡ���ֽ���
 //-------------------------------------------------
-int32_t XPackFile::XElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize)
+int XPackFile::XElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsigned uSize)
 {
-	int32_t nResult = 0;
+	int nResult = 0;
 	if (pBuffer && ElemRef.uId &&ElemRef.nElemIndex >= 0)
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -1451,7 +1451,7 @@ int32_t XPackFile::XElemFileRead(XPackElemFileRef& ElemRef, void* pBuffer, unsig
 				ElemRef.nOffset = 0;
 			if (ElemRef.nOffset < ElemRef.nSize)
 			{
-				if (ElemRef.nOffset + (int32_t)uSize <= ElemRef.nSize)
+				if (ElemRef.nOffset + (int)uSize <= ElemRef.nSize)
 					nResult = uSize;
 				else
 					nResult = ElemRef.nSize - ElemRef.nOffset;
@@ -1495,7 +1495,7 @@ SPRHEAD* XPackFile::GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTab
 			pSpr = (SPRHEAD*)ReadElemFile(ElemRef.nElemIndex);
 			if (pSpr)
 			{
-				if ((*(int32_t*)&pSpr->Comment[0]) == SPR_COMMENT_FLAG) //����� SPR �ļ�
+				if ((*(int*)&pSpr->Comment[0]) == SPR_COMMENT_FLAG) //����� SPR �ļ�
 				{
 					pOffsetTable = (SPROFFS*)(((char*)pSpr) + sizeof(SPRHEAD) + pSpr->Colors * 3);
 					bOk = true;
@@ -1507,9 +1507,9 @@ SPRHEAD* XPackFile::GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTab
 			SPRHEAD Header;
 			if (DirectRead(&Header, m_pIndexList[ElemRef.nElemIndex].uOffset, sizeof(SPRHEAD)))
 			{//�����ļ�ͷ��Ϣ
-				if (*(int32_t*)&(Header.Comment[0]) == SPR_COMMENT_FLAG)  //spr
+				if (*(int*)&(Header.Comment[0]) == SPR_COMMENT_FLAG)  //spr
 				{
-					uint32_t	u2ListSize = Header.Colors * 3 + Header.Frames * sizeof(XPackSprFrameInfo);
+					unsigned int	u2ListSize = Header.Colors * 3 + Header.Frames * sizeof(XPackSprFrameInfo);
 					pSpr = (SPRHEAD*)malloc(sizeof(SPRHEAD) + u2ListSize);
 					if (pSpr)
 					{//Ҳ�Ǽ�����ȫ��������
@@ -1527,7 +1527,7 @@ SPRHEAD* XPackFile::GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTab
 		{
 			if (bOk)
 			{
-				*((int32_t*)&pSpr->Reserved[NODE_INDEX_STORE_IN_RESERVED]) = ElemRef.nElemIndex;
+				*((int*)&pSpr->Reserved[NODE_INDEX_STORE_IN_RESERVED]) = ElemRef.nElemIndex;
 			}
 			else
 			{
@@ -1544,7 +1544,7 @@ SPRHEAD* XPackFile::GetSprHeader(XPackElemFileRef& ElemRef, SPROFFS*& pOffsetTab
     return pSpr;
 }
 
-SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &nSingFrameSize)
+SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int nFrame,unsigned int &nSingFrameSize)
 {
 	SPRFRAME*	pFrame = NULL;
 	if (pSprHeader && nFrame >= 0 && nFrame < pSprHeader->Frames)
@@ -1554,19 +1554,19 @@ SPRFRAME* XPackFile::GetSprFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &n
 #else
 		pthread_mutex_lock(&m_ReadCritical);
 #endif
-		int32_t nNodeIndex = *((int32_t*)&pSprHeader->Reserved[NODE_INDEX_STORE_IN_RESERVED]);
+		int nNodeIndex = *((int*)&pSprHeader->Reserved[NODE_INDEX_STORE_IN_RESERVED]);
 		if (nNodeIndex >= 0 && nNodeIndex < m_nElemFileCount)
 		{
-			int32_t lCompressType = m_pIndexList[nNodeIndex].lCompressSizeFlag;
+			int lCompressType = m_pIndexList[nNodeIndex].lCompressSizeFlag;
 			if ((lCompressType & TYPE_FRAME) != 0) //����Ƕ���֡ѹ����
 			{
 				bool bOk = false;
 				lCompressType &= TYPE_METHOD_FILTER_OLD;  //�ϰ�
-				int32_t lTempValue = sizeof(SPRHEAD) + pSprHeader->Colors * 3;
-				//uint32_t	u2ListSize = Header.Colors * 3 + Header.Frames * sizeof(XPackSprFrameInfo);
+				int lTempValue = sizeof(SPRHEAD) + pSprHeader->Colors * 3;
+				//unsigned int	u2ListSize = Header.Colors * 3 + Header.Frames * sizeof(XPackSprFrameInfo);
 				//����ָ��֡����Ϣ
 				XPackSprFrameInfo* pFrameList = (XPackSprFrameInfo *)((char*)pSprHeader + lTempValue);
-				uint32_t	uSrcOffset    = m_pIndexList[nNodeIndex].uOffset + lTempValue +pSprHeader->Frames * sizeof(XPackSprFrameInfo);
+				unsigned int	uSrcOffset    = m_pIndexList[nNodeIndex].uOffset + lTempValue +pSprHeader->Frames * sizeof(XPackSprFrameInfo);
 			    //nFrame +=1; //0��Ч �������ˡ�����
 				while(nFrame > 0)
 				{//ƫ���ƶ���ָ��֡��λ��

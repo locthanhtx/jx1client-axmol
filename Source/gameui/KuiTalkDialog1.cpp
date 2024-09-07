@@ -43,7 +43,14 @@ KuiTalkDialog1::~KuiTalkDialog1()
 }
 
 //����ȷ��������
-KuiTalkDialog1 * KuiTalkDialog1::create(char * pContent, char *OkbtnStr,char *NobtnStr,int nKind,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun,unsigned int nParam,char *strParam)
+KuiTalkDialog1* KuiTalkDialog1::create(const char* pContent,
+                                       const char* OkbtnStr,
+                                       const char* NobtnStr,
+                                       int nKind,
+                                       Ref* callbackListener,
+                                       const std::function<void(ax::Node*)>& callfun,
+                                       unsigned int nParam,
+                                       char* strParam)
 {
 	KuiTalkDialog1 * popLayer = KuiTalkDialog1::create();
 	popLayer->__nParam = nParam;
@@ -106,7 +113,7 @@ bool KuiTalkDialog1::init()
 }
 
 
-void KuiTalkDialog1::addDialogData(char * pContent,int nKind)
+void KuiTalkDialog1::addDialogData(const char* pContent, int nKind)
 {
 	if  (!g_pCoreShell) return;
 	Size nSize;
@@ -159,7 +166,10 @@ void KuiTalkDialog1::addDialogData(char * pContent,int nKind)
 
 
 //����ȷ��ȡ����ť,���������ò���󣬵��ò�ص�����
-void KuiTalkDialog1::setcoloseButton(char *OkbtnStr,char *NobtnStr,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+void KuiTalkDialog1::setcoloseButton(const char* OkbtnStr,
+                                     const char* NobtnStr,
+                                     Ref* callbackListener,
+                                     const std::function<void(ax::Node*)>& callfun)
 {
 	m_callbackListener = callbackListener;
 	m_callfun = callfun;

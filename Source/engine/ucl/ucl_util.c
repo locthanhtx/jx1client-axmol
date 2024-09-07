@@ -34,7 +34,7 @@
 ************************************************************************/
 
 UCL_PUBLIC(ucl_bool)
-ucl_assert(int32_t expr)
+ucl_assert(int expr)
 {
     return (expr) ? 1 : 0;
 }
@@ -133,14 +133,14 @@ ucl_adler32(ucl_uint32 adler, const ucl_bytep buf, ucl_uint len)
 {
     ucl_uint32 s1 = adler & 0xffff;
     ucl_uint32 s2 = (adler >> 16) & 0xffff;
-    int32_t k;
+    int k;
 
     if (buf == NULL)
         return 1;
 
     while (len > 0)
     {
-        k = len < UCL_NMAX ? (int32_t) len : UCL_NMAX;
+        k = len < UCL_NMAX ? (int) len : UCL_NMAX;
         len -= k;
         if (k >= 16) do
         {

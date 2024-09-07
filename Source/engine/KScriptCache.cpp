@@ -2,9 +2,9 @@
 // FileName			:	KScriptCache.cpp
 // FileAuthor		:	RomanDou
 // FileCreateDate	:	2002-7-23 10:25:56
-// FileDescription	:	
-// Revision Count	:	
-// Questions		:   ½Å±¾µÄCache£¬ÍøÂç°æÊ±ÊÇ·ñ²ÉÓÃCache»úÖÆÁË£¿CacheÍ¨¹ý¼ìË÷×Ö·û´®²Ù×÷Ð§ÂÊ»á½µµÍÒ»Ð©£¬ÓÐÓÅ»¯µÄÓàµØ
+// FileDescription	:
+// Revision Count	:
+// Questions		:   ï¿½Å±ï¿½ï¿½ï¿½Cacheï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Cacheï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½CacheÍ¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ê»á½µï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *******************************************************************************/
 
 #include "KScriptCache.h"
@@ -16,10 +16,10 @@ KScriptCache::KScriptCache()
 
 KScriptCache::~KScriptCache()
 {
-    Release();      // µ÷ÓÃ»ùÀàÖÐµÄº¯Êý,ÊÍ·ÅËùÓÐ½Úµã
+    Release();      // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ÐµÄºï¿½ï¿½ï¿½,ï¿½Í·ï¿½ï¿½ï¿½ï¿½Ð½Úµï¿½
 }
 
-BOOL KScriptCache::LoadNode(KCacheNode* lpNode)
+int KScriptCache::LoadNode(KCacheNode* lpNode)
 {
 	KLuaScript* pScript = new KLuaScript;
 	pScript->Init();
@@ -30,10 +30,10 @@ BOOL KScriptCache::LoadNode(KCacheNode* lpNode)
 	return lpNode->m_lpData != NULL;
 }
 //---------------------------------------------------------------------------
-// º¯Êý:	FreeNode
-// ¹¦ÄÜ:	
-// ²ÎÊý:	
-// ·µ»Ø:	void
+// ï¿½ï¿½ï¿½ï¿½:	FreeNode
+// ï¿½ï¿½ï¿½ï¿½:
+// ï¿½ï¿½ï¿½ï¿½:
+// ï¿½ï¿½ï¿½ï¿½:	void
 //---------------------------------------------------------------------------
 void KScriptCache::FreeNode(KCacheNode* lpNode)
 {

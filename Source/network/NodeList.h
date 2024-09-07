@@ -3,7 +3,7 @@
 	file base:	NodeList
 	file ext:	h
 	author:		liupeng
-	
+
 	purpose:	Data struct and define
 *********************************************************************/
 #ifndef __INCLUDE_NODELIST_H__
@@ -63,7 +63,7 @@ public:
 
 	Node *Head() const { return m_pHead; };
 
-	uint32_t Count() const { return m_numNodes; };
+	unsigned int Count() const { return m_numNodes; };
 
 	bool Empty() const { return ( 0 == m_numNodes ); };
 
@@ -73,9 +73,9 @@ private:
 
 	void RemoveNode( Node *pNode );
 
-	Node *m_pHead; 
+	Node *m_pHead;
 
-	uint32_t m_numNodes;
+	unsigned int m_numNodes;
 };
 
 inline void CNodeList::Node::Next( Node *pNext )
@@ -95,9 +95,9 @@ inline void CNodeList::Node::Next( Node *pNext )
 template <class T> class TNodeList : public CNodeList
 {
 public:
-         
+
 	T *PopNode();
-   
+
 	T *Head() const;
 
 	static T *Next( const T *pNode );
@@ -121,6 +121,6 @@ T *TNodeList<T>::Next( const T *pNode )
 	return static_cast< T* >( pNode->Next() );
 }
 
-//} // End of namespace OnlineGameLib	
+//} // End of namespace OnlineGameLib
 
 #endif // __INCLUDE_NODELIST_H__

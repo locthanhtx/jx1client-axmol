@@ -216,7 +216,7 @@ void KuiAccreg::addDialogData()
 	if  (Login)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);
@@ -241,7 +241,7 @@ void KuiAccreg::addDialogData()
 	if (Cancel)
 	{
 		char nSprFilePath[64]={0};
-		DWORD nFielpahtdwid = g_FileName2Id(nSprName);
+		unsigned long nFielpahtdwid = g_FileName2Id(nSprName);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,0);
 		Texture2D *pNormalTexture = ax::Director::getInstance()->getTextureCache()->getTextureForKey(nSprFilePath);
 		sprintf(nSprFilePath,"%u-%d",nFielpahtdwid,1);

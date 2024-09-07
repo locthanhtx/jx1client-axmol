@@ -6,7 +6,7 @@
 #include "GameDataDef.h"
 #include "KNpcSet.h"
 #include "KPlayer.h"
-#include "KNpcTemplate.h"  //Ô­À´Ã»ÓÐµÄ
+#include "KNpcTemplate.h"  //Ô­ï¿½ï¿½Ã»ï¿½Ðµï¿½
 #include "CoreShell.h"
 //#include "Scene/KScenePlaceC.h"
 //#include "../../Represent/iRepresent/iRepresentshell.h"
@@ -26,11 +26,11 @@ KNpcSet	NpcSet;
 
 KNpcSet::KNpcSet()
 {
-	m_dwIDCreator = 1; //Ä¬ÈÏÊÇ1000Æð
+	m_dwIDCreator = 1; //Ä¬ï¿½ï¿½ï¿½ï¿½1000ï¿½ï¿½
 	Release();
 }
 
-BOOL KNpcSet::Release(void)
+int KNpcSet::Release(void)
 {
 	/*for (_KMapTemplate::iterator it = m_mapTemplate.begin(); it != m_mapTemplate.end(); ++it)
 	{
@@ -45,24 +45,24 @@ BOOL KNpcSet::Release(void)
 	return TRUE;
 }
 
-// »Æ½ð¹ÖÎïÉè¶¨ÎÄ¼þµÄ³õÊ¼»¯Ã»ÓÐ·ÅÔÚÕâÀï£¬Ö±½Ó·ÅÔÚ core µÄ³õÊ¼»¯ÀïÃæ
+// ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½Ã»ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï£¬Ö±ï¿½Ó·ï¿½ï¿½ï¿½ core ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void KNpcSet::Init()
 {
-    //GenRelationTable();  //³õÊ¼»¯ µÐÓÑ¹ØÏµ
-	m_FreeIdxNpcSet.Init(MAX_NPC);  //MAX_NPC ·ÖÅäÄÚ´æ
+    //GenRelationTable();  //ï¿½ï¿½Ê¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ¹ï¿½Ïµ
+	m_FreeIdxNpcSet.Init(MAX_NPC);  //MAX_NPC ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 	m_UseIdxNpcSet.Init(MAX_NPC);
 	int i;
-	// ¿ªÊ¼Ê±ËùÓÐµÄÊý×éÔªËØ¶¼Îª¿Õ   ³õÊ¼»¯ÄÚ´æÊý×é
-	for (i = MAX_NPC - 1; i > 0; i--) // ³ý0Íâ
+	// ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø¶ï¿½Îªï¿½ï¿½   ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½
+	for (i = MAX_NPC - 1; i > 0; i--) // ï¿½ï¿½0ï¿½ï¿½
 	{
 		m_FreeIdxNpcSet.Insert(i);
-		Npc[i].m_Node.m_nIndex = i;     //½ÚµãµÄË÷Òý
-		Npc[i].m_cGold.Init(i);         //»Æ½ð¹ÖÎï³õÊ¼»¯
+		Npc[i].m_Node.m_nIndex = i;     //ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Npc[i].m_cGold.Init(i);         //ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 	}
 
 	//if (!m_cTabFile.Load(NPC_SETTING_FILE))
 	//	return;
-	
+
 	/*INT nNpcTemplateHeight = g_NpcSetting.GetHeight();
 	INT nNpcTemplateId;
 	ZeroStruct(m_anTemplateRowId);
@@ -74,16 +74,16 @@ void KNpcSet::Init()
 		{
 			_ASSERT(FALSE);
 			continue;
-		} 
-		
+		}
+
 		if (nNpcTemplateId > 0 && nNpcTemplateId <= MAX_NPCSTYLE)
-			m_anTemplateRowId[nNpcTemplateId]	= nRowId; //ÐÐºÅ
+			m_anTemplateRowId[nNpcTemplateId]	= nRowId; //ï¿½Ðºï¿½
 	} */
 
 	LoadPlayerBaseValue(PLAYER_BASE_VALUE);
 	m_nShowPateFlag = PATE_CHAT;
 	ZeroMemory(m_RequestNpc, sizeof(m_RequestNpc));
-	m_RequestFreeIdx.Init(MAX_NPC_REQUEST);  //×î´óµÄNPCÊýÁ¿ÇëÇó
+	m_RequestFreeIdx.Init(MAX_NPC_REQUEST);  //ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_RequestUseIdx.Init(MAX_NPC_REQUEST);
 
 	for (i = MAX_NPC_REQUEST - 1; i > 0; i--)
@@ -92,7 +92,7 @@ void KNpcSet::Init()
 	}
 }
 
-void KNpcSet::LoadPlayerBaseValue(LPSTR szFile)
+void KNpcSet::LoadPlayerBaseValue(const char* szFile)
 {
 	KIniFile	File;
 
@@ -110,8 +110,8 @@ void KNpcSet::LoadPlayerBaseValue(LPSTR szFile)
 	File.GetInteger("Female", "StandFrame", 15, &m_cPlayerBaseValue.nStandFrame[1]);
 	File.Clear();
 }
-//ÊÇ·ñÊÇÕâ¸öNPC
-BOOL KNpcSet::IsNpcExist(int nIdx, DWORD dwId)
+//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
+int KNpcSet::IsNpcExist(int nIdx, unsigned long dwId)
 {
 	if (Npc[nIdx].m_dwID == dwId)
 		return TRUE;
@@ -119,11 +119,11 @@ BOOL KNpcSet::IsNpcExist(int nIdx, DWORD dwId)
 		return FALSE;
 }
 
-// »ñÈ¡Ë«·½µÄµÐÓÑ¹ØÏµ
+// ï¿½ï¿½È¡Ë«ï¿½ï¿½ï¿½Äµï¿½ï¿½Ñ¹ï¿½Ïµ
 NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1, NPCCAMP Camp2)
 {
-	// Â·ÈËNPCÃ»ÓÐÕ½¶·¹ØÏµ
-	if (Kind1 == kind_dialoger || Kind2 == kind_dialoger)  //ÈÎÒâÒ»·½Îª ¶Ô»°NPC ¶¼ÊÇ ¶Ô»°¹ØÏµ
+	// Â·ï¿½ï¿½NPCÃ»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ
+	if (Kind1 == kind_dialoger || Kind2 == kind_dialoger)  //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îª ï¿½Ô»ï¿½NPC ï¿½ï¿½ï¿½ï¿½ ï¿½Ô»ï¿½ï¿½ï¿½Ïµ
 		return relation_dialog;
 	if ((Kind1 == kind_partner|| Kind1 == kind_player) && Kind2 == kind_normal && Camp1!=Camp2)
 		return relation_enemy;
@@ -134,33 +134,33 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
     if ((Kind1 == kind_partner &&  Kind2 == kind_partner) && Camp1!=Camp2)
 	    return relation_enemy;
 
-	// Â·ÈËÕóÓªÃ»ÓÐÕ½¶·¹ØÏµ
+	// Â·ï¿½ï¿½ï¿½ï¿½ÓªÃ»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ
 	if (Camp1 == camp_event || Camp2 == camp_event)
 		return relation_none;
-	
-	// ÐÂÊÖºÍ¶¯Îï»¹ÊÇÕ½¶·¹ØÏµ
+
+	// ï¿½ï¿½ï¿½ÖºÍ¶ï¿½ï¿½ï»¹ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ
 	if ((Camp1 == camp_begin && Camp2 == camp_animal)
 		||(Camp1 == camp_animal && Camp2 == camp_begin))
 		return relation_enemy;
 
-	// Ö»ÒªÓÐÒ»¸öÐÂÊÖ£¬¾Í²»´æÔÚÕ½¶·¹ØÏµ(ÊÇÍ¬ÃË¹ØÏµ£¬´ó¼Ò°ïÐÂÊÖ)
+	// Ö»Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½Ïµ(ï¿½ï¿½Í¬ï¿½Ë¹ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½)
 	if (Camp1 == camp_begin || Camp2 == camp_begin)
 		return relation_ally;
-	
-    // Á½¸ö¶¼ÊÇÍæ¼Ò
+
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (Kind1 == kind_player && Kind2 == kind_player)
 	{
-		if (Camp1 == camp_free || Camp2 == camp_free)  //É±ÊÖÕóÓª
+		if (Camp1 == camp_free || Camp2 == camp_free)  //É±ï¿½ï¿½ï¿½ï¿½Óª
 		{
 			return relation_enemy;
 		}
 	}
 
-	// Í¬ÕóÓªÎª»ï°é¹ØÏµ
-	if (Camp1 == Camp2) //Í¬ÕóÓªÎª»ï°é¹ØÏµ
+	// Í¬ï¿½ï¿½ÓªÎªï¿½ï¿½ï¿½ï¿½Ïµ
+	if (Camp1 == Camp2) //Í¬ï¿½ï¿½ÓªÎªï¿½ï¿½ï¿½ï¿½Ïµ
 		return relation_ally;
 
-	// ÆäËûÇé¿öÎªÕ½¶·¹ØÏµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÕ½ï¿½ï¿½ï¿½ï¿½Ïµ
 	return relation_enemy;
 }
 
@@ -182,9 +182,9 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
                 for (nCamp2 = 0; nCamp2 < camp_num; ++nCamp2)
                 {
                     m_RelationTable[nKind1][nKind2][nCamp1][nCamp2] = GenOneRelation(
-                        (NPCKIND)nKind1, 
-                        (NPCKIND)nKind2, 
-                        (NPCCAMP)nCamp1, 
+                        (NPCKIND)nKind1,
+                        (NPCKIND)nKind2,
+                        (NPCCAMP)nCamp1,
                         (NPCCAMP)nCamp2
                     );
                 }
@@ -198,7 +198,7 @@ NPC_RELATION KNpcSet::GenOneRelation(NPCKIND Kind1, NPCKIND Kind2, NPCCAMP Camp1
 } */
 
 
-int	KNpcSet::SearchByTongName(LPSTR szName)
+int	KNpcSet::SearchByTongName(char* szName)
 {
 
 	return 0;
@@ -206,8 +206,8 @@ int	KNpcSet::SearchByTongName(LPSTR szName)
 }
 
 
-//dwID Ãû×Ö²éÕÒ ·µ»ØË÷Òý
-int	KNpcSet::SearchID(DWORD dwID)
+//dwID ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int	KNpcSet::SearchID(unsigned long dwID)
 {
 	int nIdx = 0;
 	while (1)
@@ -215,14 +215,14 @@ int	KNpcSet::SearchID(DWORD dwID)
 		nIdx = m_UseIdxNpcSet.GetNext(nIdx);
 		if (nIdx == 0)
 			break;
-		if (Npc[nIdx].m_dwID == dwID)  //Î¨Ò»µÄ±êÊ¾
+		if (Npc[nIdx].m_dwID == dwID)  //Î¨Ò»ï¿½Ä±ï¿½Ê¾
 			return nIdx;
 	}
 	return 0;
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º²éÕÒÄ³¸öClientIDµÄnpcÊÇ·ñ´æÔÚ
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ClientIDï¿½ï¿½npcï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
 int		KNpcSet::SearchClientID(KClientNpcID sClientID)
 {
@@ -240,8 +240,8 @@ int		KNpcSet::SearchClientID(KClientNpcID sClientID)
 	return 0;
 }
 
-//Ãû×Ö²éÕÒ ·µ»ØË÷Òý
-int KNpcSet::SearchName(LPSTR szName)
+//ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int KNpcSet::SearchName(char* szName)
 {
 
 	int nIdx = 0;
@@ -256,7 +256,7 @@ int KNpcSet::SearchName(LPSTR szName)
 	return 0;
 }
 
-int KNpcSet::SearchGSNameInMap(LPSTR szName,int inMapidx)
+int KNpcSet::SearchGSNameInMap(char* szName,int inMapidx)
 {
 	int nIdx = 0,nCount=0;
 	while (1)
@@ -274,8 +274,8 @@ int KNpcSet::SearchGSNameInMap(LPSTR szName,int inMapidx)
 	return nCount;
 }
 
-//Ãû×Ö²éÕÒ ·µ»ØË÷Òý
-int KNpcSet::SearchNameInMap(LPSTR szName,int inMapidx,int nType)
+//ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int KNpcSet::SearchNameInMap(char* szName,int inMapidx,int nType)
 {
 
 	int nIdx = 0,nCount=0;
@@ -296,8 +296,8 @@ int KNpcSet::SearchNameInMap(LPSTR szName,int inMapidx,int nType)
 }
 
 
-//»ñÈ¡NPC setings
-int KNpcSet::SearchNpcSettingID(LPSTR szName)
+//ï¿½ï¿½È¡NPC setings
+int KNpcSet::SearchNpcSettingID(char* szName)
 {
 	int nIdx = 0;
 	while (1)
@@ -331,8 +331,8 @@ int KNpcSet::DelNpcInNpcSet(int nNpcSettings)
 	return nCount;
 }
 
-//²é¹éÊôÃû
-int KNpcSet::SearchGSName(LPSTR szName)
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int KNpcSet::SearchGSName(char* szName)
 {
 	int nIdx = 0,nCount=0;
 	while (1)
@@ -349,17 +349,17 @@ int KNpcSet::SearchGSName(LPSTR szName)
 	return nIdx;
 }
 
-//dwID Ãû×Ö²éÕÒ
-int KNpcSet::SearchNameID(DWORD dwID)
+//dwID ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½
+int KNpcSet::SearchNameID(unsigned long dwID)
 {
 	int nIdx = 0;
-	DWORD	dwNameID = 0;
+	unsigned long	dwNameID = 0;
 	while(1)
 	{
 		nIdx = m_UseIdxNpcSet.GetNext(nIdx);
 		if (nIdx == 0)
 			break;
-		if (Npc[nIdx].m_Kind != kind_player)   //²éÕÒÍæ¼ÒID  ²»ÊÇÍæ¼ÒµÄ¾Í²»²éÕÒÁË
+		if (Npc[nIdx].m_Kind != kind_player)   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ¾Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			continue;
 		dwNameID = g_FileName2Id(Npc[nIdx].Name);
 		if (dwID == dwNameID)
@@ -375,7 +375,7 @@ int KNpcSet::FindFreeNpcSet()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÌí¼ÓÒ»¸ö¿Í»§¶Ënpc£¨ÐèÒªÉè¶¨ClientNpcID£©
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½Òªï¿½è¶¨ClientNpcIDï¿½ï¿½
 //---------------------------------------------------------------------------
 int		KNpcSet::AddClientNpc(int nTemplateID, int nRegionX, int nRegionY, int nMpsX, int nMpsY, int nNo)
 {
@@ -402,7 +402,7 @@ int		KNpcSet::AddClientNpc(int nTemplateID, int nRegionX, int nRegionY, int nMps
 	return nNpcNo;
 }
 
-//µØÍ¼Ë¢NPC ·þÎñÆ÷¶ËµÄ
+//ï¿½ï¿½Í¼Ë¢NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½
 int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 {
 	KSPNpc*	pKSNpcInfo = (KSPNpc *)pNpcInfo;
@@ -414,19 +414,19 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 	if (nRet)
 	{
 		Npc[nRet].m_TrapScriptID = 0;
-		g_StrCpyLen(Npc[nRet].Name, pKSNpcInfo->szName, sizeof(Npc[nRet].Name)); //°´ÕÕ×Ö½ÚÊý ¸´ÖÆÃû×Ö
-		//ÐÞ¸ÄNPCµÄÎªµØÍ¼Ä¬ÈÏÊý¾Ý
-		/*Npc[nRet].m_Camp        = pKSNpcInfo->cCamp;    //ÕóÓª
-		  Npc[nRet].m_CurrentCamp = pKSNpcInfo->cCamp;    //ÕóÓª
+		g_StrCpyLen(Npc[nRet].Name, pKSNpcInfo->szName, sizeof(Npc[nRet].Name)); //ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½Þ¸ï¿½NPCï¿½ï¿½Îªï¿½ï¿½Í¼Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/*Npc[nRet].m_Camp        = pKSNpcInfo->cCamp;    //ï¿½ï¿½Óª
+		  Npc[nRet].m_CurrentCamp = pKSNpcInfo->cCamp;    //ï¿½ï¿½Óª
 		*/
-		Npc[nRet].m_Series      = (BYTE)pKSNpcInfo->cSeries;  //ÎåÐÐ
+		Npc[nRet].m_Series      = (BYTE)pKSNpcInfo->cSeries;  //ï¿½ï¿½ï¿½ï¿½
 		if (pKSNpcInfo->shKind >= kind_normal && pKSNpcInfo->shKind < kind_num)
-		   Npc[nRet].m_Kind     = pKSNpcInfo->shKind;     //ÖÖÀà
+		   Npc[nRet].m_Kind     = pKSNpcInfo->shKind;     //ï¿½ï¿½ï¿½ï¿½
 
 		if (pKSNpcInfo->cCamp >= camp_begin && pKSNpcInfo->cCamp < camp_num)
 		{
-			Npc[nRet].m_Camp        = pKSNpcInfo->cCamp;    //ÕóÓª
-			Npc[nRet].m_CurrentCamp = pKSNpcInfo->cCamp;    //ÕóÓª
+			Npc[nRet].m_Camp        = pKSNpcInfo->cCamp;    //ï¿½ï¿½Óª
+			Npc[nRet].m_CurrentCamp = pKSNpcInfo->cCamp;    //ï¿½ï¿½Óª
 		}
 
 		char nMapNpc[32]={0};
@@ -434,14 +434,14 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 		ZeroMemory(nMapNpc,sizeof(nMapNpc));
 		sprintf(nMapNpc,"%d_IsScript",SubWorld[nSubWorld].m_SubWorldID);
 		g_NpcMapDropRate.GetInteger("List",nMapNpc,0,&nIsCreat);
-		Npc[nRet].IsExeGoldScript = nIsCreat; 
+		Npc[nRet].IsExeGoldScript = nIsCreat;
 		sprintf(nMapNpc,"%d_IsCreat",SubWorld[nSubWorld].m_SubWorldID);
-		g_NpcMapDropRate.GetInteger("List",nMapNpc,0,&nIsCreat);//Ä¬ÈÏÖ´ÐÐÈ«¾Ö½Å±¾
-		Npc[nRet].IsCreatBoss     = nIsCreat; 
+		g_NpcMapDropRate.GetInteger("List",nMapNpc,0,&nIsCreat);//Ä¬ï¿½ï¿½Ö´ï¿½ï¿½È«ï¿½Ö½Å±ï¿½
+		Npc[nRet].IsCreatBoss     = nIsCreat;
 
 
-		// Èç¹ûÊÇ»Æ½ð¹ÖÎï£¬±¸·ÝÊý¾Ý
-		if (pKSNpcInfo->bSpecialNpc) //ÌØÊâNPC
+		// ï¿½ï¿½ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (pKSNpcInfo->bSpecialNpc) //ï¿½ï¿½ï¿½ï¿½NPC
 		{
 			Npc[nRet].m_cGold.SetGoldTypeAndBackData();
 		}
@@ -450,12 +450,12 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 			Npc[nRet].m_cGold.SetGoldType(FALSE);
 		}
 
-		if (pKSNpcInfo->szScript[0]) //½Å±¾²»µÈ¿Õ
-		{  
-		    int zVal=CheckThisNpc(Npc[nRet].m_NpcSettingIdx,"NoScript");//¼ì²éÊÇ·ñÔÚ½ûÖ¹ÁÐ±íÖÐ
+		if (pKSNpcInfo->szScript[0]) //ï¿½Å±ï¿½ï¿½ï¿½ï¿½È¿ï¿½
+		{
+		    int zVal=CheckThisNpc(Npc[nRet].m_NpcSettingIdx,"NoScript");//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú½ï¿½Ö¹ï¿½Ð±ï¿½ï¿½ï¿½
 		    if (zVal)
-			{//ÔÚ½ûÖ¹ÁÐ±íÖÐ£¬¾Í²»¼ÓÔØ½Å±¾
-			  return nRet; 
+			{//ï¿½Ú½ï¿½Ö¹ï¿½Ð±ï¿½ï¿½Ð£ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½Ø½Å±ï¿½
+			  return nRet;
 			}
 			char nMsg[256]={0};
 			/*
@@ -468,7 +468,7 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 				g_StrCpyLen(nMsg, &pKSNpcInfo->szScript[1], sizeof(nMsg));
 			else
 				g_StrCpyLen(nMsg, pKSNpcInfo->szScript, sizeof(nMsg));
-			 // ±£³ÖÐ¡Ð´£¬±£Ö¤½Å±¾¶ÔÓ¦¹ØÏµ
+			 // ï¿½ï¿½ï¿½ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Å±ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ïµ
 			g_StrLower(nMsg);
 			Npc[nRet].SetstrInfo(STR_ACTION_SCRIPT,nMsg);
 			Npc[nRet].m_ActionScriptID = g_CheckFileExist(nMsg);
@@ -480,7 +480,7 @@ int KNpcSet::AddMapNpc(int nSubWorld, void* pNpcInfo)
 	}
 	return nRet;
 }
-//½Å±¾Ë¢NPCºÍ Íæ¼ÒµÄÔö¼Ó£¨addNPC£©
+//ï¿½Å±ï¿½Ë¢NPCï¿½ï¿½ ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ó£ï¿½addNPCï¿½ï¿½
 int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY,int nBoss,int nRodom,int nOffwminx,int nOffwmaxx,int nOffhminy,int nOffhmaxy,int nNpcKind,unsigned int nNpcDwidx)
 {
 	int nRegion, nmMapX, nmMapY, nOffX, nOffY;
@@ -493,27 +493,27 @@ int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int
 	{
 	    int mMpsPosX,mMpsPosY;
 		    SubWorld[nSubWorld].Mps2MapnRodom(&nRegion, &nmMapX, &nmMapY, &nOffX, &nOffY,&mMpsPosX,&mMpsPosY,nOffwminx,nOffwmaxx,nOffhminy,nOffhmaxy);
-            nBarrier = SubWorld[nSubWorld].GetBarrier(mMpsPosX, mMpsPosY);  ///ÐèÒªÏñËØ×ø±êÕÏ°­ÎïÅÐ¶Ï
+            nBarrier = SubWorld[nSubWorld].GetBarrier(mMpsPosX, mMpsPosY);  ///ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	    if (Obstacle_NULL!=nBarrier)
             return 0;
 	}
 	else
-	{ 
+	{
 		//SubWorld[nSubWorld].Mps2Map(nMpsX, nMpsY, &nRegion, &nmMapX, &nmMapY, &nOffX, &nOffY);
-        	 //ÕÏ°­ÎïÅÐ¶Ï
+        	 //ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 	   POINT	ptLocal;
 	   //KMapPos	Pos;
-	   //GetMpsPos(&nX, &nY,&nMap);                          // ¹ÖÎïµÄ×ø±ê=×ª»»ºóµÄ×ø±ê  
+	   //GetMpsPos(&nX, &nY,&nMap);                          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
        ptLocal.x = nMpsX;
        ptLocal.y = nMpsY;
-	
-	   SubWorld[nSubWorld].GetFreeObjPos(ptLocal);           //»ñÈ¡ÖÜÎ§Ã»ÓÐÕÏ°­ÎïµÄ×ø±ê(Î»ÖÃ½ÃÕý)
+
+	   SubWorld[nSubWorld].GetFreeObjPos(ptLocal);           //ï¿½ï¿½È¡ï¿½ï¿½Î§Ã»ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Î»ï¿½Ã½ï¿½ï¿½ï¿½)
 
 	   SubWorld[nSubWorld].Mps2Map(ptLocal.x, ptLocal.y,&nRegion, &nmMapX, &nmMapY,&nOffX, &nOffY);
-	  
+
 		//if (nRegion < 0)
 		//{
-		 // printf("[Map]´«ËÍ·Ç·¨×ø±ê Pos(%d,%d,m:%d,ÐÐ:%d) ÎÞÐ§×ø±ê!\n", nX, nY,dwSubWorldID,nTargetSubWorld);
+		 // printf("[Map]ï¿½ï¿½ï¿½Í·Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ Pos(%d,%d,m:%d,ï¿½ï¿½:%d) ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½!\n", nX, nY,dwSubWorldID,nTargetSubWorld);
 		 // return 0;
 		//}
 
@@ -523,41 +523,41 @@ int KNpcSet::AddServerNpcA(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int
 		return 0;
 
 	int nIndexID=0;
-        nIndexID=AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nmMapX, nmMapY, nOffX, nOffY,nBoss);	
-	
+        nIndexID=AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nmMapX, nmMapY, nOffX, nOffY,nBoss);
+
 	if (nIndexID >0)
 	{
-	  // Èç¹ûÊÇ»Æ½ð¹ÖÎï
-	  if (nBoss>0 && Npc[nIndexID].m_Kind==kind_normal) //ÌØÊâNPC  g_NpcMapDropRate
+	  // ï¿½ï¿½ï¿½ï¿½Ç»Æ½ï¿½ï¿½ï¿½ï¿½
+	  if (nBoss>0 && Npc[nIndexID].m_Kind==kind_normal) //ï¿½ï¿½ï¿½ï¿½NPC  g_NpcMapDropRate
 	  {//if(!IsPlayer() && m_Kind!=kind_dialoger && m_Kind!=kind_partner)
 		Npc[nIndexID].m_cGold.SetGoldCurrentType(nBoss,nSubWorld);
-		//Npc[nIndexID].m_cGold.RandChangeGold(0,0,nBoss,nSubWorld);  //Í¬²½¹ÖÎïÀàÐÍ 
+		//Npc[nIndexID].m_cGold.RandChangeGold(0,0,nBoss,nSubWorld);  //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  }
 //-----------------------------------------------------------------------------------------
-//ÆÕÍ¨NPC ºÍÌØÊâNPC Í¨ÓÃ
+//ï¿½ï¿½Í¨NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC Í¨ï¿½ï¿½
 	  if (Npc[nIndexID].m_DataRes.Init(Npc[nIndexID].szNpcTypeName,&g_NpcResList,nIndexID))
 	  {
 		  //if  (nNpcKind >-1 && nNpcKind==kind_player)
 			//  CCMessageBox(Npc[nIndexID].szNpcTypeName,"m_DataRes.Init");
-	  }//Íâ¹Û³õÊ¼»¯
+	  }//ï¿½ï¿½Û³ï¿½Ê¼ï¿½ï¿½
 
-	  /*Npc[nIndexID].m_DataRes.SetAction(Npc[nIndexID].m_ClientDoing);            //Éè¶¨Íâ¹ÛÐÐÎª¶Ô½Ó
-	  Npc[nIndexID].m_DataRes.SetRideHorse(Npc[nIndexID].m_bRideHorse);          //Éè¶¨ÊÇ·ñÆïÂí½ÓÖ¡Êý
-	  Npc[nIndexID].m_DataRes.SetArmor(Npc[nIndexID].m_ArmorType);               //ÒÂ·þ
-	  Npc[nIndexID].m_DataRes.SetHelm(Npc[nIndexID].m_HelmType);                 //Í·²¿
-	  Npc[nIndexID].m_DataRes.SetHorse(Npc[nIndexID].m_HorseType);               //ÂíÎ»ÖÃ
-	  Npc[nIndexID].m_DataRes.SetWeapon(Npc[nIndexID].m_WeaponType);             //ÎäÆ÷
+	  /*Npc[nIndexID].m_DataRes.SetAction(Npc[nIndexID].m_ClientDoing);            //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ô½ï¿½
+	  Npc[nIndexID].m_DataRes.SetRideHorse(Npc[nIndexID].m_bRideHorse);          //ï¿½è¶¨ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
+	  Npc[nIndexID].m_DataRes.SetArmor(Npc[nIndexID].m_ArmorType);               //ï¿½Â·ï¿½
+	  Npc[nIndexID].m_DataRes.SetHelm(Npc[nIndexID].m_HelmType);                 //Í·ï¿½ï¿½
+	  Npc[nIndexID].m_DataRes.SetHorse(Npc[nIndexID].m_HorseType);               //ï¿½ï¿½Î»ï¿½ï¿½
+	  Npc[nIndexID].m_DataRes.SetWeapon(Npc[nIndexID].m_WeaponType);             //ï¿½ï¿½ï¿½ï¿½
 	 */
 	  if (Npc[nIndexID].m_Kind==kind_player)
-	  {  
-	      //Npc[nIndexID].m_DataRes.SetPifeng(Npc[nIndexID].m_PifengType);             //Åû·ç
+	  {
+	      //Npc[nIndexID].m_DataRes.SetPifeng(Npc[nIndexID].m_PifengType);             //ï¿½ï¿½ï¿½ï¿½
 	      //Npc[nIndexID].m_DataRes.SetChiBang(Npc[nIndexID].m_ChiBangType);
 	  }
-//-----------------------------------------------------------------------------------------	
+//-----------------------------------------------------------------------------------------
 	}
-	return nIndexID;	
+	return nIndexID;
 }
-//Ë¢ÑºïÚNPC
+//Ë¢Ñºï¿½ï¿½NPC
 int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, IN int nSeries, IN int nComp,IN int nRindexid,int nBoss)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY;
@@ -569,7 +569,7 @@ int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMp
 	int indexid;
 	    indexid= AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nMapX, nMapY, nOffX, nOffY,-1);
 	if (indexid >0 && nRindexid>0 )
-	{   
+	{
 		Npc[indexid].m_Camp       = Npc[nRindexid].m_Camp;
 		Npc[indexid].m_btRankFFId = 88;
 		Npc[indexid].m_IsRevive   = g_FileName2Id(Npc[nRindexid].Name);
@@ -578,9 +578,9 @@ int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMp
 		Npc[indexid].m_bClientOnly = FALSE;
 		char nPCname[32];
 		ZeroMemory(nPCname,32);
-		ZeroMemory(Npc[indexid].Name,32); // ÇåÁã
+		ZeroMemory(Npc[indexid].Name,32); // ï¿½ï¿½ï¿½ï¿½
         g_StrCpyLen(nPCname,Npc[nRindexid].Name,sizeof(Npc[nRindexid].Name));
-		strcat(nPCname,"µÄ(ïÚ³µ)");
+		strcat(nPCname,"ï¿½ï¿½(ï¿½Ú³ï¿½)");
         sprintf(Npc[indexid].Name,"%s",nPCname);
         //sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
 		//char nstrName[64]={0};
@@ -594,7 +594,7 @@ int KNpcSet::Addyabiao(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMp
 
 }
 
-//Ë¢Í¬°éNPC
+//Ë¢Í¬ï¿½ï¿½NPC
 int KNpcSet::AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nMpsY, IN int nSeries, IN int nComp,IN int nRindexid,int nBoss)
 {
 	int nRegion, nMapX, nMapY, nOffX, nOffY;
@@ -606,11 +606,11 @@ int KNpcSet::AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nM
 	int indexid;
 	    indexid= AddServerNpcB(nNpcSettingIdxInfo, nSubWorld, nRegion, nMapX, nMapY, nOffX, nOffY,-1);
 	if (indexid >0 && nRindexid>0 )
-	{   
+	{
 		Npc[indexid].m_Camp       = Npc[nRindexid].m_Camp;
 		Npc[indexid].m_btRankFFId = 99;
 		Npc[indexid].m_GuiShuDwid = Npc[nRindexid].m_dwID;
-		Npc[indexid].m_IsRevive   = g_FileName2Id(Npc[nRindexid].Name);  // Ãû×ÖµÄ×ª»»Âë
+		Npc[indexid].m_IsRevive   = g_FileName2Id(Npc[nRindexid].Name);  // ï¿½ï¿½ï¿½Öµï¿½×ªï¿½ï¿½ï¿½ï¿½
 		Npc[indexid].m_Kind       = kind_partner;
 		Npc[indexid].m_bClientOnly = FALSE;
 		//sprintf(Npc[indexid].m_GuishuName,"%s",Npc[nRindexid].Name);
@@ -623,33 +623,33 @@ int KNpcSet::AddTongBan(int nNpcSettingIdxInfo, int nSubWorld, int nMpsX, int nM
 	{
 		return 0;
 	}
-	
+
 }
-//Ë¢¹Ö
+//Ë¢ï¿½ï¿½
 int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX /* = 0 */, int nOffY,int nBoss)
 {
-	int nNpcSettingIdx = (short)HIWORD(nNpcSettingIdxInfo);// >> 7; //³ýÓÚ128
+	int nNpcSettingIdx = (short)HIWORD(nNpcSettingIdxInfo);// >> 7; //ï¿½ï¿½ï¿½ï¿½128
 
-    if  (nNpcSettingIdx>g_NpcSetting.GetHeight()-2) //NPC.txt µÄÐÐÊý
+    if  (nNpcSettingIdx>g_NpcSetting.GetHeight()-2) //NPC.txt ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		//CCMessageBox("NPCÔö¼ÓÊ§°Ü","NPCÔö¼ÓÊ§°Ü");
+		//CCMessageBox("NPCï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½","NPCï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 	    return 0;
 	}
 
 	int i = FindFreeNpcSet();
 	if (i <= 0)
-	{//²éÕÒ¿ÕÏÐ½Úµã
-		//CCMessageBox("NPCÒÑ¾­ÂúÔ±(Ë¢¹ÖÊ§°Ü)","NPCÒÑ¾­ÂúÔ±(Ë¢¹ÖÊ§°Ü)");
+	{//ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½Ð½Úµï¿½
+		//CCMessageBox("NPCï¿½Ñ¾ï¿½ï¿½ï¿½Ô±(Ë¢ï¿½ï¿½Ê§ï¿½ï¿½)","NPCï¿½Ñ¾ï¿½ï¿½ï¿½Ô±(Ë¢ï¿½ï¿½Ê§ï¿½ï¿½)");
 	    return 0;
 	}
 	Npc[i].m_sClientNpcID.m_dwRegionID = 0;
 	Npc[i].m_sClientNpcID.m_nNo = -1;
-	Npc[i].Remove();                       //³õÊ¼»¯ É¾³ýÍâ¹Û£¿
-	//int nNpcSettingIdx = (short)HIWORD(nNpcSettingIdxInfo);// >> 7; //³ýÓÚ128
-	int nLevel         = LOWORD(nNpcSettingIdxInfo);// & 0x7f; 
-	Npc[i].m_Index     = i; //½ÚµãµÄË÷Òý
+	Npc[i].Remove();                       //ï¿½ï¿½Ê¼ï¿½ï¿½ É¾ï¿½ï¿½ï¿½ï¿½Û£ï¿½
+	//int nNpcSettingIdx = (short)HIWORD(nNpcSettingIdxInfo);// >> 7; //ï¿½ï¿½ï¿½ï¿½128
+	int nLevel         = LOWORD(nNpcSettingIdxInfo);// & 0x7f;
+	Npc[i].m_Index     = i; //ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Npc[i].m_SkillList.m_nNpcIndex = i;
-	Npc[i].Load(nNpcSettingIdx, nLevel,nSubWorld,nBoss);  //¼ÓÔØNPCÐÅÏ¢µÈ  ÈËÎïÀàÐÍ µÈ
+	Npc[i].Load(nNpcSettingIdx, nLevel,nSubWorld,nBoss);  //ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½Ï¢ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	Npc[i].m_SubWorldIndex = nSubWorld;
 	Npc[i].m_RegionIndex   = nRegion;
 
@@ -659,52 +659,52 @@ int KNpcSet::AddServerNpcB(int nNpcSettingIdxInfo, int nSubWorld, int nRegion, i
 	Npc[i].m_MapX = nMapX;
 	Npc[i].m_MapY = nMapY;
 	Npc[i].m_OffX = nOffX;
-	Npc[i].m_OffY = nOffY;	
+	Npc[i].m_OffY = nOffY;
 
 	SubWorld[nSubWorld].NewMap2Mps(nRegion, nMapX, nMapY, nOffX, nOffY, &Npc[i].m_OriginX, &Npc[i].m_OriginY);
-	// ÐÞ¸Ä¿ÉÓÃÓëÊ¹ÓÃ±í
-	m_FreeIdxNpcSet.Remove(i); //¿ÉÓÃ±íÉ¾³ýÒ»¸ö
-	m_UseIdxNpcSet.Insert(i);  //ÒÑÓÃ±íÔö¼ÓÒ»¸ö
-	SubWorld[nSubWorld].m_Region[nRegion].AddNpc(i);//Ôö¼Ó½Úµãm_WorldMessage.Send(GWM_NPC_ADD, nRegion, i);
-	//SubWorld[nSubWorld].m_Region[nRegion].AddRef(nMapX, nMapY, obj_npc);  //NPC ³öÏÖµÄÎ»ÖÃ
+	// ï¿½Þ¸Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½
+	m_FreeIdxNpcSet.Remove(i); //ï¿½ï¿½ï¿½Ã±ï¿½É¾ï¿½ï¿½Ò»ï¿½ï¿½
+	m_UseIdxNpcSet.Insert(i);  //ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+	SubWorld[nSubWorld].m_Region[nRegion].AddNpc(i);//ï¿½ï¿½ï¿½Ó½Úµï¿½m_WorldMessage.Send(GWM_NPC_ADD, nRegion, i);
+	//SubWorld[nSubWorld].m_Region[nRegion].AddRef(nMapX, nMapY, obj_npc);  //NPC ï¿½ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½
 	SubWorld[nSubWorld].m_Region[nRegion].AddNpcRef(nMapX,nMapY);
 	Npc[i].m_dwRegionID = SubWorld[nSubWorld].m_Region[nRegion].m_RegionID;
 //---------------------------------------------------------------------------
-	/*Npc[i].m_DataRes.Init(Npc[i].szNpcTypeName, &g_NpcResList);  //Íâ¹Û³õÊ¼»¯
-	Npc[i].m_DataRes.SetAction(Npc[i].m_ClientDoing);            //Éè¶¨Íâ¹ÛÐÐÎª¶Ô½ÓNpc[i].m_ClientDoing
-	Npc[i].m_DataRes.SetRideHorse(Npc[i].m_bRideHorse);          //Éè¶¨ÊÇ·ñÆïÂí½ÓÖ¡Êý
-	Npc[i].m_DataRes.SetArmor(Npc[i].m_ArmorType);               //ÒÂ·þ
-	Npc[i].m_DataRes.SetHelm(Npc[i].m_HelmType);                 //Í·²¿
-	Npc[i].m_DataRes.SetHorse(Npc[i].m_HorseType);               //ÂíÎ»ÖÃ
-	Npc[i].m_DataRes.SetWeapon(Npc[i].m_WeaponType);             //ÎäÆ÷
+	/*Npc[i].m_DataRes.Init(Npc[i].szNpcTypeName, &g_NpcResList);  //ï¿½ï¿½Û³ï¿½Ê¼ï¿½ï¿½
+	Npc[i].m_DataRes.SetAction(Npc[i].m_ClientDoing);            //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ô½ï¿½Npc[i].m_ClientDoing
+	Npc[i].m_DataRes.SetRideHorse(Npc[i].m_bRideHorse);          //ï¿½è¶¨ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
+	Npc[i].m_DataRes.SetArmor(Npc[i].m_ArmorType);               //ï¿½Â·ï¿½
+	Npc[i].m_DataRes.SetHelm(Npc[i].m_HelmType);                 //Í·ï¿½ï¿½
+	Npc[i].m_DataRes.SetHorse(Npc[i].m_HorseType);               //ï¿½ï¿½Î»ï¿½ï¿½
+	Npc[i].m_DataRes.SetWeapon(Npc[i].m_WeaponType);             //ï¿½ï¿½ï¿½ï¿½
 	*/
   if (Npc[i].m_Kind==kind_player)
-  {  
-	 // CCMessageBox("Íæ¼ÒÔö¼Ó³É¹¦","Íæ¼ÒÔö¼Ó³É¹¦");
+  {
+	 // CCMessageBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³É¹ï¿½");
     //if (Npc[i].m_PifengType>0)
-	//   Npc[i].m_DataRes.SetPifeng(Npc[i].m_PifengType);             //Åû·ç
+	//   Npc[i].m_DataRes.SetPifeng(Npc[i].m_PifengType);             //ï¿½ï¿½ï¿½ï¿½
 	  //if (Npc[i].m_ChiBangType>0)
-	    //Npc[i].m_DataRes.SetChiBang(Npc[i].m_ChiBangType);           //³á°ò
-  }  
+	    //Npc[i].m_DataRes.SetChiBang(Npc[i].m_ChiBangType);           //ï¿½ï¿½ï¿½
+  }
 //---------------------------------------------------------------------------
 	return i;
 }
 
-void KNpcSet::Remove(int nIdx,BOOL isNeedSyn)
+void KNpcSet::Remove(int nIdx,int isNeedSyn)
 {
 	if (nIdx <= 0 || nIdx >= MAX_NPC)
 		return;
-	//CCMessageBox("É¾³ýÁËnpc","Remove npc");
+	//CCMessageBox("É¾ï¿½ï¿½ï¿½ï¿½npc","Remove npc");
 	Npc[nIdx].ClearNpcState();
 	Npc[nIdx].m_SkillList.Clear();
-	Npc[nIdx].Remove(); ////Íâ¹ÛÉ¾³ý
+	Npc[nIdx].Remove(); ////ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	m_FreeIdxNpcSet.Insert(nIdx);
 	m_UseIdxNpcSet.Remove(nIdx);
 }
 
 void KNpcSet::RemoveAll()
 {
-	//CCMessageBox("É¾³ýÁËËùÓÐnpc","RemoveAll npc");
+	//CCMessageBox("É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npc","RemoveAll npc");
 	int nIdx = m_UseIdxNpcSet.GetNext(0);
 	int nIdx1 = 0;
 	while(nIdx)
@@ -720,7 +720,7 @@ void KNpcSet::RemoveAll()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º´ÓnpcÊý×éÖÐÑ°ÕÒÊôÓÚÄ³¸öregionµÄ client npc £¬Ìí¼Ó½øÈ¥
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½npcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½regionï¿½ï¿½ client npc ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½È¥
 //---------------------------------------------------------------------------
 void	KNpcSet::InsertNpcToRegion(int nRegionIdx)
 {
@@ -733,13 +733,13 @@ void	KNpcSet::InsertNpcToRegion(int nRegionIdx)
 		nIdx = m_UseIdxNpcSet.GetNext(nIdx);
 
 		if (nIdx == 0)
-		{//NPC Ë÷Òý
+		{//NPC ï¿½ï¿½ï¿½ï¿½
 			//CCMessageBox("nIdx is NULL break;","InsertNpcToRegion");
 			break;
 		}
 
-		if (Npc[nIdx].m_sClientNpcID.m_dwRegionID > 0 && Npc[nIdx].m_dwRegionID == (DWORD)SubWorld[0].m_Region[nRegionIdx].m_RegionID)
-		{//Èç¹ûÊÇ¿Í»§¶ËNPC
+		if (Npc[nIdx].m_sClientNpcID.m_dwRegionID > 0 && Npc[nIdx].m_dwRegionID == (unsigned long)SubWorld[0].m_Region[nRegionIdx].m_RegionID)
+		{//ï¿½ï¿½ï¿½ï¿½Ç¿Í»ï¿½ï¿½ï¿½NPC
 			SubWorld[0].m_Region[nRegionIdx].AddNpc(nIdx);
 			Npc[nIdx].m_RegionIndex = nRegionIdx;
 			Npc[nIdx].m_dwRegionID = SubWorld[0].m_Region[nRegionIdx].m_RegionID;
@@ -756,10 +756,10 @@ void KNpcSet::SetID(int m_nIndex)
 	if (m_nIndex <= 0 || m_nIndex >= MAX_NPC)
 		return;
 	Npc[m_nIndex].m_dwID = m_dwIDCreator;
-	m_dwIDCreator++; //Éè¶¨Ò»¸öºó×Ô¼ÓÒ»´Î
+	m_dwIDCreator++; //ï¿½è¶¨Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ò»ï¿½ï¿½
 }
 
-int KNpcSet::GetDistance(int nIdx1, int nIdx2) //»ñÈ¡³¡¾°µÄ¾àÀë
+int KNpcSet::GetDistance(int nIdx1, int nIdx2) //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 {
 	int	nRet = 0;
 	if (Npc[nIdx1].m_SubWorldIndex != Npc[nIdx2].m_SubWorldIndex)
@@ -778,7 +778,7 @@ int KNpcSet::GetDistance(int nIdx1, int nIdx2) //»ñÈ¡³¡¾°µÄ¾àÀë
 	else
 	{
 		int X1, Y1;
-		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex, 
+		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex,
 			Npc[nIdx1].m_MapX,
 			Npc[nIdx1].m_MapY,
 			Npc[nIdx1].m_OffX,
@@ -786,7 +786,7 @@ int KNpcSet::GetDistance(int nIdx1, int nIdx2) //»ñÈ¡³¡¾°µÄ¾àÀë
 			&X1,
 			&Y1);
 		int X2, Y2;
-		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex, 
+		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex,
 			Npc[nIdx2].m_MapX,
 			Npc[nIdx2].m_MapY,
 			Npc[nIdx2].m_OffX,
@@ -818,7 +818,7 @@ int		KNpcSet::GetDistanceSquare(int nIdx1, int nIdx2)
 	else
 	{
 		int X1, Y1;
-		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex, 
+		SubWorld[Npc[nIdx1].m_SubWorldIndex].NewMap2Mps(Npc[nIdx1].m_RegionIndex,
 			Npc[nIdx1].m_MapX,
 			Npc[nIdx1].m_MapY,
 			Npc[nIdx1].m_OffX,
@@ -826,7 +826,7 @@ int		KNpcSet::GetDistanceSquare(int nIdx1, int nIdx2)
 			&X1,
 			&Y1);
 		int X2, Y2;
-		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex, 
+		SubWorld[Npc[nIdx2].m_SubWorldIndex].NewMap2Mps(Npc[nIdx2].m_RegionIndex,
 			Npc[nIdx2].m_MapX,
 			Npc[nIdx2].m_MapY,
 			Npc[nIdx2].m_OffX,
@@ -850,7 +850,7 @@ INT	KNpcSet::GetMapDisX(INT nIdx1, INT nIdx2)
 	INT nSubWorldIdx = Npc[nIdx1].m_SubWorldIndex;
 	INT region1 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx1].m_RegionIndex].m_RegionID,
 		region2 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx2].m_RegionIndex].m_RegionID;
-	return abs((LOWORD(region1) - LOWORD(region2)) * 
+	return abs((LOWORD(region1) - LOWORD(region2)) *
 		SubWorld[nSubWorldIdx].m_nRegionWidth + Npc[nIdx1].m_MapX - Npc[nIdx2].m_MapX);
 }
 
@@ -863,7 +863,7 @@ INT	KNpcSet::GetMapDisY(INT nIdx1, INT nIdx2)
 	INT nSubWorldIdx = Npc[nIdx1].m_SubWorldIndex;
 	INT region1 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx1].m_RegionIndex].m_RegionID,
 		region2 = SubWorld[nSubWorldIdx].m_Region[Npc[nIdx2].m_RegionIndex].m_RegionID;
-	return abs((HIWORD(region1) - HIWORD(region2)) * 
+	return abs((HIWORD(region1) - HIWORD(region2)) *
 		SubWorld[nSubWorldIdx].m_nRegionHeight + Npc[nIdx1].m_MapY - Npc[nIdx2].m_MapY);
 }
 
@@ -874,43 +874,43 @@ int		KNpcSet::GetNextIdx(int nIdx)
 		return 0;
 	return m_UseIdxNpcSet.GetNext(nIdx);
 }
-//¼ì²â½ûÖ¹ÎïÆ·
-int  KNpcSet::CheckForBit(int *nVal,char *mKey,int Model)
+//ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½Æ·
+int  KNpcSet::CheckForBit(int *nVal, const char *mKey,int Model)
 {
   int nRows=g_ForbitMap.GetHeight()+1,nReg=0;
 
   for(int i=2;i<nRows;++i)
-  { 
+  {
 	  if (Model==1)
-	  { 
-		 int zVal; 
+	  {
+		 int zVal;
          g_ForbitMap.GetInteger(i,mKey,0,&zVal);
 	     if (zVal==nVal[0])
-		 { 
+		 {
            nReg=1;
 		   break;
-		 } 
-	  } 
+		 }
+	  }
 	  else if(Model==2)
 	  {
-		  int zVal[2];   
+		  int zVal[2];
 		  g_ForbitMap.GetInt2s(i,mKey,zVal);
 		  if ((zVal[0]==nVal[0])&&(zVal[1]==nVal[1]))
-		  { 
+		  {
 			  nReg=1;
 			  break;
-		 } 
+		 }
 
 	  }
 	  else if(Model==3)
 	 {
-		  int zVal[3];   
+		  int zVal[3];
 		  g_ForbitMap.GetInt3s(i,mKey,zVal);
 		  if ((zVal[0]==nVal[0])&&(zVal[1]==nVal[1])&&(zVal[2]==nVal[2]))
-		  { 
+		  {
 			  nReg=1;
 			  break;
-		  } 	  
+		  }
 	  }
   }
 
@@ -918,11 +918,11 @@ int  KNpcSet::CheckForBit(int *nVal,char *mKey,int Model)
 }
 
 
-BOOL KNpcSet::CheckThisNpc(int nSetings,char *nKey)
+int KNpcSet::CheckThisNpc(int nSetings,const char *nKey)
 {
-     
+
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=FALSE;
-	
+
 	for (int i=2;i<nRow;++i)
 	{
 		int nSkilid =0;
@@ -933,7 +933,7 @@ BOOL KNpcSet::CheckThisNpc(int nSetings,char *nKey)
 			break;
 		}
 	}
-	return nReg;   
+	return nReg;
 }
 
 void KNpcSet::CheckBalance()
@@ -963,7 +963,7 @@ void KNpcSet::CheckBalance()
 		}
 
 		/*if (Npc[nIdx].m_Kind!=kind_player && SubWorld[0].m_dwCurrentTime - Npc[nIdx].m_SyncSignal > 1000)
-		{//Èç¹ûÊ±¼äÏà²î 1000ºÁÃë ¾ÍÉ¾³ý NPC Í¬²½ÑÓÊ±µÄ¹ÖÎï
+		{//ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ 1000ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½É¾ï¿½ï¿½ NPC Í¬ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¹ï¿½ï¿½ï¿½
 				if (Npc[nIdx].m_RegionIndex >= 0)
 				{
 					SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].RemoveNpc(nIdx);
@@ -973,7 +973,7 @@ void KNpcSet::CheckBalance()
 				Remove(nIdx);
 		}
 		else if (Npc[nIdx].m_Kind==kind_player && nIdx!=Player[CLIENT_PLAYER_INDEX].m_nIndex && SubWorld[0].m_dwCurrentTime - Npc[nIdx].m_SyncSignal > 100)
-		{//ÈËÎïµÄÉ¾³ý ³ý¿Í»§¶Ë±¾ÈË
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë±ï¿½ï¿½ï¿½
 				if (Npc[nIdx].m_RegionIndex >= 0)
 				{
 					SubWorld[0].m_Region[Npc[nIdx].m_RegionIndex].RemoveNpc(nIdx);
@@ -984,7 +984,7 @@ void KNpcSet::CheckBalance()
 
 		}
 		else if (Npc[nIdx].m_Kind==kind_player && nIdx==Player[CLIENT_PLAYER_INDEX].m_nIndex && SubWorld[0].m_dwCurrentTime - Npc[nIdx].m_SyncSignal > 100)
-		{//ÈËÎïµÄÉ¾³ý ¿Í»§¶Ë±¾ÈË É¾³ýÖÜÎ§µÄ¾«Áé ¿¨ºÅ²»Í¬²½µÄ
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½Í»ï¿½ï¿½Ë±ï¿½ï¿½ï¿½ É¾ï¿½ï¿½ï¿½ï¿½Î§ï¿½Ä¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
 			if (g_GameWorld)
 				g_GameWorld->setIsPaint(false);
 				//g_GameWorld->ParentNode_map->removeAllChildren();
@@ -995,14 +995,14 @@ void KNpcSet::CheckBalance()
 	}
 	nIdx = m_RequestUseIdx.GetNext(0);
 	while(nIdx)
-	{//É¾³ýÇëÇó³¬Ê±ÀïÃæµÄNPC
+	{//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½NPC
 		int nTmpIdx = m_RequestUseIdx.GetNext(nIdx);
 		if (SubWorld[0].m_dwCurrentTime - m_RequestNpc[nIdx].dwRequestTime > 100)
 		{
-			DWORD	dwID = m_RequestNpc[nIdx].dwRequestId;
-			m_RequestNpc[nIdx].dwRequestId = 0;	
+			unsigned long	dwID = m_RequestNpc[nIdx].dwRequestId;
+			m_RequestNpc[nIdx].dwRequestId = 0;
 			m_RequestNpc[nIdx].dwRequestTime = 0;
-			
+
 			m_RequestUseIdx.Remove(nIdx);
 			m_RequestFreeIdx.Insert(nIdx);
 		}
@@ -1011,7 +1011,7 @@ void KNpcSet::CheckBalance()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃÖÜÎ§Íæ¼ÒÁÐ±í£¬ÓÃÓÚ½çÃæ£¬¶ÓÎéÑûÇëÁÐ±í
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 //-------------------------------------------------------------------------
 int		KNpcSet::GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount)
 {
@@ -1035,16 +1035,16 @@ int		KNpcSet::GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount)
 			if (Npc[nIdx].m_RegionIndex < 0)
 				continue;
 			for (i = 0; i < MAX_TEAM_MEMBER; ++i)
-			{//¶ÓÔ±²»ÏÔÊ¾
-				if ((DWORD)g_Team[0].m_nMember[i] == Npc[nIdx].m_dwID)
+			{//ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ê¾
+				if ((unsigned long)g_Team[0].m_nMember[i] == Npc[nIdx].m_dwID)
 					break;
 			}
 			if (i < MAX_TEAM_MEMBER)
 				continue;
-			if ((DWORD)g_Team[0].m_nCaptain == Npc[nIdx].m_dwID)  //¶Ó³¤²»ÏÔÊ¾
+			if ((unsigned long)g_Team[0].m_nCaptain == Npc[nIdx].m_dwID)  //ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 				continue;
 			nNum++;
-		}	
+		}
 		return nNum;
 	}
 	if (!pList)
@@ -1066,24 +1066,24 @@ int		KNpcSet::GetAroundPlayerForTeamInvite(KUiPlayerItem *pList, int nCount)
 			continue;
 		for (i = 0; i < MAX_TEAM_MEMBER; ++i)
 		{
-			if ((DWORD)g_Team[0].m_nMember[i] == Npc[nIdx].m_dwID)
+			if ((unsigned long)g_Team[0].m_nMember[i] == Npc[nIdx].m_dwID)
 				break;
 		}
 		if (i < MAX_TEAM_MEMBER)
 			continue;
-		if ((DWORD)g_Team[0].m_nCaptain == Npc[nIdx].m_dwID)
+		if ((unsigned long)g_Team[0].m_nCaptain == Npc[nIdx].m_dwID)
 			continue;
 		pList[nNum].nIndex = nIdx;
 		pList[nNum].uId = Npc[nIdx].m_dwID;
 		strcpy(pList[nNum].Name, Npc[nIdx].Name);
 		nNum++;
 	}
-	
+
 	return nNum;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃÖÜÎ§Íæ¼ÒÁÐ±í(ÓÃÓÚÁÐ±í)
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ð±ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½)
 //-------------------------------------------------------------------------
 int		KNpcSet::GetAroundPlayer(KUiPlayerItem *pList, int nCount)
 {
@@ -1107,7 +1107,7 @@ int		KNpcSet::GetAroundPlayer(KUiPlayerItem *pList, int nCount)
 //				continue;
 			nNum++;
 		}
-		
+
 		return nNum;
 	}
 
@@ -1134,15 +1134,15 @@ int		KNpcSet::GetAroundPlayer(KUiPlayerItem *pList, int nCount)
 		pList[nNum].nData  = Npc[nIdx].GetMenuState();
 		nNum++;
 	}
-	
+
 	return nNum;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö
-//			bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+//			bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
 //-------------------------------------------------------------------------
-void	KNpcSet::SetShowNameFlag(BOOL bFlag)
+void	KNpcSet::SetShowNameFlag(int bFlag)
 {
 	if (bFlag)
 		m_nShowPateFlag |= PATE_NAME;
@@ -1151,18 +1151,18 @@ void	KNpcSet::SetShowNameFlag(BOOL bFlag)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÃû×Ö  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
 //-------------------------------------------------------------------------
-BOOL	KNpcSet::CheckShowName()
+int	KNpcSet::CheckShowName()
 {
 	return m_nShowPateFlag & PATE_NAME;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª
-//			bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª
+//			bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
 //-------------------------------------------------------------------------
-void	KNpcSet::SetShowLifeFlag(BOOL bFlag)
+void	KNpcSet::SetShowLifeFlag(int bFlag)
 {
 	if (bFlag)
 		m_nShowPateFlag |= PATE_LIFE;
@@ -1171,18 +1171,18 @@ void	KNpcSet::SetShowLifeFlag(BOOL bFlag)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÑª  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½Ñª  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
 //-------------------------------------------------------------------------
-BOOL	KNpcSet::CheckShowLife()
+int	KNpcSet::CheckShowLife()
 {
 	return m_nShowPateFlag & PATE_LIFE;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì
-//			bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+//			bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
 //-------------------------------------------------------------------------
-void	KNpcSet::SetShowChatFlag(BOOL bFlag)
+void	KNpcSet::SetShowChatFlag(int bFlag)
 {
 	if (bFlag)
 		m_nShowPateFlag |= PATE_CHAT;
@@ -1191,17 +1191,17 @@ void	KNpcSet::SetShowChatFlag(BOOL bFlag)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÁÄÌì  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
 //-------------------------------------------------------------------------
-BOOL	KNpcSet::CheckShowChat()
+int	KNpcSet::CheckShowChat()
 {
 	return m_nShowPateFlag & PATE_CHAT;
 }
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦
-//			bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½è¶¨ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+//			bFlag ==	TRUE ï¿½ï¿½Ê¾ï¿½ï¿½bFlag == FALSE ï¿½ï¿½ï¿½ï¿½Ê¾ zroc add
 //-------------------------------------------------------------------------
-void	KNpcSet::SetShowManaFlag(BOOL bFlag)
+void	KNpcSet::SetShowManaFlag(int bFlag)
 {
 	if (bFlag)
 		m_nShowPateFlag |= PATE_MANA;
@@ -1210,16 +1210,16 @@ void	KNpcSet::SetShowManaFlag(BOOL bFlag)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅÐ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾Íæ¼ÒµÄÄÚÁ¦  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Öµ TRUE ï¿½ï¿½Ê¾ï¿½ï¿½FALSE ï¿½ï¿½ï¿½ï¿½Ê¾
 //-------------------------------------------------------------------------
-BOOL	KNpcSet::CheckShowMana()
+int	KNpcSet::CheckShowMana()
 {
 	return m_nShowPateFlag & PATE_MANA;
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º°ÑËùÓÐnpcµÄ bActivateFlag ÉèÎª FALSE
-//		(Ã¿´ÎÓÎÏ·Ñ­»·´¦ÀíËùÓÐnpcµÄactivateÖ®Ç°×öÕâ¸ö´¦Àí)
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½ bActivateFlag ï¿½ï¿½Îª FALSE
+//		(Ã¿ï¿½ï¿½ï¿½ï¿½Ï·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½npcï¿½ï¿½activateÖ®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 //-------------------------------------------------------------------------
 void	KNpcSet::ClearActivateFlagOfAllNpc()
 {
@@ -1234,7 +1234,7 @@ void	KNpcSet::ClearActivateFlagOfAllNpc()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º»ñµÃÖÜÎ§Í¬ÕóÓªµÄÒÑ¿ª·Å¶ÓÎé¶Ó³¤ÁÐ±í ²»Í¬ÕóÓªÏÖÔÚ¿ÉÒÔ×é¶Ó
+//	ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ñ¿ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ð±ï¿½ ï¿½ï¿½Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-------------------------------------------------------------------------
 void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 {
@@ -1251,7 +1251,7 @@ void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 			continue;
 		if (nIdx == Player[CLIENT_PLAYER_INDEX].m_nIndex)
 			continue;
-		// ²»Í¬ÕóÓªÏÖÔÚ¿ÉÒÔ×é¶Ó£¬ÀÏÊÖ²»ÄÜ¼ÓÈëÐÂÈË¶ÓÎé£¬ÐÂÈË¿ÉÒÔ¼ÓÈëÀÏÊÖ¶ÓÎé
+		// ï¿½ï¿½Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½
 		if (Npc[nIdx].m_Camp == camp_begin && nCamp != camp_begin)
 			continue;
 //		if (Npc[nIdx].m_Camp != nCamp)
@@ -1261,7 +1261,7 @@ void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 		if (Npc[nIdx].GetMenuState() == PLAYER_MENU_STATE_TEAMOPEN)
 			nNum++;
 	}
-	
+
 	if (nNum > 0)
 	{
 		KUiTeamItem* const pTeamList = new KUiTeamItem[nNum];
@@ -1276,7 +1276,7 @@ void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 				continue;
 			if (nIdx == Player[CLIENT_PLAYER_INDEX].m_nIndex)
 				continue;
-			// ²»Í¬ÕóÓªÏÖÔÚ¿ÉÒÔ×é¶Ó£¬ÀÏÊÖ²»ÄÜ¼ÓÈëÐÂÈË¶ÓÎé£¬ÐÂÈË¿ÉÒÔ¼ÓÈëÀÏÊÖ¶ÓÎé
+			// ï¿½ï¿½Í¬ï¿½ï¿½Óªï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½
 			if (Npc[nIdx].m_Camp == camp_begin && nCamp != camp_begin)
 				continue;
 //			if (Npc[nIdx].m_Camp != nCamp)
@@ -1297,8 +1297,8 @@ void	KNpcSet::GetAroundOpenCaptain(int nCamp)
 		delete []pTeamList;
 	}
 }
-// Ä³×ù±êÉÏ¾«È·²éÕÒNpc£¬¿Í»§¶Ë×¨ÓÃ
-	// ÓÃÓÚ¿Í»§¶Ë
+// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½È·ï¿½ï¿½ï¿½ï¿½Npcï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½×¨ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Ú¿Í»ï¿½ï¿½ï¿½
 int	KNpcSet::SearchNpcAt(int nX, int nY, int nRelation, int nRange)
 {
 	int nIdx;
@@ -1340,7 +1340,7 @@ int	KNpcSet::SearchNpcAt(int nX, int nY, int nRelation, int nRange)
 
 		if (!(GetRelation(Player[CLIENT_PLAYER_INDEX].m_nIndex, nIdx) & nRelation))
 			continue;
-		
+
 		int x, y;
 		SubWorld[0].NewMap2Mps(Npc[nIdx].m_RegionIndex, Npc[nIdx].m_MapX, Npc[nIdx].m_MapY,
 			Npc[nIdx].m_OffX, Npc[nIdx].m_OffY, &x, &y);
@@ -1366,12 +1366,12 @@ int	KNpcSet::SearchNpcAt(int nX, int nY, int nRelation, int nRange)
 }
 
 
-BOOL KNpcSet::IsNpcRequestExist(DWORD dwID)
+int KNpcSet::IsNpcRequestExist(unsigned long dwID)
 {
 	return (GetRequestIndex(dwID) > 0);
 }
 
-void KNpcSet::InsertNpcRequest(DWORD dwID)
+void KNpcSet::InsertNpcRequest(unsigned long dwID)
 {
 	if (IsNpcRequestExist(dwID))
 	{
@@ -1389,7 +1389,7 @@ void KNpcSet::InsertNpcRequest(DWORD dwID)
 //	g_DebugLog("[Request]Insert %u at %d on %u", dwID, nIndex, SubWorld[0].m_dwCurrentTime);
 }
 
-void KNpcSet::RemoveNpcRequest(DWORD dwID)
+void KNpcSet::RemoveNpcRequest(unsigned long dwID)
 {
 	if(!IsNpcRequestExist(dwID))
 	{
@@ -1398,7 +1398,7 @@ void KNpcSet::RemoveNpcRequest(DWORD dwID)
 	int nIndex = GetRequestIndex(dwID);
 
 	// because _ASSERT(IsNpcRequestExist()); so nIndex > 0;
-	m_RequestNpc[nIndex].dwRequestId = 0;	
+	m_RequestNpc[nIndex].dwRequestId = 0;
 	m_RequestNpc[nIndex].dwRequestTime = 0;
 
 	m_RequestUseIdx.Remove(nIndex);
@@ -1406,7 +1406,7 @@ void KNpcSet::RemoveNpcRequest(DWORD dwID)
 //	g_DebugLog("[Request]Remove %u from %d on %u", dwID, nIndex, SubWorld[0].m_dwCurrentTime);
 }
 
-int KNpcSet::GetRequestIndex(DWORD dwID)
+int KNpcSet::GetRequestIndex(unsigned long dwID)
 {
 	int nIndex = m_RequestUseIdx.GetNext(0);
 
@@ -1426,11 +1426,11 @@ int KNpcSet::GetNPCBaiTan(int nIdex)
   return Npc[nIdex].m_BaiTan;
 }
 
-//µÐÓÑ¹ØÏµÉèÖÃ---»òÈ¡Óë¶Ô·½µÄ¹ØÏµ
+//ï¿½ï¿½ï¿½Ñ¹ï¿½Ïµï¿½ï¿½ï¿½ï¿½---ï¿½ï¿½È¡ï¿½ï¿½Ô·ï¿½ï¿½Ä¹ï¿½Ïµ
 NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 {
 	if  (nId1<=0 || nId1>=MAX_NPC || nId2<=0 || nId2>=MAX_NPC) return relation_none;
-	// Í¬Ò»¸öÈË
+	// Í¬Ò»ï¿½ï¿½ï¿½ï¿½
 	if (nId1 == nId2)
 		return relation_self;
 
@@ -1443,10 +1443,10 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 		Npc[nId2].m_CurrentCamp<0 || Npc[nId2].m_CurrentCamp>=camp_num)
 		return relation_none;
 
-//¿Í»§¶Ë
+//ï¿½Í»ï¿½ï¿½ï¿½
 	char nstrNamea[64]={0},nstrNameb[64]={0};
-	if (Player[CLIENT_PLAYER_INDEX].m_nIndex != nId1 && Player[CLIENT_PLAYER_INDEX].m_nIndex != nId2)  //¶Ô·½  ¹ÖÎï£¿
-	{//¹ÖÎï ¹ÖÎïÖ®¼ä	±¾ÈË  Óë  ¹ÖÎï     ±ðÈËÓë  ¹ÖÎï
+	if (Player[CLIENT_PLAYER_INDEX].m_nIndex != nId1 && Player[CLIENT_PLAYER_INDEX].m_nIndex != nId2)  //ï¿½Ô·ï¿½  ï¿½ï¿½ï¿½ï£¿
+	{//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½
 		//char nstrName[64]={0};
 		Npc[nId1].GetstrInfo(STR_GUISHU_NAME,nstrNamea);
 		Npc[nId2].GetstrInfo(STR_GUISHU_NAME,nstrNameb);
@@ -1455,11 +1455,11 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			return relation_ally;
 
 		if (Npc[nId2].m_Kind == kind_partner && (strcmp(Npc[nId1].Name, nstrNameb) == 0))
-	  	    return relation_ally;  // Í¬°é
+	  	    return relation_ally;  // Í¬ï¿½ï¿½
 
         if (Npc[nId2].m_Kind == kind_partner && (strcmp(Npc[nId1].Name,nstrNameb) != 0))
-		{//²»ÊÇ×Ô¼ºµÄ³èÎï
-		   int mNpcIdx=NpcSet.SearchName(nstrNameb);   //²éÕÒ¹éÊôÕßµÄË÷Òý
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
+		   int mNpcIdx=NpcSet.SearchName(nstrNameb);   //ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
 			 if (mNpcIdx>0 && Npc[mNpcIdx].m_Kind==kind_player && Npc[nId1].m_Kind==kind_player)
 			 {
 			    if ((Npc[nId1].m_CurrentCamp == Npc[mNpcIdx].m_CurrentCamp) && (Npc[nId1].m_CurrentCamp!=camp_free || Npc[mNpcIdx].m_CurrentCamp!=camp_free))
@@ -1473,12 +1473,12 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 		}
 
 		if (Npc[nId1].m_Kind == kind_partner && (strcmp(Npc[nId2].Name, nstrNamea) == 0))
-	  	    return relation_ally;  // Í¬°é
+	  	    return relation_ally;  // Í¬ï¿½ï¿½
 
 
 		if (Npc[nId1].m_Kind == kind_partner && (strcmp(Npc[nId2].Name, nstrNamea) != 0))
-		{//²»ÊÇ×Ô¼ºµÄ³èÎï
-		   int mNpcIdx=NpcSet.SearchName(nstrNamea);   //²éÕÒ¹éÊôÕßµÄË÷Òý
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
+		   int mNpcIdx=NpcSet.SearchName(nstrNamea);   //ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
 			 if (mNpcIdx>0 && Npc[mNpcIdx].m_Kind==kind_player && Npc[nId2].m_Kind==kind_player)
 			 {
 			    if ((Npc[nId2].m_CurrentCamp == Npc[mNpcIdx].m_CurrentCamp) && (Npc[nId2].m_CurrentCamp!=camp_free || Npc[mNpcIdx].m_CurrentCamp!=camp_free))
@@ -1491,41 +1491,41 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			 }
 		}
 
-		if ((Npc[nId1].m_Kind == kind_normal && Npc[nId2].m_Kind == kind_partner) || (Npc[nId1].m_Kind == kind_partner && Npc[nId2].m_Kind == kind_normal)) //ndi1 Îª¹ÖÎï
-			return relation_enemy;  //Í¬°éÓë¹ÖÎïµÄ¹ØÏµ
+		if ((Npc[nId1].m_Kind == kind_normal && Npc[nId2].m_Kind == kind_partner) || (Npc[nId1].m_Kind == kind_partner && Npc[nId2].m_Kind == kind_normal)) //ndi1 Îªï¿½ï¿½ï¿½ï¿½
+			return relation_enemy;  //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½Ïµ
 
 		if ((Npc[nId2].m_CurrentCamp == Npc[nId1].m_CurrentCamp) && (Npc[nId2].m_CurrentCamp!=camp_free || Npc[nId1].m_CurrentCamp!=camp_free))
 			return relation_ally;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
-	else if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId1) 
-	{//±¾ÈË ºÍ ¶Ô·½µÄ¹ØÏµ()
+	else if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId1)
+	{//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ä¹ï¿½Ïµ()
 		//Npc[nId1].GetstrInfo(STR_GUISHU_NAME,nstrNamea);
 		Npc[nId2].GetstrInfo(STR_GUISHU_NAME,nstrNameb);
 
-		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetExercisePKAim() == Npc[nId2].m_dwID)  // ÇÐ´è×´Ì¬
+		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetExercisePKAim() == Npc[nId2].m_dwID)  // ï¿½Ð´ï¿½×´Ì¬
 			return relation_enemy;
-		
+
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKState() == enumPK_ENMITY_STATE_PKING &&
-			Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKAimNpcID() == Npc[nId2].m_dwID)  //³ðÉ±
+			Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKAimNpcID() == Npc[nId2].m_dwID)  //ï¿½ï¿½É±
 			return relation_enemy;
 
         if ((Npc[nId1].m_CurrentCamp == Npc[nId2].m_CurrentCamp) && (Npc[nId1].m_CurrentCamp!=camp_free || Npc[nId2].m_CurrentCamp!=camp_free))
-		{ 
-			return relation_ally;  //ÈËÓëÈË »ò ÈËÓë¹Ö
+		{
+			return relation_ally;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 
 		if (Npc[nId2].m_Kind == kind_partner && ((strcmp(Npc[nId1].Name, nstrNameb) == 0) || Npc[nId1].m_CurrentCamp == Npc[nId2].m_CurrentCamp))
-			return relation_ally;  // Í¬°é Í¬ÃË
+			return relation_ally;  // Í¬ï¿½ï¿½ Í¬ï¿½ï¿½
 
 		if (Npc[nId2].m_Kind == kind_partner && (strcmp(Npc[nId1].Name, nstrNameb) != 0))
-		{//²»ÊÇ×Ô¼ºµÄ³èÎï
-		   int mNpcIdx=NpcSet.SearchName(nstrNameb);   //²éÕÒ¹éÊôÕßµÄË÷Òý
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
+		   int mNpcIdx=NpcSet.SearchName(nstrNameb);   //ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
 			 if (mNpcIdx>0 && Npc[mNpcIdx].m_Kind==kind_player && Npc[nId1].m_Kind==kind_player)
 			 {
 			    if ((Npc[nId1].m_CurrentCamp == Npc[mNpcIdx].m_CurrentCamp) && (Npc[nId1].m_CurrentCamp!=camp_free || Npc[mNpcIdx].m_CurrentCamp!=camp_free))
@@ -1537,30 +1537,30 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 				  return relation_none;
 			 }
 		}
-			
-        if (Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_FightMode==0 || Npc[nId2].m_FightMode==0))  //ÈÎÒâÒ»·½Îª·ÇÕ½¶·Ä£Ê½
-            return relation_none;  // ºÍÆ½
 
-		if (Npc[nId2].m_Kind == kind_player && (Npc[nId2].m_nPKFlag == 2 || Npc[nId1].m_nPKFlag == 2)&&(Npc[nId1].m_CurrentCamp !=camp_begin||Npc[nId2].m_CurrentCamp !=camp_begin)) // ÈÎÒâÒ»·½ÎªÍÀÉ±Ä£Ê½
+        if (Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_FightMode==0 || Npc[nId2].m_FightMode==0))  //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½Õ½ï¿½ï¿½Ä£Ê½
+            return relation_none;  // ï¿½ï¿½Æ½
+
+		if (Npc[nId2].m_Kind == kind_player && (Npc[nId2].m_nPKFlag == 2 || Npc[nId1].m_nPKFlag == 2)&&(Npc[nId1].m_CurrentCamp !=camp_begin||Npc[nId2].m_CurrentCamp !=camp_begin)) // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½É±Ä£Ê½
 			return relation_enemy;
 
-		if (Npc[nId2].m_Kind == kind_player && (Npc[nId2].m_nPKFlag ==0 || Npc[nId1].m_nPKFlag ==0))  //ÈÎÒâÒ»·½ÎªºÍÆ½Ä£Ê½
+		if (Npc[nId2].m_Kind == kind_player && (Npc[nId2].m_nPKFlag ==0 || Npc[nId1].m_nPKFlag ==0))  //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½Æ½Ä£Ê½
 			return relation_none;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
-	else	// if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId2)  
-	{//Íæ¼ÒÖ®¼ä	»ò ¹ÖÎï Óë ¹ÖÎï
+	else	// if (Player[CLIENT_PLAYER_INDEX].m_nIndex == nId2)
+	{//ï¿½ï¿½ï¿½Ö®ï¿½ï¿½	ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (Npc[nId1].m_Kind == kind_normal && Npc[nId2].m_Kind == kind_normal)
 			return relation_ally;
 
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetExercisePKAim() == Npc[nId1].m_dwID)
 			return relation_enemy;
-		
+
 		if (Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKState() == enumPK_ENMITY_STATE_PKING &&
 			Player[CLIENT_PLAYER_INDEX].m_cPK.GetEnmityPKAimNpcID() == Npc[nId1].m_dwID)
 			return relation_enemy;
@@ -1576,11 +1576,11 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 				return relation_ally;
 		}
 
-		if (Npc[nId1].m_Kind == kind_player && Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_FightMode ==0 || Npc[nId2].m_FightMode ==0))  //Íæ¼Ò Ö»ÒªÓÐÒ»·½ÊÇ·ÇÕ½¶·Ä£Ê½ ¾ÍÊÇºÍÆ½Ä£Ê½
+		if (Npc[nId1].m_Kind == kind_player && Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_FightMode ==0 || Npc[nId2].m_FightMode ==0))  //ï¿½ï¿½ï¿½ Ö»Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½Õ½ï¿½ï¿½Ä£Ê½ ï¿½ï¿½ï¿½Çºï¿½Æ½Ä£Ê½
            return relation_none;
 
 		if (Npc[nId1].m_Kind == kind_player && Npc[nId2].m_Kind == kind_player && (Npc[nId1].m_nPKFlag == 2 || Npc[nId2].m_nPKFlag == 2)&&\
-			(Npc[nId1].m_CurrentCamp !=camp_begin||Npc[nId2].m_CurrentCamp !=camp_begin)) //ÈÎÒâÒ»·½ÎªÍÀÉ±Ä£Ê½¶¼ÊÇ µÐ¶Ô¹ØÏµ
+			(Npc[nId1].m_CurrentCamp !=camp_begin||Npc[nId2].m_CurrentCamp !=camp_begin)) //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½É±Ä£Ê½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¶Ô¹ï¿½Ïµ
 			return relation_enemy;
 
 		if (Npc[nId1].m_Kind == kind_player && Npc[nId2].m_Kind == kind_player && (!Npc[nId1].m_nPKFlag || !Npc[nId2].m_nPKFlag))
@@ -1589,39 +1589,39 @@ NPC_RELATION KNpcSet::GetRelation(int nId1, int nId2)
 			return relation_none;
 
 		return (NPC_RELATION)GenOneRelation(
-			(NPCKIND)Npc[nId1].m_Kind, 
-			(NPCKIND)Npc[nId2].m_Kind, 
-			(NPCCAMP)Npc[nId1].m_CurrentCamp, 
+			(NPCKIND)Npc[nId1].m_Kind,
+			(NPCKIND)Npc[nId2].m_Kind,
+			(NPCCAMP)Npc[nId1].m_CurrentCamp,
 			(NPCCAMP)Npc[nId2].m_CurrentCamp);
 	}
-//·þÎñÆ÷¶Ë
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
-//------------------------ÓÅ»¯µÄ ÐÂº¯Êý----------------------------------------
+//------------------------ï¿½Å»ï¿½ï¿½ï¿½ ï¿½Âºï¿½ï¿½ï¿½----------------------------------------
 KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 {
 	if (nNpcTemplateId < 0 || nNpcTemplateId > MAX_NPCSTYLE-1 || nLevel<0 || nLevel > MAX_NPC_LEVEL-1)
 	{
 		return NULL;
-	} 
+	}
 
 	char nFlag[32]={0};
-	sprintf(nFlag,"idx_%d_level_%d",nNpcTemplateId,nLevel);	  //Õâ¸öIDX Õâ¸öµÈ¼¶µÄÊý¾Ý
+	sprintf(nFlag,"idx_%d_level_%d",nNpcTemplateId,nLevel);	  //ï¿½ï¿½ï¿½IDX ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	DWORD dwKey = g_FileName2Id(nFlag);
+	unsigned long dwKey = g_FileName2Id(nFlag);
 
 	if (nNpcTemplateId >= 0 && nNpcTemplateId <= MAX_NPCSTYLE-1 /*&& eSeries >= series_metal && eSeries < series_num*/ && nLevel >= 0 && nLevel <= MAX_NPC_LEVEL-1)
 	{
-		// ³¢ÊÔ²éÕÒÒÑÓÐÊý¾Ý
-		//DWORD dwKey	= nKeyInfo;//((DWORD)nNpcTemplateId << 16) | ((DWORD)eSeries << 8) | (DWORD)nLevel; //((DWORD)nLevel << 8); /*
+		// ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//unsigned long dwKey	= nKeyInfo;//((unsigned long)nNpcTemplateId << 16) | ((unsigned long)eSeries << 8) | (unsigned long)nLevel; //((unsigned long)nLevel << 8); /*
 		_KMapTemplate::iterator it	= m_mapTemplate.find(dwKey);
 		if (it != m_mapTemplate.end())
 		{
-			return it->second;	   //ÕÒµ½ÁË
+			return it->second;	   //ï¿½Òµï¿½ï¿½ï¿½
 		}
-		
-		// ÏÈÔØÈë0¼¶»ù´¡Êý¾Ý
+
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		sprintf(nFlag,"idx_%d_level_0",nNpcTemplateId);
-		DWORD dwBaseKey	= g_FileName2Id(nFlag);//dwKey & 0xffffff00;
+		unsigned long dwBaseKey	= g_FileName2Id(nFlag);//dwKey & 0xffffff00;
 		it	= m_mapTemplate.find(dwBaseKey);
 		if (it == m_mapTemplate.end())
 		{
@@ -1636,22 +1636,22 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 				}
 				return NULL;
 			}
-			//pTemplate->m_Series		= eSeries;//²»ÐÞ¸Ä »ù±¾Öµ
+			//pTemplate->m_Series		= eSeries;//ï¿½ï¿½ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½Öµ
 			m_mapTemplate[dwBaseKey]	= pTemplate;
 
 		}
-		
-		// Èç¹ûÒªµÄ¾ÍÊÇ0¼¶µÄ£¬Ö±½Ó·µ»Ø
+
+		// ï¿½ï¿½ï¿½Òªï¿½Ä¾ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½Ä£ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
 		KNpcTemplate* pBaseTemplate	= m_mapTemplate[dwBaseKey];
 
 		if (nLevel == 0)
 		{
             //#ifdef _SERVER
-			//printf("---[ÒªÇó·µ»Ø»ù±¾Êý¾Ý]ÕÒµ½NPC(%s):%d µÈ¼¶½Úµã:%d---\n",pBaseTemplate->Name,nNpcTemplateId,nLevel);
+			//printf("---[Òªï¿½ó·µ»Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½Òµï¿½NPC(%s):%d ï¿½È¼ï¿½ï¿½Úµï¿½:%d---\n",pBaseTemplate->Name,nNpcTemplateId,nLevel);
             //#endif
 			return pBaseTemplate;
 		}
-		//¿ªÊ¼¼ÓÔØ½Å±¾Êý¾Ý--------------------------------------
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ø½Å±ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
 
 		KLuaScript * pLevelScript = NULL;
 		KLuaScript LevelScript;
@@ -1659,7 +1659,7 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 			pLevelScript = g_pNpcLevelScript;
 		else
 		{
-			LevelScript.Init();   //³õÊ¼»¯ ½Å±¾º¯Êý
+			LevelScript.Init();   //ï¿½ï¿½Ê¼ï¿½ï¿½ ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (!LevelScript.Load(pBaseTemplate->m_szLevelSettingScript))
 			{
 				pLevelScript = g_pNpcLevelScript;
@@ -1668,12 +1668,12 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 			else
 				pLevelScript = &LevelScript;
 		}
-		// ÔØÈëµÈ¼¶Ïà¹ØÊý¾Ý-------------------------------------
+		// ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------
 		KNpcTemplate* pTemplate	= new KNpcTemplate;
 		*pTemplate			    = *pBaseTemplate;
 		pTemplate->m_nLevel	    = nLevel;
 //#ifdef _SERVER
-//		printf("---[´´½¨ÐÂµÈ¼¶½Úµã]ÕÒµ½NPC(%s):%d ÐÂµÈ¼¶½Úµã:%d---\n",pBaseTemplate->Name,nNpcTemplateId,nLevel);
+//		printf("---[ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÈ¼ï¿½ï¿½Úµï¿½]ï¿½Òµï¿½NPC(%s):%d ï¿½ÂµÈ¼ï¿½ï¿½Úµï¿½:%d---\n",pBaseTemplate->Name,nNpcTemplateId,nLevel);
 //#endif
 
 		if (!pTemplate->InitNpcLevelData(nNpcTemplateId,pLevelScript,nLevel))
@@ -1683,11 +1683,11 @@ KNpcTemplate * KNpcSet::GetTemplate(INT nNpcTemplateId,INT nLevel)
 			{
 				delete pTemplate;
 				pTemplate =NULL;
-			} 
+			}
 			return NULL;
 		}
-		m_mapTemplate[dwKey]	= pTemplate; //¸³Öµ¸øÕâ¸ö½Úµã
-		
+		m_mapTemplate[dwKey]	= pTemplate; //ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
+
 		return pTemplate;
 	}else
 		return NULL;
@@ -1706,7 +1706,7 @@ KInstantSpecial::KInstantSpecial()
 	m_pSoundNode = NULL;
 //	m_pWave = NULL;
 }
- //Ë²¼äÌØÐ§
+ //Ë²ï¿½ï¿½ï¿½ï¿½Ð§
 void	KInstantSpecial::LoadSprName()
 {
 	int		i;
@@ -1715,9 +1715,9 @@ void	KInstantSpecial::LoadSprName()
 
 	KTabFile	cSprName;
 //	g_SetFilePath("\\");
-	if (!cSprName.Load(PLAYER_INSTANT_SPECIAL_FILE))  //Ë²¼äÌØÐ§
+	if (!cSprName.Load(PLAYER_INSTANT_SPECIAL_FILE))  //Ë²ï¿½ï¿½ï¿½ï¿½Ð§
 		return;
-	for (i = 0; i < MAX_INSTANT_STATE; ++i)           //ÌØÐ§ÏÞÖÆ
+	for (i = 0; i < MAX_INSTANT_STATE; ++i)           //ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
 		cSprName.GetString(i + 2, 3, "", m_szSprName[i], sizeof(m_szSprName[i]));
 
 	cSprName.Clear();
@@ -1758,7 +1758,7 @@ void	KInstantSpecial::GetSprName(int nNo, char *lpszName, int nLength)
 		m_nLoadFlag = TRUE;
 	}
 
-	if (strlen(this->m_szSprName[nNo]) < (DWORD)nLength)
+	if (strlen(this->m_szSprName[nNo]) < (unsigned long)nLength)
 		strcpy(lpszName, m_szSprName[nNo]);
 	else
 		lpszName[0] = 0;

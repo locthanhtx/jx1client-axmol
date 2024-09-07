@@ -13,11 +13,11 @@ KTabFileCtrl::~KTabFileCtrl()
 	Clear();
 }
 
-BOOL	KTabFileCtrl::Load(LPSTR FileName/*,LPSTR mMemKey*/)
+int KTabFileCtrl::Load(const char* FileName /*,char* mMemKey*/)
 {
 
 	KPakFile	File;
-	DWORD		dwSize;
+	unsigned long		dwSize;
 	PVOID		Buffer;
 	KFile		cFile;
 	//check file name
@@ -46,10 +46,10 @@ BOOL	KTabFileCtrl::Load(LPSTR FileName/*,LPSTR mMemKey*/)
 	Buffer = Meme.Alloc(dwSize);
 	File.Read(Buffer, dwSize);
 	File.Close();
-	DWORD nCurPos = 0;
+	unsigned long nCurPos = 0;
 	while(nCurPos < dwSize)
 	{
-		int32_t i = 0;
+		int i = 0;
 		char szLine[10000];
 		//����ĳһ�е�������
 		while(nCurPos <= dwSize)
@@ -68,7 +68,7 @@ BOOL	KTabFileCtrl::Load(LPSTR FileName/*,LPSTR mMemKey*/)
 		pLineNode->pList = pList;
 		m_RowList.AddTail(pLineNode);
 
-		int32_t j = 0;
+		int j = 0;
 		//
 		char *szData = szLine;
 		while (1)
@@ -100,11 +100,11 @@ BOOL	KTabFileCtrl::Load(LPSTR FileName/*,LPSTR mMemKey*/)
 	return TRUE;
 }
 
-BOOL	KTabFileCtrl::openfile(LPSTR FileName)
+int	KTabFileCtrl::openfile(char* FileName)
 {
 
 	KFile	File;
-	DWORD		dwSize;
+	unsigned long		dwSize;
 	PVOID		Buffer;
 
 	// check file name
@@ -134,10 +134,10 @@ BOOL	KTabFileCtrl::openfile(LPSTR FileName)
 	Buffer = Meme.Alloc(dwSize);
 	File.Read(Buffer, dwSize);
 	File.Close();
-	DWORD nCurPos = 0;
+	unsigned long nCurPos = 0;
 	while(nCurPos < dwSize)
 	{
-		int32_t i = 0;
+		int i = 0;
 		char szLine[10000];
 		//����ĳһ�е�������
 		while(nCurPos <= dwSize)
@@ -156,7 +156,7 @@ BOOL	KTabFileCtrl::openfile(LPSTR FileName)
 		pLineNode->pList = pList;
 		m_RowList.AddTail(pLineNode);
 
-		int32_t j = 0;
+		int j = 0;
 		//
 		char *szData = szLine;
 		while (1)
@@ -188,12 +188,12 @@ BOOL	KTabFileCtrl::openfile(LPSTR FileName)
 	return TRUE;
 }
 
-BOOL	KTabFileCtrl::LoadPack(LPSTR FileName)
+int	KTabFileCtrl::LoadPack(char* FileName)
 {
 	return TRUE;
 }
 
-bool KTabFileCtrl::CreatFile(LPSTR FileName)//����ļ�
+bool KTabFileCtrl::CreatFile(const char* FileName)  // ����ļ�
 {
 	KFile	File;
 	if (FileName[0] == 0 || !FileName)
@@ -206,7 +206,7 @@ bool KTabFileCtrl::CreatFile(LPSTR FileName)//����ļ�
 	return true;
 }
 
-BOOL	KTabFileCtrl::Save(LPSTR FileName)
+int KTabFileCtrl::Save(const char* FileName)
 {
 	KFile		File;
 	if (FileName[0] == 0)
@@ -247,11 +247,11 @@ BOOL	KTabFileCtrl::Save(LPSTR FileName)
 	return TRUE;
 }
 //���ĳ�е���
-LPSTR	KTabFileCtrl::GetRowName(int32_t nRow)
+char*	KTabFileCtrl::GetRowName(int nRow)
 {
 	TTabLineNode * pLineNode = (TTabLineNode*) m_RowList.GetHead();
 
-	for (int32_t i = 0 ; i < nRow - 1 ;  i++)
+	for (int i = 0 ; i < nRow - 1 ;  i++)
 	{
 		if (!pLineNode) return NULL;
 		pLineNode = (TTabLineNode*) pLineNode->GetNext();
@@ -260,12 +260,12 @@ LPSTR	KTabFileCtrl::GetRowName(int32_t nRow)
 	return ((TTabColNode *)(pLineNode->pList->GetHead()))->m_Str;
 }
 //���ĳ�е���
-LPSTR	KTabFileCtrl::GetColName(int32_t nCol)
+char*	KTabFileCtrl::GetColName(int nCol)
 {
 	TTabLineNode * pLineNode  = (TTabLineNode *) m_RowList .GetHead();
 	if (!pLineNode) return NULL;
 	TTabColNode  * pColNode	= (TTabColNode*)pLineNode->pList->GetHead();
-	for (int32_t i = 0 ; i < nCol - 1; i++)
+	for (int i = 0 ; i < nCol - 1; i++)
 	{
 		if (!pColNode) return NULL;
 		pColNode = (TTabColNode*) pColNode->GetNext();
@@ -274,11 +274,11 @@ LPSTR	KTabFileCtrl::GetColName(int32_t nCol)
 	return pColNode->m_Str;
 }
 
-int32_t		KTabFileCtrl::FindRow(LPSTR szRow)
+int		KTabFileCtrl::FindRow(char* szRow)
 {
 	TTabLineNode * pLineNode = (TTabLineNode *) m_RowList.GetHead();
 
-	int32_t  nRow = 1;
+	int  nRow = 1;
 	while (pLineNode)
 	{
 		KList  * pList = pLineNode->pList;
@@ -294,14 +294,14 @@ int32_t		KTabFileCtrl::FindRow(LPSTR szRow)
 	return -1;
 }
 //����ĳ�� ����ĳ��
-int32_t		KTabFileCtrl::FindColumn(LPSTR szColumn)
+int KTabFileCtrl::FindColumn(const char* szColumn)
 {
 	TTabLineNode * pLine = (TTabLineNode*)m_RowList.GetHead();
 	if (!pLine) return -1;
 
 	TTabColNode* pColNode =(TTabColNode * )pLine->pList->GetHead();
 
-	int32_t nCol = 1;
+	int nCol = 1;
 	while (pColNode)
 	{
 		if (g_StrCmp(pColNode->m_Str, szColumn))
@@ -315,18 +315,18 @@ int32_t		KTabFileCtrl::FindColumn(LPSTR szColumn)
 }
 
 // ��0,0Ϊ���  ��ȡĳ��ĳ�е�ֵ
-BOOL	KTabFileCtrl::GetValue(int32_t nRow, int32_t nColumn, LPSTR& lpRString, DWORD dwSize)
+int	KTabFileCtrl::GetValue(int nRow, int nColumn, char*& lpRString, unsigned long dwSize)
 {
 	if ( nRow < 0 || nColumn < 0) return FALSE;
 	TTabLineNode * pLineNode = (TTabLineNode*)m_RowList.GetHead();
-	for (int32_t i = 0; i < nRow; i++)
+	for (int i = 0; i < nRow; i++)
 	{
 		if (!pLineNode) return FALSE;
 		pLineNode = (TTabLineNode * )pLineNode->GetNext();
 	}
 	if (!pLineNode) return FALSE;
 	TTabColNode * pColNode = (TTabColNode*)pLineNode->pList->GetHead();
-	for (int32_t j = 0; j < nColumn; j++)
+	for (int j = 0; j < nColumn; j++)
 	{
 		if (!pColNode) return FALSE;
 		pColNode = (TTabColNode*) pColNode->GetNext();
@@ -338,19 +338,19 @@ BOOL	KTabFileCtrl::GetValue(int32_t nRow, int32_t nColumn, LPSTR& lpRString, DWO
 }
 
 //����ĳ��ĳ�е�ֵ
-BOOL	KTabFileCtrl::SetValue(int32_t nRow, int32_t nColumn, LPSTR lpString, DWORD dwSize, BOOL bCanCreateNew )
+int	KTabFileCtrl::SetValue(int nRow, int nColumn, char* lpString, unsigned long dwSize, int bCanCreateNew )
 {
 	if ( nRow < 0 || nColumn < 0) return FALSE;
 	TTabLineNode * pLineNode = (TTabLineNode*)m_RowList.GetHead();
 	TTabLineNode * pTempNode = pLineNode;
-	for (int32_t i = 0; i < nRow + 1; i++)
+	for (int i = 0; i < nRow + 1; i++)
 	{
 		//���û�и��н�����Զ�����
 		pLineNode = pTempNode;
 		if (!pLineNode)
 		{
 			if (!bCanCreateNew) return FALSE;
-			for(int32_t j = 0; j < nRow + 1 - i; j++)
+			for(int j = 0; j < nRow + 1 - i; j++)
 			{
 				TTabLineNode * pLine = new TTabLineNode;
 				KList * pList = new KList;
@@ -368,13 +368,13 @@ BOOL	KTabFileCtrl::SetValue(int32_t nRow, int32_t nColumn, LPSTR lpString, DWORD
 	TTabColNode * pColNode = (TTabColNode*)pColList->GetHead();
 	TTabColNode * pTempColNode = pColNode;
 
-	for (int32_t j = 0; j < nColumn + 1; j++)
+	for (int j = 0; j < nColumn + 1; j++)
 	{
 		pColNode = pTempColNode;
 		if (!pColNode)
 		{
 			if (!bCanCreateNew) return FALSE;
-			for (int32_t k = 0; k < nColumn +1 - j -1; k++)
+			for (int k = 0; k < nColumn +1 - j -1; k++)
 			{
 				TTabColNode * pNode = new TTabColNode;
 				char * newStr = new char[2];
@@ -406,7 +406,7 @@ BOOL	KTabFileCtrl::SetValue(int32_t nRow, int32_t nColumn, LPSTR lpString, DWORD
 
 }
 
-BOOL	KTabFileCtrl::GetString(int32_t nRow, int32_t nColumn, LPSTR lpDefault, LPSTR lpRString, DWORD dwSize)
+int	KTabFileCtrl::GetString(int nRow, int nColumn, char* lpDefault, char* lpRString, unsigned long dwSize)
 {
 	char * pData = NULL;
 	if (!GetValue(nRow - 1, nColumn - 1, pData, dwSize))
@@ -422,7 +422,7 @@ BOOL	KTabFileCtrl::GetString(int32_t nRow, int32_t nColumn, LPSTR lpDefault, LPS
 	return TRUE;
 }
 
-BOOL		KTabFileCtrl::GetInteger(int32_t nRow, int32_t nColumn, int32_t nDefault, int32_t *pnValue)
+int		KTabFileCtrl::GetInteger(int nRow, int nColumn, int nDefault, int *pnValue)
 {
 	char * pData = NULL;
 	if (!GetValue(nRow - 1, nColumn - 1, pData, 100))
@@ -436,7 +436,7 @@ BOOL		KTabFileCtrl::GetInteger(int32_t nRow, int32_t nColumn, int32_t nDefault, 
 	return TRUE;
 }
 
-BOOL		KTabFileCtrl::GetFloat(int32_t nRow, int32_t nColumn, float fDefault, float *pfValue)
+int		KTabFileCtrl::GetFloat(int nRow, int nColumn, float fDefault, float *pfValue)
 {
 	char * pData = NULL;
 	if (!GetValue(nRow -1 , nColumn -1, pData, 100))
@@ -485,21 +485,21 @@ void  KTabFileCtrl::Clear()
 
 }
 //ĳ��ĳ��д�ַ���
-BOOL  KTabFileCtrl::WriteString(int32_t nRow, int32_t nColumn,  LPSTR lpString, DWORD dwSize)
+int  KTabFileCtrl::WriteString(int nRow, int nColumn,  char* lpString, unsigned long dwSize)
 {
 	if (dwSize <= 0)
 	 dwSize = g_StrLen(lpString);
 	return SetValue(nRow -1 ,nColumn -1, lpString, dwSize);
 }
 //ĳ��ĳ��д������
-BOOL  KTabFileCtrl::WriteInteger(int32_t nRow, int32_t nColumn, int32_t nValue)
+int  KTabFileCtrl::WriteInteger(int nRow, int nColumn, int nValue)
 {
 	char IntNum[256]={0};
 	sprintf(IntNum, "%d", nValue);
 	return SetValue(nRow -1, nColumn -1, IntNum, g_StrLen(IntNum));
 }
 //ĳ��ĳ��дС������
-BOOL  KTabFileCtrl::WriteFloat(int32_t nRow, int32_t nColumn,float fValue)
+int  KTabFileCtrl::WriteFloat(int nRow, int nColumn,float fValue)
 {
 	char FloatNum[256]={0};
 	//sprintf(FloatNum,"%f",fValue);
@@ -511,9 +511,9 @@ BOOL  KTabFileCtrl::WriteFloat(int32_t nRow, int32_t nColumn,float fValue)
 	return SetValue(nRow - 1, nColumn - 1, FloatNum, g_StrLen(FloatNum));
 }
 
-int32_t KTabFileCtrl::Str2Col(LPSTR szColumn)
+int KTabFileCtrl::Str2Col(const char* szColumn)
 {
-	int32_t	nStrLen = g_StrLen(szColumn);
+	int	nStrLen = g_StrLen(szColumn);
 	char	szTemp[4];
 
 	g_StrCpy(szTemp, szColumn);
@@ -526,14 +526,14 @@ int32_t KTabFileCtrl::Str2Col(LPSTR szColumn)
 }
 
 // ɾ��ĳ��
-BOOL KTabFileCtrl::Remove(int32_t nRow)
+int KTabFileCtrl::Remove(int nRow)
 {
 	TTabLineNode * pNode = (TTabLineNode*)m_RowList.GetHead();
 
 	if (!pNode)
 		return FALSE;
 
-	for(int32_t i  = 0; i < nRow  - 1; i++)
+	for(int i  = 0; i < nRow  - 1; i++)
 	{
 		if (!pNode)
 		   return FALSE;
@@ -554,12 +554,12 @@ BOOL KTabFileCtrl::Remove(int32_t nRow)
 	return TRUE;
 }
 //�к����һ��
-BOOL KTabFileCtrl::InsertAfter(int32_t nRow)
+int KTabFileCtrl::InsertAfter(int nRow)
 {
 	TTabLineNode * pNode = (TTabLineNode*)m_RowList.GetHead();
 	if (!pNode) return FALSE;
 
-	for(int32_t i  = 0; i < nRow  - 1; i++)
+	for(int i  = 0; i < nRow  - 1; i++)
 	{
 		if (!pNode) return FALSE;
 		pNode = (TTabLineNode*) pNode->GetNext();
@@ -574,12 +574,12 @@ BOOL KTabFileCtrl::InsertAfter(int32_t nRow)
 	return TRUE;
 }
 // ��ǰ����һ��
-BOOL KTabFileCtrl::InsertBefore(int32_t nRow)
+int KTabFileCtrl::InsertBefore(int nRow)
 {
 	TTabLineNode * pNode = (TTabLineNode*)m_RowList.GetHead();
 	if (!pNode) return FALSE;
 
-	for(int32_t i  = 0; i < nRow  - 1; i++)
+	for(int i  = 0; i < nRow  - 1; i++)
 	{
 		if (!pNode) return FALSE;
 		pNode = (TTabLineNode*) pNode->GetNext();
@@ -593,11 +593,11 @@ BOOL KTabFileCtrl::InsertBefore(int32_t nRow)
 	return TRUE;
 }
 //����������Col��Col���  �����µ�һ��
-int32_t	KTabFileCtrl::InsertNewCol(LPSTR strNewCol)
+int	KTabFileCtrl::InsertNewCol(char* strNewCol)
 {
 	if (!strNewCol || !strNewCol[0]) return -1;
 
-	int32_t nResult = -1;
+	int nResult = -1;
 
 	//������оͲ����ټ���
 	if ((nResult = FindColumn(strNewCol)) > 0) 	return nResult;

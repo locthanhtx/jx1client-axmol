@@ -53,7 +53,7 @@ class KLightBase
 public:
 	KIpotLeaf* m_pParent;				// ��Դ��������ָ��
 	KPosition3 m_oPosition;				// ��Դλ��
-	DWORD m_dwColor;					// ��Դ��ɫ������
+	unsigned long m_dwColor;					// ��Դ��ɫ������
 	long  m_nRadius;					// ���ð뾶
 public:
 	virtual void Breath(){}
@@ -67,7 +67,7 @@ public:
 	float	fRadius;					// �Ը�������ʾ�Ĺ�Դ�뾶
 	float	fCycle;						// ѭ������,����
 	int		nDir;						// �뾶�仯����
-	DWORD	dwLastBreathTime;			// �ϴκ���ʱ��
+	unsigned long	dwLastBreathTime;			// �ϴκ���ʱ��
 public:
 	KSelfBreathLight();
 	virtual void Breath();
@@ -163,9 +163,9 @@ class KIpoTree
 	void SetCurrentTime(int nCurrentTime){m_nCurrentTime = nCurrentTime;}
 	// �����Ƿ�������
 	void SetIsIndoor(bool bIsIndoor){m_bIsIndoor = bIsIndoor;}
-	
+
 	// ���û��������ɫ������
-	void SetAmbient(DWORD dwAmbient){m_dwAmbient = dwAmbient;}
+	void SetAmbient(unsigned long dwAmbient){m_dwAmbient = dwAmbient;}
 
 	// ��Ⱦ����ͼ
 	void RenderLightMap();
@@ -187,14 +187,14 @@ class KIpoTree
 	{
 		//##Documentation
 		//## Ҷ�ӱ����ֵ��Ҷ�Ӱ�ָ�����ݵ�mask
-		LEAF_IDVALUE_HALF_POINTER_MASK = 0xFFFF, 
+		LEAF_IDVALUE_HALF_POINTER_MASK = 0xFFFF,
 		//##Documentation
 		//## Ҷ�ӱ����ֵ��������ֵ֦��mask
 		LEAF_IDVALUE_BRANCH_VALUE_MASK = 0xFF0000
 	};
 
  private:
-	
+
 	//##ModelId=3DDA93C50327
 	//##Documentation
 	//## ָ��������֦�ṹ��
@@ -212,7 +212,7 @@ class KIpoTree
 	int m_nLeftTopX;
 	// �Ÿ������������Ͻ�Y����
 	int m_nLeftTopY;
-	
+
 	int m_nCurrentTime;
 	bool m_bIsIndoor;
 
@@ -222,7 +222,7 @@ class KIpoTree
 	bool m_bDynamicLighting;
 
 	// ���������ɫ��ǿ��
-	DWORD m_dwAmbient;
+	unsigned long m_dwAmbient;
 	KLObstacle pObstacle[LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT];	// ������Ϣ����
 	//KLColor pLColor[LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT];		// ������ռ�����м���
 	KLColor *pLColor;                                           		// ������ռ�����м���
@@ -231,7 +231,7 @@ class KIpoTree
 	unsigned char *m_pby_ptpBase;
 
 
-	DWORD pLightingArray[LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT];	// ����ͼ��Ϣ����
+	unsigned long pLightingArray[LIGHTING_GRID_WIDTH * LIGHTING_GRID_HEIGHT];	// ����ͼ��Ϣ����
 	list<KLightBase*> m_LightList;
 
 	// ��������赲�Ļص�����

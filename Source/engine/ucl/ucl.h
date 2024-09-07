@@ -56,14 +56,14 @@ extern "C" {
 
 struct ucl_compress_config_t
 {
-    int32_t bb_endian;
-    int32_t bb_size;
+    int bb_endian;
+    int bb_size;
     ucl_uint max_offset;
     ucl_uint max_match;
-    int32_t s_level;
-    int32_t h_level;
-    int32_t p_level;
-    int32_t c_flags;
+    int s_level;
+    int h_level;
+    int p_level;
+    int c_flags;
     ucl_uint m_size;
 };
 
@@ -77,27 +77,27 @@ struct ucl_compress_config_t
 // configuration) and `result' (no statistical result).
 ************************************************************************/
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_99_compress      ( const ucl_bytep src, ucl_uint src_len,
                                    ucl_bytep dst, ucl_uintp dst_len,
                                    ucl_progress_callback_p cb,
-                                   int32_t level,
+                                   int level,
                              const struct ucl_compress_config_p conf,
                                    ucl_uintp result );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_99_compress      ( const ucl_bytep src, ucl_uint src_len,
                                    ucl_bytep dst, ucl_uintp dst_len,
                                    ucl_progress_callback_p cb,
-                                   int32_t level,
+                                   int level,
                              const struct ucl_compress_config_p conf,
                                    ucl_uintp result );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_99_compress      ( const ucl_bytep src, ucl_uint src_len,
                                    ucl_bytep dst, ucl_uintp dst_len,
                                    ucl_progress_callback_p cb,
-                                   int32_t level,
+                                   int level,
                              const struct ucl_compress_config_p conf,
                                    ucl_uintp result );
 
@@ -111,77 +111,77 @@ ucl_nrv2e_99_compress      ( const ucl_bytep src, ucl_uint src_len,
 // for decompression.
 ************************************************************************/
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_8          ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_le16       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_le32       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_safe_8     ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_safe_le16  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_decompress_safe_le32  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_8          ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_le16       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_le32       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_safe_8     ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_safe_le16  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_decompress_safe_le32  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_8          ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_le16       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_le32       ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_safe_8     ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_safe_le16  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_decompress_safe_le32  ( const ucl_bytep src, ucl_uint  src_len,
                                         ucl_bytep dst, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
@@ -201,41 +201,41 @@ ucl_nrv2e_decompress_safe_le32  ( const ucl_bytep src, ucl_uint  src_len,
 // NOTE: always pass NULL for `wrkmem' - see above.
 ************************************************************************/
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_test_overlap_8        ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_test_overlap_le16     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2b_test_overlap_le32     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_test_overlap_8        ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_test_overlap_le16     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2d_test_overlap_le32     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
 
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_test_overlap_8        ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_test_overlap_le16     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );
-UCL_EXTERN(int32_t)
+UCL_EXTERN(int)
 ucl_nrv2e_test_overlap_le32     ( const ucl_bytep buf, ucl_uint src_off,
                                         ucl_uint  src_len, ucl_uintp dst_len,
                                         ucl_voidp wrkmem );

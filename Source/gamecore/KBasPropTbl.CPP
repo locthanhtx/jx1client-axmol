@@ -4,25 +4,25 @@
 // File:	KBasPropTbl.CPP
 // Date:	2002.08.14
 // Code:	DongBo
-// Desc:    cpp file. 本文件实现的类用于从tab file中读出道具的初始属性,
-//			并生成对应的属性表
+// Desc:    cpp file. 卤戮脦脛录镁脢碌脧脰碌脛脌脿脫脙脫脷麓脫tab file脰脨露脕鲁枚碌脌戮脽碌脛鲁玫脢录脢么脨脭,
+//			虏垄脡煤鲁脡露脭脫娄碌脛脢么脨脭卤铆
 //---------------------------------------------------------------------------
 #include "KCore.h"
 #include "engine/KTabFile.h"
 //#include "MyAssert.H"
 #include "KBasPropTbl.h"
-#include "KNpcTemplate.h"  //后来加的
+#include "KNpcTemplate.h"  //潞贸脌麓录脫碌脛
 
 #define		TABFILE_PATH				"\\settings\\item\\004"
 #define		TABFILE_MINE				"mine.txt"
 #define		TABFILE_TASK				"questkey.txt"
-#define		TABFILE_FUSION				"fusion.txt"    //纹纲
+#define		TABFILE_FUSION				"fusion.txt"    //脦脝赂脵
 #define		TABFILE_MEDICINE			"potion.txt"
 #define		TABFILE_MEDMATERIAL			"medmaterialbase.txt"
 #define		TABFILE_MELEEWEAPON			"MeleeWeapon.txt"
 #define		TABFILE_RANGEWEAPON			"rangeweapon.txt"
-#define		TABFILE_ARMOR				"Armor.txt"   //衣服
-#define		TABFILE_HELM				"Helm.txt"    //帽子
+#define		TABFILE_ARMOR				"Armor.txt"   //脪脗路镁
+#define		TABFILE_HELM				"Helm.txt"    //脙卤脳脫
 #define		TABFILE_BOOT				"Boot.txt"
 #define		TABFILE_BELT				"Belt.txt"
 #define		TABFILE_AMULET				"Amulet.txt"
@@ -31,30 +31,30 @@
 #define		TABFILE_PENDANT				"Pendant.txt"
 #define		TABFILE_HORSE				"Horse.txt"
 #define		TABFILE_TOWNPORTAL			"TownPortal.txt"
-#define		TABFILE_EQUIPMENT_UNIQUE	"unique.txt"      //蓝装？
-#define		TABFILE_MAGICATTRIB			"magicattrib.txt" //魔法属性
+#define		TABFILE_EQUIPMENT_UNIQUE	"unique.txt"      //脌露脳掳拢驴
+#define		TABFILE_MAGICATTRIB			"magicattrib.txt" //脛搂路篓脢么脨脭
 #define		TABFILE_GOLDITEM			"GoldItem.txt"
 #define		TABFILE_MASK				"Mask.txt"	    // mat na
-#define		TABFILE_PIFENG				"Pifeng.txt"	// 披风
-#define		TABFILE_YINJIAAN			"Yinjian.txt"	// 印鉴
-#define		TABFILE_SHIPIN				"Shipin.txt"	// 饰品
-#define		TABFILE_PLATINA				"platinaequip.txt" // 白金
+#define		TABFILE_PIFENG				"Pifeng.txt"	// 脜没路莽
+#define		TABFILE_YINJIAAN			"Yinjian.txt"	// 脫隆录酶
+#define		TABFILE_SHIPIN				"Shipin.txt"	// 脢脦脝路
+#define		TABFILE_PLATINA				"platinaequip.txt" // 掳脳陆冒
 
-// 以下定义的结构用于辅助从tabfile中读出属性的初始值
+// 脪脭脧脗露篓脪氓碌脛陆谩鹿鹿脫脙脫脷赂篓脰煤麓脫tabfile脰脨露脕鲁枚脢么脨脭碌脛鲁玫脢录脰碌
 typedef struct tagPROPINFO
 {
-	int		m_nType;		// 属性的类型. 详见 PI_VARTYPE_...系列定义
+	int		m_nType;		// 脢么脨脭碌脛脌脿脨脥. 脧锚录没 PI_VARTYPE_...脧碌脕脨露篓脪氓
 	union
 	{
-	char*	m_pszBuf;		// 指向字符串缓冲区的指针
-	int*	m_pnData;		// 指向int变量的指针
+	char*	m_pszBuf;		// 脰赂脧貌脳脰路没麓庐禄潞鲁氓脟酶碌脛脰赂脮毛
+	int*	m_pnData;		// 脰赂脧貌int卤盲脕驴碌脛脰赂脮毛
 	}m_pData;
-	int		m_nBufSize;		// 缓冲区的长度
+	int		m_nBufSize;		// 禄潞鲁氓脟酶碌脛鲁陇露脠
 } PROPINFO;
 #define		PI_VARTYPE_CHAR		0
 #define		PI_VARTYPE_INT		1
-//装备清单
-char*	TABFILE_EQUIPMENT[] = 
+//脳掳卤赂脟氓碌楼
+const char*	TABFILE_EQUIPMENT[] =
 {
 	TABFILE_MELEEWEAPON,	//"MeleeWeapon.txt",
 	TABFILE_RANGEWEAPON,	//"RangeWeapon.txt",
@@ -78,28 +78,28 @@ char*	TABFILE_EQUIPMENT[] =
 //=============================================================================
 
 /******************************************************************************
-	功能:	从tab file中读入特定的数据记录
-	入口:	pTF: 工具类指针, 用此工具类读取tab file
-			nRow: 读第nRow项记录
-			pPI[i].m_nType: 给出欲读的记录中第i个域的类型, 可能是整型或字符串
-			pPI[i].m_pData: 将数据读到此缓冲区中
-			cbFields: 每项记录包含这么多的域
-	出口:	成功时返回非零, m_pBuf 指向分配的内存
-			失败时返回零
+	鹿娄脛脺:	麓脫tab file脰脨露脕脠毛脤脴露篓碌脛脢媒戮脻录脟脗录
+	脠毛驴脷:	pTF: 鹿陇戮脽脌脿脰赂脮毛, 脫脙麓脣鹿陇戮脽脌脿露脕脠隆tab file
+			nRow: 露脕碌脷nRow脧卯录脟脗录
+			pPI[i].m_nType: 赂酶鲁枚脫没露脕碌脛录脟脗录脰脨碌脷i赂枚脫貌碌脛脌脿脨脥, 驴脡脛脺脢脟脮没脨脥禄貌脳脰路没麓庐
+			pPI[i].m_pData: 陆芦脢媒戮脻露脕碌陆麓脣禄潞鲁氓脟酶脰脨
+			cbFields: 脙驴脧卯录脟脗录掳眉潞卢脮芒脙麓露脿碌脛脫貌
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, m_pBuf 脰赂脧貌路脰脜盲碌脛脛脷麓忙
+			脢搂掳脺脢卤路碌禄脴脕茫
 ******************************************************************************/
-BOOL LoadRecord(IN KTabFile* pTF, IN int nRow,
+int LoadRecord(IN KTabFile* pTF, IN int nRow,
 				IN OUT const PROPINFO* pPI, IN int cbFields)
 {
-	BOOL bEC = TRUE;
+	int bEC = TRUE;
 
-	nRow += 2;	// 加1: 跳过tabfile的第一行. 该行给出的是各列的名称
-				// 再加1: KTabFile::GetInteger()函数要求nRow从1开始算起
+	nRow += 2;	// 录脫1: 脤酶鹿媒tabfile碌脛碌脷脪禄脨脨. 赂脙脨脨赂酶鲁枚碌脛脢脟赂梅脕脨碌脛脙没鲁脝
+				// 脭脵录脫1: KTabFile::GetInteger()潞炉脢媒脪陋脟贸nRow麓脫1驴陋脢录脣茫脝冒
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	for (int n = 0; n < cbFields; ++n)
 	{
 		if (PI_VARTYPE_INT == (pPI+n)->m_nType)
-		{	// 读入 int 型数据
+		{	// 露脕脠毛 int 脨脥脢媒戮脻
 			if (FALSE == pTF->GetInteger(nRow, n+1, -1, (pPI+n)->m_pData.m_pnData))
 			{
 				bEC = FALSE;
@@ -108,18 +108,18 @@ BOOL LoadRecord(IN KTabFile* pTF, IN int nRow,
 				//{ _ASSERT(FALSE); bEC = FALSE; break; }
 		}
 		else
-		{	// 读入字符串型数据
+		{	// 露脕脠毛脳脰路没麓庐脨脥脢媒戮脻
 			//_ASSERT(PI_VARTYPE_CHAR == (pPI+n)->m_nType);
             if  (PI_VARTYPE_CHAR != (pPI+n)->m_nType)
 			{
 				bEC = FALSE;
-			      break; 
+			      break;
 			}
-			if (FALSE == pTF->GetString(nRow, n+1, "",(pPI+n)->m_pData.m_pszBuf,(pPI+n)->m_nBufSize)) //(pPI+n)->m_pData.m_pszBuf ,(pPI+n)->m_nBufSize)
+			if (FALSE == pTF->GetString(nRow, n+1, (char*)"",(pPI+n)->m_pData.m_pszBuf,(pPI+n)->m_nBufSize)) //(pPI+n)->m_pData.m_pszBuf ,(pPI+n)->m_nBufSize)
 			{
-			     //_ASSERT(FALSE); 
+			     //_ASSERT(FALSE);
 			      bEC = FALSE;
-			      break; 
+			      break;
 			}
 		}
 	}
@@ -137,69 +137,69 @@ KLibOfBPT::~KLibOfBPT()
 }
 
 /******************************************************************************
-	功能：	总控，从tab file中读入道具,魔法等原始数据
-	出口:	相关数据存在m_BPTWeapon,m_BPTWeaponDirty等成员变量中
+	鹿娄脛脺拢潞	脳脺驴脴拢卢麓脫tab file脰脨露脕脠毛碌脌戮脽,脛搂路篓碌脠脭颅脢录脢媒戮脻
+	鲁枚驴脷:	脧脿鹿脴脢媒戮脻麓忙脭脷m_BPTWeapon,m_BPTWeaponDirty碌脠鲁脡脭卤卤盲脕驴脰脨
 ******************************************************************************/
-BOOL KLibOfBPT::Init()
+int KLibOfBPT::Init()
 {
-	// 初始化
-	KBasicPropertyTable*	paryBPT[] = {	
-											&m_BPTMeleeWeapon,  //0 武器
-											&m_BPTRangeWeapon,  //暗器
-											&m_BPTArmor,   //衣服
-											&m_BPTHelm,    //帽子
-											&m_BPTBoot,    //靴子
-											&m_BPTBelt,    //腰带
+	// 鲁玫脢录禄炉
+	KBasicPropertyTable*	paryBPT[] = {
+											&m_BPTMeleeWeapon,  //0 脦盲脝梅
+											&m_BPTRangeWeapon,  //掳碌脝梅
+											&m_BPTArmor,   //脪脗路镁
+											&m_BPTHelm,    //脙卤脳脫
+											&m_BPTBoot,    //脩楼脳脫
+											&m_BPTBelt,    //脩眉麓酶
 											&m_BPTAmulet,  //
-											&m_BPTRing,    //戒子
-											&m_BPTCuff,    //手镯
-											&m_BPTPendant, //玉佩
-											&m_BPTHorse,   //马匹
+											&m_BPTRing,    //陆盲脳脫
+											&m_BPTCuff,    //脢脰茂铆
+											&m_BPTPendant, //脫帽脜氓
+											&m_BPTHorse,   //脗铆脝楼
 											&m_BPTMask,	   //11
 											&m_BPTPifeng,  //12
 											&m_BPTYinjian, //13
 											&m_BPTShipin,  //14
-											&m_GoldItem,   //15 黄金装
-											&m_BPTMedicine,//16药品
-											&m_BPTQuest,   //17物品
-											&m_BPTTownPortal, //18回城
-											&m_BPTMine,       //19物品
-											&m_BPTMagicAttrib,//20魔法属性表
-											&m_BPTFusion,     //21纹纲
-											&m_Platina,       //22白金
+											&m_GoldItem,   //15 禄脝陆冒脳掳
+											&m_BPTMedicine,//16脪漏脝路
+											&m_BPTQuest,   //17脦茂脝路
+											&m_BPTTownPortal, //18禄脴鲁脟
+											&m_BPTMine,       //19脦茂脝路
+											&m_BPTMagicAttrib,//20脛搂路篓脢么脨脭卤铆
+											&m_BPTFusion,     //21脦脝赂脵
+											&m_Platina,       //22掳脳陆冒
 										};
-	// 将tab file逐个读入
+	// 陆芦tab file脰冒赂枚露脕脠毛
 	const int cbNumOfTables = sizeof(paryBPT)/sizeof(paryBPT[0]);
 
 	for (int i = 0; i < cbNumOfTables; ++i)
 	{
-		if (i < 15)	         //装备特殊处理  白装
+		if (i < 15)	         //脳掳卤赂脤脴脢芒麓娄脌铆  掳脳脳掳
 		{
 			KBPT_Equipment* pTemp = (KBPT_Equipment *)paryBPT[i];
-			pTemp->Init(i);  //初始化文件名赋值
+			pTemp->Init(i);  //鲁玫脢录禄炉脦脛录镁脙没赂鲁脰碌
 		}
-		else if (i == 15)    //黄金
+		else if (i == 15)    //禄脝陆冒
 		{
 			KBPT_Equipment_Gold* pGTemp = (KBPT_Equipment_Gold *)paryBPT[i];
 			pGTemp->Init();
 		}
-		else if (i ==22)	 //白金
+		else if (i ==22)	 //掳脳陆冒
 		{
 			KBPT_Equipment_Platina* pPTemp = (KBPT_Equipment_Platina *)paryBPT[i];
 			pPTemp->Init();
 		}
 
-		if (FALSE == paryBPT[i]->Load())  //加载客户端装备物品文件（出错 导致客户端闪退）
+		if (FALSE == paryBPT[i]->Load())  //录脫脭脴驴脥禄搂露脣脳掳卤赂脦茂脝路脦脛录镁拢篓鲁枚麓铆 碌录脰脗驴脥禄搂露脣脡脕脥脣拢漏
 		{
-			//_ASSERT(FALSE); 
+			//_ASSERT(FALSE);
 		    return FALSE;
-		}  
+		}
 	}
 
-	// 构造魔法属性表
+	// 鹿鹿脭矛脛搂路篓脢么脨脭卤铆
 	InitMALib();
-    
-    // 构造魔法属性索引表
+
+    // 鹿鹿脭矛脛搂路篓脢么脨脭脣梅脪媒卤铆
     // add by Freeway Chen in 2003.5.30
     InitMAIT();
 
@@ -207,13 +207,13 @@ BOOL KLibOfBPT::Init()
 }
 
 /******************************************************************************
-	功能：	建立一个四维的数组，利用(前后缀、物品类型、五行、级别)
-            确定一个魔法属性的索引值列表
-	入口:	m_BPTMagicAttrib: 内含从tab file读入的全部魔法属性
-	出口:	四维数组 m_CMAIT 分别填充相应的索引值列表
+	鹿娄脛脺拢潞	陆篓脕垄脪禄赂枚脣脛脦卢碌脛脢媒脳茅拢卢脌没脫脙(脟掳潞贸脳潞隆垄脦茂脝路脌脿脨脥隆垄脦氓脨脨隆垄录露卤冒)
+            脠路露篓脪禄赂枚脛搂路篓脢么脨脭碌脛脣梅脪媒脰碌脕脨卤铆
+	脠毛驴脷:	m_BPTMagicAttrib: 脛脷潞卢麓脫tab file露脕脠毛碌脛脠芦虏驴脛搂路篓脢么脨脭
+	鲁枚驴脷:	脣脛脦卢脢媒脳茅 m_CMAIT 路脰卤冒脤卯鲁盲脧脿脫娄碌脛脣梅脪媒脰碌脕脨卤铆
 ******************************************************************************/
 // Add by Freeway Chen in 2003.5.30
-BOOL KLibOfBPT::InitMAIT()
+int KLibOfBPT::InitMAIT()
 {
     int nResult = false;
     int i = 0;
@@ -246,12 +246,12 @@ BOOL KLibOfBPT::InitMAIT()
         if  (nPrefixPostfix< 0 || nPrefixPostfix>=MATF_PREFIXPOSFIX)
 		   continue;
 
-        for (nType = 0; nType < MATF_CBDR; ++nType)   //最大的可出现的部位限制
+        for (nType = 0; nType < MATF_CBDR; ++nType)   //脳卯麓贸碌脛驴脡鲁枚脧脰碌脛虏驴脦禄脧脼脰脝
         {
-            if ((pItem->m_DropRate[nType]) <= 1)      //概率小于1的将不会添加属性
-                continue; // 如果没有概率出现这个类型就跳到下一个
-            
-            nSeriesMin = nSeriesMax = pItem->m_nClass;  // 五行
+            if ((pItem->m_DropRate[nType]) <= 1)      //赂脜脗脢脨隆脫脷1碌脛陆芦虏禄禄谩脤铆录脫脢么脨脭
+                continue; // 脠莽鹿没脙禄脫脨赂脜脗脢鲁枚脧脰脮芒赂枚脌脿脨脥戮脥脤酶碌陆脧脗脪禄赂枚
+
+            nSeriesMin = nSeriesMax = pItem->m_nClass;  // 脦氓脨脨
 
             if ((pItem->m_nClass) == -1)
             {
@@ -271,7 +271,7 @@ BOOL KLibOfBPT::InitMAIT()
                 nLevelMax = MATF_LEVEL;
 
                 for (nLevel = nLevelMin; nLevel <= nLevelMax; ++nLevel)
-                {  
+                {
                     m_CMAIT[nPrefixPostfix][nType][nSeries][nLevel - 1].Insert(i);
                     nTotalCount++;
                 }
@@ -281,15 +281,15 @@ BOOL KLibOfBPT::InitMAIT()
 
     //#ifdef _DEBUG
  /*   #if 0
-    //g_DebugLog("[魔法属性]%s五防抗性上限增加%d", pNpc->Name, pMagic->nValue[0]);
-    printf("[魔法属性]m_CMAIT[前缀后缀][类型][五行][级别]\n");
+    //g_DebugLog("[脛搂路篓脢么脨脭]%s脦氓路脌驴鹿脨脭脡脧脧脼脭枚录脫%d", pNpc->Name, pMagic->nValue[0]);
+    printf("[脛搂路篓脢么脨脭]m_CMAIT[脟掳脳潞潞贸脳潞][脌脿脨脥][脦氓脨脨][录露卤冒]\n");
     for (nPrefixPostfix = 0; nPrefixPostfix < MATF_PREFIXPOSFIX; nPrefixPostfix++)
     {
         for (nType = 0; nType < MATF_CBDR; nType++)
         {
             for (nSeries = 0; nSeries < MATF_SERIES; nSeries++)
             {
-                for (nLevel = 1; nLevel < (MATF_LEVEL + 1); nLevel++) //最高级别 为10
+                for (nLevel = 1; nLevel < (MATF_LEVEL + 1); nLevel++) //脳卯赂脽录露卤冒 脦陋10
                 {
                     KBPT_ClassMAIT *pMAITItem = &m_CMAIT[nPrefixPostfix][nType][nSeries][nLevel - 1];
 
@@ -306,8 +306,8 @@ BOOL KLibOfBPT::InitMAIT()
                         strcat(szStringContent, szTemp);
                     }
 
-                    sprintf(szOutputString, 
-                        "[魔法属性]m_CMAIT[%d][%d][%d][%d]: Count = %3d, %s  \n",
+                    sprintf(szOutputString,
+                        "[脛搂路篓脢么脨脭]m_CMAIT[%d][%d][%d][%d]: Count = %3d, %s  \n",
                         nPrefixPostfix,
                         nType,
                         nSeries,
@@ -335,25 +335,25 @@ BOOL KLibOfBPT::InitMAIT()
 
 
 /******************************************************************************
-	功能：	根据原始的魔法属性表，统计出每种装备各有哪些可能的魔法属性
-	入口:	m_BPTMagicAttrib: 内含从tab file读入的全部魔法属性
-	出口:	原始的魔法属性表被分类, 分类后的数据存入m_CMAT数组中
-			m_CMAT[i]中给出了适用于第i种装备的全部魔法属性
+	鹿娄脛脺拢潞	赂霉戮脻脭颅脢录碌脛脛搂路篓脢么脨脭卤铆拢卢脥鲁录脝鲁枚脙驴脰脰脳掳卤赂赂梅脫脨脛脛脨漏驴脡脛脺碌脛脛搂路篓脢么脨脭
+	脠毛驴脷:	m_BPTMagicAttrib: 脛脷潞卢麓脫tab file露脕脠毛碌脛脠芦虏驴脛搂路篓脢么脨脭
+	鲁枚驴脷:	脭颅脢录碌脛脛搂路篓脢么脨脭卤铆卤禄路脰脌脿, 路脰脌脿潞贸碌脛脢媒戮脻麓忙脠毛m_CMAT脢媒脳茅脰脨
+			m_CMAT[i]脰脨赂酶鲁枚脕脣脢脢脫脙脫脷碌脷i脰脰脳掳卤赂碌脛脠芦虏驴脛搂路篓脢么脨脭
 ******************************************************************************/
-BOOL KLibOfBPT::InitMALib()
+int KLibOfBPT::InitMALib()
 {
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
-	// 确定每种装备各有多少种可能的魔法属性
-    int naryMACount[2][MATF_CBDR];	// 第i种装备共有naryMACount[0][i]种可能的前缀
-									//			  和naryMACount[1][i]种可能的后缀
+	// 脠路露篓脙驴脰脰脳掳卤赂赂梅脫脨露脿脡脵脰脰驴脡脛脺碌脛脛搂路篓脢么脨脭
+    int naryMACount[2][MATF_CBDR];	// 碌脷i脰脰脳掳卤赂鹿虏脫脨naryMACount[0][i]脰脰驴脡脛脺碌脛脟掳脳潞
+									//			  潞脥naryMACount[1][i]脰脰驴脡脛脺碌脛潞贸脳潞
 	m_BPTMagicAttrib.GetMACount((int*)naryMACount);
 
-	// 根据取回的数值，为各装备的魔法属性索引表分配内容
+	// 赂霉戮脻脠隆禄脴碌脛脢媒脰碌拢卢脦陋赂梅脳掳卤赂碌脛脛搂路篓脢么脨脭脣梅脪媒卤铆路脰脜盲脛脷脠脻
 	for (int i = 0; i < MATF_CBDR; ++i)	// -1 because of horse
 	{
-		//_ASSERT(naryMACount[0][i] > 0);	// 不可能没有一个魔法前缀适用于该装备
-		//_ASSERT(naryMACount[1][i] > 0);	// 不可能没有一个魔法后缀适用于该装备
+		//_ASSERT(naryMACount[0][i] > 0);	// 虏禄驴脡脛脺脙禄脫脨脪禄赂枚脛搂路篓脟掳脳潞脢脢脫脙脫脷赂脙脳掳卤赂
+		//_ASSERT(naryMACount[1][i] > 0);	// 虏禄驴脡脛脺脙禄脫脨脪禄赂枚脛搂路篓潞贸脳潞脢脢脫脙脫脷赂脙脳掳卤赂
 		if  (naryMACount[0][i]<=0 || naryMACount[1][i]<=0)
 			continue;
 
@@ -363,23 +363,23 @@ BOOL KLibOfBPT::InitMALib()
 			return bEC;
 	}
 
-	// 遍历魔法属性表，建立起各装备的魔法属性索引表
-	const int nNumOfMA = m_BPTMagicAttrib.NumOfEntries();	// 魔法属性的总数
+	// 卤茅脌煤脛搂路篓脢么脨脭卤铆拢卢陆篓脕垄脝冒赂梅脳掳卤赂碌脛脛搂路篓脢么脨脭脣梅脪媒卤铆
+	const int nNumOfMA = m_BPTMagicAttrib.NumOfEntries();	// 脛搂路篓脢么脨脭碌脛脳脺脢媒
 	//_ASSERT(nNumOfMA > 0);
 	if (nNumOfMA<=0)
 		return false;
 
-	int m, n;		// 第m项魔法属性适用于第n种装备
-	for (m = 0; m < nNumOfMA; ++m)				// 遍历所有魔法属性
+	int m, n;		// 碌脷m脧卯脛搂路篓脢么脨脭脢脢脫脙脫脷碌脷n脰脰脳掳卤赂
+	for (m = 0; m < nNumOfMA; ++m)				// 卤茅脌煤脣霉脫脨脛搂路篓脢么脨脭
 	{
 		const KMAGICATTRIB_TABFILE* pRec;
-		pRec = m_BPTMagicAttrib.GetRecord(m);		
-		for (n = 0; n < MATF_CBDR; ++n)			// 共有MATF_CBDR种装备带魔法
-		{// 确认魔法属性适用于哪些装备
+		pRec = m_BPTMagicAttrib.GetRecord(m);
+		for (n = 0; n < MATF_CBDR; ++n)			// 鹿虏脫脨MATF_CBDR脰脰脳掳卤赂麓酶脛搂路篓
+		{// 脠路脠脧脛搂路篓脢么脨脭脢脢脫脙脫脷脛脛脨漏脳掳卤赂
 			if (pRec->m_DropRate[n]>1)
-			{// 运行至此, 说明第m项魔法属性适用于第n种装备
+			{// 脭脣脨脨脰脕麓脣, 脣碌脙梅碌脷m脧卯脛搂路篓脢么脨脭脢脢脫脙脫脷碌脷n脰脰脳掳卤赂
 				int nPos;
-				nPos = (0 == pRec->m_nPos) ? 1 : 0;   //前缀 后缀?
+				nPos = (0 == pRec->m_nPos) ? 1 : 0;   //脟掳脳潞 潞贸脳潞?
 				m_CMAT[nPos][n].Set(m);
 			}
 		}
@@ -389,7 +389,7 @@ BOOL KLibOfBPT::InitMALib()
 }
 
 /******************************************************************************
-	功能：	获取白金的基本数据
+	鹿娄脛脺拢潞	禄帽脠隆掳脳陆冒碌脛禄霉卤戮脢媒戮脻
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_PLATINA* KLibOfBPT::GetPlatinaRecord(IN int nIndex) const
 {
@@ -402,7 +402,7 @@ const int KLibOfBPT::GetPlatinaNumber() const
 }
 
 /******************************************************************************
-	功能：	获取黄金的基本数据
+	鹿娄脛脺拢潞	禄帽脠隆禄脝陆冒碌脛禄霉卤戮脢媒戮脻
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_GOLD* KLibOfBPT::GetGoldItemRecord(IN int nIndex) const
 {
@@ -414,7 +414,7 @@ const int KLibOfBPT::GetGoldItemNumber() const
 	return m_GoldItem.GetRecordCount();
 }
 /******************************************************************************
-	功能：	获取指定的CMAT
+	鹿娄脛脺拢潞	禄帽脠隆脰赂露篓碌脛CMAT
 ******************************************************************************/
 const KBPT_ClassifiedMAT* KLibOfBPT::GetCMAT(int nPos, int i) const
 {
@@ -430,7 +430,7 @@ const KBPT_ClassifiedMAT* KLibOfBPT::GetCMAT(int nPos, int i) const
 }
 
 /******************************************************************************
-	功能：	获取指定的CMAIT
+	鹿娄脛脺拢潞	禄帽脠隆脰赂露篓碌脛CMAIT
 ******************************************************************************/
 // Add by Freeway Chen in 2003.5.30
 const KBPT_ClassMAIT*       KLibOfBPT::GetCMIT(IN int nPrefixPostfix, IN int nType, IN int nSeries, int nLevel) const
@@ -439,15 +439,15 @@ const KBPT_ClassMAIT*       KLibOfBPT::GetCMIT(IN int nPrefixPostfix, IN int nTy
     if (!((nPrefixPostfix >= 0) && (nPrefixPostfix < MATF_PREFIXPOSFIX)))
         return NULL;
 
-    //_ASSERT((nType >= 0) && (nType < MATF_CBDR));  //白装装备种类数
+    //_ASSERT((nType >= 0) && (nType < MATF_CBDR));  //掳脳脳掳脳掳卤赂脰脰脌脿脢媒
     if (!((nType >= 0) && (nType < MATF_CBDR)))
         return NULL;
 
-    //_ASSERT((nSeries >= 0) && (nSeries < MATF_SERIES)); //5行
+    //_ASSERT((nSeries >= 0) && (nSeries < MATF_SERIES)); //5脨脨
     if (!((nSeries >= 0) && (nSeries < MATF_SERIES)))
         return NULL;
 
-    //_ASSERT(((nLevel - 1) >= 0) && ((nLevel - 1) < MATF_LEVEL));    // 等级级别nLevel is from 1..MATF_LEVEL
+    //_ASSERT(((nLevel - 1) >= 0) && ((nLevel - 1) < MATF_LEVEL));    // 碌脠录露录露卤冒nLevel is from 1..MATF_LEVEL
     if (!(((nLevel - 1) >= 0) && ((nLevel - 1) < MATF_LEVEL)))
         return NULL;
 
@@ -501,7 +501,7 @@ const KBASICPROP_EQUIPMENT*	KLibOfBPT::GetHelmRecord(IN int i) const
 
 const int KLibOfBPT::GetHelmRecordNumber() const
 {
-	return m_BPTHelm.NumOfEntries();  //属性的数量
+	return m_BPTHelm.NumOfEntries();  //脢么脨脭碌脛脢媒脕驴
 }
 
 const KBASICPROP_EQUIPMENT*	KLibOfBPT::GetBootRecord(IN int i) const
@@ -593,7 +593,7 @@ const int KLibOfBPT::GetQuestRecordNumber() const
 {
 	return m_BPTQuest.NumOfEntries();
 }
-//----------------------纹纲-------------------------------------
+//----------------------脦脝赂脵-------------------------------------
 const KBASICPROP_FUSION* KLibOfBPT::GetFusionRecord(IN int i) const
 {
 	return m_BPTFusion.GetRecord(i);
@@ -624,7 +624,7 @@ const int KLibOfBPT::GetMaskRecordNumber() const
 	return m_BPTMask.NumOfEntries();
 }
 //
-//-----------------------------披风------------------------------------
+//-----------------------------脜没路莽------------------------------------
 const KBASICPROP_EQUIPMENT* KLibOfBPT::GetPifengRecord(IN int i) const
 {
 	return m_BPTPifeng.GetRecord(i);
@@ -634,7 +634,7 @@ const int KLibOfBPT::GetPifengRecordNumber() const
 {
 	return m_BPTPifeng.NumOfEntries();
 }
-//-----------------------------印鉴------------------------------------
+//-----------------------------脫隆录酶------------------------------------
 const KBASICPROP_EQUIPMENT* KLibOfBPT::GetYinjianRecord(IN int i) const
 {
 	return m_BPTYinjian.GetRecord(i);
@@ -644,7 +644,7 @@ const int KLibOfBPT::GetYinjianRecordNumber() const
 {
 	return m_BPTYinjian.NumOfEntries();
 }
-//------------------------------饰品-----------------------------------
+//------------------------------脢脦脝路-----------------------------------
 const KBASICPROP_EQUIPMENT* KLibOfBPT::GetShipinRecord(IN int i) const
 {
 	return m_BPTShipin.GetRecord(i);
@@ -656,10 +656,10 @@ const int KLibOfBPT::GetShipinRecordNumber() const
 }
 
 /******************************************************************************
-	功能:	获取指定的矿石的属性记录
-	入口:	i: 指定矿石
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛驴贸脢炉碌脛脢么脨脭录脟脗录
+	脠毛驴脷:	i: 脰赂露篓驴贸脢炉
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MINE* KLibOfBPT::GetMine(IN int i) const
 {
@@ -683,10 +683,10 @@ const KBASICPROP_EQUIPMENT_UNIQUE* KLibOfBPT::FindEquipmentUnique(IN int a, IN i
 }
 
 /******************************************************************************
-	功能:	获取指定的药材的属性记录
-	入口:	i: 指定药材
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脪漏虏脛碌脛脢么脨脭录脟脗录
+	脠毛驴脷:	i: 脰赂露篓脪漏虏脛
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MEDMATERIAL* KLibOfBPT::GetMedMaterial(int i) const
 {
@@ -694,11 +694,11 @@ const KBASICPROP_MEDMATERIAL* KLibOfBPT::GetMedMaterial(int i) const
 }
 
 /******************************************************************************
-	功能:	获取指定的药品的属性记录
-	入口:	nType: 药品的类型
-			nLevel: 药品的级别
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脪漏脝路碌脛脢么脨脭录脟脗录
+	脠毛驴脷:	nType: 脪漏脝路碌脛脌脿脨脥
+			nLevel: 脪漏脝路碌脛录露卤冒
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MEDICINE* KLibOfBPT::FindMedicine(IN int nType, IN int nLevel) const
 {
@@ -712,7 +712,7 @@ const KBASICPROP_MEDICINE* KLibOfBPT::FindMedicine(IN int nType, IN int nLevel) 
 // {
 // 	return m_GoldItem.GetRecord(i);
 // }
-// 
+//
 // const int KLibOfBPT::GetGoldRecordNumber(IN int i) const
 // {
 // 	return m_GoldItem.NumOfEntries();
@@ -733,7 +733,7 @@ KBasicPropertyTable::~KBasicPropertyTable()
 }
 
 /******************************************************************************
-	功能:	记录tab file中共有多少项数据记录
+	鹿娄脛脺:	录脟脗录tab file脰脨鹿虏脫脨露脿脡脵脧卯脢媒戮脻录脟脗录
 ******************************************************************************/
 void KBasicPropertyTable::SetCount(int cbCount)
 {
@@ -744,13 +744,13 @@ void KBasicPropertyTable::SetCount(int cbCount)
 }
 
 /******************************************************************************
-	功能:	分配内存,用于保存从tab file中读入的数据
-	入口:	m_nNumOfEntries: 共有这么多项数据记录
-			m_nSizeOfEntry: 每项数据记录的大小(字节)
-	出口:	成功时返回非零, m_pBuf 指向分配的内存
-			失败时返回零
+	鹿娄脛脺:	路脰脜盲脛脷麓忙,脫脙脫脷卤拢麓忙麓脫tab file脰脨露脕脠毛碌脛脢媒戮脻
+	脠毛驴脷:	m_nNumOfEntries: 鹿虏脫脨脮芒脙麓露脿脧卯脢媒戮脻录脟脗录
+			m_nSizeOfEntry: 脙驴脧卯脢媒戮脻录脟脗录碌脛麓贸脨隆(脳脰陆脷)
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, m_pBuf 脰赂脧貌路脰脜盲碌脛脛脷麓忙
+			脢搂掳脺脢卤路碌禄脴脕茫
 ******************************************************************************/
-BOOL KBasicPropertyTable::GetMemory()
+int KBasicPropertyTable::GetMemory()
 {
 	//_ASSERT(NULL == m_pBuf);
 	if (m_pBuf)
@@ -760,9 +760,9 @@ BOOL KBasicPropertyTable::GetMemory()
     if (m_nNumOfEntries<=0 ||  m_nSizeOfEntry<=0)
     	return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	const int nMemSize = m_nSizeOfEntry * m_nNumOfEntries;
-	void* pBuf = new BYTE[nMemSize]; //分配内存
+	void* pBuf = new BYTE[nMemSize]; //路脰脜盲脛脷麓忙
 	//_ASSERT(pBuf != NULL);
 	if (pBuf != NULL)
 	{
@@ -773,7 +773,7 @@ BOOL KBasicPropertyTable::GetMemory()
 }
 
 /******************************************************************************
-	功能:	释放内存
+	鹿娄脛脺:	脢脥路脜脛脷麓忙
 ******************************************************************************/
 void KBasicPropertyTable::ReleaseMemory()
 {
@@ -786,62 +786,62 @@ void KBasicPropertyTable::ReleaseMemory()
 }
 
 /******************************************************************************
-	功能:	读入tab file中的全部数据
-	入口:	m_szTabFile: 文件名
-	出口:	成功时返回非零, 全部数据读入m_pBuf所指缓冲区中.
-				m_nNumOfEntries 给出共读入多少项数据
-			失败时返回零  ---注意区别 标点 的全角 和半角 问题 
+	鹿娄脛脺:	露脕脠毛tab file脰脨碌脛脠芦虏驴脢媒戮脻
+	脠毛驴脷:	m_szTabFile: 脦脛录镁脙没
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, 脠芦虏驴脢媒戮脻露脕脠毛m_pBuf脣霉脰赂禄潞鲁氓脟酶脰脨.
+				m_nNumOfEntries 赂酶鲁枚鹿虏露脕脠毛露脿脡脵脧卯脢媒戮脻
+			脢搂掳脺脢卤路碌禄脴脕茫  ---脳垄脪芒脟酶卤冒 卤锚碌茫 碌脛脠芦陆脟 潞脥掳毛陆脟 脦脢脤芒
 ******************************************************************************/
-BOOL KBasicPropertyTable::Load()             //读入装备物品文件          
+int KBasicPropertyTable::Load()             //露脕脠毛脳掳卤赂脦茂脝路脦脛录镁
 {
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	KTabFile	theLoader;
 
-	// 加载tab file
-	g_SetRootPath(NULL);  //设置根目录
+	// 录脫脭脴tab file
+	g_SetRootPath(NULL);  //脡猫脰脙赂霉脛驴脗录
 
 //	::g_SetFilePath(TABFILE_PATH);
 	char	szFileName[FILE_NAME_LENGTH]={0};
             //szFileName[FILE_NAME_LENGTH]=0;
-	g_UnitePathAndName(TABFILE_PATH, m_szTabFile, szFileName); //合并完整路径
-	if (FALSE == theLoader.Load(szFileName))        //读入文件
-	{ 
+	g_UnitePathAndName((char*)TABFILE_PATH, m_szTabFile, szFileName); //潞脧虏垄脥锚脮没脗路戮露
+	if (FALSE == theLoader.Load(szFileName))        //露脕脠毛脦脛录镁
+	{
 	//	_ASSERT(FALSE);
 		theLoader.Clear();
 	    return bEC;
-	}                 //接受数据   ---出错导致 客户端闪退
+	}                 //陆脫脢脺脢媒戮脻   ---鲁枚麓铆碌录脰脗 驴脥禄搂露脣脡脕脥脣
 
-	// 确定file内给出了多少项记录
-	const int cbItems = theLoader.GetHeight() - 1;	// 第一行给出各列名称,
-	if (cbItems <= 0)							    // 实际数据从第2行开始给出.
-	{ 
-		//_ASSERT(FALSE); 
-		theLoader.Clear();
-		return bEC;
-	}                                               // ---出错导致 客户端闪退
-
-	SetCount(cbItems);                              // 设定总行数 
-
-	// 分配内存，构建属性表
-	if (FALSE == GetMemory())
-	{ 
+	// 脠路露篓file脛脷赂酶鲁枚脕脣露脿脡脵脧卯录脟脗录
+	const int cbItems = theLoader.GetHeight() - 1;	// 碌脷脪禄脨脨赂酶鲁枚赂梅脕脨脙没鲁脝,
+	if (cbItems <= 0)							    // 脢碌录脢脢媒戮脻麓脫碌脷2脨脨驴陋脢录赂酶鲁枚.
+	{
 		//_ASSERT(FALSE);
 		theLoader.Clear();
-	    return bEC; 
-	}                 // ---出错导致 客户端闪退
+		return bEC;
+	}                                               // ---鲁枚麓铆碌录脰脗 驴脥禄搂露脣脡脕脥脣
 
-	// 将属性记录逐条读入
-	int i;
-	for ( i = 0; i < cbItems; ++i)  //有多少列
+	SetCount(cbItems);                              // 脡猫露篓脳脺脨脨脢媒
+
+	// 路脰脜盲脛脷麓忙拢卢鹿鹿陆篓脢么脨脭卤铆
+	if (FALSE == GetMemory())
 	{
-		if (FALSE == LoadRecord(i, &theLoader))     // ---出错导致 客户端闪退
-		{ 
-			//_ASSERT(FALSE); 
+		//_ASSERT(FALSE);
+		theLoader.Clear();
+	    return bEC;
+	}                 // ---鲁枚麓铆碌录脰脗 驴脥禄搂露脣脡脕脥脣
+
+	// 陆芦脢么脨脭录脟脗录脰冒脤玫露脕脠毛
+	int i;
+	for ( i = 0; i < cbItems; ++i)  //脫脨露脿脡脵脕脨
+	{
+		if (FALSE == LoadRecord(i, &theLoader))     // ---鲁枚麓铆碌录脰脗 驴脥禄搂露脣脡脕脥脣
+		{
+			//_ASSERT(FALSE);
 			theLoader.Clear();
 			return bEC;
 		}
 	}
-    
+
 	bEC = TRUE;
 	theLoader.Clear();
 	return bEC;
@@ -859,16 +859,16 @@ KBPT_Mine::~KBPT_Mine()
 {
 }
 
-BOOL KBPT_Mine::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Mine::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i>=m_nNumOfEntries)
 		return false;
 
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_MINE* pBuf = (KBASICPROP_MINE*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -879,34 +879,34 @@ BOOL KBPT_Mine::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nObjIdx), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWidth), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nHeight), 0},
-		{ PI_VARTYPE_CHAR,			pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},  //说明
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries), 0},   //五行
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},    //价格
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},    //等级
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},    //是否能叠加
+		{ PI_VARTYPE_CHAR,			pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},  //脣碌脙梅
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries), 0},   //脦氓脨脨
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},    //录脹赂帽
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},    //碌脠录露
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},    //脢脟路帽脛脺碌镁录脫
 		{ PI_VARTYPE_CHAR,			pBuf->m_szScript, sizeof(pBuf->m_szScript)},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[0]), 0},  //参数  技能ID
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[0]), 0},  //虏脦脢媒  录录脛脺ID
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[1]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[2]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[3]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[4]), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDelet), 0},     //使用后是否消失
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPriceXu), 0},   //金币
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //是否快捷栏
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsMagic), 0},    //是否有属性 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //是否立即使用
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDelet), 0},     //脢鹿脫脙潞贸脢脟路帽脧没脢搂
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPriceXu), 0},   //陆冒卤脪
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //脢脟路帽驴矛陆脻脌赂
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsMagic), 0},    //脢脟路帽脫脨脢么脨脭
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //脢脟路帽脕垄录麓脢鹿脫脙
 	};
-    
-	// 逐个读入各项属性
+
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 
 }
 
 /******************************************************************************
-	功能:	获取指定的矿石的属性
-	入口:	i: 要求获取第i项矿石的属性. 若为-1表示随机取一个
-	出口:	成功时返回指向该矿石属性的指针(一个KBASICPROP_MINE结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛驴贸脢炉碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯驴贸脢炉碌脛脢么脨脭. 脠么脦陋-1卤铆脢戮脣忙禄煤脠隆脪禄赂枚
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙驴贸脢炉脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_MINE陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MINE* KBPT_Mine::GetRecord(int i) const
 {
@@ -927,8 +927,8 @@ const KBASICPROP_MINE* KBPT_Mine::GetRecord(int i) const
 const KBASICPROP_MINE* KBPT_Mine::FindRecord(IN int nType,IN int nLevel) const
 {
 	const KBASICPROP_MINE* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType及m_nLevel排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType录掳m_nLevel脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_MINE* pMed;
@@ -940,7 +940,7 @@ const KBASICPROP_MINE* KBPT_Mine::FindRecord(IN int nType,IN int nLevel) const
 
 		if (nType == pMed->m_nDetailType && nLevel == pMed->m_nLevel)
 		{
-			// 根据策划的设计, 属性1类型 == 具体类别. 进行验证
+			// 赂霉戮脻虏脽禄庐碌脛脡猫录脝, 脢么脨脭1脌脿脨脥 == 戮脽脤氓脌脿卤冒. 陆酶脨脨脩茅脰陇
 			//			_ASSERT(nType == pMed->m_nAttrib1_Type);
 			pData = pMed;
 			break;
@@ -960,7 +960,7 @@ KBPT_TownPortal::~KBPT_TownPortal()
 {
 }
 
-BOOL KBPT_TownPortal::LoadRecord(int i, KTabFile* pTF)
+int KBPT_TownPortal::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
@@ -968,7 +968,7 @@ BOOL KBPT_TownPortal::LoadRecord(int i, KTabFile* pTF)
 		return false;
 
 	KBASICPROP_TOWNPORTAL* pBuf = (KBASICPROP_TOWNPORTAL*)m_pBuf;
-	pBuf = pBuf + i;			// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;			// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -979,10 +979,10 @@ BOOL KBPT_TownPortal::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nHeight), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},
 		{ PI_VARTYPE_CHAR,			pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},
-//		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0}, //是否快捷栏
+//		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0}, //脢脟路帽驴矛陆脻脌赂
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
@@ -1007,7 +1007,7 @@ KBPT_Quest::~KBPT_Quest()
 {
 }
 
-BOOL KBPT_Quest::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Quest::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
@@ -1015,7 +1015,7 @@ BOOL KBPT_Quest::LoadRecord(int i, KTabFile* pTF)
 		return false;
 
 	KBASICPROP_QUEST* pBuf = (KBASICPROP_QUEST*)m_pBuf;
-	pBuf = pBuf + i;			// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;			// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -1025,27 +1025,27 @@ BOOL KBPT_Quest::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nObjIdx), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWidth), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nHeight), 0},
-		
-		{ PI_VARTYPE_CHAR,			pBuf->m_szScript, sizeof(pBuf->m_szScript)},   //脚本
+
+		{ PI_VARTYPE_CHAR,			pBuf->m_szScript, sizeof(pBuf->m_szScript)},   //陆脜卤戮
 		{ PI_VARTYPE_CHAR,			pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPriceXu), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDelet), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsSell), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsTrade), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsDrop), 0},    //合成材料种类
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //是否快捷栏
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_SkillType), 0},  //是技能魔法行号
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries), -1},   //属性/五行
-	    { PI_VARTYPE_INT,  (char*)&(pBuf->m_ISMagic), 0},    //是否有属性
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 1},     //等级	
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},     //死否叠放
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicID), 0},    //技能ID
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //是否立即使用
-		
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsDrop), 0},    //潞脧鲁脡虏脛脕脧脰脰脌脿
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //脢脟路帽驴矛陆脻脌赂
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_SkillType), 0},  //脢脟录录脛脺脛搂路篓脨脨潞脜
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries), -1},   //脢么脨脭/脦氓脨脨
+	    { PI_VARTYPE_INT,  (char*)&(pBuf->m_ISMagic), 0},    //脢脟路帽脫脨脢么脨脭
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 1},     //碌脠录露
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},     //脣脌路帽碌镁路脜
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicID), 0},    //录录脛脺ID
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //脢脟路帽脕垄录麓脢鹿脫脙
+
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 
 }
@@ -1063,8 +1063,8 @@ const KBASICPROP_QUEST* KBPT_Quest::GetRecord(IN int i) const
 const KBASICPROP_QUEST* KBPT_Quest::FindRecord(IN int nDetailType) const
 {
 	const KBASICPROP_QUEST* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_QUEST* pQst;
@@ -1076,7 +1076,7 @@ const KBASICPROP_QUEST* KBPT_Quest::FindRecord(IN int nDetailType) const
 
 		if (nDetailType == pQst->m_nDetailType)
 		{
-			// 根据策划的设计, 属性1类型 == 具体类别. 进行验证
+			// 赂霉戮脻虏脽禄庐碌脛脡猫录脝, 脢么脨脭1脌脿脨脥 == 戮脽脤氓脌脿卤冒. 陆酶脨脨脩茅脰陇
 //			_ASSERT(nType == pMed->m_nAttrib1_Type);
 			pData = pQst;
 			break;
@@ -1086,7 +1086,7 @@ const KBASICPROP_QUEST* KBPT_Quest::FindRecord(IN int nDetailType) const
 }
 
 
-//============================================================================//纹钢
+//============================================================================//脦脝赂脰
 KBPT_Fusion::KBPT_Fusion()
 {
 	m_nSizeOfEntry = sizeof(KBASICPROP_FUSION);
@@ -1097,16 +1097,16 @@ KBPT_Fusion::~KBPT_Fusion()
 {
 }
 
-BOOL KBPT_Fusion::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Fusion::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 			return NULL;
-	
+
 	KBASICPROP_FUSION* pBuf = (KBASICPROP_FUSION*)m_pBuf;
-	pBuf = pBuf + i;			// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;			// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR, pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -1117,14 +1117,14 @@ BOOL KBPT_Fusion::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nObjIdx), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWidth), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nHeight), 0},
-		{ PI_VARTYPE_CHAR,	pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},//说明
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries),-1},   //属性/五行
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice),0},      //英两
-        { PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 1},     //等级	
-        { PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},     //死否叠放
-        { PI_VARTYPE_INT,  (char*)&(pBuf->m_inPin), 1},      //品质
-        { PI_VARTYPE_INT,  (char*)&(pBuf->m_MagIndex), 0},   //魔法索引
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[0]), -1},   //可熔炼部位
+		{ PI_VARTYPE_CHAR,	pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},//脣碌脙梅
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries),-1},   //脢么脨脭/脦氓脨脨
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice),0},      //脫垄脕陆
+        { PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 1},     //碌脠录露
+        { PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},     //脣脌路帽碌镁路脜
+        { PI_VARTYPE_INT,  (char*)&(pBuf->m_inPin), 1},      //脝路脰脢
+        { PI_VARTYPE_INT,  (char*)&(pBuf->m_MagIndex), 0},   //脛搂路篓脣梅脪媒
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[0]), -1},   //驴脡脠脹脕露虏驴脦禄
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[1]), -1},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[2]), -1},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_Magic[3]), -1},
@@ -1136,15 +1136,15 @@ BOOL KBPT_Fusion::LoadRecord(int i, KTabFile* pTF)
 	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDelet), 0},
 	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsSell), 0},
 	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsTrade), 0},
-	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsDrop), 0},    //合成材料种类
-	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //是否快捷栏
-		
-	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ISMagic), 0},    //是否有属性
-	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicID), 0},    //技能ID
-	//{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //是否立即使用		
-	// 逐个读入各项属性
+	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nIsDrop), 0},    //潞脧鲁脡虏脛脕脧脰脰脌脿
+	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0},  //脢脟路帽驴矛陆脻脌赂
+
+	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ISMagic), 0},    //脢脟路帽脫脨脢么脨脭
+	//	{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicID), 0},    //录录脛脺ID
+	//{ PI_VARTYPE_INT,  (char*)&(pBuf->m_IsUse), 0},      //脢脟路帽脕垄录麓脢鹿脫脙
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
-	
+
 }
 
 const KBASICPROP_FUSION* KBPT_Fusion::GetRecord(IN int i) const
@@ -1153,14 +1153,14 @@ const KBASICPROP_FUSION* KBPT_Fusion::GetRecord(IN int i) const
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (this==NULL || i<0 || i >=m_nNumOfEntries)
 				return NULL;
-	return (i >= 0 && i < m_nNumOfEntries) ? (((KBASICPROP_FUSION*)m_pBuf) + i) : NULL;	
+	return (i >= 0 && i < m_nNumOfEntries) ? (((KBASICPROP_FUSION*)m_pBuf) + i) : NULL;
 }
 
 const KBASICPROP_FUSION* KBPT_Fusion::FindRecord(IN int nDetailType,IN int nLevel) const
 {
 	const KBASICPROP_FUSION* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_FUSION* pQst;
@@ -1171,9 +1171,9 @@ const KBASICPROP_FUSION* KBPT_Fusion::FindRecord(IN int nDetailType,IN int nLeve
 		if (pQst==NULL) continue;
 
 
-		if (nDetailType == pQst->m_nParticularType)  //详细类别
+		if (nDetailType == pQst->m_nParticularType)  //脧锚脧赂脌脿卤冒
 		{
-			// 根据策划的设计, 属性1类型 == 具体类别. 进行验证
+			// 赂霉戮脻虏脽禄庐碌脛脡猫录脝, 脢么脨脭1脌脿脨脥 == 戮脽脤氓脌脿卤冒. 陆酶脨脨脩茅脰陇
 			//			_ASSERT(nType == pMed->m_nAttrib1_Type);
 			pData = pQst;
 			break;
@@ -1194,16 +1194,16 @@ KBPT_Medicine::~KBPT_Medicine()
 {
 }
 
-BOOL KBPT_Medicine::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Medicine::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 	   return NULL;
 
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_MEDICINE* pBuf = (KBASICPROP_MEDICINE*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR, pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -1219,7 +1219,7 @@ BOOL KBPT_Medicine::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},
-        { PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0}, //是否快捷栏
+        { PI_VARTYPE_INT,  (char*)&(pBuf->m_IsKuaiJie), 0}, //脢脟路帽驴矛陆脻脌赂
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryAttrib[0].nAttrib), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryAttrib[0].nValue), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryAttrib[0].nTime), 0},
@@ -1246,15 +1246,15 @@ BOOL KBPT_Medicine::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_UseMap), 0},
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的药品的属性
-	入口:	i: 要求获取第i项药品的属性
-	出口:	成功时返回指向该药材属性的指针(一个KBASICPROP_MEDICINE结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脪漏脝路碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脪漏脝路碌脛脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脪漏虏脛脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_MEDICINE陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MEDICINE* KBPT_Medicine::GetRecord(int i) const
 {
@@ -1268,8 +1268,8 @@ const KBASICPROP_MEDICINE* KBPT_Medicine::GetRecord(int i) const
 const KBASICPROP_MEDICINE* KBPT_Medicine::FindRecord(IN int nType,IN int nLevel) const
 {
 	const KBASICPROP_MEDICINE* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType及m_nLevel排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType录掳m_nLevel脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_MEDICINE* pMed;
@@ -1278,7 +1278,7 @@ const KBASICPROP_MEDICINE* KBPT_Medicine::FindRecord(IN int nType,IN int nLevel)
 		if (pMed == NULL) continue;
 		if (nType == pMed->m_nDetailType && nLevel == pMed->m_nLevel)
 		{
-			// 根据策划的设计, 属性1类型 == 具体类别. 进行验证
+			// 赂霉戮脻虏脽禄庐碌脛脡猫录脝, 脢么脨脭1脌脿脨脥 == 戮脽脤氓脌脿卤冒. 陆酶脨脨脩茅脰陇
 //			_ASSERT(nType == pMed->m_nAttrib1_Type);
 			pData = pMed;
 			break;
@@ -1299,16 +1299,16 @@ KBPT_MedMaterial::~KBPT_MedMaterial()
 {
 }
 
-BOOL KBPT_MedMaterial::LoadRecord(int i, KTabFile* pTF)
+int KBPT_MedMaterial::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 						return NULL;
 
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_MEDMATERIAL* pBuf = (KBASICPROP_MEDMATERIAL*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 /*ver1****************************************************************
@@ -1345,15 +1345,15 @@ BOOL KBPT_MedMaterial::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nAttrib3_Para), 0},
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的药材的属性
-	入口:	i: 要求获取第i项药材的属性. 若为-1表示随机取一个
-	出口:	成功时返回指向该药材属性的指针(一个KBASICPROP_MEDMATERIAL结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脪漏虏脛碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脪漏虏脛碌脛脢么脨脭. 脠么脦陋-1卤铆脢戮脣忙禄煤脠隆脪禄赂枚
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脪漏虏脛脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_MEDMATERIAL陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_MEDMATERIAL* KBPT_MedMaterial::GetRecord(int i) const
 {
@@ -1377,21 +1377,21 @@ KBPT_Equipment::~KBPT_Equipment()
 {
 }
 
-void KBPT_Equipment::Init(IN int i)  //读入白装属性
+void KBPT_Equipment::Init(IN int i)  //露脕脠毛掳脳脳掳脢么脨脭
 {
 	::strcpy(m_szTabFile, TABFILE_EQUIPMENT[i]);
 }
-//白装读入白装属性
-BOOL KBPT_Equipment::LoadRecord(int i, KTabFile* pTF)
+//掳脳脳掳露脕脠毛掳脳脳掳脢么脨脭
+int KBPT_Equipment::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 							return NULL;
 
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_EQUIPMENT* pBuf = (KBASICPROP_EQUIPMENT*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -1442,24 +1442,24 @@ BOOL KBPT_Equipment::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[5].nType), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[5].nPara), 0},
 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nYingNuma), 0}, 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nYingNumb), 0}, 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0}, //可熔炼数量
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nYingNuma), 0},
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nYingNumb), 0},
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0}, //驴脡脠脹脕露脢媒脕驴
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWengangPin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nBinfujiazhi), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},      //翅膀的外观类型
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularTypea), 0},//用于添加其他蓝装
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},      //鲁谩掳貌碌脛脥芒鹿脹脌脿脨脥
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularTypea), 0},//脫脙脫脷脤铆录脫脝盲脣没脌露脳掳
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的装备的属性
-	入口:	i: 要求获取第i项装备的属性
-	出口:	成功时返回指向该装备属性的指针(一个KBASICPROP_EQUIPMENT结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脳掳卤赂碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脳掳卤赂碌脛脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脳掳卤赂脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_EQUIPMENT陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT* KBPT_Equipment::GetRecord(int i) const
 {
@@ -1471,12 +1471,12 @@ const KBASICPROP_EQUIPMENT* KBPT_Equipment::GetRecord(int i) const
 }
 
 /******************************************************************************
-	功能:	获取指定的装备属性记录
-	入口:	nDetailType: 具体类别
-			nParticularType: 详细类别
-			nLevel: 等级
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脳掳卤赂脢么脨脭录脟脗录
+	脠毛驴脷:	nDetailType: 戮脽脤氓脌脿卤冒
+			nParticularType: 脧锚脧赂脌脿卤冒
+			nLevel: 碌脠录露
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT* KBPT_Equipment::FindRecord( IN int nDetailType,
 														IN int nParticularType,
@@ -1484,10 +1484,10 @@ const KBASICPROP_EQUIPMENT* KBPT_Equipment::FindRecord( IN int nDetailType,
 {
 	//_ASSERT(this != NULL);
 	if (this == NULL) return NULL;
-	
+
 	const KBASICPROP_EQUIPMENT* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType及m_nLevel排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType录掳m_nLevel脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_EQUIPMENT* pEqu;
@@ -1508,7 +1508,7 @@ const KBASICPROP_EQUIPMENT* KBPT_Equipment::FindRecord( IN int nDetailType,
 }
 
 //============================================================================
-// 黄金装备的实现
+// 禄脝陆冒脳掳卤赂碌脛脢碌脧脰
 // flying
 KBPT_Equipment_Gold::KBPT_Equipment_Gold()
 {
@@ -1521,22 +1521,22 @@ KBPT_Equipment_Gold::~KBPT_Equipment_Gold()
 	return;
 }
 
-BOOL KBPT_Equipment_Gold::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Equipment_Gold::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 								return NULL;
 
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_EQUIPMENT_GOLD* pBuf = (KBASICPROP_EQUIPMENT_GOLD*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nItemGenre), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDetailType), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularType), 0},	
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularType), 0},
 		{ PI_VARTYPE_CHAR,			pBuf->m_szImageName, sizeof(pBuf->m_szImageName)},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nObjIdx), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWidth), 0},
@@ -1590,28 +1590,28 @@ BOOL KBPT_Equipment_Gold::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryMagicAttribs[5]), 0},
 
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nId), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSet), 0},  //所在套装
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSet), 0},  //脣霉脭脷脤脳脳掳
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetNum), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nUpSet), 0}, //扩展套装
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetId), 0}, //扩展套装序号
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nUpSet), 0}, //脌漏脮鹿脤脳脳掳
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetId), 0}, //脌漏脮鹿脤脳脳掳脨貌潞脜
 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[0]), 0}, //扩展套装隐藏属性1
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[1]), 0}, //扩展套装隐藏属性2
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0},  //可熔炼数量
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[0]), 0}, //脌漏脮鹿脤脳脳掳脪镁虏脴脢么脨脭1
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[1]), 0}, //脌漏脮鹿脤脳脳掳脪镁虏脴脢么脨脭2
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0},  //驴脡脠脹脕露脢媒脕驴
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWengangPin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nBinfujiazhi), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},//翅膀的外观类型
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},//鲁谩掳貌碌脛脥芒鹿脹脌脿脨脥
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的装备的属性
-	入口:	i: 要求获取第i项装备的属性
-	出口:	成功时返回指向该装备属性的指针(一个KBASICPROP_EQUIPMENT结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脳掳卤赂碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脳掳卤赂碌脛脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脳掳卤赂脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_EQUIPMENT陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_GOLD* KBPT_Equipment_Gold::GetRecord(int i) const
 {
@@ -1623,12 +1623,12 @@ const KBASICPROP_EQUIPMENT_GOLD* KBPT_Equipment_Gold::GetRecord(int i) const
 }
 
 /******************************************************************************
-	功能:	获取指定的唯一装备属性记录
-	入口:	nDetailType: 具体类别
-			nParticularType: 详细类别
-			nLevel: 等级
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脦篓脪禄脳掳卤赂脢么脨脭录脟脗录
+	脠毛驴脷:	nDetailType: 戮脽脤氓脌脿卤冒
+			nParticularType: 脧锚脧赂脌脿卤冒
+			nLevel: 碌脠录露
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_GOLD*
 		KBPT_Equipment_Gold::FindRecord(IN int nDetailType,
@@ -1637,7 +1637,7 @@ const KBASICPROP_EQUIPMENT_GOLD*
 {
 	//_ASSERT(this != NULL);
 	if (this==NULL) return NULL;
-	
+
 	const KBASICPROP_EQUIPMENT_GOLD* pData = NULL;
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
@@ -1664,7 +1664,7 @@ void KBPT_Equipment_Gold::Init()
 }
 //============================================================================
 //============================================================================
-// 白金装备的实现  PLATINA
+// 掳脳陆冒脳掳卤赂碌脛脢碌脧脰  PLATINA
 // flying
 KBPT_Equipment_Platina::KBPT_Equipment_Platina()
 {
@@ -1677,21 +1677,21 @@ KBPT_Equipment_Platina::~KBPT_Equipment_Platina()
 	return;
 }
 
-BOOL KBPT_Equipment_Platina::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Equipment_Platina::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 		return NULL;
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_EQUIPMENT_PLATINA* pBuf = (KBASICPROP_EQUIPMENT_PLATINA*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,	pBuf->m_szName, sizeof(pBuf->m_szName)},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nItemGenre), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nDetailType), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularType), 0},	
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nParticularType), 0},
 		{ PI_VARTYPE_CHAR,	pBuf->m_szImageName, sizeof(pBuf->m_szImageName)},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nObjIdx), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWidth), 0},
@@ -1702,7 +1702,7 @@ BOOL KBPT_Equipment_Platina::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_bStack), 0},
 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[0].nType), 0},	   //基础属性
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[0].nType), 0},	   //禄霉麓隆脢么脨脭
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[0].sRange.nMin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[0].sRange.nMax), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[1].nType), 0},
@@ -1724,7 +1724,7 @@ BOOL KBPT_Equipment_Platina::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[6].sRange.nMin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropBasic[6].sRange.nMax), 0},
 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[0].nType), 0},	//需求属性
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[0].nType), 0},	//脨猫脟贸脢么脨脭
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[0].nPara), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[1].nType), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[1].nPara), 0},
@@ -1750,29 +1750,29 @@ BOOL KBPT_Equipment_Platina::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryMagicAttribs[5]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_TempPlatinaAttrib[5]), 0},
 
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSet), 0},       //所在套装
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetNum), 0},    //套装数量
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSixSkill), 0},	 //6级技能ID
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nTenSkill), 0},	 //10级技能ID
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nUpSet), 0}, //扩展套装
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetId), 0}, //扩展套装序号
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[0]), 0}, //扩展套装隐藏属性1
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[1]), 0}, //扩展套装隐藏属性2
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0},  //可熔炼数量
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSet), 0},       //脣霉脭脷脤脳脳掳
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetNum), 0},    //脤脳脳掳脢媒脕驴
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSixSkill), 0},	 //6录露录录脛脺ID
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nTenSkill), 0},	 //10录露录录脛脺ID
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nUpSet), 0}, //脌漏脮鹿脤脳脳掳
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSetId), 0}, //脌漏脮鹿脤脳脳掳脨貌潞脜
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[0]), 0}, //脌漏脮鹿脤脳脳掳脪镁虏脴脢么脨脭1
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_yinMagicAttribs[1]), 0}, //脌漏脮鹿脤脳脳掳脪镁虏脴脢么脨脭2
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRongNum), 0},  //驴脡脠脹脕露脢媒脕驴
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nWengangPin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nBinfujiazhi), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},//翅膀的外观类型
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_ChiBangRes), 0},//鲁谩掳貌碌脛脥芒鹿脹脌脿脨脥
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的装备的属性
-	入口:	i: 要求获取第i项装备的属性
-	出口:	成功时返回指向该装备属性的指针(一个KBASICPROP_EQUIPMENT结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脳掳卤赂碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脳掳卤赂碌脛脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脳掳卤赂脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_EQUIPMENT陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_PLATINA* KBPT_Equipment_Platina::GetRecord(int i) const
 {
@@ -1784,12 +1784,12 @@ const KBASICPROP_EQUIPMENT_PLATINA* KBPT_Equipment_Platina::GetRecord(int i) con
 }
 
 /******************************************************************************
-	功能:	获取指定的唯一装备属性记录
-	入口:	nDetailType: 具体类别
-			nParticularType: 详细类别
-			nLevel: 等级
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脦篓脪禄脳掳卤赂脢么脨脭录脟脗录
+	脠毛驴脷:	nDetailType: 戮脽脤氓脌脿卤冒
+			nParticularType: 脧锚脧赂脌脿卤冒
+			nLevel: 碌脠录露
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_PLATINA*
 		KBPT_Equipment_Platina::FindRecord(IN int nDetailType,
@@ -1830,15 +1830,15 @@ KBPT_Equipment_Unique::~KBPT_Equipment_Unique()
 {
 }
 
-BOOL KBPT_Equipment_Unique::LoadRecord(int i, KTabFile* pTF)
+int KBPT_Equipment_Unique::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 		return NULL;
-	// 初始化
+	// 鲁玫脢录禄炉
 	KBASICPROP_EQUIPMENT_UNIQUE* pBuf = (KBASICPROP_EQUIPMENT_UNIQUE*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,			pBuf->m_szName, sizeof(pBuf->m_szName)},
@@ -1852,7 +1852,7 @@ BOOL KBPT_Equipment_Unique::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nSeries), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPrice), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nRarity), 0},
-// TODO: 以上各项的顺序可能还会调整.
+// TODO: 脪脭脡脧赂梅脧卯碌脛脣鲁脨貌驴脡脛脺禄鹿禄谩碌梅脮没.
 
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[0].nType), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryPropReq[0].nPara), 0},
@@ -1911,15 +1911,15 @@ BOOL KBPT_Equipment_Unique::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_aryMagicAttribs[5].aryRange[2].nMax), 0},
 	};
 
-	// 逐个读入各项属性
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	return ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0]));
 }
 
 /******************************************************************************
-	功能:	获取指定的装备的属性
-	入口:	i: 要求获取第i项装备的属性
-	出口:	成功时返回指向该装备属性的指针(一个KBASICPROP_EQUIPMENT结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脳掳卤赂碌脛脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脳掳卤赂碌脛脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脳掳卤赂脢么脨脭碌脛脰赂脮毛(脪禄赂枚KBASICPROP_EQUIPMENT陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_UNIQUE* KBPT_Equipment_Unique::GetRecord(int i) const
 {
@@ -1932,12 +1932,12 @@ const KBASICPROP_EQUIPMENT_UNIQUE* KBPT_Equipment_Unique::GetRecord(int i) const
 }
 
 /******************************************************************************
-	功能:	获取指定的唯一装备属性记录
-	入口:	nDetailType: 具体类别
-			nParticularType: 详细类别
-			nLevel: 等级
-	出口:	成功时返回指向该记录的指针
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脦篓脪禄脳掳卤赂脢么脨脭录脟脗录
+	脠毛驴脷:	nDetailType: 戮脽脤氓脌脿卤冒
+			nParticularType: 脧锚脧赂脌脿卤冒
+			nLevel: 碌脠录露
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙录脟脗录碌脛脰赂脮毛
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KBASICPROP_EQUIPMENT_UNIQUE*
 		KBPT_Equipment_Unique::FindRecord(IN int nDetailType,
@@ -1947,8 +1947,8 @@ const KBASICPROP_EQUIPMENT_UNIQUE*
 	//_ASSERT(this != NULL);
 	if (this == NULL) return NULL;
 	const KBASICPROP_EQUIPMENT_UNIQUE* pData = NULL;
-	// 以下使用顺序查找的算法. 若原始数据是按m_nDetailType及m_nLevel排序的,
-	// 则可进行算法优化
+	// 脪脭脧脗脢鹿脫脙脣鲁脨貌虏茅脮脪碌脛脣茫路篓. 脠么脭颅脢录脢媒戮脻脢脟掳麓m_nDetailType录掳m_nLevel脜脜脨貌碌脛,
+	// 脭貌驴脡陆酶脨脨脣茫路篓脫脜禄炉
 	for (int i = 0; i < m_nNumOfEntries; ++i)
 	{
 		const KBASICPROP_EQUIPMENT_UNIQUE* pEqu;
@@ -1980,31 +1980,31 @@ KBPT_MagicAttrib_TF::~KBPT_MagicAttrib_TF()
 {
 
 }
-//魔法属性表
-BOOL KBPT_MagicAttrib_TF::LoadRecord(int i, KTabFile* pTF)
+//脛搂路篓脢么脨脭卤铆
+int KBPT_MagicAttrib_TF::LoadRecord(int i, KTabFile* pTF)
 {
 	//_ASSERT(pTF != NULL);
 	//_ASSERT(i >= 0 && i < m_nNumOfEntries);
 	if (pTF==NULL || i<0 || i >=m_nNumOfEntries)
 		return NULL;
-	// 初始化
+	// 鲁玫脢录禄炉
 	KMAGICATTRIB_TABFILE* pBuf = (KMAGICATTRIB_TABFILE*)m_pBuf;
-	pBuf = pBuf + i;	// 读入的属性记在 pBuf 所指结构中
+	pBuf = pBuf + i;	// 露脕脠毛碌脛脢么脨脭录脟脭脷 pBuf 脣霉脰赂陆谩鹿鹿脰脨
 	const PROPINFO	aryPI[] =
 	{
 		{ PI_VARTYPE_CHAR,	pBuf->m_szName, sizeof(pBuf->m_szName)},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPos), 0},    //是否前缀？
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nClass), 0},  //五行
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},  //等级
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.nPropKind), 0},  // 魔法属性种类
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nPos), 0},    //脢脟路帽脟掳脳潞拢驴
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nClass), 0},  //脦氓脨脨
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_nLevel), 0},  //碌脠录露
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.nPropKind), 0},  // 脛搂路篓脢么脨脭脰脰脌脿
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[0].nMin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[0].nMax), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[1].nMin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[1].nMax), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[2].nMin), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_MagicAttrib.aryRange[2].nMax), 0},
-		{ PI_VARTYPE_CHAR, pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},  //描述
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[0]), 0}, //各个部位的出现概率
+		{ PI_VARTYPE_CHAR, pBuf->m_szIntro, sizeof(pBuf->m_szIntro)},  //脙猫脢枚
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[0]), 0}, //赂梅赂枚虏驴脦禄碌脛鲁枚脧脰赂脜脗脢
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[1]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[2]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[3]), 0},
@@ -2014,20 +2014,20 @@ BOOL KBPT_MagicAttrib_TF::LoadRecord(int i, KTabFile* pTF)
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[7]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[8]), 0},
 		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[9]), 0},
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[10]), 0},   //马匹
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[11]), 0},   //面具
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[12]), 0},   //披风
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[13]), 0},   //印鉴
-		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[14]), 0},   //饰品					
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[10]), 0},   //脗铆脝楼
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[11]), 0},   //脙忙戮脽
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[12]), 0},   //脜没路莽
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[13]), 0},   //脫隆录酶
+		{ PI_VARTYPE_INT,  (char*)&(pBuf->m_DropRate[14]), 0},   //脢脦脝路
 	};
-	
-	// 逐个读入各项属性
+
+	// 脰冒赂枚露脕脠毛赂梅脧卯脢么脨脭
 	if (FALSE == ::LoadRecord(pTF, i, aryPI, sizeof(aryPI)/ sizeof(aryPI[0])))
 		return FALSE;
 
-    pBuf->m_nUseFlag = false;       // 初始化为没有使用
+    pBuf->m_nUseFlag = false;       // 鲁玫脢录禄炉脦陋脙禄脫脨脢鹿脫脙
 
-	// 数据统计：每种装备可适用的魔法数目
+	// 脢媒戮脻脥鲁录脝拢潞脙驴脰脰脳掳卤赂驴脡脢脢脫脙碌脛脛搂路篓脢媒脛驴
 	for (int n = 0; n < MATF_CBDR; ++n)
 	{
 		if (0 != pBuf->m_DropRate[n])
@@ -2041,10 +2041,10 @@ BOOL KBPT_MagicAttrib_TF::LoadRecord(int i, KTabFile* pTF)
 }
 
 /******************************************************************************
-	功能:	获取指定的魔法属性
-	入口:	i: 要求获取第i项魔法属性
-	出口:	成功时返回指向该魔法属性的指针(一个KMAGICATTRIB_TABFILE结构)
-			失败时返回NULL
+	鹿娄脛脺:	禄帽脠隆脰赂露篓碌脛脛搂路篓脢么脨脭
+	脠毛驴脷:	i: 脪陋脟贸禄帽脠隆碌脷i脧卯脛搂路篓脢么脨脭
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴脰赂脧貌赂脙脛搂路篓脢么脨脭碌脛脰赂脮毛(脪禄赂枚KMAGICATTRIB_TABFILE陆谩鹿鹿)
+			脢搂掳脺脢卤路碌禄脴NULL
 ******************************************************************************/
 const KMAGICATTRIB_TABFILE* KBPT_MagicAttrib_TF::GetRecord(int i) const
 {
@@ -2087,25 +2087,25 @@ KBPT_ClassMAIT::~KBPT_ClassMAIT()
 }
 
 /******************************************************************************
-	功能:	将索引表清空，并不释放内存
-	入口:	
-	出口:	成功返回非零，失败返回零
-	说明:	
+	鹿娄脛脺:	陆芦脣梅脪媒卤铆脟氓驴脮拢卢虏垄虏禄脢脥路脜脛脷麓忙
+	脠毛驴脷:
+	鲁枚驴脷:	鲁脡鹿娄路碌禄脴路脟脕茫拢卢脢搂掳脺路碌禄脴脕茫
+	脣碌脙梅:
 ******************************************************************************/
-BOOL KBPT_ClassMAIT::Clear()
+int KBPT_ClassMAIT::Clear()
 {
-    m_nNumOfValidData = 0; 
-    
-    return true;   
+    m_nNumOfValidData = 0;
+
+    return true;
 }
 
 
 /******************************************************************************
-	功能:	从索引表中取值
-	入口:	i: 从索引表中该位置取值
-	出口:	返回所取的值
-	说明:	若返回值为nItemIndex, 则调用KLibOfBPT::m_BPTMagicAttrib.GetRecord(nItemIndex)
-            可获得对应的魔法属性
+	鹿娄脛脺:	麓脫脣梅脪媒卤铆脰脨脠隆脰碌
+	脠毛驴脷:	i: 麓脫脣梅脪媒卤铆脰脨赂脙脦禄脰脙脠隆脰碌
+	鲁枚驴脷:	路碌禄脴脣霉脠隆碌脛脰碌
+	脣碌脙梅:	脠么路碌禄脴脰碌脦陋nItemIndex, 脭貌碌梅脫脙KLibOfBPT::m_BPTMagicAttrib.GetRecord(nItemIndex)
+            驴脡禄帽碌脙露脭脫娄碌脛脛搂路篓脢么脨脭
 ******************************************************************************/
 int KBPT_ClassMAIT::Get(int i) const
 {
@@ -2121,18 +2121,18 @@ int KBPT_ClassMAIT::Get(int i) const
 
 
 /******************************************************************************
-	功能:	给索引表插入一个新的值
-	入口:	nItemIndex: 欲赋之值
-	出口:	成功时返回非零, m_pnTable[m_nNumOfValidData]为所赋之值
-			m_nNumOfValidData指向下一空位
-			失败时返回零
+	鹿娄脛脺:	赂酶脣梅脪媒卤铆虏氓脠毛脪禄赂枚脨脗碌脛脰碌
+	脠毛驴脷:	nItemIndex: 脫没赂鲁脰庐脰碌
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, m_pnTable[m_nNumOfValidData]脦陋脣霉赂鲁脰庐脰碌
+			m_nNumOfValidData脰赂脧貌脧脗脪禄驴脮脦禄
+			脢搂掳脺脢卤路碌禄脴脕茫
 ******************************************************************************/
-BOOL KBPT_ClassMAIT::Insert(int nItemIndex)
+int KBPT_ClassMAIT::Insert(int nItemIndex)
 {
     int nResult = false;
 
 	//_ASSERT(this != NULL);
-	//_ASSERT(nItemIndex >= 0);	// nData 为数组下标
+	//_ASSERT(nItemIndex >= 0);	// nData 脦陋脢媒脳茅脧脗卤锚
     if (this==NULL || nItemIndex<0)
       return false;
 
@@ -2148,13 +2148,13 @@ BOOL KBPT_ClassMAIT::Insert(int nItemIndex)
 
     if (m_nNumOfValidData >= m_nSize)
     {
-        int *pnaryTemp = new int [m_nSize + 8]; //原来是 8
+        int *pnaryTemp = new int [m_nSize + 8]; //脭颅脌麓脢脟 8
         if (!pnaryTemp)
             goto Exit0;
 
         memcpy(pnaryTemp, m_pnTable, m_nNumOfValidData * sizeof(int));
 
-        m_nSize += 8;//原来是 8
+        m_nSize += 8;//脭颅脌麓脢脟 8
         delete []m_pnTable;
         m_pnTable = pnaryTemp;
         pnaryTemp = NULL;
@@ -2184,12 +2184,12 @@ KBPT_ClassifiedMAT::~KBPT_ClassifiedMAT()
 }
 
 /******************************************************************************
-	功能:	为索引表分配内存
-	入口:	nCount: 索引表大小(数据项的数目)
-	出口:	m_pnTable 指向分配的内存
+	鹿娄脛脺:	脦陋脣梅脪媒卤铆路脰脜盲脛脷麓忙
+	脠毛驴脷:	nCount: 脣梅脪媒卤铆麓贸脨隆(脢媒戮脻脧卯碌脛脢媒脛驴)
+	鲁枚驴脷:	m_pnTable 脰赂脧貌路脰脜盲碌脛脛脷麓忙
 			m_nSize = nCount
 ******************************************************************************/
-BOOL KBPT_ClassifiedMAT::GetMemory(int nCount)
+int KBPT_ClassifiedMAT::GetMemory(int nCount)
 {
 	//_ASSERT(this != NULL);
 	//_ASSERT(nCount > 0);
@@ -2199,7 +2199,7 @@ BOOL KBPT_ClassifiedMAT::GetMemory(int nCount)
 	 if (this==NULL || nCount<0 || m_pnTable==NULL ||m_nSize<=0)
 	     return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	int* pnBuf = new int[nCount];
 	if (pnBuf)
 	{
@@ -2211,7 +2211,7 @@ BOOL KBPT_ClassifiedMAT::GetMemory(int nCount)
 }
 
 /******************************************************************************
-	功能:	释放索引表所用的内存
+	鹿娄脛脺:	脢脥路脜脣梅脪媒卤铆脣霉脫脙碌脛脛脷麓忙
 ******************************************************************************/
 void KBPT_ClassifiedMAT::ReleaseMemory()
 {
@@ -2224,16 +2224,16 @@ void KBPT_ClassifiedMAT::ReleaseMemory()
 }
 
 /******************************************************************************
-	功能:	给索引表赋值
-	入口:	nData: 欲赋之值
-	出口:	成功时返回非零, m_pnTable[m_nNumOfValidData]为所赋之值
-			m_nNumOfValidData指向下一空位
-			失败时返回零
+	鹿娄脛脺:	赂酶脣梅脪媒卤铆赂鲁脰碌
+	脠毛驴脷:	nData: 脫没赂鲁脰庐脰碌
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, m_pnTable[m_nNumOfValidData]脦陋脣霉赂鲁脰庐脰碌
+			m_nNumOfValidData脰赂脧貌脧脗脪禄驴脮脦禄
+			脢搂掳脺脢卤路碌禄脴脕茫
 ******************************************************************************/
-BOOL KBPT_ClassifiedMAT::Set(int nData)
+int KBPT_ClassifiedMAT::Set(int nData)
 {
 	//_ASSERT(this != NULL);
-	//_ASSERT(nData >= 0);	// nData 为数组下标
+	//_ASSERT(nData >= 0);	// nData 脦陋脢媒脳茅脧脗卤锚
 	//_ASSERT(m_nNumOfValidData >= 0 && m_nNumOfValidData < m_nSize);
 	if (this==NULL || nData<0 || m_nNumOfValidData<0 ||m_nNumOfValidData>=m_nSize)
 		return false;
@@ -2244,11 +2244,11 @@ BOOL KBPT_ClassifiedMAT::Set(int nData)
 }
 
 /******************************************************************************
-	功能:	从索引表中取值
-	入口:	nIndex: 从索引表中该位置取值
-	出口:	返回所取的值
-	说明:	若返回值为i, 则调用KLibOfBPT::m_BPTMagicAttrib.GetRecord(i)可获得
-			对应的魔法属性
+	鹿娄脛脺:	麓脫脣梅脪媒卤铆脰脨脠隆脰碌
+	脠毛驴脷:	nIndex: 麓脫脣梅脪媒卤铆脰脨赂脙脦禄脰脙脠隆脰碌
+	鲁枚驴脷:	路碌禄脴脣霉脠隆碌脛脰碌
+	脣碌脙梅:	脠么路碌禄脴脰碌脦陋i, 脭貌碌梅脫脙KLibOfBPT::m_BPTMagicAttrib.GetRecord(i)驴脡禄帽碌脙
+			露脭脫娄碌脛脛搂路篓脢么脨脭
 ******************************************************************************/
 int KBPT_ClassifiedMAT::Get(int nIndex) const
 {
@@ -2261,13 +2261,13 @@ int KBPT_ClassifiedMAT::Get(int nIndex) const
 }
 
 /******************************************************************************
-	功能:	将数据导出到给定的缓冲区中
-	入口:	pnaryBuf: 级冲区指针
-			*pnCount: 缓冲区可容纳多少个int型数据
-	出口:	成功时返回非零, 数据被导出到缓冲区中, *pnCount 给出数据个数
-			失败时返回零
+	鹿娄脛脺:	陆芦脢媒戮脻碌录鲁枚碌陆赂酶露篓碌脛禄潞鲁氓脟酶脰脨
+	脠毛驴脷:	pnaryBuf: 录露鲁氓脟酶脰赂脮毛
+			*pnCount: 禄潞鲁氓脟酶驴脡脠脻脛脡露脿脡脵赂枚int脨脥脢媒戮脻
+	鲁枚驴脷:	鲁脡鹿娄脢卤路碌禄脴路脟脕茫, 脢媒戮脻卤禄碌录鲁枚碌陆禄潞鲁氓脟酶脰脨, *pnCount 赂酶鲁枚脢媒戮脻赂枚脢媒
+			脢搂掳脺脢卤路碌禄脴脕茫
 ******************************************************************************/
-BOOL KBPT_ClassifiedMAT::GetAll(int* pnaryBuf, int* pnCount) const
+int KBPT_ClassifiedMAT::GetAll(int* pnaryBuf, int* pnCount) const
 {
 	//_ASSERT(this != NULL);
 	//_ASSERT(pnaryBuf != NULL);
@@ -2276,7 +2276,7 @@ BOOL KBPT_ClassifiedMAT::GetAll(int* pnaryBuf, int* pnCount) const
 	if (this==NULL || pnaryBuf==NULL || pnCount==NULL)
 		  return false;
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	if (pnaryBuf && pnCount && *pnCount > 0)
 	{
 		int nLength = *pnCount;

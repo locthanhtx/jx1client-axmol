@@ -25,7 +25,7 @@ private:
 	KTabFile	m_ChiBang;
 	KTabFile	m_Plat;
 public:
-	BOOL		Init();
+	int		Init();
 	int			GetWeaponRes(int nDetail, int nParti, int nLevel);
 	int			GetArmorRes(int nParti, int nLevel);
 	int			GetHelmRes(int nParti, int nLevel);

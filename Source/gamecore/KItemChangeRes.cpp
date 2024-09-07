@@ -13,25 +13,25 @@
 #include "CoreUseNameDef.h"
 KItemChangeRes	g_ItemChangeRes;
 
-BOOL KItemChangeRes::Init()  //¸Ä±äÍâ¹Û³õÊ¼»¯
+int KItemChangeRes::Init()  //ï¿½Ä±ï¿½ï¿½ï¿½Û³ï¿½Ê¼ï¿½ï¿½
 {
-	if (!m_MeleeWeapon.Load(CHANGERES_MELEE_FILE))//ÎäÆ÷
+	if (!m_MeleeWeapon.Load(CHANGERES_MELEE_FILE))//ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
-	if (!m_RangeWeapon.Load(CHANGERES_RANGE_FILE)) //°µÆ÷
+	if (!m_RangeWeapon.Load(CHANGERES_RANGE_FILE)) //ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
-	if (!m_Armor.Load(CHANGERES_ARMOR_FILE)) //ÒÂ·þ
+	if (!m_Armor.Load(CHANGERES_ARMOR_FILE)) //ï¿½Â·ï¿½
 		return FALSE;
-	if (!m_Helm.Load(CHANGERES_HELM_FILE)) //Í·²¿
+	if (!m_Helm.Load(CHANGERES_HELM_FILE)) //Í·ï¿½ï¿½
 		return FALSE;
-	if (!m_Horse.Load(CHANGERES_HORSE_FILE)) //ÂíÆ¨
+	if (!m_Horse.Load(CHANGERES_HORSE_FILE)) //ï¿½ï¿½Æ¨
 		return FALSE;
-	if (!m_Pifeng.Load(CHANGERES_PIFENG_FILE)) //Åû·çÍâ¹Û
+	if (!m_Pifeng.Load(CHANGERES_PIFENG_FILE)) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
-	if (!m_Gold.Load(CHANCERES_GOLD_FILE)) //»Æ½ð
+	if (!m_Gold.Load(CHANCERES_GOLD_FILE)) //ï¿½Æ½ï¿½
 		return FALSE;
-	if (!m_ChiBang.Load(CHANGERES_CHIBANG_FILE)) //³á°òÍâ¹Û
+	if (!m_ChiBang.Load(CHANGERES_CHIBANG_FILE)) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
-	if (!m_Plat.Load(CHANCERES_PLAT_FILE)) //°×½ðÍâ¹Û
+	if (!m_Plat.Load(CHANCERES_PLAT_FILE)) //ï¿½×½ï¿½ï¿½ï¿½ï¿½
 	{
 		printf("load config(%s)error!\n",CHANCERES_PLAT_FILE);
 		return FALSE;
@@ -56,7 +56,7 @@ int	KItemChangeRes::GetWeaponRes(int nDetail, int nParti, int nLevel)
 		m_MeleeWeapon.GetInteger(nRow, 2, 2, &nRet);
 		break;
 	case equip_rangeweapon:
-		m_RangeWeapon.GetInteger(nRow - 1, 2, 2, &nRet);	// Ã»ÓÐÄ¬ÈÏ×´Ì¬
+		m_RangeWeapon.GetInteger(nRow - 1, 2, 2, &nRet);	// Ã»ï¿½ï¿½Ä¬ï¿½ï¿½×´Ì¬
 		break;
 	}
 	return nRet - 2;
@@ -126,7 +126,7 @@ int KItemChangeRes::GetHorseRes(int nParti, int nLevel)
 	return nRet - 2;
 }
 
-int	KItemChangeRes::GetGoldItemRes(int nGoldId) //»ñÈ¡»Æ½ðÍâ¹ÛID
+int	KItemChangeRes::GetGoldItemRes(int nGoldId) //ï¿½ï¿½È¡ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ID
 {
 	int nRet=2,mRet=0;
     int nRows=m_Gold.GetHeight();
@@ -139,19 +139,19 @@ int	KItemChangeRes::GetGoldItemRes(int nGoldId) //»ñÈ¡»Æ½ðÍâ¹ÛID
                  m_Gold.GetInteger(i+1, 2, 2, &nRet);
 				 break;
 		   }
-		   //printf("--»Æ½ðµÚ(%d)ÐÐ,Öµ:%d--\n",i,mRet);
+		   //printf("--ï¿½Æ½ï¿½ï¿½(%d)ï¿½ï¿½,Öµ:%d--\n",i,mRet);
 
 	}
 	//m_Gold.GetInteger(nGoldId+1,2,2,&nRet);
 	return nRet - 2;
 }
 
-int	KItemChangeRes::GetPlatinaRes(int nGoldId) //»ñÈ¡»Æ½ðÍâ¹ÛID
+int	KItemChangeRes::GetPlatinaRes(int nGoldId) //ï¿½ï¿½È¡ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ID
 {
 	int nRet=2,mRet=0;
 
     int nRows=m_Plat.GetHeight();
-	//printf("--°×½ð×Ü(%d)ÐÐ--\n",nRows);
+	//printf("--ï¿½×½ï¿½ï¿½ï¿½(%d)ï¿½ï¿½--\n",nRows);
 
 	int i;
 	for (i=0;i<nRows;++i)
@@ -163,7 +163,7 @@ int	KItemChangeRes::GetPlatinaRes(int nGoldId) //»ñÈ¡»Æ½ðÍâ¹ÛID
 			m_Plat.GetInteger(i+1,2,2,&nRet);
 			break;
 		}
-	    //printf("--°×½ðµÚ(%d)ÐÐ,Öµ:%d--\n",i,mRet);
+	    //printf("--ï¿½×½ï¿½ï¿½(%d)ï¿½ï¿½,Öµ:%d--\n",i,mRet);
 	}
 	//m_Plat.GetInteger(nGoldId+1,2,2,&nRet);
 	return nRet - 2;

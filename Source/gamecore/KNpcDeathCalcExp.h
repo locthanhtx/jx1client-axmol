@@ -3,7 +3,7 @@
 //
 // File:	KNpcDeathCalcExp.h
 // Date:	2003.07.21
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KNpcDeathCalcExp Class
 //---------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@
 typedef struct
 {
 	int		m_nAttackIdx;
-	DWORD	m_nTotalDamage;
+	unsigned long	m_nTotalDamage;
 	int		m_nTime;
 } KCalcExpInfo;
 

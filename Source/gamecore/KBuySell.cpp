@@ -7,7 +7,7 @@
 #include "KSubWorldSet.h"
 #include "KItemSet.h"
 #include "KBuySell.h"
-#include "engine/Text.h" //后来加的
+#include "engine/Text.h" //潞贸脌麓录脫碌脛
 #include "CoreShell.h"
 //#include "crtdbg.h"
 #include "CoreUseNameDef.h"
@@ -44,7 +44,7 @@ KBuySell::~KBuySell()
 		delete m_pSShopRoom;
 		m_pSShopRoom = NULL;
 	}
-	
+
 	if (m_Item)
 	{
 		delete [] m_Item;
@@ -67,14 +67,14 @@ KBuySell::~KBuySell()
 	m_Height = 0;
 	m_MaxItem = 0;
 }
-//初始化商品
-BOOL KBuySell::Init()
+//鲁玫脢录禄炉脡脤脝路
+int KBuySell::Init()
 {
 	KTabFile		GoodsFile;
 	KTabFile		BuySellFile;
-	m_paiItem = (KItem *)new KItem[250];   //分配内存
+	m_paiItem = (KItem *)new KItem[250];   //路脰脜盲脛脷麓忙
 //	g_SetFilePath("\\");
-	if (!BuySellFile.Load(BUYSELL_FILE) || !GoodsFile.Load(GOODS_FILE))
+        if (!BuySellFile.Load((char*)BUYSELL_FILE) || !GoodsFile.Load((char*)GOODS_FILE))
 		return FALSE;
 
 	int nHeight = GoodsFile.GetHeight() - 1;
@@ -86,7 +86,7 @@ BOOL KBuySell::Init()
 		return FALSE;
 	}
 
-	m_Item = (KItem *)new KItem[nHeight];   //分配内存
+	m_Item = (KItem *)new KItem[nHeight];   //路脰脜盲脛脷麓忙
 
 	if (!m_Item)
 	{
@@ -98,19 +98,19 @@ BOOL KBuySell::Init()
 	ItemGenerate ItemGenerator;
 	for (int k = 0; k < nHeight; ++k)
 	{
-		GoodsFile.GetInteger(k + 2, 1, -1, &ItemGenerator.nGenre); //种类
-		GoodsFile.GetInteger(k + 2, 2, -1, &ItemGenerator.nDetailType); //具体类型
-		GoodsFile.GetInteger(k + 2, 3, -1, &ItemGenerator.nParticularType); //详细类别
-		GoodsFile.GetInteger(k + 2, 4, -1, &ItemGenerator.nSeriesReq); //五行
-		GoodsFile.GetInteger(k + 2, 5, 1, &ItemGenerator.nLevel);//等级
-		GoodsFile.GetInteger(k + 2, 6, 0, &ItemGenerator.nPrice);//银两
+		GoodsFile.GetInteger(k + 2, 1, -1, &ItemGenerator.nGenre); //脰脰脌脿
+		GoodsFile.GetInteger(k + 2, 2, -1, &ItemGenerator.nDetailType); //戮脽脤氓脌脿脨脥
+		GoodsFile.GetInteger(k + 2, 3, -1, &ItemGenerator.nParticularType); //脧锚脧赂脌脿卤冒
+		GoodsFile.GetInteger(k + 2, 4, -1, &ItemGenerator.nSeriesReq); //脦氓脨脨
+		GoodsFile.GetInteger(k + 2, 5, 1, &ItemGenerator.nLevel);//碌脠录露
+		GoodsFile.GetInteger(k + 2, 6, 0, &ItemGenerator.nPrice);//脪酶脕陆
 		int nGolden = 0,nPriceType = 0,nEquipType=0,nIsBang=0;
-		GoodsFile.GetInteger(k + 2, 7, 0, &ItemGenerator.nPriceXu);//金币
+		GoodsFile.GetInteger(k + 2, 7, 0, &ItemGenerator.nPriceXu);//陆冒卤脪
 		ItemGenerator.nPriceXu = ItemGenerator.nPrice;
-		GoodsFile.GetInteger(k + 2, 8, 0, &nPriceType);            //货币类型
-		//GoodsFile.GetInteger(k + 2, 9, 0, &nJiFen);              //铜钱
-		GoodsFile.GetInteger(k + 2, 10, 0, &nEquipType);           //装备类型
-		GoodsFile.GetInteger(k + 2, 21, 0,&nIsBang);	    	   //是否绑定
+		GoodsFile.GetInteger(k + 2, 8, 0, &nPriceType);            //禄玫卤脪脌脿脨脥
+		//GoodsFile.GetInteger(k + 2, 9, 0, &nJiFen);              //脥颅脟庐
+		GoodsFile.GetInteger(k + 2, 10, 0, &nEquipType);           //脳掳卤赂脌脿脨脥
+		GoodsFile.GetInteger(k + 2, 21, 0,&nIsBang);	    	   //脢脟路帽掳贸露篓
 
 		int nItemMagLevel[6];
 
@@ -123,7 +123,7 @@ BOOL KBuySell::Init()
 		   GoodsFile.GetInteger(k + 2, 26, 0, &nItemMagLevel[4]);
 		   GoodsFile.GetInteger(k + 2, 27, 0, &nItemMagLevel[5]);
 		}
-		else 
+		else
 		{
 			nItemMagLevel[0]=0;
 			nItemMagLevel[1]=0;
@@ -135,7 +135,7 @@ BOOL KBuySell::Init()
 
 		switch(ItemGenerator.nGenre)
 		{
-		case item_equip:  //服务器商店的装备产生
+		case item_equip:  //路镁脦帽脝梅脡脤碌锚碌脛脳掳卤赂虏煤脡煤
 			ItemGen.Gen_Equipment(ItemGenerator.nDetailType,\
 				              ItemGenerator.nParticularType,\
 				                   ItemGenerator.nSeriesReq,\
@@ -143,15 +143,15 @@ BOOL KBuySell::Init()
 				             g_SubWorldSet.GetGameVersion(),\
 				             &m_Item[k],0,nEquipType,0,0,TRUE,\
 							 ItemGenerator.nPrice,ItemGenerator.nPriceXu,nIsBang,nPriceType);
-			
+
 			break;
-		case item_medicine:  //药品
+		case item_medicine:  //脪漏脝路
 			ItemGen.Gen_MedicineShop(ItemGenerator.nDetailType,\
 				ItemGenerator.nLevel, \
 				g_SubWorldSet.GetGameVersion(),\
 				&m_Item[k],1,ItemGenerator.nPrice,nIsBang,nPriceType);
 			break;
-		case item_mine:  // 默认是-商店类  
+		case item_mine:  // 脛卢脠脧脢脟-脡脤碌锚脌脿
 			ItemGen.Gen_MineShop(ItemGenerator.nParticularType, &m_Item[k], 1,\
 				                ItemGenerator.nLevel, ItemGenerator.nSeriesReq,\
 								ItemGenerator.nDetailType,ItemGenerator.nPriceXu,\
@@ -160,11 +160,11 @@ BOOL KBuySell::Init()
 		case item_townportal:
 			ItemGen.Gen_TownPortal(&m_Item[k]);
 			break;
-		case item_task:				// 默认是任务类-商店类
+		case item_task:				// 脛卢脠脧脢脟脠脦脦帽脌脿-脡脤碌锚脌脿
 			ItemGen.Gen_QuestShop(ItemGenerator.nDetailType,&m_Item[k],1,ItemGenerator.nPriceXu,\
 				               ItemGenerator.nPrice,ItemGenerator.nLevel,nIsBang,nPriceType);
 			break;
-		case item_fusion:			// 纹钢
+		case item_fusion:			// 脦脝赂脰
 			//ItemGen.Gen_QuestShop(ItemGenerator.nDetailType,&m_Item[k],1,ItemGenerator.nPriceXu,ItemGenerator.nPrice,ItemGenerator.nLevel);
 			break;
 		default:
@@ -180,7 +180,7 @@ BOOL KBuySell::Init()
 
 	m_Height = BuySellFile.GetHeight() - 1;
 	m_Width  = BuySellFile.GetWidth();
-	
+
 	if (m_Width == 0 || m_Height == 0)
 	{
 		GoodsFile.Clear();
@@ -196,7 +196,7 @@ BOOL KBuySell::Init()
 		return FALSE;
 	}
 
-	for (int i = 0; i < m_Height; ++i)  
+	for (int i = 0; i < m_Height; ++i)
 	{
 		m_SellItem[i] = NULL;
 		m_SellItem[i] = (int *)new int[m_Width];
@@ -208,21 +208,21 @@ BOOL KBuySell::Init()
 		}
 		for (int j = 0; j < m_Width; ++j)
 		{
-			BuySellFile.GetInteger(i + 2, j + 1, -1, &m_SellItem[i][j]);//m_SellItem[0][0]  开始[商店ID][列]
+			BuySellFile.GetInteger(i + 2, j + 1, -1, &m_SellItem[i][j]);//m_SellItem[0][0]  驴陋脢录[脡脤碌锚ID][脕脨]
 			if (m_SellItem[i][j] == -1)
 			{
 				continue;
 			}
 
-			//_ASSERT(m_SellItem[i][j] > 0);		// 策划是从1开始的
+			//_ASSERT(m_SellItem[i][j] > 0);		// 虏脽禄庐脢脟麓脫1驴陋脢录碌脛
 			if (m_SellItem[i][j] > 0)
-				m_SellItem[i][j] -= 1;			// 为了策划从1开始填表
+				m_SellItem[i][j] -= 1;			// 脦陋脕脣虏脽禄庐麓脫1驴陋脢录脤卯卤铆
 		}
 	}
 	if (!m_pShopRoom)
 	{
-		m_pShopRoom = new KInventory;  //容器内存
-		m_pShopRoom->Init(SHOP_BOX_WIDTH, SHOP_BOX_HEIGHT); 
+		m_pShopRoom = new KInventory;  //脠脻脝梅脛脷麓忙
+		m_pShopRoom->Init(SHOP_BOX_WIDTH, SHOP_BOX_HEIGHT);
 	}
 
 	if (!m_pSShopRoom)
@@ -244,7 +244,7 @@ KItem* KBuySell::GetItemDataByidx(int nIndex)
 		return NULL;
 
 	if (m_paiItem[nIndex].GetIndex()>0)
-	{//存在的
+	{//麓忙脭脷碌脛
 		return &m_paiItem[nIndex];
 	}
 	return NULL;
@@ -269,7 +269,7 @@ int KBuySell::GetItemIndex(int nShop, int nIndex)
 	return m_SellItem[nShop][nIndex];
 }
 
-//商店描绘可叠数量
+//脡脤碌锚脙猫禄忙驴脡碌镁脢媒脕驴
 void KBuySell::PaintItem(int nIdx, int nX, int nY)
 {
 	int nShop = Player[CLIENT_PLAYER_INDEX].m_BuyInfo.m_nBuyIdx;
@@ -284,7 +284,7 @@ void KBuySell::PaintItem(int nIdx, int nX, int nY)
 
 	if (pItem)
 	{
-		pItem->Paint(x, y);  //描绘可叠放数量
+		pItem->Paint(x, y);  //脙猫禄忙驴脡碌镁路脜脢媒脕驴
 	}
 }
 
@@ -297,17 +297,17 @@ void KBuySell::PaintItemPai(int nIdx, int nX, int nY,int nKind)
 
 	if (pItem)
 	{
-		pItem->Paint(x, y,TRUE,0,nKind);  //描绘可叠放数量
+		pItem->Paint(x, y,TRUE,0,nKind);  //脙猫禄忙驴脡碌镁路脜脢媒脕驴
 	}
 }
 
 
-//奇珍阁
+//脝忙脮盲赂贸
 void KBuySell::OpenCSuPerShop(int nSaleType, BuySellInfo *pInfo)
 {
-	if(nSaleType < 0 || nSaleType > 1)	 //0 或 1
+	if(nSaleType < 0 || nSaleType > 1)	 //0 禄貌 1
 		return;
-	
+
 	Player[CLIENT_PLAYER_INDEX].m_BuyInfo.Clear();
 //	Player[CLIENT_PLAYER_INDEX].m_NewBuyInfo.Clear();
 
@@ -316,16 +316,16 @@ void KBuySell::OpenCSuPerShop(int nSaleType, BuySellInfo *pInfo)
 	CoreDataChanged(GDCNI_SUPERSHOP, (uintptr_t)pInfo, nSaleType);
 }
 
-void KBuySell::OpenCSale(int nShop)  //系统NPC商店
+void KBuySell::OpenCSale(int nShop)  //脧碌脥鲁NPC脡脤碌锚
 {
 	if (nShop < 0 || nShop >= m_Height)
 		return;
 	Player[CLIENT_PLAYER_INDEX].m_BuyInfo.Clear();
 	Player[CLIENT_PLAYER_INDEX].m_BuyInfo.m_nBuyIdx = nShop;
-	CoreDataChanged(GDCNI_NPC_TRADE,nShop,TRUE);   //通知客户端界面打开买卖面板
+	CoreDataChanged(GDCNI_NPC_TRADE,nShop,TRUE);   //脥篓脰陋驴脥禄搂露脣陆莽脙忙麓貌驴陋脗貌脗么脙忙掳氓
 }
-//客户端打开商城
-void KBuySell::OpenCMarket(int nShop) //奇珍阁
+//驴脥禄搂露脣麓貌驴陋脡脤鲁脟
+void KBuySell::OpenCMarket(int nShop) //脝忙脮盲赂贸
 {
 	if (nShop < 0 || nShop >= m_Height)
 		return;
@@ -334,13 +334,13 @@ void KBuySell::OpenCMarket(int nShop) //奇珍阁
 
 	Player[CLIENT_PLAYER_INDEX].m_BuyInfo.m_nBuyIdx =0;
 
-	CoreDataChanged(GDCNI_OPEN_MARKET, nShop, TRUE);  //通知客户端界面打开奇珍阁
+	CoreDataChanged(GDCNI_OPEN_MARKET, nShop, TRUE);  //脥篓脰陋驴脥禄搂露脣陆莽脙忙麓貌驴陋脝忙脮盲赂贸
 }
 
 void  KBuySell::SetShopItemdata(BYTE* pMsg)
-{//更新拍卖行
+{//赂眉脨脗脜脛脗么脨脨
 	ITEMDATA_SYNC_END *nSynInfo = (ITEMDATA_SYNC_END *)pMsg;
-	//客户端开始产生物品
+	//驴脥禄搂露脣驴陋脢录虏煤脡煤脦茂脝路
 
 	if  (!nSynInfo)
 		return;
@@ -348,7 +348,7 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 	if  (nSynInfo->iid<=0)
 		return;
 
-	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("----同步成功----");
+	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg("----脥卢虏陆鲁脡鹿娄----");
 	//iItemDataInfo
 	int nItemMagLevel[6],nRItemMagLevel[6];
 
@@ -356,13 +356,13 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 	ZeroMemory(&nRItemMagLevel,sizeof(nRItemMagLevel));
 
 	/*
-	int iparam2;    //蓝装
+	int iparam2;    //脌露脳掳
 	int iparam3;
 	int iparam5;
 	int iparam4;
 	int iparam6;
 	int iparam1;
-	int iparamr2;   //熔炼
+	int iparamr2;   //脠脹脕露
 	int iparamr3;
 	int iparamr5;
 	int iparamr4;
@@ -394,21 +394,21 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 	IN int nEnChance,\
 	IN int nPoint,\
 	IN int nRongpoint,\
-	IN int IsWhere,IN BOOL nIsShop,\
+	IN int IsWhere,IN int nIsShop,\
 	IN int nPrice,IN int nFsxu,int nIsBang,int nPriceType)
-	
+
 	*/
 	ZeroMemory(&m_paiItem[nSynInfo->iid],sizeof(m_paiItem[nSynInfo->iid]));
 	//m_paiItem[nSynInfo->iid].SetIndex(-1);
 
 	//char nMsgInfo[128]={0};
 
-	//sprintf(nMsgInfo,"----<color=gyellow>%u,产生物品:gen:%d de:%d np:$d lv:%d<color>----",nSynInfo->irandseed,nSynInfo->iequipgen,nSynInfo->idetailtype,nSynInfo->iparticulartype,nSynInfo->ilevel);
+	//sprintf(nMsgInfo,"----<color=gyellow>%u,虏煤脡煤脦茂脝路:gen:%d de:%d np:$d lv:%d<color>----",nSynInfo->irandseed,nSynInfo->iequipgen,nSynInfo->idetailtype,nSynInfo->iparticulartype,nSynInfo->ilevel);
 	//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMsgInfo);
 
 	switch(nSynInfo->iequipgen)
 	{
-	case item_equip:  //拍卖行的装备产生
+	case item_equip:  //脜脛脗么脨脨碌脛脳掳卤赂虏煤脡煤
 		ItemGen.Gen_paiEquipment(nSynInfo->idetailtype,\
 			nSynInfo->iparticulartype,\
 			nSynInfo->iseries,\
@@ -416,9 +416,9 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 			nSynInfo->irandseed,\
 			&m_paiItem[nSynInfo->iid],nSynInfo->ienchance,nSynInfo->ipoint,nSynInfo->iRongpiont,nSynInfo->iswhere,TRUE,\
 			nSynInfo->iSellPrice,nSynInfo->iSellPrice,0,nSynInfo->iPriceKind,nSynInfo->ilucky);
-		
+
 		m_paiItem[nSynInfo->iid].SetIndex(nSynInfo->iid);
-		//sprintf(nMsgInfo,"----<color=gyellow>产生物品:%s %u<color>----",m_paiItem[nSynInfo->iid].GetName(),m_paiItem[nSynInfo->iid].GetItemParam()->uRandomSeed);
+		//sprintf(nMsgInfo,"----<color=gyellow>虏煤脡煤脦茂脝路:%s %u<color>----",m_paiItem[nSynInfo->iid].GetName(),m_paiItem[nSynInfo->iid].GetItemParam()->uRandomSeed);
 		//Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nMsgInfo);
 		break;
 	/*case item_medicine:
@@ -427,7 +427,7 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 			g_SubWorldSet.GetGameVersion(),\
 			&m_Item[k],1,ItemGenerator.nPriceXu,nIsBang,nPriceType);
 		break;
-	case item_mine:  // 默认是-商店类  
+	case item_mine:  // 脛卢脠脧脢脟-脡脤碌锚脌脿
 		ItemGen.Gen_MineShop(ItemGenerator.nParticularType, &m_Item[k], 1,\
 			ItemGenerator.nLevel, ItemGenerator.nSeriesReq,\
 			ItemGenerator.nDetailType,ItemGenerator.nPriceXu,\
@@ -436,11 +436,11 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 	case item_townportal:
 		ItemGen.Gen_TownPortal(&m_Item[k]);
 		break;
-	case item_task:				// 默认是任务类-商店类
+	case item_task:				// 脛卢脠脧脢脟脠脦脦帽脌脿-脡脤碌锚脌脿
 		ItemGen.Gen_QuestShop(ItemGenerator.nDetailType,&m_Item[k],1,ItemGenerator.nPriceXu,\
 			ItemGenerator.nPrice,ItemGenerator.nLevel,nIsBang,nPriceType);
 		break;
-	case item_fusion:			// 纹钢
+	case item_fusion:			// 脦脝赂脰
 		//ItemGen.Gen_QuestShop(ItemGenerator.nDetailType,&m_Item[k],1,ItemGenerator.nPriceXu,ItemGenerator.nPrice,ItemGenerator.nLevel);
 		break;*/
 	default:
@@ -449,24 +449,24 @@ void  KBuySell::SetShopItemdata(BYTE* pMsg)
 
 
 }
-//设置客户端商城信息
+//脡猫脰脙驴脥禄搂露脣脡脤鲁脟脨脜脧垄
 void  KBuySell::SetShopItemInfo(BYTE* pMsg)
 {
 	  ITEM_SYNC_SHOP *nSynInfo = (ITEM_SYNC_SHOP *)pMsg;
 
 	 /* char nSmg[64]={0};
-	  sprintf(nSmg,"收到信息:%d,%d",nSynInfo->nShopIdx,nSynInfo->nBuyIdx);
+	  sprintf(nSmg,"脢脮碌陆脨脜脧垄:%d,%d",nSynInfo->nShopIdx,nSynInfo->nBuyIdx);
 	  Player[CLIENT_PLAYER_INDEX].m_ItemList.ClientShowMsg(nSmg);
 	  */
 	 /* if (nSynInfo->nShopIdx != Player[CLIENT_PLAYER_INDEX].m_BuyInfo.m_nBuyIdx)
-	  {//是这个商店
+	  {//脢脟脮芒赂枚脡脤碌锚
 		  return;
 	  }
 	  if (Player[CLIENT_PLAYER_INDEX].m_BuyInfo.m_nBuyIdx<0)
 	  {
 		  return;
 	  }*/
-	  
+
 	  if (NULL==m_SellItem || nSynInfo->nBuyIdx > m_Width)
 	  {
 		  return;

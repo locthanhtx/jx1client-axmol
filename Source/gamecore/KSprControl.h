@@ -7,69 +7,69 @@
 class KSprControl
 {
 public:
-	int			m_bChange;							// ÊÇ·ñ·¢Éú±ä»¯
-	int			m_nTotalFrame;						// ×ÜÖ¡Êý
-	int			m_nCurFrame;						// µ±Ç°Ö¡
-	int			m_nTotalDir;						// ×Ü·½ÏòÊý
-	int			m_nCurDir;							// µ±Ç°·½Ïò
-	DWORD		m_dwTimer;							// Ê±¼ä¼ÆÊýÆ÷
-	DWORD		m_dwInterval;						// Ö¡¼ä¸ô£¨¶¯»­ËÙ¶È£©
-	int			m_nXpos;							// ×ø±ê x
-	int			m_nYpos;							// ×ø±ê y
-	int			m_nCgXpos;							// ÖØÐÄ×ø±ê x
-	int			m_nCgYpos;							// ÖØÐÄ×ø±ê y
-	char		m_szName[256];						// ÎÄ¼þÃû
-	DWORD		m_dwNameID;							// ÎÄ¼þÃûid
+	int			m_bChange;							// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ä»¯
+	int			m_nTotalFrame;						// ï¿½ï¿½Ö¡ï¿½ï¿½
+	int			m_nCurFrame;						// ï¿½ï¿½Ç°Ö¡
+	int			m_nTotalDir;						// ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+	int			m_nCurDir;							// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+	unsigned long		m_dwTimer;							// Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	unsigned long		m_dwInterval;						// Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È£ï¿½
+	int			m_nXpos;							// ï¿½ï¿½ï¿½ï¿½ x
+	int			m_nYpos;							// ï¿½ï¿½ï¿½ï¿½ y
+	int			m_nCgXpos;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x
+	int			m_nCgYpos;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y
+	char		m_szName[256];						// ï¿½Ä¼ï¿½ï¿½ï¿½
+	unsigned long		m_dwNameID;							// ï¿½Ä¼ï¿½ï¿½ï¿½id
 
 public:
-	KSprControl();									// ¹¹Ôìº¯Êý
-	void		Release();							// Çå¿Õ
-	void		SetFileName(char *lpszName);		// Éè¶¨ spr ÎÄ¼þÃû
-	void		SetTotalFrame(int nTotalFrame);		// Éè¶¨×ÜÖ¡Êý
-	void		SetCurFrame(int nCurFrame);			// Éè¶¨µ±Ç°Ö¡
-	void		SetTotalDir(int nTotalDir);			// Éè¶¨×Ü·½ÏòÊý
-	BOOL		SetCurDir(int nDir);				// Éè¶¨µ±Ç°·½Ïò
-	void		SetInterVal(DWORD dwInterval);		// Éè¶¨Ö¡¼ä¸ô
-	void		SetPos(int x, int y);				// Éè¶¨×ø±ê
-	void		SetCenterPos(int x, int y);			// Éè¶¨ÖØÐÄÎ»ÖÃ
-	void		SetDirFrame(int nDir, int nFrame);	// Éè¶¨Ä³·½ÏòÎªµÚ¼¸Ö¡
-	void		Set64DirFrame(int nDir, int nFrame);// Éè¶¨Ä³·½ÏòÎªµÚ¼¸Ö¡(·½ÏòÐè´Ó64·½Ïò×ª»»µ½ÕæÕýµÄ·½Ïò)
-	BOOL		SetCurDir64(int nDir);				// Éè¶¨µ±Ç°·½Ïò(·½ÏòÐè´Ó64·½Ïò×ª»»µ½ÕæÕýµÄ·½Ïò)
-	int			GetOneDirFrames();					// »ñµÃµ¥·½ÏòÖ¡Êý
+	KSprControl();									// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	void		Release();							// ï¿½ï¿½ï¿½
+	void		SetFileName(char *lpszName);		// ï¿½è¶¨ spr ï¿½Ä¼ï¿½ï¿½ï¿½
+	void		SetTotalFrame(int nTotalFrame);		// ï¿½è¶¨ï¿½ï¿½Ö¡ï¿½ï¿½
+	void		SetCurFrame(int nCurFrame);			// ï¿½è¶¨ï¿½ï¿½Ç°Ö¡
+	void		SetTotalDir(int nTotalDir);			// ï¿½è¶¨ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		SetCurDir(int nDir);				// ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+	void		SetInterVal(unsigned long dwInterval);		// ï¿½è¶¨Ö¡ï¿½ï¿½ï¿½
+	void		SetPos(int x, int y);				// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½
+	void		SetCenterPos(int x, int y);			// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	void		SetDirFrame(int nDir, int nFrame);	// ï¿½è¶¨Ä³ï¿½ï¿½ï¿½ï¿½Îªï¿½Ú¼ï¿½Ö¡
+	void		Set64DirFrame(int nDir, int nFrame);// ï¿½è¶¨Ä³ï¿½ï¿½ï¿½ï¿½Îªï¿½Ú¼ï¿½Ö¡(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½64ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½)
+	int		SetCurDir64(int nDir);				// ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½64ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½)
+	int			GetOneDirFrames();					// ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½
 
-	void		SetSprFile(							// »ñµÃÒ»¸ö spr ÎÄ¼þµÄ¸÷ÖÖÐÅÏ¢
+	void		SetSprFile(							// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ spr ï¿½Ä¼ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		char *lpszName,
 		int nTotalFrame,
 		int nTotalDir,
 		int nInterVal);
 
-	BOOL		GetNextFrame(BOOL bLoop = TRUE);	// ×Ô¶¯Ïòºó»»Ö¡
-	BOOL		GetPrevFrame(BOOL bLoop = TRUE);	// ×Ô¶¯ÏòÇ°»»Ö¡
-	BOOL		CheckExist();						// ÅÐ¶ÏÎÄ¼þÊÇ·ñ´æÔÚ
-	BOOL		CheckEnd();							// ÅÐ¶Ï¶¯»­ÊÇ·ñ²¥·Åµ½×îºó
-	void		SetDirStart();						// Éè¶¨µ±Ç°·½ÏòµÄµ±Ç°Ö¡ÎªµÚÒ»Ö¡
-	void		SetDirEnd();						// Éè¶¨µ±Ç°·½ÏòµÄµ±Ç°Ö¡Îª×îºóÒ»Ö¡
-	int			GetCurDirFrameNo();					// »ñµÃµ±Ç°·½ÏòµÚ¼¸Ö¡
+	int		GetNextFrame(int bLoop = TRUE);	// ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ö¡
+	int		GetPrevFrame(int bLoop = TRUE);	// ï¿½Ô¶ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ö¡
+	int		CheckExist();						// ï¿½Ð¶ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	int		CheckEnd();							// ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½Ç·ñ²¥·Åµï¿½ï¿½ï¿½ï¿½
+	void		SetDirStart();						// ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Äµï¿½Ç°Ö¡Îªï¿½ï¿½Ò»Ö¡
+	void		SetDirEnd();						// ï¿½è¶¨ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Äµï¿½Ç°Ö¡Îªï¿½ï¿½ï¿½Ò»Ö¡
+	int			GetCurDirFrameNo();					// ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½Ö¡
 
-	// »æÖÆ
+	// ï¿½ï¿½ï¿½ï¿½
 /*	void		DrawAlpha(
-						int nX,						// ÆÁÄ»×ø±ê x
-						int nY,						// ÆÁÄ»×ø±ê y
-						int nExAlpha = 32);			// alpha ¶È
-	// »æÖÆ±ß¿ò
+						int nX,						// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ x
+						int nY,						// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ y
+						int nExAlpha = 32);			// alpha ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Æ±ß¿ï¿½
 	void		DrawBorder(
-						int nX,						// ÆÁÄ»×ø±ê x
-						int nY,						// ÆÁÄ»×ø±ê y
-						int nColor);	*/			// ÑÕÉ«
+						int nX,						// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ x
+						int nY,						// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ y
+						int nColor);	*/			// ï¿½ï¿½É«
 };
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º	ÅÐ¶Ï¿ØÖÆ¶ÔÏóÊÇ·ñ´æÔÚ
+//	ï¿½ï¿½ï¿½Ü£ï¿½	ï¿½Ð¶Ï¿ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 //---------------------------------------------------------------------------
-inline BOOL KSprControl::CheckExist()
+inline int KSprControl::CheckExist()
 {
 	if ((m_nTotalFrame > 0) && m_szName[0])
 		return TRUE;
-	
+
     return FALSE;
 }

@@ -1,5 +1,5 @@
 // KScriptValueSet.cpp: implementation of the KScriptValueSet class.
-// ½Å±¾±à¼­Æ÷
+// ï¿½Å±ï¿½ï¿½à¼­ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////
 #include "KCore.h"
 #include "KScriptValueSet.h"
@@ -11,16 +11,16 @@ KScriptValueSet g_ScriptValueSet;
 
 KScriptValueSet::KScriptValueSet()
 {
-	
+
 }
 
 KScriptValueSet::~KScriptValueSet()
 {
-	
+
 }
 
 
-BOOL	KScriptValueSet::Load(char * FileName)
+int	KScriptValueSet::Load(char * FileName)
 {
 	KIniFile File;
 	if (!File.Load(FileName))	return FALSE;
@@ -34,7 +34,7 @@ BOOL	KScriptValueSet::Load(char * FileName)
 			TStringValueNode * pNode = new TStringValueNode(ValueName, StringValue);
 			m_StringValueList.AddTail(pNode);
 	}
-	
+
 	strcpy(ValueName,"");
 	while (File.GetNextKey("IntegerValue", ValueName, ValueName))
 	{
@@ -48,19 +48,19 @@ BOOL	KScriptValueSet::Load(char * FileName)
 	return TRUE;
 }
 
-BOOL	KScriptValueSet::Save(char * FileName)
+int	KScriptValueSet::Save(char * FileName)
 {
-	
+
 	KIniFile File;
 	File.Load(FileName);
-	
+
 	TStringValueNode * pStrNode = (TStringValueNode*)m_StringValueList.GetHead();
 	while(pStrNode)
 	{
 		File.WriteString("StringValue", pStrNode->ValueName, pStrNode->strValue);
 		pStrNode = (TStringValueNode*)pStrNode->GetNext();
 	}
-	
+
 	TIntegerValueNode * pIntNode = (TIntegerValueNode*)m_IntegerValueList.GetHead();
 	while(pIntNode)
 	{
@@ -73,7 +73,7 @@ BOOL	KScriptValueSet::Save(char * FileName)
 	return TRUE;
 }
 
-BOOL	KScriptValueSet::SetValue(char * pValueName, char * pValue)
+int	KScriptValueSet::SetValue(char * pValueName, char * pValue)
 {
 	TStringValueNode * pNode = (TStringValueNode *) SearchValue(pValueName, 0);
 	if (pNode == NULL)
@@ -81,7 +81,7 @@ BOOL	KScriptValueSet::SetValue(char * pValueName, char * pValue)
 		AddValue(pValueName , pValue);
 		return FALSE;
 	}
-	else 
+	else
 	{
 		strcpy(pNode->strValue, pValue);
 		return TRUE;
@@ -89,10 +89,10 @@ BOOL	KScriptValueSet::SetValue(char * pValueName, char * pValue)
 	return FALSE;
 }
 
-BOOL	KScriptValueSet::SetValue(char * pValueName, int	 nValue)
+int	KScriptValueSet::SetValue(char * pValueName, int	 nValue)
 {
 	TIntegerValueNode * pNode = (TIntegerValueNode *) SearchValue(pValueName, 1);
-	
+
 	if (pNode == NULL)
 	{
 		AddValue(pValueName, nValue);
@@ -103,13 +103,13 @@ BOOL	KScriptValueSet::SetValue(char * pValueName, int	 nValue)
 		pNode->intValue = nValue;
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
 
 
-BOOL	KScriptValueSet::GetValue(char * pValueName, char * pValue)
+int	KScriptValueSet::GetValue(char * pValueName, char * pValue)
 {
 	TStringValueNode * pNode = (TStringValueNode *) SearchValue(pValueName, 0);
 	if (pNode == NULL)	{strcpy(pValue,""); return FALSE;};
@@ -117,7 +117,7 @@ BOOL	KScriptValueSet::GetValue(char * pValueName, char * pValue)
 	return TRUE;
 }
 
-BOOL	KScriptValueSet::GetValue(char * pValueName, int *pValue)
+int	KScriptValueSet::GetValue(char * pValueName, int *pValue)
 {
 	TIntegerValueNode * pNode = (TIntegerValueNode *) SearchValue(pValueName, 1);
 	if (pNode == NULL)	{*pValue = 0 ; return FALSE;};
@@ -150,7 +150,7 @@ KNode* KScriptValueSet::SearchValue(char * pValueName, int nType)
 				if (!strcmp(pNode->ValueName, pValueName))		return pNode;
 				pNode = (TStringValueNode*)pNode->GetNext();
 			}
-			
+
 		}break;
 	case 1:
 		{
@@ -160,7 +160,7 @@ KNode* KScriptValueSet::SearchValue(char * pValueName, int nType)
 				if (!strcmp(pNode->ValueName, pValueName))				return pNode;
 				pNode = (TIntegerValueNode*)pNode->GetNext();
 			}
-			
+
 		}break;
 	}
 	return NULL;

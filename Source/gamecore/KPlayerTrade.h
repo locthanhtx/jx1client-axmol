@@ -3,7 +3,7 @@
 //
 // File:	KPlayerTrade.h
 // Date:	2003.02.17
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Trade Class
 //---------------------------------------------------------------------------
 
@@ -16,21 +16,21 @@ class KTrade
 {
 	friend class KPlayer;
 public:
-	int			m_nIsTrading;						// ÊÇ·ñÕýÔÚ½»Ò× 0 Ã»ÓÐ 1 ÕýÔÚ½»Ò×
-	int			m_nTradeDest;						// ·þÎñÆ÷¶Ë¼ÇµÄÊÇ player index ¿Í»§¶Ë¼ÇµÄÊÇ npc id
-	int			m_nTradeState;						// ÊÇ·ñÒÑ¾­µãÁËok 0 Ã»ÓÐ 1 µãÁË
-	int			m_nTradeLock;						// ÊÇ·ñËø¶¨ 0 Ã»ÓÐ 1 ÒÑ¾­Ëø¶¨
+	int			m_nIsTrading;						// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ 0 Ã»ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½
+	int			m_nTradeDest;						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼Çµï¿½ï¿½ï¿½ player index ï¿½Í»ï¿½ï¿½Ë¼Çµï¿½ï¿½ï¿½ npc id
+	int			m_nTradeState;						// ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ok 0 Ã»ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
+	int			m_nTradeLock;						// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 0 Ã»ï¿½ï¿½ 1 ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	int			m_nBackEquipMoney;					// ½»Ò×¿ªÊ¼Ê±±¸·ÝÎïÆ·À¸money
-	int			m_nBackRepositoryMoney;				// ½»Ò×¿ªÊ¼Ê±±¸·Ý´¢ÎïÏämoney
-	int			m_nTradeDestState;					// ¿Í»§¶Ë¼ÇÂ¼¶Ô·½ÊÇ·ñok
-	int			m_nTradeDestLock;					// ¿Í»§¶Ë¼ÇÂ¼¶Ô·½ÊÇ·ñËø¶¨
-	char		m_szDestName[32];					// ¶Ô·½Ãû×Ö
+	int			m_nBackEquipMoney;					// ï¿½ï¿½ï¿½×¿ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½money
+	int			m_nBackRepositoryMoney;				// ï¿½ï¿½ï¿½×¿ï¿½Ê¼Ê±ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½money
+	int			m_nTradeDestState;					// ï¿½Í»ï¿½ï¿½Ë¼ï¿½Â¼ï¿½Ô·ï¿½ï¿½Ç·ï¿½ok
+	int			m_nTradeDestLock;					// ï¿½Í»ï¿½ï¿½Ë¼ï¿½Â¼ï¿½Ô·ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	char		m_szDestName[32];					// ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½
 public:
 	KTrade();
 	void		Release();
-	BOOL		StartTrade(int nDest, int nEquipMoney = 0, int nRepositoryMoney = 0);
-	void		Lock(BOOL bFlag);
+	int		StartTrade(int nDest, int nEquipMoney = 0, int nRepositoryMoney = 0);
+	void		Lock(int bFlag);
 
 	void		SetTradeState(int nSelfLock, int nDestLock, int nSelfStateOk, int nDestStateOk);
 	static void		ReplyInvite(int nDestIdx, int nReply);

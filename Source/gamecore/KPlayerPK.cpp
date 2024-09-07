@@ -36,7 +36,7 @@ void	KPlayerPK::Active()
 //-------------------------------------------------------------------------
 //	���ܣ��趨����PK״̬ TRUE �򿪣����Կ���  FALSE �رգ������Կ���
 //-------------------------------------------------------------------------
-void	KPlayerPK::SetNormalPKState(int bFlag, BOOL bShowMsg/* = TRUE*/)
+void	KPlayerPK::SetNormalPKState(int bFlag, int bShowMsg/* = TRUE*/)
 {
 	if (m_nNormalPKFlag == bFlag)
 		return;

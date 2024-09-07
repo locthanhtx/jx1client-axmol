@@ -18,21 +18,21 @@ USING_NS_AX;
 //---------------------------------------------------------------------------
 typedef struct {
 	unsigned char *		lpData;			// ��ѹ��&ѹ��ǰ ����ָ��
-	uint32_t		dwDataLen;		// ��ѹ��&ѹ��ǰ ���ݳ���
+	unsigned int		dwDataLen;		// ��ѹ��&ѹ��ǰ ���ݳ���
 	unsigned char *	    lpPack;			// ѹ����&ѹ���� ����ָ��
-	uint32_t		dwPackLen;		// ѹ����&ѹ���� ���ݳ���
+	unsigned int		dwPackLen;		// ѹ����&ѹ���� ���ݳ���
 } TCodeInfo;
 //---------------------------------------------------------------------------
 class  KCodec
 {
 public:
-	 uint32_t	GetPackLen(uint32_t dwDataLen);
+	 unsigned int	GetPackLen(unsigned int dwDataLen);
 	 bool	Encode(TCodeInfo* pCodeInfo);
 	 bool	Decode(TCodeInfo* pCodeInfo);
 	//lpData;dwDataLen;lpPack;������ȷ���ã�dwPackLen��Ϊ0����
 };
 //---------------------------------------------------------------------------
- void	g_InitCodec(KCodec** ppCodec, int32_t nCompressMethod);
- void	g_FreeCodec(KCodec** ppCodec, int32_t nCompressMethod);
+ void	g_InitCodec(KCodec** ppCodec, int nCompressMethod);
+ void	g_FreeCodec(KCodec** ppCodec, int nCompressMethod);
 //---------------------------------------------------------------------------
 #endif

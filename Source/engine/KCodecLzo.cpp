@@ -15,13 +15,13 @@
 //			dwInLen		��ѹ�����ݳ���
 //			pOut		ѹ��������ָ��
 //			pOutLen		ѹ�������ݳ���
-// ����:	ʣ��û��ѹ�����ֽ��� (PBYTE pIn, DWORD dwInLen, PBYTE pOut, PDWORD pOutLen)
+// ����:	ʣ��û��ѹ�����ֽ��� (PBYTE pIn, unsigned long dwInLen, PBYTE pOut, unsigned long* pOutLen)
 //---------------------------------------------------------------------------
-DWORD KCodecLzo::Compress(
+unsigned long KCodecLzo::Compress(
 	 PBYTE	pIn, 		// ��ѹ������
-	 DWORD	dwInLen, 	// ��ѹ�����ݳ���
+	 unsigned long	dwInLen, 	// ��ѹ�����ݳ���
 	 PBYTE	pOut,		// ѹ������
-	 PDWORD	pOutLen		// ѹ�����ݳ���
+	 unsigned long*	pOutLen		// ѹ�����ݳ���
 	 )
 {
 	BYTE *ip;
@@ -59,7 +59,7 @@ DWORD KCodecLzo::Compress(
 		m_pos  =  dict [dindex];
 
 		if ((uintptr_t)(m_pos)  < (uintptr_t)(pIn)   ||
-			((m_off = (uintptr_t)( (int32_t)((uintptr_t)ip-(uintptr_t)m_pos))) <= 0)||
+			((m_off = (uintptr_t)( (int)((uintptr_t)ip-(uintptr_t)m_pos))) <= 0)||
 			(m_off > 0xbfff))
 			goto literal;
 
@@ -193,7 +193,7 @@ m3_m4_offset:
 	} // while(TRUE)
 
 	*pOutLen = op - pOut;
-	return (DWORD)(in_end - ii);
+	return (unsigned long)(in_end - ii);
 }
 //---------------------------------------------------------------------------
 // ����:	Encode
@@ -205,8 +205,8 @@ m3_m4_offset:
 bool KCodecLzo::Encode(TCodeInfo* pCodeInfo)
 {
 	PBYTE	op = pCodeInfo->lpPack;
-	DWORD	t;
-	DWORD	dwPackLen;
+	unsigned long	t;
+	unsigned long	dwPackLen;
 
 	if (!m_WorkMem.Alloc(65536))
 		return FALSE;
@@ -248,7 +248,7 @@ bool KCodecLzo::Encode(TCodeInfo* pCodeInfo)
 	*op++ = 0;
 	*op++ = 0;
 
-	pCodeInfo->dwPackLen = (DWORD)(op - pCodeInfo->lpPack);
+	pCodeInfo->dwPackLen = (unsigned long)(op - pCodeInfo->lpPack);
 	return TRUE;
 }
 //---------------------------------------------------------------------------
@@ -262,7 +262,7 @@ bool KCodecLzo::Decode(TCodeInfo* pCodeInfo)
 {
 	PBYTE op;
 	PBYTE ip;
-	DWORD t;
+	unsigned long t;
 	PBYTE m_pos;
 
 	op = pCodeInfo->lpData;
@@ -433,7 +433,7 @@ eof_found:
 		return FALSE;
 	}
 
-	pCodeInfo->dwDataLen = (DWORD)(op - pCodeInfo->lpData);
+	pCodeInfo->dwDataLen = (unsigned long)(op - pCodeInfo->lpData);
 	return TRUE;
 }
 //---------------------------------------------------------------------------

@@ -25,7 +25,7 @@ KPlayerSet::KPlayerSet()
 {
 }
 
-BOOL	KPlayerSet::Init()
+int	KPlayerSet::Init()
 {
 	int i;
 
@@ -78,7 +78,7 @@ int	KPlayerSet::FindFree()
 	return m_FreeIdxPlayerSet.GetNext(0);
 }
 
-int KPlayerSet::FindSame(DWORD dwID)
+int KPlayerSet::FindSame(unsigned int dwID)
 {
 	int nUseIdx = 0;
 
@@ -93,7 +93,7 @@ int KPlayerSet::FindSame(DWORD dwID)
 }
 
 
-int KPlayerSet::CheckLiXian(LPSTR szName)
+int KPlayerSet::CheckLiXian(char* szName)
 {
 	int nUseIdx = 0;
 	nUseIdx = m_UseIdxPlayerSet.GetNext(0);
@@ -107,7 +107,7 @@ int KPlayerSet::CheckLiXian(LPSTR szName)
 }
 
 
-int KPlayerSet::FindByTongName(LPSTR szTongName)
+int KPlayerSet::FindByTongName(char* szTongName)
 {
 	/*int nUseIdx = 0;
 	    nUseIdx = m_UseIdxPlayerSet.GetNext(0);
@@ -125,7 +125,7 @@ int KPlayerSet::FindByTongName(LPSTR szTongName)
 	return TRUE;
 }
 
-int KPlayerSet::FindNameID(LPSTR szName)
+int KPlayerSet::FindNameID(char* szName)
 {
 	int nUseIdx = 0;
 	nUseIdx = m_UseIdxPlayerSet.GetNext(0);
@@ -138,7 +138,7 @@ int KPlayerSet::FindNameID(LPSTR szName)
 	return 0;
 }
 //���������õ�
-int KPlayerSet::FindPlayerID(DWORD dwID)
+int KPlayerSet::FindPlayerID(unsigned int dwID)
 {
 	int nUseIdx = 0;
 
@@ -168,10 +168,10 @@ int		KPlayerSet::GetNextPlayer()
 }
 
 //ȡ��
-/*DWORD KPlayerSet::TakeTrader(DWORD a,DWORD b)
+/*unsigned long KPlayerSet::TakeTrader(unsigned long a,unsigned long b)
 {
-	DWORD nRet = 0;
-	//DWORD nYuShu=0;
+	unsigned long nRet = 0;
+	//unsigned long nYuShu=0;
 	__asm
 	{
 		mov eax,a
@@ -184,10 +184,10 @@ int		KPlayerSet::GetNextPlayer()
 	return nRet;
 }
 //ȡ����
-DWORD KPlayerSet::TakeRemainder(DWORD a,DWORD b)
+unsigned long KPlayerSet::TakeRemainder(unsigned long a,unsigned long b)
 {
-	DWORD nRet = 0;
-	//	DWORD nYuShu=0;
+	unsigned long nRet = 0;
+	//	unsigned long nYuShu=0;
 	__asm
 	{
 		mov eax,a
@@ -234,7 +234,7 @@ KLevelAdd::KLevelAdd()
 //---------------------------------------------------------------------------
 //	���ܣ���ʼ��
 //---------------------------------------------------------------------------
-BOOL	KLevelAdd::Init()
+int	KLevelAdd::Init()
 {
 	int			i;
 	KTabFile	LevelExp;
@@ -424,7 +424,7 @@ KTeamLeadExp::KTeamLeadExp()
 //---------------------------------------------------------------------------
 //	���ܣ���ʼ������ȡͳ��������
 //---------------------------------------------------------------------------
-BOOL	KTeamLeadExp::Init()
+int	KTeamLeadExp::Init()
 {
 	int			i;
 	KTabFile	LevelExp;
@@ -443,7 +443,7 @@ BOOL	KTeamLeadExp::Init()
 //---------------------------------------------------------------------------
 //	���ܣ����뾭���õȼ���
 //---------------------------------------------------------------------------
-int		KTeamLeadExp::GetLevel(DWORD dwExp, int nCurLeadLevel)
+int		KTeamLeadExp::GetLevel(unsigned int dwExp, int nCurLeadLevel)
 {
 	if (dwExp <= 0)
 		return 1;
@@ -469,7 +469,7 @@ int		KTeamLeadExp::GetLevel(DWORD dwExp, int nCurLeadLevel)
 //---------------------------------------------------------------------------
 //	���ܣ����뾭���ÿɴ���Ա��
 //---------------------------------------------------------------------------
-int		KTeamLeadExp::GetMemNumFromExp(DWORD dwExp)
+int		KTeamLeadExp::GetMemNumFromExp(unsigned int dwExp)
 {
 	int nGetLevel;
 	nGetLevel = GetLevel(dwExp);
@@ -505,7 +505,7 @@ KNewPlayerAttribute::KNewPlayerAttribute()
 	memset(m_nLucky, 0, sizeof(m_nLucky));
 }
 
-BOOL	KNewPlayerAttribute::Init()
+int	KNewPlayerAttribute::Init()
 {
 	char		szSeries[5][16] = {"metal", "wood", "water", "fire", "earth"};
 	KIniFile	AttributeFile;

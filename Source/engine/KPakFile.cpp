@@ -16,17 +16,17 @@
 //---------------------------------------------------------------------------
 // �ļ���ȡģʽ 0 = ���ȴӴ��̶�ȡ 1 = ���ȴ��ļ�����ȡ
 #ifdef _SERVER
-static int32_t m_nPakFileMode = 1;
+static int m_nPakFileMode = 1;
 #else
-static int32_t m_nPakFileMode = 1;
+static int m_nPakFileMode = 1;
 #endif
 //---------------------------------------------------------------------------
 // ����:	SetFileMode
 // ����:	�����ļ���ȡģʽ
-// ����:	int32_t
+// ����:	int
 // ����:	void
 //---------------------------------------------------------------------------
-void g_SetPakFileMode(int32_t nFileMode)
+void g_SetPakFileMode(int nFileMode)
 {
 	m_nPakFileMode = nFileMode;
 }
@@ -60,7 +60,7 @@ SPRHEAD* SprGetHeader(char* pszFileName, SPROFFS*& pOffsetTable)
 		{
 			pSpr = g_pPakList->GetSprHeader(PakRef, pOffsetTable);
 			if (pSpr)
-				pSpr->Reserved[PAK_INDEX_STORE_IN_RESERVED] = (WORD)(short)PakRef.nPackIndex;
+				pSpr->Reserved[PAK_INDEX_STORE_IN_RESERVED] = (unsigned short)(short)PakRef.nPackIndex;
 		}
 	}
 	else
@@ -71,10 +71,10 @@ SPRHEAD* SprGetHeader(char* pszFileName, SPROFFS*& pOffsetTable)
 		//---���ļ�ͷ�����ж��Ƿ�Ϊ�Ϸ���sprͼ�ļ�---
 		while(File.Read(&Header, sizeof(SPRHEAD)) == sizeof(SPRHEAD))
 		{
-			if (*(int32_t*)&Header.Comment[0] != SPR_COMMENT_FLAG || Header.Colors > 256)  //ԭ���е�
+			if (*(int*)&Header.Comment[0] != SPR_COMMENT_FLAG || Header.Colors > 256)  //ԭ���е�
 				break;
 			//---Ϊ�������������ռ�---
-			int32_t uEntireSize = File.Size();
+			int uEntireSize = File.Size();
 			pSpr = (SPRHEAD*)malloc(uEntireSize);
 			if (pSpr == NULL)
 				break;
@@ -85,7 +85,7 @@ SPRHEAD* SprGetHeader(char* pszFileName, SPROFFS*& pOffsetTable)
 			{
 				//----���ͼ��֡������Ŀ�ʼλ��---
 				pOffsetTable = (SPROFFS*)(((char*)(pSpr)) + sizeof(SPRHEAD) + Header.Colors * 3);
-				Header.Reserved[PAK_INDEX_STORE_IN_RESERVED] = (WORD)(-1);
+				Header.Reserved[PAK_INDEX_STORE_IN_RESERVED] = (unsigned short)(-1);
 				memcpy(pSpr, &Header, sizeof(SPRHEAD));
 				bOk = true;
 			}
@@ -111,12 +111,12 @@ void SprReleaseHeader(SPRHEAD* pSprHeader)
 	}
 }
 
-SPRFRAME* SprGetFrame(SPRHEAD* pSprHeader, int32_t nFrame,uint32_t &nSingFrameSize)
+SPRFRAME* SprGetFrame(SPRHEAD* pSprHeader, int nFrame,unsigned int &nSingFrameSize)
 {
 	SPRFRAME*	pFrame = NULL;
 	if (pSprHeader && g_pPakList)
 	{
-		int32_t nPakIndex = (short)pSprHeader->Reserved[PAK_INDEX_STORE_IN_RESERVED];
+		int nPakIndex = (short)pSprHeader->Reserved[PAK_INDEX_STORE_IN_RESERVED];
 		if (nPakIndex >= 0)
 		{
 			pFrame = g_pPakList->GetSprFrame(nPakIndex, pSprHeader, nFrame,nSingFrameSize);
@@ -130,82 +130,12 @@ void SprReleaseFrame(SPRFRAME* pFrame)
     if (pFrame)
 	{
 		free(pFrame);
-		//pFrame = NULL;
 	}
 }
 
-//#include "JpgLib.h"
-//#include "KDDraw.h"
-
 KSGImageContent* get_jpg_image(const char cszName[], unsigned uRGBMask16)
 {
-	return NULL;
-	/*KPakFile	File;
-	unsigned char *pbyFileData = NULL;
-
-	if (File.Open(cszName))
-	{
-		uint32_t uSize = File.Size();
-		pbyFileData = (unsigned char *)malloc(uSize);
-		if (pbyFileData)
-		{
-			if (File.Read(pbyFileData, uSize) != uSize)
-			{
-				free (pbyFileData);
-				pbyFileData = NULL;
-			}
-		}
-	}
-
-	if (!pbyFileData)
-        return NULL;
-
-	int32_t nResult = false;
-    int32_t nRetCode = false;
-    KSGImageContent *pImageResult = NULL;
-
-	BOOL		bRGB555;
-	JPEG_INFO	JpegInfo;
-
-    if (uRGBMask16 == ((unsigned)-1))
-    {
-    	bRGB555 = (g_pDirectDraw->GetRGBBitMask16() == RGB_555) ? TRUE : FALSE;
-    }
-    else
-    {
-        bRGB555 = (uRGBMask16 == RGB_555) ? TRUE : FALSE;
-    }
-
-    nRetCode = jpeg_decode_init(bRGB555, TRUE);
-	if(!nRetCode)
-        goto Exit0;
-
-	nRetCode = jpeg_decode_info(pbyFileData, &JpegInfo);
-    if (!nRetCode)
-        goto Exit0;
-
-	pImageResult = (KSGImageContent *)malloc(KSG_IMAGE_CONTENT_SIZE(JpegInfo.width, JpegInfo.height));
-    if (!pImageResult)
-        goto Exit0;
-
-    pImageResult->nWidth = JpegInfo.width;
-    pImageResult->nHeight = JpegInfo.height;
-
-	nRetCode = jpeg_decode_data(pImageResult->Data, &JpegInfo);
-    if (!nRetCode)
-        goto Exit0;
-
-    nResult = true;
-
-Exit0:
-	free (pbyFileData);
-    if (!nResult && pImageResult)
-	{
-		free (pImageResult);
-		pImageResult = NULL;
-    }
-
-	return pImageResult;*/
+    return NULL;	
 }
 
 
@@ -240,11 +170,7 @@ KPakFile::~KPakFile()
 //---------------------------------------------------------------------------
 bool KPakFile::IsFileInPak()
 {
-//#ifndef _SERVER
 	return (m_PackRef.nPackIndex >= 0 && m_PackRef.uId);
-//#else
-//	return false;
-//#endif
 }
 
 //---------------------------------------------------------------------------
@@ -253,25 +179,25 @@ bool KPakFile::IsFileInPak()
 // ����:	TRUE		�ɹ�
 //			FALSE		ʧ��  ����װ���ļ���Ϣ
 //---------------------------------------------------------------------------
-BOOL KPakFile::Open(char* pszFileName)
+int KPakFile::Open(const char* pszFileName)
 {
 	if (pszFileName == NULL || pszFileName[0] == 0)
 		return false;
 	bool bOk = false;
 	Close();
-	if (m_nPakFileMode == 0)	//0=���ȴӴ��̶�ȡ
+	if (m_nPakFileMode == 0)	
 	{
-		bOk = (m_File.Open((char*)pszFileName) != FALSE); //���ļ���֧�����к�׺����(��������ֱ�Ӷ�ȡ�ļ�)
-		if (bOk == false && g_pPakList)  //�����ļ�
-		{//�������ļ�
+		bOk = (m_File.Open((char*)pszFileName) != FALSE); 
+		if (bOk == false && g_pPakList)  
+		{
 			bOk = g_pPakList->pGetFilePath(pszFileName, m_PackRef);
 		}
 	}
-	else	//1=���ȴ��ļ�����ȡ
+	else	
 	{
-		if (g_pPakList) //��ȡPAK����  //��ֵ����ͷ�ļ��ṹ
+		if (g_pPakList) 
 			bOk = g_pPakList->pGetFilePath(pszFileName,m_PackRef);
-		if (bOk == false)//�������û��,�Ͷ�ȡ �ļ������ ȡ����������ļ�
+		if (bOk == false)
 			bOk = (m_File.Open((char*)pszFileName) != FALSE);
 	}
 	return bOk;
@@ -283,7 +209,7 @@ BOOL KPakFile::Open(char* pszFileName)
 //			dwSize		Ҫ��ȡ�ĳ���
 // ����:	�������ֽڳ���
 //---------------------------------------------------------------------------
-DWORD KPakFile::Read(void* pBuffer, uint32_t uSize)
+unsigned long KPakFile::Read(void* pBuffer, unsigned int uSize)
 {
 
 //#ifndef _SERVER
@@ -311,7 +237,7 @@ DWORD KPakFile::Read(void* pBuffer, uint32_t uSize)
 //			dwMethod		��λ����
 // ����:	�ļ���ָ��
 //---------------------------------------------------------------------------
-DWORD KPakFile::Seek(int32_t nOffset, uint32_t uMethod)
+unsigned long KPakFile::Seek(int nOffset, unsigned int uMethod)
 {
 //#ifndef _SERVER
 	if (m_PackRef.nPackIndex >= 0)
@@ -340,9 +266,9 @@ DWORD KPakFile::Seek(int32_t nOffset, uint32_t uMethod)
 // ����:	�����ļ���ָ��
 // ����:	�ļ���ָ��
 //---------------------------------------------------------------------------
-DWORD KPakFile::Tell()
+unsigned long KPakFile::Tell()
 {
-	int32_t nOffset;
+	int nOffset;
 //#ifndef _SERVER
 	if (m_PackRef.nPackIndex >= 0)
 		nOffset = m_PackRef.nOffset;
@@ -357,9 +283,9 @@ DWORD KPakFile::Tell()
 // ����:	�����ļ���С
 // ����:	�ļ��Ĵ�С in bytes
 //---------------------------------------------------------------------------
-DWORD KPakFile::Size()
+unsigned long KPakFile::Size()
 {
-	uint32_t uSize;
+	unsigned int uSize;
 //#ifndef _SERVER
 	if (m_PackRef.nPackIndex >= 0)
 		uSize = m_PackRef.nSize;
@@ -395,7 +321,7 @@ void KPakFile::Close()
 // ����:	TRUE		�ɹ�
 //			FALSE		ʧ��
 //---------------------------------------------------------------------------
-/*BOOL KPakFile::OpenPak(LPSTR FileName)
+/*int KPakFile::OpenPak(char* FileName)
 {
 	if (g_pPakList == NULL)
 		return FALSE;
@@ -408,7 +334,7 @@ void KPakFile::Close()
 		return FALSE;
 
 	// m_nBlocks ����ĸ���, Դ�ļ�ÿ64K��Ϊһ����
-	// m_nBlocks * 2 Ϊ�鳤�ȱ�Ĵ�С(ÿ��Ĵ�С��һ��WORD��¼)
+	// m_nBlocks * 2 Ϊ�鳤�ȱ�Ĵ�С(ÿ��Ĵ�С��һ��unsigned short��¼)
 	m_nBlocks = (m_dwFileLen + 0xffff) >> 16;
 
 	// �� block buffer �����ڴ�
@@ -454,14 +380,14 @@ void KPakFile::Close()
 //			dwSize		Ҫ��ȡ�ĳ���
 // ����:	�������ֽڳ���
 //---------------------------------------------------------------------------
-DWORD KPakFile::ReadPak(PVOID pBuffer, DWORD dwSize)
+unsigned long KPakFile::ReadPak(PVOID pBuffer, unsigned long dwSize)
 {
 	KAutoMutex AutoMutex(g_pPakList->GetMutexPtr());
 
 	// ����ǰ����ļ��ʹӰ��ж�
 	UINT	nBlock = 0;
-	DWORD	dwReadSize = 0;
-	DWORD	dwBlockPos = 0;
+	unsigned long	dwReadSize = 0;
+	unsigned long	dwBlockPos = 0;
 	PBYTE	pOutBuf = (PBYTE)pBuffer;
 
 	// �����ȡ���ȴ���ʣ���ļ�����
@@ -541,7 +467,7 @@ DWORD KPakFile::ReadPak(PVOID pBuffer, DWORD dwSize)
 //			dwMethod		��λ����
 // ����:	�ļ���ָ��
 //---------------------------------------------------------------------------
-DWORD KPakFile::SeekPak(int32_t lOffset, DWORD dwMethod)
+unsigned long KPakFile::SeekPak(int lOffset, unsigned long dwMethod)
 {
 	KAutoMutex AutoMutex(g_pPakList->GetMutexPtr());
 
@@ -550,7 +476,7 @@ DWORD KPakFile::SeekPak(int32_t lOffset, DWORD dwMethod)
 		return m_File.Seek(lOffset, dwMethod);
 	}
 
-	int32_t	nFilePtr = m_dwFilePtr;
+	int	nFilePtr = m_dwFilePtr;
 
 	switch (dwMethod)
 	{
@@ -571,7 +497,7 @@ DWORD KPakFile::SeekPak(int32_t lOffset, DWORD dwMethod)
 	{
 		nFilePtr = 0;
 	}
-	else if (nFilePtr > (int32_t)m_dwFileLen)
+	else if (nFilePtr > (int)m_dwFileLen)
 	{
 		nFilePtr = m_dwFileLen;
 	}
@@ -579,8 +505,8 @@ DWORD KPakFile::SeekPak(int32_t lOffset, DWORD dwMethod)
 	m_dwFilePtr = nFilePtr;
 	m_dwDataPtr = m_dwFileOfs;
 
-	int32_t nBlocks = nFilePtr >> 16;
-	for (int32_t i = 0; i < nBlocks; ++i)
+	int nBlocks = nFilePtr >> 16;
+	for (int i = 0; i < nBlocks; ++i)
 	{
 		m_dwDataPtr += (m_pBlocks[i] == 0)? BLOCK_SIZE : m_pBlocks[i];
 	}
@@ -600,7 +526,7 @@ DWORD KPakFile::SeekPak(int32_t lOffset, DWORD dwMethod)
 //			FALSE		ʧ��
 //---------------------------------------------------------------------------
 */
-BOOL KPakFile::Save(const char* pszFileName)
+int KPakFile::Save(const char* pszFileName)
 {
 /*	if (m_nPackage < 0)
 		return TRUE;
@@ -608,8 +534,8 @@ BOOL KPakFile::Save(const char* pszFileName)
 	if (!m_File.Create(pszFileName))
 		return FALSE;
 
-	DWORD dwSize = m_dwFileLen;
-	int32_t nBlock = 0;
+	unsigned long dwSize = m_dwFileLen;
+	int nBlock = 0;
 
 	// set data ptr
 	m_dwDataPtr = m_dwFileOfs;
@@ -639,7 +565,7 @@ BOOL KPakFile::Save(const char* pszFileName)
 //			nBlock		������
 // ����:	void
 //---------------------------------------------------------------------------
-void KPakFile::ReadBlock(PBYTE pBuffer, int32_t nBlock)
+void KPakFile::ReadBlock(PBYTE pBuffer, int nBlock)
 {
 	TCodeInfo	CodeInfo;
 

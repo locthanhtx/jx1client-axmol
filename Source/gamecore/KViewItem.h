@@ -3,7 +3,7 @@
 //
 // File:	KViewItem.h
 // Date:	2003.07.28
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	KViewItem Class
 //---------------------------------------------------------------------------
 
@@ -13,26 +13,26 @@
 class KViewItem
 {
 private:
-	DWORD		m_dwNpcID;				// ¶Ô·½Íæ¼ÒµÄ npc µÄ id
-	int			m_nLevel;				// ¶Ô·½Íæ¼ÒµÄµÈ¼¶
-	char		m_szName[32];			// ¶Ô·½Íæ¼ÒµÄÃû×Ö
+	unsigned long		m_dwNpcID;				// ï¿½Ô·ï¿½ï¿½ï¿½Òµï¿½ npc ï¿½ï¿½ id
+	int			m_nLevel;				// ï¿½Ô·ï¿½ï¿½ï¿½ÒµÄµÈ¼ï¿½
+	char		m_szName[32];			// ï¿½Ô·ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
     int	        m_nProcess;
 
 public:
-	PlayerItem	m_sItem[itempart_num];	// ¶Ô·½Íæ¼Ò´©ÔÚÉíÉÏµÄ×°±¸ÔÚ¿Í»§¶Ë Item Êý×éÖÐµÄÎ»ÖÃÐÅÏ¢
+	PlayerItem	m_sItem[itempart_num];	// ï¿½Ô·ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½×°ï¿½ï¿½ï¿½Ú¿Í»ï¿½ï¿½ï¿½ Item ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½ï¿½ï¿½Ï¢
 	int			m_nIdx[itempart_num];
 	int			m_nDorp[itempart_num];
 	int			m_nId;
 
 public:
-	KViewItem();						// ¹¹Ôì
-	void		Init();					// ³õÊ¼»¯
+	KViewItem();						// ï¿½ï¿½ï¿½ï¿½
+	void		Init();					// ï¿½ï¿½Ê¼ï¿½ï¿½
 	void		ApplyViewEquip(int npcIndex);
-	void		UpdateItem(DWORD dwNpcID);
+	void		UpdateItem(unsigned long dwNpcID);
 	void		DeleteAll();
 	void		DeleteNewAll(int nUpdate=0);
 	void		GetData(BYTE* pMsg,int nUpdate = 0);
-	void		Check(int nCount, DWORD dwId);
+	void		Check(int nCount, unsigned long dwId);
 	int			GetCount();
 	int		    FindIdx(int uId);
 };

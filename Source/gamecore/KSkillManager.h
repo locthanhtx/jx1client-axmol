@@ -37,7 +37,7 @@ public:
     // Add By Freeway Chen in 2003.6.6
 	~KSkillManager();
 
-	BOOL Init();
+	int Init();
 	ISkill *GetSkill(int nSkill, int nSkillLevel);
 	ISkill *GetSkillB(int nSkillID, int nSkillLevel, eSkillStyle eStyle);
 	int    GetSkillStyleID(int nSkillID){return GetSkillStyle(nSkillID);};

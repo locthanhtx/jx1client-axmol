@@ -22,9 +22,9 @@
 //// ����:	IsEmpty
 //// ����:	�Ƿ�Ϊ��
 //// ����:	void
-//// ����:	BOOL
+//// ����:	int
 ////---------------------------------------------------------------------------
-//inline BOOL KList::IsEmpty(void)
+//inline int KList::IsEmpty(void)
 //{
 //	return (m_ListHead.GetNext() == NULL);
 //}
@@ -52,7 +52,7 @@
 //// ����:	AddHead
 //// ����:	��ͷ������һ���ڵ�
 //// ����:	KNode*
-//// ����:	BOOL
+//// ����:	int
 ////---------------------------------------------------------------------------
 //inline void KList::AddHead(KNode *pNode)
 //{
@@ -98,11 +98,11 @@
 //// ����:	GetNodeCount
 //// ����:	ȡ�ýڵ����
 //// ����:	void
-//// ����:	LONG
+//// ����:	int
 ////---------------------------------------------------------------------------
-//inline LONG KList::GetNodeCount(void)
+//inline int KList::GetNodeCount(void)
 //{
-//	int32_t nNode = 0;
+//	int nNode = 0;
 //	KNode* pNode = GetHead();
 //	while (pNode)
 //	{

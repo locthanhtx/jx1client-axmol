@@ -153,7 +153,9 @@ KuiAutoPlay_vn::~KuiAutoPlay_vn()
 }
 
 //创建确定弹出框
-KuiAutoPlay_vn * KuiAutoPlay_vn::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiAutoPlay_vn* KuiAutoPlay_vn::create(const char* title,
+                                       Ref* callbackListener,
+                                       const std::function<void(ax::Node*)>& callfun)
 {
 	if (!g_GameWorld) return NULL;
 	KuiAutoPlay_vn * popLayer = KuiAutoPlay_vn::create();

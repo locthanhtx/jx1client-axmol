@@ -1821,7 +1821,7 @@ void Kuiplayerfun::Clear()
 	}
 }
 //����ϵͳ����
-int	Kuiplayerfun::PushChannelData(DWORD dwID, const char* Buffer, int nLen)
+int	Kuiplayerfun::PushChannelData(unsigned long dwID, const char* Buffer, int nLen)
 {
 	if (!m_pActivateChannel)
 	{
@@ -1865,7 +1865,7 @@ int	Kuiplayerfun::PushChannelData(DWORD dwID, const char* Buffer, int nLen)
 	return -1;
 }
 
-int	Kuiplayerfun::GetChannelData(DWORD& dwID, BYTE& cost, char*& Buffer, int& nLen,int& nIiemDwIdx)
+int	Kuiplayerfun::GetChannelData(unsigned long& dwID, BYTE& cost, char*& Buffer, int& nLen,int& nIiemDwIdx)
 {
 	if (this)
 	{
@@ -1892,7 +1892,7 @@ int	Kuiplayerfun::GetChannelData(DWORD& dwID, BYTE& cost, char*& Buffer, int& nL
 	return 0;
 }
 //��ջ
-int	Kuiplayerfun::PopChannelData(DWORD dwID)
+int	Kuiplayerfun::PopChannelData(unsigned long dwID)
 {
 	if (this)
 	{
@@ -2033,7 +2033,7 @@ void Kuiplayerfun::QueryAllChannel()
 	}
 }
 
-BYTE Kuiplayerfun::FindActivateChannelCost(DWORD nChannelID)
+BYTE Kuiplayerfun::FindActivateChannelCost(unsigned long nChannelID)
 {
 	if  (!m_pActivateChannel) return -1;
 	for (int n = 0; n < m_nActivateChannels; n++)
@@ -2064,7 +2064,7 @@ int	Kuiplayerfun::FindActivateChannelIndexByKey(char* cKey)
 	return -1;
 }
 
-DWORD Kuiplayerfun::GetChannelID(int nChannelIndex)
+unsigned long Kuiplayerfun::GetChannelID(int nChannelIndex)
 {
 	if (!m_pActivateChannel) return -1;
 	if (this && nChannelIndex >= 0 && nChannelIndex < m_nActivateChannels)
@@ -2095,7 +2095,7 @@ char* Kuiplayerfun::GetChannelTitle(int nChannelIndex)//ȡ��ĳIDƵ����
 	return NULL;
 }
 
-DWORD Kuiplayerfun::GetChannelCount() //ȡ��Ƶ�� ����
+unsigned long Kuiplayerfun::GetChannelCount() //ȡ��Ƶ�� ����
 {
 	if (this)
 		return m_nActivateChannels;
@@ -2109,7 +2109,7 @@ int Kuiplayerfun::GetChannelIndex(char* channelName)
 	return -1;
 }
 
-int Kuiplayerfun::GetChannelIndex(DWORD dwID)
+int Kuiplayerfun::GetChannelIndex(unsigned long dwID)
 {
 	if (this)
 		return  FindActivateChannelIndexById(dwID);
@@ -2117,7 +2117,7 @@ int Kuiplayerfun::GetChannelIndex(DWORD dwID)
 }
 
 //˽����ʾ(��ʾ�Է�����Ϣ)���ܣ�
-void Kuiplayerfun::ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned short nMsgLength,DWORD nItemDwidx,bool isClient)
+void Kuiplayerfun::ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned short nMsgLength,unsigned long nItemDwidx,bool isClient)
 {//
 	//CCTMXTiledMap
 	char Buffer[560];
@@ -2165,7 +2165,7 @@ void Kuiplayerfun::ShowMSNMessage(char* szName, const char* pMsgBuff, unsigned s
 }
 
 //��Ϣ���� ��ʼ������Ϣ
-int Kuiplayerfun::NewChannelMessageArrival(DWORD nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,DWORD nItemDwidx,char *scrSendName,int nPackage)
+int Kuiplayerfun::NewChannelMessageArrival(unsigned long nChannelID, char* szSendName,char* pMsgBuff, unsigned short nMsgLength,unsigned long nItemDwidx,char *scrSendName,int nPackage)
 {
 	if  (!m_pActivateChannel) return false;
 	int nChannelIndex =FindActivateChannelIndex(nChannelID);
@@ -2448,7 +2448,7 @@ int Kuiplayerfun::FindActivateChannelResourceIndex(char* cTitle)
 }
 
 
-int Kuiplayerfun::FindActivateChannelIndex(DWORD nChannelID) //�����Ѿ������Ƶ�� ��ID����
+int Kuiplayerfun::FindActivateChannelIndex(unsigned long nChannelID) //�����Ѿ������Ƶ�� ��ID����
 {
 	for (int n = 0; n < m_nActivateChannels; n++)
 	{
@@ -2473,7 +2473,7 @@ int Kuiplayerfun::FindActivateChannelIndex(char* cTitle) //�����Ѿ��
 	return -1;
 }
 
-int Kuiplayerfun::FindActivateChannelIndexById(DWORD nChannelID) //�����Ѿ������Ƶ�� ��ID����
+int Kuiplayerfun::FindActivateChannelIndexById(unsigned long nChannelID) //�����Ѿ������Ƶ�� ��ID����
 {
 	if  (!m_pActivateChannel) return -1;
 	for (int n = 0; n < m_nActivateChannels; n++)
@@ -2521,7 +2521,7 @@ int	Kuiplayerfun::AddActivateChannel(const KChannelActivateInfo& Item)  //��
 	return m_nActivateChannels - 1;
 }
 // ��Ƶ��
-void Kuiplayerfun::OpenChannel(char* channelName, DWORD nChannelID, BYTE cost)  //���һ����Ƶ��
+void Kuiplayerfun::OpenChannel(char* channelName, unsigned long nChannelID, BYTE cost)  //���һ����Ƶ��
 {
 	if (nChannelID == -1)
 		return;

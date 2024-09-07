@@ -3,7 +3,7 @@
 //
 // File:	KNpcResList.cpp
 // Date:	2002.01.06
-// Code:	±ß³ÇÀË×Ó
+// Code:	ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 // Desc:	Obj Class
 //---------------------------------------------------------------------------
 #include "KCore.h"
@@ -14,7 +14,7 @@ KNpcResList	g_NpcResList;
 
 KNpcResList::KNpcResList()
 {
-	
+
 }
 
 KNpcResList::~KNpcResList()
@@ -22,7 +22,7 @@ KNpcResList::~KNpcResList()
 	KNpcResNode		*pTempNode;
 	KNpcResNode		*pTempNextNode;
 
-    // ÊÍ·ÅËùÓÐÁ´±íÖÐµÄ½Úµã
+    // ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ½Úµï¿½
    	pTempNode = (KNpcResNode *)this->GetHead();
 	while (pTempNode)
     {
@@ -35,15 +35,15 @@ KNpcResList::~KNpcResList()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º	³õÊ¼»¯
+//	ï¿½ï¿½ï¿½Ü£ï¿½	ï¿½ï¿½Ê¼ï¿½ï¿½
 //-------------------------------------------------------------------------
-BOOL	KNpcResList::Init()
+int	KNpcResList::Init()
 {
 	if (!m_cActionName.Init(ACTION_FILE_NAME))
 		return FALSE;
 	if (!m_cNpcAction.Init(NPC_ACTION_NAME) )
 		return FALSE;
-	
+
 	if (!m_cStateTable.Init() )
 		return FALSE;
 	if (!m_cMenuState.Init() )
@@ -52,7 +52,7 @@ BOOL	KNpcResList::Init()
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º	²éÕÒÍ¬ÃûµÄ NpcResNode ²¢·µ»Ø½Úµã
+//	ï¿½ï¿½ï¿½Ü£ï¿½	ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ NpcResNode ï¿½ï¿½ï¿½ï¿½ï¿½Ø½Úµï¿½
 //-------------------------------------------------------------------------
 KNpcResNode*	KNpcResList::FindNpcRes(char *lpszNpcName)
 {
@@ -84,7 +84,7 @@ KNpcResNode*	KNpcResList::FindNpcRes(char *lpszNpcName)
 }
 
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£º	Ìí¼ÓÒ»¸ö NpcResNode ²¢·µ»Ø½Úµã£¬Èç¹ûÒÑ´æÔÚ£¬Ö±½Ó·µ»Ø½Úµã
+//	ï¿½ï¿½ï¿½Ü£ï¿½	ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ NpcResNode ï¿½ï¿½ï¿½ï¿½ï¿½Ø½Úµã£¬ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½Ú£ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø½Úµï¿½
 //-------------------------------------------------------------------------
 KNpcResNode*	KNpcResList::AddNpcRes(char *lpszNpcName)
 {
@@ -92,12 +92,12 @@ KNpcResNode*	KNpcResList::AddNpcRes(char *lpszNpcName)
 		return NULL;
 
 	KNpcResNode		*pTempNode;
-	pTempNode = FindNpcRes(lpszNpcName);  //ÕÒµ½Íâ¹ÛÎÄ¼þ
+	pTempNode = FindNpcRes(lpszNpcName);  //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	if (pTempNode !=NULL)
 		return pTempNode;
 
 	pTempNode = new KNpcResNode;
-	if (!pTempNode->Init(lpszNpcName, &m_cActionName, &m_cNpcAction) )  //³õÊ¼»¯Íâ¹ÛÎÄ¼þ
+	if (!pTempNode->Init(lpszNpcName, &m_cActionName, &m_cNpcAction) )  //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	{
 		delete pTempNode;
 		pTempNode = NULL;
@@ -115,11 +115,11 @@ KNpcResNode*	KNpcResList::ClearOneNpcRes(char *lpszNpcName)
 
 	KNpcResNode		*pTempNode;
 	KNpcResNode		*pTempNextNode;
-	
-	// ÊÍ·ÅËùÓÐÁ´±íÖÐµÄ½Úµã
+
+	// ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ½Úµï¿½
 	pTempNode = (KNpcResNode *)this->GetHead();
 	while (pTempNode)
-	{ 
+	{
 		pTempNextNode = (KNpcResNode *)pTempNode->GetNext();
 
 		if (strcmp(pTempNode->m_szNpcName, lpszNpcName) == 0)
@@ -129,11 +129,11 @@ KNpcResNode*	KNpcResList::ClearOneNpcRes(char *lpszNpcName)
 			break;
 		}
 
-		// pTempNode = pTempNextNode;		
+		// pTempNode = pTempNextNode;
 	}
 
 	return NULL;
-} 
+}
 
 
 KNpcResNode*	KNpcResList::ClearAllNpcRes()
@@ -141,15 +141,15 @@ KNpcResNode*	KNpcResList::ClearAllNpcRes()
   KNpcResNode		*pTempNode;
   KNpcResNode		*pTempNextNode;
 
-// ÊÍ·ÅËùÓÐÁ´±íÖÐµÄ½Úµã
+// ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ½Úµï¿½
   pTempNode = (KNpcResNode *)this->GetHead();
   while (pTempNode)
-  { 
+  {
 	pTempNextNode = (KNpcResNode *)pTempNode->GetNext();
-	
+
 	delete pTempNode;
 	pTempNode = NULL;
 	pTempNode = pTempNextNode;
   }
    return NULL;
-} 
+}

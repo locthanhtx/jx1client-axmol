@@ -366,7 +366,7 @@ KMagicDesc::~KMagicDesc()
 	m_szDesc[0] = 0;
 }
 
-BOOL KMagicDesc::Init()
+int KMagicDesc::Init()
 {
 //	g_SetFilePath("\\");
 	if (_clientlanguage!=1)
@@ -419,7 +419,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 	char* pTempDesc = szTempDesc;
 	//char* pszDesc = m_szDesc;
 	char szMsg[64]={0};
-	BOOL nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
+	int nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
 	while(*pTempDesc)
 	{
 		if (*pTempDesc == '#')
@@ -537,7 +537,7 @@ const void KMagicDesc::GetDesc_New(char *strReturn,void* pData,int nType)
 				break;
 			case 'd':		// 数字
 				{
-					BOOL nIsFu=FALSE;
+					int nIsFu=FALSE;
 					switch(nDescAddType)
 					{
 					case -1:
@@ -700,7 +700,7 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 	//char *nstrForMat =strstr(szTempDesc,"#");
 	char* pTempDesc = szTempDesc;
 	char szMsg[64]={0};
-	BOOL nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
+	int nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
 	while(*pTempDesc)
 	{
 		if (*pTempDesc == '#')
@@ -811,7 +811,7 @@ const char* KMagicDesc::GetDesc_(void *pData,int nType)
 				break;
 			case 'd':		// 数字
 				{
-					BOOL nIsFu=FALSE;
+					int nIsFu=FALSE;
 					switch(nDescAddType)
 					{
 					case -1:
@@ -940,7 +940,7 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 	m_MIniFile.GetString("Descript",pszKeyName, "", szTempDesc,  sizeof(szTempDesc));//得到（\\settings\\MagicDesc.Ini）中的 对应属性说明
 	char*	pTempDesc = szTempDesc;
 	char szMsg[64]={0};
-	BOOL nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
+	int nIsFirst=FALSE,nIsTwo=FALSE,nIsthree=FALSE;
 	while(*pTempDesc)
 	{
 		if (*pTempDesc == '#')
@@ -1051,7 +1051,7 @@ const char* KMagicDesc::GetDesc(void *pData,int nType)
 				break;
 			case 'd':		// 数字
 				{
-					BOOL nIsFu=FALSE;
+					int nIsFu=FALSE;
 					switch(nDescAddType)
 					{
 					case -1:

@@ -1,5 +1,5 @@
 /* ����������
-* 
+*
 */
 
 #ifndef BINARY_SEARCH_TREE_CLASS
@@ -15,17 +15,17 @@ class BinSTree
         // ָ����������ǰ����ָ��
         TreeNode<T> *root;
         TreeNode<T> *current;
-        
+
         // �������������
-        int32_t size;
-      
+        int size;
+
         // ���ڸ��ƹ��캯������ֵ�����
         TreeNode<T> *CopyTree(TreeNode<T> *t);
-        
+
         // ����������������ֵ������� ClearList ����
         void DeleteTree(TreeNode<T> *t);
 
-	    
+
 
         // �ں��� Find �� Delete ��������λ��㼰��˫�������е�λ��
         TreeNode<T> *FindNode(const T& item, TreeNode<T>* & parent) const;
@@ -35,19 +35,19 @@ class BinSTree
         BinSTree(void);
         BinSTree(const BinSTree<T>& tree);
         ~BinSTree(void);
-        
+
         // ��ֵ�����
         BinSTree<T>& operator= (const BinSTree<T>& rhs);
-		
-        
+
+
         // ��׼�ı�����
         bool Find(T& item);
         bool Insert(const T& item);
         void Delete(const T& item);
         void ClearList(void);
         bool ListEmpty(void) const;
-        int32_t ListSize(void) const;
-		int32_t	BiTreeDepth(TreeNode<T> *t);
+        int ListSize(void) const;
+		int	BiTreeDepth(TreeNode<T> *t);
         // �������ⷽ��
         void Update(const T& item);
         TreeNode<T> *GetRoot(void) const;
@@ -58,23 +58,23 @@ template <class T>
 TreeNode<T> *BinSTree<T>::CopyTree(TreeNode<T> *t)
 {
     TreeNode<T> *newlptr, *newrptr, *newNode;
-   
+
     // �������֧Ϊ�գ����� NULL
     if (t == NULL)
         return NULL;
-        
+
     // ������ t �������������������� newlptr
-    if (t->left != NULL) 
+    if (t->left != NULL)
         newlptr = CopyTree(t->left);
     else
         newlptr = NULL;
- 
+
     // ������ t �������������������� newrptr
-    if (t->right != NULL) 
+    if (t->right != NULL)
         newrptr = CopyTree(t->right);
     else
         newrptr = NULL;
- 
+
     // Ϊ��ǰ��������洢������������ֵ��ָ����������������������ָ��
     newNode = new TreeNode<T>(t->data, newlptr, newrptr);
     return newNode;
@@ -96,7 +96,7 @@ void BinSTree<T>::DeleteTree(TreeNode<T> *t)
 // ������������������ҵ����򷵻ؽ���ַ��ָ����˫�׵�ָ�룻���򣬷��� NULL
 template <class T>
 TreeNode<T> *BinSTree<T>::FindNode(const T&item, TreeNode<T>* &parent) const
-{   
+{
     // ��ָ�� t �Ӹ���ʼ������
 
 	if (root==NULL)
@@ -110,7 +110,7 @@ TreeNode<T> *BinSTree<T>::FindNode(const T&item, TreeNode<T>* &parent) const
     //����˫��Ϊ NULL
     parent = NULL;
 
-	int32_t i=0;
+	int i=0;
     // ������Ϊ�գ���ѭ������
     while(t != NULL)
     {
@@ -122,7 +122,7 @@ TreeNode<T> *BinSTree<T>::FindNode(const T&item, TreeNode<T>* &parent) const
 			//printf("--[���ҵ��ڵ���] -- \n");
             break;
 		}
-        else 
+        else
         {
             // �޸�˫��ָ�룬���Ƶ���������������
 			//printf("--[���ҵ��ڵ���:%d] -- \n",i);
@@ -130,12 +130,12 @@ TreeNode<T> *BinSTree<T>::FindNode(const T&item, TreeNode<T>* &parent) const
 
             if (item < t->data)
                 t = t->left; //����߿�ʼ��
-            else 
+            else
                 t = t->right;//���ұ߿�ʼ��
 			++i;
         }
     }
-    
+
     // ����ָ�����ָ�룻��û�ҵ����򷵻� NULL
     return t;
 }
@@ -178,15 +178,15 @@ BinSTree<T>& BinSTree<T>::operator= (const BinSTree<T>& rhs)
     // ���ܽ������Ƶ�����
     if (this == &rhs)
         return *this;
-        
+
     // �����ǰ�������������Ƶ���ǰ����
     ClearList();
     root = CopyTree(rhs.root);
-    
+
     // �� current ָ��ָ�� root ���������� size ֵ
     current = root;
     size = rhs.size;
-    
+
     // ���ص�ǰ�����ָ��
     return *this;
 }
@@ -222,7 +222,7 @@ bool BinSTree<T>::ListEmpty(void) const
 
 // �������е����������
 template <class T>
-int32_t BinSTree<T>::ListSize(void) const
+int BinSTree<T>::ListSize(void) const
 {
     return size;
 }
@@ -235,12 +235,12 @@ bool BinSTree<T>::Insert(const T& item)
     TreeNode<T> *parent = NULL;
 	//TreeNode<T> *newNode =NULL;
 	current = FindNode(item, parent);
-    
+
 	if (current != NULL) //��������� ֱ�Ӹ�ֵ
 	{
 		current->data = item;
 		return true;
-	}   
+	}
 	else
 	{
 	    TreeNode<T> *newNode = new TreeNode<T>(item,NULL,NULL);	 //�����ܶ������
@@ -250,14 +250,14 @@ bool BinSTree<T>::Insert(const T& item)
 			// �����µ�Ҷ�ӽ��
 			root = newNode;
 		}
-		// �� item < parent->data��������Ϊ���Ӳ���        
-		else if (item < parent->data)                   
+		// �� item < parent->data��������Ϊ���Ӳ���
+		else if (item < parent->data)
 			parent->left = newNode;
-        
+
 		else
-			// �� item >= parent->data����Ϊ�Һ��Ӳ���     
+			// �� item >= parent->data����Ϊ�Һ��Ӳ���
 			parent->right = newNode;
-        
+
 		// current ��ֵΪ�½��ĵ�ַ���� size �� 1
 		current = newNode;
 		size++;
@@ -274,29 +274,29 @@ void BinSTree<T>::Delete(const T& item)
     // PNodePtr = ָ����� D ��˫�׽ڵ� P ��ָ��
     // RNodePtr = ָ���滻 D �Ľ�� R ��ָ��
     TreeNode<T> *DNodePtr, *PNodePtr, *RNodePtr;
-    
+
     // ��������ֵΪ item �Ľ�㣬������ý���˫�׽���ָ��
 	if ((DNodePtr = FindNode (item, PNodePtr)) == NULL)
         return;
-    
+
     // ��� D ��һ��ָ��Ϊ NULL�����滻���Ϊ����һ֦��ĳһ���
     if (DNodePtr->right == NULL)
         RNodePtr = DNodePtr->left;
     else if (DNodePtr->left == NULL)
         RNodePtr = DNodePtr->right;
-        
+
     // DNodePtr ������ָ�����Ϊ NULL
     else
     {
         // Ѱ�Ҳ�ж�� D ���滻��㡣�ӽ�� D ����������ʼ��������ֵС�� D ������ֵ��
         // ���ֵ�����ý������жϿ�
-        
+
         // PofRNodePtr = ָ���滻���˫�׵�ָ��
         TreeNode<T> *PofRNodePtr = DNodePtr;
-        
+
         // ��һ�ֿ��ܵ��滻Ϊ D ������
         RNodePtr = DNodePtr->left;
-    
+
         // �� D �����ӵ����������������������ֵ������¼��ǰ��㼰��˫�׽���
         // ָ�룬������ǽ��ҵ��滻���
         while(RNodePtr->right != NULL)
@@ -304,7 +304,7 @@ void BinSTree<T>::Delete(const T& item)
             PofRNodePtr = RNodePtr;
             RNodePtr = RNodePtr->right;
         }
-        
+
         if (PofRNodePtr == DNodePtr)
             // ��ɾ����������Ϊ�滻��㣬�� D ������������ R
             RNodePtr->right = DNodePtr->right;
@@ -312,7 +312,7 @@ void BinSTree<T>::Delete(const T& item)
         {
             // �������������ƶ���һ����㣬������ɾ���滻��㣬����������������˫��
             PofRNodePtr->right = RNodePtr->left;
-            
+
             // ���滻������ DNodePtr
             RNodePtr->left = DNodePtr->left;
             RNodePtr->right = DNodePtr->right;
@@ -322,13 +322,13 @@ void BinSTree<T>::Delete(const T& item)
     // ��ɵ�˫�׽������ӡ�ɾ������㣬�����¸���ֵ
     if (PNodePtr == NULL)
         root = RNodePtr;
-        
+
     // �� R ���� P ����ȷһ֦��
     else if (DNodePtr->data < PNodePtr->data)
         PNodePtr->left = RNodePtr;
     else
         PNodePtr->right = RNodePtr;
-        
+
     // �ͷű�ɾ����ڴ沢�����Ĵ�С�� 1
     delete DNodePtr;
 	DNodePtr=NULL;
@@ -338,7 +338,7 @@ void BinSTree<T>::Delete(const T& item)
 // ����ǰ����Ѷ���������ֵ���������ֵ��ȣ��򽫽��ֵ���� item�����򣬽� item ���뵽����
 template <class T>
 void BinSTree<T>::Update(const T& item)
-{   
+{
     if (current != NULL && current->data == item)
             current->data = item;
     else
@@ -355,9 +355,9 @@ TreeNode<T> *BinSTree<T>::GetRoot(void) const
 
 /* ��ʼ����: ������T���ڡ��������: ����T����� */
 template <class T>
-int32_t BinSTree<T>::BiTreeDepth(TreeNode<T> *t)
+int BinSTree<T>::BiTreeDepth(TreeNode<T> *t)
 {//�ݹ鷽��
-	int32_t i,j;
+	int i,j;
 
     if(!t)
 		return 0;
@@ -382,13 +382,13 @@ int32_t BinSTree<T>::BiTreeDepth(TreeNode<T> *t)
 
 
 /*
-Node* search(Node* root, int32_t key)
-{ // Base Cases: ��������ֵΪ���ڵ�ֵ 
+Node* search(Node* root, int key)
+{ // Base Cases: ��������ֵΪ���ڵ�ֵ
 	if (root == NULL || root->key == key)
-		return root; 
-	// ָ��ֵ���ڸ�ֵ 
+		return root;
+	// ָ��ֵ���ڸ�ֵ
 	if (root->key < key)
-		return search(root->right, key); // ָ��ֵС�ڸ�ֲ 
+		return search(root->right, key); // ָ��ֵС�ڸ�ֲ
 	return search(root->left, key);
  }
 

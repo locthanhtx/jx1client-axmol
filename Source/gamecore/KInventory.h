@@ -8,50 +8,50 @@ class  KInventory
 private:
 	int*	m_pArray;
 	int		m_nMoney;
-	int		m_nWidth;  //ÈÝÆ÷¿í¶È
-	int		m_nHeight; //ÈÝÆ÷¸ß¶È
-	int		m_nBakWidth;  //±¸·ÝµÄÈÝÆ÷¿í¶È
-	int		m_nBakHeight; //±¸·ÝµÄÈÝÆ÷¸ß¶È
+	int		m_nWidth;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nHeight; //ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
+	int		m_nBakWidth;  //ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int		m_nBakHeight; //ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 	int		m_nXu;
 
 public:
 	KInventory();
     ~KInventory();
 
-	BOOL	Init(int nWidth, int nHeight);
+	int	Init(int nWidth, int nHeight);
 	void	Release();
 	void	Clear();
-	BOOL	PickUpItem(int nIdx, int nX, int nY, int nWidth, int nHeight);//¼ì²âidxÊÇ·ñÓëÎ»ÖÃÉÏµÄ±êÊ¾ÏàÍ¬,·ñÔòÉèÖÃÎªÎ»ÖÃ±êÊ¾Îª0 ·µ»ØÕæ
-	BOOL    SetRoomNull();
-	BOOL    SetEmptyPlaceItemIdx(int nIdx, int nWidth, int nHeight,POINT *pPos);
+	int	PickUpItem(int nIdx, int nX, int nY, int nWidth, int nHeight);//ï¿½ï¿½ï¿½idxï¿½Ç·ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ÏµÄ±ï¿½Ê¾ï¿½ï¿½Í¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÎ»ï¿½Ã±ï¿½Ê¾Îª0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int    SetRoomNull();
+	int    SetEmptyPlaceItemIdx(int nIdx, int nWidth, int nHeight,POINT *pPos);
 	int		FindItem(int nX, int nY);
-	BOOL	PlaceItem(int nXpos, int nYpos, int nIdx, int nWidth, int nHeight);//¼ì²âÎïÆ··Å½øÈÝÆ÷Ê±£¬Î»ÖÃÉÏÊÇ·ñÓÐÎïÆ·,·ñÔòÉèÖÃ¸ÃÎ»ÖÃµÄ±êÊ¾Îªidx
+	int	PlaceItem(int nXpos, int nYpos, int nIdx, int nWidth, int nHeight);//ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Æ·,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ÃµÄ±ï¿½Ê¾Îªidx
 	void    DirectSetPosition(int nIdx, int nX, int nY,int nWidth,int nHeight);
-	
-	BOOL	HoldItem(int nIdx, int nWidth, int nHeight);  //Ê£ÓàÈÝÆ÷¿Õ¼äÊÇ·ñÄÜ·ÅÏÂ¸ÃÎïÆ·
-	BOOL	FindRoom(int nWidth, int nHeight, POINT* pPos);
-	BOOL	CheckRoom(int nXpos, int nYpos, int nWidth, int nHeight);
+
+	int	HoldItem(int nIdx, int nWidth, int nHeight);  //Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½Ç·ï¿½ï¿½Ü·ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Æ·
+	int	FindRoom(int nWidth, int nHeight, POINT* pPos);
+	int	CheckRoom(int nXpos, int nYpos, int nWidth, int nHeight);
 	int     GetFreeRoomCount(int nWidth, int nHeight);
-	BOOL	AddmClient(int nMoney);
+	int	AddmClient(int nMoney);
 	int		GetmServer() { return m_nMoney; }
 	int     GetWidth() { return m_nWidth; }
 	int     GetHeight() { return m_nHeight; }
 	// int     GetWidth() { return 1; }
 	// int     GetHeight() { return 1; }
-	BOOL	SetClientMon(int nMon) { if (nMon < 0) return FALSE; m_nMoney = nMon; return TRUE; }
+	int	SetClientMon(int nMon) { if (nMon < 0) return FALSE; m_nMoney = nMon; return TRUE; }
 	//Xu
-	BOOL	AddxCliet(int ni);
+	int	AddxCliet(int ni);
 	int		GetxCLient() { return m_nXu; }
-	BOOL	SetxClient(int ni) { if (ni < 0) return FALSE; m_nXu = ni; return TRUE; }
+	int	SetxClient(int ni) { if (ni < 0) return FALSE; m_nXu = ni; return TRUE; }
 	////////////////////
 	int		GetNextItem(int nStartIdx, int nXpos, int nYpos, int *pX, int *pY);
 	int		CalcSameDetailType(int nGenre, int nDetail);
 	int		GetCurIndexItem(int nCurCount);
-	BOOL	FindEmptyPlace(int nWidth, int nHeight, POINT *pPos);
+	int	FindEmptyPlace(int nWidth, int nHeight, POINT *pPos);
 
-	// ÊäÈëÎïÆ·ÀàÐÍºÍ¾ßÌåÀàÐÍ£¬²ì¿´InventoryÀïÃæÓÐÃ»ÓÐÏàÍ¬µÄÎïÆ·£¬Êä³öÎ»ÖÃºÍ±àºÅ
-	BOOL	FindSameDetailType(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY);
-	// ÊäÈëÎïÆ·ÀàÐÍºÍ¾ßÌåÀàÐÍ£¬²ì¿´InventoryÀïÃæÓÐÃ»ÓÐÏàÍ¬µÄÎïÆ·
-	BOOL	CheckSameDetailType(int nGenre, int nDetail,int ParticularType);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ÍºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ì¿´Inventoryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ±ï¿½ï¿½
+	int	FindSameDetailType(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY);
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ÍºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ì¿´Inventoryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·
+	int	CheckSameDetailType(int nGenre, int nDetail,int ParticularType);
 };
 #endif //KInventoryH

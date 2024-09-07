@@ -3,14 +3,14 @@
 
 KLinkArray::~KLinkArray()
 {
-	 if (pNodeL) 
+	 if (pNodeL)
 	 {
 		 delete [] pNodeL;
 		 pNodeL = NULL;
 	 }
 }
 
-void KLinkArray::Init(int32_t nSize)
+void KLinkArray::Init(int nSize)
 {
 	if (pNodeL)
 	{
@@ -24,11 +24,11 @@ void KLinkArray::Init(int32_t nSize)
 //	printf(" KLinkNode[%d] OK..!!!!\n",nSize);
 }
 
-void KLinkArray::Remove(int32_t nIdx)
+void KLinkArray::Remove(int nIdx)
 {
 	if (!nIdx)
 		return;
-	
+
 	if ((pNodeL[nIdx].nNext == 0 && pNodeL[0].nPrev != nIdx) || (pNodeL[nIdx].nPrev == 0 && pNodeL[0].nNext != nIdx))
 	{
 		//printf("--[error]Node:%d Remove twice--\n", nIdx);
@@ -42,7 +42,7 @@ void KLinkArray::Remove(int32_t nIdx)
 	nCount--;
 }
 
-void KLinkArray::Insert(int32_t nIdx)
+void KLinkArray::Insert(int nIdx)
 {
 	if (!nIdx)  //>0��
 		return;

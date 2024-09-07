@@ -31,7 +31,7 @@ public:
 	void InsertBefore(KNode* pNode);
 	void InsertAfter(KNode* pNode);
 	void Remove(void);
-	BOOL IsLinked(void);
+	int IsLinked(void);
 };
 //---------------------------------------------------------------------------
 
@@ -126,7 +126,7 @@ inline void KNode::Remove(void)
 // ����:	void
 // ����:	bool
 //---------------------------------------------------------------------------
-inline BOOL KNode::IsLinked(void)
+inline int KNode::IsLinked(void)
 {
 	return (m_pPrev && m_pNext);
 }

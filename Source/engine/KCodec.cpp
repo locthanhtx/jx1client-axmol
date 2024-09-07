@@ -18,7 +18,7 @@
 // ����:	ѹ������������С����(in Bytes)
 // ע��:	�п���ѹ��������ݱ�Դ���ݶ�, ������Ҫ�õ��������������С����
 //---------------------------------------------------------------------------
-uint32_t KCodec::GetPackLen(uint32_t dwDataLen)
+unsigned int KCodec::GetPackLen(unsigned int dwDataLen)
 {
 	return (dwDataLen + dwDataLen / 10 + 1024);
 }
@@ -55,7 +55,7 @@ bool KCodec::Decode(TCodeInfo* pCodeInfo)
 //			nCompressMethod		ѹ������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_InitCodec(KCodec** ppCodec, int32_t nCompressMethod)
+void g_InitCodec(KCodec** ppCodec, int nCompressMethod)
 {
 	*ppCodec = NULL;
 
@@ -72,7 +72,7 @@ void g_InitCodec(KCodec** ppCodec, int32_t nCompressMethod)
 	case CODEC_LZO:
 		*ppCodec = new KCodecLzo;
 		break;
-		
+
 	}
 }
 //---------------------------------------------------------------------------
@@ -82,7 +82,7 @@ void g_InitCodec(KCodec** ppCodec, int32_t nCompressMethod)
 //			nCompressMethod		ѹ������
 // ����:	void
 //---------------------------------------------------------------------------
-void g_FreeCodec(KCodec** ppCodec, int32_t nCompressMethod)
+void g_FreeCodec(KCodec** ppCodec, int nCompressMethod)
 {
 	if (*ppCodec == NULL)
 		return;

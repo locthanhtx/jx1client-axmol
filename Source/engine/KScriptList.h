@@ -9,7 +9,7 @@ class  KScriptNode : public KNode
 {
 public:
 	 KLuaScript * pScript;
-	DWORD			 nId;
+	unsigned long			 nId;
 	~KScriptNode()
 	{
 		delete pScript;

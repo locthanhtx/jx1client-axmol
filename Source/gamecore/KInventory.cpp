@@ -16,7 +16,7 @@ KInventory::~KInventory()
     Release();
 }
 
-BOOL KInventory::Init(int nWidth, int nHeight)
+int KInventory::Init(int nWidth, int nHeight)
 {
 	if (m_pArray)
 	{
@@ -62,10 +62,10 @@ void KInventory::Clear()
 }
 
 #pragma optimize( "y", off)
-//¼ì²âÎïÆ·ÊÇ·ñÄÜ·Å½øÈİÆ÷£¬Î»ÖÃÉÏÊÇ·ñÓĞÎïÆ·,·ñÔòÉèÖÃ¸ÃÎ»ÖÃµÄ±êÊ¾Îªidx
-BOOL KInventory::PlaceItem(int nX, int nY, int nIdx, int nWidth, int nHeight)
-{//m_nWidth m_nHeight ÎªÈİÆ÷µÄ´óĞ¡
-	if (!m_pArray)//ÈİÆ÷Ãæ»ı
+//ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ç·ï¿½ï¿½Ü·Å½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Æ·,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ÃµÄ±ï¿½Ê¾Îªidx
+int KInventory::PlaceItem(int nX, int nY, int nIdx, int nWidth, int nHeight)
+{//m_nWidth m_nHeight Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ğ¡
+	if (!m_pArray)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
 
 	if (nX < 0 || nY < 0 || nWidth <= 0 || nHeight <= 0 || nX + nWidth > m_nWidth || nY + nHeight > m_nHeight)
@@ -80,42 +80,42 @@ BOOL KInventory::PlaceItem(int nX, int nY, int nIdx, int nWidth, int nHeight)
 	int i, j;
 	/*int nOldIdx = 0;
 
-	for (i = nX; i < nX + nWidth; i++)  //ÈİÆ÷¿í¶È
-	{//¼ì²é ÊÇ·ñÄÜ°Ñ¶«Î÷·Å½øÈ¥
-		for (j = nY; j < nY + nHeight; j++)  //ÈİÆ÷¸ß¶È
+	for (i = nX; i < nX + nWidth; i++)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	{//ï¿½ï¿½ï¿½ ï¿½Ç·ï¿½ï¿½Ü°Ñ¶ï¿½ï¿½ï¿½ï¿½Å½ï¿½È¥
+		for (j = nY; j < nY + nHeight; j++)  //ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 		{
 			//if (!nOldIdx) //Îª0
-			nOldIdx = m_pArray[j * m_nWidth + i]; //¸ÃÎ»ÖÃÉÏµÄ±êÊ¾idx	
+			nOldIdx = m_pArray[j * m_nWidth + i]; //ï¿½ï¿½Î»ï¿½ï¿½ï¿½ÏµÄ±ï¿½Ê¾idx
 
 			if (nOldIdx)
-			{//Î»ÖÃÉÏÓĞ¶«Î÷ 
+			{//Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½
 				 return FALSE;
 			}
-		}	
+		}
 	}
 	*/
-	//ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 	for (i = nX; i < nX + nWidth; i++)
 	{
 		for (j = nY; j < nY + nHeight; j++)
 		{
-			m_pArray[j * m_nWidth + i] = nIdx; //ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+			m_pArray[j * m_nWidth + i] = nIdx; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 		}
 	}
-    
+
 	return TRUE;
 }
 
 
 void KInventory::DirectSetPosition(int nIdx, int nX, int nY,int nWidth,int nHeight)
 {
-     //ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 	int i, j;
 	for (i = nX; i < nX + nWidth; i++)
 	{
 		for (j = nY; j < nY + nHeight; j++)
 		{
-			m_pArray[j * m_nWidth + i] = nIdx; //ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+			m_pArray[j * m_nWidth + i] = nIdx; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 		}
 	}
 }
@@ -124,10 +124,10 @@ void KInventory::DirectSetPosition(int nIdx, int nX, int nY,int nWidth,int nHeig
 
 
 
-//¼ì²âÎïÆ··Å½øÈİÆ÷Ê±£¬ÉèÖÃ¸ÃÎ»ÖÃµÄ±êÊ¾Îªidx
-BOOL KInventory::SetEmptyPlaceItemIdx(int nIdx, int nWidth, int nHeight,POINT *pPos)
-{//m_nWidth m_nHeight ÎªÈİÆ÷µÄ´óĞ¡
-	if (!m_pArray)//ÈİÆ÷Ãæ»ı
+//ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Å½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ÃµÄ±ï¿½Ê¾Îªidx
+int KInventory::SetEmptyPlaceItemIdx(int nIdx, int nWidth, int nHeight,POINT *pPos)
+{//m_nWidth m_nHeight Îªï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ğ¡
+	if (!m_pArray)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return FALSE;
 	if (nWidth < 1 || nHeight < 1)
 		return FALSE;
@@ -136,29 +136,29 @@ BOOL KInventory::SetEmptyPlaceItemIdx(int nIdx, int nWidth, int nHeight,POINT *p
 		//_ASSERT(0);
 		return FALSE;
 	}
-	
+
 	int i, j;
-	
-	if (FindEmptyPlace(nWidth,nHeight,pPos)) //²éÕÒ¿ÕÎ»ÖÃ
+
+	if (FindEmptyPlace(nWidth,nHeight,pPos)) //ï¿½ï¿½ï¿½Ò¿ï¿½Î»ï¿½ï¿½
 	{
-		//ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 		for (i = pPos->x; i < pPos->x + nWidth; i++)
-		{ 
+		{
 			for (j = pPos->y; j < pPos->y + nHeight; j++)
 			{
-				m_pArray[j * m_nWidth + i] = nIdx; //ÉèÖÃÎïÆ·ÔÚÈİÆ÷ÀïÃæµÄidx ±êÊ¾
+				m_pArray[j * m_nWidth + i] = nIdx; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idx ï¿½ï¿½Ê¾
 			}
 		}
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
 #pragma optimize( "", on)
 
-BOOL KInventory::HoldItem(int nIdx, int nWidth, int nHeight)
-{//Ê£ÓàÈİÆ÷¿Õ¼äÊÇ·ñÄÜ·ÅÏÂ¸ÃÎïÆ·
+int KInventory::HoldItem(int nIdx, int nWidth, int nHeight)
+{//Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½Ç·ï¿½ï¿½Ü·ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Æ·
 	int i, j;
 	for (i = 0; i < m_nWidth - nWidth + 1; i++)
 	{
@@ -170,25 +170,25 @@ BOOL KInventory::HoldItem(int nIdx, int nWidth, int nHeight)
 	}
 	return FALSE;
 }
-//¼ì²âidxÊÇ·ñÓëÎ»ÖÃÉÏµÄ±êÊ¾ÏàÍ¬£¬¼ì²âÊÇ·ñÄÜÄÃÆğ¸ÃÎïÆ·
-BOOL	KInventory::PickUpItem(int nIdx, int nX, int nY, int nWidth, int nHeight)
+//ï¿½ï¿½ï¿½idxï¿½Ç·ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ÏµÄ±ï¿½Ê¾ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+int	KInventory::PickUpItem(int nIdx, int nX, int nY, int nWidth, int nHeight)
 {
 	if (nX < 0 || nY < 0 || nWidth < 1  || nHeight < 1 || nX + nWidth > this->m_nWidth || nY + nHeight > this->m_nHeight)
 		return FALSE;
 
 	int	i;
-/*	for (i = nX; i < nX + nWidth; i++) //Î»ÖÃ¼Ó+ÎïÆ·µÄ¿í¶È
-	{//¼ì²âÊÇ·ñÄÜÄÃÆğ¸ÃÎïÆ· ±£³Ö²»ÄÜÔ½½ç
-		for (int j = nY; j < nY + nHeight; j++)  //Î»ÖÃ+ÎïÆ·µÄ¸ß¶È
+/*	for (i = nX; i < nX + nWidth; i++) //Î»ï¿½Ã¼ï¿½+ï¿½ï¿½Æ·ï¿½Ä¿ï¿½ï¿½ï¿½
+	{//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ· ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½Ô½ï¿½ï¿½
+		for (int j = nY; j < nY + nHeight; j++)  //Î»ï¿½ï¿½+ï¿½ï¿½Æ·ï¿½Ä¸ß¶ï¿½
 		{
-			if (m_pArray[j * m_nWidth + i] != nIdx)  //ÈİÆ÷µÄÎïÆ·±êÊ¾ ÊÇ·ñÏàÍ¬
+			if (m_pArray[j * m_nWidth + i] != nIdx)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê¾ ï¿½Ç·ï¿½ï¿½ï¿½Í¬
 			{
 				//_ASSERT(0);
 				return FALSE;
 			}
 		}
 	}*/
-//ÄÃÆğºóÉèÖÃ¸ÃÎ»ÖÃÎª¿Õ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ï¿½Îªï¿½ï¿½
 	for (i = nX; i < nX + nWidth; i++)
 	{
 		for (int j = nY; j < nY + nHeight; j++)
@@ -200,15 +200,15 @@ BOOL	KInventory::PickUpItem(int nIdx, int nX, int nY, int nWidth, int nHeight)
 	return TRUE;
 }
 
-//È«²¿ÉèÖÃÎª¿Õ ÈİÆ÷
-BOOL KInventory::SetRoomNull()
+//È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+int KInventory::SetRoomNull()
 {
 	if ( this->m_nWidth <=0 || this->m_nHeight <=0)
 		return FALSE;
 
 	int		i;
 
-//ÄÃÆğºóÉèÖÃ¸ÃÎ»ÖÃÎª¿Õ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ï¿½Îªï¿½ï¿½
 	for (i = 0; i < m_nWidth; i++)
 	{
 		for (int j = 0; j < m_nHeight; j++)
@@ -229,7 +229,7 @@ int	KInventory::FindItem(int nX, int nY)
 		return -1;
 
 	int	nPos = nY * m_nWidth + nX; //=m_pArray[j * m_nWidth + i]
-	int	*pArray = &m_pArray[nPos];  //Õâ¸öÎ»ÖÃÉÏµÄ±êÊ¾
+	int	*pArray = &m_pArray[nPos];  //ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ÏµÄ±ï¿½Ê¾
 	if (*pArray <= 0)
 		return 0;
 	int	nIdx = *pArray;
@@ -251,7 +251,7 @@ int	KInventory::FindItem(int nX, int nY)
 
 }
 
-//»ñÈ¡ Ä³¸ö¿í¶È ºÍ ¸ß¶È¿ÕÏĞµÄ°ü¸¤ÊıÁ¿
+//ï¿½ï¿½È¡ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß¶È¿ï¿½ï¿½ĞµÄ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int KInventory::GetFreeRoomCount(int nWidth, int nHeight)
 {
 	int nCount =0;
@@ -260,9 +260,9 @@ int KInventory::GetFreeRoomCount(int nWidth, int nHeight)
 
 	int i, j;
 	for (i = 0; i < m_nWidth - nWidth + 1; i++)
-	{//Àú±éÈİÆ÷µÄ¿í¶È
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
 		for (j = 0; j < m_nHeight - nHeight + 1; j++)
-		{//Àú±éÈİÆ÷µÄ¸ß¶È
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ß¶ï¿½
 			if (CheckRoom(i,j,nWidth,nHeight))
 			{
 				nCount ++;
@@ -274,7 +274,7 @@ int KInventory::GetFreeRoomCount(int nWidth, int nHeight)
 	return nCount;
 }
 
-BOOL KInventory::FindRoom(int nWidth, int nHeight, POINT* pPos)
+int KInventory::FindRoom(int nWidth, int nHeight, POINT* pPos)
 {
 	if (!pPos)
 		return FALSE;
@@ -283,9 +283,9 @@ BOOL KInventory::FindRoom(int nWidth, int nHeight, POINT* pPos)
 
 	int i, j;
 	for (i = 0; i < m_nWidth - nWidth + 1; i++)
-	{//Àú±éÈİÆ÷µÄ¿í¶È
+	{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
 		for (j = 0; j < m_nHeight - nHeight + 1; j++)
-		{//Àú±éÈİÆ÷µÄ¸ß¶È
+		{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ß¶ï¿½
 			if (CheckRoom(i,j,nWidth,nHeight))
 			{
 				pPos->x = i;
@@ -298,15 +298,15 @@ BOOL KInventory::FindRoom(int nWidth, int nHeight, POINT* pPos)
 	pPos->y = 0;
 	return FALSE;
 }
-//¼ì²âÕâ¸öÎ»ÖÃÊÇ·ñÓĞ¶«Î÷
-BOOL KInventory::CheckRoom(int nX, int nY, int nWidth, int nHeight)
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½
+int KInventory::CheckRoom(int nX, int nY, int nWidth, int nHeight)
 {
 	if (!m_pArray)
 	{
 		//_ASSERT(0);
 		return FALSE;
 	}
-//ÎïÆ·×îĞ¡Îª 1 ¸ñ
+//ï¿½ï¿½Æ·ï¿½ï¿½Ğ¡Îª 1 ï¿½ï¿½
 	if (nX < 0 || nY < 0 || nWidth <=0 || nHeight <=0 || nX + nWidth > m_nWidth || nY + nHeight > m_nHeight)
 		return FALSE;
 
@@ -317,7 +317,7 @@ BOOL KInventory::CheckRoom(int nX, int nY, int nWidth, int nHeight)
 	{
 		for (j = nY; j < nY + nHeight; j++)
 		{
-			if (m_pArray[j * m_nWidth + i])//Èç¹ûÓĞÎïÆ· ¾Í·µ»Ø¼Ù
+			if (m_pArray[j * m_nWidth + i])//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ· ï¿½Í·ï¿½ï¿½Ø¼ï¿½
 			{
 				return FALSE;
 			}
@@ -327,7 +327,7 @@ BOOL KInventory::CheckRoom(int nX, int nY, int nWidth, int nHeight)
 	return TRUE;
 }
 
-BOOL KInventory::AddmClient(int nMoney)
+int KInventory::AddmClient(int nMoney)
 {
 	if (m_nMoney + nMoney < 0)
 		return FALSE;
@@ -335,7 +335,7 @@ BOOL KInventory::AddmClient(int nMoney)
 	return TRUE;
 }
 
-BOOL KInventory::AddxCliet(int ni)
+int KInventory::AddxCliet(int ni)
 {
 	if (m_nXu + ni < 0)
 		return FALSE;
@@ -386,7 +386,7 @@ int		KInventory::GetCurIndexItem(int nCurCount)
 	for (int i = 0; i < nSize; i++)
 	{
 		if (*pArray <= 0)
-		{//Ã»ÓĞ¶«Î÷
+		{//Ã»ï¿½Ğ¶ï¿½ï¿½ï¿½
 			pArray++;
 			continue;
 		}
@@ -412,7 +412,7 @@ int		KInventory::GetCurIndexItem(int nCurCount)
 	return nCurIdx;
 }
 
-//·µ»ØÕâÀàĞÍµÄ µş¼ÓÊıÁ¿
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int		KInventory::CalcSameDetailType(int nGenre, int nDetail)
 {
 	if (!m_pArray)
@@ -444,8 +444,8 @@ int		KInventory::CalcSameDetailType(int nGenre, int nDetail)
 
 	return nNum;
 }
-//²éÕÒ¿ÕÏĞ¿Õ¼ä
-BOOL	KInventory::FindEmptyPlace(int nWidth, int nHeight, POINT *pPos)
+//ï¿½ï¿½ï¿½Ò¿ï¿½ï¿½Ğ¿Õ¼ï¿½
+int	KInventory::FindEmptyPlace(int nWidth, int nHeight, POINT *pPos)
 {
 	if (!m_pArray)
 		return FALSE;
@@ -457,21 +457,21 @@ BOOL	KInventory::FindEmptyPlace(int nWidth, int nHeight, POINT *pPos)
 	{
 		for (j = 0; j < m_nWidth - nWidth + 1; )
 		{
-			nIdx = m_pArray[i * m_nWidth + j];  //Èç¹ûÓĞÎïÆ·
+			nIdx = m_pArray[i * m_nWidth + j];  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 			if (nIdx)
 			{
 				//_ASSERT(Item[nIdx].GetWidth() > 0);
 				if (Item[nIdx].GetWidth()>0)
-				   j += Item[nIdx].GetWidth();   //Ìø¿ªÓĞÎïÆ·µÄÎ»ÖÃ
+				   j += Item[nIdx].GetWidth();   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Î»ï¿½ï¿½
 			}
 			else
 			{
 				nFind = 1;
-				for (a = i; a < i + nHeight; a++) //¸ß¶È
+				for (a = i; a < i + nHeight; a++) //ï¿½ß¶ï¿½
 				{
 					for (b = j; b < j + nWidth; b++)
 					{
-						if (m_pArray[a * m_nWidth + b]) //Èç¹ûÓĞ¶«Î÷
+						if (m_pArray[a * m_nWidth + b]) //ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½
 						{
 							nFind = 0;
 							break;
@@ -480,7 +480,7 @@ BOOL	KInventory::FindEmptyPlace(int nWidth, int nHeight, POINT *pPos)
 					if (nFind == 0)
 						break;
 				}
-				//¸ù¾İÎïÆ·µÄ ¿í¶ÈºÍ³¤¶È¼ì²âÍê±Ï ÓĞºÏÊÊ¾ÍÉèÖÃÎ»ÖÃ
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ ï¿½ï¿½ï¿½ÈºÍ³ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğºï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 				if (nFind)
 				{
 					pPos->x = b;
@@ -495,9 +495,9 @@ BOOL	KInventory::FindEmptyPlace(int nWidth, int nHeight, POINT *pPos)
 	return FALSE;
 }
 //---------------------------------------------------------------------------------
-// ¹¦ÄÜ£ºÊäÈëÎïÆ·ÀàĞÍºÍ¾ßÌåÀàĞÍ£¬²ì¿´InventoryÀïÃæÓĞÃ»ÓĞÏàÍ¬µÄÎïÆ·£¬Êä³öÎ»ÖÃºÍ±àºÅ
+// ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ÍºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ì¿´Inventoryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ±ï¿½ï¿½
 //---------------------------------------------------------------------------------
-BOOL	KInventory::FindSameDetailType(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY)
+int	KInventory::FindSameDetailType(int nGenre, int nDetail, int *pnIdx, int *pnX, int *pnY)
 {
 	if (!m_pArray)
 		return FALSE;
@@ -551,9 +551,9 @@ BOOL	KInventory::FindSameDetailType(int nGenre, int nDetail, int *pnIdx, int *pn
 }
 
 //---------------------------------------------------------------------------------
-// ¿ì½İÀ¸¹¦ÄÜ£ºÊäÈëÎïÆ·ÀàĞÍºÍ¾ßÌåÀàĞÍ£¬²ì¿´InventoryÀïÃæÓĞÃ»ÓĞÏàÍ¬µÄÎïÆ·
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ÍºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ì¿´Inventoryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·
 //---------------------------------------------------------------------------------
-BOOL	KInventory::CheckSameDetailType(int nGenre, int nDetail,int ParticularType)
+int	KInventory::CheckSameDetailType(int nGenre, int nDetail,int ParticularType)
 {
 	if (!m_pArray)
 		return FALSE;

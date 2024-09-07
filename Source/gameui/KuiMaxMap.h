@@ -26,7 +26,9 @@ public:
 	//����
 	CREATE_FUNC(KuiMaxMap);
 
-	static KuiMaxMap * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiMaxMap* create(const char* title,
+                                 Ref* callbackListener,
+                                 const std::function<void(ax::Node*)>& callfun);
 	//���Ӽ���ͼ��
 	void addDialogData();
 	void setcoloseButton(Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);

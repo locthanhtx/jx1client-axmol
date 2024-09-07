@@ -191,8 +191,15 @@ endif()
 target_include_directories(
         ${APP_NAME} PRIVATE ${GAME_INC_DIRS}
         ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/libiconv/include"
+        ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/pthread"
 )
-
+if(WINDOWS)
+target_include_directories(
+        ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/../include/pthread"
+)
+	set(LINK_LIB_JX1CLIENT ${CMAKE_CURRENT_SOURCE_DIR}/lib/debug/pthread.lib)
+	target_link_libraries(${APP_NAME} ${LINK_LIB_JX1CLIENT})
+endif()
 
 # mark app resources, resource will be copy auto after mark
 ax_setup_app_config(${APP_NAME})

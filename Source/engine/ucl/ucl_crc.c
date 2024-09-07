@@ -100,7 +100,7 @@ ucl_get_crc32_table(void)
 
 #if 1
 #define UCL_DO1(buf,i) \
-    crc = table[((int32_t)crc ^ buf[i]) & 0xff] ^ (crc >> 8)
+    crc = table[((int)crc ^ buf[i]) & 0xff] ^ (crc >> 8)
 #else
 #define UCL_DO1(buf,i) \
     crc = table[(unsigned char)((unsigned char)crc ^ buf[i])] ^ (crc >> 8)

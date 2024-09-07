@@ -33,7 +33,7 @@ void	KTrade::Release()
 	m_szDestName[0]			= 0;
 }
 
-BOOL	KTrade::StartTrade(int nDest, int nEquipMoney, int nRepositoryMoney)
+int	KTrade::StartTrade(int nDest, int nEquipMoney, int nRepositoryMoney)
 {
 	if (m_nIsTrading)
 		return FALSE;
@@ -56,7 +56,7 @@ BOOL	KTrade::StartTrade(int nDest, int nEquipMoney, int nRepositoryMoney)
 	return TRUE;
 }
 
-void	KTrade::Lock(BOOL bFlag)
+void	KTrade::Lock(int bFlag)
 {
 	if (bFlag)
 	{

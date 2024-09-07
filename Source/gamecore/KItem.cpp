@@ -29,7 +29,7 @@
 KItem	*Item = NULL;//Item[MAX_ITEM];
 
 int GetRandomNumber(int nMin, int nMax);
-//extern  const KScript * g_GetScript(DWORD dwScriptId);  //ԭ��û�е�
+//extern  const KScript * g_GetScript(unsigned long dwScriptId);  //ԭ��û�е�
 KItem::KItem()
 {   //�ڴ��ʼ��
 	::memset(&m_CommonAttrib,    0, sizeof(m_CommonAttrib));
@@ -67,10 +67,10 @@ void* KItem::GetRequirement(IN int nReq)
 	return &m_aryRequireAttrib[nReq];
 }
 
-BOOL KItem::CheckRequirement(IN int nReq)
+int KItem::CheckRequirement(IN int nReq)
 {
 	int i = sizeof(m_aryRequireAttrib)/sizeof(m_aryRequireAttrib[0]);
-	BOOL nReg=FALSE;
+	int nReg=FALSE;
 //	m_aryRequireAttrib[nReq];
 
 	for (int k=0;k<i;++k)
@@ -387,11 +387,11 @@ void KItem::RemoveHiddenMagicAttribFromNPC(IN KNpc* pNPC, IN int nMagicActive) c
 		ʧ��ʱ������
 ˵��:	CBR: Common,Base,Require
 ******************************************************************************/
-BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT* pData)
+int KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT* pData)
 {
 	//_ASSERT(pData != NULL);
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 
 	if (!pData)
 		return bEC;
@@ -408,11 +408,11 @@ BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT* pData)
 	return bEC;
 }
 
-BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //�ƽ�װ���� ������ �������� ����
+int KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //�ƽ�װ���� ������ �������� ����
 {
 	//_ASSERT(pData != NULL);
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	if (!pData)
 			return bEC;
 
@@ -427,11 +427,11 @@ BOOL KItem::SetAttrib_CBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData)  //�ƽ�
 	return bEC;
 }
 
-BOOL KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
+int KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
 {
 	//_ASSERT(pData != NULL);
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	if (!pData)
 			return bEC;
 
@@ -446,11 +446,11 @@ BOOL KItem::SetAttrib_BCBR(IN const KBASICPROP_EQUIPMENT_PLATINA* pData)
 	return bEC;
 }
 
-BOOL KItem::SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData,BOOL nIsDel)
+int KItem::SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData,int nIsDel)
 {
 	//_ASSERT(pData != NULL);
 
-	BOOL bEC = FALSE;
+	int bEC = FALSE;
 	if (!pData)
 			return bEC;
 
@@ -470,7 +470,7 @@ BOOL KItem::SetAttrib_RCBR(IN const KBASICPROP_EQUIPMENT_GOLD* pData,BOOL nIsDel
 	return bEC;
 }
 
-BOOL KItem::SetAttrib_Base(const KEQCP_BASIC* pBasic)
+int KItem::SetAttrib_Base(const KEQCP_BASIC* pBasic)
 {
 	for (int i = 0;
 		 i < sizeof(m_aryBaseAttrib)/sizeof(m_aryBaseAttrib[0]); ++i)
@@ -493,7 +493,7 @@ BOOL KItem::SetAttrib_Base(const KEQCP_BASIC* pBasic)
 	return TRUE;
 }
 //��������
-BOOL KItem::SetAttrib_Req(const KEQCP_REQ* pReq,BOOL inDel)
+int KItem::SetAttrib_Req(const KEQCP_REQ* pReq,int inDel)
 {
 	for (int i = 0;
 	i < sizeof(m_aryRequireAttrib)/sizeof(m_aryRequireAttrib[0]); ++i)
@@ -522,7 +522,7 @@ BOOL KItem::SetAttrib_Req(const KEQCP_REQ* pReq,BOOL inDel)
 
 //��������
 
-BOOL KItem::SetAttrib_RON(IN const KItemNormalAttrib* pMA)
+int KItem::SetAttrib_RON(IN const KItemNormalAttrib* pMA)
 {
 	if (NULL == pMA)
 	{ return FALSE;}
@@ -542,7 +542,7 @@ BOOL KItem::SetAttrib_RON(IN const KItemNormalAttrib* pMA)
 	return 1;
 }
 //��ʯ����
-BOOL KItem::SetAttrib_Bao(IN const KItemNormalAttrib* pMA)
+int KItem::SetAttrib_Bao(IN const KItemNormalAttrib* pMA)
 {
 /*	if (NULL == pMA)
 	{ _ASSERT(FALSE); return FALSE; }
@@ -563,7 +563,7 @@ BOOL KItem::SetAttrib_Bao(IN const KItemNormalAttrib* pMA)
 
 
 //��������
-BOOL KItem::SetAttrib_Yin(IN const KItemNormalAttrib* pMA)
+int KItem::SetAttrib_Yin(IN const KItemNormalAttrib* pMA)
 {
 	if (NULL == pMA)
 	{ return FALSE; }
@@ -590,7 +590,7 @@ BOOL KItem::SetAttrib_Yin(IN const KItemNormalAttrib* pMA)
 		ʧ��ʱ������
 	//	KMagicAttrib* pAttrib = (KMagicAttrib *)pData
 ******************************************************************************/
-BOOL KItem::SetAttrib_MA(IN const KItemNormalAttrib* pMA)
+int KItem::SetAttrib_MA(IN const KItemNormalAttrib* pMA)
 {
 	if (NULL == pMA)
 		{return FALSE; }
@@ -615,7 +615,7 @@ BOOL KItem::SetAttrib_MA(IN const KItemNormalAttrib* pMA)
 			m_aryMagicAttrib
 		ʧ��ʱ������
 ******************************************************************************/
-BOOL KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ����ħ������
+int KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ����ħ������
 {
 	if (NULL == pMA)
 		{return FALSE; }
@@ -635,7 +635,7 @@ BOOL KItem::SetAttrib_MAB(IN const KMACP* pMA)  // ����ħ�����
 	return TRUE;
 }
 //����ָ���� ħ���ƽ�����
-BOOL KItem::SetAttrib_MAC(IN const int* pMA)
+int KItem::SetAttrib_MAC(IN const int* pMA)
 {
 	if (NULL == pMA)
 	   {return FALSE; }
@@ -1722,7 +1722,7 @@ void KItem::operator = (const KBASICPROP_EQUIPMENT_GOLD& sData) //const
 	}*/
 }
 //��װ
-BOOL KItem::Gen_Equipment_Unique(const KBASICPROP_EQUIPMENT* pEqu,
+int KItem::Gen_Equipment_Unique(const KBASICPROP_EQUIPMENT* pEqu,
 								 const KBASICPROP_EQUIPMENT_UNIQUE* pUni)
 {
 	//_ASSERT(this != NULL);
@@ -1756,7 +1756,7 @@ void KItem::SetIndex(int i)
 }
 
 
-BOOL KItem::SetBaseAttrib(IN const KItemNormalAttrib* pAttrib)
+int KItem::SetBaseAttrib(IN const KItemNormalAttrib* pAttrib)
 {
 	if (!pAttrib)
 		return FALSE;
@@ -1768,7 +1768,7 @@ BOOL KItem::SetBaseAttrib(IN const KItemNormalAttrib* pAttrib)
 	return TRUE;
 }
 
-BOOL KItem::SetRequireAttrib(IN const KItemNormalAttrib* pAttrib)
+int KItem::SetRequireAttrib(IN const KItemNormalAttrib* pAttrib)
 {
 	if (!pAttrib)
 		return FALSE;
@@ -1780,7 +1780,7 @@ BOOL KItem::SetRequireAttrib(IN const KItemNormalAttrib* pAttrib)
 	return TRUE;
 }
 
-BOOL KItem::SetMagicAttrib(IN const KItemNormalAttrib* pAttrib)
+int KItem::SetMagicAttrib(IN const KItemNormalAttrib* pAttrib)
 {
 	return SetAttrib_MA(pAttrib);
 }
@@ -1863,7 +1863,7 @@ void KItem::SetItemInfo(int nVale)
 	}
 }
 ////////�����ʾͼ���������///////////////////////////////////////////
-void KItem::Paint(int nX, int nY,BOOL bStack,int nzStackNum,int nKind)  //������Ʒ����ɫ
+void KItem::Paint(int nX, int nY,int bStack,int nzStackNum,int nKind)  //������Ʒ����ɫ
 {
 	m_Image.oPosition.nX = nX;
 	m_Image.oPosition.nY = nY;
@@ -3566,7 +3566,7 @@ int KItem::GetRepairPrice()
 }
 
 //�Ƿ����޸�
-BOOL KItem::CanBeRepaired()
+int KItem::CanBeRepaired()
 {
 	if (GetGenre() != item_equip)
 		return FALSE;
@@ -3584,7 +3584,7 @@ BOOL KItem::CanBeRepaired()
 	return TRUE;
 }
 
-BOOL KItem::CheckItemInfo(int nGen,int nDetail,int nParticular,char *KeyName)
+int KItem::CheckItemInfo(int nGen,int nDetail,int nParticular,const char *KeyName)
 {
 	int nItemInfo[3];
 	int nRows = g_ForbitMap.GetHeight();
@@ -3603,7 +3603,7 @@ BOOL KItem::CheckItemInfo(int nGen,int nDetail,int nParticular,char *KeyName)
 }
 
 //�Ƿ���Ե���
-BOOL KItem::CanStack(int nOldIdx)
+int KItem::CanStack(int nOldIdx)
 {
 	if (m_CommonAttrib.bStack)
 	{
@@ -3838,7 +3838,7 @@ int KItem::EnChanceBao( int nEnChance /*= 1*/)
 }
 
 
-int	KItem::CheckEnChance(char *nKey,int nAttribType)
+int	KItem::CheckEnChance(const char *nKey,int nAttribType)
 {
 	int nRow = g_ForbitMap.GetHeight()+1,nReg=0;
 
@@ -3864,7 +3864,7 @@ int KItem::IsReceptacle()
 }
 
 
-BOOL KItem::HoldItem(int nIdx, int nWidth, int nHeight)
+int KItem::HoldItem(int nIdx, int nWidth, int nHeight)
 {
 //	int i, j;
 	//for (i = 0; i < m_nWidth - nWidth + 1; ++i)
@@ -3894,7 +3894,7 @@ int KItem::GetPoint()
 
 }
 
-BOOL KItem::CheckReqability(int n)
+int KItem::CheckReqability(int n)
 {
 	for (int i=0;i<6;++i)
 	{
@@ -3968,7 +3968,7 @@ void KItem::SetTime( int bYear,int bMonth,int bDay,int bHour,int bMin)
 			bHour -= 24;
 		}
 
-		BOOL nIsYear=FALSE;
+		int nIsYear=FALSE;
 
 		int  nAllDay=30;
 
@@ -4260,7 +4260,7 @@ int KItem::GetItemMagicLevel(int i)
    return m_aryBaseAttrib[i].nValue[0];
 }
 //�Ƿ���������� װ��
-BOOL KItem::HaveMaigc( int nAttribe,int nValue1Min,int nValue1Max,int nValue2Min,int nValue2Max,int nValue3Min,int nValue3Max )
+int KItem::HaveMaigc( int nAttribe,int nValue1Min,int nValue1Max,int nValue2Min,int nValue2Max,int nValue3Min,int nValue3Max )
 {
 	for (int i = 0;i < 6;++i)  //ħ��
 	{

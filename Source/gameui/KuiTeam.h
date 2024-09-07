@@ -27,7 +27,7 @@ public:
 	//����
 	CREATE_FUNC(KuiTeam);
 
-	static KuiTeam * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiTeam* create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun);
 
 	virtual void update(float delta);
 //	virtual void draw();

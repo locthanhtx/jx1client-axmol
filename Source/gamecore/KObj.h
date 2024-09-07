@@ -101,8 +101,8 @@ public:
 	int			m_nMapX;				// ��ͼ�������� x
 	int			m_nMapY;				// ��ͼ�������� y
 	int         m_IsHaveAttack;         //�Ƿ�����Ϊ������Ч��
-	DWORD       m_AttackerDwid;         //�ϴι����ŵ�DWID
-    DWORD       m_AttackerTime;         // �ָ���ʱ��
+	unsigned long       m_AttackerDwid;         //�ϴι����ŵ�DWID
+    unsigned long       m_AttackerTime;         // �ָ���ʱ��
 	int			m_nOffX;				// ��ͼ�����е�ƫ�� x (ע����ֵΪ���ص�ֵ * 1024)
 	int			m_nOffY;				// ��ͼ�����е�ƫ�� y (ע����ֵΪ���ص�ֵ * 1024)
 	int			m_nDir;					// ���򣬴˷���Ϊ������߼����򣬰�64������㣬���Ǿ����ͼ����
@@ -116,7 +116,7 @@ public:
 	char		m_szName[80];			// �������
 	char		_clientObjName[80];			// ˵������ �ͻ��˵� ����Խ�ϰ汾����
 //	char		m_szScriptName[80];		// �����ű��ļ���
-	DWORD		m_dwScriptID;			// �����ű��ļ�ID
+	unsigned long		m_dwScriptID;			// �����ű��ļ�ID
 	int			m_nColorID;				// ���������ʾʱ����ɫid���ͻ���ͨ������ҵ���Ӧ��ɫ
     int         m_nKeDieNum;            // �ɵ�����
 	int			m_nItemDataID;			// ������Ʒ��ָ����Ʒ�ľ�������
@@ -139,39 +139,39 @@ public:
 	int			m_nLayer;				// ���λ�ڵڼ���
 	int			m_nHeight;				// ������߼��߶�
 	OBJ_LIGHT	m_sObjLight;			// ��������ȡ�������ص�����
-	//DWORD		m_dwNameColor;			// ������ֵ���ɫ
+	//unsigned long		m_dwNameColor;			// ������ֵ���ɫ
 	ax::Color3B   m_nameColor;
 	KPolygon	Polygon;				// ��������
 	BYTE		m_btBar[OBJ_BAR_SIZE];	// ��������ϰ���Ϣ
 
 private:
-	DWORD		m_dwTimer;				// ʱ�������(������������)
+	unsigned long		m_dwTimer;				// ʱ�������(������������)
 
 //	KCacheNode*	m_pSoundNode;			// ��Чָ��
 //	KWavSound*	m_pWave;				// ��Чwavָ��
 
-	BOOL		m_bDrawFlag;			// �����Ƿ����⴦��FALSE ����   TRUE �����ƣ�
+	int		m_bDrawFlag;			// �����Ƿ����⴦��FALSE ����   TRUE �����ƣ�
 
 public:
 	KObj();
 	void		GetMpsPos(int *pX, int *pY);
 	void		Release();
 	void		Activate();
-//	void		Save(KIniFile *IniFile, LPSTR Section);
-//	void		Load(int nObjIndex, int nSubWorldID, KIniFile *IniFile, LPSTR Section);
+//	void		Save(KIniFile *IniFile, char* Section);
+//	void		Load(int nObjIndex, int nSubWorldID, KIniFile *IniFile, char* Section);
 
 	void		ExecScript(int nPlayerIdx,int nObjIdx=0,int nOgjWorlID=-1);
-	BOOL		ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfuns,int nParm1,int nParm2,char *sSubName=NULL,char *gsName=NULL,int nParm3=0);
+	int		ExecScriptFiled(int nPlayerIdx,char *m_szScriptName,char *m_szcallfuns,int nParm1,int nParm2,char *sSubName=NULL,char *gsName=NULL,int nParm3=0);
 	void		CastSkill(int nDir);
 	void		CastSkill(int nXpos, int nYpos);
 
 	void		SetIndex(int nIndex);
 	void		SetWorldID(int nID);			// ���������Ψһ ID
 	void		SetLifeTime(int nLifeTime);
-	BOOL		SetDir(int n64Dir);
+	int		SetDir(int n64Dir);
 	void		SetState(int nState, int nPlaySoundFlag = 0);
 	void		SetImageDir(int nDir);
-	void		Remove(BOOL bSoundFlag,BOOL nIsClear=FALSE);
+	void		Remove(int bSoundFlag,int nIsClear=FALSE);
 	void		SetScriptFile(char *lpszScriptFile);
 	int			GetKind();
 //	void		SetItemBelong(int nPlayerIdx);

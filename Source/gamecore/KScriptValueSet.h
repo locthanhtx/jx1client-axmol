@@ -27,7 +27,7 @@ public:
 	TIntegerValueNode(char * pName, int iValue){	strcpy(ValueName, pName); intValue = iValue;};
 };
 
-class KScriptValueSet  
+class KScriptValueSet
 {
 public:
 	KScriptValueSet();
@@ -35,15 +35,15 @@ public:
 	KList m_StringValueList;
 	KList m_IntegerValueList;
 
-	BOOL	Load(char * FileName);
-	BOOL	Save(char * FileName);
-	
-	BOOL	SetValue(char * pValueName, char * pValue);
-	BOOL	SetValue(char * pValueName, int	 nValue);
+	int	Load(char * FileName);
+	int	Save(char * FileName);
 
-	
-	BOOL	GetValue(char * pValueName, char * pValue);
-	BOOL 	GetValue(char * pValueName, int* Value);
+	int	SetValue(char * pValueName, char * pValue);
+	int	SetValue(char * pValueName, int	 nValue);
+
+
+	int	GetValue(char * pValueName, char * pValue);
+	int 	GetValue(char * pValueName, int* Value);
 
 
 private:

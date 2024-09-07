@@ -3,17 +3,17 @@
 
 #include "KProtocol.h"
 
-#define	MAX_FAC FACTIONS_PRR_SERIES * series_num+1  //11¸öÃÅÅÉ
+#define	MAX_FAC FACTIONS_PRR_SERIES * series_num+1  //11ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 enum
 {
 	enumLadderBegin = 0,
-	enumTopTenMasterHand,  //µÈ¼¶
-	enumTopTenRicher,      //½ðÇ®
-	enumTopTenKiller,      //É±ÈË
-	enumTopTenXu,          //ÊÀ½ç½ð±ÒÅÅÐÐ
+	enumTopTenMasterHand,  //ï¿½È¼ï¿½
+	enumTopTenRicher,      //ï¿½ï¿½Ç®
+	enumTopTenKiller,      //É±ï¿½ï¿½
+	enumTopTenXu,          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	enumFacTopTenMasterHand,
-	enumFacTopTenRicher = enumFacTopTenMasterHand + MAX_FAC, //16		  
+	enumFacTopTenRicher = enumFacTopTenMasterHand + MAX_FAC, //16
 	enumFacTopTenXu     = enumFacTopTenRicher + MAX_FAC,     //16+11 =27
 	enumLadderEnd       = enumFacTopTenXu + MAX_FAC,         //16+11+11 =38
 };
@@ -30,11 +30,11 @@ public:
 	const TRoleList*	TopTenFacRich(int nFac);
 	const TRoleList*    TopTenFacXu(int nFac);
 	const TRoleList*	TopTenFacMasterHand(int nFac);
-	const TRoleList*	GetTopTen(DWORD	dwLadderID);
+	const TRoleList*	GetTopTen(unsigned long	dwLadderID);
 	int					GetFacMemberCount(int nFac);
 	int					GetFacMasterHandPercent(int nFac);
 	int					GetFacMoneyPercent(int nFac);
-	BOOL				Init(void* pData, size_t uSize);
+	int				Init(void* pData, size_t uSize);
 private:
 	TGAME_STAT_DATA	GameStatData;
 };

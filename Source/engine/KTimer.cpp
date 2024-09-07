@@ -57,8 +57,8 @@ void KTimer::Start()
 	//DWORD_PTR oldmask =::SetThreadAffinityMask(::GetCurrentThread(),0);
 	//QueryPerformanceCounter(&m_nTimeStart);
 	//::SetThreadAffinityMask(::GetCurrentThread(), oldmask);
-    //time_t rawtime;      //����һ��int32_t �ʹ������
-	//struct tm * timeinfo;	
+    //time_t rawtime;      //����һ��int �ʹ������
+	//struct tm * timeinfo;
 	//m_nTimeStart.QuadPart = time(NULL);     //�������ڵ�ʱ�䣨�룩
     //m_nTimeStart.QuadPart = m_nTimeStart.sQuadPart*1000; */
 	//timeval *m_pStartUpdate = NULL;
@@ -93,7 +93,7 @@ void KTimer::Stop()
 	//DWORD_PTR oldmask =::SetThreadAffinityMask(::GetCurrentThread(),0);
 	//QueryPerformanceCounter(&m_nTimeStop);
 	//::SetThreadAffinityMask(::GetCurrentThread(), oldmask);
-    //m_nTimeStop.QuadPart = time(NULL); 
+    //m_nTimeStop.QuadPart = time(NULL);
 	*/
 
     //m_nTimeStop.QuadPart=GetTickCount();// ��ȷ�Ǻ���
@@ -111,7 +111,7 @@ void KTimer::Stop()
 // ����:	GetElapse
 // ����:	����ӿ�ʼ��ʱ�������Ѿ�����ʱ��
 // ����:	void
-// ����:	DWORD in ms		 GetTickCount() ��ȷ�Ǻ���
+// ����:	unsigned long in ms		 GetTickCount() ��ȷ�Ǻ���
 //---------------------------------------------------------------------------
 long long KTimer::GetElapse()
 {
@@ -132,17 +132,17 @@ long long KTimer::GetElapse()
 		//m_nTimeStop.QuadPart = m_pStopUpdate->tv_usec/1000;
 	return (m_pEndtime.tv_sec - m_nTimeStart.tv_sec) * 1000 + m_pEndtime.tv_usec/1000;  //����
 	    //nTime.QuadPart= m_pEndtime->tv_usec/1000;//GetTickCount();// ��ȷ�Ǻ���
-	//return (DWORD)((nTime.QuadPart - m_nTimeStart.QuadPart)/1000UL);  //����
-	//return  (nTime.QuadPart - m_nTimeStart.QuadPart); 
+	//return (unsigned long)((nTime.QuadPart - m_nTimeStart.QuadPart)/1000UL);  //����
+	//return  (nTime.QuadPart - m_nTimeStart.QuadPart);
 	//LARGE_INTEGER nTime;
 	//DWORD_PTR oldmask = ::SetThreadAffinityMask(::GetCurrentThread(), 0);
 	//QueryPerformanceCounter(&nTime);
 	//::SetThreadAffinityMask(::GetCurrentThread(), oldmask);
-	//return (DWORD)((nTime.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart);
+	//return (unsigned long)((nTime.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart);
 
 	/* nTime.QuadPart = time(NULL);
-    DWORD nValTime;
-    nValTime =(DWORD)((nTime.QuadPart - m_nTimeStart.QuadPart)*1000);
+    unsigned long nValTime;
+    nValTime =(unsigned long)((nTime.QuadPart - m_nTimeStart.QuadPart)*1000);
 	return nValTime;*/  //������
 #else
 	timeval tv;
@@ -154,7 +154,7 @@ long long KTimer::GetElapse()
 // ����:	GetElapseFrequency
 // ����:	����ӿ�ʼ��ʱ�������Ѿ�����ʱ��
 // ����:	void
-// ����:	DWORD in frequency
+// ����:	unsigned long in frequency
 //---------------------------------------------------------------------------
 long long KTimer::GetElapseFrequency()
 {
@@ -171,7 +171,7 @@ long long KTimer::GetElapseFrequency()
 	//QueryPerformanceCounter(&nTime);
     //::SetThreadAffinityMask(::GetCurrentThread(), oldmask);
 	//nTime.QuadPart = time(NULL);
-	return (DWORD)((nTime.QuadPart - m_nTimeStart.QuadPart)/1000UL); */
+	return (unsigned long)((nTime.QuadPart - m_nTimeStart.QuadPart)/1000UL); */
 	//nTime.QuadPart=GetTickCount();// ��ȷ�Ǻ���
 	return 0;//(nTime.QuadPart - m_nTimeStart.QuadPart);
 
@@ -187,10 +187,10 @@ long long KTimer::GetElapseFrequency()
 long long KTimer::GetInterval()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	//return (DWORD)((m_nTimeStop.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart); //����Ϊ��λ
+	//return (unsigned long)((m_nTimeStop.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart); //����Ϊ��λ
     return 0;//(m_nTimeStop.QuadPart - m_nTimeStart.QuadPart);
 #endif
-  // return (DWORD)((m_nTimeStop.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart);
+  // return (unsigned long)((m_nTimeStop.QuadPart - m_nTimeStart.QuadPart) * 1000 / m_nFrequency.QuadPart);
 	return 0; //ԭ��
 }
 //---------------------------------------------------------------------------
@@ -200,10 +200,10 @@ long long KTimer::GetInterval()
 // ����:	TRUE	�Ѿ�����
 //			FALSE	��û�й�
 //---------------------------------------------------------------------------
-bool KTimer::Passed(uint32_t nTime)
+bool KTimer::Passed(unsigned int nTime)
 {
 
-	if (GetElapse() >= (uint32_t)nTime)
+	if (GetElapse() >= (unsigned int)nTime)
 	{
 		Start();    //�����趨��ʼʱ��
 		return true;
@@ -217,9 +217,9 @@ bool KTimer::Passed(uint32_t nTime)
 // ����:	TRUE	�ɹ�
 //			FALSE	ʧ��
 //---------------------------------------------------------------------------
-bool KTimer::GetFPS(int32_t *nFPS)
+bool KTimer::GetFPS(int *nFPS)
 {
-	if (GetElapse() >= 1000UL) 
+	if (GetElapse() >= 1000UL)
 	{
 		*nFPS = m_nFPS;
 		m_nFPS = 0;

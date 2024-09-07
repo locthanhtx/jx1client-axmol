@@ -23,7 +23,9 @@ public:
 	//����
 	CREATE_FUNC(KuiTongInfo);
 
-	static KuiTongInfo * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiTongInfo* create(const char* title,
+                                   Ref* callbackListener,
+                                   const std::function<void(ax::Node*)>& callfun);
 
 	virtual void update(float delta);
 //	virtual void draw();

@@ -3,7 +3,7 @@
 	file base:	Event
 	file ext:	h
 	author:		liupeng
-	
+
 	purpose:	Header file for CEvent class
 *********************************************************************/
 #ifndef __INCLUDE_EVENT_H__
@@ -12,7 +12,11 @@
 //stdio.h ���û�����ͷ�ļ� �����һЩ���� �������͵�xxx ��˼����û��������͵� ����
 #include "engine/KbugInfo.h"
 //#pragma once
-#include <pthread.h>
+#    ifdef WIN32
+#        include <pthreadwin32.h>
+#    else
+#        include <pthread.h>
+#    endif
 //#include <sys/time.h>
 
 #define INFINITE  -1
@@ -25,7 +29,7 @@ public:
 	bool CreateEvent();
 	bool Set();
 	bool Reset();
-	bool Wait(int32_t cms);
+	bool Wait(int cms);
 private:
 	bool EnsureInitialized();
 	bool m_bIsManualReset;
@@ -51,13 +55,13 @@ CEvent::~CEvent()
 	if (m_bMutexInitialized)
 	{
 		pthread_mutex_destroy(&m_mutex); //���������ٺ�����ִ�гɹ��󷵻� 0�����򷵻ش����롣
-		m_bMutexInitialized = false; 
+		m_bMutexInitialized = false;
 	}
 
 	if (m_bCondInitialized)
 	{
 		pthread_cond_destroy(&m_cond);
-		m_bCondInitialized = false;   
+		m_bCondInitialized = false;
 	}
 }
 
@@ -68,7 +72,7 @@ bool CEvent::CreateEvent()
 	{
 		if (0 == pthread_mutex_init(&m_mutex, NULL))  //�ú�������C�����Ķ��̱߳���У��������ĳ�ʼ����
 		{
-			m_bMutexInitialized = true; 
+			m_bMutexInitialized = true;
 		}
 	}
 
@@ -76,16 +80,16 @@ bool CEvent::CreateEvent()
 	{
 		if (0 == pthread_cond_init(&m_cond, NULL)) //��ʼ����������pthread_cond_init
 		{//����ֵ�������ɹ�����0���κ���������ֵ����ʾ����
-			m_bCondInitialized = true;   
+			m_bCondInitialized = true;
 		}
 	}
 
-	return ( m_bMutexInitialized && m_bCondInitialized); 
+	return ( m_bMutexInitialized && m_bCondInitialized);
 }
 
 bool CEvent::EnsureInitialized()
 {
-	return ( m_bMutexInitialized && m_bCondInitialized); 
+	return ( m_bMutexInitialized && m_bCondInitialized);
 }
 
 bool CEvent::Set()
@@ -93,13 +97,13 @@ bool CEvent::Set()
 	if (!EnsureInitialized())
 	{
 		return false;
-	}    
+	}
 
 	pthread_mutex_lock(&m_mutex);
 	m_bEventStatus = true;
 	pthread_cond_broadcast(&m_cond); //������������
 	pthread_mutex_unlock(&m_mutex);
-	return true;    
+	return true;
 }
 
 bool CEvent::Reset()
@@ -112,10 +116,10 @@ bool CEvent::Reset()
 	pthread_mutex_lock(&m_mutex);
 	m_bEventStatus = false;
 	pthread_mutex_unlock(&m_mutex);
-	return true;    
+	return true;
 }
 
-bool CEvent::Wait(int32_t cms)
+bool CEvent::Wait(int cms)
 {
 	if (!EnsureInitialized())
 	{
@@ -123,7 +127,7 @@ bool CEvent::Wait(int32_t cms)
 	}
 
 	pthread_mutex_lock(&m_mutex);
-	int32_t error = 0;
+	int error = 0;
 
 	if (cms != INFINITE)
 	{
@@ -131,7 +135,7 @@ bool CEvent::Wait(int32_t cms)
 		gettimeofday(&tv, NULL);
 		struct timespec ts;
 		ts.tv_sec = tv.tv_sec + (cms / 1000);
-		ts.tv_nsec = tv.tv_usec * 1000 + (cms % 1000) * 1000000; 
+		ts.tv_nsec = tv.tv_usec * 1000 + (cms % 1000) * 1000000;
 
 		if (ts.tv_nsec >= 1000000000)
 		{
@@ -155,7 +159,7 @@ bool CEvent::Wait(int32_t cms)
 	if (0 == error && !m_bIsManualReset)
 	{
 		m_bEventStatus = false;
-	} 
+	}
 	pthread_mutex_unlock(&m_mutex);
 	return (0 == error);
 }

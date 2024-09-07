@@ -11,49 +11,38 @@
 USING_NS_AX;
 
 typedef struct _SECURITY_ATTRIBUTES_S {
-	uint32_t nLength;
+	unsigned int nLength;
 	void * lpSecurityDescriptor;
 	bool bInheritHandle;
 } SECURITY_ATTRIBUTES_S, *PSECURITY_ATTRIBUTES_S, *LPSECURITY_ATTRIBUTES_S;
 
-typedef unsigned short *PWORD;
-//#define PDWORD * DWORD
-typedef uint32_t  *PDWORD;
-typedef uint32_t  *LPDWORD;
+//typedef unsigned short *PWORD;
+//#define unsigned long* * unsigned long
+//typedef unsigned int  *unsigned long*;
+//typedef unsigned int  *LPDWORD;
 
 #define FILE_BEGIN           0
 #define FILE_CURRENT         1
 #define FILE_END             2
 #define IN
 #define OUT
-#define BYTE unsigned char
+//#define BYTE unsigned char
 #define MAX_PATH 1200
-#define UINT uint32_t
-#define INT  int32_t
-#define FALSE false
-#define TRUE  true
-#define DWORD uint32_t
-#define WORD  unsigned short
-
-#define BOOL int32_t
-#define LPCSTR const char *
-
-#define PVOID void *
-#define LPVOID PVOID
-#define LPSTR char *
-#define LONG  int32_t
-#define PBYTE unsigned char *
-#define LPBYTE PBYTE
-#define LPTSTR LPSTR
-//typedef unsigned char BYTE;
-typedef int32_t   LONG_PTR;
-typedef uint32_t  DWORD_PTR;
-typedef uint32_t  DWORD_PTRD;
-typedef uint32_t   UINT_PTR;
-typedef uint32_t  ULONG_PTR;
-//UINT_PTR
-#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
-#define INVALID_FILE_SIZE ((DWORD)0xFFFFFFFF)
+//#define UINT unsigned int
+//#define INT  int
+//#define FALSE false
+//#define TRUE  true
+//
+//#define PVOID void *
+//
+//#define int  int
+//#define PBYTE unsigned char *
+//#define LPBYTE PBYTE
+////typedef unsigned char BYTE;
+//
+////UINT_PTR
+//#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
+//#define INVALID_FILE_SIZE ((unsigned long)0xFFFFFFFF)
 
 #define MAX_CHUNK	250		//����ջ��   250
 #define HANDLE void *
@@ -66,7 +55,7 @@ enum enumServerConnectInfo
 	enumServerConnectClose
 };
 #define CP_UTF8 65001
-typedef int32_t* LPINT;
+typedef int* LPINT;
 #define FLOAT float
 #define LPCTSTR const char *
 #define CONST const
@@ -74,8 +63,8 @@ typedef int32_t* LPINT;
 #define  VOID void
 #define CALLBACK __stdcall
 #define  CHAR char
-#define  ULONG uint32_t
-typedef int32_t SOCKET;
+#define  ULONG unsigned int
+typedef int SOCKET;
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p); (p)=NULL;}}
 #define RELEASE(a) if(a){a->Release();a=NULL;}
 #define SAFE_DELETE(a) if(a){delete a;a=NULL;}
@@ -97,17 +86,17 @@ typedef struct {
     CHAR *buf; /* the pointer to the buffer __field_bcount(len) */
 }WSABUF, * LPWSABUF;
 
-//typedef void (CALLBACK *CALLBACK_CLIENT_EVENT )(LPVOID lpParam,const uint32_t &ulnEventType);
+//typedef void (CALLBACK *CALLBACK_CLIENT_EVENT )(void* lpParam,const unsigned int &ulnEventType);
 typedef struct
 {
-	ULONG_PTR Internal;
-	ULONG_PTR InternalHigh;
+	uint32_t   Internal;
+	uint32_t   InternalHigh;
 	union
 	{
 		struct
 		{
-			uint32_t Offset;
-			uint32_t OffsetHigh;
+			unsigned int Offset;
+			unsigned int OffsetHigh;
 		};
 		void * Pointer;
 	};
@@ -116,33 +105,72 @@ typedef struct
 
 typedef struct tagSIZE
 {
-    int32_t        cx;
-    int32_t        cy;
+    int        cx;
+    int        cy;
 } SIZE, *PSIZE, *LPSIZE;
 
 typedef struct
 {
-	int32_t  x;
-	int32_t  y;
+	int  x;
+	int  y;
 }POINT;
 
 typedef struct tagRECT
 {
-	int32_t    left;
-	int32_t    top;
-	int32_t    right;
-	int32_t    bottom;
+	int    left;
+	int    top;
+	int    right;
+	int    bottom;
 }RECT;
-#define MAKELONG(a, b) ((LONG)(((WORD)(((DWORD_PTR)(a)) & 0xffff)) | ((DWORD)((WORD)(((DWORD_PTR)(b)) & 0xffff))) << 16))
-#define LOWORD(l)      ((WORD)(((DWORD_PTR)(l)) & 0xffff))
-#define HIWORD(l)      ((WORD)((((DWORD_PTR)(l)) >> 16) & 0xffff))
-#define LOBYTE(w)      ((BYTE)(((DWORD_PTR)(w)) & 0xff))
-#define HIBYTE(w)      ((BYTE)((((DWORD_PTR)(w)) >> 8) & 0xff))
+//#define MAKELONG(a, b) ((int)(((unsigned short)(((DWORD_PTR)(a)) & 0xffff)) | ((unsigned long)((unsigned short)(((DWORD_PTR)(b)) & 0xffff))) << 16))
+//#define LOWORD(l)      ((unsigned short)(((DWORD_PTR)(l)) & 0xffff))
+//#define HIWORD(l)      ((unsigned short)((((DWORD_PTR)(l)) >> 16) & 0xffff))
+//#define LOBYTE(w)      ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+//#define HIBYTE(w)      ((BYTE)((((DWORD_PTR)(w)) >> 8) & 0xff))
 
-typedef UINT_PTR            WPARAM;
-typedef LONG_PTR            LPARAM;
-typedef LONG_PTR            LRESULT;
+#    define MAKEWORD(a, b) \
+        ((uint16_t)(((uint8_t)((uintptr_t)(a) & 0xff)) | ((uint16_t)((uint8_t)((uintptr_t)(b) & 0xff))) << 8))
+#    define MAKELONG(a, b) \
+        ((int32_t)(((uint16_t)((uintptr_t)(a) & 0xffff)) | ((uint32_t)((uint16_t)((uintptr_t)(b) & 0xffff))) << 16))
+#    define LOWORD(l) ((uint16_t)(((uintptr_t)(l)) & 0xffff))
+#    define HIWORD(l) ((uint16_t)((((uintptr_t)(l)) >> 16) & 0xffff))
+#    define LOBYTE(w) ((uint8_t)(((uintptr_t)(w)) & 0xff))
+#    define HIBYTE(w) ((uint8_t)((((uintptr_t)(w)) >> 8) & 0xff))
 
+// cần chỉnh sửa lại để đồng bộ từ win32 và GNU (x64)
+typedef uint32_t WPARAM;
+typedef int32_t LPARAM;
+typedef int32_t LRESULT;
+
+typedef unsigned short* PWORD;
+typedef uint32_t* PDWORD;
+typedef uint32_t* LPDWORD;
+
+#    define BYTE unsigned char
+#    define PBYTE unsigned char*
+#    define UINT  uint32_t
+#    define INT    int32_t
+#    define FALSE false
+#    define TRUE  true
+#    define DWORD  uint32_t
+#    define WORD   unsigned short
+#    define BOOL   int32_t
+#    define LPCSTR const char*
+#    define PVOID  void*
+#    define LPVOID PVOID
+#    define LPSTR  char*
+#    define LONG   int32_t
+#    define PBYTE  unsigned char*
+#    define LPBYTE PBYTE
+#    define LPTSTR LPSTR
+// typedef unsigned char BYTE;
+typedef int32_t LONG_PTR;
+typedef uint32_t DWORD_PTR;
+typedef uint32_t DWORD_PTRD;
+typedef uint32_t UINT_PTR;
+typedef uint32_t ULONG_PTR;
+#    define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
+#    define INVALID_FILE_SIZE    ((unsigned long)0xFFFFFFFF)
 #endif //end #ifndef WIN32 #ifndef WIN32 #ifndef WIN32 #ifndef WIN32
 
 typedef struct {
@@ -158,7 +186,7 @@ typedef struct {
 	BYTE		Blue;		// ��ɫ����
 } KPAL24;					// 24λɫ��
 //---------------------------------------------------------------------------
-typedef WORD	KPAL16;		// 16λɫ��
+typedef unsigned short	KPAL16;		// 16λɫ��
 
 enum eImageFormat
 {
@@ -172,39 +200,39 @@ enum eImageFormat
 
 struct stImageInfo    //ͼƬ��������
 {
-	uint32_t			nDirections;
-	uint32_t			nFrames;
-	int32_t				bytes_per_pixel;
-	LONG			size;
+	unsigned int			nDirections;
+	unsigned int			nFrames;
+	int				bytes_per_pixel;
+	int			size;
 	BYTE*			buffer;
-	LONG			width,height;
-	int32_t				x,y;
+	int			width,height;
+	int				x,y;
 };
 typedef struct
 {
-	WORD bfType; // λͼ�ļ������ͣ�����ΪBM(1-2�ֽڣ�
-	DWORD bfSize; // λͼ�ļ��Ĵ�С�����ֽ�Ϊ��λ��3-6�ֽڣ�
-	WORD bfReserved1; // λͼ�ļ������֣�����Ϊ0(7-8�ֽڣ�
-	WORD bfReserved2; // λͼ�ļ������֣�����Ϊ0(9-10�ֽڣ�
-	DWORD bfOffBits; // λͼ���ݵ���ʼλ�ã��������λͼ��11-14�ֽڣ�
+	unsigned short bfType; // λͼ�ļ������ͣ�����ΪBM(1-2�ֽڣ�
+	unsigned long bfSize; // λͼ�ļ��Ĵ�С�����ֽ�Ϊ��λ��3-6�ֽڣ�
+	unsigned short bfReserved1; // λͼ�ļ������֣�����Ϊ0(7-8�ֽڣ�
+	unsigned short bfReserved2; // λͼ�ļ������֣�����Ϊ0(9-10�ֽڣ�
+	unsigned long bfOffBits; // λͼ���ݵ���ʼλ�ã��������λͼ��11-14�ֽڣ�
 	// �ļ�ͷ��ƫ������ʾ�����ֽ�Ϊ��λ
 } BITMAPFILEHEADERS;
 
 typedef struct
 {
-	DWORD biSize; // ���ṹ��ռ���ֽ�����15-18�ֽڣ�
-	LONG biWidth; // λͼ�Ŀ�ȣ�������Ϊ��λ��19-22�ֽڣ�
-	LONG biHeight; // λͼ�ĸ߶ȣ�������Ϊ��λ��23-26�ֽڣ�
-	WORD biPlanes; // Ŀ���豸�ļ��𣬱���Ϊ1(27-28�ֽڣ�
-	WORD biBitCount;// ÿ�����������λ����������1��˫ɫ������29-30�ֽڣ�
+	unsigned long biSize; // ���ṹ��ռ���ֽ�����15-18�ֽڣ�
+	int biWidth; // λͼ�Ŀ�ȣ�������Ϊ��λ��19-22�ֽڣ�
+	int biHeight; // λͼ�ĸ߶ȣ�������Ϊ��λ��23-26�ֽڣ�
+	unsigned short biPlanes; // Ŀ���豸�ļ��𣬱���Ϊ1(27-28�ֽڣ�
+	unsigned short biBitCount;// ÿ�����������λ����������1��˫ɫ������29-30�ֽڣ�
 	// 4(16ɫ����8(256ɫ����24�����ɫ��֮һ
-	DWORD biCompression;  // λͼѹ�����ͣ������� 0����ѹ��������31-34�ֽڣ�
+	unsigned long biCompression;  // λͼѹ�����ͣ������� 0����ѹ��������31-34�ֽڣ�
 	// 1(BI_RLE8ѹ�����ͣ���2(BI_RLE4ѹ�����ͣ�֮һ
-	DWORD biSizeImage;    // λͼ�Ĵ�С�����ֽ�Ϊ��λ��35-38�ֽڣ�
-	LONG biXPelsPerMeter; // λͼˮƽ�ֱ��ʣ�ÿ����������39-42�ֽڣ�
-	LONG biYPelsPerMeter; // λͼ��ֱ�ֱ��ʣ�ÿ����������43-46�ֽ�)
-	DWORD biClrUsed;      // λͼʵ��ʹ�õ���ɫ���е���ɫ����47-50�ֽڣ�
-	DWORD biClrImportant; // λͼ��ʾ��������Ҫ����ɫ����51-54�ֽڣ�
+	unsigned long biSizeImage;    // λͼ�Ĵ�С�����ֽ�Ϊ��λ��35-38�ֽڣ�
+	int biXPelsPerMeter; // λͼˮƽ�ֱ��ʣ�ÿ����������39-42�ֽڣ�
+	int biYPelsPerMeter; // λͼ��ֱ�ֱ��ʣ�ÿ����������43-46�ֽ�)
+	unsigned long biClrUsed;      // λͼʵ��ʹ�õ���ɫ���е���ɫ����47-50�ֽڣ�
+	unsigned long biClrImportant; // λͼ��ʾ��������Ҫ����ɫ����51-54�ֽڣ�
 } BITMAPINFOHEADERS;
 
 typedef struct {
@@ -230,25 +258,25 @@ typedef struct
 {
 	/* //����
 	BYTE	Comment[4];	// ע������(SPR\0)
-	WORD	Width;		// ͼƬ���
-	WORD	Height;		// ͼƬ�߶�
-	int32_t 	CenterX;	// ���ĵ�ˮƽλ��
-	int32_t 	CenterY;	// ���ĵĴ�ֱλ��
-	WORD	Frames;		// ��֡��
-	WORD	Colors;		// ��ɫ��
-	WORD	Directions;	// ������
-	WORD	nInterval;	// ÿ֡���������Ϸ֡Ϊ��λ��
-	WORD	Reserved[6];// �����ֶΣ����Ժ�ʹ�ã�*/
+	unsigned short	Width;		// ͼƬ���
+	unsigned short	Height;		// ͼƬ�߶�
+	int 	CenterX;	// ���ĵ�ˮƽλ��
+	int 	CenterY;	// ���ĵĴ�ֱλ��
+	unsigned short	Frames;		// ��֡��
+	unsigned short	Colors;		// ��ɫ��
+	unsigned short	Directions;	// ������
+	unsigned short	nInterval;	// ÿ֡���������Ϸ֡Ϊ��λ��
+	unsigned short	Reserved[6];// �����ֶΣ����Ժ�ʹ�ã�*/
 	BYTE	Comment[4];	// ע������(SPR\0)
-	WORD	Width;		// ͼƬ���
-	WORD	Height;		// ͼƬ�߶�
-	WORD	CenterX;	// ���ĵ�ˮƽλ��
-	WORD	CenterY;	// ���ĵĴ�ֱλ��
-	WORD	Frames;		// ��֡��
-	WORD	Colors;		// ��ɫ��
-	WORD	Directions;	// ������
-	WORD	nInterval;	// ÿ֡���������Ϸ֡Ϊ��λ��
-	WORD	Reserved[6];// �����ֶΣ����Ժ�ʹ�ã�
+	unsigned short	Width;		// ͼƬ���
+	unsigned short	Height;		// ͼƬ�߶�
+	unsigned short	CenterX;	// ���ĵ�ˮƽλ��
+	unsigned short	CenterY;	// ���ĵĴ�ֱλ��
+	unsigned short	Frames;		// ��֡��
+	unsigned short	Colors;		// ��ɫ��
+	unsigned short	Directions;	// ������
+	unsigned short	nInterval;	// ÿ֡���������Ϸ֡Ϊ��λ��
+	unsigned short	Reserved[6];// �����ֶΣ����Ժ�ʹ�ã�
 } SPRHEAD;
 
 #define	SPR_COMMENT_FLAG				0x525053	//'SPR'
@@ -256,17 +284,17 @@ typedef struct
 //---------------------------------------------------------------------------
 typedef struct
 {
-	DWORD	Offset;		// ÿһ֡��ƫ��
-	DWORD	Length;		// ÿһ֡�ĳ���
+	unsigned long	Offset;		// ÿһ֡��ƫ��
+	unsigned long	Length;		// ÿһ֡�ĳ���
 } SPROFFS;
 
 //---------------------------------------------------------------------------
 typedef struct
 {
-	WORD	Width;		// ֡��С���
-	WORD	Height;		// ֡��С�߶�
-	WORD	OffsetX;	// ˮƽλ�ƣ������ԭͼ���Ͻǣ�
-	WORD	OffsetY;	// ��ֱλ�ƣ������ԭͼ���Ͻǣ�
+	unsigned short	Width;		// ֡��С���
+	unsigned short	Height;		// ֡��С�߶�
+	unsigned short	OffsetX;	// ˮƽλ�ƣ������ԭͼ���Ͻǣ�
+	unsigned short	OffsetY;	// ��ֱλ�ƣ������ԭͼ���Ͻǣ�
 	BYTE	Sprite[1];	// RLEѹ��ͼ������
 } SPRFRAME;
 
@@ -275,11 +303,11 @@ enum enumSubDir{sdFont=0,sdMaps,sdScript,sdResource,sdSetting,sdSound,sdSpr,sdUi
 struct XPackFileHeader
 {
 	unsigned char cSignature[4];		//�ĸ��ֽڵ��ļ���ͷ��־���̶�Ϊ�ַ���'PACK'
-	uint32_t uCount;				//�ļ����ݵ���Ŀ��
-	uint32_t uIndexTableOffset;	//������ƫ����
-	uint32_t uDataOffset;			//���ݵ�ƫ����
-	uint32_t uCrc32;				//У���
-	uint32_t  uPakTime;			    //����ļ�����ʱ��ʱ�䣬��Ϊ��λtime()
+	unsigned int uCount;				//�ļ����ݵ���Ŀ��
+	unsigned int uIndexTableOffset;	//������ƫ����
+	unsigned int uDataOffset;			//���ݵ�ƫ����
+	unsigned int uCrc32;				//У���
+	unsigned int  uPakTime;			    //����ļ�����ʱ��ʱ�䣬��Ϊ��λtime()
 	unsigned char cReserved[8];		    //�������ֽ�
 };
 
@@ -287,10 +315,10 @@ struct XPackFileHeader
 //Pack�ж�Ӧÿ�����ļ���������Ϣ��
 struct XPackIndexInfo
 {
-	uint32_t	uId;				//���ļ�id
-	uint32_t	uOffset;			//���ļ��ڰ��е�ƫ��λ��
-	int32_t			lSize;				//���ļ���ԭʼ��С
-	int32_t			lCompressSizeFlag;	//���ļ�ѹ����Ĵ�С��ѹ������
+	unsigned int	uId;				//���ļ�id
+	unsigned int	uOffset;			//���ļ��ڰ��е�ƫ��λ��
+	int			lSize;				//���ļ���ԭʼ��С
+	int			lCompressSizeFlag;	//���ļ�ѹ����Ĵ�С��ѹ������
 //	FILETIME        UpdateTime;
 	//����ֽڱ�ʾѹ����������XPACK_METHOD
 	//�͵������ֽڱ�ʾ���ļ�ѹ����Ĵ�С
@@ -300,8 +328,8 @@ struct XPackIndexInfo
 //pak���б����spr֡��Ϣ��
 struct XPackSprFrameInfo
 {
-	int32_t lCompressSize;
-	int32_t lSize;
+	int lCompressSize;
+	int lSize;
 } ;
 
 //�ֿ�ѹ�����ļ����ļ����ݴ洢���洢��������˳��һ��Ϊ��
@@ -310,16 +338,16 @@ struct XPackSprFrameInfo
 //�ֿ�ѹ�����ļ��ڸ��ļ����ݴ洢����ʼλ�õ�ͷ���ݽṹ
 struct XPackFileFragmentElemHeader
 {
-	int32_t				nNumFragment;		//�ֿ����Ŀ
-	int32_t				nFragmentInfoOffest;//�ֿ���Ϣ���ƫ��λ��,�����XPackFileFragmentElemHeader��ʼλ�õ�ƫ��
+	int				nNumFragment;		//�ֿ����Ŀ
+	int				nFragmentInfoOffest;//�ֿ���Ϣ���ƫ��λ��,�����XPackFileFragmentElemHeader��ʼλ�õ�ƫ��
 };
 
 //�ֿ�ѹ���ļ��ķֿ���Ϣ
 struct XPackFileFragmentInfo
 {
-	uint32_t	uOffset;			//�˷ֿ����ݵ���ʼ�������ļ��������е�ƫ��λ��,�����XPackFileFragmentElemHeader��ʼλ�õ�ƫ��
-	uint32_t	uSize;				//�˷ֿ��ԭʼ��С
-	uint32_t	uCompressSizeFlag;	//�˷ֿ�ѹ����Ĵ�С��ѹ��������������XPackIndexInfo�ṹ�е�uCompressSizeFlag
+	unsigned int	uOffset;			//�˷ֿ����ݵ���ʼ�������ļ��������е�ƫ��λ��,�����XPackFileFragmentElemHeader��ʼλ�õ�ƫ��
+	unsigned int	uSize;				//�˷ֿ��ԭʼ��С
+	unsigned int	uCompressSizeFlag;	//�˷ֿ�ѹ����Ĵ�С��ѹ��������������XPackIndexInfo�ṹ�е�uCompressSizeFlag
 };
 
 //���ļ���ѹ����ʽ
@@ -349,22 +377,22 @@ enum XPACK_METHOD
 //--------------------------------------------------
 struct	XPackElemFileRef
 {
-	uint32_t	uId;			//PAK�ļ�id
-	int32_t				nPackIndex;		//PAK������
-	int32_t				nElemIndex;		//���ڵ����ļ�����
-	int32_t				nCacheIndex;	//��������
-	int32_t				nOffset;		//���ļ��Ĳ������ƶ�
-	int32_t				nSize;			//���ļ��Ĵ�С
+	unsigned int	uId;			//PAK�ļ�id
+	int				nPackIndex;		//PAK������
+	int				nElemIndex;		//���ڵ����ļ�����
+	int				nCacheIndex;	//��������
+	int				nOffset;		//���ļ��Ĳ������ƶ�
+	int				nSize;			//���ļ��Ĵ�С
 };
 
 
 
 /*typedef struct tagRECT
 {
-    int32_t    left;
-    int32_t    top;
-    int32_t    right;
-    int32_t    bottom;
+    int    left;
+    int    top;
+    int    right;
+    int    bottom;
 }RECT,*PRECT,*NPRECT,*LPRECT;
 */
 

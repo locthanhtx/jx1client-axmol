@@ -2159,7 +2159,7 @@ int	KCoreShell::OperationRequest(unsigned int uOper, uintptr_t uParam, int nPara
 				SendClientCmdStartTrade(1,sShopName);      //开始摆摊商城名
 			else
 			{
-				SendClientCmdStartTrade(0,"系统商城");     //关闭摆摊
+				SendClientCmdStartTrade(0,(char*)"系统商城");     //关闭摆摊
 				nRet=0;
 			}
 		}
@@ -2568,7 +2568,7 @@ int	KCoreShell::OperationRequest(unsigned int uOper, uintptr_t uParam, int nPara
 					{//已经入队 并且是队员
 						  if (g_Team[0].m_nCaptain>-1)
 						  {
-							  int nNpcIdx=NpcSet.SearchID((DWORD)g_Team[0].m_nCaptain);
+							  int nNpcIdx=NpcSet.SearchID((unsigned long)g_Team[0].m_nCaptain);
 							  if (nNpcIdx>0)
 							  {//队长在线的
 								  if (Npc[nNpcIdx].m_bLockNpcDwID>0)
@@ -2684,7 +2684,7 @@ int	KCoreShell::OperationRequest(unsigned int uOper, uintptr_t uParam, int nPara
 		break;
 		case GOI_MONEY_INOUT_STORE_BOX:
 		{
-			BOOL	bIn = (BOOL)uParam;
+			int	bIn = (int)uParam;
 			int		nMoney  = nParam;
 			int		nSrcRoom, nDesRoom;
 			if (nMoney<0)
@@ -3711,12 +3711,12 @@ void KCoreShell::GotoWhere(int x, int y, int mode) //鼠标点击的坐标
 
 ////////////////////////////////频道消息到达/////////////////////////////////////
 
-void KClientCallback::ChannelMessageArrival(DWORD nChannelID, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx)
+void KClientCallback::ChannelMessageArrival(unsigned long nChannelID, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,unsigned long nItemDwidx)
 {
 
 }
 //私聊
-void KClientCallback::MSNMessageArrival(char* szSourceName, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,DWORD nItemDwidx)
+void KClientCallback::MSNMessageArrival(char* szSourceName, char* szSendName, const char* pMsgBuff, unsigned short nMsgLength, bool bSucc,unsigned long nItemDwidx)
 {
 }
 

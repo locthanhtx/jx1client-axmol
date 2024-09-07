@@ -34,8 +34,8 @@
 
 /* don't pull in <windows.h> - we don't need it */
 #if 0
-BOOL FAR PASCAL LibMain ( HANDLE hInstance, WORD wDataSegment,
-                          WORD wHeapSize, LPSTR lpszCmdLine )
+int FAR PASCAL LibMain ( HANDLE hInstance, unsigned short wDataSegment,
+                          unsigned short wHeapSize, char* lpszCmdLine )
 #else
 int __far __pascal LibMain ( int a, short b, short c, long d )
 #endif

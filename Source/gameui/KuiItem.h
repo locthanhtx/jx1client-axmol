@@ -28,7 +28,7 @@ public:
 	//����
 	CREATE_FUNC(KuiItem);
 
-	static KuiItem * create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun);
+	static KuiItem* create(const char* title, Ref* callbackListener, const std::function<void(ax::Node*)>& callfun);
 	virtual void update(float delta);
 //	virtual void draw();
 	void	UpdateItem(KUiObjAtRegion* pItem, int bAdd);//��Ʒ�仯

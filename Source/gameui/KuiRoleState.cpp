@@ -143,7 +143,9 @@ KuiRoleState::~KuiRoleState()
 }
 
 //创建确定弹出框
-KuiRoleState * KuiRoleState::create(char * title,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun)
+KuiRoleState* KuiRoleState::create(const char* title,
+                                   Ref* callbackListener,
+                                   const std::function<void(ax::Node*)>& callfun)
 {
 	KuiRoleState * popLayer = KuiRoleState::create();
 	//popLayer->setTitle(title);

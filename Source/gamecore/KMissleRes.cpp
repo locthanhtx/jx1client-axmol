@@ -75,7 +75,7 @@ void KMissleRes::LoadResource(int nStatus, char * MissleImage, char * MissleSoun
 	strcpy(m_MissleRes[nStatus].SndFileName,  MissleSound);
 }
 
-BOOL KMissleRes::Init()
+int KMissleRes::Init()
 {
 	Clear();
 	return TRUE;
@@ -219,7 +219,7 @@ int KMissleRes::Draw(int eStatus,  int nX, int nY , int nZ, int nDir, int nAllFr
 	KSkillSpecialNode * pNode = (KSkillSpecialNode*)m_SkillSpecialList.GetHead();
 	while (pNode)
 	{//��ײЧ��
-		DWORD dwCurrentTime =  g_SubWorldSet.GetGameTime();
+		unsigned long dwCurrentTime =  g_SubWorldSet.GetGameTime();
 		if(pNode->m_pSkillSpecial->m_nEndTime <= dwCurrentTime)
 		{//ʱ����� ��ɾ����
 			KSkillSpecialNode * pDelNode = (KSkillSpecialNode*)pNode->GetNext();

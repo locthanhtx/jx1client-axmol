@@ -57,7 +57,13 @@ KuiShowSprite::~KuiShowSprite()
 }
 
 //����ȷ��������
-KuiShowSprite * KuiShowSprite::create(char * nFilePath,int nXpos,int nYpos,Ref * callbackListener,const std::function<void(ax::Node*)>& callfun,bool nTouchesModel,int nRenderFlag)
+KuiShowSprite* KuiShowSprite::create(const char* nFilePath,
+                                     int nXpos,
+                                     int nYpos,
+                                     Ref* callbackListener,
+                                     const std::function<void(ax::Node*)>& callfun,
+                                     bool nTouchesModel,
+                                     int nRenderFlag)
 {
 	if (!nFilePath) return NULL;
 
@@ -88,7 +94,7 @@ bool KuiShowSprite::init()
 	return true;
 }
 
-void KuiShowSprite::mianDialogSet(char * nFilePath,int nXpos,int nYpos,bool nTouchesModel,int nRenderFlag)
+void KuiShowSprite::mianDialogSet(const char* nFilePath, int nXpos, int nYpos, bool nTouchesModel, int nRenderFlag)
 {
 	if  (nTouchesModel) {
         auto listener = ax::EventListenerTouchOneByOne::create();

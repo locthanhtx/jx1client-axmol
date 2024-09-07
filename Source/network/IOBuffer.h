@@ -3,7 +3,7 @@
 	file base:	IOBuffer
 	file ext:	h
 	author:		liupeng
-	
+
 	purpose:	Header file for CIOBuffer class
 *********************************************************************/
 #ifndef __INCLUDE_IOBUFFER_H__
@@ -11,16 +11,16 @@
 
 #pragma once
 /*
- * Identifier was truncated to '255' characters 
+ * Identifier was truncated to '255' characters
  * in the debug information
  */
 #include "engine/KbugInfo.h"
-#pragma warning(disable : 4786)                               
+#pragma warning(disable : 4786)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include <winsock2.h>
 #endif
 
-#include "CriticalSection.h" 
+#include "CriticalSection.h"
 //#include "tstring.h"
 
 #include "cocos2d.h"
@@ -45,43 +45,43 @@
 /*
  * CIOBuffer
  */
-class CIOBuffer : 
-	public OVERLAPPED, 
+class CIOBuffer :
+	public OVERLAPPED,
 	public CNodeList::Node
 	//public COpaqueUserData
 {
 public:
-	
+
 	class Allocator;
 	friend class Allocator;
-	
+
 	class InOrderBufferList;
-	
+
 	WSABUF *GetWSABUF() const { return const_cast<WSABUF *>(&m_wsabuf);};
-	
-	uint32_t GetUsed() const { return m_used; };
-	uint32_t GetSize() const { return m_size; };
-	
+
+	unsigned int GetUsed() const { return m_used; };
+	unsigned int GetSize() const { return m_size; };
+
 	const BYTE *GetBuffer() const {return m_buffer_ptr;};
-	
+
 	void SetupZeroByteRead();
 	void SetupRead();
 	void SetupWrite();
-	
-	void AddData( const char * const pData, uint32_t dataLength );
-	void AddData( const BYTE * const pData, uint32_t dataLength );
+
+	void AddData( const char * const pData, unsigned int dataLength );
+	void AddData( const BYTE * const pData, unsigned int dataLength );
 	void AddData( BYTE data );
-	
-	void Use( uint32_t dataUsed ) { m_used += dataUsed; };
-	
-	CIOBuffer *SplitBuffer( uint32_t bytesToRemove );
-	void RemoveBuffer( uint32_t bytesToRemove );
+
+	void Use( unsigned int dataUsed ) { m_used += dataUsed; };
+
+	CIOBuffer *SplitBuffer( unsigned int bytesToRemove );
+	void RemoveBuffer( unsigned int bytesToRemove );
 	CIOBuffer *AllocateNewBuffer() const;
-	
-	void ConsumeAndRemove( uint32_t bytesToRemove );
-	
+
+	void ConsumeAndRemove( unsigned int bytesToRemove );
+
 	void Empty();
-	
+
 	void AddRef() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		::InterlockedIncrement(&m_ref);
@@ -92,47 +92,47 @@ public:
 	};
 
 	void Release();
-	
-	uint32_t GetOperation() const { return m_operation; };
-	void SetOperation( uint32_t operation ) { m_operation = operation; };
-	
-	uint32_t GetSequenceNumber() const { return m_sequenceNumber; };
-	void SetSequenceNumber( uint32_t sequenceNumber ) { m_sequenceNumber = sequenceNumber; };
+
+	unsigned int GetOperation() const { return m_operation; };
+	void SetOperation( unsigned int operation ) { m_operation = operation; };
+
+	unsigned int GetSequenceNumber() const { return m_sequenceNumber; };
+	void SetSequenceNumber( unsigned int sequenceNumber ) { m_sequenceNumber = sequenceNumber; };
 
 private:
 
-	uint32_t m_operation;
-	uint32_t m_sequenceNumber;
-	
+	unsigned int m_operation;
+	unsigned int m_sequenceNumber;
+
 	WSABUF m_wsabuf;
-	
+
 	Allocator &m_allocator;
-	
-	int32_t m_ref;
-	const uint32_t m_size;
-	uint32_t m_used;
+
+	long m_ref;
+	const unsigned int m_size;
+	unsigned int m_used;
 
 	/*
 	 * Start of the actual buffer, must remain the last
 	 * data member in the class.
 	 */
 	BYTE *m_buffer_ptr;			// four bytes aligned
-	
+
 	//BYTE m_buffer_base_addr[0];
 
 private:
 
 	static void *operator new(size_t ojSize, size_t bufferSize );
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	static void operator delete( void *pObj, uint32_t bufferSize );
+	static void operator delete( void *pObj, unsigned int bufferSize );
 #else
 	static void operator delete(void *pObject);
 #endif
 
-	
-	CIOBuffer( Allocator &m_allocator, uint32_t size );
+
+	CIOBuffer( Allocator &m_allocator, unsigned int size );
 	~CIOBuffer();
-	
+
 	/*
      * No copies do not implement
      */
@@ -150,13 +150,13 @@ public:
 
       friend class CIOBuffer;
 
-      explicit Allocator( uint32_t bufferSize, uint32_t maxFreeBuffers );
+      explicit Allocator( unsigned int bufferSize, unsigned int maxFreeBuffers );
 
       virtual ~Allocator();
 
       CIOBuffer *Allocate();
 
-      uint32_t GetBufferSize() const { return m_bufferSize; };
+      unsigned int GetBufferSize() const { return m_bufferSize; };
 
 protected:
 
@@ -172,14 +172,14 @@ private:
 
       void DestroyBuffer( CIOBuffer *pBuffer );
 
-      const uint32_t m_bufferSize;
+      const unsigned int m_bufferSize;
 
       typedef TNodeList< CIOBuffer > BufferList;
-      
+
       BufferList m_freeList;
       BufferList m_activeList;
-      
-      const uint32_t m_maxFreeBuffers;
+
+      const unsigned int m_maxFreeBuffers;
 
       CCriticalSection m_criticalSection;
 
@@ -215,16 +215,16 @@ public:
 
 private:
 
-      uint32_t m_next;
-   
-      typedef std::map< uint32_t, CIOBuffer * > BufferSequence;
+      unsigned int m_next;
+
+      typedef std::map< unsigned int, CIOBuffer * > BufferSequence;
 
       BufferSequence m_list;
 
       CCriticalSection &m_criticalSection;
 };
 
-inline void CIOBuffer::ConsumeAndRemove( uint32_t bytesToRemove )
+inline void CIOBuffer::ConsumeAndRemove( unsigned int bytesToRemove )
 {
 	m_used -= bytesToRemove;
 
@@ -235,7 +235,7 @@ inline void CIOBuffer::SetupZeroByteRead()
 {
 	m_wsabuf.buf = reinterpret_cast< char * >( m_buffer_ptr );
 
-	m_wsabuf.len = 0; 
+	m_wsabuf.len = 0;
 }
 
 inline void CIOBuffer::SetupRead()
@@ -243,7 +243,7 @@ inline void CIOBuffer::SetupRead()
 	if ( m_used == 0 )
 	{
 		m_wsabuf.buf = reinterpret_cast< char * >(m_buffer_ptr);
-		m_wsabuf.len = m_size; 
+		m_wsabuf.len = m_size;
 	}
 	else
 	{

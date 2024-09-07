@@ -194,6 +194,9 @@ target_include_directories(
         ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/pthread"
 )
 if(WINDOWS)
+target_include_directories(
+        ${APP_NAME} PRIVATE "${GAME_INC_DIRS}/../include/pthread"
+)
 	set(LINK_LIB_JX1CLIENT ${CMAKE_CURRENT_SOURCE_DIR}/lib/debug/pthread.lib)
 	target_link_libraries(${APP_NAME} ${LINK_LIB_JX1CLIENT})
 endif()

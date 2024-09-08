@@ -1,287 +1,264 @@
-//#include "gamecore/KCore.h"
+// ***************************************************************************************
+// Chá»‰nh sá»­a láº¡i bá»Ÿi duccom0123 07/09/2024 6:42:22 CH
+// ***************************************************************************************
 #include "KHRocker.h"
 #include "gamecore/GameDataDef.h"
 #include "gameui/Uiglobaldata.h"
 USING_NS_AX;
 
-void HRocker::updatePos(float dt){
-    ax::Vec2 currentVec = ax::Vec2(currentPoint.x, currentPoint.y);
+void HRocker::updatePos(float dt)
+{
+    ax::Vec2 currentVec  = ax::Vec2(currentPoint.x, currentPoint.y);
     ax::Vec2 newPosition = jsSprite->getPosition() + (currentPoint - jsSprite->getPosition()) * 0.5;
     jsSprite->setPosition(newPosition);
-	//jsSprite->setPosition(ccpAdd(jsSprite->getPosition(),ccpMult(ccpSub(currentPoint, jsSprite->getPosition()),0.5)));
 }
-//Æô¶¯Ò¡¸Ë
 void HRocker::Active()
 {
-	if (!active)
-	{
-		active=true;
-		this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);                       //Ìí¼ÓË¢ÐÂº¯Êý
-        auto touchListener = EventListenerTouchOneByOne::create();
-        touchListener->setSwallowTouches(true);
-//        touchListener->onTouchBegan = AX_CALLBACK_2(HRocker::ccTouchBegan, this);
-        touchListener->onTouchMoved = AX_CALLBACK_2(HRocker::ccTouchMoved, this);
-//        touchListener->onTouchEnded = AX_CALLBACK_2(HRocker::ccTouchEnded, this);
-        _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-//        auto listener = ax::EventListenerTouchOneByOne::create();
-//		ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-	}else {
-	}
+    if (!active)
+    {
+        active = true;
+        this->schedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos), 0.0f);
+        //duccom0123 chá»‰nh sá»­a Ä‘á»ƒ sá»­ dá»¥ng Ä‘Æ°á»£c joystick
+        auto touchListener            = EventListenerTouchAllAtOnce::create();
+        touchListener->onTouchesBegan = AX_CALLBACK_2(HRocker::ccTouchBegan, this);
+        touchListener->onTouchesMoved = AX_CALLBACK_2(HRocker::ccTouchMoved, this);
+        touchListener->onTouchesEnded = AX_CALLBACK_2(HRocker::ccTouchEnded, this);
+        auto dispatcher               = ax::Director::getInstance()->getEventDispatcher();
+        dispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    }
+    else
+    {
+    }
 }
-//ï¿½ï¿½ï¿½Ò¡ï¿½ï¿?
-void   HRocker::Inactive()
+void HRocker::Inactive()
 {
-	if (active) {
-		active=false;
-		this->unschedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos));                 //É¾³ýË¢ÐÂ
-//		ax::Director::getInstance()->getTouchDispatcher()->removeDelegate(this);//É¾³ýÎ¯ÍÐ
+    if (active)
+    {
+        active = false;
+        this->unschedule(CC_SCHEDULE_SELECTOR(HRocker::updatePos));
 
         auto dispatcher = ax::Director::getInstance()->getEventDispatcher();
         dispatcher->removeEventListenersForTarget(this);
-	}else {
-	}
+    }
+    else
+    {
+    }
 }
 
-//µÚ¶þ²¿£º¼ÆËã³öÁ½¸öÏòÁ¿Ö®¼äµÄ¼Ð½Ç
-//ÒòÎªÇó³öµÄ½Ç¶ÈÊÇÒÔ¦ÐÎªµ¥Î»£¬ËùÒÔÕâÀïÒª×ª»»³ÉÒÔ¶ÈÎªµ¥Î»
 float HRocker::getAngleSigned()
-{//ccpSub(centerPoint, currentPoint),CCPointMake(0, 1))
-	//return CC_RADIANS_TO_DEGREES(ccpAngleSigned(ccpSub(centerPoint, currentPoint),CCPointMake(0, 1)));
-	/*  //#define PI 3.141592654    float angle = 180.f / PI * rad; ==µÈÓÚ½Ç¶È
-	float dx = currentPoint.x - centerPoint.x;
-	float dy = currentPoint.y - centerPoint.y;
-	float t = dx/dy;
-
-	float  at = atan(t);
-	return at/3.1415926*180;
-
-	// »ñÈ¡½Ç¶È
-	Point p1 = this->getPosition(); //Ò¡¸ËµÄÖÐÐÄµÄÎ»ÖÃ
-	Point p2 = touch->getLocation();//´¥ÃþµãµÄÎ»ÖÃ
-
-	*/
-    float rad = getRad(centerPoint,currentPoint);
-
-	return 180.f/3.141592654*rad;
-
-}
-
-float HRocker::getRad(Point p1,Point p2)
 {
-	float xx = p2.x - p1.x;
-	float yy = p2.y - p1.y;
-	// Ð±±ß
-	float xie = sqrt(pow(xx, 2) + pow(yy, 2));
-	// yy >= 0 »¡¶ÈÔÚÓÚ 0 µ½ ¦Ð Ö®¼ä¡£(0~180¡ã)
-	// yy < 0 »¡¶ÈÔÚÓÚ ¦Ð µ½ 2¦Ð Ö®¼ä¡£(180¡ã~360¡ã)
-	float rad = yy >= 0 ? (acos(xx / xie)) : (3.141592654 * 2 - acos(xx / xie));
-	return rad;
+
+    float rad = getRad(centerPoint, currentPoint);
+
+    return 180.f / 3.141592654 * rad;
 }
-//Ò¡¸Ë·½Î»
+
+float HRocker::getRad(Point p1, Point p2)
+{
+    float xx = p2.x - p1.x;
+    float yy = p2.y - p1.y;
+
+    float xie = sqrt(pow(xx, 2) + pow(yy, 2));
+
+    float rad = yy >= 0 ? (acos(xx / xie)) : (3.141592654 * 2 - acos(xx / xie));
+    return rad;
+}
 Point HRocker::getDirection()
 {
-    ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
+    ax::Vec2 vecCenterPoint  = ax::Vec2(centerPoint);
     ax::Vec2 vecCurrentPoint = ax::Vec2(currentPoint);
-    ax::Vec2 vec2 = vecCenterPoint - vecCurrentPoint;
+    ax::Vec2 vec2            = vecCenterPoint - vecCurrentPoint;
     vec2.normalize();
-	return ax::Point(vec2);
+    return ax::Point(vec2);
 }
-//Ò¡¸ËºÍÖÐÐÄµãµÄ¾àÀë
 float HRocker::getVelocity()
 {
-    ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
+    ax::Vec2 vecCenterPoint  = ax::Vec2(centerPoint);
     ax::Vec2 vecCurrentPoint = ax::Vec2(currentPoint);
-    float distance = vecCenterPoint.distance(vecCurrentPoint);
+    float distance           = vecCenterPoint.distance(vecCurrentPoint);
 
     return distance;
 }
-HRocker* HRocker:: HRockerWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole){
-	HRocker *jstick=HRocker::create();
-	jstick->initWithCenter(aPoint,aRadius,aJsSprite,aJsBg,_isFollowRole);
-	return jstick;
+HRocker* HRocker::HRockerWithCenter(Point aPoint, float aRadius, Sprite* aJsSprite, Sprite* aJsBg, bool _isFollowRole)
+{
+    HRocker* jstick = HRocker::create();
+    jstick->initWithCenter(aPoint, aRadius, aJsSprite, aJsBg, _isFollowRole);
+    return jstick;
 }
+// duccom0123 chá»‰nh sá»­a Ä‘á»ƒ sá»­ dá»¥ng Ä‘Æ°á»£c joystick
+bool HRocker::ccTouchBegan(const std::vector<ax::Touch*>& pTouches, Event* pEvent)
+{
+    if (!active)
+        return false;
 
-bool HRocker::ccTouchBegan(Touch* touch, Event* event)
-{//¿ªÊ¼ÒÆ¶¯
-	if (!active)
-		return false;
-	//if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,false);
+    if (pCoreShell && pCoreShell->getTradeState())
+        return false;
 
-	if (pCoreShell && pCoreShell->getTradeState()) return false;
-
-	this->setVisible(true);
-    ax::Vec2 touchVec2 = touch->getLocation();
-    touchVec2 = ax::Director::getInstance()->convertToGL(touchVec2);
-	Point touchPoint = ax::Point(touchVec2);
-	if(!isFollowRole){
-        ax::Vec2 vecTouchPoint = ax::Vec2(touchPoint);
+    this->setVisible(true);
+    auto it            = pTouches.begin();
+    Touch* touch       = (Touch*)(*it);
+    ax::Vec2 touchVec2 = touch->getLocationInView();
+    touchVec2          = ax::Director::getInstance()->convertToGL(touchVec2);
+    Point touchPoint   = ax::Point(touchVec2);
+    if (!isFollowRole)
+    {
+        ax::Vec2 vecTouchPoint  = ax::Vec2(touchPoint);
         ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
-        float distance = vecTouchPoint.distance(vecCenterPoint);
-		if (distance > radius){
-			return false;
-		}
-	}
-	currentPoint = touchPoint;
-	if(isFollowRole){
-		centerPoint=currentPoint;
-		jsSprite->setPosition(currentPoint);
-		this->getChildByTag(1000)->setPosition(currentPoint);
-	}
-	//CCMessageBox("¿ªÊ¼ÒÆ¶¯ÖÐ","¿ªÊ¼ÒÆ¶¯ÖÐ");
-	return true;
-}
-void  HRocker::ccTouchMoved(Touch* touch, Event* event)
-{//ÒÆ¶¯ÖÐ
-	if (pCoreShell && pCoreShell->getTradeState()) return;
-	if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,false);
-	int nBeilv = 3;
-    ax::Vec2 touchVec2 = touch->getLocation();
-    touchVec2 = ax::Director::getInstance()->convertToGL(touchVec2);
-    Point touchPoint = ax::Point(touchVec2);
+        float distance          = vecTouchPoint.distance(vecCenterPoint);
+        if (distance > radius)
+        {
+            return false;
+        }
+    }
+    currentPoint = touchPoint;
+    if (isFollowRole)
+    {
+        centerPoint = currentPoint;
+        jsSprite->setPosition(currentPoint);
+        this->getChildByTag(1000)->setPosition(currentPoint);
+    }
 
-    ax::Vec2 vecTouchPoint = ax::Vec2(touchPoint);
+    return true;
+}
+// duccom0123 chá»‰nh sá»­a Ä‘á»ƒ sá»­ dá»¥ng Ä‘Æ°á»£c joystick
+void HRocker::ccTouchMoved(const std::vector<ax::Touch*>& pTouches, Event* pEvent)
+{
+    if (pCoreShell && pCoreShell->getTradeState())
+        return;
+    if (pCoreShell)
+        pCoreShell->setPadCanMove(PAD_KIND_ITEM, false);
+    int nBeilv         = 3;
+    auto it            = pTouches.begin();
+    Touch* touch       = (Touch*)(*it);
+    ax::Vec2 touchVec2 = touch->getLocationInView();
+    touchVec2          = ax::Director::getInstance()->convertToGL(touchVec2);
+    Point touchPoint   = ax::Point(touchVec2);
+
+    ax::Vec2 vecTouchPoint  = ax::Vec2(touchPoint);
     ax::Vec2 vecCenterPoint = ax::Vec2(centerPoint);
-    float nDistance = vecTouchPoint.distance(vecCenterPoint);
-	if (nDistance > radius)
-	{//³¬³ö·¶Î§
+    float nDistance         = vecTouchPoint.distance(vecCenterPoint);
+    if (nDistance > radius)
+    {
         ax::Vec2 Vec2Tmp = vecCenterPoint + ((vecTouchPoint - vecCenterPoint).getNormalized() * radius);
-		currentPoint = ax::Point(Vec2Tmp);
-	}else {
-		currentPoint = touchPoint;
-	}
-	//char nPiontinfo[128]={0};
-    /*sprintf(nPiontinfo,"CurrentPointX:%f,CurrentPointY:%f\nCenterPointX:%f,CenterPointY:%f",
-		    currentPoint.x,currentPoint.y,centerPoint.x,centerPoint.y);
-	messageBox(nPiontinfo,"Ò¡ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½");*/
-	float nVer = getAngleSigned();  //ÖÐÐÄµãÓë´¥ÃþµãµÄ¾àÀë
-    float nDestPontX,nDestPontY;
-	if (nVer==0)
-	{//ÕýÓÒ
-        nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-nRolePoint.y;
-	}
-	else if(nVer>0 && nVer<90)
-	{//ÓÒÉÏ
-		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
-	}
-	else if (nVer==90)
-	{//ÕýÉÏ
-		nDestPontX = nRolePoint.x;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
-	}
-	else if (nVer>90 && nVer<180)
-	{//×óÉÏ
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-(nRolePoint.y+(currentPoint.y-centerPoint.y)*nBeilv);
-	}
-	else if (nVer==180)
-	{//Õý×ó
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-nRolePoint.y;
-	}
-	else if (nVer>180 && nVer<270)
-	{//×óÏÂ
-		nDestPontX = nRolePoint.x-(centerPoint.x-currentPoint.x)*nBeilv;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
-	}
-	else if (nVer==270)
-	{//ÕýÏÂ
-		nDestPontX = nRolePoint.x;//Ä¿±êgl×ø±êx y²»±ä
-		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
-	}
-	else if (nVer>270 && nVer<360)
-	{//ÓÒÏÂ
-		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//
-		nDestPontY = visibleSize.height-(nRolePoint.y-(centerPoint.y-currentPoint.y)*nBeilv);
-	}
-	else if (nVer==360)
-	{//ÕýÓÒ
-		nDestPontX = nRolePoint.x+(currentPoint.x-centerPoint.x)*nBeilv;//
-		nDestPontY = visibleSize.height-nRolePoint.y;
-	}
+        currentPoint     = ax::Point(Vec2Tmp);
+    }
+    else
+    {
+        currentPoint = touchPoint;
+    }
 
-	if (pCoreShell == NULL)
-		return ;
-	//if (g_pCoreShell->ThrowAwayItem())	//ÏÈÈÓµôÊÖÀïµÄÎïÆ·
-	//return ;
-	//int yyy=g_pCoreShell->GetAutoplayid();
-	//if(yyy)
-	//g_pCoreShell->OperationRequest(GOI_AUTOPALYOPEN,0,-1,100);    //¶¯Êó±êÈ¡Ïû¹Ò»ú×´Ì¬[ÔÝÊ±È¡Ïû¸Ã¹¦ÄÜ]
+    float nVer = getAngleSigned();
+    float nDestPontX, nDestPontY;
+    if (nVer == 0)
+    {
+        nDestPontX = nRolePoint.x + (currentPoint.x - centerPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - nRolePoint.y;
+    }
+    else if (nVer > 0 && nVer < 90)
+    {
+        nDestPontX = nRolePoint.x + (currentPoint.x - centerPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - (nRolePoint.y + (currentPoint.y - centerPoint.y) * nBeilv);
+    }
+    else if (nVer == 90)
+    {
+        nDestPontX = nRolePoint.x;
+        nDestPontY = visibleSize.height - (nRolePoint.y + (currentPoint.y - centerPoint.y) * nBeilv);
+    }
+    else if (nVer > 90 && nVer < 180)
+    {
+        nDestPontX = nRolePoint.x - (centerPoint.x - currentPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - (nRolePoint.y + (currentPoint.y - centerPoint.y) * nBeilv);
+    }
+    else if (nVer == 180)
+    {
+        nDestPontX = nRolePoint.x - (centerPoint.x - currentPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - nRolePoint.y;
+    }
+    else if (nVer > 180 && nVer < 270)
+    {
+        nDestPontX = nRolePoint.x - (centerPoint.x - currentPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - (nRolePoint.y - (centerPoint.y - currentPoint.y) * nBeilv);
+    }
+    else if (nVer == 270)
+    {
+        nDestPontX = nRolePoint.x;
+        nDestPontY = visibleSize.height - (nRolePoint.y - (centerPoint.y - currentPoint.y) * nBeilv);
+    }
+    else if (nVer > 270 && nVer < 360)
+    {
+        nDestPontX = nRolePoint.x + (currentPoint.x - centerPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - (nRolePoint.y - (centerPoint.y - currentPoint.y) * nBeilv);
+    }
+    else if (nVer == 360)
+    {
+        nDestPontX = nRolePoint.x + (currentPoint.x - centerPoint.x) * nBeilv;
+        nDestPontY = visibleSize.height - nRolePoint.y;
+    }
 
-	//g_pCoreShell->OperationRequest(GOI_SWITCH_SKILLS, 0, 0);      //¶¯Êó±ê¶ªÆúÊ°È¡¼¼ÄÜ
-	//g_pCoreShell->SceneMapOperation(GSMOI_DEL_GREEN_LINE, 0, 0);  //¶¯Êó±ê¾ÍÈ¡Ïû»­»ÆÏß
-	//g_pCoreShell->OperationRequest(GOI_JINDUTIAO_CALLBACK, 0, 0); //¹Ø±Õ½ø¶ÈÌõ
-	/*KUiPlayerItem SelectPlayer;
-	int nNPCKind = -1;
-	if (pCoreShell->FindSelectNPC(nDestPontX, nDestPontY, relation_all, false, &SelectPlayer, nNPCKind))
-	{//Êó±êµÄÎ»ÖÃÊÇ·ñÓÐNPC
-		//int nRelation = g_pCoreShell->GetNPCRelation(SelectPlayer.nIndex);
-		pCoreShell->LockSomeoneAction(SelectPlayer.nIndex);
-	}
-	else*/
-		pCoreShell->LockSomeoneAction(0);
+    if (pCoreShell == NULL)
+        return;
 
-	/*int nObjKind = -1;
-	int nObjectIdx = 0;
-	if (pCoreShell->FindSelectObject(nDestPontX,nDestPontY, false, nObjectIdx, nObjKind))
-	{//Êó±êµÄÎ»ÖÃÊÇ·ñ ÓÐÎïÆ·
-		pCoreShell->LockObjectAction(nObjectIdx);
-	}
-	else*/
-		pCoreShell->LockObjectAction(0);
+    pCoreShell->LockSomeoneAction(0);
 
-	if (pCoreShell)
-	{
-		isRun  = false;
-		moveEndPoint.x = nDestPontX;
-		moveEndPoint.y = nDestPontY;
-		pCoreShell->GotoWhere(nDestPontX,nDestPontY,0); //×ßÏòÊó±ê×ø±êµã
-	}
+    pCoreShell->LockObjectAction(0);
 
+    if (pCoreShell)
+    {
+        isRun          = false;
+        moveEndPoint.x = nDestPontX;
+        moveEndPoint.y = nDestPontY;
+        pCoreShell->GotoWhere(nDestPontX, nDestPontY, 0);
+    }
+}
+// duccom0123 chá»‰nh sá»­a Ä‘á»ƒ sá»­ dá»¥ng Ä‘Æ°á»£c joystick
+void HRocker::ccTouchEnded(const std::vector<ax::Touch*>& pTouches, Event* pEvent)
+{
+    if (pCoreShell && pCoreShell->getTradeState())
+        return;
+
+    if (pCoreShell)
+        pCoreShell->setPadCanMove(PAD_KIND_ITEM, true);
+
+    currentPoint = centerPoint;
+    if (isFollowRole)
+    {
+        this->setVisible(false);
+    }
+    if (pCoreShell)
+        pCoreShell->SetNpcCurPos();
+
+    isRun = true;
 }
 
-void  HRocker::ccTouchEnded(Touch* touch, Event* event)
-{//ÒÆ¶¯½áÊø
-	if (pCoreShell && pCoreShell->getTradeState()) return;
+HRocker* HRocker::initWithCenter(Point aPoint, float aRadius, Sprite* aJsSprite, Sprite* aJsBg, bool _isFollowRole)
+{
+    isFollowRole = _isFollowRole;
+    active       = false;
+    isRun        = false;
+    radius       = aRadius;
+    visibleSize  = ax::Director::getInstance()->getVisibleSize();
+    pCoreShell   = NULL;
 
-	if (pCoreShell) pCoreShell->setPadCanMove(PAD_KIND_ITEM,true);
-
-	currentPoint = centerPoint;
-	if(isFollowRole){
-		this->setVisible(false);
-	}
-	if (pCoreShell)
-		pCoreShell->SetNpcCurPos();
-	  // pCoreShell->setSand();
-	isRun = true;
-	//messageBox("ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½");
-}
-
-HRocker* HRocker::initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole){
-	isFollowRole =_isFollowRole;
-	active = false;
-	isRun  = false;
-	radius = aRadius;
-	visibleSize = ax::Director::getInstance()->getVisibleSize();//ï¿½É¼ï¿½ï¿½ï¿½
-	pCoreShell = NULL;
-	//__GameWorld = NULL;
-	moveEndPoint = ax::Vec2(0,0);
-	if(!_isFollowRole){
-		centerPoint =aPoint;
-	}else{
-		centerPoint =ax::Vec2(0,0);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	}
-	currentPoint = centerPoint; //ÒÆ¶¯ºóµ±Ç°µÄ×ø±ê
-	jsSprite = aJsSprite;
-	jsSprite->setPosition(centerPoint);
-	aJsBg->setPosition(centerPoint);
-	aJsBg->setTag(1000);
-	this->addChild(aJsBg);
-	this->addChild(jsSprite);
-	if(isFollowRole){
-		this->setVisible(false);
-	}
-	this->Active();//¼¤»îÒ¡¸Ë
-	return this;
+    moveEndPoint = ax::Vec2(0, 0);
+    if (!_isFollowRole)
+    {
+        centerPoint = aPoint;
+    }
+    else
+    {
+        centerPoint = ax::Vec2(0, 0);
+    }
+    currentPoint = centerPoint;
+    jsSprite     = aJsSprite;
+    jsSprite->setPosition(centerPoint);
+    aJsBg->setPosition(centerPoint);
+    aJsBg->setTag(1000);
+    this->addChild(aJsBg);
+    this->addChild(jsSprite);
+    if (isFollowRole)
+    {
+        this->setVisible(false);
+    }
+    this->Active();
+    return this;
 }

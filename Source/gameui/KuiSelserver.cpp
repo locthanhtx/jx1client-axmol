@@ -408,29 +408,5 @@ void KuiSelserver::ccTouchesCancelled(const std::vector<ax::Touch*>& pTouches, E
 void KuiSelserver::didAccelerate(Acceleration* pAccelerationValue) {}
 void KuiSelserver::ccTouchEnded(Touch* pTouch, Event* pEvent)
 {
-    /*Point touchLocation = convertTouchToNodeSpace(pTouch);
-    if(Rect::CCRectContainsPoint(getRect(pSprite), touchLocation))
-         {
-            printf("?????????!\n");
-         }*/
-}
-/*
-void KuiSelserver::editBoxEditingDidBegin(extension::EditBox *editBox)
-{
-        CCLOG("begin");
-}
 
-void KuiSelserver::editBoxEditingDidEnd(extension::EditBox *editBox)
-{
-        CCLOG("end");
 }
-
-void KuiSelserver::editBoxTextChanged(extension::EditBox *editBox, const std::string &text)
-{
-        CCLOG("change");
-}
-
-void KuiSelserver::editBoxReturn(extension::EditBox *editBox)
-{
-        CCLOG("return");
-}*/

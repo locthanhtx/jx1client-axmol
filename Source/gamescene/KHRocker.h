@@ -1,48 +1,55 @@
+// ***************************************************************************************
+// Chá»‰nh sá»­a láº¡i bá»Ÿi duccom0123 07/09/2024 6:42:22 CH
+// ***************************************************************************************
 #ifndef __HROCKER_SCENE_H__
 #define __HROCKER_SCENE_H__
 #include "cocos2d.h"
 #include "gamecore/CoreShell.h"
-//#include "KgameWorld.h"
 using namespace ax;
 
-class HRocker :public Layer {
-public :
-	//³õÊ¼»¯ aPointÊÇÒ¡¸ËÖÐÐÄ aRadiusÊÇÒ¡¸Ë°ë¾¶ aJsSpriteÊÇÒ¡¸Ë¿ØÖÆµã aJsBgÊÇÒ¡¸Ë±³¾°
-	static HRocker*  HRockerWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole);
-	//Æô¶¯Ò¡¸Ë
-	void Active();
-	//½â³ýÒ¡¸Ë
-	void Inactive();
-	Point getDirection();
-	float   getAngleSigned();
-	float   getRad(Point p1,Point p2);
-	bool    getIsRun(){return isRun;};
-	void    setIsRun(bool nisRun){isRun=nisRun;};
-	void    setRoleIndex(int nIdx){nRoleIndex=nIdx;};
-	void    setRolePoint(Point nPoint){nRolePoint=nPoint;};
-	void    setCoreShell(iCoreShell * nCoreShell){pCoreShell=nCoreShell;};
-	//void    setGameWorld(KgameWorld * nCoreShell){__GameWorld=nCoreShell;};
-	Point getMoveEndPos(){return moveEndPoint;};
+class HRocker : public Layer
+{
+public:
+    static HRocker* HRockerWithCenter(Point aPoint,
+                                      float aRadius,
+                                      Sprite* aJsSprite,
+                                      Sprite* aJsBg,
+                                      bool _isFollowRole);
+
+    void Active();
+
+    void Inactive();
+    Point getDirection();
+    float getAngleSigned();
+    float getRad(Point p1, Point p2);
+    bool getIsRun() { return isRun; };
+    void setIsRun(bool nisRun) { isRun = nisRun; };
+    void setRoleIndex(int nIdx) { nRoleIndex = nIdx; };
+    void setRolePoint(Point nPoint) { nRolePoint = nPoint; };
+    void setCoreShell(iCoreShell* nCoreShell) { pCoreShell = nCoreShell; };
+
+    Point getMoveEndPos() { return moveEndPoint; };
+
 private:
-	HRocker * initWithCenter(Point aPoint ,float aRadius ,Sprite* aJsSprite,Sprite* aJsBg,bool _isFollowRole);
-	Point centerPoint; //Ò¡¸ËÖÐÐÄ
-	Point currentPoint;//Ò¡¸Ëµ±Ç°Î»ÖÃ
-	bool isRun;
-	bool active;//ÊÇ·ñ¼¤»îÒ¡¸Ë
-	float radius;//Ò¡¸Ë°ë¾¶
-	Sprite *jsSprite;
-	bool isFollowRole;//ÊÇ·ñ¸úËæÓÃ»§µã»÷
-	float getVelocity();
-	virtual bool ccTouchBegan(Touch *pTouch, Event *pEvent);
-	virtual void ccTouchMoved(Touch *pTouch, Event *pEvent);
-	virtual void ccTouchEnded(Touch *pTouch, Event *pEvent);
-	Point nRolePoint;
-	int     nRoleIndex;
-	iCoreShell * pCoreShell;
-	//KgameWorld *__GameWorld;
-	Size visibleSize;
-	Point moveEndPoint;
-	CREATE_FUNC(HRocker);
-    void updatePos(float dt);  //ax::Time
+    HRocker* initWithCenter(Point aPoint, float aRadius, Sprite* aJsSprite, Sprite* aJsBg, bool _isFollowRole);
+    Point centerPoint;
+    Point currentPoint;
+    bool isRun;
+    bool active;
+    float radius;
+    Sprite* jsSprite;
+    bool isFollowRole;
+    float getVelocity();
+    virtual bool ccTouchBegan(const std::vector<ax::Touch*>& pTouches, Event* pEvent);
+    virtual void ccTouchMoved(const std::vector<ax::Touch*>& pTouches, Event* pEvent);
+    virtual void ccTouchEnded(const std::vector<ax::Touch*>& pTouches, Event* pEvent);
+    Point nRolePoint;
+    int nRoleIndex;
+    iCoreShell* pCoreShell;
+
+    Size visibleSize;
+    Point moveEndPoint;
+    CREATE_FUNC(HRocker);
+    void updatePos(float dt);
 };
-#endif // __HROCKER_SCENE_H__
+#endif

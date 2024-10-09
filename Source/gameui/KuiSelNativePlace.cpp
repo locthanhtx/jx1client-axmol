@@ -457,7 +457,7 @@ void KuiSelNativePlace::mainEnterCallback(Ref* pSender)
 //循环更新虚函数 默认自动调用
 void KuiSelNativePlace::update(float delta)
 {
-	size_t nSize = 0;
+	unsigned int nSize = 0;
 	const char* pBuffer = NULL;
 	if (m_bIsClientConnecting)
 	{ //账号服务器
@@ -789,10 +789,10 @@ void KuiSelNativePlace::ProcessToLoginGameServResponse(tagNotifyPlayerLogin* pRe
 			//g_NetConnectAgent.UpdateClientRequestTime(true); //时间归零
 			if (NULL==g_pClient)
 			{
-				const size_t bufferSize           = 1024;   //Scoket决定发包的大小 分配的内存(m_bufferSize > 0) ? m_bufferSize : (1024*64);
-				const size_t bufferSize_Cache     = 1024*512; //分配的内存 读包 接包的缓存大小
-				const size_t maxFreeBuffers	      = 2;        //Scoket保留的数量
-				const size_t maxFreeBuffers_Cache = 2;        //读包 接包的缓存 保留的数量
+				const unsigned int bufferSize           = 1024;   //Scoket决定发包的大小 分配的内存(m_bufferSize > 0) ? m_bufferSize : (1024*64);
+				const unsigned int bufferSize_Cache     = 1024*512; //分配的内存 读包 接包的缓存大小
+				const unsigned int maxFreeBuffers	      = 2;        //Scoket保留的数量
+				const unsigned int maxFreeBuffers_Cache = 2;        //读包 接包的缓存 保留的数量
 				g_pClient     = new CGameClient(maxFreeBuffers,maxFreeBuffers_Cache,bufferSize_Cache,bufferSize,1); //2,2   8
 			}
 

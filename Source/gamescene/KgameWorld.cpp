@@ -9788,40 +9788,40 @@ void KgameWorld::HoldObject_(int nType, int nBoxIndex, int nItemidx, bool isAdd)
     nTextsize.width *= offScaleX;
     nTextsize.height *= offScaleY;
     char strStack[32];
-    if (nBoxIndex >= 0 && nBoxIndex <= 2)
-    {  // 012
-        nIiemTempSpr = (MenuItemSprite*)ImmediaMenu_1->getChildByTag(nBoxIndex + 1);
-        bgcolorLayer = (LayerColor*)ImmediaMenu_1->getChildByName(ncolorKey);
+    if (nBoxIndex >= 0 && nBoxIndex <= 2) {//012
+        nIiemTempSpr = (MenuItemSprite *) ImmediaMenu_1->getChildByTag(nBoxIndex + 1);
+
         if (g_pCoreShell)
             nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM, nBoxIndex, nItemidx);
         sprintf(strStack, "%d", nAllstackCount + Item[nItemidx].GetStackNum());
-        if (!nIiemTempSpr)
-        {
-            // nIiemTempSpr = Sprite::createWithTexture(bgCur);
-            Sprite* btn_normal_sprite = Sprite::createWithTexture(bgCur);
-            Sprite* btn_select_sprite = Sprite::createWithTexture(bgCur);
-            nIiemTempSpr              = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
-                                                               CC_CALLBACK_1(KgameWorld::ImmediaCallback, this));
+
+        if (!nIiemTempSpr) {
+            Sprite *btn_normal_sprite = Sprite::createWithTexture(bgCur);
+            btn_normal_sprite->setPosition(Vec2(colorsize.width / 2 - btn_normal_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_normal_sprite->getContentSize().height / 2));
+
+            Sprite *btn_select_sprite = Sprite::createWithTexture(bgCur);
+            btn_select_sprite->setPosition(Vec2(colorsize.width / 2 - btn_select_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_select_sprite->getContentSize().height / 2));
+
+            nIiemTempSpr = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
+                                                  AX_CALLBACK_1(KgameWorld::ImmediaCallback, this));
             nIiemTempSpr->setAnchorPoint(ax::Vec2(0, 0));
             nIiemTempSpr->setPosition(ax::Vec2(0, 0));
-            nIiemTempSpr->setPosition(ax::Vec2(0, 0));
-            nIiemTempSpr->setScale(offScaleX, offScaleY);
-            ImmediaMenu_1->addChild(nIiemTempSpr, nBoxIndex + 1);
+            ImmediaMenu_1->addChild(nIiemTempSpr, 1, nBoxIndex + 1);
 
-            if (!bgcolorLayer)
-            {
-                bgcolorLayer = LayerColor::create(color);  // 颜色层
+            if (!bgcolorLayer) {
+                bgcolorLayer = LayerColor::create(color);//颜色层
                 bgcolorLayer->setAnchorPoint(ax::Vec2(0, 0));
-                bgcolorLayer->setContentSize(colorsize);  // 设置和窗口的大小
-                //				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
+                bgcolorLayer->setContentSize(colorsize);//设置和窗口的大小
                 bgcolorLayer->setName(ncolorKey);
-                ImmediaMenu_1->addChild(bgcolorLayer, -1);
+
+                nIiemTempSpr->addChild(bgcolorLayer, -1);
                 Size stackSize;
-                stackSize.width  = colorsize.width;
+                stackSize.width = colorsize.width;
                 stackSize.height = 12;
 
-                Label* stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12, stackSize,
-                                                              TextHAlignment::RIGHT);  // Arial
+                Label *stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12,
+                                                              stackSize,
+                                                              TextHAlignment::RIGHT);//Arial
                 stackCountlabel->setAnchorPoint(ax::Vec2(0, 0));
                 stackCountlabel->setPosition(ax::Vec2(0, 0));
                 //				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
@@ -9834,71 +9834,59 @@ void KgameWorld::HoldObject_(int nType, int nBoxIndex, int nItemidx, bool isAdd)
             if (tempstackCount)
                 tempstackCount->setString(strStack);
 
-            if (nBoxIndex == 0)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 0) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
+
             }
-            if (nBoxIndex == 1)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 1) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
             }
-            if (nBoxIndex == 2)
-            {
-                // nIiemTempSpr->setPosition(ax::Vec2(bgsize.width/2,bgsize.height-colorsize.height*2));
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 2) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
             }
-        }
-        else
-        {
-            Label* tempstackCount = (Label*)bgcolorLayer->getChildByName(nstackKey);
+        } else {
+            bgcolorLayer = (LayerColor *) nIiemTempSpr->getChildByName(ncolorKey);
+            Label *tempstackCount = (Label *) bgcolorLayer->getChildByName(nstackKey);
             if (tempstackCount)
                 tempstackCount->setString(strStack);
         }
-    }
-    else if (nBoxIndex > 2 && nBoxIndex <= 5)
-    {  // 345
-        nIiemTempSpr = (MenuItemSprite*)ImmediaMenu_2->getChildByTag(nBoxIndex + 1);
-        bgcolorLayer = (LayerColor*)ImmediaMenu_2->getChildByName(ncolorKey);
+    } else if (nBoxIndex > 2 && nBoxIndex <= 5) {//345
+        nIiemTempSpr = (MenuItemSprite *) ImmediaMenu_2->getChildByTag(nBoxIndex + 1);
 
         if (g_pCoreShell)
             nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM, nBoxIndex, nItemidx);
         sprintf(strStack, "%d", nAllstackCount + Item[nItemidx].GetStackNum());
 
-        if (!nIiemTempSpr)
-        {
-            // ui::CheckBox::create();
+        if (!nIiemTempSpr) {
+            //ui::CheckBox::create();
 
-            Sprite* btn_normal_sprite = Sprite::createWithTexture(bgCur);
-            Sprite* btn_select_sprite = Sprite::createWithTexture(bgCur);
-            nIiemTempSpr              = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
-                                                               CC_CALLBACK_1(KgameWorld::ImmediaCallback, this));
+            Sprite *btn_normal_sprite = Sprite::createWithTexture(bgCur);
+            btn_normal_sprite->setPosition(Vec2(colorsize.width / 2 - btn_normal_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_normal_sprite->getContentSize().height / 2));
+
+            Sprite *btn_select_sprite = Sprite::createWithTexture(bgCur);
+            btn_select_sprite->setPosition(Vec2(colorsize.width / 2 - btn_select_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_select_sprite->getContentSize().height / 2));
+
+            nIiemTempSpr = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
+                                                  AX_CALLBACK_1(KgameWorld::ImmediaCallback, this));
             nIiemTempSpr->setAnchorPoint(ax::Vec2(0, 0));
             nIiemTempSpr->setPosition(ax::Vec2(0, 0));
-            nIiemTempSpr->setScale(offScaleX, offScaleY);
-            ImmediaMenu_2->addChild(nIiemTempSpr, nBoxIndex + 1);
+            ImmediaMenu_2->addChild(nIiemTempSpr, 1, nBoxIndex + 1);
 
-            if (!bgcolorLayer)
-            {
-                bgcolorLayer = LayerColor::create(color);  // 颜色层
+            if (!bgcolorLayer) {
+                bgcolorLayer = LayerColor::create(color);//颜色层
                 bgcolorLayer->setAnchorPoint(ax::Vec2(0, 0));
-                bgcolorLayer->setContentSize(colorsize);  // 设置和窗口的大小
-                //				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
+                bgcolorLayer->setContentSize(colorsize);//设置和窗口的大小
                 bgcolorLayer->setName(ncolorKey);
-                ImmediaMenu_2->addChild(bgcolorLayer, -1);
+                nIiemTempSpr->addChild(bgcolorLayer, -1);
                 Size stackSize;
-                stackSize.width        = colorsize.width;
-                stackSize.height       = 12;
-                Label* stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12, stackSize,
-                                                              TextHAlignment::RIGHT);  // Arial
+                stackSize.width = colorsize.width;
+                stackSize.height = 12;
+                Label *stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12,
+                                                              stackSize,
+                                                              TextHAlignment::RIGHT);//Arial
                 stackCountlabel->setAnchorPoint(ax::Vec2(0, 0));
                 stackCountlabel->setPosition(ax::Vec2(0, 0));
                 //				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
@@ -9911,68 +9899,58 @@ void KgameWorld::HoldObject_(int nType, int nBoxIndex, int nItemidx, bool isAdd)
             if (tempstackCount)
                 tempstackCount->setString(strStack);
 
-            if (nBoxIndex == 3)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 3) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
             }
-            if (nBoxIndex == 4)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 4) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
             }
-            if (nBoxIndex == 5)
-            {
-                // nIiemTempSpr->setPosition(ax::Vec2(bgsize.width/2,bgsize.height-colorsize.height*2));
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 5) {
+                //nIiemTempSpr->setPosition(ax::Vec2(bgsize.width/2,bgsize.height-colorsize.height*2));
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
             }
-        }
-        else
-        {
-            Label* tempstackCount = (Label*)bgcolorLayer->getChildByName(nstackKey);
+        } else {
+            bgcolorLayer = (LayerColor *) nIiemTempSpr->getChildByName(ncolorKey);
+            Label *tempstackCount = (Label *) bgcolorLayer->getChildByName(nstackKey);
             if (tempstackCount)
                 tempstackCount->setString(strStack);
         }
-    }
-    else
-    {  // 678
-        nIiemTempSpr = (MenuItemSprite*)ImmediaMenu_3->getChildByTag(nBoxIndex + 1);
-        bgcolorLayer = (LayerColor*)ImmediaMenu_3->getChildByName(ncolorKey);
+
+    } else {//678
+        nIiemTempSpr = (MenuItemSprite *) ImmediaMenu_3->getChildByTag(nBoxIndex + 1);
         if (g_pCoreShell)
             nAllstackCount = g_pCoreShell->GetGameData(GDI_IMMEDIATEITEM_NUM, nBoxIndex, nItemidx);
         sprintf(strStack, "%d", nAllstackCount + Item[nItemidx].GetStackNum());
 
-        if (!nIiemTempSpr)
-        {
-            Sprite* btn_normal_sprite = Sprite::createWithTexture(bgCur);
-            Sprite* btn_select_sprite = Sprite::createWithTexture(bgCur);
-            nIiemTempSpr              = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
-                                                               CC_CALLBACK_1(KgameWorld::ImmediaCallback, this));
+        if (!nIiemTempSpr) {
+            Sprite *btn_normal_sprite = Sprite::createWithTexture(bgCur);
+            btn_normal_sprite->setPosition(Vec2(colorsize.width / 2 - btn_normal_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_normal_sprite->getContentSize().height / 2));
+
+            Sprite *btn_select_sprite = Sprite::createWithTexture(bgCur);
+            btn_select_sprite->setPosition(Vec2(colorsize.width / 2 - btn_select_sprite->getContentSize().width / 2, colorsize.height / 2 - btn_select_sprite->getContentSize().height / 2));
+
+            nIiemTempSpr = MenuItemSprite::create(btn_normal_sprite, btn_select_sprite, NULL,
+                                                  AX_CALLBACK_1(KgameWorld::ImmediaCallback, this));
             nIiemTempSpr->setAnchorPoint(ax::Vec2(0, 0));
             nIiemTempSpr->setPosition(ax::Vec2(0, 0));
-            nIiemTempSpr->setScale(offScaleX, offScaleY);
-            ImmediaMenu_3->addChild(nIiemTempSpr, nBoxIndex + 1);
-            if (!bgcolorLayer)
-            {
-                bgcolorLayer = LayerColor::create(color);  // 颜色层
+            ImmediaMenu_3->addChild(nIiemTempSpr, 1, nBoxIndex + 1);
+            if (!bgcolorLayer) {
+                bgcolorLayer = LayerColor::create(color);//颜色层
                 bgcolorLayer->setAnchorPoint(ax::Vec2(0, 0));
                 bgcolorLayer->setContentSize(colorsize);  // 设置和窗口的大小
                 //				int ncolorKey_tmp = std::hash<std::string>{}(ncolorKey);
                 bgcolorLayer->setName(ncolorKey);
-                ImmediaMenu_3->addChild(bgcolorLayer, -1);
+                nIiemTempSpr->addChild(bgcolorLayer, -1);
                 Size stackSize;
-                stackSize.width  = colorsize.width;
+                stackSize.width = colorsize.width;
                 stackSize.height = 12;
 
-                Label* stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12, stackSize,
-                                                              TextHAlignment::RIGHT);  // Arial
+                Label *stackCountlabel = Label::createWithTTF(strStack, UI_GAME_FONT_DEFAULT, 12,
+                                                              stackSize,
+                                                              TextHAlignment::RIGHT);//Arial
                 stackCountlabel->setAnchorPoint(ax::Vec2(0, 0));
                 stackCountlabel->setPosition(ax::Vec2(0, 0));
                 //				int nstackKey_tmp = std::hash<std::string>{}(nstackKey);
@@ -9981,36 +9959,26 @@ void KgameWorld::HoldObject_(int nType, int nBoxIndex, int nItemidx, bool isAdd)
                 bgcolorLayer->addChild(stackCountlabel, 1);
             }
 
-            Label* tempstackCount = (Label*)bgcolorLayer->getChildByName(nstackKey);
+            Label *tempstackCount = (Label *) bgcolorLayer->getChildByName(nstackKey);
             if (tempstackCount)
                 tempstackCount->setString(strStack);
 
-            if (nBoxIndex == 6)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 6) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - colorsize.height - offsetY));
             }
-            if (nBoxIndex == 7)
-            {
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 7) {
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 2));
             }
-            if (nBoxIndex == 8)
-            {
-                // nIiemTempSpr->setPosition(ax::Vec2(bgsize.width/2,bgsize.height-colorsize.height*2));
-                bgcolorLayer->setPosition(ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
-                Point nclorPos = bgcolorLayer->getPosition();
-                nIiemTempSpr->setPosition(ax::Vec2(nclorPos.x + colorsize.width / 2 - nTextsize.width / 2,
-                                                   nclorPos.y + colorsize.height / 2 - nTextsize.height / 2));
+            if (nBoxIndex == 8) {
+                //nIiemTempSpr->setPosition(ax::Vec2(bgsize.width/2,bgsize.height-colorsize.height*2));
+                nIiemTempSpr->setPosition(
+                        ax::Vec2(offsetX, bgsize.height - (colorsize.height + offsetY) * 3));
             }
-        }
-        else
-        {
-            Label* tempstackCount = (Label*)bgcolorLayer->getChildByName(nstackKey);
+        } else {
+            bgcolorLayer = (LayerColor *) nIiemTempSpr->getChildByName(ncolorKey);
+            Label *tempstackCount = (Label *) bgcolorLayer->getChildByName(nstackKey);
             if (tempstackCount)
                 tempstackCount->setString(strStack);
         }

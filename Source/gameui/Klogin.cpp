@@ -495,7 +495,7 @@ void Klogin::update(float delta)
     if (m_Status == LL_S_ROLE_LIST_READY)
     {
         m_Status = LL_S_IDLE;
-        ax::Director::getInstance()->replaceScene(KSelPlayer::scene());
+        ax::Director::getInstance()->replaceScene(KSelPlayer::create());
         return;
     }
     unsigned int nSize;

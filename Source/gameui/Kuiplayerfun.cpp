@@ -1920,7 +1920,7 @@ int	Kuiplayerfun::PopChannelData(unsigned long dwID)
 	return 0;
 }
 
-void Kuiplayerfun::ReplaceChannelName(char* szDest, size_t nDestSize, char* szSrc) //�滻Ƶ�������֣�
+void Kuiplayerfun::ReplaceChannelName(char* szDest, unsigned int nDestSize, char* szSrc) //�滻Ƶ�������֣�
 {
 	if (this && szSrc[0] != 0)
 	{

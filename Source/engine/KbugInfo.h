@@ -284,8 +284,8 @@ typedef struct
 //---------------------------------------------------------------------------
 typedef struct
 {
-	unsigned long	Offset;		// ÿһ֡��ƫ��
-	unsigned long	Length;		// ÿһ֡�ĳ���
+	unsigned int	Offset;		// ÿһ֡��ƫ��
+	unsigned int	Length;		// ÿһ֡�ĳ���
 } SPROFFS;
 
 //---------------------------------------------------------------------------

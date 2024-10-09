@@ -39,9 +39,9 @@ void kuiCurlDown::setDelegate(CurlDownDelegate * delegate) {
 }
 
 //#pragma mark 进行文件写入本地回调函数
-static size_t my_write_func(void *ptr, size_t size, size_t nmemb, void *userdata) {
+static unsigned int my_write_func(void *ptr, unsigned int size, unsigned int nmemb, void *userdata) {
     FILE *fp = (FILE*)userdata;
-    size_t written = fwrite(ptr, size, nmemb, fp);
+    unsigned int written = fwrite(ptr, size, nmemb, fp);
     return written;
 }
 //#pragma mark 下载进度函数 - 每次下载大小 不是总的大小

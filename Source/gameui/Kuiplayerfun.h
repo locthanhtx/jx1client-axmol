@@ -137,7 +137,7 @@ public:
 	void	UpdateData(KUiPlayerTeam* pInfo);
 
 	void	QueryAllChannel();
-	void	ReplaceChannelName(char* szDest, size_t nDestSize, char* szSrc);
+	void	ReplaceChannelName(char* szDest, unsigned int nDestSize, char* szSrc);
 	int	    ReleaseActivateChannelAll();
 	void	OpenChannel(char* channelName, unsigned long nChannelID, BYTE cost);
 	int	    PushChannelData(unsigned long dwID, const char* Buffer, int nLen);

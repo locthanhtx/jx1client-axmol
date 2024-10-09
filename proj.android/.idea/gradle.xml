@@ -8,7 +8,7 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../../../../Code/axmol-2.1.5/core/platform/android/libaxmol" />
+            <option value="$PROJECT_DIR$/../../axmol/core/platform/android/libaxmol" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
           </set>

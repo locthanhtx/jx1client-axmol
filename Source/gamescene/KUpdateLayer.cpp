@@ -8,6 +8,7 @@
 #include "gameui/KuiInPutIp.h"
 #include "engine/dataChecksum.h"
 #include "audio/AudioEngine.h"
+#include "MainMenu.h"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -634,12 +635,10 @@ void KUpdateLayer::update(float delta)
 }
 void KUpdateLayer::loadSuccess()
 {
-    CCLOG("start KUpdateLayer::loadSuccess......");
-    Terminate(1);
-    auto login = Klogin_f::scene();
-    ax::Director::getInstance()->replaceScene(login);
-    CCLOG("end KUpdateLayer::loadSuccess......");
-    // ax::Director::getInstance()->pushScene(loginSuccessScene);
+	Terminate(1);
+//	Director::getInstance()->replaceScene(Klogin_f::scene());
+	Director::getInstance()->replaceScene(MainMenu::create());
+	//Director::getInstance()->pushScene(loginSuccessScene);
 }
 
 void KUpdateLayer::loadingCallBack(Ref* obj)

@@ -3407,7 +3407,7 @@ int KuiAutoPlay_vn::CreateFolder(char * nPath)
 		nPath++;
 	}
 
-	for (size_t i = 1; i < strlen(nPath); i++)
+	for (unsigned int i = 1; i < strlen(nPath); i++)
 	{
 		if (nPath[i] == '\\') nPath[i] = '/';
 		if (nPath[i] == '/')
